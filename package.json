@@ -1,0 +1,49 @@
+{
+  "name": "FacilitiesAssessment",
+  "version": "0.0.1",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nhsrc/facilities-assessment-android-client.git"
+  },
+  "license": "AGPL-3.0",
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "mocha --require ./node_modules/react-native-mock/mock.js --require src/test/testHelper.js $(find ./src/test -name '*Test.js')",
+    "coverage": "istanbul cover --report lcov _mocha --require ./node_modules/react-native-mock/mock.js --require src/test/testHelper.js $(find ./src/test -name '*Test.js')"
+  },
+  "dependencies": {
+    "immutable": "^3.8.1",
+    "invariant": "2.2.1",
+    "lodash": "^4.12.0",
+    "moment": "^2.15.1",
+    "react": "^15.3.2",
+    "react-native": "^0.34.1",
+    "react-native-fabric": "^0.3.0",
+    "react-native-fetch-blob": "^0.9.6",
+    "react-native-i18n": "0.0.8",
+    "realm": "0.14.1",
+    "redux": "^3.5.2",
+    "transducers-js": "^0.4.174"
+  },
+  "devDependencies": {
+    "babel-eslint": "6.0.2",
+    "babel-polyfill": "6.7.4",
+    "babel-preset-react-native-stage-0": "1.0.1",
+    "chai": "3.5.0",
+    "enzyme": "^2.4.1",
+    "eslint": "2.8.0",
+    "eslint-config-airbnb": "7.0.0",
+    "eslint-plugin-babel": "3.2.0",
+    "eslint-plugin-jsx-a11y": "0.6.2",
+    "eslint-plugin-react": "4.3.0",
+    "flow-bin": "^0.27.0",
+    "istanbul": "^1.1.0-alpha.1",
+    "mocha": "3.0.2",
+    "mockery": "^1.7.0",
+    "react-addons-test-utils": "15.0.2",
+    "react-dom": "15.0.2",
+    "react-native-mock": "^0.2.5",
+    "redux-devtools": "^3.3.1"
+  }
+}

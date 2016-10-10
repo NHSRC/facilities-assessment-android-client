@@ -1,0 +1,15 @@
+---
+- name: Update Brew
+  homebrew: update_homebrew=yes
+  tags:
+    - dev
+    - brew
+
+- name: Install/Update Flow and Watchman
+  homebrew: name={{item}} state=latest
+  with_items:
+    - flow
+    - watchman
+  tags:
+    - brew
+    - dev
