@@ -63,7 +63,7 @@ ts := $(shell /bin/date "+%Y-%m-%d---%H-%M-%S")
 deploy:
 	make deps
 	make release
-	@curl -T android/app/build/outputs/apk/app-release.apk -umihirk:$(BINTRAY_API_KEY) https://api.bintray.com/content/nshrc/generic/facilities-assessment-android-client/latest/facilitiesassessment-$(ts).apk?publish=1
+	@curl -T android/app/build/outputs/apk/app-release.apk -umihirk:$(BINTRAY_API_KEY) https://api.bintray.com/content/nhsrc/generic/facilities-assessment-android-client/latest/facilitiesassessment-$(ts).apk?publish=1
 
 database-client:
 	adb pull /data/data/com.facilitiesassessment/files/default.realm
