@@ -67,3 +67,6 @@ deploy:
 
 database-client:
 	adb pull /data/data/com.facilitiesassessment/files/default.realm
+
+clear-packager:
+	watchman watch-del . ; watchman watch-project .
