@@ -3,6 +3,7 @@ import {Text, StyleSheet, View} from 'react-native';
 import Path, {PathRoot} from '../../framework/routing/Path';
 import PrimaryColors from '../styles/PrimaryColors';
 import Typography from '../styles/Typography';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import LoginBox from './LoginBox';
 import AbstractComponent from "../common/AbstractComponent";
 
@@ -30,7 +31,8 @@ class LoginView extends AbstractComponent {
         loginHeader: {
             flex: 5,
             alignSelf: 'center',
-            color: PrimaryColors.textBold
+            flexDirection: 'row',
+            justifyContent: 'center',
         },
         loginPadding: {
             flex: 1,
@@ -45,7 +47,11 @@ class LoginView extends AbstractComponent {
         return (
             <View style={LoginView.styles.loginViewContainer}>
                 <View style={LoginView.styles.loginPadding}/>
-                <Text style={[LoginView.styles.loginHeader, Typography.paperFontDisplay1]}>Facilities Assessment</Text>
+                <View style={LoginView.styles.loginHeader}>
+                    <Icon name="assessment" size={45} color={PrimaryColors.textBold}/>
+                    <Text style={[Typography.paperFontDisplay1, {color: PrimaryColors.textBold}]}>Facilities
+                        Assessment</Text>
+                </View>
                 <LoginBox username={this.state.username} password={this.state.password}/>
                 <View style={LoginView.styles.loginPadding}/>
             </View>);

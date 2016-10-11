@@ -34,6 +34,7 @@ class LoginTextInput extends AbstractComponent {
         },
         loginTextIcon: {
             flex: .1,
+            color: PrimaryColors.textBold,
             alignSelf: 'flex-start',
             paddingTop: 20
         }
@@ -53,10 +54,10 @@ class LoginTextInput extends AbstractComponent {
                 <Icon name={this.props.icon} size={35} style={LoginTextInput.styles.loginTextIcon}/>
                 <TextInput
                     clearButtonMode="while-editing"
-                    underlineColorAndroid={PrimaryColors.darkBlue}
+                    underlineColorAndroid={PrimaryColors.textBold}
                     style={LoginTextInput.styles.loginTextInput}
                     placeholder={this.props.placeholder}
-                    placeholderTextColor={PrimaryColors.lightBlue}
+                    placeholderTextColor={PrimaryColors.textBold}
                     autoCorrect={false}
                     onChangeText={this.props.onChange}
                     value={this.props.data}
