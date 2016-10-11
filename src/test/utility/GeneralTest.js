@@ -26,7 +26,7 @@ describe('General', () => {
         expect(General.isNilOrEmpty(undefined)).is.true;
         expect(General.isNilOrEmpty('      ')).is.true;
         expect(General.isNilOrEmpty([])).is.true;
-        expect(General.isNilOrEmpty('HelloWorld')).is.false;
+        expect(General.isNilOrEmpty('LoginTextInput')).is.false;
         expect(General.isNilOrEmpty({})).is.false;
     });
 });

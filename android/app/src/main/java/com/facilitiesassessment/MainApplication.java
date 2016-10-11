@@ -14,6 +14,7 @@ import io.realm.react.RealmReactPackage;
 import com.smixx.fabric.FabricPackage;
 import com.crashlytics.android.Crashlytics;
 import io.fabric.sdk.android.Fabric;
+import com.oblador.vectoricons.VectorIconsPackage;
 
 
 import java.util.Arrays;
@@ -34,7 +35,8 @@ public class MainApplication extends Application implements ReactApplication {
                     new MainReactPackage(),
                     new RNFetchBlobPackage(),
                     new ReactNativeI18n(),
-                    new RealmReactPackage()
+                    new RealmReactPackage(),
+                    new VectorIconsPackage()
             );
         }
     };
