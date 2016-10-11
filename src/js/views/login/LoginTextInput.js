@@ -8,15 +8,6 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 class LoginTextInput extends AbstractComponent {
     constructor(props, context) {
         super(props, context);
-        this.state = {"icon": ""};
-    }
-
-    componentWillMount() {
-        Icon.getImageSource(this.props.icon, 35, 'black').then((source)=> {
-            console.log("Called");
-            this.setState({icon: source.uri});
-            console.log(this.state.icon);
-        });
     }
 
     static styles = StyleSheet.create({
