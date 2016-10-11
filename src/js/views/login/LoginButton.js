@@ -18,7 +18,7 @@ class LoginButton extends AbstractComponent {
         },
         loginButton: {
             flex: .7,
-            backgroundColor: PrimaryColors.darkBlue,
+            backgroundColor: PrimaryColors.textBold,
         },
         loginButtonWrapper: {
             paddingTop: 10,
@@ -41,8 +41,8 @@ class LoginButton extends AbstractComponent {
                     style={LoginButton.styles.loginButton}
                     onPress={()=>this.dispatchAction(Actions.LOGIN)}>
                     <View style={LoginButton.styles.loginButtonWrapper}>
-                        <Icon name="input" size={30} style={{paddingRight: 10, color: PrimaryColors.textBold}}/>
-                        <Text style={{color: PrimaryColors.textBold}}>Sign In</Text>
+                        <Icon name="input" size={30} style={{paddingRight: 10, color: PrimaryColors.background}}/>
+                        <Text style={{color: PrimaryColors.background}}>Sign In</Text>
                     </View>
                 </TouchableHighlight>
                 <View style={{flex: .15}}/>

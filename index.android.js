@@ -19,7 +19,7 @@ class FacilitiesAssessment extends Component {
         return (
             <View style={FacilitiesAssessment.styles.container}>
                 <StatusBar
-                    backgroundColor={PrimaryColors.lightBlue}
+                    backgroundColor={PrimaryColors.textBold}
                     barStyle="light-content"
                 />
                 <App />
