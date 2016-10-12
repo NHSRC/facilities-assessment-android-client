@@ -6,6 +6,8 @@ import Typography from '../styles/Typography';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import LoginBox from './LoginBox';
 import AbstractComponent from "../common/AbstractComponent";
+import TypedTransition from "../../framework/routing/TypedTransition";
+import FacilitySelection from "../facilitySelection/FacilitySelection";
 
 @PathRoot
 @Path("/login")
@@ -13,11 +15,8 @@ class LoginView extends AbstractComponent {
     constructor(props, context) {
         super(props, context);
         this.state = context.getStore().getState().login;
-        this.unsubscribe = context.getStore().subscribe(this.handleChange.bind(this));
-    }
-
-    handleChange() {
-        this.setState(this.context.getStore().getState().login);
+        this.handleChange = this.handleChange.bind(this);
+        this.unsubscribe = context.getStore().subscribe(this.handleChange);
     }
 
     static styles = StyleSheet.create({
@@ -38,6 +37,19 @@ class LoginView extends AbstractComponent {
             flex: 1,
         }
     });
+
+    handleChange() {
+        const newState = this.context.getStore().getState().login;
+        new Map([[true, this.changeView.bind(this)], [false, this.updateState.bind(this)]]).get(newState.isAuthenticated)(newState);
+    }
+
+    updateState(newState) {
+        this.setState(newState);
+    }
+
+    changeView() {
+        TypedTransition.from(this).resetTo(FacilitySelection);
+    }
 
     componentWillUnmount() {
         this.unsubscribe();

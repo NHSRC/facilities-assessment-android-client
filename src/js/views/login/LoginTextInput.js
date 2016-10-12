@@ -14,8 +14,7 @@ class LoginTextInput extends AbstractComponent {
         loginTextInputContainer: {
             marginBottom: 20
         },
-        loginTextInput: {
-        }
+        loginTextInput: {}
     });
 
     static propTypes = {
