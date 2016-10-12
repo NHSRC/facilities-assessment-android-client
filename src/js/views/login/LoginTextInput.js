@@ -3,7 +3,7 @@ import {Text, StyleSheet, View, TextInput} from 'react-native';
 import PrimaryColors from '../styles/PrimaryColors';
 import Typography from '../styles/Typography';
 import AbstractComponent from "../common/AbstractComponent";
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import {InputGroup, Input, Icon} from 'native-base';
 
 class LoginTextInput extends AbstractComponent {
     constructor(props, context) {
@@ -12,22 +12,9 @@ class LoginTextInput extends AbstractComponent {
 
     static styles = StyleSheet.create({
         loginTextInputContainer: {
-            flex: 1,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
+            marginBottom: 20
         },
         loginTextInput: {
-            flex: .9,
-            alignSelf: 'stretch',
-            color: PrimaryColors.textBold,
-            paddingBottom: 0,
-        },
-        loginTextIcon: {
-            flex: .1,
-            color: PrimaryColors.textBold,
-            alignSelf: 'flex-start',
-            paddingTop: 30
         }
     });
 
@@ -41,19 +28,10 @@ class LoginTextInput extends AbstractComponent {
     render() {
 
         return (
-            <View style={LoginTextInput.styles.loginTextInputContainer}>
-                <Icon name={this.props.icon} size={60} style={LoginTextInput.styles.loginTextIcon}/>
-                <TextInput
-                    clearButtonMode="while-editing"
-                    underlineColorAndroid={PrimaryColors.textBold}
-                    style={LoginTextInput.styles.loginTextInput}
-                    placeholder={this.props.placeholder}
-                    placeholderTextColor={PrimaryColors.textBold}
-                    autoCorrect={false}
-                    onChangeText={this.props.onChange}
-                    value={this.props.data}
-                />
-            </View>
+            <InputGroup style={LoginTextInput.styles.loginTextInputContainer}>
+                <Icon name={this.props.icon}/>
+                <Input value={this.props.data} onChangeText={this.props.onChange} placeholder={this.props.placeholder}/>
+            </InputGroup>
         );
     }
 }
