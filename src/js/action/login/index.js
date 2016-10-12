@@ -1,7 +1,6 @@
 import Actions from '../../action';
 
 const login = function (state, action, beans) {
-    console.log(state);
     return Object.assign(state, {"isAuthenticated": state.username === "demo" && state.password === "password"});
 };
 
@@ -10,7 +9,6 @@ const enterUsername = function (state, action, beans) {
 };
 
 const enterPassword = function (state, action, beans) {
-    console.log(`Changed Password To ${action.password}`);
     return Object.assign(state, {password: action.password});
 };
 
