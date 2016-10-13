@@ -76,6 +76,12 @@ class General {
     static formatRange(question) {
         return `[${question.lowAbsolute} - ${question.hiAbsolute}]`;
     }
+
+    static EMPTY_STRING = "";
+
+    static pickerify(list){
+        return [General.EMPTY_STRING].concat(list);
+    }
 }
 
 export default General;

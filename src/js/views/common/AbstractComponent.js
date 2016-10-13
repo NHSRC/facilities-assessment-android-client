@@ -8,7 +8,8 @@ class AbstractComponent extends Component {
 
     static contextTypes = {
         navigator: React.PropTypes.func.isRequired,
-        getStore: React.PropTypes.func
+        getStore: React.PropTypes.func,
+        getService: React.PropTypes.func.isRequired,
     };
 
     dispatchAction(action, params) {

@@ -7,7 +7,8 @@ import Typography from '../styles/Typography';
 import {Container, Content, List} from 'native-base';
 import FlatUITheme from '../themes/flatUI';
 import AbstractComponent from "../common/AbstractComponent";
-import LoginButton from './LoginButton';
+import SubmitButton from "../common/SubmitButton";
+import Actions from "../../action";
 
 
 class LoginBox extends AbstractComponent {
@@ -28,7 +29,8 @@ class LoginBox extends AbstractComponent {
                     <List>
                         <UsernameInput data={this.props.username}/>
                         <PasswordInput data={this.props.password}/>
-                        <LoginButton/>
+                        <SubmitButton buttonIcon="input" onPress={()=>this.dispatchAction(Actions.LOGIN)}
+                                      buttonText={"Sign In"}/>
                     </List>
                 </Content>
             </Container>

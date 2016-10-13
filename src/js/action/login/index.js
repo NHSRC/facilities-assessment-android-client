@@ -1,7 +1,7 @@
 import Actions from '../../action';
 
 const login = function (state, action, beans) {
-    return Object.assign(state, {"isAuthenticated": state.username === "demo" && state.password === "password"});
+    return Object.assign(state, {"isAuthenticated": state.username === "" && state.password === ""});
 };
 
 const enterUsername = function (state, action, beans) {
@@ -15,4 +15,4 @@ const enterPassword = function (state, action, beans) {
 export default new Map([[Actions.LOGIN, login], [Actions.ENTER_USERNAME, enterUsername], [Actions.ENTER_PASSWORD, enterPassword]]);
 
 
-export let initState = {"isAuthenticated": false, "username": "", "password": ""};
+export let loginInit = {"isAuthenticated": false, "username": "", "password": ""};

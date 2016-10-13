@@ -14,9 +14,9 @@ import FacilitySelection from "../facilitySelection/FacilitySelection";
 class LoginView extends AbstractComponent {
     constructor(props, context) {
         super(props, context);
-        this.state = context.getStore().getState().login;
-        this.handleChange = this.handleChange.bind(this);
-        this.unsubscribe = context.getStore().subscribe(this.handleChange);
+        const store = context.getStore();
+        this.state = store.getState().login;
+        this.unsubscribe = store.subscribe(this.handleChange.bind(this));
     }
 
     static styles = StyleSheet.create({

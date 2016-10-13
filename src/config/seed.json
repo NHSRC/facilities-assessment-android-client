@@ -1,0 +1,69 @@
+[
+  {
+    "name": "Karnataka",
+    "districts": [
+      {
+        "name": "Bangalore",
+        "facilities": [
+          {
+            "name": "Manipal Hospital",
+            "facilityType": {
+              "name": "Hospital"
+            }
+          },
+          {
+            "name": "Columbia Asia",
+            "facilityType": {
+              "name": "Hospital"
+            }
+          },
+          {
+            "name": "Aster",
+            "facilityType": {
+              "name": "Clinic"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Madhya Pradesh",
+    "districts": [
+      {
+        "name": "Indore",
+        "facilities": [
+          {
+            "name": "CHL Apollo",
+            "facilityType": {
+              "name": "Hospital"
+            }
+          },
+          {
+            "name": "MY Hospital",
+            "facilityType": {
+              "name": "Hospital"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Bhopal",
+        "facilities": [
+          {
+            "name": "Hamidiya",
+            "facilityType": {
+              "name": "Hospital"
+            }
+          },
+          {
+            "name": "AIIMS",
+            "facilityType": {
+              "name": "Hospital"
+            }
+          }
+        ]
+      }
+    ]
+  }
+]
