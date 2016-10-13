@@ -4,6 +4,7 @@ const allStates = function (state, action, beans) {
     const states = beans.get(FacilitiesService).getAllStates();
     return Object.assign(state, {
         "allStates": states,
+        "facilitySelected": false
     });
 };
 
@@ -17,6 +18,7 @@ const selectState = function (state, action, beans) {
         "selectedDistrict": undefined,
         "selectedFacility": undefined,
         "selectedFacilityType": undefined,
+        "facilitySelected": false
     });
 };
 
@@ -28,6 +30,7 @@ const selectDistrict = function (state, action, beans) {
         "facilities": undefined,
         "selectedFacility": undefined,
         "selectedFacilityType": undefined,
+        "facilitySelected": false
     });
 };
 
@@ -36,14 +39,21 @@ const selectFacilityType = function (state, action, beans) {
     return Object.assign(state, {
         "selectedFacilityType": action.selectedFacilityType,
         "facilities": facilities,
-        "selectedFacility": undefined
+        "selectedFacility": undefined,
+        "facilitySelected": false
+
     })
 };
 
 const selectFacility = function (state, action, beans) {
     return Object.assign(state, {
-        "selectedFacility": action.selectedFacility
+        "selectedFacility": action.selectedFacility,
+        "facilitySelected": false
     });
+};
+
+const facilitySelected = function (state, action, beans) {
+    return Object.assign(state, {"facilitySelected": true});
 };
 
 export default new Map([
@@ -52,15 +62,13 @@ export default new Map([
     ["SELECT_DISTRICT", selectDistrict],
     ["SELECT_FACILITY_TYPE", selectFacilityType],
     ["SELECT_FACILITY", selectFacility],
-    ["FACILITY_SELECT", (state)=> {
-        console.log("Button Pressed");
-        return state;
-    }]
+    ["FACILITY_SELECT", facilitySelected]
 ]);
 
 export let facilitySelectionInit = {
     selectedState: undefined,
     selectedDistrict: undefined,
     selectedFacilityType: undefined,
-    selectedFacility: undefined
+    selectedFacility: undefined,
+    facilitySelected: false
 };

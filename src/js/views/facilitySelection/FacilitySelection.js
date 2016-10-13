@@ -8,6 +8,8 @@ import PrimaryColors from "../styles/PrimaryColors";
 import Actions from '../../action';
 import PickerList from './PickerList';
 import SubmitButton from "../common/SubmitButton";
+import TypedTransition from "../../framework/routing/TypedTransition";
+import Checklist from "../checklist/Checklist";
 
 @Path("/facilitySelection")
 class FacilitySelection extends AbstractComponent {
@@ -26,7 +28,16 @@ class FacilitySelection extends AbstractComponent {
 
     handleChange() {
         const newState = this.context.getStore().getState().facilitySelection;
+        new Map([[true, this.changeView.bind(this)], [false, this.updateState.bind(this)]]).get(newState.facilitySelected)(newState);
         this.setState(newState);
+    }
+
+    updateState(newState) {
+        this.setState(newState);
+    }
+
+    changeView() {
+        TypedTransition.from(this).to(Checklist);
     }
 
     getPickers() {
