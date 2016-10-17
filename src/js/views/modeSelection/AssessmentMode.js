@@ -6,7 +6,6 @@ import PrimaryColors from '../styles/PrimaryColors';
 import Typography from '../styles/Typography';
 import MedIcon from '../styles/MedIcons';
 import Actions from "../../action";
-import _ from 'lodash';
 import iconMapping from '../styles/departmentIconMapping.json';
 
 
@@ -47,6 +46,7 @@ class AssessmentMode extends AbstractComponent {
         buttonText: {
             color: PrimaryColors.textBold,
             fontWeight: "400",
+            fontSize: 19
         }
     });
 
@@ -71,7 +71,7 @@ class AssessmentMode extends AbstractComponent {
                         {department}
                     </Text>
                     <MedIcon style={AssessmentMode.styles.buttonText}
-                             size={23} name={iconMapping[department]}/>
+                             size={25} name={iconMapping[department]}/>
                 </View>
             </Button>)
         );
