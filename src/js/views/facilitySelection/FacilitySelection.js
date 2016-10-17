@@ -3,13 +3,13 @@ import {Text, StyleSheet, View} from 'react-native';
 import Path from '../../framework/routing/Path';
 import FlatUITheme from '../themes/flatUI';
 import AbstractComponent from "../common/AbstractComponent";
-import {Header, Container, Content, Title, Button, Icon} from 'native-base';
+import {Header, Container, Content, Title, Icon} from 'native-base';
 import PrimaryColors from "../styles/PrimaryColors";
 import Actions from '../../action';
 import PickerList from './PickerList';
 import SubmitButton from "../common/SubmitButton";
 import TypedTransition from "../../framework/routing/TypedTransition";
-import Checklist from "../checklist/Checklist";
+import ModeSelection from "../modeSelection/ModeSelection";
 
 @Path("/facilitySelection")
 class FacilitySelection extends AbstractComponent {
@@ -17,7 +17,7 @@ class FacilitySelection extends AbstractComponent {
         super(props, context);
         const store = context.getStore();
         this.state = store.getState().facilitySelection;
-        this.unsubscribe = store.subscribe(this.handleChange.bind(this));
+        this.unsubscribe = store.subscribeTo('facilitySelection', this.handleChange.bind(this));
     }
 
     static styles = StyleSheet.create({
@@ -29,7 +29,6 @@ class FacilitySelection extends AbstractComponent {
     handleChange() {
         const newState = this.context.getStore().getState().facilitySelection;
         new Map([[true, this.changeView.bind(this)], [false, this.updateState.bind(this)]]).get(newState.facilitySelected)(newState);
-        this.setState(newState);
     }
 
     updateState(newState) {
@@ -37,7 +36,7 @@ class FacilitySelection extends AbstractComponent {
     }
 
     changeView() {
-        TypedTransition.from(this).to(Checklist);
+        TypedTransition.from(this).with({selectedFacility: this.state.selectedFacility}).to(ModeSelection);
     }
 
     getPickers() {
@@ -63,8 +62,8 @@ class FacilitySelection extends AbstractComponent {
                 "items": this.state.facilityTypes,
                 "stateKey": "selectedFacilityType",
                 "action": Actions.SELECT_FACILITY_TYPE,
-                "message": "Select a Facility Type",
-                "label": "Facility Type"
+                "message": "Select an Assessment Type",
+                "label": "Assessment Type"
             },
             {
                 "selectedValue": this.state.selectedFacility,

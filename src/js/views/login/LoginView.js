@@ -49,6 +49,7 @@ class LoginView extends AbstractComponent {
 
     changeView() {
         TypedTransition.from(this).resetTo(FacilitySelection);
+        this.unsubscribe();
     }
 
     componentWillUnmount() {

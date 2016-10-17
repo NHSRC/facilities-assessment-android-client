@@ -121,7 +121,7 @@ export default {
     toolbarIconSize: (Platform.OS === 'ios' ) ? 20 : 22,
     toolbarInputColor: '#CECDD2',
     toolbarInverseBg: '#222',
-    toolbarTextColor: (Platform.OS === 'ios') ? '#000' : '#fff',
+    toolbarTextColor: (Platform.OS === 'ios') ? '#000' : PrimaryColors.background,
     get statusBarColor() {
         return Color(this.toolbarDefaultBg).darken(0.2).hexString();
     },
@@ -193,9 +193,9 @@ export default {
 
 
     // Tabs
-    tabBgColor: '#F8F8F8',
+    tabBgColor: PrimaryColors.textBold,
     tabFontSize: 15,
-    tabTextColor: '#fff',
+    tabTextColor: PrimaryColors.background,
 
 
     // Text

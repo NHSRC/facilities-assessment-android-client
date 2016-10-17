@@ -4,7 +4,9 @@ class Facility {
         primaryKey: 'name',
         properties: {
             name: 'string',
-            facilityType: 'FacilityType'
+            facilityType: 'FacilityType',
+            assessmentType: {type: 'list', objectType: 'AssessmentType'},
+            departments: {type: 'list', objectType: 'Department'}
         }
     }
 }
