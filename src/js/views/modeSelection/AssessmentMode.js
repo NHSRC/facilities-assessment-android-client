@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
 import {Text, StyleSheet, View, ScrollView} from 'react-native';
 import AbstractComponent from "../common/AbstractComponent";
-import {Button, Icon} from 'native-base';
+import {Button} from 'native-base';
 import PrimaryColors from '../styles/PrimaryColors';
 import Typography from '../styles/Typography';
 import MedIcon from '../styles/MedIcons';
 import Actions from "../../action";
 import iconMapping from '../styles/departmentIconMapping.json';
+import TypedTransition from "../../framework/routing/TypedTransition";
+import Assessment from '../assessment/Assessment';
 
 
 class AssessmentMode extends AbstractComponent {
@@ -15,6 +17,7 @@ class AssessmentMode extends AbstractComponent {
         const store = context.getStore();
         this.state = store.getState().departmentSelection;
         this.unsubscribe = store.subscribeTo('departmentSelection', this.handleChange.bind(this));
+        this.handleOnPress = this.handleOnPress.bind(this);
     }
 
     static styles = StyleSheet.create({
@@ -63,9 +66,14 @@ class AssessmentMode extends AbstractComponent {
         this.unsubscribe();
     }
 
+    handleOnPress(department) {
+        return ()=>TypedTransition.from(this).with({selectedDepartment: department}).to(Assessment);
+    }
+
     render() {
         const allDepts = this.state.allDepartments.map((department, idx)=>
-            (<Button key={idx} style={AssessmentMode.styles.deptButton} bordered large info>
+            (<Button key={idx} onPress={this.handleOnPress(department)} style={AssessmentMode.styles.deptButton}
+                     bordered large info>
                 <View style={AssessmentMode.styles.innerButton}>
                     <Text style={AssessmentMode.styles.buttonText}>
                         {department}

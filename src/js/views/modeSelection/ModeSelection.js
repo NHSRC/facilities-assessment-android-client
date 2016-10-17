@@ -5,7 +5,6 @@ import AbstractComponent from "../common/AbstractComponent";
 import {Container, Header, Title, Content, Icon, Tabs, Footer, FooterTab, Button} from 'native-base';
 import PrimaryColors from "../styles/PrimaryColors";
 import FlatUITheme from '../themes/flatUI';
-import TypedTransition from "../../framework/routing/TypedTransition";
 import AssessmentMode from './AssessmentMode';
 import ScoreMode from './ScoreMode';
 
