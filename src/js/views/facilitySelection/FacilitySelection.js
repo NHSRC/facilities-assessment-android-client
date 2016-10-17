@@ -58,14 +58,6 @@ class FacilitySelection extends AbstractComponent {
                 "label": "District"
             },
             {
-                "selectedValue": this.state.selectedFacilityType,
-                "items": this.state.facilityTypes,
-                "stateKey": "selectedFacilityType",
-                "action": Actions.SELECT_FACILITY_TYPE,
-                "message": "Select an Assessment Type",
-                "label": "Assessment Type"
-            },
-            {
                 "selectedValue": this.state.selectedFacility,
                 "items": this.state.facilities,
                 "stateKey": "selectedFacility",

@@ -17,32 +17,18 @@ const selectState = function (state, action, beans) {
         "facilities": undefined,
         "selectedDistrict": undefined,
         "selectedFacility": undefined,
-        "selectedFacilityType": undefined,
         "facilitySelected": false
     });
 };
 
 const selectDistrict = function (state, action, beans) {
-    const facilityTypes = beans.get(FacilitiesService).getAllFacilityTypesFor(action.selectedDistrict);
+    const facilities = beans.get(FacilitiesService).getAllFacilitiesFor(action.selectedDistrict);
     return Object.assign(state, {
         "selectedDistrict": action.selectedDistrict,
-        "facilityTypes": facilityTypes,
-        "facilities": undefined,
-        "selectedFacility": undefined,
-        "selectedFacilityType": undefined,
-        "facilitySelected": false
-    });
-};
-
-const selectFacilityType = function (state, action, beans) {
-    const facilities = beans.get(FacilitiesService).getAllFacilitiesFor(state.selectedDistrict, action.selectedFacilityType);
-    return Object.assign(state, {
-        "selectedFacilityType": action.selectedFacilityType,
         "facilities": facilities,
         "selectedFacility": undefined,
         "facilitySelected": false
-
-    })
+    });
 };
 
 const selectFacility = function (state, action, beans) {
@@ -65,7 +51,6 @@ export default new Map([
     ["ALL_STATES", allStates],
     ["SELECT_STATE", selectState],
     ["SELECT_DISTRICT", selectDistrict],
-    ["SELECT_FACILITY_TYPE", selectFacilityType],
     ["SELECT_FACILITY", selectFacility],
     ["FACILITY_SELECT", facilitySelected],
     ["RESET_FORM", reset_form]
@@ -74,7 +59,6 @@ export default new Map([
 export let facilitySelectionInit = {
     selectedState: undefined,
     selectedDistrict: undefined,
-    selectedFacilityType: undefined,
     selectedFacility: undefined,
     facilitySelected: false
 };

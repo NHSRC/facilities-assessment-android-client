@@ -24,14 +24,8 @@ class FacilitiesService extends BaseService {
         return this.db.objectForPrimaryKey(State.schema.name, stateName).districts.map((district)=>district.name);
     }
 
-    getAllFacilityTypesFor(districtName) {
-        return _.uniqBy(this.db.objectForPrimaryKey(District.schema.name, districtName).facilities, ['facilityType'])
-            .map((facility)=>facility.facilityType.name);
-    }
-
-    getAllFacilitiesFor(districtName, facilityType) {
+    getAllFacilitiesFor(districtName) {
         return this.db.objectForPrimaryKey(District.schema.name, districtName).facilities
-            .filtered("facilityType.name = $0", facilityType)
             .map((facility)=>facility.name);
     }
 
