@@ -17,6 +17,1320 @@
             ],
             "departments": [
               {
+                "name": "Intensive Care Unit",
+                "areasOfConcern": [
+                  {
+                    "applicableStandards": [
+                      {
+                        "referenceUUID": "00cb8c16-4dcd-477e-9062-726d4e3ab410",
+                        "applicableMeasurableElements": [
+                          {
+                            "referenceUUID": "1e214e10-6c7f-4b9d-8f83-70ea0f95756a",
+                            "checkpoints": [
+                              {
+                                "question": "The facility provides General Medicine services",
+                                "uuid": "0b2cc42b-0e02-492c-a5b1-d7b6f1d2d6b3"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "c3b3b208-3730-4f9f-9ad0-139bb62f59b7",
+                            "checkpoints": [
+                              {
+                                "question": "The facility provides General Surgery services",
+                                "uuid": "e57e4e4a-c49d-48f9-af36-7f95bb707820"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "3c025cbf-74ea-46b3-a6dd-fe3a3f2349d2",
+                            "checkpoints": [
+                              {
+                                "question": "The facility provides Obstetrics & Gynaecology Services",
+                                "uuid": "9f696127-0fb9-4ee9-a0d8-d1b7dbdceb9a"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "9c32e470-aa74-4229-b0ff-a1858799105b",
+                            "checkpoints": [
+                              {
+                                "question": "The facility provides Paediatric Services",
+                                "uuid": "ca0f80f1-a81e-44cb-a894-5abb0a7d4edb"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "8da6d394-c8e4-46ad-ae5d-b65008e9bfea",
+                            "checkpoints": [
+                              {
+                                "question": "The facility provides Ophthalmology Services",
+                                "uuid": "e106ee6b-3c50-480b-95d7-f5ca1922aec5"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "2a11ed01-7632-40a5-9185-3e47ac3918db",
+                            "checkpoints": [
+                              {
+                                "question": "The facility provides ENT Services",
+                                "uuid": "da5a2c37-c139-4598-8609-ef562369564f"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "7ad857dd-27e1-4d0b-9d04-8d659eb02834",
+                            "checkpoints": [
+                              {
+                                "question": "The facility provides Orthopaedics Services",
+                                "uuid": "4df549ea-7ddc-4161-94de-a0f7a9d5d431"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "afb75b6c-f255-4599-a155-37b71a8f884a",
+                            "checkpoints": [
+                              {
+                                "question": "The facility provides Skin & VD Services",
+                                "uuid": "895a08a6-ad90-4978-a6e7-4d0ab74ee003"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "816fc827-e874-44e9-9493-7ba81d95026c",
+                            "checkpoints": [
+                              {
+                                "question": "The facility provides Psychiatry Services",
+                                "uuid": "bca902b6-1bb1-40f9-86b2-e84c5e73f038"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "09c2ed0b-2c41-4cb5-ba54-1b8e96510cd8",
+                            "checkpoints": [
+                              {
+                                "question": "The facility provides Dental Treatment Services",
+                                "uuid": "7080dfa6-095b-4eb1-ac7d-1e0d8554a520"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "fc20c990-9be4-4f7d-aae9-65656d5dbbc2",
+                            "checkpoints": [
+                              {
+                                "question": "The facility provides AYUSH Services",
+                                "uuid": "e77e1b35-35f0-42c1-8026-578c19bd74e1"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "bc1fc432-711e-4720-9bb6-b67a5cf4c69e",
+                            "checkpoints": [
+                              {
+                                "question": "The facility provides Physiotherapy Services",
+                                "uuid": "da52d937-a976-45ec-8fd3-a451ad361cfe"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "94daa85f-b5a5-4459-a2a1-8d2be7440546",
+                            "checkpoints": [
+                              {
+                                "question": "The facility provides services for OPD procedures",
+                                "uuid": "e6a33ef4-bd95-4009-8d4c-bdbb16bffe0b"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "d12581b3-ea5a-47ae-ac28-d266c06a1a3a",
+                            "checkpoints": [
+                              {
+                                "question": "Services are available for the time period as mandated",
+                                "uuid": "adfab149-2792-4281-8bb2-01cd64ba76e1"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "8e760762-5b98-404b-8a73-61bc8d7f6b0f",
+                            "checkpoints": [
+                              {
+                                "question": "The facility provides services for Super specialties, as mandated",
+                                "uuid": "b2e3b3ea-c6fe-4694-bca2-e51d96abc4b4"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "2d8495a6-9d90-451c-95ea-3f29b8659779",
+                            "checkpoints": [
+                              {
+                                "question": "The facility provides Accident & Emergency Services",
+                                "uuid": "a4c5fe49-0900-4d80-915f-cdd4a9450b8b"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "62070ca4-30a0-4cb2-880a-21c8c063678f",
+                            "checkpoints": [
+                              {
+                                "question": "The facility provides Intensive care Services",
+                                "uuid": "b2c80058-6d99-4a0d-ae29-e9b57267eff9"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "481c406c-2a9b-44bc-a377-ee3a8ee51790",
+                            "checkpoints": [
+                              {
+                                "question": "The facility provides Blood bank & transfusion services",
+                                "uuid": "6a98e87c-b8f8-4201-b2e9-dd541e330590"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "referenceUUID": "63b5987f-b664-4b8f-8346-cd9253ea27c6",
+                        "applicableMeasurableElements": [
+                          {
+                            "referenceUUID": "61af5e6e-36c7-41e5-a573-2d0d25b041c1",
+                            "checkpoints": [
+                              {
+                                "question": "The facility provides Reproductive health  Services",
+                                "uuid": "1cafa0a0-aae5-4a9b-9758-22db868c4d29"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "bafb78c4-9d90-4fc7-97ca-3c4fd0626a41",
+                            "checkpoints": [
+                              {
+                                "question": "The facility provides Maternal health Services",
+                                "uuid": "7152b006-23e0-4d0f-a392-13fd3fdd7cdc"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "9911b8ad-b1bb-4d74-857c-fb91021aeaa6",
+                            "checkpoints": [
+                              {
+                                "question": "The facility provides Newborn health  Services",
+                                "uuid": "af1100ae-ee77-41c6-8f2a-171633f6c2f2"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "c690d646-ca43-4c29-898b-486a471d67b5",
+                            "checkpoints": [
+                              {
+                                "question": "The facility provides Child health Services",
+                                "uuid": "c6183ee4-f2d2-4040-9c87-46f4c4b826e5"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "54dfc625-429c-4223-8a21-283707229dce",
+                            "checkpoints": [
+                              {
+                                "question": "The facility provides Adolescent health Services",
+                                "uuid": "6eda74f6-cb2a-4fa7-95ea-8ebcbbb40b26"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "referenceUUID": "83e5f8c1-7660-4a26-8044-66a12faa6802",
+                        "applicableMeasurableElements": [
+                          {
+                            "referenceUUID": "5b90bc8a-74f4-43e4-83c9-aa50683fae89",
+                            "checkpoints": [
+                              {
+                                "question": "The facility provides Radiology Services",
+                                "uuid": "b42505a2-c03d-4b6d-b310-6ca72ba42af8"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "d2de6c8a-1754-48c3-af01-cd81fe3fa49c",
+                            "checkpoints": [
+                              {
+                                "question": "The facility Provides Laboratory Services",
+                                "uuid": "022d60d0-7fe6-4d1a-8795-2fc786e25585"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "bab5a305-ebaf-4362-92bf-d4e8255b308c",
+                            "checkpoints": [
+                              {
+                                "question": "The facility provides other diagnostic services, as mandated",
+                                "uuid": "1b45d515-57e8-4bd9-982a-e2e2d683af3f"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "referenceUUID": "a3f18ba2-3ad9-4f61-a7c8-f828476d0fce",
+                        "applicableMeasurableElements": [
+                          {
+                            "referenceUUID": "054ecf98-92f8-4b91-ad00-8dae8f4e8a14",
+                            "checkpoints": [
+                              {
+                                "question": "The facility provides services under National Vector Borne Disease Control Programme as per guidelines",
+                                "uuid": "d9d5226c-fb9d-408e-91fd-b57f4ee7a29a"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "9df16fdf-a753-4e3e-b793-e26be7c9ef93",
+                            "checkpoints": [
+                              {
+                                "question": "The facility provides services under Revised National TB Control Programme as per guidelines",
+                                "uuid": "22030c9b-265c-4fd2-81f9-b8b92e0220a9"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "b2c8f1ea-7982-4107-b04f-e76dfe2c3d6b",
+                            "checkpoints": [
+                              {
+                                "question": "The facility provides services under National Leprosy Eradication Programme as per guidelines",
+                                "uuid": "9e570163-d22a-4df2-8d69-44225ec917ad"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "82aa46d6-e554-4f9a-9315-a96c3d045eb9",
+                            "checkpoints": [
+                              {
+                                "question": "The facility provides services under National AIDS Control Programme as per guidelines",
+                                "uuid": "b9d11fc9-1e12-4b5e-a386-5a1c2b5e5f97"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "4763906f-d378-46cd-8199-d0bbe988f636",
+                            "checkpoints": [
+                              {
+                                "question": "The facility provides services under National Programme for prevention and control of Blindness as per guidelines",
+                                "uuid": "61ae6494-4ab9-4e7b-92a9-55f7064117f5"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "55a5cf2d-25fc-413f-8740-cd57fe9e4b84",
+                            "checkpoints": [
+                              {
+                                "question": "The facility provides services under Mental Health Programme  as per guidelines",
+                                "uuid": "0b718cd3-9285-4873-8f3b-3948ef4a8607"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "563ab94d-553c-4b1f-bedc-869188abe119",
+                            "checkpoints": [
+                              {
+                                "question": "The facility provides services under National Programme for the health care of the elderly as per guidelines",
+                                "uuid": "c1109fca-9310-4b10-be5c-c0639691a5fc"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "91b7ceb5-2bd8-431f-bd90-1d3bef023125",
+                            "checkpoints": [
+                              {
+                                "question": "The facility provides services under National Programme for Prevention and control of Cancer, Diabetes, Cardiovascular diseases & Stroke (NPCDCS)  as per guidelines",
+                                "uuid": "a05da2e4-84da-430f-9a6b-344f04294c85"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "2486964d-f1eb-453b-99b4-3b6f94cf723c",
+                            "checkpoints": [
+                              {
+                                "question": "The facility Provides services under Integrated Disease Surveillance Programme as per Guidelines",
+                                "uuid": "a575a949-5d99-40ce-a0b3-c0cf28a1f1ad"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "c05a4e0a-fde5-40ab-90c5-33805bad3dfd",
+                            "checkpoints": [
+                              {
+                                "question": "The facility provide services under National health Programme for deafness",
+                                "uuid": "271d1650-34b9-4cbe-9833-398531773e81"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "ee5f1bac-e0df-44ed-a573-c5ce6fea2fc3",
+                            "checkpoints": [
+                              {
+                                "question": "The facility provides services as per State specific health programmes",
+                                "uuid": "4ecbed60-7e27-4ebf-b4a8-b36716c4de79"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "referenceUUID": "b35b02ef-30f7-40ee-a84e-ae60ae7f2260",
+                        "applicableMeasurableElements": [
+                          {
+                            "referenceUUID": "e5f7eee0-df49-4df5-a834-cc9e2953bdac",
+                            "checkpoints": [
+                              {
+                                "question": "The facility provides dietary services",
+                                "uuid": "7e77a8b8-a4f7-4214-abde-3c208dc42f4b"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "352608df-5bc8-406c-aac6-a6358806637a",
+                            "checkpoints": [
+                              {
+                                "question": "The facility provides laundry services",
+                                "uuid": "1fcc1098-5fad-486c-a1e7-38ee4b8b3835"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "d217d0ca-065c-45f6-9a57-f518e7b75d80",
+                            "checkpoints": [
+                              {
+                                "question": "The facility provides security services",
+                                "uuid": "efcf211b-59bb-470f-ab24-57c8b5d7e188"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "5d4f63de-e117-41cc-825b-e1612ffdeba8",
+                            "checkpoints": [
+                              {
+                                "question": "The facility provides housekeeping services",
+                                "uuid": "c1e8ca15-a23a-4c11-b12a-5cc2c8273250"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "cea57b67-7631-47b8-8498-bc995d5c10e5",
+                            "checkpoints": [
+                              {
+                                "question": "The facility ensures maintenance services",
+                                "uuid": "6ad922b6-b332-440b-b519-7891f813b43a"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "382a5198-7229-4a2a-a9c5-ceb6da56b2b9",
+                            "checkpoints": [
+                              {
+                                "question": "The facility provides pharmacy services",
+                                "uuid": "a8ac2c97-0b4b-451c-a8e1-6b38cc58203b"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "ea4cd7f6-b550-464c-838e-80fd183291f6",
+                            "checkpoints": [
+                              {
+                                "question": "The facility has services of medical record department",
+                                "uuid": "0f1685e4-6747-4321-8ba8-5328fb01c831"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "0ba00023-e07f-4889-87d4-db01fed71489",
+                            "checkpoints": [
+                              {
+                                "question": "The facility provides mortuary services",
+                                "uuid": "3f427e9c-dd51-4d45-bad7-1ccf087e4271"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "referenceUUID": "35e69f79-75f3-4f82-931a-f70f9fe3241a",
+                        "applicableMeasurableElements": [
+                          {
+                            "referenceUUID": "68225e51-f204-4a04-951c-1f21ebbbe4a0",
+                            "checkpoints": [
+                              {
+                                "question": "The facility provides curatives & preventive services for the health problems and diseases, prevalent locally.",
+                                "uuid": "8d9a304d-e0a4-43fa-b9cf-1924f747ade7"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "649a241d-8002-4182-aeab-babdc5cea999",
+                            "checkpoints": [
+                              {
+                                "question": "There is process for consulting community/ or their representatives when planning or revising scope of services of the facility",
+                                "uuid": "a9cef68c-7d59-4a68-aa59-00d52f1fcbd5"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ],
+                    "referenceUUID": "dcf44f47-76a5-4056-a4de-a6350f306c8f"
+                  },
+                  {
+                    "applicableStandards": [
+                      {
+                        "referenceUUID": "1d2ce838-bc34-400a-9d56-46f7827f3388",
+                        "applicableMeasurableElements": [
+                          {
+                            "referenceUUID": "061ace83-3758-409d-be65-c5ddb0b5adfe",
+                            "checkpoints": [
+                              {
+                                "question": "The facility has uniform and user-friendly signage system",
+                                "uuid": "7a9d1b10-e916-4c0e-b076-2c0bd33d5669"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "af9c5dbd-7a23-43b9-aff0-73b48c9c0103",
+                            "checkpoints": [
+                              {
+                                "question": "The facility displays the services and entitlements available in its departments",
+                                "uuid": "a1dbdd5a-06e3-429c-9ecc-0e607812b53d"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "8acbf797-0fd6-4cc9-aa1b-3f82ae7b24f9",
+                            "checkpoints": [
+                              {
+                                "question": "The facility has established citizen charter, which is followed at all levels",
+                                "uuid": "870b7a26-963a-4ab8-b1c4-e3b6c8516b7c"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "d32ed18d-68ec-415e-9e18-77404ebf96f9",
+                            "checkpoints": [
+                              {
+                                "question": "User charges are displayed and communicated to patients effectively",
+                                "uuid": "03744eb3-67f7-448a-85a5-d59cc3604080"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "e9d0fd19-28e1-4061-b1df-5d0ce1b500f0",
+                            "checkpoints": [
+                              {
+                                "question": "Patients & visitors are sensitised and educated through appropriate IEC / BCC approaches",
+                                "uuid": "096057c6-8704-477c-97a2-c2319a9d7963"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "b65346aa-0579-412e-82a4-3b39202c7dd9",
+                            "checkpoints": [
+                              {
+                                "question": "Information is available in local language and easy to understand",
+                                "uuid": "80e159b6-9d1b-43c3-89fd-53eb12c0031c"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "cf8bc1f9-29f2-4faa-818b-d0f2cddd3f8b",
+                            "checkpoints": [
+                              {
+                                "question": "The facility provides information to patients and visitor through an exclusive set-up.",
+                                "uuid": "6a86cfc7-371b-4d68-b743-55a4b4a9c57b"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "d391fee5-7714-454a-b65e-6e6483fda346",
+                            "checkpoints": [
+                              {
+                                "question": "The facility ensures access to clinical records of patients to entitled personnel",
+                                "uuid": "79dc7eea-af25-415e-b332-c10d209a2555"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "referenceUUID": "100a023b-c377-43d4-ac6c-91284a7e3612",
+                        "applicableMeasurableElements": [
+                          {
+                            "referenceUUID": "2d993dc3-edc7-4cef-996a-2a8169aab933",
+                            "checkpoints": [
+                              {
+                                "question": "Services are provided in manner that are sensitive to gender",
+                                "uuid": "e1143609-7334-4595-80f6-d2498935318b"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "c85fd566-c18f-4179-81e1-0347f8519a5d",
+                            "checkpoints": [
+                              {
+                                "question": "Religious and cultural preferences of patients and attendants are taken into consideration while delivering services",
+                                "uuid": "33277444-bc3e-46a2-b45f-d72483f92837"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "6a72e6bb-6304-4541-9464-eedcfda662e0",
+                            "checkpoints": [
+                              {
+                                "question": "Access to facility is provided without any physical barrier & and friendly to people with disabilities",
+                                "uuid": "825894f9-4e52-4f47-b663-fffff6d54e46"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "1537e166-d10f-4a51-b0ac-3c67e5b66a1f",
+                            "checkpoints": [
+                              {
+                                "question": "There is no discrimination on basis of social and economic status of the patients",
+                                "uuid": "49b87aa9-9bf0-42a9-b768-180c2c5a9d6a"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "f01079a1-9c87-4638-a411-a2d8514c4cac",
+                            "checkpoints": [
+                              {
+                                "question": "There is affirmative actions to ensure that vulnerable sections can access services",
+                                "uuid": "b36d044c-02d3-43c6-9863-a686911c3160"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "referenceUUID": "592fcead-a263-4b41-a80a-d867fd89c50c",
+                        "applicableMeasurableElements": [
+                          {
+                            "referenceUUID": "f83040d6-882d-4e90-a675-a12f0757fa51",
+                            "checkpoints": [
+                              {
+                                "question": "Adequate visual privacy is provided at every point of care",
+                                "uuid": "e6128524-fa1a-4da3-b5b0-b7ed38c6e9ed"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "71737357-f51c-4d79-9269-e3a4613c5480",
+                            "checkpoints": [
+                              {
+                                "question": "Confidentiality of patients records and clinical information is maintained",
+                                "uuid": "62bf77e4-74d2-4793-b855-682b9cbaa9d2"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "fa19a4ef-841a-4034-93bb-3eb4036e9ad5",
+                            "checkpoints": [
+                              {
+                                "question": "The facility ensures the behaviours of staff is dignified and respectful, while delivering the services",
+                                "uuid": "83b3867a-49be-4995-87d7-e13f674bdfd7"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "22344ae2-9774-4fec-afc2-3db02047020a",
+                            "checkpoints": [
+                              {
+                                "question": "The facility ensures privacy and confidentiality to every patient, especially of those conditions having social stigma, and also safeguards vulnerable groups",
+                                "uuid": "9c25c0c4-ed5c-4b3d-892d-1e6a37e59b66"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "referenceUUID": "f1878317-5182-447b-b95b-109d0634383b",
+                        "applicableMeasurableElements": [
+                          {
+                            "referenceUUID": "5dfb8ea3-5bf9-4ed2-b2a4-82e37a9772b9",
+                            "checkpoints": [
+                              {
+                                "question": "There is established procedures for taking informed consent before treatment and procedures",
+                                "uuid": "0670067f-8c57-4d1b-9306-a50978066dd3"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "8e65af6e-7db8-4b00-b52e-b08ed41765a9",
+                            "checkpoints": [
+                              {
+                                "question": "Patient is informed about his/her rights  and responsibilities",
+                                "uuid": "56fea25d-2ff3-4652-adcf-54c807e4dd21"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "2e032d25-c56b-423c-8b05-c529a2583dbc",
+                            "checkpoints": [
+                              {
+                                "question": "Staff are aware of Patients rights responsibilities",
+                                "uuid": "c44ab34f-efee-490f-ace0-f6befea7f162"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "5eca5d6d-1f81-4814-9558-36612578dadd",
+                            "checkpoints": [
+                              {
+                                "question": "Information about the treatment is shared with patients or attendants, regularly",
+                                "uuid": "c6a5aa66-9eca-413c-abf6-3ea5af47a224"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "1e45c0c8-4f91-4459-90c2-192c60226336",
+                            "checkpoints": [
+                              {
+                                "question": "The facility has defined and established grievance redressed system in place",
+                                "uuid": "e4bce0d7-6dc0-48af-a419-d15026a81ab9"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "referenceUUID": "8048c8a7-3ecb-48de-833e-1614d61c54f2",
+                        "applicableMeasurableElements": [
+                          {
+                            "referenceUUID": "430b02d0-f932-450a-a543-6608a4d1d76a",
+                            "checkpoints": [
+                              {
+                                "question": "The facility provides cashless services to pregnant women, mothers and neonates as per prevalent government schemes",
+                                "uuid": "05ad0402-b95a-476f-a9a1-dd3806f1049c"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "ee40ff7e-88e6-44f6-8017-d02c2b445923",
+                            "checkpoints": [
+                              {
+                                "question": "The facility ensures that drugs prescribed are available at Pharmacy and wards",
+                                "uuid": "cae926e2-f629-44bd-843a-ae40f4d37ab2"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "6c09edf9-b7bd-44b9-937c-86874ee947fb",
+                            "checkpoints": [
+                              {
+                                "question": "It is ensured that facilities for the prescribed investigations are available at the facility",
+                                "uuid": "162a66b2-a8de-41b9-a300-a3620fbb60be"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "69583490-5fa7-4eeb-b992-082b1b39b92e",
+                            "checkpoints": [
+                              {
+                                "question": "The facility provide free of cost treatment to Below poverty line patients without administrative hassles",
+                                "uuid": "5bcf529e-fa08-4532-b192-03dc62a58321"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "827071b4-5b70-4b4a-9029-c06832c6b144",
+                            "checkpoints": [
+                              {
+                                "question": "The facility ensures timely reimbursement of financial entitlements and reimbursement to the patients",
+                                "uuid": "4eb25355-dae3-43b6-af26-0c677813efb4"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "c66d8e11-0fde-4c05-800d-658dc8e384ab",
+                            "checkpoints": [
+                              {
+                                "question": "The facility ensure implementation of health insurance schemes as per National /state scheme",
+                                "uuid": "b421458b-bc30-4262-9a4f-01a6784d973c"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ],
+                    "referenceUUID": "8ff02f01-1319-4928-8b1b-445322fcb7b2"
+                  },
+                  {
+                    "applicableStandards": [
+                      {
+                        "referenceUUID": "c37a1a1f-2d69-48cc-b17b-dd14449cb37f",
+                        "applicableMeasurableElements": [
+                          {
+                            "referenceUUID": "6d4a435f-855f-4998-8aeb-04aa73861f5b",
+                            "checkpoints": [
+                              {
+                                "question": "Departments have adequate space as per patient or work load",
+                                "uuid": "b89aad67-2fd0-47bf-a3f8-68c2e3d39dfc"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "e2dea366-1c77-4885-a819-a1e16c8fb5ad",
+                            "checkpoints": [
+                              {
+                                "question": "Patient amenities are provide as per patient load",
+                                "uuid": "885c66e6-46f6-43c8-9b68-ef276abaacb4"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "2ee6b2e1-676c-4274-a3e4-1756d8450206",
+                            "checkpoints": [
+                              {
+                                "question": "Departments have layout and demarcated areas as per functions",
+                                "uuid": "3449080d-1c62-4e8e-8008-8f0e3a7def4d"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "ad92f87a-2628-4940-ae69-bfebf7c6a9c9",
+                            "checkpoints": [
+                              {
+                                "question": "The facility has adequate circulation area and open spaces according to need and local law",
+                                "uuid": "6576d277-446d-47c2-bb06-93dd471c7171"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "628fdbfc-7433-405d-9962-214a6d0e1d42",
+                            "checkpoints": [
+                              {
+                                "question": "The facility has infrastructure for intramural and extramural communication",
+                                "uuid": "e37ab76c-93c1-4a3b-844e-f6d44b0483a2"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "ce25ad01-543b-4dfe-9197-f239e1df1995",
+                            "checkpoints": [
+                              {
+                                "question": "Service counters are available as per patient load",
+                                "uuid": "a1cf31b9-23f9-4b7e-871d-b6e74f7b0ef9"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "e173041b-c8d6-4fb9-803e-ff2fb95fb7b5",
+                            "checkpoints": [
+                              {
+                                "question": "The facility and departments are planned to ensure structure follows the function/processes (Structure commensurate with the function of the hospital)",
+                                "uuid": "0c520ad6-65bd-4bdb-877e-796fc9e84369"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "referenceUUID": "df548ee6-b0ae-4b00-b094-8ec4fbfc150d",
+                        "applicableMeasurableElements": [
+                          {
+                            "referenceUUID": "060f95b1-fef4-46f8-8ab8-85eba08bf779",
+                            "checkpoints": [
+                              {
+                                "question": "The facility ensures the seismic safety of the infrastructure",
+                                "uuid": "2a3c22e9-0ae6-47d8-b3b4-80a560a32e2d"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "4b47e693-481c-4aa6-a37b-bff0a68d9041",
+                            "checkpoints": [
+                              {
+                                "question": "The facility ensures safety of lifts and lifts have required certificate from the designated bodies/ board",
+                                "uuid": "ae5f53eb-4266-4754-b082-b023e8107f10"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "2819f109-7443-4b5e-ae88-552eb142e277",
+                            "checkpoints": [
+                              {
+                                "question": "The facility ensures safety of electrical establishment",
+                                "uuid": "1e611708-435e-4b68-bed3-69fdf042b98c"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "b371d174-09e4-4fcc-ba29-e974c0e7bd1d",
+                            "checkpoints": [
+                              {
+                                "question": "Physical condition of buildings are safe for providing patient care",
+                                "uuid": "7bfec1b3-dc81-4144-a72f-9f0b18552516"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "referenceUUID": "ccb53675-b67d-45a1-b399-d4347918cfbf",
+                        "applicableMeasurableElements": [
+                          {
+                            "referenceUUID": "957536ef-a7df-4d31-af14-8614e020fdf3",
+                            "checkpoints": [
+                              {
+                                "question": "The facility has plan for prevention of fire",
+                                "uuid": "5543572f-8704-40ee-a997-8efa4caafea8"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "bb355d89-1458-4828-9bbf-f5ef1402c2d6",
+                            "checkpoints": [
+                              {
+                                "question": "The facility has adequate fire fighting Equipment",
+                                "uuid": "3a563d0b-1f93-4428-8349-15b6e565e232"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "c48b8902-5853-4f1e-87d3-802276b0d9f6",
+                            "checkpoints": [
+                              {
+                                "question": "The facility has a system of periodic training of staff and conducts mock drills regularly for fire and other disaster situation",
+                                "uuid": "2a8bbb6d-80db-4b4a-beb8-060e724e8130"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "referenceUUID": "18eb5c8e-c363-488e-86e7-83a460382c5f",
+                        "applicableMeasurableElements": [
+                          {
+                            "referenceUUID": "1c8b5438-164e-476e-9fc3-553b70b78823",
+                            "checkpoints": [
+                              {
+                                "question": "The facility has adequate specialist doctors as per service provision",
+                                "uuid": "0874be14-67b3-4291-8b32-f196527b5223"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "7ed49168-bd5d-433f-8ca7-873d59733520",
+                            "checkpoints": [
+                              {
+                                "question": "The facility has adequate general duty doctors as per service provision and work load",
+                                "uuid": "53699213-bffa-44f9-aeb1-0b47c88a786a"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "fd4deefe-4c85-40cd-83a1-71c9148c2dfe",
+                            "checkpoints": [
+                              {
+                                "question": "The facility has adequate nursing staff as per service provision and work load",
+                                "uuid": "077e415f-50d5-4b0c-afd3-0821431b5efb"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "f8758fec-8fca-40f5-9b57-4cbaa0d3c8da",
+                            "checkpoints": [
+                              {
+                                "question": "The facility has adequate technicians/paramedics as per requirement",
+                                "uuid": "5c12bf8e-f240-474f-926a-e5e8f3365ee5"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "b0353d11-261d-4852-affc-2e1f3a8d567f",
+                            "checkpoints": [
+                              {
+                                "question": "The facility has adequate support / general staff",
+                                "uuid": "db628890-7eea-43a3-b0ff-edf3d7c68d1c"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "5bd69171-8d50-449b-81e8-10a1deffae8b",
+                            "checkpoints": [
+                              {
+                                "question": "The staff has been provided required training / skill sets",
+                                "uuid": "63d387ed-93c5-4d9b-ba2b-66fb615ac73f"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "fb6348b0-74b5-45fa-a64c-6d3d19f9ae49",
+                            "checkpoints": [
+                              {
+                                "question": "The Staff is skilled as per job description",
+                                "uuid": "f203b699-fc55-4c47-95ad-4d1f035222b5"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "referenceUUID": "5c849358-1582-4bc0-95c4-d5a0f121cb1e",
+                        "applicableMeasurableElements": [
+                          {
+                            "referenceUUID": "2a39971e-4432-4dad-8f9a-e064ef485715",
+                            "checkpoints": [
+                              {
+                                "question": "The departments have availability of adequate drugs at point of use",
+                                "uuid": "06edcb46-b590-486d-aed1-704fc731f1f5"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "e3ad38b0-6ae8-4f61-a277-101e4eeb1cc8",
+                            "checkpoints": [
+                              {
+                                "question": "The departments have adequate consumables at point of use",
+                                "uuid": "3f97522b-6b3f-47e7-adc8-2da95e5c2961"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "155838f7-2825-42b2-9e1a-b1b319f80ebd",
+                            "checkpoints": [
+                              {
+                                "question": "Emergency drug trays are maintained at every point of care, where ever it may be needed",
+                                "uuid": "0b780f26-2d0a-41c8-88c0-498afacda9ec"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "referenceUUID": "e2973a6e-d0b3-4c1a-9913-da48535d1126",
+                        "applicableMeasurableElements": [
+                          {
+                            "referenceUUID": "4c5b8fce-b8c2-4607-bdcd-307b08862dc5",
+                            "checkpoints": [
+                              {
+                                "question": "Availability of equipment & instruments for examination & monitoring of patients",
+                                "uuid": "d4d88dc2-4b41-4ffe-a0db-19e662259804"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "2e39b06e-56fc-403d-be0a-e599a9f24e31",
+                            "checkpoints": [
+                              {
+                                "question": "Availability of equipment & instruments for treatment procedures, being undertaken in the facility",
+                                "uuid": "bad8ad38-f1fd-4763-922b-fe3a442b133d"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "4f2d76c1-8da0-4b77-ad15-85881ab33025",
+                            "checkpoints": [
+                              {
+                                "question": "Availability of equipment & instruments for diagnostic procedures being undertaken in the facility",
+                                "uuid": "d61debc2-c7d4-4d3f-8f95-291db87b5f30"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "0bf51baf-5634-469b-a9d7-0326dd5dd4b9",
+                            "checkpoints": [
+                              {
+                                "question": "Availability of equipment and instruments for resuscitation of patients and for providing intensive and critical care to patients",
+                                "uuid": "a512dd8d-8106-43a0-98fe-8ae717d469ad"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "a49ba819-94fc-47e0-a0bf-e09a4046afc3",
+                            "checkpoints": [
+                              {
+                                "question": "Availability of Equipment for Storage",
+                                "uuid": "0a927e52-d2c1-491b-b5da-d7a8ad162dcf"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "00748815-3d22-4acc-90d5-02f28a278a87",
+                            "checkpoints": [
+                              {
+                                "question": "Availability of functional equipment and instruments for support services",
+                                "uuid": "ee195b8e-2c66-46bc-8343-e7b31b30fa68"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "a1bcbaf1-a9c6-4015-8bdb-70ad61032b00",
+                            "checkpoints": [
+                              {
+                                "question": "Departments have patient furniture and fixtures as per load and service provision",
+                                "uuid": "c8b81422-e0e1-4901-bf30-df65ef3b03a2"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ],
+                    "referenceUUID": "743fe8fd-3e83-4556-9b2f-36d7b06ebd26"
+                  },
+                  {
+                    "applicableStandards": [
+                      {
+                        "referenceUUID": "e1818317-1512-495b-b884-d8538af931c4",
+                        "applicableMeasurableElements": [
+                          {
+                            "referenceUUID": "41e78e74-1d5d-46c9-b1e9-9527b6441149",
+                            "checkpoints": [
+                              {
+                                "question": "The facility has established system for maintenance of critical Equipment",
+                                "uuid": "e62db17f-5913-4bb9-8ba8-cbaf3e055f91"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "b0be0c2b-6d78-4ee1-b6b2-bf1a6294b103",
+                            "checkpoints": [
+                              {
+                                "question": "The facility has established procedure for internal and external calibration of measuring Equipment",
+                                "uuid": "df8fcc3e-ba61-425f-8d73-5e911849af4e"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "7d89e837-2312-4221-8696-31938db9f0d6",
+                            "checkpoints": [
+                              {
+                                "question": "Operating and maintenance instructions are available with the users of equipment",
+                                "uuid": "907bfc43-3dbe-41f7-9a14-852fb9bd5e8e"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "referenceUUID": "b893e358-61a0-4d5e-9b5b-2d90667ff355",
+                        "applicableMeasurableElements": [
+                          {
+                            "referenceUUID": "23755add-75c4-4c49-bb35-9925377384a9",
+                            "checkpoints": [
+                              {
+                                "question": "There is established procedure for forecasting and indenting drugs and consumables",
+                                "uuid": "f45e85e0-5fb4-41cb-ad0f-c097549bf933"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "f0136446-223d-4b57-8f15-ff68a740e9fd",
+                            "checkpoints": [
+                              {
+                                "question": "The facility has establish procedure for procurement of drugs",
+                                "uuid": "b74460c5-d4fa-4768-9f4f-3b84ba8f7f13"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "dbe03164-8863-4b37-81c3-58b7c3a4596a",
+                            "checkpoints": [
+                              {
+                                "question": "The facility ensures proper storage of drugs and consumables",
+                                "uuid": "aeafafc3-0a09-4ad0-be6b-fec4f2d0a7f4"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "f1975f13-8ee6-40e0-a1ad-155e8c8a9533",
+                            "checkpoints": [
+                              {
+                                "question": "The facility ensures management of expiry and near expiry drugs",
+                                "uuid": "a6ef1863-2a65-4d46-a248-be5ffe419592"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "7ceb1f93-8766-4803-97ea-9b1f1838f934",
+                            "checkpoints": [
+                              {
+                                "question": "The facility has established procedure for inventory management techniques",
+                                "uuid": "aea3c0dc-395c-4187-8a42-a337e9f5f3f7"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "3a14e0e4-a104-4e1e-a6d3-d32e8cbf4080",
+                            "checkpoints": [
+                              {
+                                "question": "There is a procedure for periodically replenishing the drugs in patient care areas",
+                                "uuid": "f43b55eb-08ae-4db8-ba79-30ddb1b88a3e"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "bab926ba-2a3a-434b-a051-6867dfca747a",
+                            "checkpoints": [
+                              {
+                                "question": "There is process for storage of vaccines and other drugs, requiring controlled temperature",
+                                "uuid": "f752a4be-7161-46f6-9d25-57e7188dc2b4"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "17c33702-0c41-4027-9438-9c88eba9587a",
+                            "checkpoints": [
+                              {
+                                "question": "There is a procedure for secure storage of narcotic and psychotropic drugs",
+                                "uuid": "0619407b-9e00-452e-af23-17f8f3a4e2ab"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "referenceUUID": "10b7c3c5-cb0c-4115-88e1-5d76d9819a1f",
+                        "applicableMeasurableElements": [
+                          {
+                            "referenceUUID": "bba9e81e-c201-43a7-8740-0dbc7244cba9",
+                            "checkpoints": [
+                              {
+                                "question": "The facility provides adequate illumination level at patient care areas",
+                                "uuid": "eb1f0ce5-5dda-4c5d-a4bc-59b28eee7ee3"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "0a886c87-f5cf-4acb-8812-be9bfe551c6e",
+                            "checkpoints": [
+                              {
+                                "question": "The facility has provision of restriction of visitors in patient areas",
+                                "uuid": "76a05c31-3da4-4066-8be3-90dc407dbb5f"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "aee14a75-9d9e-40c6-8955-2bb5ea36e359",
+                            "checkpoints": [
+                              {
+                                "question": "The facility ensures safe and comfortable environment for patients and service providers",
+                                "uuid": "f6f54f46-6a10-4a6c-be08-c097078b57c9"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "b31c263c-ddd8-40a9-990b-929945f84694",
+                            "checkpoints": [
+                              {
+                                "question": "The facility has security system in place at patient care areas",
+                                "uuid": "dad70fd5-1992-484c-ba6d-9d979eba4bb0"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "636e2504-c1f2-4824-8620-38dadd0cc185",
+                            "checkpoints": [
+                              {
+                                "question": "The facility has established measure for safety and security of female staff",
+                                "uuid": "9b4181c5-5888-4cbd-be1a-b8293590b1e5"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "referenceUUID": "dab1f3d1-5c95-471f-be98-63442e2c9a5f",
+                        "applicableMeasurableElements": [
+                          {
+                            "referenceUUID": "32a42e3d-2eda-4616-b8d9-fec6b7f15603",
+                            "checkpoints": [
+                              {
+                                "question": "Exterior of the  facility building is maintained appropriately",
+                                "uuid": "a0ed4aa4-3087-468e-a631-82fb154d180e"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "59d005a9-f37c-468f-8e7f-d459c9ccbc0e",
+                            "checkpoints": [
+                              {
+                                "question": "Patient care areas are clean and hygienic",
+                                "uuid": "6ee78139-fd44-415f-9cac-7f9bb3e2a42c"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "3004e9c9-d7d1-4199-a58a-2b9582bf8eec",
+                            "checkpoints": [
+                              {
+                                "question": "Hospital infrastructure is adequately maintained",
+                                "uuid": "3ddffff3-6586-4d8e-8baf-f6c7339021f5"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "2f1afd21-2d4e-4bed-86d8-868eede2bd17",
+                            "checkpoints": [
+                              {
+                                "question": "Hospital maintains  open area and landscaping",
+                                "uuid": "22a64006-7aa6-4cc7-912c-48d74b810882"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "336df7a0-f879-4c7b-ab81-c17d699256cc",
+                            "checkpoints": [
+                              {
+                                "question": "The facility has policy of removal of condemned junk material",
+                                "uuid": "1cb28808-582d-477a-b7ce-d7aa13a6196b"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "e4355565-d2a2-4d7c-a800-d8048da108cb",
+                            "checkpoints": [
+                              {
+                                "question": "The facility has established procedures for pest, rodent and animal control",
+                                "uuid": "9fdb8635-3a90-4d97-97da-96fb1a1552b6"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "referenceUUID": "ec2aac43-651b-408e-9b5a-0239e65fdef7",
+                        "applicableMeasurableElements": [
+                          {
+                            "referenceUUID": "84251f56-32d8-4f76-b0a3-94f8c42d1b64",
+                            "checkpoints": [
+                              {
+                                "question": "The facility has adequate arrangement storage and supply for portable water in all functional areas",
+                                "uuid": "57e6d559-8460-4d51-8958-aaa2a720ccbc"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "be09885d-6835-4c3d-8ea7-0dc50f592363",
+                            "checkpoints": [
+                              {
+                                "question": "The facility ensures adequate power backup in all patient care areas as per load",
+                                "uuid": "38f8b4cf-6586-4a2d-a29a-193daaff1eec"
+                              }
+                            ]
+                          },
+                          {
+                            "referenceUUID": "b8921f8e-1dd4-4932-81fd-4dcd70cef920",
+                            "checkpoints": [
+                              {
+                                "question": "Critical areas of the facility ensures availability of oxygen, medical gases and vacuum supply",
+                                "uuid": "ebc89a4a-3981-4809-ad5f-b1fa5f14e8ea"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ],
+                    "referenceUUID": "ab8520b0-2f9b-4561-9126-b6c4940f38f4"
+                  }
+                ]
+              },
+              {
                 "name": "Accident and Emergency",
                 "areasOfConcern": [
                   {

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Text, StyleSheet, View} from 'react-native';
 import Path from '../../framework/routing/Path';
 import AbstractComponent from "../common/AbstractComponent";
-import {Container, Header, Title, Content, Icon, Tabs} from 'native-base';
+import {Container, Header, Title, Content, Icon, Tabs, Footer, FooterTab, Button} from 'native-base';
 import PrimaryColors from "../styles/PrimaryColors";
 import FlatUITheme from '../themes/flatUI';
 import TypedTransition from "../../framework/routing/TypedTransition";
@@ -19,6 +19,7 @@ class ModeSelection extends AbstractComponent {
     });
 
     render() {
+
         return (
             <Container theme={FlatUITheme} style={ModeSelection.styles.checklistContainer}>
                 <Header>

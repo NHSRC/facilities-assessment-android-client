@@ -1,9 +1,14 @@
 import React, {Component} from 'react';
-import {Text, StyleSheet, View} from 'react-native';
+import {Text, StyleSheet, View, ScrollView} from 'react-native';
 import AbstractComponent from "../common/AbstractComponent";
-import {Card, CardItem} from 'native-base';
-import FlatUITheme from '../themes/flatUI';
+import {Button, Icon} from 'native-base';
+import PrimaryColors from '../styles/PrimaryColors';
+import Typography from '../styles/Typography';
+import MedIcon from '../styles/MedIcons';
 import Actions from "../../action";
+import _ from 'lodash';
+import iconMapping from '../styles/departmentIconMapping.json';
+
 
 class AssessmentMode extends AbstractComponent {
     constructor(props, context) {
@@ -16,10 +21,32 @@ class AssessmentMode extends AbstractComponent {
     static styles = StyleSheet.create({
         tabContainer: {
             flex: 1,
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+        },
+        buttonsContainer: {
+            flex: 1,
             flexDirection: 'row',
             flexWrap: 'wrap',
-            justifyContent: 'flex-start',
+            justifyContent: 'space-between',
             alignItems: 'flex-start'
+        },
+        deptButton: {
+            borderColor: PrimaryColors.textBold,
+            borderWidth: 2,
+            margin: 10,
+            width: 260
+        },
+        innerButton: {
+            flex: 1,
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            alignItems: 'center',
+        },
+        buttonText: {
+            color: PrimaryColors.textBold,
+            fontWeight: "400",
         }
     });
 
@@ -37,10 +64,25 @@ class AssessmentMode extends AbstractComponent {
     }
 
     render() {
-        const allDepts = this.state.allDepartments.map((dept, idx)=>(<Text key={idx}>{dept}</Text>));
+        const allDepts = this.state.allDepartments.map((department, idx)=>
+            (<Button key={idx} style={AssessmentMode.styles.deptButton} bordered large info>
+                <View style={AssessmentMode.styles.innerButton}>
+                    <Text style={AssessmentMode.styles.buttonText}>
+                        {department}
+                    </Text>
+                    <MedIcon style={AssessmentMode.styles.buttonText}
+                             size={23} name={iconMapping[department]}/>
+                </View>
+            </Button>)
+        );
         return (
             <View style={AssessmentMode.styles.tabContainer}>
-                {allDepts}
+                <Text style={[AssessmentMode.styles.buttonText, Typography.paperFontDisplay1]}>
+                    Select a Department
+                </Text>
+                <View style={AssessmentMode.styles.buttonsContainer}>
+                    {allDepts}
+                </View>
             </View>
         );
     }
