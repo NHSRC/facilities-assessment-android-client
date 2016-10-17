@@ -56,13 +56,19 @@ const facilitySelected = function (state, action, beans) {
     return Object.assign(state, {"facilitySelected": true});
 };
 
+const reset_form = function (state, action, bean) {
+    action.cb();
+    return Object.assign(state, {facilitySelected: false});
+};
+
 export default new Map([
     ["ALL_STATES", allStates],
     ["SELECT_STATE", selectState],
     ["SELECT_DISTRICT", selectDistrict],
     ["SELECT_FACILITY_TYPE", selectFacilityType],
     ["SELECT_FACILITY", selectFacility],
-    ["FACILITY_SELECT", facilitySelected]
+    ["FACILITY_SELECT", facilitySelected],
+    ["RESET_FORM", reset_form]
 ]);
 
 export let facilitySelectionInit = {

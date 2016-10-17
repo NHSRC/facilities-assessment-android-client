@@ -36,7 +36,7 @@ class FacilitySelection extends AbstractComponent {
     }
 
     changeView() {
-        TypedTransition.from(this).with({selectedFacility: this.state.selectedFacility}).to(ModeSelection);
+        this.dispatchAction(Actions.RESET_FORM, {cb: ()=>TypedTransition.from(this).with({selectedFacility: this.state.selectedFacility}).to(ModeSelection)})
     }
 
     getPickers() {
