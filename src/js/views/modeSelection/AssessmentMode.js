@@ -67,7 +67,10 @@ class AssessmentMode extends AbstractComponent {
     }
 
     handleOnPress(department) {
-        return ()=>TypedTransition.from(this).with({selectedDepartment: department}).to(Assessment);
+        return ()=>TypedTransition.from(this).with({
+            selectedDepartment: department,
+            departments: this.state.allDepartments
+        }).to(Assessment);
     }
 
     render() {

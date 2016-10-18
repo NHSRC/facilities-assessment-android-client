@@ -1,6 +1,7 @@
 import loginActions, {loginInit} from '../action/login';
 import departmentSelectionActions, {departmentSelectionInit} from '../action/departmentSelection';
 import facilitySelectionActions, {facilitySelectionInit} from '../action/facilitiySelection';
+import assessmentActions, {assessmentInit} from '../action/assessment';
 import Reducer from './Reducer';
 
 export default (beans) => {
@@ -20,6 +21,11 @@ export default (beans) => {
             "stateKey": "departmentSelection",
             "actions": departmentSelectionActions,
             "initState": departmentSelectionInit
+        },
+        {
+            "stateKey": "assessment",
+            "actions": assessmentActions,
+            "initState": assessmentInit
         }
     ].forEach(({stateKey, actions, initState})=> {
         reducerMap[stateKey] = Reducer.factory(actions, initState, beans);
