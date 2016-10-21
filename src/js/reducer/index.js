@@ -6,6 +6,7 @@ import Reducer from './Reducer';
 
 export default (beans) => {
     var reducerMap = {};
+
     [
         {
             "stateKey": "login",
@@ -30,5 +31,6 @@ export default (beans) => {
     ].forEach(({stateKey, actions, initState})=> {
         reducerMap[stateKey] = Reducer.factory(actions, initState, beans);
     });
+
     return reducerMap;
 }

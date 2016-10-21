@@ -12,8 +12,8 @@ class AbstractComponent extends Component {
         getService: React.PropTypes.func.isRequired,
     };
 
-    dispatchAction(action, params) {
-        this.context.getStore().dispatch({"type": action, ...params});
+    dispatchAction(actionName, params) {
+        this.context.getStore().dispatch({"type": actionName, ...params});
     }
 }
 

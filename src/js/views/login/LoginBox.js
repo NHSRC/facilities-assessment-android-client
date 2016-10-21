@@ -1,11 +1,9 @@
-import React, {Component} from 'react';
-import {Text, StyleSheet, View} from 'react-native';
-import PrimaryColors from '../styles/PrimaryColors';
-import UsernameInput from './UsernameInput';
-import PasswordInput from './PasswordInput';
-import Typography from '../styles/Typography';
-import {Container, Content, List} from 'native-base';
-import FlatUITheme from '../themes/flatUI';
+import React, {Component} from "react";
+import {Text, StyleSheet, View} from "react-native";
+import UsernameInput from "./UsernameInput";
+import PasswordInput from "./PasswordInput";
+import {Container, Content, List} from "native-base";
+import FlatUITheme from "../themes/flatUI";
 import AbstractComponent from "../common/AbstractComponent";
 import SubmitButton from "../common/SubmitButton";
 import Actions from "../../action";

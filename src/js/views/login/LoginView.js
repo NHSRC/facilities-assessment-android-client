@@ -8,6 +8,7 @@ import LoginBox from './LoginBox';
 import AbstractComponent from "../common/AbstractComponent";
 import TypedTransition from "../../framework/routing/TypedTransition";
 import FacilitySelection from "../facilitySelection/FacilitySelection";
+import AssessmentTools from "../assessmentTools/AssessmentTools";
 
 @PathRoot
 @Path("/login")
@@ -27,14 +28,17 @@ class LoginView extends AbstractComponent {
             flexDirection: 'column',
             justifyContent: 'flex-start'
         },
+        loginPadding: {
+            flex: 1,
+        },
         loginHeader: {
-            flex: 5,
+            flex: 2,
             alignSelf: 'center',
             flexDirection: 'row',
             justifyContent: 'center',
         },
-        loginPadding: {
-            flex: 1,
+        assessmentTools: {
+            flex: 3,
         }
     });
 
@@ -65,7 +69,8 @@ class LoginView extends AbstractComponent {
                     <Text style={[Typography.paperFontDisplay1, {color: PrimaryColors.textBold}]}>Facilities
                         Assessment</Text>
                 </View>
-                <LoginBox username={this.state.username} password={this.state.password}/>
+                <AssessmentTools style={LoginView.styles}/>
+                {/*<LoginBox username={this.state.username} password={this.state.password}/>*/}
                 <View style={LoginView.styles.loginPadding}/>
             </View>);
     }

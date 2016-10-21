@@ -1,15 +1,12 @@
-import React, {Component} from 'react';
-import {Text, StyleSheet, View, ScrollView} from 'react-native';
-import Path, {PathRoot} from '../../framework/routing/Path';
+import React, {Component} from "react";
+import {Text, StyleSheet, View, ScrollView} from "react-native";
+import Path from "../../framework/routing/Path";
 import AbstractComponent from "../common/AbstractComponent";
-import {Container, Header, Title, Content, Card, CardItem} from 'native-base';
-import MedIcon from '../styles/MedIcons';
-import {Grid, Col, Row} from 'react-native-easy-grid';
+import {Container, Header, Title, Content} from "native-base";
+import {Grid} from "react-native-easy-grid";
 import PrimaryColors from "../styles/PrimaryColors";
-import FlatUITheme from '../themes/flatUI';
-import iconMapping from '../styles/departmentIconMapping.json';
-import TypedTransition from "../../framework/routing/TypedTransition";
-import PickerHeader from './PickerHeader';
+import FlatUITheme from "../themes/flatUI";
+import PickerHeader from "./PickerHeader";
 import Actions from "../../action";
 
 @Path("/assessment")

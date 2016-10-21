@@ -1,14 +1,14 @@
 import AssessmentService from "../../service/AssessmentService";
 import FacilitiesService from "../../service/FacilitiesService";
 
-const initialData = function (state, action, beans) {
+const initialData = function (state, actionParams, beans) {
     const assessmentService = beans.get(AssessmentService);
-    const areasOfConcern = assessmentService.getAreasOfConcernFor(action.department);
+    const areasOfConcern = assessmentService.getAreasOfConcernFor(actionParams.department);
     const standards = assessmentService.getStandardsFor(areasOfConcern[0].uuid);
     const standard = assessmentService.getStandard(standards[0].uuid);
     return Object.assign(state, {
-        departments: action.departments,
-        selectedDepartment: action.department,
+        departments: actionParams.departments,
+        selectedDepartment: actionParams.department,
         areasOfConcern: areasOfConcern,
         selectedAreaOfConcern: areasOfConcern[0].name,
         standards: standards,
@@ -17,8 +17,8 @@ const initialData = function (state, action, beans) {
     });
 };
 
-const selectDepartment = function (state, action, beans) {
-    return Object.assign(state, {selectedDepartment: action.department});
+const selectDepartment = function (state, actionParams, beans) {
+    return Object.assign(state, {selectedDepartment: actionParams.department});
 };
 
 const id = (state)=>state;
