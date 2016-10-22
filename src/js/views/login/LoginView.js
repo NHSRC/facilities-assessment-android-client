@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Text, StyleSheet, View} from 'react-native';
-import Path, {PathRoot} from '../../framework/routing/Path';
+import Path from '../../framework/routing/Path';
 import PrimaryColors from '../styles/PrimaryColors';
 import Typography from '../styles/Typography';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -8,9 +8,7 @@ import LoginBox from './LoginBox';
 import AbstractComponent from "../common/AbstractComponent";
 import TypedTransition from "../../framework/routing/TypedTransition";
 import FacilitySelection from "../facilitySelection/FacilitySelection";
-import AssessmentTools from "../assessmentTools/AssessmentTools";
 
-@PathRoot
 @Path("/login")
 class LoginView extends AbstractComponent {
     constructor(props, context) {
@@ -69,8 +67,7 @@ class LoginView extends AbstractComponent {
                     <Text style={[Typography.paperFontDisplay1, {color: PrimaryColors.textBold}]}>Facilities
                         Assessment</Text>
                 </View>
-                <AssessmentTools style={LoginView.styles}/>
-                {/*<LoginBox username={this.state.username} password={this.state.password}/>*/}
+                <LoginBox username={this.state.username} password={this.state.password}/>
                 <View style={LoginView.styles.loginPadding}/>
             </View>);
     }
