@@ -3,8 +3,9 @@ import {Text, StyleSheet, View} from 'react-native';
 import Path from '../../framework/routing/Path';
 import FlatUITheme from '../themes/flatUI';
 import AbstractComponent from "../common/AbstractComponent";
-import {Header, Container, Content, Title, Icon} from 'native-base';
+import {Header, Container, Content, Title, Icon, Button} from 'native-base';
 import PrimaryColors from "../styles/PrimaryColors";
+import Typography from "../styles/Typography";
 import Actions from '../../action';
 import PickerList from './PickerList';
 import SubmitButton from "../common/SubmitButton";
@@ -92,6 +93,12 @@ class FacilitySelection extends AbstractComponent {
                     <Title>Facilities Assessment</Title>
                 </Header>
                 <Content>
+                    <Button block disabled style={{backgroundColor: PrimaryColors.darkBlue}}>
+                        <Text
+                            style={[Typography.paperFontSubhead, {color: PrimaryColors.background}]}>
+                            {this.props.params.assessmentToolName}
+                        </Text>
+                    </Button>
                     <PickerList pickers={pickersToRender}/>
                     {this.renderSubmitButton()}
                 </Content>

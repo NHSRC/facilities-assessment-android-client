@@ -42,11 +42,11 @@ class AssessmentTools extends AbstractComponent {
             flex: 3,
             flexDirection: 'row',
             justifyContent: 'space-around',
-            alignItems: 'center',
         },
         assessmentButton: {
             backgroundColor: PrimaryColors.textBold,
-            width: 200,
+            flex: 1,
+            margin: 10,
         }
     });
 
