@@ -3,6 +3,7 @@ export default class BaseService {
         this.db = db;
         this.beanStore = beanStore;
         this.init = this.init.bind(this);
+        this.save = this.save.bind(this);
     }
 
     init() {
@@ -10,5 +11,12 @@ export default class BaseService {
 
     getService(name) {
         return this.beanStore.getBean(name);
+    }
+
+    save(entityClass) {
+        return (entity)=> {
+            this.db.write(()=>this.db.create(entityClass.schema.name, entity, true));
+            return this.db.objectForPrimaryKey(entityClass.schema.name, entity.uuid);
+        }
     }
 }

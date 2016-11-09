@@ -10,11 +10,7 @@ import FacilityType from "../models/FacilityType";
 class FacilitiesService extends BaseService {
     constructor(db, beanStore) {
         super(db, beanStore);
-    }
-
-    saveFacilityType(facilityType) {
-        this.db.write(()=>this.db.create(FacilityType.schema.name, facilityType, true));
-        return this.db.objectForPrimaryKey(FacilityType.schema.name, facilityType.uuid);
+        this.saveFacilityType = this.save(FacilityType);
     }
 
     getAllStates() {

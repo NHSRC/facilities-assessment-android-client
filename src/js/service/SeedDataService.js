@@ -2,30 +2,66 @@ import BaseService from "./BaseService";
 import Service from "../framework/bean/Service";
 import regions from "../../config/regions.json";
 import facilityTypes from "../../config/facilityTypes.json";
+import departments from "../../config/departments.json";
+import assessmentTypes from "../../config/assessmentTypes.json";
+import areasOfConcern from "../../config/areasOfConcern.json";
 import RegionService from "./RegionService";
 import FacilitiesService from "./FacilitiesService";
+import DepartmentService from "./DepartmentService";
+import AssessmentService from "./AssessmentService";
 
 @Service("seedDataService")
 class SeedDataService extends BaseService {
     constructor(db, beanStore) {
         super(db, beanStore);
+        this.create = this.create.bind(this);
     }
 
     init() {
-        this.createAllRegions();
-        this.createAllFacilityTypes();
+        if (this.isNotSeeded()) {
+            this.createAll();
+        }
     }
 
-    createAllFacilityTypes() {
-        this.facilitiesService = this.getService(FacilitiesService);
-        const createdFacilityTypes = facilityTypes.map(this.facilitiesService.saveFacilityType);
-
+    isNotSeeded() {
+        return this.getService(RegionService).getAllRegions().length === 0;
     }
 
-    createAllRegions() {
-        this.regionService = this.getService(RegionService);
-        const createdRegions = regions.map(this.regionService.saveRegion);
+    createAll() {
+        [
+            {
+                "service": AssessmentService,
+                "method": "saveAssessmentType",
+                "entity": assessmentTypes
+            },
+            {
+                "service": AssessmentService,
+                "method": "saveAreaOfConcern",
+                "entity": areasOfConcern
+            },
+            {
+                "service": DepartmentService,
+                "method": "saveDepartment",
+                "entity": departments
+            },
+            {
+                "service": FacilitiesService,
+                "method": "saveFacilityType",
+                "entity": facilityTypes
+            },
+            {
+                "service": RegionService,
+                "method": "saveRegion",
+                "entity": regions
+            }
+        ].map(this.create);
     }
+
+    create(seedEntity) {
+        var serviceInstance = this.getService(seedEntity.service);
+        seedEntity.entity.map((e)=>serviceInstance[seedEntity.method](e));
+    }
+
 }
 
 export default SeedDataService;

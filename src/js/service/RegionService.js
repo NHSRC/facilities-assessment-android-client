@@ -7,15 +7,14 @@ import Region from "../models/Region";
 class RegionService extends BaseService {
     constructor(db, beanStore) {
         super(db, beanStore);
-        this.saveRegion = this.saveRegion.bind(this);
+        this.saveRegion = this.save(Region);
     }
 
     init() {
     }
 
-    saveRegion(region) {
-        this.db.write(()=>this.db.create(Region.schema.name, region, true));
-        return this.db.objectForPrimaryKey(Region.schema.name, region.uuid);
+    getAllRegions() {
+        return this.db.objects(Region.schema.name);
     }
 }
 
