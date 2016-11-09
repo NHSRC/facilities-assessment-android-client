@@ -1,6 +1,3 @@
-import ReferenceMeasurableElement from "./ReferenceMeasurableElement";
-import ReferenceStandard from "./ReferenceStandard";
-import ReferenceAreaOfConcern from "./ReferenceAreaOfConcern";
 import Checkpoint from "./Checkpoint";
 import MeasurableElement from "./MeasurableElement";
 import Standard from "./Standard";
@@ -11,7 +8,8 @@ import AssessmentType from "./AssessmentType";
 import Facility from "./Facility";
 import District from "./District";
 import State from "./State";
+import Region from "./Region";
 
 export default {
-    schema: [ReferenceMeasurableElement, ReferenceStandard, ReferenceAreaOfConcern, Checkpoint, MeasurableElement, Standard, AreaOfConcern, Department, FacilityType, AssessmentType, Facility, District, State]
+    schema: [Region, Checkpoint, MeasurableElement, Standard, AreaOfConcern, Department, FacilityType, AssessmentType, Facility, District, State]
 };

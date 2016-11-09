@@ -1,9 +1,11 @@
 class MeasurableElement {
     static schema = {
         name: 'MeasurableElement',
+        primaryKey: 'uuid',
         properties: {
-            referenceUUID: 'string',
-            checkpoints: {type: 'list', objectType: 'Checkpoint'}
+            name: 'string',
+            uuid: 'string',
+            reference: 'string'
         }
     }
 }

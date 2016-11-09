@@ -5,6 +5,7 @@ import AppStoreFactory from './store/AppStore';
 import Realm from "realm";
 import models from './models';
 import BeanRegistry from "./framework/bean/BeanRegistry";
+import SeedDataService from "./service/SeedDataService";
 
 export default class App extends Component {
 

@@ -1,0 +1,47 @@
+[
+  {
+    "uuid": "8c015aec-ce43-4646-ae8b-db855c851214",
+    "name": "Availability of comprehensive obstetric services",
+    "meansOfVerification": "",
+    "measurableElement": "3c025cbf-74ea-46b3-a6dd-fe3a3f2349d2",
+    "checklist": "835bd6f5-287a-4b82-b8d9-dc93e1343b24",
+    "isDefault": true,
+    "state": "a62e279c-014c-4901-93b4-aa55f7492a02"
+  },
+  {
+    "uuid": "7e74e365-d155-4892-be1e-475cb21af32f",
+    "name": "Labour room service are functional 24X7",
+    "meansOfVerification": "",
+    "measurableElement": "d12581b3-ea5a-47ae-ac28-d266c06a1a3a",
+    "checklist": "835bd6f5-287a-4b82-b8d9-dc93e1343b24",
+    "isDefault": true,
+    "state": "a62e279c-014c-4901-93b4-aa55f7492a02"
+  },
+  {
+    "uuid": "07306a14-b559-4995-8605-53a4b92b954f",
+    "name": "Availability of dedicated paediatric ward",
+    "meansOfVerification": "",
+    "measurableElement": "9c32e470-aa74-4229-b0ff-a1858799105b",
+    "checklist": "06c410fa-2b9a-481f-baeb-e99e85a7d67a",
+    "isDefault": true,
+    "state": "a62e279c-014c-4901-93b4-aa55f7492a02"
+  },
+  {
+    "uuid": "8fdf34d9-6866-4f47-a7a8-8f8e812d642e",
+    "name": "Availability of isolation room",
+    "meansOfVerification": "",
+    "measurableElement": "9c32e470-aa74-4229-b0ff-a1858799105b",
+    "checklist": "06c410fa-2b9a-481f-baeb-e99e85a7d67a",
+    "isDefault": true,
+    "state": "a62e279c-014c-4901-93b4-aa55f7492a02"
+  },
+  {
+    "uuid": "3abcf38b-31e0-45ef-87c7-7952351125ca",
+    "name": "Availability of nursing care services 24X7",
+    "meansOfVerification": "",
+    "measurableElement": "d12581b3-ea5a-47ae-ac28-d266c06a1a3a",
+    "checklist": "06c410fa-2b9a-481f-baeb-e99e85a7d67a",
+    "isDefault": true,
+    "state": "a62e279c-014c-4901-93b4-aa55f7492a02"
+  }
+]

@@ -1,9 +1,10 @@
 class State {
     static schema = {
         name: 'State',
-        primaryKey: 'name',
+        primaryKey: 'uuid',
         properties: {
             name: 'string',
+            uuid: 'string',
             districts: {type: 'list', objectType: 'District'}
         }
     }

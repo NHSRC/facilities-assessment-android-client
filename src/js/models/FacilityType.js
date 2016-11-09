@@ -1,9 +1,10 @@
 class FacilityType {
     static schema = {
         name: 'FacilityType',
-        primaryKey: 'name',
+        primaryKey: 'uuid',
         properties: {
-            name: 'string'
+            name: 'string',
+            uuid: 'string'
         }
     }
 }

@@ -1,9 +1,12 @@
 class Standard {
     static schema = {
         name: 'Standard',
+        primaryKey: 'uuid',
         properties: {
-            referenceUUID: 'string',
-            applicableMeasurableElements: {type: 'list', objectType: 'MeasurableElement'}
+            name: 'string',
+            uuid: 'string',
+            reference: 'string',
+            measurableElements: {type: 'list', objectType: 'MeasurableElement'}
         }
     }
 }

@@ -3,8 +3,13 @@ class Checkpoint {
         name: 'Checkpoint',
         primaryKey: 'uuid',
         properties: {
-            uuid: 'string',
-            question: 'string'
+            name: "string",
+            uuid: "string",
+            meansOfVerification: {type: "string", optional: true},
+            measurableElement: "string",
+            checklist: "string",
+            isDefault: {type: "bool", default: true},
+            state: "string"
         }
     }
 }

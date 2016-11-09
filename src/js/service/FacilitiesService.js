@@ -1,19 +1,20 @@
 import BaseService from "./BaseService";
 import Service from "../framework/bean/Service";
-import seedReference from '../../config/seedReference.json';
-import seed from '../../config/seed.json';
 import _ from 'lodash';
 import State from "../models/State";
 import District from "../models/District";
-import ReferenceAreaOfConcern from "../models/ReferenceAreaOfConcern";
 import Facility from "../models/Facility";
+import FacilityType from "../models/FacilityType";
 
 @Service("facilitiesService")
 class FacilitiesService extends BaseService {
     constructor(db, beanStore) {
         super(db, beanStore);
-        this.db.write(()=>seedReference.map((refAOC)=>this.db.create(ReferenceAreaOfConcern.schema.name, refAOC, true)));
-        this.db.write(()=>seed.map((state)=>this.db.create(State.schema.name, state, true)));
+    }
+
+    saveFacilityType(facilityType) {
+        this.db.write(()=>this.db.create(FacilityType.schema.name, facilityType, true));
+        return this.db.objectForPrimaryKey(FacilityType.schema.name, facilityType.uuid);
     }
 
     getAllStates() {

@@ -1,9 +1,10 @@
 class AssessmentType {
     static schema = {
         name: 'AssessmentType',
-        primaryKey: 'name',
+        primaryKey: 'uuid',
         properties: {
-            name: 'string'
+            name: 'string',
+            uuid: 'string'
         }
     }
 }

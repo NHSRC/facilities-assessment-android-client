@@ -1,0 +1,14 @@
+[
+  {
+    "name": "District Hospital",
+    "uuid": "2681eb75-072d-407d-b363-77d0637beb0c"
+  },
+  {
+    "name": "Primary Health Center",
+    "uuid": "354b88eb-94af-4bf3-8c2a-84116de5b227"
+  },
+  {
+    "name": "Community Hospital",
+    "uuid": "960cca17-fedc-4566-ab25-5da1b5d54d88"
+  }
+]

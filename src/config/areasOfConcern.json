@@ -1,0 +1,239 @@
+[
+  {
+    "name": "Service Provision",
+    "uuid": "82334bef-b2ee-4bc7-9c21-1e894b707e89",
+    "reference": "A",
+    "standards": [
+      {
+        "name": "Facility Provides Curative Services",
+        "reference": "A1",
+        "uuid": "0cbfcadd-11a2-4209-aec3-b8b0172b758a",
+        "measurableElements": [
+          {
+            "name": "The facility provides General Medicine services",
+            "uuid": "1e214e10-6c7f-4b9d-8f83-70ea0f95756a",
+            "reference": "A1.1"
+          },
+          {
+            "name": "The facility provides General Surgery services",
+            "uuid": "c3b3b208-3730-4f9f-9ad0-139bb62f59b7",
+            "reference": "A1.2"
+          },
+          {
+            "name": "The facility provides Obstetrics & Gynaecology Services",
+            "uuid": "3c025cbf-74ea-46b3-a6dd-fe3a3f2349d2",
+            "reference": "A1.3"
+          },
+          {
+            "name": "The facility provides Paediatric Services",
+            "uuid": "9c32e470-aa74-4229-b0ff-a1858799105b",
+            "reference": "A1.4"
+          },
+          {
+            "name": "The facility provides Ophthalmology Services",
+            "uuid": "8da6d394-c8e4-46ad-ae5d-b65008e9bfea",
+            "reference": "A1.5"
+          },
+          {
+            "name": "The facility provides ENT Services",
+            "uuid": "2a11ed01-7632-40a5-9185-3e47ac3918db",
+            "reference": "A1.6"
+          },
+          {
+            "name": "The facility provides Orthopaedics Services",
+            "uuid": "7ad857dd-27e1-4d0b-9d04-8d659eb02834",
+            "reference": "A1.7"
+          },
+          {
+            "name": "The facility provides Skin & VD Services",
+            "uuid": "afb75b6c-f255-4599-a155-37b71a8f884a",
+            "reference": "A1.8"
+          },
+          {
+            "name": "The facility provides Psychiatry Services",
+            "uuid": "816fc827-e874-44e9-9493-7ba81d95026c",
+            "reference": "A1.9"
+          },
+          {
+            "name": "The facility provides Dental Treatment Services",
+            "uuid": "09c2ed0b-2c41-4cb5-ba54-1b8e96510cd8",
+            "reference": "A1.10"
+          },
+          {
+            "name": "The facility provides AYUSH Services",
+            "uuid": "fc20c990-9be4-4f7d-aae9-65656d5dbbc2",
+            "reference": "A1.11"
+          },
+          {
+            "name": "The facility provides Physiotherapy Services",
+            "uuid": "bc1fc432-711e-4720-9bb6-b67a5cf4c69e",
+            "reference": "A1.12"
+          },
+          {
+            "name": "The facility provides services for OPD procedures",
+            "uuid": "94daa85f-b5a5-4459-a2a1-8d2be7440546",
+            "reference": "A1.13"
+          },
+          {
+            "name": "Services are available for the time period as mandated",
+            "uuid": "d12581b3-ea5a-47ae-ac28-d266c06a1a3a",
+            "reference": "A1.14"
+          },
+          {
+            "name": "The facility provides services for Super specialties, as mandated",
+            "uuid": "8e760762-5b98-404b-8a73-61bc8d7f6b0f",
+            "reference": "A1.15"
+          },
+          {
+            "name": "The facility provides Accident & Emergency Services",
+            "uuid": "2d8495a6-9d90-451c-95ea-3f29b8659779",
+            "reference": "A1.16"
+          },
+          {
+            "name": "The facility provides Intensive care Services",
+            "uuid": "62070ca4-30a0-4cb2-880a-21c8c063678f",
+            "reference": "A1.17"
+          },
+          {
+            "name": "The facility provides Blood bank & transfusion services",
+            "uuid": "481c406c-2a9b-44bc-a377-ee3a8ee51790",
+            "reference": "A1.18"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Patient Rights",
+    "uuid": "46693321-eb35-4b10-84d9-6a2c30197ce9",
+    "reference": "B",
+    "standards": [
+      {
+        "name": "Facility provides the information to care seekers, attendants & community about the available  services  and their modalities",
+        "reference": "B1",
+        "uuid": "fdd69e91-8269-4ade-aedd-3fba5299556f",
+        "measurableElements": [
+          {
+            "name": "The facility has uniform and user-friendly signage system",
+            "uuid": "02d1d03b-5c27-46f9-8594-9ad3b31df30b",
+            "reference": "B1.1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Inputs",
+    "uuid": "170aa2b4-1a11-43fa-ba5f-53c4ce0630f4",
+    "reference": "C",
+    "standards": [
+      {
+        "name": "The facility has infrastructure for delivery of assured services, and available infrastructure meets the prevalent norms",
+        "reference": "C1",
+        "uuid": "003c6de6-e47e-4a6b-9560-540bbe7eed2e",
+        "measurableElements": [
+          {
+            "name": "Departments have adequate space as per patient or work load",
+            "uuid": "153fc1f3-bbe3-4985-a85d-5ebc258dbd48",
+            "reference": "C1.1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Support Services",
+    "uuid": "b1f343f1-0f65-47bf-ac7c-a6cf80520f70",
+    "reference": "D",
+    "standards": [
+      {
+        "name": "The facility has established Programme for inspection, testing and maintenance and calibration of Equipment",
+        "reference": "D1",
+        "uuid": "2c429bbb-6d4c-43d6-ace5-f087a6345013",
+        "measurableElements": [
+          {
+            "name": "The facility has established system for maintenance of critical Equipment",
+            "uuid": "7ad7890a-6077-47e6-9dfa-bd953a2b183e",
+            "reference": "D1.1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Clinical Services",
+    "uuid": "792fbbfb-995a-47b9-8f23-7150503e7350",
+    "reference": "E",
+    "standards": [
+      {
+        "name": "The facility has defined procedures for registration,  consultation and admission of patients",
+        "reference": "E1",
+        "uuid": "2823b2b2-2154-4422-ba26-0d96515720cc",
+        "measurableElements": [
+          {
+            "name": "The facility has established procedure for registration of patients",
+            "uuid": "bd961a41-b332-4ad4-a2ed-ea2f3a7ce78e",
+            "reference": "E1.1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Infection Control",
+    "uuid": "c65e6089-404f-408f-88a0-4068028607d4",
+    "reference": "F",
+    "standards": [
+      {
+        "name": "Facility has infection control program and procedures in place for prevention and measurement of hospital associated infection",
+        "reference": "F1",
+        "uuid": "a1b96bb5-93ec-4a30-b42a-c0b298456e93",
+        "measurableElements": [
+          {
+            "name": "Facility  has provision for Passive  and active culture surveillance of critical & high risk areas",
+            "uuid": "7d81aaea-15c8-4f87-bdf1-9241f45e945b",
+            "reference": "F1.1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Quality Management",
+    "uuid": "317fcb4c-f403-47a9-988c-7debbe1294fc",
+    "reference": "G",
+    "standards": [
+      {
+        "name": "The facility has established organizational framework for quality improvement",
+        "reference": "G1",
+        "uuid": "6f5dade8-e14b-494d-ac4e-01ae2659b750",
+        "measurableElements": [
+          {
+            "name": "The facility has a quality team in place",
+            "uuid": "a2adcc52-6720-495f-94d2-79df492e73f5",
+            "reference": "G1.1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Outcome",
+    "uuid": "e3d76318-82bd-4de9-b385-2bf83966ba37",
+    "reference": "H",
+    "standards": [
+      {
+        "name": "The facility measures Productivity Indicators and ensures compliance with State/National benchmarks",
+        "reference": "H1",
+        "uuid": "04227db3-39dd-481a-b150-4c01c5b9a4fe",
+        "measurableElements": [
+          {
+            "name": "Facility measures productivity Indicators on monthly basis",
+            "uuid": "b73d18cd-4c36-481e-8536-ebf498826263",
+            "reference": "H1.1"
+          }
+        ]
+      }
+    ]
+  }
+]

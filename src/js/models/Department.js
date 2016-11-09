@@ -1,10 +1,10 @@
 class Department {
     static schema = {
         name: 'Department',
-        primaryKey: 'name',
+        primaryKey: 'uuid',
         properties: {
             name: 'string',
-            areasOfConcern: {type: 'list', objectType: 'AreaOfConcern'}
+            uuid: 'string'
         }
     }
 }

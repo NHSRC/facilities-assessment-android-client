@@ -2,11 +2,8 @@ import BaseService from "./BaseService";
 import Service from "../framework/bean/Service";
 import _ from 'lodash';
 import Department from "../models/Department";
-import ReferenceAreaOfConcern from "../models/ReferenceAreaOfConcern";
 import AreaOfConcern from "../models/AreaOfConcern";
-import ReferenceStandard from "../models/ReferenceStandard";
 import Standard from "../models/Standard";
-import ReferenceMeasurableElement from "../models/ReferenceMeasurableElement";
 
 @Service("assessmentService")
 class AssessmentService extends BaseService {
@@ -17,7 +14,7 @@ class AssessmentService extends BaseService {
     getAreasOfConcernFor(departmentName) {
         return this.db.objectForPrimaryKey(Department.schema.name, departmentName)
             .areasOfConcern
-            .map((aoc)=>this.db.objectForPrimaryKey(ReferenceAreaOfConcern.schema.name, aoc.referenceUUID))
+            .map((aoc)=>this.db.objectForPrimaryKey(AreaOfConcern.schema.name, aoc.referenceUUID))
             .map((aoc)=>_.pick(aoc, ['uuid', 'name', 'reference']));
     }
 
@@ -25,7 +22,7 @@ class AssessmentService extends BaseService {
         return this.db.objects(AreaOfConcern.schema.name)
             .filtered("referenceUUID = $0", areaOfConcernUUID)[0]
             .applicableStandards
-            .map((standard)=>this.db.objectForPrimaryKey(ReferenceStandard.schema.name, standard.referenceUUID))
+            .map((standard)=>this.db.objectForPrimaryKey(Standard.schema.name, standard.referenceUUID))
             .map((standard)=>_.pick(standard, ['name', 'uuid', 'reference']));
     }
 
@@ -34,7 +31,7 @@ class AssessmentService extends BaseService {
             .filtered("referenceUUID = $0", standardUUID)[0];
 
         var measurableElements = standard.applicableMeasurableElements
-            .map((measurableElement)=>_.merge(this.db.objectForPrimaryKey(ReferenceMeasurableElement.schema.name, measurableElement.referenceUUID), measurableElement))
+            .map((measurableElement)=>_.merge(this.db.objectForPrimaryKey(AreaOfConcern.schema.name, measurableElement.referenceUUID), measurableElement))
             .map((measurableElement)=>_.merge(measurableElement, {
                 checkpoints: measurableElement.checkpoints
                     .map((checkpoint)=>_.pick(checkpoint, ['question', 'uuid']))

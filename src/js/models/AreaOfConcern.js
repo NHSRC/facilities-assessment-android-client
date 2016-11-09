@@ -1,9 +1,12 @@
 class AreaOfConcern {
     static schema = {
         name: 'AreaOfConcern',
+        primaryKey: 'uuid',
         properties: {
-            referenceUUID: 'string',
-            applicableStandards: {type: 'list', objectType: 'Standard'}
+            name: 'string',
+            uuid: 'string',
+            reference: 'string',
+            standards: {type: 'list', objectType: 'Standard'}
         }
     }
 }

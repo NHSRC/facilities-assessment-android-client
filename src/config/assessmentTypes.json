@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Urban Primary Health Center",
+    "uuid": "9ad6d761-46ab-412e-ba63-a1b836cb1bf1"
+  },
+  {
+    "name": "District Hospital",
+    "uuid": "c76a1683-ea08-4472-a7b2-6588716501e5"
+  },
+  {
+    "name": "Community Health Center",
+    "uuid": "2ada7ffa-63c5-44d5-ba28-f7dd19eaf45e"
+  },
+  {
+    "name": "Rural Primary Health Center",
+    "uuid": "d8de2716-cc30-4af7-9011-638e34077222"
+  },
+  {
+    "name": "Kayakalp",
+    "uuid": "b92c5338-11ba-49dc-b81d-ddaf1683f5ea"
+  }
+]

@@ -1,14 +1,14 @@
-class Facility {
+class Region {
     static schema = {
-        name: 'Facility',
+        name: 'Region',
         primaryKey: 'uuid',
         properties: {
             name: 'string',
             uuid: 'string',
-            facilityType: 'string'
+            states: {type: 'list', objectType: 'State'}
         }
     }
 }
 
 
-export default Facility;
+export default Region;

@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Labour Room",
+    "uuid": "20cef8c0-3c81-4357-a525-842760e32c7a"
+  },
+  {
+    "name": "Maternity Ward",
+    "uuid": "4a26ee42-e128-4334-ba0b-a7cbb573769d"
+  },
+  {
+    "name": "Emergency Ward",
+    "uuid": "9f97b8f4-2884-4aa1-b132-bc751ea16f03"
+  },
+  {
+    "name": "Mortuary",
+    "uuid": "f6870947-b9fe-4991-9118-b853dbb3b147"
+  },
+  {
+    "name": "Laboratory",
+    "uuid": "8e620698-39aa-4647-8b63-36413d43a995"
+  },
+  {
+    "name": "Pediatric Ward",
+    "uuid": "08787b7f-8afd-4b52-bb56-1c850e718d6a"
+  }
+]
