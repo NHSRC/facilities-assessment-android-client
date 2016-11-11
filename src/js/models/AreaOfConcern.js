@@ -1,3 +1,4 @@
+import Standard from "./Standard";
 class AreaOfConcern {
     static schema = {
         name: 'AreaOfConcern',
@@ -8,6 +9,12 @@ class AreaOfConcern {
             reference: 'string',
             standards: {type: 'list', objectType: 'Standard'}
         }
+    };
+
+    static fromDB(realmObj) {
+        realmObj = Object.assign({}, realmObj);
+        realmObj.standards = realmObj.standards.map(Standard.fromDB);
+        return realmObj;
     }
 }
 

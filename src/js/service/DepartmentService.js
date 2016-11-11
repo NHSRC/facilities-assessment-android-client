@@ -13,6 +13,10 @@ class DepartmentService extends BaseService {
     init() {
     }
 
+    getDepartment(departmentUUID) {
+        return this.nameAndId(this.db.objectForPrimaryKey(Department.schema.name, departmentUUID));
+    }
+
 }
 
 export default DepartmentService;

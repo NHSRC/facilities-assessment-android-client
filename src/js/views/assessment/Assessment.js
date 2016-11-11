@@ -34,8 +34,7 @@ class Assessment extends AbstractComponent {
 
     componentDidMount() {
         this.dispatchAction(Actions.INITIAL_DATA, {
-            department: this.props.params.selectedDepartment,
-            departments: this.props.params.departments
+            checklist: this.props.params.selectedChecklist,
         });
     }
 
@@ -47,7 +46,7 @@ class Assessment extends AbstractComponent {
                 </Header>
                 <Content>
                     <Grid>
-                        <PickerHeader data={this.state}/>
+                        {/*<PickerHeader data={this.state}/>*/}
                     </Grid>
                 </Content>
             </Container>

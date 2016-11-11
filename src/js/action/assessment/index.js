@@ -1,19 +1,10 @@
-import AssessmentService from "../../service/AssessmentService";
-import FacilitiesService from "../../service/FacilitiesService";
+import ChecklistService from "../../service/ChecklistService";
 
 const initialData = function (state, actionParams, beans) {
-    const assessmentService = beans.get(AssessmentService);
-    const areasOfConcern = assessmentService.getAreasOfConcernFor(actionParams.department);
-    const standards = assessmentService.getStandardsFor(areasOfConcern[0].uuid);
-    const standard = assessmentService.getStandard(standards[0].uuid);
+    const checklistService = beans.get(ChecklistService);
+    const checklist = checklistService.getChecklist(actionParams.checklist.uuid);
     return Object.assign(state, {
-        departments: actionParams.departments,
-        selectedDepartment: actionParams.department,
-        areasOfConcern: areasOfConcern,
-        selectedAreaOfConcern: areasOfConcern[0].name,
-        standards: standards,
-        standard: standard,
-        selectedStandard: standard.name
+        checklist: checklist
     });
 };
 
@@ -32,10 +23,5 @@ export default new Map([
 ]);
 
 export let assessmentInit = {
-    departments: [],
-    selectedDepartment: "",
-    areasOfConcern: [],
-    selectedAreaOfConcern: "",
-    standards: [],
-    standard: ""
+    checklist: {},
 };

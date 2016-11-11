@@ -7,6 +7,10 @@ class MeasurableElement {
             uuid: 'string',
             reference: 'string'
         }
+    };
+
+    static fromDB(realmObj) {
+        return realmObj;
     }
 }
 

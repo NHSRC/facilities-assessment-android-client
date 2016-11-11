@@ -34,7 +34,7 @@ class AssessmentMode extends AbstractComponent {
             justifyContent: 'space-between',
             alignItems: 'flex-start'
         },
-        deptButton: {
+        checklistButton: {
             borderColor: PrimaryColors.textBold,
             borderWidth: 2,
             margin: 10,
@@ -68,28 +68,27 @@ class AssessmentMode extends AbstractComponent {
 
     handleOnPress(checklist) {
         return ()=>TypedTransition.from(this).with({
-            selectedChecklist: checklist,
-            checklists: this.state.checklists
+            selectedChecklist: checklist
         }).to(Assessment);
     }
 
     render() {
         const allChecklists = this.state.checklists.map((checklist, idx)=>
-            (<Button key={idx} onPress={this.handleOnPress(checklist)} style={AssessmentMode.styles.deptButton}
+            (<Button key={idx} onPress={this.handleOnPress(checklist)} style={AssessmentMode.styles.checklistButton}
                      bordered large info>
                 <View style={AssessmentMode.styles.innerButton}>
                     <Text style={AssessmentMode.styles.buttonText}>
                         {checklist.name}
                     </Text>
                     <MedIcon style={AssessmentMode.styles.buttonText}
-                             size={25} name={iconMapping[checklist.name]}/>
+                             size={25} name={iconMapping[checklist.department.name]}/>
                 </View>
             </Button>)
         );
         return (
             <View style={AssessmentMode.styles.tabContainer}>
                 <Text style={[AssessmentMode.styles.buttonText, Typography.paperFontDisplay1]}>
-                    Select a Department
+                    Select a Checklist
                 </Text>
                 <View style={AssessmentMode.styles.buttonsContainer}>
                     {allChecklists}

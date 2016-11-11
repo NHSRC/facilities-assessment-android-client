@@ -6,6 +6,7 @@ export default class BaseService {
         this.init = this.init.bind(this);
         this.save = this.save.bind(this);
         this.nameAndId = this.nameAndId.bind(this);
+        this.pickKeys = this.pickKeys.bind(this);
     }
 
     init() {
@@ -15,6 +16,13 @@ export default class BaseService {
         return this.beanStore.getBean(name);
     }
 
+    fromStringObj(key) {
+        return (entity)=> {
+            entity[key] = entity[key].map((strObj)=>strObj.value);
+            return entity;
+        }
+    }
+
     toStringObj(key) {
         return (entity)=> {
             entity[key] = entity[key].map((str)=> {
@@ -22,6 +30,10 @@ export default class BaseService {
             });
             return entity;
         };
+    }
+
+    pickKeys(keys) {
+        return (obj)=>_.pick(obj, ["name", "uuid"].concat(keys));
     }
 
     nameAndId(obj) {

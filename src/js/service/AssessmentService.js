@@ -12,44 +12,15 @@ class AssessmentService extends BaseService {
         super(db, beanStore);
         this.saveAssessmentType = this.save(AssessmentType);
         this.saveAreaOfConcern = this.save(AreaOfConcern);
+        this.getAreaOfConcern = this.getAreaOfConcern.bind(this);
     }
 
     getAssessmentTypes() {
         return this.db.objects(AssessmentType.schema.name).map(this.nameAndId);
     }
 
-    getAreasOfConcernFor(departmentName) {
-        return this.db.objectForPrimaryKey(Department.schema.name, departmentName)
-            .areasOfConcern
-            .map((aoc)=>this.db.objectForPrimaryKey(AreaOfConcern.schema.name, aoc.referenceUUID))
-            .map((aoc)=>_.pick(aoc, ['uuid', 'name', 'reference']));
-    }
-
-    getStandardsFor(areaOfConcernUUID) {
-        return this.db.objects(AreaOfConcern.schema.name)
-            .filtered("referenceUUID = $0", areaOfConcernUUID)[0]
-            .applicableStandards
-            .map((standard)=>this.db.objectForPrimaryKey(Standard.schema.name, standard.referenceUUID))
-            .map((standard)=>_.pick(standard, ['name', 'uuid', 'reference']));
-    }
-
-    getStandard(standardUUID) {
-        const standard = this.db.objects(Standard.schema.name)
-            .filtered("referenceUUID = $0", standardUUID)[0];
-
-        var measurableElements = standard.applicableMeasurableElements
-            .map((measurableElement)=>_.merge(this.db.objectForPrimaryKey(AreaOfConcern.schema.name, measurableElement.referenceUUID), measurableElement))
-            .map((measurableElement)=>_.merge(measurableElement, {
-                checkpoints: measurableElement.checkpoints
-                    .map((checkpoint)=>_.pick(checkpoint, ['question', 'uuid']))
-            }));
-
-        return {
-            "uuid": standardUUID,
-            "measurableElements": measurableElements
-                .map((measurableElement)=>_.pick(measurableElement, ['uuid', 'checkpoints', 'question', 'reference']))
-        };
-
+    getAreaOfConcern(aocUUID) {
+        return this.db.objectForPrimaryKey(AreaOfConcern.schema.name, aocUUID);
     }
 }
 
