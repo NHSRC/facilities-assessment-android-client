@@ -18,7 +18,6 @@ class ModeSelection extends AbstractComponent {
     });
 
     render() {
-
         return (
             <Container theme={FlatUITheme} style={ModeSelection.styles.checklistContainer}>
                 <Header>
@@ -26,7 +25,8 @@ class ModeSelection extends AbstractComponent {
                 </Header>
                 <Content>
                     <Tabs>
-                        <AssessmentMode facilityName={this.props.params.selectedFacility} tabLabel="Assessment"/>
+                        <AssessmentMode assessmentType={this.props.params.selectedAssessmentType}
+                                        tabLabel="Assessment"/>
                         <ScoreMode tabLabel="Scores"/>
                     </Tabs>
 

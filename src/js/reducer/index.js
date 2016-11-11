@@ -1,5 +1,5 @@
 import loginActions, {loginInit} from '../action/login';
-import departmentSelectionActions, {departmentSelectionInit} from '../action/departmentSelection';
+import checklistSelectionActions, {checklistSelectionInit} from '../action/checklistSelection';
 import facilitySelectionActions, {facilitySelectionInit} from '../action/facilitiySelection';
 import assessmentActions, {assessmentInit} from '../action/assessment';
 import Reducer from './Reducer';
@@ -19,9 +19,9 @@ export default (beans) => {
             "initState": facilitySelectionInit
         },
         {
-            "stateKey": "departmentSelection",
-            "actions": departmentSelectionActions,
-            "initState": departmentSelectionInit
+            "stateKey": "checklistSelection",
+            "actions": checklistSelectionActions,
+            "initState": checklistSelectionInit
         },
         {
             "stateKey": "assessment",

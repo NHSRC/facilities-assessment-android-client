@@ -38,7 +38,12 @@ class FacilitySelection extends AbstractComponent {
     }
 
     changeView() {
-        this.dispatchAction(Actions.RESET_FORM, {cb: ()=>TypedTransition.from(this).with({selectedFacility: this.state.selectedFacility}).to(ModeSelection)})
+        this.dispatchAction(Actions.RESET_FORM, {
+            cb: ()=>TypedTransition.from(this).with({
+                selectedAssessmentType: this.state.selectedAssessmentType,
+                selectedFacility: this.state.selectedFacility
+            }).to(ModeSelection)
+        })
     }
 
     getPickers() {
@@ -87,7 +92,7 @@ class FacilitySelection extends AbstractComponent {
     }
 
     renderSubmitButton() {
-        if (!_.isNil(this.state.selectedFacility)) {
+        if (!_.isNil(this.state.selectedAssessmentType)) {
             return (
                 <SubmitButton buttonIcon="launch" onPress={()=>this.dispatchAction(Actions.FACILITY_SELECT)}
                               buttonText={"Go"}/>);

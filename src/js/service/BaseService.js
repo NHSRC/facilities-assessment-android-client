@@ -1,3 +1,4 @@
+import _ from 'lodash';
 export default class BaseService {
     constructor(db, beanStore) {
         this.db = db;
@@ -14,13 +15,22 @@ export default class BaseService {
         return this.beanStore.getBean(name);
     }
 
+    toStringObj(key) {
+        return (entity)=> {
+            entity[key] = entity[key].map((str)=> {
+                return {"value": str}
+            });
+            return entity;
+        };
+    }
+
     nameAndId(obj) {
         return _.pick(obj, ["name", "uuid"])
     }
 
-    save(entityClass) {
+    save(entityClass, transformFN = _.identity) {
         return (entity)=> {
-            this.db.write(()=>this.db.create(entityClass.schema.name, entity, true));
+            this.db.write(()=>this.db.create(entityClass.schema.name, transformFN(entity), true));
             return this.db.objectForPrimaryKey(entityClass.schema.name, entity.uuid);
         }
     }

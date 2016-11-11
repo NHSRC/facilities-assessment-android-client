@@ -15,8 +15,8 @@ class AssessmentMode extends AbstractComponent {
     constructor(props, context) {
         super(props, context);
         const store = context.getStore();
-        this.state = store.getState().departmentSelection;
-        this.unsubscribe = store.subscribeTo('departmentSelection', this.handleChange.bind(this));
+        this.state = store.getState().checklistSelection;
+        this.unsubscribe = store.subscribeTo('checklistSelection', this.handleChange.bind(this));
         this.handleOnPress = this.handleOnPress.bind(this);
     }
 
@@ -54,35 +54,35 @@ class AssessmentMode extends AbstractComponent {
     });
 
     handleChange() {
-        const newState = this.context.getStore().getState().departmentSelection;
+        const newState = this.context.getStore().getState().checklistSelection;
         this.setState(newState);
     }
 
     componentDidMount() {
-        this.dispatchAction(Actions.ALL_DEPARTMENTS, {facilityName: this.props.facilityName});
+        this.dispatchAction(Actions.ALL_CHECKLISTS, {assessmentType: this.props.assessmentType});
     }
 
     componentWillUnmount() {
         this.unsubscribe();
     }
 
-    handleOnPress(department) {
+    handleOnPress(checklist) {
         return ()=>TypedTransition.from(this).with({
-            selectedDepartment: department,
-            departments: this.state.allDepartments
+            selectedChecklist: checklist,
+            checklists: this.state.checklists
         }).to(Assessment);
     }
 
     render() {
-        const allDepts = this.state.allDepartments.map((department, idx)=>
-            (<Button key={idx} onPress={this.handleOnPress(department)} style={AssessmentMode.styles.deptButton}
+        const allChecklists = this.state.checklists.map((checklist, idx)=>
+            (<Button key={idx} onPress={this.handleOnPress(checklist)} style={AssessmentMode.styles.deptButton}
                      bordered large info>
                 <View style={AssessmentMode.styles.innerButton}>
                     <Text style={AssessmentMode.styles.buttonText}>
-                        {department}
+                        {checklist.name}
                     </Text>
                     <MedIcon style={AssessmentMode.styles.buttonText}
-                             size={25} name={iconMapping[department]}/>
+                             size={25} name={iconMapping[checklist.name]}/>
                 </View>
             </Button>)
         );
@@ -92,7 +92,7 @@ class AssessmentMode extends AbstractComponent {
                     Select a Department
                 </Text>
                 <View style={AssessmentMode.styles.buttonsContainer}>
-                    {allDepts}
+                    {allChecklists}
                 </View>
             </View>
         );

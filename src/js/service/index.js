@@ -3,3 +3,4 @@ export * from './AssessmentService';
 export * from './SeedDataService';
 export * from './RegionService';
 export * from './DepartmentService';
+export * from './ChecklistService';
