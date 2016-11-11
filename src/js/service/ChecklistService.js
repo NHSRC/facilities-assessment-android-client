@@ -50,9 +50,11 @@ class ChecklistService extends BaseService {
                             })
                             .filter((me)=>!_.isNil(me.checkpoints));
                         return standard;
-                    });
+                    })
+                    .filter((standard)=>!_.isEmpty(standard.measurableElements));
                 return aoc;
             });
+        console.log(checklist);
         return checklist;
     }
 }
