@@ -10,7 +10,6 @@ import Path, {PathRoot} from "../../framework/routing/Path";
 import Typography from '../styles/Typography';
 import FlatUITheme from "../themes/flatUI";
 
-@PathRoot
 @Path("/assessmentTools")
 class AssessmentTools extends AbstractComponent {
 

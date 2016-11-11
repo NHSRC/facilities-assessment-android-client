@@ -30,21 +30,6 @@ class SeedDataService extends BaseService {
     createAll() {
         [
             {
-                "service": AssessmentService,
-                "method": "saveAssessmentType",
-                "entity": assessmentTypes
-            },
-            {
-                "service": AssessmentService,
-                "method": "saveAreaOfConcern",
-                "entity": areasOfConcern
-            },
-            {
-                "service": DepartmentService,
-                "method": "saveDepartment",
-                "entity": departments
-            },
-            {
                 "service": FacilitiesService,
                 "method": "saveFacilityType",
                 "entity": facilityTypes
@@ -53,13 +38,28 @@ class SeedDataService extends BaseService {
                 "service": RegionService,
                 "method": "saveRegion",
                 "entity": regions
+            },
+            {
+                "service": AssessmentService,
+                "method": "saveAssessmentType",
+                "entity": assessmentTypes
+            },
+            {
+                "service": DepartmentService,
+                "method": "saveDepartment",
+                "entity": departments
+            },
+            {
+                "service": AssessmentService,
+                "method": "saveAreaOfConcern",
+                "entity": areasOfConcern
             }
         ].map(this.create);
     }
 
     create(seedEntity) {
         var serviceInstance = this.getService(seedEntity.service);
-        seedEntity.entity.map((e)=>serviceInstance[seedEntity.method](e));
+        return seedEntity.entity.map((e)=>serviceInstance[seedEntity.method](e));
     }
 
 }

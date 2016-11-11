@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Text, StyleSheet, View} from 'react-native';
-import Path from '../../framework/routing/Path';
+import Path, {PathRoot} from '../../framework/routing/Path';
 import FlatUITheme from '../themes/flatUI';
 import AbstractComponent from "../common/AbstractComponent";
 import {Header, Container, Content, Title, Icon, Button} from 'native-base';
@@ -12,6 +12,7 @@ import SubmitButton from "../common/SubmitButton";
 import TypedTransition from "../../framework/routing/TypedTransition";
 import ModeSelection from "../modeSelection/ModeSelection";
 
+@PathRoot
 @Path("/facilitySelection")
 class FacilitySelection extends AbstractComponent {
     constructor(props, context) {
@@ -24,7 +25,7 @@ class FacilitySelection extends AbstractComponent {
     static styles = StyleSheet.create({
         facilitySelectionContainer: {
             backgroundColor: PrimaryColors.background
-        }
+        },
     });
 
     handleChange() {
@@ -65,6 +66,14 @@ class FacilitySelection extends AbstractComponent {
                 "action": Actions.SELECT_FACILITY,
                 "message": "Select a Facility",
                 "label": "Facility"
+            },
+            {
+                "selectedValue": this.state.selectedAssessmentType,
+                "items": this.state.assessmentTypes,
+                "stateKey": "selectedAssessmentType",
+                "action": Actions.SELECT_ASSESSMENT_TYPE,
+                "message": "Select an Assessment Type",
+                "label": "Assessment Type"
             }
         ];
     }
@@ -93,12 +102,6 @@ class FacilitySelection extends AbstractComponent {
                     <Title>Facilities Assessment</Title>
                 </Header>
                 <Content>
-                    <Button block disabled style={{backgroundColor: PrimaryColors.darkBlue}}>
-                        <Text
-                            style={[Typography.paperFontSubhead, {color: PrimaryColors.background}]}>
-                            {this.props.params.assessmentToolName}
-                        </Text>
-                    </Button>
                     <PickerList pickers={pickersToRender}/>
                     {this.renderSubmitButton()}
                 </Content>

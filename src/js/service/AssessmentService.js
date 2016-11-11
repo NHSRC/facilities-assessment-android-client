@@ -14,6 +14,10 @@ class AssessmentService extends BaseService {
         this.saveAreaOfConcern = this.save(AreaOfConcern);
     }
 
+    getAssessmentTypes() {
+        return this.db.objects(AssessmentType.schema.name).map(this.nameAndId);
+    }
+
     getAreasOfConcernFor(departmentName) {
         return this.db.objectForPrimaryKey(Department.schema.name, departmentName)
             .areasOfConcern

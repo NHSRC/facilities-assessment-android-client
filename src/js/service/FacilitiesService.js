@@ -14,20 +14,20 @@ class FacilitiesService extends BaseService {
     }
 
     getAllStates() {
-        return this.db.objects(State.schema.name).map((state)=>state.name);
+        return this.db.objects(State.schema.name).map(this.nameAndId);
     }
 
-    getAllDistrictsFor(stateName) {
-        return this.db.objectForPrimaryKey(State.schema.name, stateName).districts.map((district)=>district.name);
+    getAllDistrictsFor(stateUUID) {
+        return this.db.objectForPrimaryKey(State.schema.name, stateUUID).districts.map(this.nameAndId);
     }
 
-    getAllFacilitiesFor(districtName) {
-        return this.db.objectForPrimaryKey(District.schema.name, districtName).facilities
-            .map((facility)=>facility.name);
+    getAllFacilitiesFor(districtUUID) {
+        return this.db.objectForPrimaryKey(District.schema.name, districtUUID).facilities
+            .map(this.nameAndId);
     }
 
-    getAllDepartmentsFor(facilityName) {
-        return this.db.objectForPrimaryKey(Facility.schema.name, facilityName).departments.map((dept)=>dept.name);
+    getAllDepartmentsFor(facilityUUID) {
+        return this.db.objectForPrimaryKey(Facility.schema.name, facilityUUID).departments.map(this.nameAndId);
     }
 }
 

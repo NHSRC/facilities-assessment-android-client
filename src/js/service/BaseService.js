@@ -4,6 +4,7 @@ export default class BaseService {
         this.beanStore = beanStore;
         this.init = this.init.bind(this);
         this.save = this.save.bind(this);
+        this.nameAndId = this.nameAndId.bind(this);
     }
 
     init() {
@@ -11,6 +12,10 @@ export default class BaseService {
 
     getService(name) {
         return this.beanStore.getBean(name);
+    }
+
+    nameAndId(obj) {
+        return _.pick(obj, ["name", "uuid"])
     }
 
     save(entityClass) {

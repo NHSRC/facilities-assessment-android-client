@@ -18,11 +18,11 @@ class PickerList extends AbstractComponent {
         }
     });
 
-    pickerValueChanged(action, stateKey, message) {
-        return (value)=> {
+    pickerValueChanged(action, stateKey, message, items) {
+        return (value, valueIdx)=> {
             if (value === message) return;
             var actionParams = {};
-            actionParams[stateKey] = value;
+            actionParams[stateKey] = items[valueIdx - 1];
             this.dispatchAction(action, actionParams);
         };
     }
@@ -30,7 +30,7 @@ class PickerList extends AbstractComponent {
     renderPicker(picker, index) {
         const pickerItems = [<Item key={-1} label={picker.message}
                                    value={picker.message}/>].concat(picker.items.map((item, idx)=>(
-            <Item key={idx} label={item} value={item}/>)));
+            <Item key={idx} label={item.name} value={item.uuid}/>)));
         return (
             <Card key={index}>
                 <CardItem header>
@@ -40,8 +40,8 @@ class PickerList extends AbstractComponent {
                     <Picker style={PickerList.styles.cardItemColor}
                             key={index}
                             mode="dropdown"
-                            selectedValue={picker.selectedValue}
-                            onValueChange={this.pickerValueChanged(picker.action, picker.stateKey, picker.message)}>
+                            selectedValue={picker.selectedValue ? picker.selectedValue.uuid : picker.selectedValue}
+                            onValueChange={this.pickerValueChanged(picker.action, picker.stateKey, picker.message, picker.items)}>
                         {pickerItems}
                     </Picker>
                 </CardItem>
