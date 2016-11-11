@@ -1,27 +1,27 @@
 import ChecklistService from "../../service/ChecklistService";
+import _ from 'lodash';
 
 const initialData = function (state, actionParams, beans) {
     const checklistService = beans.get(ChecklistService);
-    const checklist = checklistService.getChecklist(actionParams.checklist.uuid);
+    var checklist = checklistService.getChecklist(actionParams.checklist.uuid);
+    checklist.areasOfConcern[0].visible = true;
     return Object.assign(state, {
         checklist: checklist
     });
 };
 
-const selectDepartment = function (state, actionParams, beans) {
-    return Object.assign(state, {selectedDepartment: actionParams.department});
+const expandAreaOfConcern = function (state, actionParams, beans) {
+    state.checklist.areasOfConcern = state.checklist.areasOfConcern
+        .map((aoc)=>aoc.visible = actionParams.expandAoc.uuid === aoc.uuid);
+    return Object.assign({}, {checklist: state.checklist});
 };
-
-const id = (state)=>state;
 
 
 export default new Map([
     ["INITIAL_DATA", initialData],
-    ["SELECT_DEPARTMENT", selectDepartment],
-    ["SELECT_AREA_OF_CONCERN", id],
-    ["SELECT_STANDARD", id]
+    ["EXPAND_AREA_OF_CONCERN", expandAreaOfConcern]
 ]);
 
 export let assessmentInit = {
-    checklist: {},
+    checklist: {areasOfConcern: [], name: ""},
 };

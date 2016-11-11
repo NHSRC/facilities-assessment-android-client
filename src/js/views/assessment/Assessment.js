@@ -2,12 +2,11 @@ import React, {Component} from "react";
 import {Text, StyleSheet, View, ScrollView} from "react-native";
 import Path from "../../framework/routing/Path";
 import AbstractComponent from "../common/AbstractComponent";
-import {Container, Header, Title, Content} from "native-base";
-import {Grid} from "react-native-easy-grid";
+import {Container, Header, Title, Content, Icon, Button, List, ListItem} from "native-base";
 import PrimaryColors from "../styles/PrimaryColors";
-import FlatUITheme from "../themes/flatUI";
-import PickerHeader from "./PickerHeader";
+import FlatUITheme from "../themes/flatUIAssessment";
 import Actions from "../../action";
+import TypedTransition from "../../framework/routing/TypedTransition";
 
 @Path("/assessment")
 class Assessment extends AbstractComponent {
@@ -38,16 +37,28 @@ class Assessment extends AbstractComponent {
         });
     }
 
+    renderAreaOfConcern(aoc) {
+        return ()=>this.dispatchAction(Actions.EXPAND_AREA_OF_CONCERN, {expandAoc: aoc})
+    }
+
     render() {
+        const areasOfConcern = this.state.checklist.areasOfConcern.map((aoc, idx)=>
+            <ListItem key={idx} itemDivider button iconLeft onPress={this.renderAreaOfConcern(aoc)}>
+                <Icon name={aoc.visible ? "expand-less" : "expand-more"} style={{fontSize: 40}}/>
+                <Text style={{fontSize: 25}}>{`${aoc.reference}: ${aoc.name}`}</Text>
+            </ListItem>);
         return (
             <Container theme={FlatUITheme} style={Assessment.styles.assessmentContainer}>
                 <Header>
-                    <Title>Facilities Assessment</Title>
+                    <Button transparent onPress={()=>TypedTransition.from(this).goBack()}>
+                        <Icon name='arrow-back'/>
+                    </Button>
+                    <Title>{this.state.checklist.name}</Title>
                 </Header>
                 <Content>
-                    <Grid>
-                        {/*<PickerHeader data={this.state}/>*/}
-                    </Grid>
+                    <List>
+                        {areasOfConcern}
+                    </List>
                 </Content>
             </Container>
 

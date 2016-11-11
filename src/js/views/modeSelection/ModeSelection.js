@@ -7,10 +7,10 @@ import PrimaryColors from "../styles/PrimaryColors";
 import FlatUITheme from '../themes/flatUI';
 import AssessmentMode from './AssessmentMode';
 import ScoreMode from './ScoreMode';
+import TypedTransition from "../../framework/routing/TypedTransition";
 
 @Path("/modeSelection")
 class ModeSelection extends AbstractComponent {
-
     static styles = StyleSheet.create({
         checklistContainer: {
             backgroundColor: PrimaryColors.background,
@@ -21,6 +21,9 @@ class ModeSelection extends AbstractComponent {
         return (
             <Container theme={FlatUITheme} style={ModeSelection.styles.checklistContainer}>
                 <Header>
+                    <Button transparent onPress={()=>TypedTransition.from(this).goBack()}>
+                        <Icon name='arrow-back'/>
+                    </Button>
                     <Title>Facilities Assessment</Title>
                 </Header>
                 <Content>

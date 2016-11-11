@@ -54,7 +54,6 @@ class ChecklistService extends BaseService {
                     .filter((standard)=>!_.isEmpty(standard.measurableElements));
                 return aoc;
             });
-        console.log(checklist);
         return checklist;
     }
 }

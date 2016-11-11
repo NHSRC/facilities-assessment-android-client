@@ -40,7 +40,10 @@ class FacilitySelection extends AbstractComponent {
     changeView() {
         this.dispatchAction(Actions.RESET_FORM, {
             cb: ()=>TypedTransition.from(this).with({
-                selectedAssessmentType: this.state.selectedAssessmentType,
+                selectedAssessmentType: {
+                    "name": "Urban Primary Health Center",
+                    "uuid": "9ad6d761-46ab-412e-ba63-a1b836cb1bf1"
+                },
                 selectedFacility: this.state.selectedFacility
             }).to(ModeSelection)
         })
@@ -92,7 +95,7 @@ class FacilitySelection extends AbstractComponent {
     }
 
     renderSubmitButton() {
-        if (!_.isNil(this.state.selectedAssessmentType)) {
+        if (!_.isNil(this.state.selectedAssessmentType)|| true) {
             return (
                 <SubmitButton buttonIcon="launch" onPress={()=>this.dispatchAction(Actions.FACILITY_SELECT)}
                               buttonText={"Go"}/>);
