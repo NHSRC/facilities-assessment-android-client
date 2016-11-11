@@ -11,9 +11,17 @@ const initialData = function (state, actionParams, beans) {
 };
 
 const expandAreaOfConcern = function (state, actionParams, beans) {
-    state.checklist.areasOfConcern = state.checklist.areasOfConcern
-        .map((aoc)=>aoc.visible = actionParams.expandAoc.uuid === aoc.uuid);
-    return Object.assign({}, {checklist: state.checklist});
+    var newState = _.merge({}, state);
+    newState.checklist.areasOfConcern = newState.checklist.areasOfConcern
+        .map((aoc)=> {
+            if (actionParams.expandAoc.uuid === aoc.uuid) {
+                aoc.visible = !aoc.visible;
+            } else {
+                aoc.visible = false;
+            }
+            return aoc;
+        });
+    return newState;
 };
 
 
