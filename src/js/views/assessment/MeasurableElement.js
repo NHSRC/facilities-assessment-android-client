@@ -29,8 +29,9 @@ class MeasurableElement extends AbstractComponent {
             <ListItem>
                 <Card>
                     <CardItem header style={MeasurableElement.styles.meHeader}>
-                        <Text
-                            style={MeasurableElement.styles.meHeaderText}>{`${this.props.data.reference}: ${this.props.data.name}`}</Text>
+                        <Text style={MeasurableElement.styles.meHeaderText}>
+                            {`${this.props.data.reference}: ${this.props.data.name}`}
+                        </Text>
                     </CardItem>
                     {checkpoints}
                 </Card>

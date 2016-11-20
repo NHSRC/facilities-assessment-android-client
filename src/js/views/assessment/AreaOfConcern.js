@@ -31,14 +31,14 @@ class AreaOfConcern extends AbstractComponent {
     renderHeader(standard, index, isActive) {
         return (
             <View style={[AreaOfConcern.styles.sectionHeader,
-                {backgroundColor: index % 2 === 0 ? PrimaryColors.lightBlue : PrimaryColors.background}]}>
+                {backgroundColor: index % 2 === 0 ? PrimaryColors.darkBlue : PrimaryColors.background}]}>
                 <Text style={[AreaOfConcern.styles.standardText,
-                    {color: index % 2 === 0 ? PrimaryColors.background : PrimaryColors.lightBlue}]}>
+                    {color: index % 2 === 0 ? PrimaryColors.background : PrimaryColors.textBold}]}>
                     {`${standard.reference}: ${standard.name}`}
                 </Text>
                 <Icon name={isActive ? "expand-less" : "expand-more"}
                       style={[AreaOfConcern.styles.standardIcon,
-                          {color: index % 2 === 0 ? PrimaryColors.background : PrimaryColors.lightBlue}]}/>
+                          {color: index % 2 === 0 ? PrimaryColors.background : PrimaryColors.textBold}]}/>
             </View>
         );
     }
