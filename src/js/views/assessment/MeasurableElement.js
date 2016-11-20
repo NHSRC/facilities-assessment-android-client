@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {Text, StyleSheet, View, ScrollView} from "react-native";
 import AbstractComponent from "../common/AbstractComponent";
-import {Icon, Card, CardItem, ListItem} from "native-base";
+import {Card, CardItem, ListItem} from "native-base";
 import PrimaryColors from "../styles/PrimaryColors";
 import Actions from "../../action";
 import Checkpoint from './Checkpoint';
@@ -15,7 +15,7 @@ class MeasurableElement extends AbstractComponent {
 
     static styles = StyleSheet.create({
         meHeader: {
-            backgroundColor: PrimaryColors.darkBlue
+            backgroundColor: PrimaryColors.lightBlue
         },
         meHeaderText: {
             color: PrimaryColors.background

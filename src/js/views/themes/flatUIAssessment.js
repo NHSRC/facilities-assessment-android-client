@@ -74,9 +74,9 @@ export default {
 
 
     // Check Box
-    checkboxBgColor: '#039BE5',
+    checkboxBgColor: PrimaryColors.darkBlue,
     checkboxSize: 23,
-    checkboxTickColor: '#fff',
+    checkboxTickColor: PrimaryColors.background,
 
 
     // Color
@@ -180,10 +180,10 @@ export default {
 
     // Radio Button
     radioBtnSize: (Platform.OS === 'ios') ? 25 : 23,
-    radioColor: '#7e7e7e',
+    radioColor: PrimaryColors.darkBlue,
 
     get radioSelectedColor() {
-        return Color(this.radioColor).darken(0.2).hexString();
+        return PrimaryColors.lightBlue;
     },
 
 
