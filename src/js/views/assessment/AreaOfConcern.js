@@ -31,14 +31,14 @@ class AreaOfConcern extends AbstractComponent {
     renderHeader(standard, index, isActive) {
         return (
             <View style={[AreaOfConcern.styles.sectionHeader,
-                {backgroundColor: index % 2 === 0 ? PrimaryColors.darkBlue : PrimaryColors.background}]}>
+                {backgroundColor: PrimaryColors.yellow}]}>
                 <Text style={[AreaOfConcern.styles.standardText,
-                    {color: index % 2 === 0 ? PrimaryColors.background : PrimaryColors.textBold}]}>
+                    {color: PrimaryColors.textBold}]}>
                     {`${standard.reference}: ${standard.name}`}
                 </Text>
                 <Icon name={isActive ? "expand-less" : "expand-more"}
                       style={[AreaOfConcern.styles.standardIcon,
-                          {color: index % 2 === 0 ? PrimaryColors.background : PrimaryColors.textBold}]}/>
+                          {color: PrimaryColors.textBold}]}/>
             </View>
         );
     }
@@ -51,7 +51,6 @@ class AreaOfConcern extends AbstractComponent {
         return (
             <Accordion
                 sections={this.props.data.standards}
-                initiallyActiveSection={0}
                 renderHeader={this.renderHeader}
                 renderContent={this.renderContent.bind(this)}/>
         );

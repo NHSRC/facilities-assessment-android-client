@@ -56,12 +56,12 @@ class Compliance extends AbstractComponent {
             </View>
         );
         return (
-            <ListItem style={Compliance.styles.complianceBody}>
+            <View style={Compliance.styles.complianceBody}>
                 <View style={Compliance.styles.button}>
                     <Text style={Compliance.styles.title}>Compliance</Text>
                 </View>
                 {complianceButtons}
-            </ListItem>
+            </View>
         );
     }
 }

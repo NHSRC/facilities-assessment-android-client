@@ -24,19 +24,9 @@ const selectCompliance = function (state, actionParams, beans) {
                 .set(savedCheckpoint.checkpoint, Immutable.Map(savedCheckpoint)))).toJS();
 };
 
-const selectAssessmentMethod = function (state, actionParams, beans) {
-    const assessmentService = beans.get(AssessmentService);
-    const savedCheckpoint = assessmentService.saveCheckpointAssessmentMethod(state.assessment, actionParams.checkpoint, actionParams.assessmentMethods);
-    return Immutable.fromJS(state)
-        .set("assessment", Immutable.Map(state.assessment)
-            .set("checkpoints", Immutable.Map(state.assessment.checkpoints)
-                .set(savedCheckpoint.checkpoint, Immutable.Map(savedCheckpoint)))).toJS();
-};
-
 export default new Map([
     ["START_ASSESSMENT", startAssessment],
     ["SELECT_COMPLIANCE", selectCompliance],
-    ["SELECT_ASSESSMENT_METHOD", selectAssessmentMethod],
 ]);
 
 export let assessmentInit = {

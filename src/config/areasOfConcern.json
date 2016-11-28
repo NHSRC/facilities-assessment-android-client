@@ -100,6 +100,28 @@
             "reference": "A1.18"
           }
         ]
+      },
+      {
+        "name": "Facility Provides RMNCHA Services",
+        "reference": "A2",
+        "uuid": "0f24f26f-a7e7-4e2a-a72c-8342af6adea3",
+        "measurableElements": [
+          {
+            "name": "The facility provides Reproductive health  Services",
+            "uuid": "7370a2c2-b3a2-4733-8077-40aee13e6f88",
+            "reference": "A2.1"
+          },
+          {
+            "name": "The facility provides Maternal health Services",
+            "uuid": "726f3c71-8de6-4711-b434-9ef27c746f85",
+            "reference": "A2.2"
+          },
+          {
+            "name": "The facility provides Newborn health  Services",
+            "uuid": "df788586-76f6-4e1b-a9fc-4210023df3df",
+            "reference": "A2.3"
+          }
+        ]
       }
     ]
   },

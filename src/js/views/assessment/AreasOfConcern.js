@@ -20,6 +20,9 @@ class AreasOfConcern extends AbstractComponent {
         },
         sectionHeader: {
             flex: 1,
+            borderStyle: 'solid',
+            borderColor: PrimaryColors.background,
+            borderWidth: 1,
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center'
@@ -30,14 +33,14 @@ class AreasOfConcern extends AbstractComponent {
     renderHeader(aoc, index, isActive) {
         return (
             <View style={[AreasOfConcern.styles.sectionHeader,
-                {backgroundColor: index % 2 === 0 ? PrimaryColors.background : PrimaryColors.darkBlue}]}>
+                {backgroundColor: PrimaryColors.grey}]}>
                 <Text style={[AreasOfConcern.styles.aocText,
-                    {color: index % 2 === 0 ? PrimaryColors.textBold : PrimaryColors.background}]}>
+                    {color: PrimaryColors.background}]}>
                     {`${aoc.reference}: ${aoc.name}`}
                 </Text>
                 <Icon name={isActive ? "expand-less" : "expand-more"}
                       style={[AreasOfConcern.styles.aocIcon,
-                          {color: index % 2 === 0 ? PrimaryColors.textBold : PrimaryColors.background}]}/>
+                          {color: PrimaryColors.background}]}/>
             </View>
         );
     }
@@ -51,7 +54,6 @@ class AreasOfConcern extends AbstractComponent {
     render() {
         return (
             <Accordion
-                initiallyActiveSection={0}
                 sections={this.props.areasOfConcern}
                 renderHeader={this.renderHeader}
                 renderContent={this.renderContent.bind(this)}/>

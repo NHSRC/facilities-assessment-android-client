@@ -165,7 +165,7 @@ export default {
 
 
     // List
-    listBorderColor: PrimaryColors.textBold,
+    listBorderColor: PrimaryColors.background,
     listDividerBg: PrimaryColors.background,
     listItemHeight: 60,
     listItemPadding: 9,
