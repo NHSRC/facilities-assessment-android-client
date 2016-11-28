@@ -69,7 +69,8 @@ class AssessmentMode extends AbstractComponent {
     handleOnPress(checklist) {
         return ()=>TypedTransition.from(this).with({
             selectedChecklist: checklist,
-            facility: this.props.facility
+            facility: this.props.facility,
+            assessmentType: this.props.assessmentType
         }).to(Assessment);
     }
 

@@ -6,7 +6,7 @@ import AssessmentService from "../../service/AssessmentService";
 const startAssessment = function (state, actionParams, beans) {
     const checklistService = beans.get(ChecklistService);
     const assessmentService = beans.get(AssessmentService);
-    const assessment = assessmentService.startAssessment(actionParams.checklist, actionParams.facility);
+    const assessment = assessmentService.startAssessment(actionParams.checklist, actionParams.facility, actionParams.assessmentType);
 
     var checklist = checklistService.getChecklist(actionParams.checklist.uuid);
     return Object.assign(state, {

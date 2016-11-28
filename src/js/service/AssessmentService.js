@@ -31,8 +31,13 @@ class AssessmentService extends BaseService {
         return this.db.objectForPrimaryKey(AreaOfConcern.schema.name, aocUUID);
     }
 
-    startAssessment(checklist, facility) {
-        return this.saveAssessment({checklist: checklist.uuid, facility: facility.uuid});
+    startAssessment(checklist, facility, assessmentType) {
+        return this.saveAssessment({
+            checklist: checklist.uuid,
+            assessmentTool: checklist.assessmentTool,
+            facility: facility.uuid,
+            assessmentType: assessmentType.uuid
+        });
     }
 
 

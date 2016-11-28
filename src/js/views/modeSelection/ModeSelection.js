@@ -30,6 +30,7 @@ class ModeSelection extends AbstractComponent {
                     <Tabs>
                         <AssessmentMode facility={this.props.params.selectedFacility}
                                         assessmentTool={this.props.params.selectedAssessmentTool}
+                                        assessmentType={this.props.params.selectedAssessmentType}
                                         tabLabel="Assessment"/>
                         <ScoreMode tabLabel="Scores" assessmentTool={this.props.params.selectedAssessmentTool}/>
                     </Tabs>

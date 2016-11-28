@@ -8,6 +8,7 @@ class Assessment {
             uuid: 'string',
             facility: 'string',
             checklist: 'string',
+            assessmentTool: 'string',
             assessmentType: 'string',
             startDate: {type: 'date', default: new Date()},
             endDate: {type: 'date', optional: true}

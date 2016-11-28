@@ -35,6 +35,7 @@ class Assessment extends AbstractComponent {
     componentDidMount() {
         this.dispatchAction(Actions.START_ASSESSMENT, {
             checklist: this.props.params.selectedChecklist,
+            assessmentType: this.props.params.assessmentType,
             facility: this.props.params.facility
         });
     }

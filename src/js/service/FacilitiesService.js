@@ -23,7 +23,7 @@ class FacilitiesService extends BaseService {
 
     getAllFacilitiesFor(districtUUID, facilityType) {
         return this.db.objectForPrimaryKey(District.schema.name, districtUUID).facilities
-            .map(this.pickKeys("facilityType"));
+            .map(this.pickKeys(["facilityType"]));
     }
 
     getAllDepartmentsFor(facilityUUID) {
