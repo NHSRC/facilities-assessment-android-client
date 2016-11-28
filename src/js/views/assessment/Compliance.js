@@ -1,10 +1,11 @@
 import React, {Component} from "react";
 import {Text, StyleSheet, View, ScrollView} from "react-native";
 import AbstractComponent from "../common/AbstractComponent";
-import {ListItem, Radio} from "native-base";
+import {ListItem, Radio, List} from "native-base";
 import PrimaryColors from "../styles/PrimaryColors";
 import Actions from "../../action";
 import _ from 'lodash';
+import {Col, Row, Grid} from 'react-native-easy-grid';
 
 
 class Compliance extends AbstractComponent {
@@ -29,11 +30,10 @@ class Compliance extends AbstractComponent {
         },
         text: {
             color: PrimaryColors.textBold,
-            alignSelf: 'center'
+            alignSelf: 'flex-start'
         },
         title: {
             color: PrimaryColors.textBold,
-            alignSelf: 'flex-start'
         }
     });
 
@@ -49,19 +49,23 @@ class Compliance extends AbstractComponent {
     render() {
         const selectedCompliance = _.findKey(this.complianceMap, (v)=>v === this.props.assessment.score);
         const complianceButtons = Object.keys(this.complianceMap).map((compliance, idx)=>
-            <View key={idx} style={Compliance.styles.button}>
-                <Radio style={{alignSelf: 'center'}} selected={compliance === selectedCompliance}
+            <Col key={idx}>
+                <Radio style={{alignSelf: 'flex-start'}} selected={compliance === selectedCompliance}
                        onPress={this.selectCompliance(compliance)}/>
                 <Text style={Compliance.styles.text}>{compliance}</Text>
-            </View>
+            </Col>
         );
         return (
-            <View style={Compliance.styles.complianceBody}>
-                <View style={Compliance.styles.button}>
+            <List>
+                <ListItem>
                     <Text style={Compliance.styles.title}>Compliance</Text>
-                </View>
-                {complianceButtons}
-            </View>
+                </ListItem>
+                <ListItem>
+                    <Grid>
+                        {complianceButtons}
+                    </Grid>
+                </ListItem>
+            </List>
         );
     }
 }
