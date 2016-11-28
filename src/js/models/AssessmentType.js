@@ -3,10 +3,10 @@ class AssessmentType {
         name: 'AssessmentType',
         primaryKey: 'uuid',
         properties: {
-            name: 'string',
-            uuid: 'string'
+            uuid: 'string',
+            name: 'string'
         }
-    }
+    };
 }
 
 

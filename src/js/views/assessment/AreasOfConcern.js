@@ -44,7 +44,7 @@ class AreasOfConcern extends AbstractComponent {
 
     renderContent(aoc, index, isActive) {
         return (
-            <AreaOfConcern data={aoc}/>
+            <AreaOfConcern assessment={this.props.assessment} data={aoc}/>
         );
     }
 
@@ -54,7 +54,7 @@ class AreasOfConcern extends AbstractComponent {
                 initiallyActiveSection={0}
                 sections={this.props.areasOfConcern}
                 renderHeader={this.renderHeader}
-                renderContent={this.renderContent}/>
+                renderContent={this.renderContent.bind(this)}/>
         );
     }
 }

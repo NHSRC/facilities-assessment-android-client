@@ -44,7 +44,7 @@ class AreaOfConcern extends AbstractComponent {
     }
 
     renderContent(standard, index, isActive) {
-        return (<Standard data={standard}/>);
+        return (<Standard assessment={this.props.assessment} data={standard}/>);
     }
 
     render() {
@@ -53,7 +53,7 @@ class AreaOfConcern extends AbstractComponent {
                 sections={this.props.data.standards}
                 initiallyActiveSection={0}
                 renderHeader={this.renderHeader}
-                renderContent={this.renderContent}/>
+                renderContent={this.renderContent.bind(this)}/>
         );
     }
 }

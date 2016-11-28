@@ -16,7 +16,7 @@ class Standard extends AbstractComponent {
 
     render() {
         const measurableElements = this.props.data.measurableElements.map((me, idx)=>
-            <MeasurableElement key={idx} data={me}/>);
+            <MeasurableElement assessment={this.props.assessment} key={idx} data={me}/>);
         return (
             <List>
                 {measurableElements}

@@ -3,6 +3,7 @@ import Service from "../framework/bean/Service";
 import regions from "../../config/regions.json";
 import facilityTypes from "../../config/facilityTypes.json";
 import departments from "../../config/departments.json";
+import assessmentTools from "../../config/assessmentTools.json";
 import assessmentTypes from "../../config/assessmentTypes.json";
 import checklists from "../../config/checklists.json";
 import areasOfConcern from "../../config/areasOfConcern.json";
@@ -44,8 +45,8 @@ class SeedDataService extends BaseService {
             },
             {
                 "service": AssessmentService,
-                "method": "saveAssessmentType",
-                "entity": assessmentTypes
+                "method": "saveAssessmentTool",
+                "entity": assessmentTools
             },
             {
                 "service": DepartmentService,
@@ -66,6 +67,11 @@ class SeedDataService extends BaseService {
                 "service": ChecklistService,
                 "method": "saveCheckpoint",
                 "entity": checkpoints
+            },
+            {
+                "service": AssessmentService,
+                "method": "saveAssessmentType",
+                "entity": assessmentTypes
             }
         ].map(this.create);
     }

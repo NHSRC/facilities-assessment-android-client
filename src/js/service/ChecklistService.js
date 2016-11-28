@@ -19,10 +19,10 @@ class ChecklistService extends BaseService {
     init() {
     }
 
-    getChecklistsFor(assessmentType) {
+    getChecklistsFor(assessmentTool) {
         const departmentService = this.getService(DepartmentService);
         return this.db.objects(Checklist.schema.name)
-            .filtered("assessmentType = $0", assessmentType.uuid)
+            .filtered("assessmentTool = $0", assessmentTool.uuid)
             .map(this.pickKeys(["department"]))
             .map((checklist)=> {
                     checklist.department = departmentService.getDepartment(checklist.department);

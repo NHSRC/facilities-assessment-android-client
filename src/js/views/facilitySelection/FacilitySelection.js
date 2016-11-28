@@ -12,7 +12,6 @@ import SubmitButton from "../common/SubmitButton";
 import TypedTransition from "../../framework/routing/TypedTransition";
 import ModeSelection from "../modeSelection/ModeSelection";
 
-@PathRoot
 @Path("/facilitySelection")
 class FacilitySelection extends AbstractComponent {
     constructor(props, context) {
@@ -40,8 +39,9 @@ class FacilitySelection extends AbstractComponent {
     changeView() {
         this.dispatchAction(Actions.RESET_FORM, {
             cb: ()=>TypedTransition.from(this).with({
-                selectedAssessmentType: this.state.selectedAssessmentType,
-                selectedFacility: this.state.selectedFacility
+                selectedAssessmentTool: this.props.params.assessmentTool,
+                selectedFacility: this.state.selectedFacility,
+                selectedAssessmentType: this.state.selectedAssessmentType
             }).to(ModeSelection)
         })
     }
@@ -63,6 +63,14 @@ class FacilitySelection extends AbstractComponent {
                 "action": Actions.SELECT_DISTRICT,
                 "message": "Select a district",
                 "label": "District"
+            },
+            {
+                "selectedValue": this.state.selectedFacilityType,
+                "items": this.state.facilityTypes,
+                "stateKey": "selectedFacilityType",
+                "action": Actions.SELECT_FACILITY_TYPE,
+                "message": "Select a Facility Type",
+                "label": "Facility Type"
             },
             {
                 "selectedValue": this.state.selectedFacility,

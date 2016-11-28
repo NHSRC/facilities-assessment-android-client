@@ -22,15 +22,16 @@ class Checkpoint extends AbstractComponent {
     });
 
     render() {
+        const checkpointAssessment = this.props.assessment.checkpoints[this.props.data.uuid] || {};
         return (
             <CardItem cardBody>
                 <List>
                     <ListItem>
                         <Text style={Checkpoint.styles.question}>{this.props.data.name}</Text>
                     </ListItem>
-                    <Compliance data={this.props.data}/>
-                    <AssessmentMethod data={this.props.data}/>
-                    <Remarks data={this.props.data}/>
+                    <Compliance data={this.props.data} assessment={checkpointAssessment}/>
+                    <AssessmentMethod assessment={checkpointAssessment}/>
+                    <Remarks assessment={this.props.assessment}/>
                 </List>
             </CardItem>
         );

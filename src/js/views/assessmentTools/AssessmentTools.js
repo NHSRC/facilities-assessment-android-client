@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {View, StyleSheet, Text} from "react-native";
-import {Icon as NIcon, Container, Content, Button} from "native-base";
+import {Icon as NIcon, Container, Content, Button, ListItem, List} from "native-base";
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import AbstractComponent from "../../framework/view/AbstractComponent";
 import PrimaryColors from "../styles/PrimaryColors";
@@ -9,12 +9,22 @@ import FacilitySelection from "../facilitySelection/FacilitySelection";
 import Path, {PathRoot} from "../../framework/routing/Path";
 import Typography from '../styles/Typography';
 import FlatUITheme from "../themes/flatUI";
+import Actions from '../../action';
 
+@PathRoot
 @Path("/assessmentTools")
 class AssessmentTools extends AbstractComponent {
 
     constructor(props, context) {
         super(props, context);
+        const store = context.getStore();
+        this.state = store.getState().assessmentTools;
+        this.unsubscribe = store.subscribeTo('assessmentTools', this.handleChange.bind(this));
+    }
+
+    handleChange() {
+        const newState = this.context.getStore().getState().assessmentTools;
+        this.setState(newState);
     }
 
     static styles = StyleSheet.create({
@@ -35,25 +45,31 @@ class AssessmentTools extends AbstractComponent {
             justifyContent: 'center',
         },
         assessmentChoice: {
-            flex: 3,
-        },
-        assessmentContent: {
-            flex: 3,
-            flexDirection: 'row',
-            justifyContent: 'space-around',
+            flex: 2,
         },
         assessmentButton: {
             backgroundColor: PrimaryColors.textBold,
-            flex: 1,
-            margin: 10,
         }
     });
 
-    chooseAssessmentTool(assessmentToolName) {
-        return () => TypedTransition.from(this).with({assessmentToolName: assessmentToolName}).to(FacilitySelection);
+    chooseAssessmentTool(assessmentTool) {
+        return () => TypedTransition.from(this).with({assessmentTool: assessmentTool}).to(FacilitySelection);
+    }
+
+    componentDidMount() {
+        this.dispatchAction(Actions.ALL_ASSESSMENT_TOOLS);
     }
 
     render() {
+        const assessmentTools = this.state.assessmentTools.map((assessmentTool, idx)=>
+            <ListItem style={AssessmentTools.styles.assessmentButton} iconLeft key={idx}
+                      onPress={this.chooseAssessmentTool(assessmentTool).bind(this)}>
+                <NIcon style={{color: PrimaryColors.background}} name={"assignment"}/>
+                <Text style={{
+                    color: PrimaryColors.background,
+                    fontSize: 20,
+                }}>{assessmentTool.name}</Text>
+            </ListItem>);
         return (
             <View style={AssessmentTools.styles.assessmentToolsContainer}>
                 <View style={AssessmentTools.styles.padding}/>
@@ -64,25 +80,13 @@ class AssessmentTools extends AbstractComponent {
                 </View>
                 <Container style={AssessmentTools.styles.assessmentChoice}>
                     <Content theme={FlatUITheme}>
-                        <View style={AssessmentTools.styles.assessmentContent}>
-                            <Button primary
-                                    large
-                                    onPress={this.chooseAssessmentTool("SQAS").bind(this)}
-                                    style={AssessmentTools.styles.assessmentButton}>
-                                <NIcon name={"assignment"}/>
-                                SQAS
-                            </Button>
-                            <Button primary
-                                    onPress={this.chooseAssessmentTool("Kayakalp").bind(this)}
-                                    large
-                                    style={AssessmentTools.styles.assessmentButton}>
-                                <NIcon name={"spa"}/>
-                                Kayakalp
-                            </Button>
-                        </View>
+                        <Text style={{color: PrimaryColors.textBold, fontSize: 30, alignSelf: 'center'}}>Choose an
+                            Assessment Tool</Text>
+                        <List style={{marginRight: 11}}>
+                            {assessmentTools}
+                        </List>
                     </Content>
                 </Container>
-                <View style={AssessmentTools.styles.padding}/>
             </View>);
     }
 }

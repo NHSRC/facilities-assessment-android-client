@@ -59,7 +59,7 @@ class AssessmentMode extends AbstractComponent {
     }
 
     componentDidMount() {
-        this.dispatchAction(Actions.ALL_CHECKLISTS, {assessmentType: this.props.assessmentType});
+        this.dispatchAction(Actions.ALL_CHECKLISTS, {assessmentTool: this.props.assessmentTool});
     }
 
     componentWillUnmount() {
@@ -68,7 +68,8 @@ class AssessmentMode extends AbstractComponent {
 
     handleOnPress(checklist) {
         return ()=>TypedTransition.from(this).with({
-            selectedChecklist: checklist
+            selectedChecklist: checklist,
+            facility: this.props.facility
         }).to(Assessment);
     }
 

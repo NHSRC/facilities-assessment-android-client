@@ -1,22 +1,14 @@
 [
   {
-    "name": "Urban Primary Health Center",
-    "uuid": "9ad6d761-46ab-412e-ba63-a1b836cb1bf1"
+    "name": "Internal",
+    "uuid": "1a328f8d-85fd-4861-8e3a-68d97aa03621"
   },
   {
-    "name": "District Hospital",
-    "uuid": "c76a1683-ea08-4472-a7b2-6588716501e5"
+    "name": "External",
+    "uuid": "b7f4d5b7-952a-496b-abad-4b6b0d0d808a"
   },
   {
-    "name": "Community Health Center",
-    "uuid": "2ada7ffa-63c5-44d5-ba28-f7dd19eaf45e"
-  },
-  {
-    "name": "Rural Primary Health Center",
-    "uuid": "d8de2716-cc30-4af7-9011-638e34077222"
-  },
-  {
-    "name": "Kayakalp",
-    "uuid": "b92c5338-11ba-49dc-b81d-ddaf1683f5ea"
+    "name": "Peer",
+    "uuid": "fba7190d-600c-4b70-b7e4-07c3ac075a91"
   }
 ]

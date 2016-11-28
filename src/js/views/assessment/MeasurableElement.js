@@ -24,7 +24,7 @@ class MeasurableElement extends AbstractComponent {
 
     render() {
         const checkpoints = this.props.data.checkpoints.map((checkpoint, idx)=>
-            <Checkpoint key={idx} data={checkpoint}/>);
+            <Checkpoint assessment={this.props.assessment} key={idx} data={checkpoint}/>);
         return (
             <ListItem>
                 <Card>

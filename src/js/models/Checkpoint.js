@@ -9,7 +9,11 @@ class Checkpoint {
             measurableElement: "string",
             checklist: "string",
             isDefault: {type: "bool", default: true},
-            state: "string"
+            state: "string",
+            amObservation: {type: 'bool', default: false},
+            amStaffInterview: {type: 'bool', default: false},
+            amPatientInterview: {type: 'bool', default: false},
+            amRecordReview: {type: 'bool', default: false}
         }
     }
 }

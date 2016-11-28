@@ -9,6 +9,13 @@ import Actions from "../../action";
 class AssessmentMethod extends AbstractComponent {
     constructor(props, context) {
         super(props, context);
+        this.assessmentMethodMap = {
+            "SI": "amStaffInterview",
+            "PI": "amPatientInterview",
+            "OB": "amObservation",
+            "RR": "amRecordReview"
+        };
+        this.selectAssessmentMethod = this.selectAssessmentMethod.bind(this);
     }
 
     static styles = StyleSheet.create({
@@ -31,28 +38,32 @@ class AssessmentMethod extends AbstractComponent {
         }
     });
 
+    selectAssessmentMethod(assessmentMethod) {
+        return ()=> {
+            this.props.assessment.assessmentMethods[this.assessmentMethodMap[assessmentMethod]] = true;
+            this.dispatchAction(Actions.SELECT_ASSESSMENT_METHOD, {
+                checkpoint: this.props.data,
+                assessmentMethods: assessmentMethod
+            })
+        }
+    }
+
     render() {
+        const selectedAssessmentMethods = _.mapKeys(this.props.assessment.assessmentMethods,
+            (v, k)=> _.findKey(this.assessmentMethodMap, (value)=>value === k));
+        const assessmentMethods = Object.keys(this.assessmentMethodMap).map((am, idx)=>
+            <View key={idx} style={AssessmentMethod.styles.button}>
+                <CheckBox key={idx} onPress={this.selectAssessmentMethod(am)}
+                          checked={selectedAssessmentMethods[am]}/>
+                <Text style={AssessmentMethod.styles.text}>{am}</Text>
+            </View>
+        );
         return (
             <ListItem style={AssessmentMethod.styles.body}>
                 <View style={AssessmentMethod.styles.button}>
                     <Text style={AssessmentMethod.styles.text}>Assessment Method</Text>
                 </View>
-                <View style={AssessmentMethod.styles.button}>
-                    <CheckBox checked={true}/>
-                    <Text style={AssessmentMethod.styles.text}>OB</Text>
-                </View>
-                <View style={AssessmentMethod.styles.button}>
-                    <CheckBox checked={false}/>
-                    <Text style={AssessmentMethod.styles.text}>RR</Text>
-                </View>
-                <View style={AssessmentMethod.styles.button}>
-                    <CheckBox checked={false}/>
-                    <Text style={AssessmentMethod.styles.text}>PI</Text>
-                </View>
-                <View style={AssessmentMethod.styles.button}>
-                    <CheckBox checked={false}/>
-                    <Text style={AssessmentMethod.styles.text}>SI</Text>
-                </View>
+                {assessmentMethods}
             </ListItem>
         );
     }

@@ -33,8 +33,9 @@ class Assessment extends AbstractComponent {
     }
 
     componentDidMount() {
-        this.dispatchAction(Actions.INITIAL_DATA, {
+        this.dispatchAction(Actions.START_ASSESSMENT, {
             checklist: this.props.params.selectedChecklist,
+            facility: this.props.params.facility
         });
     }
 
@@ -48,7 +49,9 @@ class Assessment extends AbstractComponent {
                     <Title>{this.state.checklist.name}</Title>
                 </Header>
                 <Content>
-                    <AreasOfConcern areasOfConcern={this.state.checklist.areasOfConcern}/>
+                    <AreasOfConcern
+                        assessment={this.state.assessment}
+                        areasOfConcern={this.state.checklist.areasOfConcern}/>
                 </Content>
             </Container>
 

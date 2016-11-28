@@ -6,7 +6,7 @@ class Checklist {
             name: 'string',
             uuid: 'string',
             department: 'string',
-            assessmentType: 'string',
+            assessmentTool: 'string',
             areasOfConcern: {type: 'list', objectType: 'StringObj'}
         }
     }

@@ -79,9 +79,10 @@ class General {
 
     static EMPTY_STRING = "";
 
-    static pickerify(list){
+    static pickerify(list) {
         return [General.EMPTY_STRING].concat(list);
     }
+
 }
 
 export default General;

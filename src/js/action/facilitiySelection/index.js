@@ -14,41 +14,60 @@ const selectState = function (state, action, beans) {
     return Object.assign(state, {
         "selectedState": action.selectedState,
         "districtsForState": districts,
-        "assessmentTypes": undefined,
-        "selectedAssessmentType": undefined,
+        "facilityTypes": undefined,
+        "selectedFacilityType": undefined,
         "facilities": undefined,
         "selectedDistrict": undefined,
         "selectedFacility": undefined,
-        "facilitySelected": false
+        "facilitySelected": false,
+        "assessmentTypes": undefined,
+        "selectedAssessmentType": undefined,
     });
 };
 
 const selectDistrict = function (state, action, beans) {
     const facilities = beans.get(FacilitiesService).getAllFacilitiesFor(action.selectedDistrict.uuid);
+    const facilityTypes = beans.get(FacilitiesService).getFacilityTypes();
     return Object.assign(state, {
         "selectedDistrict": action.selectedDistrict,
         "facilities": facilities,
         "selectedFacility": undefined,
         "facilitySelected": false,
+        "facilityTypes": facilityTypes,
+        "selectedFacilityType": undefined,
+        "assessmentTypes": undefined,
+        "selectedAssessmentType": undefined,
+    });
+};
+
+const selectFacilityType = function (state, action, beans) {
+    const facilities = beans.get(FacilitiesService).getAllFacilitiesFor(state.selectedDistrict.uuid)
+        .filter((facility)=>facility.facilityType === action.selectedFacilityType.uuid);
+    return Object.assign(state, {
+        "facilities": facilities,
+        "selectedFacility": undefined,
+        "facilitySelected": false,
+        "selectedFacilityType": action.selectedFacilityType,
         "assessmentTypes": undefined,
         "selectedAssessmentType": undefined,
     });
 };
 
 const selectFacility = function (state, action, beans) {
-    const assessmentTypes = beans.get(AssessmentService).getAssessmentTypes();
+    const assessmentService = beans.get(AssessmentService);
+    const assessmentTypes = assessmentService.getAssessmentTypes();
     return Object.assign(state, {
         "selectedFacility": action.selectedFacility,
         "facilitySelected": false,
         "assessmentTypes": assessmentTypes,
-        "selectedAssessmentType": undefined
+        "selectedAssessmentType": undefined,
     });
 };
 
 const selectAssessmentType = function (state, action, beans) {
     return Object.assign(state, {
         "facilitySelected": false,
-        "selectedAssessmentType": action.selectedAssessmentType
+        "selectedAssessmentType": action.selectedAssessmentType,
     });
 };
 
@@ -67,6 +86,7 @@ export default new Map([
     ["SELECT_STATE", selectState],
     ["SELECT_DISTRICT", selectDistrict],
     ["SELECT_FACILITY", selectFacility],
+    ["SELECT_FACILITY_TYPE", selectFacilityType],
     ["SELECT_ASSESSMENT_TYPE", selectAssessmentType],
     ["FACILITY_SELECT", facilitySelected],
     ["RESET_FORM", reset_form]

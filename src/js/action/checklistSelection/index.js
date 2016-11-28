@@ -1,7 +1,7 @@
 import ChecklistService from "../../service/ChecklistService";
 
 const allChecklists = function (state, action, beans) {
-    const checklists = beans.get(ChecklistService).getChecklistsFor(action.assessmentType);
+    const checklists = beans.get(ChecklistService).getChecklistsFor(action.assessmentTool);
     return Object.assign(state, {"checklists": checklists});
 };
 
