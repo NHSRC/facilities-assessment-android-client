@@ -19,22 +19,11 @@ class Compliance extends AbstractComponent {
     }
 
     static styles = StyleSheet.create({
-        complianceBody: {
-            flex: 4,
-            justifyContent: 'flex-start',
-            flexDirection: 'row'
-        },
-        button: {
-            flex: 1,
-            alignItems: 'flex-start',
-        },
         text: {
             color: PrimaryColors.textBold,
             alignSelf: 'flex-start'
         },
-        title: {
-            color: PrimaryColors.textBold,
-        }
+
     });
 
     selectCompliance(compliance) {
@@ -56,16 +45,9 @@ class Compliance extends AbstractComponent {
             </Col>
         );
         return (
-            <List>
-                <ListItem>
-                    <Text style={Compliance.styles.title}>Compliance</Text>
-                </ListItem>
-                <ListItem>
-                    <Grid>
-                        {complianceButtons}
-                    </Grid>
-                </ListItem>
-            </List>
+            <Grid>
+                {complianceButtons}
+            </Grid>
         );
     }
 }

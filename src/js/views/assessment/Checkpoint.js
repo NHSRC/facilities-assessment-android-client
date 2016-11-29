@@ -38,7 +38,8 @@ class Checkpoint extends AbstractComponent {
             }
         });
         return (
-            <CardItem cardBody>
+            <CardItem style={{borderBottomWidth: 1, borderBottomColor: PrimaryColors.textBold, borderStyle: 'solid'}}
+                      cardBody>
                 <Grid>
                     <Col>
                         <List>
@@ -53,7 +54,12 @@ class Checkpoint extends AbstractComponent {
                         </List>
                     </Col>
                     <Col>
-                        <Compliance data={this.props.data} assessment={checkpointAssessment}/>
+                        <Row>
+                            <Compliance data={this.props.data} assessment={checkpointAssessment}/>
+                        </Row>
+                        <Row>
+                            <Remarks data={this.props.data} assessment={checkpointAssessment}/>
+                        </Row>
                     </Col>
                 </Grid>
             </CardItem>

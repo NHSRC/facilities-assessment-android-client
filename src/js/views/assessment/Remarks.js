@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {Text, StyleSheet, View, ScrollView} from "react-native";
 import AbstractComponent from "../common/AbstractComponent";
-import {ListItem, InputGroup, Input} from "native-base";
+import {ListItem, InputGroup, Input, Icon} from "native-base";
 import PrimaryColors from "../styles/PrimaryColors";
 import Actions from "../../action";
 
@@ -12,32 +12,21 @@ class Remarks extends AbstractComponent {
     }
 
     static styles = StyleSheet.create({
-        body: {
-            flex: 2,
-            flexDirection: 'row',
-            justifyContent: 'flex-start',
-        },
-        text: {
-            marginTop: 5,
-            color: PrimaryColors.textBold,
-        },
         input: {
-            marginLeft: 10,
-            flex: 1,
-            alignSelf: 'flex-end'
+            alignSelf: 'flex-start',
+            borderColor: PrimaryColors.textBold,
+            marginTop: 10,
         }
     });
 
     render() {
         return (
-            <ListItem>
-                <View style={Remarks.styles.body}>
-                    <Text style={Remarks.styles.text}>Remarks</Text>
-                    <InputGroup style={Remarks.styles.input} borderType="regular">
-                        <Input placeholder=""/>
-                    </InputGroup>
-                </View>
-            </ListItem>
+            <View style={{flex: 1, alignItems: 'stretch'}}>
+                <InputGroup borderType='regular' style={Remarks.styles.input}>
+                    <Icon size={5} name={"note-add"}/>
+                    <Input placeholder="Remarks"/>
+                </InputGroup>
+            </View>
         );
     }
 }
