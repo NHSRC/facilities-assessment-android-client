@@ -32,7 +32,7 @@ class Checkpoint extends AbstractComponent {
     render() {
         const checkpointAssessment = this.props.assessment.checkpoints[this.props.data.uuid] || {};
         var assessmentMethods = [];
-        _.map(this.props.data, (value, key, idx)=> {
+        _.map(this.props.data, (value, key)=> {
             if (value && _.startsWith(key, "am")) {
                 assessmentMethods.push(<Badge key={Math.random()} warning>{this.assessmentMethodMap[key]}</Badge>);
             }
@@ -44,7 +44,7 @@ class Checkpoint extends AbstractComponent {
                     <Col>
                         <List>
                             <ListItem>
-                                <Text>{this.props.data.name}</Text>
+                                <Text style={{fontSize: 20}}>{this.props.data.name}</Text>
                             </ListItem>
                             <ListItem>
                                 <View style={{alignItems: 'flex-start', flexDirection: 'row'}}>
