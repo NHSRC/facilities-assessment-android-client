@@ -112,7 +112,10 @@ class FacilitySelection extends AbstractComponent {
         return (
             <Container theme={FlatUITheme} style={FacilitySelection.styles.facilitySelectionContainer}>
                 <Header>
-                    <Title>Facilities Assessment</Title>
+                    <Button transparent onPress={()=>TypedTransition.from(this).goBack()}>
+                        <Icon name='arrow-back'/>
+                    </Button>
+                    <Title>{this.props.params.assessmentTool.name}</Title>
                 </Header>
                 <Content>
                     <PickerList pickers={pickersToRender}/>
