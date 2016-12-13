@@ -31,42 +31,51 @@ class AssessmentService extends BaseService {
         return this.db.objectForPrimaryKey(AreaOfConcern.schema.name, aocUUID);
     }
 
+    _getExistingAssessment(checklist, facility, assessmentType) {
+        return Object.assign({}, this.db.objects(Assessment.schema.name)
+            .filtered('facility = $0 AND checklist = $1 AND assessmentTool = $2 AND assessmentType = $3 AND endDate = null',
+                facility.uuid, checklist.uuid, checklist.assessmentTool, assessmentType.uuid)[0]);
+    }
+
     startAssessment(checklist, facility, assessmentType) {
-        return this.saveAssessment({
+        const existingAssessment = this._getExistingAssessment(checklist, facility, assessmentType);
+        return this.saveAssessment(Object.assign(existingAssessment, {
             checklist: checklist.uuid,
             assessmentTool: checklist.assessmentTool,
             facility: facility.uuid,
             assessmentType: assessmentType.uuid
-        });
+        }));
     }
 
 
-    _getExisting(assessment, checkpoint) {
+    _getExistingCheckpoint(assessment, checkpoint) {
         return Object.assign({}, this.db.objects(CheckpointScore.schema.name)
             .filtered('facility = $0 AND checklist = $1 AND assessment = $2 AND checkpoint = $3',
                 assessment.facility, assessment.checklist, assessment.uuid, checkpoint.uuid)[0]);
     }
 
-    saveCheckpointScore(assessment, checkpoint, score) {
-        const existingCheckpoint = this._getExisting(assessment, checkpoint);
-        return this.saveCheckpoint(Object.assign(existingCheckpoint, {
+    saveCheckpointField(opts) {
+        return (assessment, checkpoint)=> this.saveCheckpoint(Object.assign(this._getExistingCheckpoint(assessment, checkpoint), {
             facility: assessment.facility,
             checklist: assessment.checklist,
             assessment: assessment.uuid,
             checkpoint: checkpoint.uuid,
-            score: score,
+            ...opts
         }));
     }
 
-    saveCheckpointAssessmentMethod(assessment, checkpoint, assessmentMethods) {
-        const existingCheckpoint = this._getExisting(assessment, checkpoint);
-        return this.saveCheckpoint(Object.assign(existingCheckpoint, {
-            facility: assessment.facility,
-            checklist: assessment.checklist,
-            assessment: assessment.uuid,
-            checkpoint: checkpoint.uuid,
-            ...assessmentMethods
-        }));
+    getAllCheckpointsForAssessment(assessment) {
+        return Object.assign({}, this.db.objects(CheckpointScore.schema.name)
+            .filtered('facility = $0 AND checklist = $1 AND assessment = $2',
+                assessment.facility, assessment.checklist, assessment.uuid));
+    }
+
+    saveCheckpointScore(assessment, checkpoint, score) {
+        return this.saveCheckpointField({score: score})(assessment, checkpoint);
+    }
+
+    saveCheckpointRemarks(assessment, checkpoint, remarks) {
+        return this.saveCheckpointField({remarks: remarks})(assessment, checkpoint);
     }
 }
 

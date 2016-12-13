@@ -1,4 +1,5 @@
 import UUID from '../utility/UUID';
+import _ from 'lodash';
 
 class CheckpointScore {
     static schema = {
@@ -16,7 +17,7 @@ class CheckpointScore {
     };
 
     static toDB(obj) {
-        obj.uuid = UUID.generate();
+        obj.uuid = _.isEmpty(obj.uuid) ? UUID.generate() : obj.uuid;
         return obj;
     }
 }

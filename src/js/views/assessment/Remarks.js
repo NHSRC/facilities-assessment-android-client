@@ -19,12 +19,20 @@ class Remarks extends AbstractComponent {
         }
     });
 
+    onChange(text) {
+        this.dispatchAction(Actions.ADD_REMARKS, {
+            checkpoint: this.props.data,
+            remarks: text
+        })
+    }
+
     render() {
         return (
             <View style={{flex: 1, alignItems: 'stretch'}}>
                 <InputGroup borderType='regular' style={Remarks.styles.input}>
                     <Icon size={5} name={"note-add"}/>
-                    <Input placeholder="Remarks"/>
+                    <Input defaultValue={this.props.assessment.remarks} onChangeText={this.onChange.bind(this)}
+                           placeholder="Remarks"/>
                 </InputGroup>
             </View>
         );
