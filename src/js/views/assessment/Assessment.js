@@ -55,17 +55,22 @@ class Assessment extends AbstractComponent {
                     </Button>
                     <Title>{this.state.checklist.name}</Title>
                 </Header>
-                <Content>
-                    <Text style={{fontSize: 30, color: PrimaryColors.textBold}}>Checkpoints
-                        Completed: {this.state.progress.completed}/{this.state.progress.total}</Text>
-                    <ProgressBar color={progressRatio < .9 ? PrimaryColors.red : PrimaryColors.textBold}
-                                 styleAttr="Horizontal" indeterminate={false}
-                                 progress={progressRatio}/>
-                    <AreasOfConcern
-                        assessment={this.state.assessment}
-                        areasOfConcern={this.state.checklist.areasOfConcern}/>
+                <View style={{flex: 1}}>
+                    <View style={{backgroundColor: PrimaryColors.textBold}}>
+                        <Text style={{alignSelf: 'center', fontSize: 21, color: PrimaryColors.background}}>Checkpoints
+                            Completed: {this.state.progress.completed}/{this.state.progress.total}</Text>
+                        <ProgressBar style={{marginBottom: 10}}
+                                     color={progressRatio < .9 ? PrimaryColors.red : PrimaryColors.background}
+                                     styleAttr="Horizontal" indeterminate={false}
+                                     progress={progressRatio}/>
+                    </View>
+                    <ScrollView>
+                        <AreasOfConcern
+                            assessment={this.state.assessment}
+                            areasOfConcern={this.state.checklist.areasOfConcern}/>
+                    </ScrollView>
                     {submitButton}
-                </Content>
+                </View>
             </Container>
 
         );
