@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Text, StyleSheet, View, ScrollView} from "react-native";
+import {Text, StyleSheet, View, ScrollView, ProgressBarAndroid as ProgressBar} from "react-native";
 import Path from "../../framework/routing/Path";
 import AbstractComponent from "../common/AbstractComponent";
 import {Container, Header, Title, Content, Icon, Button} from "native-base";
@@ -42,6 +42,11 @@ class Assessment extends AbstractComponent {
     }
 
     render() {
+        const progressRatio = this.state.progress.completed / this.state.progress.total;
+        const submitButton = progressRatio < .9 ? (<View/>) : (<SubmitButton
+            onPress={()=> this.dispatchAction(Actions.SUBMIT_ASSESSMENT,
+                {cb: ()=>TypedTransition.from(this).goBack()})}
+            buttonText={"Submit Assessment"} buttonIcon={"done"}/>);
         return (
             <Container theme={FlatUITheme} style={Assessment.styles.assessmentContainer}>
                 <Header>
@@ -51,13 +56,15 @@ class Assessment extends AbstractComponent {
                     <Title>{this.state.checklist.name}</Title>
                 </Header>
                 <Content>
+                    <Text style={{fontSize: 30, color: PrimaryColors.textBold}}>Checkpoints
+                        Completed: {this.state.progress.completed}/{this.state.progress.total}</Text>
+                    <ProgressBar color={progressRatio < .9 ? PrimaryColors.red : PrimaryColors.textBold}
+                                 styleAttr="Horizontal" indeterminate={false}
+                                 progress={progressRatio}/>
                     <AreasOfConcern
                         assessment={this.state.assessment}
                         areasOfConcern={this.state.checklist.areasOfConcern}/>
-                    <SubmitButton
-                        onPress={()=> this.dispatchAction(Actions.SUBMIT_ASSESSMENT,
-                            {cb: ()=>TypedTransition.from(this).goBack()})}
-                        buttonText={"Submit Assessment"} buttonIcon={"done"}/>
+                    {submitButton}
                 </Content>
             </Container>
 

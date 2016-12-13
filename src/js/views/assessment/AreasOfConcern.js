@@ -55,7 +55,7 @@ class AreasOfConcern extends AbstractComponent {
         return (
             <Accordion
                 sections={this.props.areasOfConcern}
-                renderHeader={this.renderHeader}
+                renderHeader={this.renderHeader.bind(this)}
                 renderContent={this.renderContent.bind(this)}/>
         );
     }

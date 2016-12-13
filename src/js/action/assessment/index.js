@@ -10,6 +10,10 @@ const startAssessment = function (state, actionParams, beans) {
     const checklist = checklistService.getChecklist(actionParams.checklist.uuid);
     const checkpoints = _.mapValues(_.groupBy(assessmentService.getAllCheckpointsForAssessment(assessment), (obj)=>obj.checkpoint), (obj)=>obj[0]);
     return Object.assign(state, {
+        progress: {
+            total: checklistService.getAllCheckpointsForChecklist(checklist).length,
+            completed: Object.keys(checkpoints).length
+        },
         checklist: checklist,
         assessment: Object.assign(assessment, {checkpoints: checkpoints})
     });
@@ -18,10 +22,12 @@ const startAssessment = function (state, actionParams, beans) {
 const selectCompliance = function (state, actionParams, beans) {
     const assessmentService = beans.get(AssessmentService);
     const savedCheckpoint = assessmentService.saveCheckpointScore(state.assessment, actionParams.checkpoint, actionParams.compliance);
-    return Immutable.fromJS(state)
+    const newState = Immutable.fromJS(state)
         .set("assessment", Immutable.Map(state.assessment)
             .set("checkpoints", Immutable.Map(state.assessment.checkpoints)
                 .set(savedCheckpoint.checkpoint, Immutable.Map(savedCheckpoint)))).toJS();
+    const completedCheckpoints = Object.keys(assessmentService.getAllCheckpointsForAssessment(newState.assessment)).length;
+    return Object.assign(newState, {progress: {completed: completedCheckpoints, total: newState.progress.total}});
 };
 
 const addRemarks = function (state, actionParams, beans) {
@@ -49,4 +55,5 @@ export default new Map([
 
 export let assessmentInit = {
     checklist: {areasOfConcern: [], name: ""},
+    progress: {total: 0, completed: 0}
 };

@@ -56,6 +56,10 @@ class ChecklistService extends BaseService {
             });
         return checklist;
     }
+
+    getAllCheckpointsForChecklist(checklist) {
+        return this.db.objects(Checkpoint.schema.name).filtered('checklist = $0', checklist.uuid).map(this.nameAndId);
+    }
 }
 
 export default ChecklistService;

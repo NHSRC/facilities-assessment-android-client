@@ -6,6 +6,7 @@ import AssessmentTool from "../models/AssessmentTool";
 import Assessment from "../models/Assessment";
 import CheckpointScore from "../models/CheckpointScore";
 import AssessmentType from "../models/AssessmentType";
+import Checkpoint from "../models/Checkpoint";
 
 @Service("assessmentService")
 class AssessmentService extends BaseService {
