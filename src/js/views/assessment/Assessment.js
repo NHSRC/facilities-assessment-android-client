@@ -7,6 +7,7 @@ import AreasOfConcern from './AreasOfConcern';
 import PrimaryColors from "../styles/PrimaryColors";
 import FlatUITheme from "../themes/flatUIAssessment";
 import Actions from "../../action";
+import SubmitButton from '../common/SubmitButton';
 import TypedTransition from "../../framework/routing/TypedTransition";
 
 @Path("/assessment")
@@ -53,6 +54,10 @@ class Assessment extends AbstractComponent {
                     <AreasOfConcern
                         assessment={this.state.assessment}
                         areasOfConcern={this.state.checklist.areasOfConcern}/>
+                    <SubmitButton
+                        onPress={()=> this.dispatchAction(Actions.SUBMIT_ASSESSMENT,
+                            {cb: ()=>TypedTransition.from(this).goBack()})}
+                        buttonText={"Submit Assessment"} buttonIcon={"done"}/>
                 </Content>
             </Container>
 

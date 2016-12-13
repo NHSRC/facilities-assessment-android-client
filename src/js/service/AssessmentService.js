@@ -77,6 +77,10 @@ class AssessmentService extends BaseService {
     saveCheckpointRemarks(assessment, checkpoint, remarks) {
         return this.saveCheckpointField({remarks: remarks})(assessment, checkpoint);
     }
+
+    endAssessment(assessment) {
+        return this.saveAssessment(Object.assign({}, assessment, {endDate: new Date()}));
+    }
 }
 
 export default AssessmentService;

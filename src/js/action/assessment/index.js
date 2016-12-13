@@ -33,10 +33,18 @@ const addRemarks = function (state, actionParams, beans) {
                 .set(savedCheckpoint.checkpoint, Immutable.Map(savedCheckpoint)))).toJS();
 };
 
+const submitAssessment = function (state, actionParams, beans) {
+    const assessmentService = beans.get(AssessmentService);
+    const assessment = assessmentService.endAssessment(state.assessment);
+    actionParams.cb();
+    return Object.assign(state);
+};
+
 export default new Map([
     ["START_ASSESSMENT", startAssessment],
     ["SELECT_COMPLIANCE", selectCompliance],
-    ["ADD_REMARKS", addRemarks]
+    ["ADD_REMARKS", addRemarks],
+    ["SUBMIT_ASSESSMENT", submitAssessment]
 ]);
 
 export let assessmentInit = {

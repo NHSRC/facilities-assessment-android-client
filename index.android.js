@@ -27,5 +27,5 @@ class FacilitiesAssessment extends Component {
         );
     }
 }
-console.ignoredYellowBox = ['Warning: You are manually calling'];
+console.ignoredYellowBox = ['Warning: You are manually calling', 'Warning: setState'];
 AppRegistry.registerComponent('FacilitiesAssessment', () => FacilitiesAssessment);
