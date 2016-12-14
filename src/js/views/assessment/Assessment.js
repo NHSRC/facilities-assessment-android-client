@@ -57,7 +57,9 @@ class Assessment extends AbstractComponent {
                 </Header>
                 <View style={{flex: 1}}>
                     <View style={{backgroundColor: PrimaryColors.textBold}}>
-                        <Text style={{alignSelf: 'center', fontSize: 21, color: PrimaryColors.background}}>Checkpoints
+                        <Text style={{alignSelf: 'center', fontSize: 21, color: PrimaryColors.background}}>Checklist
+                            Status</Text>
+                        <Text style={{alignSelf: 'center', fontSize: 18, color: PrimaryColors.background}}>Checkpoints
                             Completed: {this.state.progress.completed}/{this.state.progress.total}</Text>
                         <ProgressBar style={{marginBottom: 10}}
                                      color={progressRatio < .9 ? PrimaryColors.red : PrimaryColors.background}
