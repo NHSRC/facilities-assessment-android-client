@@ -48,11 +48,15 @@ class AreaOfConcern extends AbstractComponent {
     }
 
     render() {
+        const initiallyActiveSection = _.isEmpty(this.props.currentPointer) ? undefined : this.props.data.standards.findIndex((standard)=>this.props.currentPointer.currentStandard.uuid === standard.uuid);
+
         return (
             <Accordion
                 sections={this.props.data.standards}
                 renderHeader={this.renderHeader}
-                renderContent={this.renderContent.bind(this)}/>
+                renderContent={this.renderContent.bind(this)}
+                initiallyActiveSection={initiallyActiveSection}
+            />
         );
     }
 }

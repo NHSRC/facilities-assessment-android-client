@@ -7,6 +7,8 @@ import Assessment from "../models/Assessment";
 import CheckpointScore from "../models/CheckpointScore";
 import AssessmentType from "../models/AssessmentType";
 import Checkpoint from "../models/Checkpoint";
+import MeasurableElement from "../models/MeasurableElement";
+import Standard from "../models/Standard";
 
 @Service("assessmentService")
 class AssessmentService extends BaseService {
@@ -69,6 +71,26 @@ class AssessmentService extends BaseService {
         return Object.assign({}, this.db.objects(CheckpointScore.schema.name)
             .filtered('facility = $0 AND checklist = $1 AND assessment = $2',
                 assessment.facility, assessment.checklist, assessment.uuid));
+    }
+
+    getLatestUpdatedCheckpointForAssessment(assessment) {
+        return Object.assign({}, this.db.objects(CheckpointScore.schema.name)
+            .filtered('facility = $0 AND checklist = $1 AND assessment = $2',
+                assessment.facility, assessment.checklist, assessment.uuid).sorted('dateUpdated', true)[0]);
+    }
+
+    getStandardForCheckpoint(checkpointUUID) {
+        const checkpoint = this.db.objectForPrimaryKey(Checkpoint.schema.name, checkpointUUID);
+        const measurableElement = this.db.objectForPrimaryKey(MeasurableElement.schema.name, checkpoint.measurableElement);
+        return this.db.objects(Standard.schema.name)
+            .filtered("measurableElements.uuid = $0", measurableElement.uuid)
+            .map(this.nameAndId)[0];
+    }
+
+    getAreaOfConcernForStandard(standardUUID) {
+        return this.db.objects(AreaOfConcern.schema.name)
+            .filtered("standards.uuid = $0", standardUUID)
+            .map(this.nameAndId)[0];
     }
 
     saveCheckpointScore(assessment, checkpoint, score) {

@@ -9,6 +9,8 @@ import FlatUITheme from "../themes/flatUIAssessment";
 import Actions from "../../action";
 import SubmitButton from '../common/SubmitButton';
 import TypedTransition from "../../framework/routing/TypedTransition";
+import _ from 'lodash';
+import AssessmentStatus from './AssessmentStatus';
 
 @Path("/assessment")
 class Assessment extends AbstractComponent {
@@ -43,10 +45,11 @@ class Assessment extends AbstractComponent {
 
     render() {
         const progressRatio = this.state.progress.completed / this.state.progress.total;
+        const assessmentSubmitted = !_.isEmpty(this.state.assessment.endDate);
         const submitButton = progressRatio < .9 ? (<View/>) : (<SubmitButton
             onPress={()=> this.dispatchAction(Actions.SUBMIT_ASSESSMENT,
                 {cb: ()=>TypedTransition.from(this).goBack()})}
-            buttonText={"Submit Assessment"} buttonIcon={"done"}/>);
+            buttonText={assessmentSubmitted ? "Update Assessment" : "Submit Assessment"} buttonIcon={"done"}/>);
         return (
             <Container theme={FlatUITheme} style={Assessment.styles.assessmentContainer}>
                 <Header>
@@ -56,18 +59,11 @@ class Assessment extends AbstractComponent {
                     <Title>{this.state.checklist.name}</Title>
                 </Header>
                 <View style={{flex: 1}}>
-                    <View style={{backgroundColor: PrimaryColors.textBold}}>
-                        <Text style={{alignSelf: 'center', fontSize: 21, color: PrimaryColors.background}}>Checklist
-                            Status</Text>
-                        <Text style={{alignSelf: 'center', fontSize: 18, color: PrimaryColors.background}}>Checkpoints
-                            Completed: {this.state.progress.completed}/{this.state.progress.total}</Text>
-                        <ProgressBar style={{marginBottom: 10}}
-                                     color={progressRatio < .9 ? PrimaryColors.red : PrimaryColors.background}
-                                     styleAttr="Horizontal" indeterminate={false}
-                                     progress={progressRatio}/>
-                    </View>
+                    <AssessmentStatus assessment={this.state.assessment} progress={this.state.progress}
+                                      progressRatio={progressRatio} assessmentSubmitted={assessmentSubmitted}/>
                     <ScrollView>
                         <AreasOfConcern
+                            currentPointer={this.state.currentPointer}
                             assessment={this.state.assessment}
                             areasOfConcern={this.state.checklist.areasOfConcern}/>
                     </ScrollView>

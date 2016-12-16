@@ -47,16 +47,19 @@ class AreasOfConcern extends AbstractComponent {
 
     renderContent(aoc, index, isActive) {
         return (
-            <AreaOfConcern assessment={this.props.assessment} data={aoc}/>
+            <AreaOfConcern currentPointer={this.props.currentPointer} assessment={this.props.assessment} data={aoc}/>
         );
     }
 
     render() {
+        const initiallyActiveSection = _.isEmpty(this.props.currentPointer) ? undefined : this.props.areasOfConcern.findIndex((aoc)=>this.props.currentPointer.currentAreaOfConcern.uuid === aoc.uuid);
         return (
             <Accordion
                 sections={this.props.areasOfConcern}
                 renderHeader={this.renderHeader.bind(this)}
-                renderContent={this.renderContent.bind(this)}/>
+                renderContent={this.renderContent.bind(this)}
+                initiallyActiveSection={initiallyActiveSection}
+            />
         );
     }
 }

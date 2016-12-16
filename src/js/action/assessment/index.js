@@ -9,11 +9,19 @@ const startAssessment = function (state, actionParams, beans) {
     const assessment = assessmentService.startAssessment(actionParams.checklist, actionParams.facility, actionParams.assessmentType);
     const checklist = checklistService.getChecklist(actionParams.checklist.uuid);
     const checkpoints = _.mapValues(_.groupBy(assessmentService.getAllCheckpointsForAssessment(assessment), (obj)=>obj.checkpoint), (obj)=>obj[0]);
+    const lastUpdatedCheckpoint = assessmentService.getLatestUpdatedCheckpointForAssessment(assessment);
+    var currentPointer = undefined;
+    if (!_.isEmpty(lastUpdatedCheckpoint)) {
+        currentPointer = {};
+        currentPointer.currentStandard = assessmentService.getStandardForCheckpoint(lastUpdatedCheckpoint.checkpoint);
+        currentPointer.currentAreaOfConcern = assessmentService.getAreaOfConcernForStandard(currentPointer.currentStandard.uuid)
+    }
     return Object.assign(state, {
         progress: {
             total: checklistService.getAllCheckpointsForChecklist(checklist).length,
             completed: Object.keys(checkpoints).length
         },
+        currentPointer: currentPointer,
         checklist: checklist,
         assessment: Object.assign(assessment, {checkpoints: checkpoints})
     });
@@ -54,6 +62,8 @@ export default new Map([
 ]);
 
 export let assessmentInit = {
+    assessment: {},
     checklist: {areasOfConcern: [], name: ""},
-    progress: {total: 0, completed: 0}
+    progress: {total: 0, completed: 0},
+    currentPointer: undefined
 };
