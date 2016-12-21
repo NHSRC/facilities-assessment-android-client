@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Text, StyleSheet, View, ScrollView} from 'react-native';
 import AbstractComponent from "../common/AbstractComponent";
-import {Button} from 'native-base';
+import {Container, Header, Title, Content, Icon, Button} from 'native-base';
 import PrimaryColors from '../styles/PrimaryColors';
 import Typography from '../styles/Typography';
 import MedIcon from '../styles/MedIcons';
@@ -9,9 +9,12 @@ import Actions from "../../action";
 import iconMapping from '../styles/departmentIconMapping.json';
 import TypedTransition from "../../framework/routing/TypedTransition";
 import Assessment from '../assessment/Assessment';
+import FlatUITheme from '../themes/flatUI';
+import Path from "../../framework/routing/Path";
 
 
-class AssessmentMode extends AbstractComponent {
+@Path("/checklistSelection")
+class ChecklistSelection extends AbstractComponent {
     constructor(props, context) {
         super(props, context);
         const store = context.getStore();
@@ -50,7 +53,10 @@ class AssessmentMode extends AbstractComponent {
             color: PrimaryColors.textBold,
             fontWeight: "400",
             fontSize: 19
-        }
+        },
+        checklistContainer: {
+            backgroundColor: PrimaryColors.background,
+        },
     });
 
     handleChange() {
@@ -59,7 +65,7 @@ class AssessmentMode extends AbstractComponent {
     }
 
     componentDidMount() {
-        this.dispatchAction(Actions.ALL_CHECKLISTS, {assessmentTool: this.props.assessmentTool});
+        this.dispatchAction(Actions.ALL_CHECKLISTS, {assessmentTool: this.props.params.selectedAssessmentTool});
     }
 
     componentWillUnmount() {
@@ -69,35 +75,45 @@ class AssessmentMode extends AbstractComponent {
     handleOnPress(checklist) {
         return ()=>TypedTransition.from(this).with({
             selectedChecklist: checklist,
-            facility: this.props.facility,
-            assessmentType: this.props.assessmentType
+            facility: this.props.params.selectedFacility,
+            assessmentType: this.props.params.selectedAssessmentType
         }).to(Assessment);
     }
 
     render() {
         const allChecklists = this.state.checklists.map((checklist, idx)=>
-            (<Button key={idx} onPress={this.handleOnPress(checklist)} style={AssessmentMode.styles.checklistButton}
+            (<Button key={idx} onPress={this.handleOnPress(checklist)} style={ChecklistSelection.styles.checklistButton}
                      bordered large info>
-                <View style={AssessmentMode.styles.innerButton}>
-                    <Text style={AssessmentMode.styles.buttonText}>
+                <View style={ChecklistSelection.styles.innerButton}>
+                    <Text style={ChecklistSelection.styles.buttonText}>
                         {checklist.name}
                     </Text>
-                    <MedIcon style={AssessmentMode.styles.buttonText}
+                    <MedIcon style={ChecklistSelection.styles.buttonText}
                              size={25} name={iconMapping[checklist.department.name]}/>
                 </View>
             </Button>)
         );
         return (
-            <View style={AssessmentMode.styles.tabContainer}>
-                <Text style={[AssessmentMode.styles.buttonText, Typography.paperFontDisplay1]}>
-                    Select a Checklist
-                </Text>
-                <View style={AssessmentMode.styles.buttonsContainer}>
-                    {allChecklists}
-                </View>
-            </View>
+            <Container theme={FlatUITheme} style={ChecklistSelection.styles.checklistContainer}>
+                <Header>
+                    <Button transparent onPress={()=>TypedTransition.from(this).goBack()}>
+                        <Icon name='arrow-back'/>
+                    </Button>
+                    <Title>Facilities Assessment</Title>
+                </Header>
+                <Content>
+                    <View style={ChecklistSelection.styles.tabContainer}>
+                        <Text style={[ChecklistSelection.styles.buttonText, Typography.paperFontDisplay1]}>
+                            Select a Checklist
+                        </Text>
+                        <View style={ChecklistSelection.styles.buttonsContainer}>
+                            {allChecklists}
+                        </View>
+                    </View>
+                </Content>
+            </Container>
         );
     }
 }
 
-export default AssessmentMode;
+export default ChecklistSelection;

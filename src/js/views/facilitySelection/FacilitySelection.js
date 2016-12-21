@@ -10,7 +10,7 @@ import Actions from '../../action';
 import PickerList from './PickerList';
 import SubmitButton from "../common/SubmitButton";
 import TypedTransition from "../../framework/routing/TypedTransition";
-import ModeSelection from "../modeSelection/ModeSelection";
+import ChecklistSelection from "../checklistSelection/ChecklistSelection";
 
 @Path("/facilitySelection")
 class FacilitySelection extends AbstractComponent {
@@ -42,7 +42,7 @@ class FacilitySelection extends AbstractComponent {
                 selectedAssessmentTool: this.props.params.assessmentTool,
                 selectedFacility: this.state.selectedFacility,
                 selectedAssessmentType: this.state.selectedAssessmentType
-            }).to(ModeSelection)
+            }).to(ChecklistSelection)
         })
     }
 
