@@ -21,7 +21,7 @@ class PickerList extends AbstractComponent {
     pickerValueChanged(action, stateKey, message, items) {
         return (value, valueIdx)=> {
             if (value === message) return;
-            var actionParams = {};
+            var actionParams = {assessmentTool: this.props.assessmentTool};
             actionParams[stateKey] = items[valueIdx - 1];
             this.dispatchAction(action, actionParams);
         };

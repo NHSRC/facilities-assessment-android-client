@@ -1,17 +1,14 @@
 import UUID from '../utility/UUID';
 import _ from 'lodash';
 
-class CheckpointScore {
+class ChecklistAssessment {
     static schema = {
-        name: 'CheckpointScore',
+        name: 'ChecklistAssessment',
         primaryKey: 'uuid',
         properties: {
             uuid: 'string',
             checklist: 'string',
-            checklistAssessment: 'string',
-            checkpoint: 'string',
-            score: {type: 'int', default: 0},
-            remarks: {type: 'string', optional: true},
+            facilityAssessment: 'string',
             dateUpdated: {type: 'date', default: new Date()}
         }
     };
@@ -24,4 +21,4 @@ class CheckpointScore {
 }
 
 
-export default CheckpointScore;
+export default ChecklistAssessment;

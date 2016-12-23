@@ -76,7 +76,8 @@ class ChecklistSelection extends AbstractComponent {
         return ()=>TypedTransition.from(this).with({
             selectedChecklist: checklist,
             facility: this.props.params.selectedFacility,
-            assessmentType: this.props.params.selectedAssessmentType
+            assessmentType: this.props.params.selectedAssessmentType,
+            facilityAssessment: this.props.params.facilityAssessment
         }).to(Assessment);
     }
 

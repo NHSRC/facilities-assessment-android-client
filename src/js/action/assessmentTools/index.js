@@ -1,9 +1,8 @@
-import AssessmentService from "../../service/AssessmentService";
-import _ from 'lodash';
+import FacilityAssessmentService from "../../service/FacilityAssessmentService";
 
 const allAssessmentTools = function (state, actionParams, beans) {
-    const assessmentToolsService = beans.get(AssessmentService);
-    var assessmentTools = assessmentToolsService.getAssessmentTools();
+    const facilityAssessmentService = beans.get(FacilityAssessmentService);
+    var assessmentTools = facilityAssessmentService.getAssessmentTools();
     return Object.assign(state, {
         assessmentTools: assessmentTools,
     });

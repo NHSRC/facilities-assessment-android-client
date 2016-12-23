@@ -1,7 +1,7 @@
 import loginActions, {loginInit} from '../action/login';
 import assessmentToolsActions, {assessmentToolsInit} from '../action/assessmentTools';
 import checklistSelectionActions, {checklistSelectionInit} from '../action/checklistSelection';
-import facilitySelectionActions, {facilitySelectionInit} from '../action/facilitiySelection';
+import facilitySelectionActions, {facilitySelectionInit} from '../action/facilitySelection';
 import assessmentActions, {assessmentInit} from '../action/assessment';
 import Reducer from './Reducer';
 

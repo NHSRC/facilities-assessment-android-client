@@ -36,20 +36,17 @@ class Assessment extends AbstractComponent {
     }
 
     componentDidMount() {
-        this.dispatchAction(Actions.START_ASSESSMENT, {
+        this.dispatchAction(Actions.START_CHECKLIST_ASSESSMENT, {
             checklist: this.props.params.selectedChecklist,
             assessmentType: this.props.params.assessmentType,
-            facility: this.props.params.facility
+            facility: this.props.params.facility,
+            facilityAssessment: this.props.params.facilityAssessment
         });
     }
 
     render() {
         const progressRatio = this.state.progress.completed / this.state.progress.total;
         const assessmentSubmitted = !_.isEmpty(this.state.assessment.endDate);
-        const submitButton = progressRatio < .9 ? (<View/>) : (<SubmitButton
-            onPress={()=> this.dispatchAction(Actions.SUBMIT_ASSESSMENT,
-                {cb: ()=>TypedTransition.from(this).goBack()})}
-            buttonText={assessmentSubmitted ? "Update Assessment" : "Submit Assessment"} buttonIcon={"done"}/>);
         return (
             <Container theme={FlatUITheme} style={Assessment.styles.assessmentContainer}>
                 <Header>
@@ -67,7 +64,6 @@ class Assessment extends AbstractComponent {
                             assessment={this.state.assessment}
                             areasOfConcern={this.state.checklist.areasOfConcern}/>
                     </ScrollView>
-                    {submitButton}
                 </View>
             </Container>
 

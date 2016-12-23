@@ -1,5 +1,6 @@
 export * from './FacilitiesService';
-export * from './AssessmentService';
+export * from './ChecklistAssessmentService';
+export * from './FacilityAssessmentService';
 export * from './SeedDataService';
 export * from './RegionService';
 export * from './DepartmentService';

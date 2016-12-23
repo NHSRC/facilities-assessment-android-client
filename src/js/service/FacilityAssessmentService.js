@@ -1,0 +1,45 @@
+import BaseService from "./BaseService";
+import Service from "../framework/bean/Service";
+import _ from 'lodash';
+import AreaOfConcern from "../models/AreaOfConcern";
+import AssessmentTool from "../models/AssessmentTool";
+import ChecklistAssessment from "../models/ChecklistAssessment";
+import CheckpointScore from "../models/CheckpointScore";
+import AssessmentType from "../models/AssessmentType";
+import Checkpoint from "../models/Checkpoint";
+import MeasurableElement from "../models/MeasurableElement";
+import Standard from "../models/Standard";
+import FacilityAssessment from "../models/FacilityAssessment";
+
+@Service("facilityAssessmentService")
+class FacilityAssessmentService extends BaseService {
+    constructor(db, beanStore) {
+        super(db, beanStore);
+        this.saveAssessment = this.save(FacilityAssessment, FacilityAssessment.toDB);
+    }
+
+    getAssessmentTools() {
+        return this.db.objects(AssessmentTool.schema.name).map(this.nameAndId);
+    }
+
+    getAssessmentTypes() {
+        return this.db.objects(AssessmentType.schema.name).map(this.nameAndId);
+    }
+
+    getExistingAssessment(facility, assessmentTool, assessmentType) {
+        return Object.assign({}, this.db.objects(FacilityAssessment.schema.name)
+            .filtered('facility = $0 AND assessmentTool = $1 AND assessmentType = $2 AND endDate = null',
+                facility.uuid, assessmentTool.uuid, assessmentType.uuid)[0]);
+    }
+
+    startAssessment(facility, assessmentTool, assessmentType) {
+        const existingAssessment = this.getExistingAssessment(facility, assessmentTool, assessmentType);
+        return this.saveAssessment(Object.assign(existingAssessment, {
+            assessmentTool: assessmentTool.uuid,
+            facility: facility.uuid,
+            assessmentType: assessmentType.uuid
+        }));
+    }
+}
+
+export default FacilityAssessmentService;

@@ -4,7 +4,7 @@ import _ from 'lodash';
 import Checklist from "../models/Checklist";
 import Checkpoint from "../models/Checkpoint";
 import DepartmentService from "./DepartmentService";
-import AssessmentService from "./AssessmentService";
+import ChecklistAssessmentService from "./ChecklistAssessmentService";
 import {comp} from "transducers-js"
 import AreaOfConcern from "../models/AreaOfConcern";
 
@@ -34,11 +34,11 @@ class ChecklistService extends BaseService {
     getChecklist(checklistUUID) {
         const checkpoints = _.groupBy(this.db.objects(Checkpoint.schema.name)
             .filtered("checklist = $0", checklistUUID), 'measurableElement');
-        const assessmentService = this.getService(AssessmentService);
+        const checklistAssessmentService = this.getService(ChecklistAssessmentService);
         var checklist = this.db.objectForPrimaryKey(Checklist.schema.name, checklistUUID);
         checklist = comp(this.fromStringObj("areasOfConcern"), this.pickKeys(["areasOfConcern"]))(checklist);
         checklist.areasOfConcern = checklist.areasOfConcern
-            .map(assessmentService.getAreaOfConcern)
+            .map(checklistAssessmentService.getAreaOfConcern)
             .map(AreaOfConcern.fromDB)
             .map((aoc)=> {
                 aoc.standards = aoc.standards

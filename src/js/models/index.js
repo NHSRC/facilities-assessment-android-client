@@ -11,10 +11,11 @@ import District from "./District";
 import State from "./State";
 import Region from "./Region";
 import StringObj from "./StringObj";
-import Assessment from "./Assessment";
+import ChecklistAssessment from "./ChecklistAssessment";
+import FacilityAssessment from "./FacilityAssessment";
 import CheckpointScore from "./CheckpointScore";
 import AssessmentType from "./AssessmentType";
 
 export default {
-    schema: [StringObj, Region, Checkpoint, MeasurableElement, Standard, AreaOfConcern, Department, FacilityType, AssessmentTool, Facility, District, State, Checklist, Assessment, CheckpointScore, AssessmentType]
+    schema: [StringObj, Region, Checkpoint, MeasurableElement, Standard, AreaOfConcern, Department, FacilityType, AssessmentTool, Facility, District, State, Checklist, ChecklistAssessment, FacilityAssessment, CheckpointScore, AssessmentType]
 };

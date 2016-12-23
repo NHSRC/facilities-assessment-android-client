@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Text, StyleSheet, View} from 'react-native';
-import Path, {PathRoot} from '../../framework/routing/Path';
+import Path from '../../framework/routing/Path';
 import FlatUITheme from '../themes/flatUI';
 import AbstractComponent from "../common/AbstractComponent";
 import {Header, Container, Content, Title, Icon, Button} from 'native-base';
@@ -36,12 +36,13 @@ class FacilitySelection extends AbstractComponent {
         this.setState(newState);
     }
 
-    changeView() {
+    changeView(newState) {
         this.dispatchAction(Actions.RESET_FORM, {
             cb: ()=>TypedTransition.from(this).with({
                 selectedAssessmentTool: this.props.params.assessmentTool,
                 selectedFacility: this.state.selectedFacility,
-                selectedAssessmentType: this.state.selectedAssessmentType
+                selectedAssessmentType: this.state.selectedAssessmentType,
+                facilityAssessment: newState.facilityAssessment
             }).to(ChecklistSelection)
         })
     }
@@ -102,8 +103,11 @@ class FacilitySelection extends AbstractComponent {
     renderSubmitButton() {
         if (!_.isNil(this.state.selectedAssessmentType)) {
             return (
-                <SubmitButton buttonIcon="launch" onPress={()=>this.dispatchAction(Actions.FACILITY_SELECT)}
-                              buttonText={"Go"}/>);
+                <SubmitButton buttonIcon="launch"
+                              onPress={()=>this.dispatchAction(Actions.FACILITY_SELECT,
+                                  {assessmentTool: this.props.params.assessmentTool})}
+                              buttonText={this.state.hasActiveFacilityAssessment ?
+                                  "Continue Assessment" : "New Assessment"}/>);
         }
     }
 
@@ -118,7 +122,7 @@ class FacilitySelection extends AbstractComponent {
                     <Title>{this.props.params.assessmentTool.name}</Title>
                 </Header>
                 <Content>
-                    <PickerList pickers={pickersToRender}/>
+                    <PickerList pickers={pickersToRender} assessmentTool={this.props.params.assessmentTool}/>
                     {this.renderSubmitButton()}
                 </Content>
             </Container>

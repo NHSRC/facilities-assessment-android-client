@@ -11,7 +11,7 @@ import checkpoints from "../../config/checkpoints.json";
 import RegionService from "./RegionService";
 import FacilitiesService from "./FacilitiesService";
 import DepartmentService from "./DepartmentService";
-import AssessmentService from "./AssessmentService";
+import ChecklistAssessmentService from "./ChecklistAssessmentService";
 import ChecklistService from "./ChecklistService";
 
 @Service("seedDataService")
@@ -44,7 +44,7 @@ class SeedDataService extends BaseService {
                 "entity": regions
             },
             {
-                "service": AssessmentService,
+                "service": ChecklistAssessmentService,
                 "method": "saveAssessmentTool",
                 "entity": assessmentTools
             },
@@ -54,7 +54,7 @@ class SeedDataService extends BaseService {
                 "entity": departments
             },
             {
-                "service": AssessmentService,
+                "service": ChecklistAssessmentService,
                 "method": "saveAreaOfConcern",
                 "entity": areasOfConcern
             },
@@ -69,7 +69,7 @@ class SeedDataService extends BaseService {
                 "entity": checkpoints
             },
             {
-                "service": AssessmentService,
+                "service": ChecklistAssessmentService,
                 "method": "saveAssessmentType",
                 "entity": assessmentTypes
             }

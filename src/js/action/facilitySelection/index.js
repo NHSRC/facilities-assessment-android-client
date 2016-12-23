@@ -1,5 +1,7 @@
 import FacilitiesService from "../../service/FacilitiesService";
-import AssessmentService from "../../service/AssessmentService";
+import ChecklistAssessmentService from "../../service/ChecklistAssessmentService";
+import FacilityAssessmentService from "../../service/FacilityAssessmentService";
+import _ from 'lodash';
 
 const allStates = function (state, action, beans) {
     const states = beans.get(FacilitiesService).getAllStates();
@@ -54,8 +56,8 @@ const selectFacilityType = function (state, action, beans) {
 };
 
 const selectFacility = function (state, action, beans) {
-    const assessmentService = beans.get(AssessmentService);
-    const assessmentTypes = assessmentService.getAssessmentTypes();
+    const facilityAssessmentService = beans.get(FacilityAssessmentService);
+    const assessmentTypes = facilityAssessmentService.getAssessmentTypes();
     return Object.assign(state, {
         "selectedFacility": action.selectedFacility,
         "facilitySelected": false,
@@ -65,7 +67,10 @@ const selectFacility = function (state, action, beans) {
 };
 
 const selectAssessmentType = function (state, action, beans) {
+    const facilityAssessmentService = beans.get(FacilityAssessmentService);
+    const hasActiveFacilityAssessment = !_.isEmpty(facilityAssessmentService.getExistingAssessment(state.selectedFacility, action.assessmentTool, action.selectedAssessmentType));
     return Object.assign(state, {
+        "hasActiveFacilityAssessment": hasActiveFacilityAssessment,
         "facilitySelected": false,
         "selectedAssessmentType": action.selectedAssessmentType,
     });
@@ -73,12 +78,16 @@ const selectAssessmentType = function (state, action, beans) {
 
 
 const facilitySelected = function (state, action, beans) {
-    return Object.assign(state, {"facilitySelected": true});
+    const facilityAssessmentService = beans.get(FacilityAssessmentService);
+    const facilityAssessment = facilityAssessmentService.startAssessment(state.selectedFacility, action.assessmentTool, state.selectedAssessmentType);
+    return Object.assign(state, {"facilitySelected": true, "facilityAssessment": facilityAssessment});
 };
 
 const reset_form = function (state, action, bean) {
     action.cb();
-    return Object.assign(state, {facilitySelected: false});
+    return Object.assign(state, {
+        facilitySelected: false
+    });
 };
 
 export default new Map([
@@ -97,5 +106,7 @@ export let facilitySelectionInit = {
     selectedDistrict: undefined,
     selectedFacility: undefined,
     selectedAssessmentType: undefined,
-    facilitySelected: false
+    facilitySelected: false,
+    hasActiveFacilityAssessment: false,
+    facilityAssessment: undefined
 };
