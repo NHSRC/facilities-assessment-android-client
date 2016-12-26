@@ -45,7 +45,6 @@ const addRemarks = function (state, actionParams, beans) {
 };
 
 const saveChecklist = function (state, actionParams, beans) {
-    const checklistAssessmentService = beans.get(ChecklistAssessmentService);
     actionParams.cb();
     return Object.assign({}, state);
 };
