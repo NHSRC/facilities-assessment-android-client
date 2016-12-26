@@ -21,6 +21,7 @@ class ChecklistAssessmentService extends BaseService {
         this.saveChecklistAssessment = this.save(ChecklistAssessment, ChecklistAssessment.toDB);
         this.saveCheckpoint = this.save(CheckpointScore, CheckpointScore.toDB);
         this.getAreaOfConcern = this.getAreaOfConcern.bind(this);
+        this.getChecklistProgress = this.getChecklistProgress.bind(this);
     }
 
     getAreaOfConcern(aocUUID) {
@@ -94,12 +95,15 @@ class ChecklistAssessmentService extends BaseService {
 
     getChecklistProgress(checklistAssessment) {
         const checkpoints = _.mapValues(_.groupBy(this.getAllCheckpointsForAssessment(checklistAssessment), (obj) => obj.checkpoint), (obj) => obj[0]);
+        let completed = Object.keys(checkpoints).length;
+        let total = this
+            .getService(ChecklistService)
+            .getAllCheckpointsForChecklist({uuid: checklistAssessment.checklist}).length;
         return {
             progress: {
-                total: this
-                    .getService(ChecklistService)
-                    .getAllCheckpointsForChecklist({uuid: checklistAssessment.checklist}).length,
-                completed: Object.keys(checkpoints).length
+                total: total,
+                completed: completed,
+                status: completed === 0 ? -1 : Number(completed >= total)
             }
         };
     }

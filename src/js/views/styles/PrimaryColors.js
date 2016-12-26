@@ -5,5 +5,6 @@ export default {
     "lightBlue": "#3498DB",
     "darkBlue": "#2980B9",
     "yellow": "#EFC94C",
-    "grey": "#7E827A"
+    "grey": "#7E827A",
+    "green": "#5C832F"
 };

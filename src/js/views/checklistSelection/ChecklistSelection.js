@@ -21,6 +21,9 @@ class ChecklistSelection extends AbstractComponent {
         this.state = store.getState().checklistSelection;
         this.unsubscribe = store.subscribeTo('checklistSelection', this.handleChange.bind(this));
         this.handleOnPress = this.handleOnPress.bind(this);
+        this.iconColorMap = new Map([[-1, {color: PrimaryColors.textBold, icon: "create"}],
+            [0, {color: PrimaryColors.yellow, icon: "error-outline"}],
+            [1, {color: PrimaryColors.green, icon: "check-circle"}]]);
     }
 
     static styles = StyleSheet.create({
@@ -65,7 +68,10 @@ class ChecklistSelection extends AbstractComponent {
     }
 
     componentDidMount() {
-        this.dispatchAction(Actions.ALL_CHECKLISTS, {assessmentTool: this.props.params.selectedAssessmentTool});
+        this.dispatchAction(Actions.ALL_CHECKLISTS, {
+            assessmentTool: this.props.params.selectedAssessmentTool,
+            facilityAssessment: this.props.params.facilityAssessment
+        });
     }
 
     componentWillUnmount() {
@@ -73,7 +79,7 @@ class ChecklistSelection extends AbstractComponent {
     }
 
     handleOnPress(checklist) {
-        return ()=>TypedTransition.from(this).with({
+        return () => TypedTransition.from(this).with({
             selectedChecklist: checklist,
             facility: this.props.params.selectedFacility,
             assessmentType: this.props.params.selectedAssessmentType,
@@ -82,22 +88,30 @@ class ChecklistSelection extends AbstractComponent {
     }
 
     render() {
-        const allChecklists = this.state.checklists.map((checklist, idx)=>
-            (<Button key={idx} onPress={this.handleOnPress(checklist)} style={ChecklistSelection.styles.checklistButton}
+        const allChecklists = this.state.checklists.map((checklist, idx) =>
+            (<Button key={idx} onPress={this.handleOnPress(checklist)}
+                     style={[ChecklistSelection.styles.checklistButton,
+                         {borderColor: this.iconColorMap.get(checklist.progress.status).color}]}
                      bordered large info>
                 <View style={ChecklistSelection.styles.innerButton}>
-                    <Text style={ChecklistSelection.styles.buttonText}>
+                    <MedIcon
+                        style={[ChecklistSelection.styles.buttonText,
+                            {color: this.iconColorMap.get(checklist.progress.status).color}]}
+                        size={25} name={iconMapping[checklist.department.name]}/>
+                    <Text
+                        style={[ChecklistSelection.styles.buttonText,
+                            {color: this.iconColorMap.get(checklist.progress.status).color}]}>
                         {checklist.name}
                     </Text>
-                    <MedIcon style={ChecklistSelection.styles.buttonText}
-                             size={25} name={iconMapping[checklist.department.name]}/>
+                    <Icon style={{color: this.iconColorMap.get(checklist.progress.status).color}} size={25}
+                          name={this.iconColorMap.get(checklist.progress.status).icon}/>
                 </View>
             </Button>)
         );
         return (
             <Container theme={FlatUITheme} style={ChecklistSelection.styles.checklistContainer}>
                 <Header>
-                    <Button transparent onPress={()=>TypedTransition.from(this).goBack()}>
+                    <Button transparent onPress={() => TypedTransition.from(this).goBack()}>
                         <Icon name='arrow-back'/>
                     </Button>
                     <Title>Facilities Assessment</Title>
