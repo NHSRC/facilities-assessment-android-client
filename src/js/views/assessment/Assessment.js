@@ -11,6 +11,7 @@ import SubmitButton from '../common/SubmitButton';
 import TypedTransition from "../../framework/routing/TypedTransition";
 import _ from 'lodash';
 import AssessmentStatus from './AssessmentStatus';
+import ChecklistSelection from "../checklistSelection/ChecklistSelection";
 
 @Path("/assessment")
 class Assessment extends AbstractComponent {

@@ -87,6 +87,10 @@ const reset_form = function (state, action, bean) {
     action.cb();
     return Object.assign(state, {
         facilitySelected: false,
+        districtsForState: undefined,
+        facilities: undefined,
+        assessmentTypes: undefined,
+        facilityTypes: undefined,
         selectedState: undefined,
         selectedDistrict: undefined,
         selectedFacility: undefined,

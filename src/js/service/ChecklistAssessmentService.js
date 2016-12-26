@@ -103,7 +103,7 @@ class ChecklistAssessmentService extends BaseService {
             progress: {
                 total: total,
                 completed: completed,
-                status: completed === 0 ? -1 : Number(completed >= total)
+                status: completed === 0 ? -1 : Number(completed / total >= 0.9)
             }
         };
     }

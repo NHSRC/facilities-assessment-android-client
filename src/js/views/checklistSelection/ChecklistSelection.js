@@ -102,27 +102,30 @@ class ChecklistSelection extends AbstractComponent {
         }
     }
 
+
+    renderChecklistButton(checklist, idx) {
+        return (<Button key={idx} onPress={this.handleOnPress(checklist)}
+                        style={[ChecklistSelection.styles.checklistButton,
+                            {borderColor: this.iconColorMap.get(checklist.progress.status).color}]}
+                        bordered large info>
+            <View style={ChecklistSelection.styles.innerButton}>
+                <MedIcon
+                    style={[ChecklistSelection.styles.buttonText,
+                        {color: this.iconColorMap.get(checklist.progress.status).color}]}
+                    size={25} name={iconMapping[checklist.department.name]}/>
+                <Text
+                    style={[ChecklistSelection.styles.buttonText,
+                        {color: this.iconColorMap.get(checklist.progress.status).color}]}>
+                    {checklist.name}
+                </Text>
+                <Icon style={{color: this.iconColorMap.get(checklist.progress.status).color}} size={25}
+                      name={this.iconColorMap.get(checklist.progress.status).icon}/>
+            </View>
+        </Button>);
+    }
+
     render() {
-        const allChecklists = this.state.checklists.map((checklist, idx) =>
-            (<Button key={idx} onPress={this.handleOnPress(checklist)}
-                     style={[ChecklistSelection.styles.checklistButton,
-                         {borderColor: this.iconColorMap.get(checklist.progress.status).color}]}
-                     bordered large info>
-                <View style={ChecklistSelection.styles.innerButton}>
-                    <MedIcon
-                        style={[ChecklistSelection.styles.buttonText,
-                            {color: this.iconColorMap.get(checklist.progress.status).color}]}
-                        size={25} name={iconMapping[checklist.department.name]}/>
-                    <Text
-                        style={[ChecklistSelection.styles.buttonText,
-                            {color: this.iconColorMap.get(checklist.progress.status).color}]}>
-                        {checklist.name}
-                    </Text>
-                    <Icon style={{color: this.iconColorMap.get(checklist.progress.status).color}} size={25}
-                          name={this.iconColorMap.get(checklist.progress.status).icon}/>
-                </View>
-            </Button>)
-        );
+        const allChecklists = this.state.checklists.map(this.renderChecklistButton.bind(this));
         const readyForSubmission = !this.state.checklists.some((checklist) => checklist.progress.status <= 0);
         const completedChecklistsCount = this.state.checklists.filter((checklist) => checklist.progress.status === 1).length;
         return (

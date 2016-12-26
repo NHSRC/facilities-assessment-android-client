@@ -10,7 +10,7 @@ const startChecklistAssessment = function (state, actionParams, beans) {
     const checklist = checklistService.getChecklist(actionParams.checklist.uuid);
     const checkpoints = _.mapValues(_.groupBy(checklistAssessmentService.getAllCheckpointsForAssessment(checklistAssessment), (obj) => obj.checkpoint), (obj) => obj[0]);
     const lastUpdatedCheckpoint = checklistAssessmentService.getLatestUpdatedCheckpointForAssessment(checklistAssessment);
-    var currentPointer = undefined;
+    let currentPointer = undefined;
     if (!_.isEmpty(lastUpdatedCheckpoint)) {
         currentPointer = {};
         currentPointer.currentStandard = checklistAssessmentService.getStandardForCheckpoint(lastUpdatedCheckpoint.checkpoint);
