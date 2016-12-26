@@ -40,6 +40,13 @@ class FacilityAssessmentService extends BaseService {
             assessmentType: assessmentType.uuid
         }));
     }
+
+    endAssessment(facilityAssessment) {
+        const existingAssessment = Object.assign({}, this.db.objectForPrimaryKey(FacilityAssessment.schema.name, facilityAssessment.uuid));
+        return this.saveAssessment(Object.assign(existingAssessment, {
+            endDate: new Date()
+        }));
+    }
 }
 
 export default FacilityAssessmentService;

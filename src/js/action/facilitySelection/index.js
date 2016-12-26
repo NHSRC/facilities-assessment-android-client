@@ -44,7 +44,7 @@ const selectDistrict = function (state, action, beans) {
 
 const selectFacilityType = function (state, action, beans) {
     const facilities = beans.get(FacilitiesService).getAllFacilitiesFor(state.selectedDistrict.uuid)
-        .filter((facility)=>facility.facilityType === action.selectedFacilityType.uuid);
+        .filter((facility) => facility.facilityType === action.selectedFacilityType.uuid);
     return Object.assign(state, {
         "facilities": facilities,
         "selectedFacility": undefined,
@@ -86,7 +86,11 @@ const facilitySelected = function (state, action, beans) {
 const reset_form = function (state, action, bean) {
     action.cb();
     return Object.assign(state, {
-        facilitySelected: false
+        facilitySelected: false,
+        selectedState: undefined,
+        selectedDistrict: undefined,
+        selectedFacility: undefined,
+        selectedAssessmentType: undefined,
     });
 };
 

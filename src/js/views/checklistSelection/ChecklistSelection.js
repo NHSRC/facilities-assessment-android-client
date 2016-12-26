@@ -13,6 +13,7 @@ import FlatUITheme from '../themes/flatUI';
 import Path from "../../framework/routing/Path";
 import SubmitButton from '../common/SubmitButton';
 import AssessmentStatus from './AssessmentStatus';
+import AssessmentTools from "../assessmentTools/AssessmentTools";
 
 
 @Path("/checklistSelection")
@@ -92,7 +93,11 @@ class ChecklistSelection extends AbstractComponent {
     renderSubmitButton(show) {
         if (show) {
             return (
-                <SubmitButton onPress={() => console.log("Pressed")} buttonText="Save Assessment" buttonIcon="save"/>
+                <SubmitButton onPress={() => this.dispatchAction(Actions.SAVE_FACILITY_ASSESSMENT, {
+                    assessment: this.props.params.facilityAssessment,
+                    cb: () => TypedTransition.from(this).to(AssessmentTools)
+                })}
+                              buttonText="Save Assessment" buttonIcon="save"/>
             );
         }
     }
