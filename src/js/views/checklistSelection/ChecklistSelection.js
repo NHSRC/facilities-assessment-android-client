@@ -11,6 +11,8 @@ import TypedTransition from "../../framework/routing/TypedTransition";
 import Assessment from '../assessment/Assessment';
 import FlatUITheme from '../themes/flatUI';
 import Path from "../../framework/routing/Path";
+import SubmitButton from '../common/SubmitButton';
+import AssessmentStatus from './AssessmentStatus';
 
 
 @Path("/checklistSelection")
@@ -87,6 +89,14 @@ class ChecklistSelection extends AbstractComponent {
         }).to(Assessment);
     }
 
+    renderSubmitButton(show) {
+        if (show) {
+            return (
+                <SubmitButton onPress={() => console.log("Pressed")} buttonText="Save Assessment" buttonIcon="save"/>
+            );
+        }
+    }
+
     render() {
         const allChecklists = this.state.checklists.map((checklist, idx) =>
             (<Button key={idx} onPress={this.handleOnPress(checklist)}
@@ -108,6 +118,8 @@ class ChecklistSelection extends AbstractComponent {
                 </View>
             </Button>)
         );
+        const readyForSubmission = !this.state.checklists.some((checklist) => checklist.progress.status <= 0);
+        const completedChecklistsCount = this.state.checklists.filter((checklist) => checklist.progress.status === 1).length;
         return (
             <Container theme={FlatUITheme} style={ChecklistSelection.styles.checklistContainer}>
                 <Header>
@@ -118,12 +130,16 @@ class ChecklistSelection extends AbstractComponent {
                 </Header>
                 <Content>
                     <View style={ChecklistSelection.styles.tabContainer}>
+                        <AssessmentStatus dateUpdated={this.props.params.facilityAssessment.dateUpdated}
+                                          completed={completedChecklistsCount}
+                                          total={this.state.checklists.length}/>
                         <Text style={[ChecklistSelection.styles.buttonText, Typography.paperFontDisplay1]}>
                             Select a Checklist
                         </Text>
                         <View style={ChecklistSelection.styles.buttonsContainer}>
                             {allChecklists}
                         </View>
+                        {this.renderSubmitButton(readyForSubmission)}
                     </View>
                 </Content>
             </Container>
