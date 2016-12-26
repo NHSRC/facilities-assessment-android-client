@@ -46,18 +46,17 @@ class Assessment extends AbstractComponent {
 
     render() {
         const progressRatio = this.state.progress.completed / this.state.progress.total;
-        const assessmentSubmitted = !_.isEmpty(this.state.assessment.endDate);
         return (
             <Container theme={FlatUITheme} style={Assessment.styles.assessmentContainer}>
                 <Header>
-                    <Button transparent onPress={()=>TypedTransition.from(this).goBack()}>
+                    <Button transparent onPress={() => TypedTransition.from(this).goBack()}>
                         <Icon name='arrow-back'/>
                     </Button>
                     <Title>{this.state.checklist.name}</Title>
                 </Header>
                 <View style={{flex: 1}}>
                     <AssessmentStatus assessment={this.state.assessment} progress={this.state.progress}
-                                      progressRatio={progressRatio} assessmentSubmitted={assessmentSubmitted}/>
+                                      progressRatio={progressRatio}/>
                     <ScrollView>
                         <AreasOfConcern
                             currentPointer={this.state.currentPointer}

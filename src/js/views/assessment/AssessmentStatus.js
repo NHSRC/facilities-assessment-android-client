@@ -15,12 +15,7 @@ class AssessmentStatus extends AbstractComponent {
                 <Text style={{alignSelf: 'center', fontSize: 21, color: PrimaryColors.background}}>Assessment
                     Status</Text>
                 <Text style={{alignSelf: 'center', fontSize: 18, color: PrimaryColors.background}}>Assessment
-                    started on {moment(this.props.assessment.startDate).format("do MMM YY")}</Text>
-                <Text style={{
-                    alignSelf: 'center',
-                    fontSize: 18,
-                    color: this.props.assessmentSubmitted ? PrimaryColors.background : PrimaryColors.red
-                }}>Assessment {this.props.assessmentSubmitted ? "Submitted" : "Not Submitted"}</Text>
+                    last updated on {moment(this.props.assessment.dateUpdated).format("Do MMM YY")}</Text>
 
                 <ProgressBar
                     color={this.props.progressRatio < .9 ? PrimaryColors.red : PrimaryColors.background}
