@@ -9,6 +9,7 @@ import AssessmentType from "../models/AssessmentType";
 import Checkpoint from "../models/Checkpoint";
 import MeasurableElement from "../models/MeasurableElement";
 import Standard from "../models/Standard";
+import ChecklistService from "./ChecklistService";
 
 @Service("checklistAssessmentService")
 class ChecklistAssessmentService extends BaseService {
@@ -48,7 +49,7 @@ class ChecklistAssessmentService extends BaseService {
     }
 
     saveCheckpointField(checklistAssessment, checkpoint) {
-        return (opts)=> this.saveCheckpoint(Object.assign(this._getExistingCheckpoint(checklistAssessment, checkpoint), {
+        return (opts) => this.saveCheckpoint(Object.assign(this._getExistingCheckpoint(checklistAssessment, checkpoint), {
             checklist: checklistAssessment.checklist,
             checklistAssessment: checklistAssessment.uuid,
             checkpoint: checkpoint.uuid,
@@ -89,6 +90,18 @@ class ChecklistAssessmentService extends BaseService {
 
     saveCheckpointRemarks(checklistAssessment, checkpoint, remarks) {
         return this.saveCheckpointField(checklistAssessment, checkpoint)({remarks: remarks});
+    }
+
+    getChecklistProgress(checklistAssessment) {
+        const checkpoints = _.mapValues(_.groupBy(this.getAllCheckpointsForAssessment(checklistAssessment), (obj) => obj.checkpoint), (obj) => obj[0]);
+        return {
+            progress: {
+                total: this
+                    .getService(ChecklistService)
+                    .getAllCheckpointsForChecklist({uuid: checklistAssessment.checklist}).length,
+                completed: Object.keys(checkpoints).length
+            }
+        };
     }
 }
 

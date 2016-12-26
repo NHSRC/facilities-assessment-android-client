@@ -8,23 +8,20 @@ const startChecklistAssessment = function (state, actionParams, beans) {
     const checklistAssessmentService = beans.get(ChecklistAssessmentService);
     const checklistAssessment = checklistAssessmentService.startChecklistAssessment(actionParams.checklist, actionParams.facilityAssessment);
     const checklist = checklistService.getChecklist(actionParams.checklist.uuid);
-    const checkpoints = _.mapValues(_.groupBy(checklistAssessmentService.getAllCheckpointsForAssessment(checklistAssessment), (obj)=>obj.checkpoint), (obj)=>obj[0]);
+    const checkpoints = _.mapValues(_.groupBy(checklistAssessmentService.getAllCheckpointsForAssessment(checklistAssessment), (obj) => obj.checkpoint), (obj) => obj[0]);
     const lastUpdatedCheckpoint = checklistAssessmentService.getLatestUpdatedCheckpointForAssessment(checklistAssessment);
     var currentPointer = undefined;
     if (!_.isEmpty(lastUpdatedCheckpoint)) {
         currentPointer = {};
         currentPointer.currentStandard = checklistAssessmentService.getStandardForCheckpoint(lastUpdatedCheckpoint.checkpoint);
-        currentPointer.currentAreaOfConcern = checklistAssessmentService.getAreaOfConcernForStandard(currentPointer.currentStandard.uuid)
+        currentPointer.currentAreaOfConcern = checklistAssessmentService.getAreaOfConcernForStandard(currentPointer.currentStandard.uuid);
     }
+    const checklistProgress = checklistAssessmentService.getChecklistProgress(checklistAssessment);
     return Object.assign(state, {
-        progress: {
-            total: checklistService.getAllCheckpointsForChecklist(checklist).length,
-            completed: Object.keys(checkpoints).length
-        },
         currentPointer: currentPointer,
         checklist: checklist,
         assessment: Object.assign(checklistAssessment, {checkpoints: checkpoints})
-    });
+    }, checklistProgress);
 };
 
 const selectCompliance = function (state, actionParams, beans) {
@@ -34,8 +31,8 @@ const selectCompliance = function (state, actionParams, beans) {
         .set("assessment", Immutable.Map(state.assessment)
             .set("checkpoints", Immutable.Map(state.assessment.checkpoints)
                 .set(savedCheckpoint.checkpoint, Immutable.Map(savedCheckpoint)))).toJS();
-    const completedCheckpoints = Object.keys(checklistAssessmentService.getAllCheckpointsForAssessment(newState.assessment)).length;
-    return Object.assign(newState, {progress: {completed: completedCheckpoints, total: newState.progress.total}});
+    const checklistProgress = checklistAssessmentService.getChecklistProgress(newState.assessment);
+    return Object.assign(newState, checklistProgress);
 };
 
 const addRemarks = function (state, actionParams, beans) {
@@ -49,7 +46,6 @@ const addRemarks = function (state, actionParams, beans) {
 
 const saveChecklist = function (state, actionParams, beans) {
     const checklistAssessmentService = beans.get(ChecklistAssessmentService);
-    const assessment = checklistAssessmentService.endChecklistAssessment(state.assessment);
     actionParams.cb();
     return Object.assign({}, state);
 };
