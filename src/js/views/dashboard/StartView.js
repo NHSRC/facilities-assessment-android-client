@@ -1,8 +1,12 @@
 import React, {Component} from 'react';
-import {Text, StyleSheet, View, ScrollView} from 'react-native';
+import {Text, StyleSheet, View, ScrollView, Dimensions} from 'react-native';
 import AbstractComponent from "../common/AbstractComponent";
-import {Container, Header, Title, Content, Icon, Button} from 'native-base';
+import {List, ListItem, InputGroup, Input, Picker} from 'native-base';
 import Typography from '../styles/Typography';
+import Dashboard from './Dashboard';
+
+const deviceWidth = Dimensions.get('window').width;
+
 
 class StartView extends AbstractComponent {
     constructor(props, context) {
@@ -18,6 +22,16 @@ class StartView extends AbstractComponent {
             color: "#000",
             marginLeft: 24,
             marginTop: 26,
+        },
+        pickerContainer: {
+            marginLeft: deviceWidth * .04,
+            flex: .5,
+            borderBottomWidth: 1,
+            borderBottomColor: "#1f0000",
+            borderStyle: "solid",
+        },
+        formRow: {
+            borderBottomWidth: 0
         }
     });
 
@@ -35,9 +49,30 @@ class StartView extends AbstractComponent {
     }
 
     render() {
+        const Item = Picker.Item;
         return (
-            <View style={{flex:1}}>
-                <Text style={[StartView.styles.subheader, Typography.paperFontSubhead]}>START ASSESSMENT</Text>
+            <View style={Dashboard.styles.tab}>
+                <Text style={[Typography.paperFontSubhead, StartView.styles.subheader]}>START ASSESSMENT</Text>
+                <List>
+                    <ListItem style={StartView.styles.formRow}>
+                        <View style={StartView.styles.pickerContainer}>
+                            <Picker
+                                mode={"dropdown"}>
+                                <Item label="Ok" value="punjab"/>
+                                <Item label="Karnataka" value="karnataka"/>
+                            </Picker>
+                        </View>
+
+                        <View style={[StartView.styles.pickerContainer, {marginRight: deviceWidth * .04,}]}>
+                            <Picker
+                                mode={"dropdown"}>
+                                <Item label="Ramesh" value="ramesh"/>
+                                <Item label="Suresh" value="suresh"/>
+                            </Picker>
+                        </View>
+                    </ListItem>
+
+                </List>
             </View>
         );
     }

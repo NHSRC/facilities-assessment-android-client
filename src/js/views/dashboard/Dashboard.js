@@ -17,7 +17,14 @@ class Dashboard extends AbstractComponent {
         super(props, context);
     }
 
-    static styles = StyleSheet.create({});
+    static styles = StyleSheet.create({
+        tabs: {
+            flex: 3
+        },
+        tab: {
+            flex: 1
+        }
+    });
 
     handleChange() {
         const newState = this.context.getStore().getState().dashboard;
@@ -45,7 +52,7 @@ class Dashboard extends AbstractComponent {
                         </Button>
                         <Title style={[Typography.paperFontHeadline, {fontWeight: 'bold'}]}>NHSRC</Title>
                     </Header>
-                    <Tabs renderTabBar={() => <CustomTabBar/>}>
+                    <Tabs style={StartView.styles.tabs} renderTabBar={() => <CustomTabBar/>}>
                         <StartView tabLabel="Start"/>
                         <OpenView tabLabel="Open"/>
                         <ReportsView tabLabel="Reports"/>

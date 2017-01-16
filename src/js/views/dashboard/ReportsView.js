@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Text, StyleSheet, View, ScrollView} from 'react-native';
 import AbstractComponent from "../common/AbstractComponent";
+import Dashboard from './Dashboard';
 import {Container, Header, Title, Content, Icon, Button} from 'native-base';
 
 class ReportsView extends AbstractComponent {
@@ -28,7 +29,7 @@ class ReportsView extends AbstractComponent {
 
     render() {
         return (
-            <View>
+            <View style={Dashboard.styles.tab}>
             </View>
         );
     }
