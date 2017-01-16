@@ -8,6 +8,7 @@ import ReportsView from './ReportsView';
 import {Container, Header, Title, Content, Icon, Button, Tabs} from 'native-base';
 import Path, {PathRoot} from "../../framework/routing/Path";
 import Typography from '../styles/Typography';
+import CustomTabBar from '../common/CustomTabBar';
 
 @PathRoot
 @Path("/dashboard")
@@ -44,7 +45,7 @@ class Dashboard extends AbstractComponent {
                         </Button>
                         <Title style={Typography.paperFontHeadline}>NHSRC</Title>
                     </Header>
-                    <Tabs>
+                    <Tabs renderTabBar={() => <CustomTabBar/>}>
                         <StartView tabLabel="Start"/>
                         <OpenView tabLabel="Open"/>
                         <ReportsView tabLabel="Reports"/>

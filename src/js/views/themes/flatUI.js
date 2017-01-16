@@ -201,6 +201,7 @@ export default {
     tabBgColor: '#F8F8F8',
     tabFontSize: 20,
     tabTextColor: '#222222',
+    tabUnderlineColor: '#009688',
 
 
     // Text
