@@ -15,6 +15,8 @@ import com.smixx.fabric.FabricPackage;
 import com.crashlytics.android.Crashlytics;
 import io.fabric.sdk.android.Fabric;
 import com.oblador.vectoricons.VectorIconsPackage;
+import com.facebook.soloader.SoLoader;
+
 
 
 import java.util.Arrays;
@@ -44,6 +46,7 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        SoLoader.init(this, /* native exopackage */ false);
         Fabric.with(this, new Crashlytics());
     }
 

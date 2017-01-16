@@ -114,9 +114,9 @@ export default {
     //Tab
     tabDefaultBg: (Platform.OS === 'ios' ) ? '#F8F8F8' : '#4179F7',
     topTabBarTextColor: (Platform.OS === 'ios' ) ? '#6b6b6b' : '#b3c7f9',
-    topTabBarActiveTextColor: (Platform.OS === 'ios' ) ? '#007aff' : '#009688',
+    topTabBarActiveTextColor: (Platform.OS === 'ios' ) ? '#007aff' : '#fff',
     topTabActiveBgColor: (Platform.OS == 'ios') ? '#cde1f9' : undefined,
-    topTabBarBorderColor: (Platform.OS === 'ios' ) ? '#007aff' : '#009688',
+    topTabBarBorderColor: (Platform.OS === 'ios' ) ? '#009688' : '#009688',
 
 
     // Header
