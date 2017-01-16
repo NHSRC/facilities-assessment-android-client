@@ -5,6 +5,7 @@ import {List, ListItem, InputGroup, Input, Picker} from 'native-base';
 import Typography from '../styles/Typography';
 import Dashboard from './Dashboard';
 
+
 const deviceWidth = Dimensions.get('window').width;
 
 
@@ -20,18 +21,16 @@ class StartView extends AbstractComponent {
     static styles = StyleSheet.create({
         subheader: {
             color: "#000",
-            marginLeft: 24,
-            marginTop: 26,
         },
         pickerContainer: {
-            marginLeft: deviceWidth * .04,
             flex: .5,
             borderBottomWidth: 1,
             borderBottomColor: "#1f0000",
             borderStyle: "solid",
         },
         formRow: {
-            borderBottomWidth: 0
+            borderBottomWidth: 0,
+            marginLeft: 0
         }
     });
 
@@ -55,7 +54,7 @@ class StartView extends AbstractComponent {
                 <Text style={[Typography.paperFontSubhead, StartView.styles.subheader]}>START ASSESSMENT</Text>
                 <List>
                     <ListItem style={StartView.styles.formRow}>
-                        <View style={StartView.styles.pickerContainer}>
+                        <View style={[StartView.styles.pickerContainer, {marginRight: deviceWidth * 0.04}]}>
                             <Picker
                                 mode={"dropdown"}>
                                 <Item label="Ok" value="punjab"/>
@@ -63,7 +62,7 @@ class StartView extends AbstractComponent {
                             </Picker>
                         </View>
 
-                        <View style={[StartView.styles.pickerContainer, {marginRight: deviceWidth * .04,}]}>
+                        <View style={[StartView.styles.pickerContainer]}>
                             <Picker
                                 mode={"dropdown"}>
                                 <Item label="Ramesh" value="ramesh"/>

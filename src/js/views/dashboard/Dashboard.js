@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, StyleSheet, View, ScrollView} from 'react-native';
+import {Text, StyleSheet, View, ScrollView, Dimensions} from 'react-native';
 import AbstractComponent from "../common/AbstractComponent";
 import StartView from './StartView';
 import FlatUITheme from '../themes/flatUI';
@@ -10,6 +10,8 @@ import Path, {PathRoot} from "../../framework/routing/Path";
 import Typography from '../styles/Typography';
 import CustomTabBar from '../common/CustomTabBar';
 
+const deviceWidth = Dimensions.get('window').width;
+
 @PathRoot
 @Path("/dashboard")
 class Dashboard extends AbstractComponent {
@@ -19,10 +21,12 @@ class Dashboard extends AbstractComponent {
 
     static styles = StyleSheet.create({
         tabs: {
-            flex: 3
+            flex: 3,
+            margin: 0
         },
         tab: {
-            flex: 1
+            flex: 1,
+            margin: deviceWidth*0.04
         }
     });
 
