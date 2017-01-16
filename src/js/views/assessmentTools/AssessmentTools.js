@@ -11,7 +11,6 @@ import Typography from '../styles/Typography';
 import FlatUITheme from "../themes/flatUI";
 import Actions from '../../action';
 
-@PathRoot
 @Path("/assessmentTools")
 class AssessmentTools extends AbstractComponent {
 
@@ -61,7 +60,7 @@ class AssessmentTools extends AbstractComponent {
     }
 
     render() {
-        const assessmentTools = this.state.assessmentTools.map((assessmentTool, idx)=>
+        const assessmentTools = this.state.assessmentTools.map((assessmentTool, idx) =>
             <ListItem style={AssessmentTools.styles.assessmentButton} iconLeft key={idx}
                       onPress={this.chooseAssessmentTool(assessmentTool).bind(this)}>
                 <NIcon style={{color: PrimaryColors.background}} name={"assignment"}/>

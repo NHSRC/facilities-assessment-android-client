@@ -1,7 +1,5 @@
-import Color from 'color';
-
 import {Platform} from 'react-native';
-import PrimaryColors from '../styles/PrimaryColors';
+import Color from 'color';
 
 export default {
 
@@ -47,7 +45,7 @@ export default {
     },
     get btnTextSize() {
         return (Platform.OS === 'ios') ? this.fontSizeBase * 1.1 :
-        this.fontSizeBase - 1;
+            this.fontSizeBase - 1;
     },
     get btnTextSizeLarge() {
         return this.fontSizeBase * 1.5;
@@ -70,7 +68,7 @@ export default {
 
 
     // Card
-    cardDefaultBg: PrimaryColors.background,
+    cardDefaultBg: '#fff',
 
 
     // Check Box
@@ -113,15 +111,22 @@ export default {
     tabBarActiveTextColor: (Platform.OS === 'ios' ) ? '#007aff' : '#fff',
     tabActiveBgColor: (Platform.OS == 'ios') ? '#cde1f9' : undefined,
 
+    //Tab
+    tabDefaultBg: (Platform.OS === 'ios' ) ? '#F8F8F8' : '#4179F7',
+    topTabBarTextColor: (Platform.OS === 'ios' ) ? '#6b6b6b' : '#b3c7f9',
+    topTabBarActiveTextColor: (Platform.OS === 'ios' ) ? '#007aff' : '#009688',
+    topTabActiveBgColor: (Platform.OS == 'ios') ? '#cde1f9' : undefined,
+    topTabBarBorderColor: (Platform.OS === 'ios' ) ? '#007aff' : '#009688',
+
 
     // Header
     iosToolbarBtnColor: '#007aff',
-    toolbarDefaultBg: (Platform.OS === 'ios' ) ? PrimaryColors.textBold : PrimaryColors.textBold,
+    toolbarDefaultBg: (Platform.OS === 'ios' ) ? '#F8F8F8' : '#f5f5f5',
     toolbarHeight: (Platform.OS === 'ios' ) ? 64 : 56,
     toolbarIconSize: (Platform.OS === 'ios' ) ? 20 : 22,
     toolbarInputColor: '#CECDD2',
     toolbarInverseBg: '#222',
-    toolbarTextColor: (Platform.OS === 'ios') ? '#000' : PrimaryColors.background,
+    toolbarTextColor: (Platform.OS === 'ios') ? '#000' : '#000',
     get statusBarColor() {
         return Color(this.toolbarDefaultBg).darken(0.2).hexString();
     },
@@ -135,15 +140,15 @@ export default {
 
     // InputGroup
     inputFontSize: 15,
-    inputBorderColor: PrimaryColors.textBold,
-    inputSuccessBorderColor: PrimaryColors.lightBlue,
-    inputErrorBorderColor: PrimaryColors.red,
+    inputBorderColor: '#D9D5DC',
+    inputSuccessBorderColor: '#2b8339',
+    inputErrorBorderColor: '#ed2f2f',
 
     get inputColor() {
         return this.textColor;
     },
     get inputColorPlaceholder() {
-        return PrimaryColors.tex;
+        return '#575757';
     },
 
     inputGroupMarginBottom: 10,
@@ -168,7 +173,7 @@ export default {
     listBorderColor: '#ddd',
     listDividerBg: '#ddd',
     listItemHeight: 45,
-    listItemPadding: 9,
+    listItemPadding: (Platform.OS === 'ios' ) ? 12 : 16,
     listNoteColor: '#808080',
     listNoteSize: 13,
 
@@ -193,13 +198,13 @@ export default {
 
 
     // Tabs
-    tabBgColor: PrimaryColors.textBold,
-    tabFontSize: 15,
-    tabTextColor: PrimaryColors.background,
+    tabBgColor: '#F8F8F8',
+    tabFontSize: 20,
+    tabTextColor: '#222222',
 
 
     // Text
-    textColor: PrimaryColors.textBold,
+    textColor: '#000',
     inverseTextColor: '#fff',
 
 
