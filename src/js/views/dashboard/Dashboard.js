@@ -43,7 +43,7 @@ class Dashboard extends AbstractComponent {
                         <Button transparent>
                             <Icon name={"menu"}/>
                         </Button>
-                        <Title style={Typography.paperFontHeadline}>NHSRC</Title>
+                        <Title style={[Typography.paperFontHeadline, {fontWeight: 'bold'}]}>NHSRC</Title>
                     </Header>
                     <Tabs renderTabBar={() => <CustomTabBar/>}>
                         <StartView tabLabel="Start"/>
