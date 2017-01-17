@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Text, StyleSheet, View, ScrollView, Dimensions} from 'react-native';
 import AbstractComponent from "../common/AbstractComponent";
-import {List, ListItem, InputGroup, Input, Picker} from 'native-base';
+import {List, ListItem, InputGroup, Radio, Picker} from 'native-base';
 import Typography from '../styles/Typography';
 import Dashboard from './Dashboard';
 
@@ -25,13 +25,26 @@ class StartView extends AbstractComponent {
         pickerContainer: {
             flex: .5,
             borderBottomWidth: 1,
-            borderBottomColor: "#1f0000",
+            borderBottomColor: "#1F000012",
             borderStyle: "solid",
+        },
+        radioContainer: {
+            flex: 1,
+            flexDirection: 'row',
+            flexWrap: 'nowrap',
+            justifyContent: "space-between",
         },
         formRow: {
             borderBottomWidth: 0,
             marginLeft: 0
-        }
+        },
+        formQuestionText: {},
+        radioButtonContainer: {
+            flex: .3,
+            flexDirection: 'row',
+            flexWrap: 'nowrap',
+            justifyContent: "space-around"
+        },
     });
 
 
@@ -70,7 +83,37 @@ class StartView extends AbstractComponent {
                             </Picker>
                         </View>
                     </ListItem>
-
+                    <ListItem style={StartView.styles.formRow}>
+                        <View style={StartView.styles.pickerContainer}>
+                            <Picker
+                                mode={"dropdown"}>
+                                <Item label="Ok" value="punjab"/>
+                                <Item label="Karnataka" value="karnataka"/>
+                            </Picker>
+                        </View>
+                    </ListItem>
+                    <ListItem style={StartView.styles.formRow}>
+                        <View style={StartView.styles.pickerContainer}>
+                            <Picker
+                                mode={"dropdown"}>
+                                <Item label="Ok" value="punjab"/>
+                                <Item label="Karnataka" value="karnataka"/>
+                            </Picker>
+                        </View>
+                    </ListItem>
+                    <ListItem style={StartView.styles.formRow}>
+                        <View style={StartView.styles.radioContainer}>
+                            <View style={{flex: .7}}>
+                                <Text style={[Typography.paperFontSubhead]}>Assessment Type</Text>
+                            </View>
+                            <View style={StartView.styles.radioButtonContainer}>
+                                <Radio/>
+                                <Text style={[Typography.paperFontBody2, {color: '#000'}]}>Internal</Text>
+                                <Radio/>
+                                <Text style={[Typography.paperFontBody2, {color: '#000'}]}>External</Text>
+                            </View>
+                        </View>
+                    </ListItem>
                 </List>
             </View>
         );
