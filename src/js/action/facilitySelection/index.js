@@ -84,23 +84,26 @@ const selectAssessmentTool = function (state, action, beans) {
 
 const facilitySelected = function (state, action, beans) {
     const facilityAssessmentService = beans.get(FacilityAssessmentService);
-    const hasActiveFacilityAssessment = !_.isEmpty(facilityAssessmentService.getExistingAssessment(state.selectedFacility, action.selectedAssessmentTool, action.selectedAssessmentType));
-    const facilityAssessment = facilityAssessmentService.startAssessment(state.selectedFacility, action.assessmentTool, state.selectedAssessmentType);
+    const hasActiveFacilityAssessment = !_.isEmpty(facilityAssessmentService.getExistingAssessment(state.selectedFacility, state.selectedAssessmentTool, state.selectedAssessmentType));
+    const facilityAssessment = facilityAssessmentService.startAssessment(state.selectedFacility, state.selectedAssessmentTool, state.selectedAssessmentType);
+    console.log("Facility Selected");
     return Object.assign(state, {"facilitySelected": true, "facilityAssessment": facilityAssessment});
 };
 
 const reset_form = function (state, action, bean) {
+    console.log("Transition Called");
     action.cb();
     return Object.assign(state, {
         facilitySelected: false,
-        districtsForState: undefined,
-        facilities: undefined,
-        assessmentTypes: undefined,
-        facilityTypes: undefined,
+        districtsForState: [],
+        facilities: [],
+        assessmentTypes: [],
+        facilityTypes: [],
         selectedState: undefined,
         selectedDistrict: undefined,
         selectedFacility: undefined,
         selectedAssessmentType: undefined,
+        selectedAssessmentTool: undefined,
     });
 };
 

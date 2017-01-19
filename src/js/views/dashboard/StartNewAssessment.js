@@ -4,6 +4,7 @@ import {Button} from 'native-base';
 import {StyleSheet} from 'react-native';
 import PrimaryColors from "../styles/PrimaryColors";
 import _ from 'lodash';
+import Actions from "../../action";
 
 
 class StartNewAssessment extends AbstractComponent {
@@ -17,6 +18,7 @@ class StartNewAssessment extends AbstractComponent {
         const isComplete = !(_.isEmpty(this.props.data.selectedAssessmentTool) || _.isEmpty(this.props.data.selectedAssessmentType));
         return (
             <Button
+                onPress={() => this.dispatchAction(Actions.FACILITY_SELECT)}
                 style={[StartNewAssessment.styles.blockButton, isComplete ? {} : {backgroundColor: "rgba(0, 0, 0, 0.38)",}]}
                 block>
                 START NEW ASSESSMENT

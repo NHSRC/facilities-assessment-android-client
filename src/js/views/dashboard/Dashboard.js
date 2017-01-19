@@ -35,21 +35,9 @@ class Dashboard extends AbstractComponent {
         }
     });
 
-    handleChange() {
-        const newState = this.context.getStore().getState().dashboard;
-        this.setState(newState);
-    }
-
-    componentDidMount() {
-    }
-
     componentWillUnmount() {
         this.unsubscribe();
     }
-
-    handleOnPress(checklist) {
-    }
-
 
     render() {
         return (

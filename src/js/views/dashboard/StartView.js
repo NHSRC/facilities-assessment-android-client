@@ -11,6 +11,8 @@ import Facility from './Facility';
 import AssessmentType from './AssessmentType';
 import AssessmentTools from './AssessmentTools';
 import StartNewAssessment from './StartNewAssessment';
+import TypedTransition from "../../framework/routing/TypedTransition";
+import ChecklistSelection from "../checklistSelection/ChecklistSelection";
 
 
 const deviceWidth = Dimensions.get('window').width;
@@ -34,10 +36,23 @@ class StartView extends AbstractComponent {
 
     handleChange() {
         const newState = this.context.getStore().getState().facilitySelection;
-        this.setState(newState);
+        const fn = (newState.facilitySelected ? this.changeView.bind(this) : this.setState.bind(this));
+        fn(newState);
+    }
+
+    changeView(newState) {
+        this.dispatchAction(Actions.RESET_FORM, {
+            cb: () => TypedTransition.from(this).with({
+                selectedAssessmentTool: this.state.selectedAssessmentTool,
+                selectedFacility: this.state.selectedFacility,
+                selectedAssessmentType: this.state.selectedAssessmentType,
+                facilityAssessment: newState.facilityAssessment
+            }).to(ChecklistSelection)
+        })
     }
 
     componentWillUnmount() {
+        console.log("Yo Yo Honey Singh");
         this.unsubscribe();
     }
 
