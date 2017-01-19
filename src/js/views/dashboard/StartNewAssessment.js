@@ -19,7 +19,8 @@ class StartNewAssessment extends AbstractComponent {
         return (
             <Button
                 onPress={() => this.dispatchAction(Actions.FACILITY_SELECT)}
-                style={[StartNewAssessment.styles.blockButton, isComplete ? {} : {backgroundColor: "rgba(0, 0, 0, 0.38)",}]}
+                style={[StartNewAssessment.styles.blockButton, isComplete ?
+                    {} : {backgroundColor: "rgba(0, 0, 0, 0.38)",}]}
                 block>
                 START NEW ASSESSMENT
             </Button>
