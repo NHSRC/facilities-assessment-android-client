@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {Text, StyleSheet, View, ScrollView, ProgressBarAndroid as ProgressBar} from "react-native";
 import AbstractComponent from "../common/AbstractComponent";
 import PrimaryColors from "../styles/PrimaryColors";
+import Typography from "../styles/Typography";
 import moment from 'moment';
 
 class AssessmentStatus extends AbstractComponent {
@@ -9,28 +10,34 @@ class AssessmentStatus extends AbstractComponent {
         super(props, context);
     }
 
+    static styles = StyleSheet.create({
+        statusContainer: {
+            marginTop: 26,
+        },
+        textContainer: {
+            flexDirection: "row",
+            flexWrap: "nowrap",
+            justifyContent: "space-between"
+        },
+        textColor: {
+            color: PrimaryColors.subheader_black
+        },
+    });
+
     render() {
-        const progressRatio = this.props.total / this.props.completed;
+        const progressRatio = this.props.completed / this.props.total;
         return (
-            <View style={{backgroundColor: PrimaryColors.textBold, alignSelf: 'stretch'}}>
-                <Text style={{alignSelf: 'center', fontSize: 21, color: PrimaryColors.background}}>Assessment
-                    Status</Text>
-
-                <Text style={{alignSelf: 'center', fontSize: 18, color: PrimaryColors.background}}>Assessment
-                    last updated on {moment(this.props.dateUpdated).format("Do MMM YY")}</Text>
-
+            <View style={AssessmentStatus.styles.statusContainer}>
+                <View style={AssessmentStatus.styles.textContainer}>
+                    <Text style={[Typography.paperFontSubhead, AssessmentStatus.styles.textColor]}>
+                        Assessment Status
+                    </Text>
+                    <Text style={[Typography.paperFontBody1, AssessmentStatus.styles.textColor]}>
+                        {progressRatio * 100}% Complete
+                    </Text>
+                </View>
                 <ProgressBar
-                    color={progressRatio < 1 ? PrimaryColors.red : PrimaryColors.background}
-                    styleAttr="Horizontal" indeterminate={false}
-                    progress={progressRatio}/>
-
-                <Text style={{alignSelf: 'center', fontSize: 18, color: PrimaryColors.background}}>Checklists
-                    Completed: {this.props.completed}/{this.props.total}</Text>
-
-
-                <ProgressBar
-                    style={{marginBottom: 10}}
-                    color={progressRatio < 1 ? PrimaryColors.red : PrimaryColors.background}
+                    color={progressRatio < 1 ? PrimaryColors.complete : PrimaryColors.incomplete}
                     styleAttr="Horizontal" indeterminate={false}
                     progress={progressRatio}/>
             </View>

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, StyleSheet, View, ScrollView} from 'react-native';
+import {Text, StyleSheet, View, ScrollView, Dimensions} from 'react-native';
 import AbstractComponent from "../common/AbstractComponent";
 import {Container, Header, Title, Content, Icon, Button} from 'native-base';
 import PrimaryColors from '../styles/PrimaryColors';
@@ -15,6 +15,9 @@ import SubmitButton from '../common/SubmitButton';
 import AssessmentStatus from './AssessmentStatus';
 
 
+const deviceWidth = Dimensions.get('window').width;
+const deviceHeight = Dimensions.get('window').height;
+
 @Path("/checklistSelection")
 class ChecklistSelection extends AbstractComponent {
     constructor(props, context) {
@@ -26,7 +29,13 @@ class ChecklistSelection extends AbstractComponent {
     }
 
     static styles = StyleSheet.create({
-        tabContainer: {},
+        subheader: {
+            color: PrimaryColors.subheader_black,
+            marginTop: deviceWidth * 0.02
+        },
+        caption: {
+            color: PrimaryColors.caption_black
+        },
     });
 
     handleChange() {
@@ -91,7 +100,7 @@ class ChecklistSelection extends AbstractComponent {
     render() {
         // const allChecklists = this.state.checklists.map(this.renderChecklistButton.bind(this));
         // const readyForSubmission = !this.state.checklists.some((checklist) => checklist.progress.status <= 0);
-        // const completedChecklistsCount = this.state.checklists.filter((checklist) => checklist.progress.status === 1).length;
+        const completedChecklistsCount = this.state.checklists.filter((checklist) => checklist.progress.status === 1).length;
         return (
             <Container theme={FlatUITheme} style={ChecklistSelection.styles.checklistContainer}>
                 <Header>
@@ -101,8 +110,16 @@ class ChecklistSelection extends AbstractComponent {
                     <Title>Assessment</Title>
                 </Header>
                 <Content>
-                    <View>
-                        <Text>Yo Yo Honey Singh</Text>
+                    <View style={{margin: deviceWidth * 0.04,}}>
+                        <Text style={[Typography.paperFontHeadline, ChecklistSelection.styles.subheader]}>
+                            {this.props.params.selectedFacility.name}
+                        </Text>
+                        <Text style={[Typography.paperFontCaption, ChecklistSelection.styles.caption]}>
+                            {this.props.params.selectedAssessmentTool.name}
+                        </Text>
+                        <AssessmentStatus
+                            total={this.state.checklists.length}
+                            completed={completedChecklistsCount}/>
                     </View>
                 </Content>
             </Container>
