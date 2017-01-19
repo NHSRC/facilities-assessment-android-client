@@ -52,7 +52,6 @@ class StartView extends AbstractComponent {
     }
 
     componentWillUnmount() {
-        console.log("Yo Yo Honey Singh");
         this.unsubscribe();
     }
 

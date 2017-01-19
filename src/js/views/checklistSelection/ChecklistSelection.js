@@ -13,7 +13,6 @@ import FlatUITheme from '../themes/flatUI';
 import Path from "../../framework/routing/Path";
 import SubmitButton from '../common/SubmitButton';
 import AssessmentStatus from './AssessmentStatus';
-import AssessmentTools from "../assessmentTools/AssessmentTools";
 
 
 @Path("/checklistSelection")
@@ -24,45 +23,10 @@ class ChecklistSelection extends AbstractComponent {
         this.state = store.getState().checklistSelection;
         this.unsubscribe = store.subscribeTo('checklistSelection', this.handleChange.bind(this));
         this.handleOnPress = this.handleOnPress.bind(this);
-        this.iconColorMap = new Map([[-1, {color: PrimaryColors.textBold, icon: "create"}],
-            [0, {color: PrimaryColors.yellow, icon: "error-outline"}],
-            [1, {color: PrimaryColors.green, icon: "check-circle"}]]);
     }
 
     static styles = StyleSheet.create({
-        tabContainer: {
-            flex: 1,
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-        },
-        buttonsContainer: {
-            flex: 1,
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            justifyContent: 'space-between',
-            alignItems: 'flex-start'
-        },
-        checklistButton: {
-            borderColor: PrimaryColors.textBold,
-            borderWidth: 2,
-            margin: 10,
-            width: 260
-        },
-        innerButton: {
-            flex: 1,
-            flexDirection: 'row',
-            justifyContent: 'space-around',
-            alignItems: 'center',
-        },
-        buttonText: {
-            color: PrimaryColors.textBold,
-            fontWeight: "400",
-            fontSize: 19
-        },
-        checklistContainer: {
-            backgroundColor: PrimaryColors.background,
-        },
+        tabContainer: {},
     });
 
     handleChange() {
@@ -70,7 +34,7 @@ class ChecklistSelection extends AbstractComponent {
         this.setState(newState);
     }
 
-    componentDidMount() {
+    componentWillMount() {
         this.dispatchAction(Actions.ALL_CHECKLISTS, {
             assessmentTool: this.props.params.selectedAssessmentTool,
             facilityAssessment: this.props.params.facilityAssessment
@@ -125,29 +89,20 @@ class ChecklistSelection extends AbstractComponent {
     }
 
     render() {
-        const allChecklists = this.state.checklists.map(this.renderChecklistButton.bind(this));
-        const readyForSubmission = !this.state.checklists.some((checklist) => checklist.progress.status <= 0);
-        const completedChecklistsCount = this.state.checklists.filter((checklist) => checklist.progress.status === 1).length;
+        // const allChecklists = this.state.checklists.map(this.renderChecklistButton.bind(this));
+        // const readyForSubmission = !this.state.checklists.some((checklist) => checklist.progress.status <= 0);
+        // const completedChecklistsCount = this.state.checklists.filter((checklist) => checklist.progress.status === 1).length;
         return (
             <Container theme={FlatUITheme} style={ChecklistSelection.styles.checklistContainer}>
                 <Header>
                     <Button transparent onPress={() => TypedTransition.from(this).goBack()}>
                         <Icon name='arrow-back'/>
                     </Button>
-                    <Title>Facilities Assessment</Title>
+                    <Title>Assessment</Title>
                 </Header>
                 <Content>
-                    <View style={ChecklistSelection.styles.tabContainer}>
-                        <AssessmentStatus dateUpdated={this.props.params.facilityAssessment.dateUpdated}
-                                          completed={completedChecklistsCount}
-                                          total={this.state.checklists.length}/>
-                        <Text style={[ChecklistSelection.styles.buttonText, Typography.paperFontDisplay1]}>
-                            Select a Checklist
-                        </Text>
-                        <View style={ChecklistSelection.styles.buttonsContainer}>
-                            {allChecklists}
-                        </View>
-                        {this.renderSubmitButton(readyForSubmission)}
+                    <View>
+                        <Text>Yo Yo Honey Singh</Text>
                     </View>
                 </Content>
             </Container>
