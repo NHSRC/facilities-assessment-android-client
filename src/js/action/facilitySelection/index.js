@@ -4,10 +4,14 @@ import FacilityAssessmentService from "../../service/FacilityAssessmentService";
 import _ from 'lodash';
 
 const allStates = function (state, action, beans) {
-    const states = beans.get(FacilitiesService).getAllStates();
+    let facilitiesService = beans.get(FacilitiesService);
+    let facilityAssessmentService = beans.get(FacilityAssessmentService);
+    const states = facilitiesService.getAllStates();
+    const assessmentTools = facilityAssessmentService.getAssessmentTools();
     return Object.assign(state, {
         "allStates": states,
-        "facilitySelected": false
+        "facilitySelected": false,
+        "assessmentTools": assessmentTools,
     });
 };
 
@@ -16,13 +20,12 @@ const selectState = function (state, action, beans) {
     return Object.assign(state, {
         "selectedState": action.selectedState,
         "districtsForState": districts,
-        "facilityTypes": undefined,
+        "facilityTypes": [],
         "selectedFacilityType": undefined,
-        "facilities": undefined,
+        "facilities": [],
         "selectedDistrict": undefined,
         "selectedFacility": undefined,
         "facilitySelected": false,
-        "assessmentTypes": undefined,
         "selectedAssessmentType": undefined,
     });
 };
@@ -37,7 +40,6 @@ const selectDistrict = function (state, action, beans) {
         "facilitySelected": false,
         "facilityTypes": facilityTypes,
         "selectedFacilityType": undefined,
-        "assessmentTypes": undefined,
         "selectedAssessmentType": undefined,
     });
 };
@@ -50,7 +52,6 @@ const selectFacilityType = function (state, action, beans) {
         "selectedFacility": undefined,
         "facilitySelected": false,
         "selectedFacilityType": action.selectedFacilityType,
-        "assessmentTypes": undefined,
         "selectedAssessmentType": undefined,
     });
 };
@@ -68,17 +69,22 @@ const selectFacility = function (state, action, beans) {
 
 const selectAssessmentType = function (state, action, beans) {
     const facilityAssessmentService = beans.get(FacilityAssessmentService);
-    const hasActiveFacilityAssessment = !_.isEmpty(facilityAssessmentService.getExistingAssessment(state.selectedFacility, action.assessmentTool, action.selectedAssessmentType));
     return Object.assign(state, {
-        "hasActiveFacilityAssessment": hasActiveFacilityAssessment,
         "facilitySelected": false,
         "selectedAssessmentType": action.selectedAssessmentType,
     });
 };
 
+const selectAssessmentTool = function (state, action, beans) {
+    return Object.assign(state, {
+        "facilitySelected": false,
+        "selectedAssessmentTool": action.selectedAssessmentTool,
+    });
+};
 
 const facilitySelected = function (state, action, beans) {
     const facilityAssessmentService = beans.get(FacilityAssessmentService);
+    const hasActiveFacilityAssessment = !_.isEmpty(facilityAssessmentService.getExistingAssessment(state.selectedFacility, action.selectedAssessmentTool, action.selectedAssessmentType));
     const facilityAssessment = facilityAssessmentService.startAssessment(state.selectedFacility, action.assessmentTool, state.selectedAssessmentType);
     return Object.assign(state, {"facilitySelected": true, "facilityAssessment": facilityAssessment});
 };
@@ -106,15 +112,23 @@ export default new Map([
     ["SELECT_FACILITY_TYPE", selectFacilityType],
     ["SELECT_ASSESSMENT_TYPE", selectAssessmentType],
     ["FACILITY_SELECT", facilitySelected],
+    ["SELECT_ASSESSMENT_TOOL", selectAssessmentTool],
     ["RESET_FORM", reset_form]
 ]);
 
 export let facilitySelectionInit = {
     selectedState: undefined,
+    selectedAssessmentTool: undefined,
     selectedDistrict: undefined,
     selectedFacility: undefined,
     selectedAssessmentType: undefined,
     facilitySelected: false,
     hasActiveFacilityAssessment: false,
-    facilityAssessment: undefined
+    facilityAssessment: undefined,
+    assessmentTools: [],
+    assessmentTypes: [],
+    allStates: [],
+    districtsForState: [],
+    facilityTypes: [],
+    facilities: []
 };

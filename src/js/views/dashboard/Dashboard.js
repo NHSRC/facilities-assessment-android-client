@@ -9,6 +9,7 @@ import {Container, Header, Title, Content, Icon, Button, Tabs} from 'native-base
 import Path, {PathRoot} from "../../framework/routing/Path";
 import Typography from '../styles/Typography';
 import CustomTabBar from '../common/CustomTabBar';
+import PrimaryColors from '../styles/PrimaryColors';
 
 const deviceWidth = Dimensions.get('window').width;
 
@@ -20,13 +21,17 @@ class Dashboard extends AbstractComponent {
     }
 
     static styles = StyleSheet.create({
+        header: {
+            shadowOffset: {width: 0, height: 0},
+            elevation: 0,
+        },
         tabs: {
             flex: 3,
             margin: 0
         },
         tab: {
             flex: 1,
-            margin: deviceWidth*0.04
+            margin: deviceWidth * 0.04,
         }
     });
 
@@ -50,11 +55,14 @@ class Dashboard extends AbstractComponent {
         return (
             <Container theme={FlatUITheme}>
                 <Content>
-                    <Header>
+                    <Header style={Dashboard.styles.header}>
                         <Button transparent>
                             <Icon name={"menu"}/>
                         </Button>
-                        <Title style={[Typography.paperFontHeadline, {fontWeight: 'bold'}]}>NHSRC</Title>
+                        <Title style={[Typography.paperFontHeadline, {
+                            fontWeight: 'bold',
+                            color: PrimaryColors.subheader_black
+                        }]}>NHSRC</Title>
                     </Header>
                     <Tabs style={StartView.styles.tabs} renderTabBar={() => <CustomTabBar/>}>
                         <StartView tabLabel="Start"/>

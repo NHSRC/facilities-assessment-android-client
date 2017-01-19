@@ -1,5 +1,6 @@
 import {Platform} from 'react-native';
 import Color from 'color';
+import PrimaryColors from "../styles/PrimaryColors";
 
 export default {
 
@@ -121,7 +122,7 @@ export default {
 
     // Header
     iosToolbarBtnColor: '#007aff',
-    toolbarDefaultBg: (Platform.OS === 'ios' ) ? '#F8F8F8' : '#f5f5f5',
+    toolbarDefaultBg: (Platform.OS === 'ios' ) ? '#F8F8F8' : '#F8F8F8',
     toolbarHeight: (Platform.OS === 'ios' ) ? 64 : 56,
     toolbarIconSize: (Platform.OS === 'ios' ) ? 20 : 22,
     toolbarInputColor: '#CECDD2',
@@ -201,7 +202,7 @@ export default {
     tabBgColor: '#F8F8F8',
     tabFontSize: 20,
     tabTextColor: '#222222',
-    tabUnderlineColor: '#009688',
+    tabUnderlineColor: PrimaryColors.blue,
 
 
     // Text
