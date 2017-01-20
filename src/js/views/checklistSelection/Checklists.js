@@ -1,10 +1,10 @@
 import React, {Component} from "react";
 import {Text, StyleSheet, View, ScrollView, TouchableWithoutFeedback, Dimensions} from "react-native";
-import {Button} from 'native-base';
 import AbstractComponent from "../common/AbstractComponent";
 import PrimaryColors from "../styles/PrimaryColors";
 import Typography from "../styles/Typography";
-import moment from 'moment';
+import TypedTransition from "../../framework/routing/TypedTransition";
+import Assessment from "../assessment/Assessment";
 
 const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
@@ -41,9 +41,10 @@ class Checklists extends AbstractComponent {
         }
     });
 
+
     render() {
         const checklists = this.props.allChecklists.map((checklist, idx) =>
-            <TouchableWithoutFeedback key={idx}>
+            <TouchableWithoutFeedback onPress={this.props.handleOnPress(checklist)} key={idx}>
                 <View style={[Checklists.styles.checklistsHeader, Checklists.styles.checklistButton]}>
                     <Text style={[Typography.paperFontSubhead, {color: "#FFF"}]}>{checklist.name}</Text>
                     <Text style={[Typography.paperFontCaption, {color: "#FFF"}]}>

@@ -4,14 +4,11 @@ import AbstractComponent from "../common/AbstractComponent";
 import {Container, Header, Title, Content, Icon, Button} from 'native-base';
 import PrimaryColors from '../styles/PrimaryColors';
 import Typography from '../styles/Typography';
-import MedIcon from '../styles/MedIcons';
 import Actions from "../../action";
-import iconMapping from '../styles/departmentIconMapping.json';
 import TypedTransition from "../../framework/routing/TypedTransition";
 import Assessment from '../assessment/Assessment';
 import FlatUITheme from '../themes/flatUI';
 import Path from "../../framework/routing/Path";
-import SubmitButton from '../common/SubmitButton';
 import AssessmentStatus from './AssessmentStatus';
 import Checklists from './Checklists';
 
@@ -26,7 +23,6 @@ class ChecklistSelection extends AbstractComponent {
         const store = context.getStore();
         this.state = store.getState().checklistSelection;
         this.unsubscribe = store.subscribeTo('checklistSelection', this.handleChange.bind(this));
-        this.handleOnPress = this.handleOnPress.bind(this);
     }
 
     static styles = StyleSheet.create({
@@ -51,10 +47,6 @@ class ChecklistSelection extends AbstractComponent {
         });
     }
 
-    componentWillUnmount() {
-        this.unsubscribe();
-    }
-
     handleOnPress(checklist) {
         return () => TypedTransition.from(this).with({
             selectedChecklist: checklist,
@@ -64,38 +56,8 @@ class ChecklistSelection extends AbstractComponent {
         }).to(Assessment);
     }
 
-    renderSubmitButton(show) {
-        if (show) {
-            return (
-                <SubmitButton onPress={() => this.dispatchAction(Actions.SAVE_FACILITY_ASSESSMENT, {
-                    assessment: this.props.params.facilityAssessment,
-                    cb: () => TypedTransition.from(this).to(AssessmentTools)
-                })}
-                              buttonText="Save Assessment" buttonIcon="save"/>
-            );
-        }
-    }
-
-
-    renderChecklistButton(checklist, idx) {
-        return (<Button key={idx} onPress={this.handleOnPress(checklist)}
-                        style={[ChecklistSelection.styles.checklistButton,
-                            {borderColor: this.iconColorMap.get(checklist.progress.status).color}]}
-                        bordered large info>
-            <View style={ChecklistSelection.styles.innerButton}>
-                <MedIcon
-                    style={[ChecklistSelection.styles.buttonText,
-                        {color: this.iconColorMap.get(checklist.progress.status).color}]}
-                    size={25} name={iconMapping[checklist.department.name]}/>
-                <Text
-                    style={[ChecklistSelection.styles.buttonText,
-                        {color: this.iconColorMap.get(checklist.progress.status).color}]}>
-                    {checklist.name}
-                </Text>
-                <Icon style={{color: this.iconColorMap.get(checklist.progress.status).color}} size={25}
-                      name={this.iconColorMap.get(checklist.progress.status).icon}/>
-            </View>
-        </Button>);
+    componentWillUnmount() {
+        this.unsubscribe();
     }
 
     render() {
@@ -120,6 +82,7 @@ class ChecklistSelection extends AbstractComponent {
                             total={this.state.checklists.length}
                             completed={completedChecklistsCount}/>
                         <Checklists
+                            handleOnPress={this.handleOnPress.bind(this)}
                             total={this.state.checklists.length}
                             completed={completedChecklistsCount}
                             allChecklists={this.state.checklists}
