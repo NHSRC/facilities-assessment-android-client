@@ -99,8 +99,6 @@ class ChecklistSelection extends AbstractComponent {
     }
 
     render() {
-        // const allChecklists = this.state.checklists.map(this.renderChecklistButton.bind(this));
-        // const readyForSubmission = !this.state.checklists.some((checklist) => checklist.progress.status <= 0);
         const completedChecklistsCount = this.state.checklists.filter((checklist) => checklist.progress.status === 1).length;
         return (
             <Container theme={FlatUITheme} style={ChecklistSelection.styles.checklistContainer}>
