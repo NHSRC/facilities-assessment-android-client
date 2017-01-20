@@ -1,9 +1,11 @@
 import React, {Component} from "react";
-import {Text, StyleSheet, View, ScrollView, ProgressBarAndroid as ProgressBar} from "react-native";
+import {Text, StyleSheet, View, ScrollView, ProgressBarAndroid as ProgressBar, Dimensions} from "react-native";
 import AbstractComponent from "../common/AbstractComponent";
 import PrimaryColors from "../styles/PrimaryColors";
 import Typography from "../styles/Typography";
 import moment from 'moment';
+
+const deviceHeight = Dimensions.get('window').height;
 
 class AssessmentStatus extends AbstractComponent {
     constructor(props, context) {
@@ -12,7 +14,7 @@ class AssessmentStatus extends AbstractComponent {
 
     static styles = StyleSheet.create({
         statusContainer: {
-            marginTop: 26,
+            marginTop: deviceHeight * .02708,
         },
         textContainer: {
             flexDirection: "row",

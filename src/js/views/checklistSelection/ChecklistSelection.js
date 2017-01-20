@@ -13,6 +13,7 @@ import FlatUITheme from '../themes/flatUI';
 import Path from "../../framework/routing/Path";
 import SubmitButton from '../common/SubmitButton';
 import AssessmentStatus from './AssessmentStatus';
+import Checklists from './Checklists';
 
 
 const deviceWidth = Dimensions.get('window').width;
@@ -31,7 +32,7 @@ class ChecklistSelection extends AbstractComponent {
     static styles = StyleSheet.create({
         subheader: {
             color: PrimaryColors.subheader_black,
-            marginTop: deviceWidth * 0.02
+            marginTop: deviceHeight * 0.0125
         },
         caption: {
             color: PrimaryColors.caption_black
@@ -120,6 +121,11 @@ class ChecklistSelection extends AbstractComponent {
                         <AssessmentStatus
                             total={this.state.checklists.length}
                             completed={completedChecklistsCount}/>
+                        <Checklists
+                            total={this.state.checklists.length}
+                            completed={completedChecklistsCount}
+                            allChecklists={this.state.checklists}
+                        />
                     </View>
                 </Content>
             </Container>
