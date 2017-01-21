@@ -11,6 +11,7 @@ import FlatUITheme from '../themes/flatUI';
 import Path from "../../framework/routing/Path";
 import AssessmentStatus from './AssessmentStatus';
 import Checklists from './Checklists';
+import AreasOfConcern from "../areasOfConcern/AreasOfConcern";
 
 
 const deviceWidth = Dimensions.get('window').width;
@@ -53,7 +54,7 @@ class ChecklistSelection extends AbstractComponent {
             facility: this.props.params.selectedFacility,
             assessmentType: this.props.params.selectedAssessmentType,
             facilityAssessment: this.props.params.facilityAssessment
-        }).to(Assessment);
+        }).to(AreasOfConcern);
     }
 
     componentWillUnmount() {

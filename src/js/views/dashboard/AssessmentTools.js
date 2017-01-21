@@ -25,6 +25,8 @@ class AssessmentTools extends AbstractComponent {
             flexDirection: "row",
             justifyContent: 'flex-start',
             backgroundColor: "rgba(0, 0, 0, 0.38)",
+            elevation: 0,
+            shadowOffset: {width: 0, height: 0},
         },
         activeButton: {
             width: deviceWidth * 0.43,
@@ -32,6 +34,8 @@ class AssessmentTools extends AbstractComponent {
             backgroundColor: PrimaryColors.blue,
             flexDirection: "row",
             justifyContent: 'flex-start',
+            elevation: 0,
+            shadowOffset: {width: 0, height: 0},
         },
         inactiveText: {
             color: PrimaryColors.button_black,

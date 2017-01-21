@@ -24,7 +24,7 @@ class ChecklistService extends BaseService {
         return this.db.objects(Checklist.schema.name)
             .filtered("assessmentTool = $0", assessmentTool.uuid)
             .map(this.pickKeys(["department", "assessmentTool"]))
-            .map((checklist)=> {
+            .map((checklist) => {
                     checklist.department = departmentService.getDepartment(checklist.department);
                     return checklist;
                 }
@@ -40,21 +40,29 @@ class ChecklistService extends BaseService {
         checklist.areasOfConcern = checklist.areasOfConcern
             .map(checklistAssessmentService.getAreaOfConcern)
             .map(AreaOfConcern.fromDB)
-            .map((aoc)=> {
+            .map((aoc) => {
                 aoc.standards = aoc.standards
-                    .map((standard)=> {
+                    .map((standard) => {
                         standard.measurableElements = standard.measurableElements
-                            .map((me)=> {
+                            .map((me) => {
                                 me["checkpoints"] = checkpoints[me.uuid];
                                 return me;
                             })
-                            .filter((me)=>!_.isNil(me.checkpoints));
+                            .filter((me) => !_.isNil(me.checkpoints));
                         return standard;
                     })
-                    .filter((standard)=>!_.isEmpty(standard.measurableElements));
+                    .filter((standard) => !_.isEmpty(standard.measurableElements));
                 return aoc;
             });
         return checklist;
+    }
+
+    getAreasOfConcernsFor(checklistUUID) {
+        const checklistAssessmentService = this.getService(ChecklistAssessmentService);
+        const checklist = this.db.objectForPrimaryKey(Checklist.schema.name, checklistUUID);
+        return comp(this.fromStringObj("areasOfConcern"), this.pickKeys(["areasOfConcern"]))(checklist).areasOfConcern
+            .map(checklistAssessmentService.getAreaOfConcern)
+            .map(AreaOfConcern.fromDB);
     }
 
     getAllCheckpointsForChecklist(checklist) {
