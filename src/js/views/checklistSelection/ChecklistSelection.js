@@ -63,7 +63,7 @@ class ChecklistSelection extends AbstractComponent {
     render() {
         const completedChecklistsCount = this.state.checklists.filter((checklist) => checklist.progress.status === 1).length;
         return (
-            <Container theme={FlatUITheme} style={ChecklistSelection.styles.checklistContainer}>
+            <Container theme={FlatUITheme}>
                 <Header>
                     <Button transparent onPress={() => TypedTransition.from(this).goBack()}>
                         <Icon name='arrow-back'/>

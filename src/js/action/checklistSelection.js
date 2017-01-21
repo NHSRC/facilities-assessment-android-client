@@ -1,6 +1,6 @@
-import ChecklistService from "../../service/ChecklistService";
-import FacilityAssessmentService from "../../service/FacilityAssessmentService";
-import ChecklistAssessmentService from "../../service/ChecklistAssessmentService";
+import ChecklistService from "../service/ChecklistService";
+import FacilityAssessmentService from "../service/FacilityAssessmentService";
+import ChecklistAssessmentService from "../service/ChecklistAssessmentService";
 import _ from 'lodash';
 
 const allChecklists = function (state, action, beans) {

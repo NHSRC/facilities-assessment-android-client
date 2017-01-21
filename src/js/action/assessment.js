@@ -1,7 +1,7 @@
-import ChecklistService from "../../service/ChecklistService";
+import ChecklistService from "../service/ChecklistService";
 import _ from 'lodash';
 import Immutable from 'immutable';
-import ChecklistAssessmentService from "../../service/ChecklistAssessmentService";
+import ChecklistAssessmentService from "../service/ChecklistAssessmentService";
 
 const startChecklistAssessment = function (state, actionParams, beans) {
     const checklistService = beans.get(ChecklistService);
