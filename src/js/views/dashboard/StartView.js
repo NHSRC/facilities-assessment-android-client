@@ -29,7 +29,7 @@ class StartView extends AbstractComponent {
     static styles = StyleSheet.create({
         formRow: {
             borderBottomWidth: 0,
-            marginLeft: 0
+            marginLeft: 0,
         },
     });
 

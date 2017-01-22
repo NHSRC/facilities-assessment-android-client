@@ -1,6 +1,8 @@
-import {Platform} from 'react-native';
+import {Platform, Dimensions} from 'react-native';
 import Color from 'color';
 import PrimaryColors from "../styles/PrimaryColors";
+
+const deviceHeight = Dimensions.get('window').height;
 
 export default {
 
@@ -173,8 +175,8 @@ export default {
     // List
     listBorderColor: '#ddd',
     listDividerBg: '#ddd',
-    listItemHeight: 45,
-    listItemPadding: (Platform.OS === 'ios' ) ? 12 : 16,
+    listItemHeight: deviceHeight * 0.05,
+    listItemPadding: (Platform.OS === 'ios' ) ? 12 : deviceHeight * 0.01667,
     listNoteColor: '#808080',
     listNoteSize: 13,
 
