@@ -2,6 +2,7 @@ import checklistSelectionActions, {checklistSelectionInit} from '../action/check
 import facilitySelectionActions, {facilitySelectionInit} from '../action/facilitySelection';
 import assessmentActions, {assessmentInit} from '../action/assessment';
 import areasOfConcernActions, {areasOfConcernInit} from '../action/areasOfConcern';
+import standardsActions, {standardsInit} from '../action/standards';
 import Reducer from './Reducer';
 
 export default (beans) => {
@@ -26,6 +27,11 @@ export default (beans) => {
             "stateKey": "areasOfConcern",
             "actions": areasOfConcernActions,
             "initState": areasOfConcernInit
+        },
+        {
+            "stateKey": "standards",
+            "actions": standardsActions,
+            "initState": standardsInit
         }
     ].forEach(({stateKey, actions, initState}) => {
         reducerMap[stateKey] = Reducer.factory(actions, initState, beans);

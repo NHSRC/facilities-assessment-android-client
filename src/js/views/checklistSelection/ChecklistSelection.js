@@ -50,7 +50,7 @@ class ChecklistSelection extends AbstractComponent {
 
     handleOnPress(checklist) {
         return () => TypedTransition.from(this).with({
-            selectedChecklist: checklist,
+            checklist: checklist,
             facility: this.props.params.selectedFacility,
             assessmentType: this.props.params.selectedAssessmentType,
             facilityAssessment: this.props.params.facilityAssessment
@@ -67,7 +67,7 @@ class ChecklistSelection extends AbstractComponent {
             <Container theme={FlatUITheme}>
                 <Header>
                     <Button transparent onPress={() => TypedTransition.from(this).goBack()}>
-                        <Icon name='arrow-back'/>
+                        <Icon style={{marginTop: 10}} name='arrow-back'/>
                     </Button>
                     <Title>Assessment</Title>
                 </Header>

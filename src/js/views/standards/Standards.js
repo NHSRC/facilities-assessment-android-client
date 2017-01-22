@@ -5,46 +5,42 @@ import AbstractComponent from "../common/AbstractComponent";
 import FlatUITheme from '../themes/flatUI';
 import TypedTransition from "../../framework/routing/TypedTransition";
 import Path from "../../framework/routing/Path";
-import PrimaryColors from "../styles/PrimaryColors";
 import Listing from '../common/Listing';
 import Actions from '../../action';
-import Standards from "../standards/Standards";
+import PrimaryColors from "../styles/PrimaryColors";
 
 const deviceWidth = Dimensions.get('window').width;
-const deviceHeight = Dimensions.get('window').height;
 
-@Path("/areasOfConcern")
-class AreasOfConcern extends AbstractComponent {
+@Path("/standards")
+class Standards extends AbstractComponent {
     constructor(props, context) {
         super(props, context);
         const store = context.getStore();
-        this.state = store.getState().areasOfConcern;
-        this.unsubscribe = store.subscribeTo('areasOfConcern', this.handleChange.bind(this));
+        this.state = store.getState().standards;
+        this.unsubscribe = store.subscribeTo('standards', this.handleChange.bind(this));
     }
 
     static styles = StyleSheet.create({});
 
     handleChange() {
-        const newState = this.context.getStore().getState().areasOfConcern;
+        const newState = this.context.getStore().getState().standards;
         this.setState(newState);
     }
 
     componentWillMount() {
-        this.dispatchAction(Actions.ALL_AREAS_OF_CONCERN, {checklist: this.props.params.checklist})
+        this.dispatchAction(Actions.ALL_STANDARDS, {
+            checklist: this.props.params.checklist,
+            areaOfConcern: this.props.params.areaOfConcern
+        })
     }
 
     componentWillUnmount() {
         this.unsubscribe();
     }
 
-    handleOnPress(aoc) {
-        return () => TypedTransition
-            .from(this)
-            .with({
-                areaOfConcern: aoc,
-                checklist: this.props.params.checklist
-            })
-            .to(Standards);
+    handleOnPress(standard) {
+        return () => {
+        };
     }
 
     render() {
@@ -54,14 +50,14 @@ class AreasOfConcern extends AbstractComponent {
                     <Button transparent onPress={() => TypedTransition.from(this).goBack()}>
                         <Icon style={{marginTop: 10}} name='arrow-back'/>
                     </Button>
-                    <Title>{this.props.params.checklist.name}</Title>
+                    <Title>{this.props.params.areaOfConcern.name}</Title>
                 </Header>
                 <Content>
                     <View style={{margin: deviceWidth * 0.04,}}>
                         <Listing
-                            labelColor={PrimaryColors.blue}
+                            labelColor={PrimaryColors.yellow}
                             onPress={this.handleOnPress.bind(this)}
-                            items={this.state.areasOfConcern}/>
+                            items={this.state.standards}/>
                     </View>
                 </Content>
             </Container>
@@ -69,4 +65,4 @@ class AreasOfConcern extends AbstractComponent {
     }
 }
 
-export default AreasOfConcern;
+export default Standards;

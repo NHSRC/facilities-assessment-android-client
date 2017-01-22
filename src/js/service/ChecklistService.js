@@ -35,7 +35,7 @@ class ChecklistService extends BaseService {
         const checkpoints = _.groupBy(this.db.objects(Checkpoint.schema.name)
             .filtered("checklist = $0", checklistUUID), 'measurableElement');
         const checklistAssessmentService = this.getService(ChecklistAssessmentService);
-        var checklist = this.db.objectForPrimaryKey(Checklist.schema.name, checklistUUID);
+        let checklist = this.db.objectForPrimaryKey(Checklist.schema.name, checklistUUID);
         checklist = comp(this.fromStringObj("areasOfConcern"), this.pickKeys(["areasOfConcern"]))(checklist);
         checklist.areasOfConcern = checklist.areasOfConcern
             .map(checklistAssessmentService.getAreaOfConcern)
@@ -58,11 +58,11 @@ class ChecklistService extends BaseService {
     }
 
     getAreasOfConcernsFor(checklistUUID) {
-        const checklistAssessmentService = this.getService(ChecklistAssessmentService);
-        const checklist = this.db.objectForPrimaryKey(Checklist.schema.name, checklistUUID);
-        return comp(this.fromStringObj("areasOfConcern"), this.pickKeys(["areasOfConcern"]))(checklist).areasOfConcern
-            .map(checklistAssessmentService.getAreaOfConcern)
-            .map(AreaOfConcern.fromDB);
+        return this.getChecklist(checklistUUID).areasOfConcern;
+    }
+
+    getStandardsFor(checklistUUID, aocUUID) {
+        return this.getChecklist(checklistUUID).areasOfConcern.find((aoc) => aoc.uuid === aocUUID).standards;
     }
 
     getAllCheckpointsForChecklist(checklist) {
