@@ -4,7 +4,7 @@ import Actions from '../../js/action';
 import _ from 'lodash';
 
 
-describe('ChecklistAssessment Actions Test', () => {
+describe('Assessment Actions Test', () => {
     describe('Select Compliance Tests', () => {
 
         it('Select Compliance should return new state object', ()=> {

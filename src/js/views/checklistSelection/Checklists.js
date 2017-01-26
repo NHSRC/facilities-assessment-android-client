@@ -4,7 +4,6 @@ import AbstractComponent from "../common/AbstractComponent";
 import PrimaryColors from "../styles/PrimaryColors";
 import Typography from "../styles/Typography";
 import TypedTransition from "../../framework/routing/TypedTransition";
-import Assessment from "../assessment/Assessment";
 
 const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, StyleSheet, View, ScrollView, Dimensions} from 'react-native';
+import {Text, StyleSheet, View, ScrollView, Dimensions, Alert} from 'react-native';
 import AbstractComponent from "../common/AbstractComponent";
 import {List, ListItem, InputGroup, Button, Radio, Picker} from 'native-base';
 import Typography from '../styles/Typography';
@@ -24,6 +24,9 @@ class StartView extends AbstractComponent {
         const store = context.getStore();
         this.state = store.getState().dashboard;
         this.unsubscribe = store.subscribeTo('facilitySelection', this.handleChange.bind(this));
+        this.changeView = this.changeView.bind(this);
+        this.resetForm = this.resetForm.bind(this);
+        this.showConfirmation = this.showConfirmation.bind(this);
     }
 
     static styles = StyleSheet.create({
@@ -36,19 +39,37 @@ class StartView extends AbstractComponent {
 
     handleChange() {
         const newState = this.context.getStore().getState().facilitySelection;
-        const fn = (newState.facilitySelected ? this.changeView.bind(this) : this.setState.bind(this));
+        const fn = (newState.facilitySelected ? (newState.hasActiveFacilityAssessment ? this.showConfirmation : this.changeView.bind(this) ) : this.setState.bind(this));
         fn(newState);
     }
 
     changeView(newState) {
         this.dispatchAction(Actions.RESET_FORM, {
-            cb: () => TypedTransition.from(this).with({
-                selectedAssessmentTool: this.state.selectedAssessmentTool,
-                selectedFacility: this.state.selectedFacility,
-                selectedAssessmentType: this.state.selectedAssessmentType,
-                facilityAssessment: newState.facilityAssessment
-            }).to(ChecklistSelection)
+            cb: () =>
+                TypedTransition.from(this).with({
+                    assessmentTool: this.state.selectedAssessmentTool,
+                    facility: this.state.selectedFacility,
+                    assessmentType: this.state.selectedAssessmentType,
+                    facilityAssessment: newState.facilityAssessment
+                }).to(ChecklistSelection)
         })
+    }
+
+    resetForm() {
+        this.dispatchAction(Actions.RESET_FORM, {
+            cb: () => {
+            }
+        });
+    }
+
+    showConfirmation(newState) {
+        Alert.alert("Assessment Already Exists", "To continue the assessment use the Open tab.", [
+            {
+                text: "Ok",
+                onPress: () => this.resetForm(),
+                style: 'cancel'
+            }
+        ]);
     }
 
     componentWillUnmount() {

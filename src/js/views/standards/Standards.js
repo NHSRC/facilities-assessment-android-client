@@ -8,6 +8,7 @@ import Path from "../../framework/routing/Path";
 import Listing from '../common/Listing';
 import Actions from '../../action';
 import PrimaryColors from "../styles/PrimaryColors";
+import Assessment from '../assessment/Assessment';
 
 const deviceWidth = Dimensions.get('window').width;
 
@@ -39,8 +40,10 @@ class Standards extends AbstractComponent {
     }
 
     handleOnPress(standard) {
-        return () => {
-        };
+        return () => TypedTransition.from(this).with({
+            standard: standard,
+            ...this.props.params
+        }).to(Assessment);
     }
 
     render() {

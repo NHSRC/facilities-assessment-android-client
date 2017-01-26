@@ -13,21 +13,14 @@ class ListingItem extends AbstractComponent {
     }
 
     static styles = StyleSheet.create({
-        listingContainer: {
-            flexDirection: 'column',
-            flexWrap: 'nowrap',
-            justifyContent: 'flex-start',
-            alignItems: 'stretch',
-            marginTop: deviceHeight * 0.02,
-        },
-        listingButton: {
+        button: {
             flexDirection: 'row',
             flexWrap: 'nowrap',
             margin: 0,
             marginTop: deviceHeight * .01667,
             height: deviceHeight * 0.06,
         },
-        listingButtonText: {
+        buttonText: {
             backgroundColor: PrimaryColors.light_black,
             width: deviceWidth * 0.72,
             paddingLeft: deviceHeight * .02,
@@ -37,7 +30,7 @@ class ListingItem extends AbstractComponent {
             justifyContent: 'flex-start',
             alignItems: 'center'
         },
-        listingButtonLabel: {
+        buttonLabel: {
             width: deviceWidth * 0.2,
             margin: 0,
             justifyContent: 'center',
@@ -47,16 +40,16 @@ class ListingItem extends AbstractComponent {
 
     render() {
         return (
-            <TouchableWithoutFeedback onPress={this.props.onPress(item)} key={idx}>
-                <View style={Listing.styles.listingButton}>
-                    <View style={Listing.styles.listingButtonText}>
+            <TouchableWithoutFeedback onPress={this.props.onPress}>
+                <View style={ListingItem.styles.button}>
+                    <View style={ListingItem.styles.buttonText}>
                         <Text style={[Typography.paperFontSubhead, {color: PrimaryColors.subheader_black}]}>
-                            {item.name}
+                            {this.props.item.name}
                         </Text>
                     </View>
-                    <View style={[Listing.styles.listingButtonLabel, {backgroundColor: this.props.labelColor}]}>
+                    <View style={[ListingItem.styles.buttonLabel, {backgroundColor: this.props.labelColor}]}>
                         <Text style={[Typography.paperFontBody1, {color: "#FFF"}]}>
-                            {item.reference}
+                            {this.props.item.reference}
                         </Text>
                     </View>
                 </View>

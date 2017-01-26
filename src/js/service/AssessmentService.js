@@ -3,7 +3,6 @@ import Service from "../framework/bean/Service";
 import _ from 'lodash';
 import AreaOfConcern from "../models/AreaOfConcern";
 import AssessmentTool from "../models/AssessmentTool";
-import ChecklistAssessment from "../models/ChecklistAssessment";
 import CheckpointScore from "../models/CheckpointScore";
 import AssessmentType from "../models/AssessmentType";
 import Checkpoint from "../models/Checkpoint";
@@ -11,35 +10,16 @@ import MeasurableElement from "../models/MeasurableElement";
 import Standard from "../models/Standard";
 import ChecklistService from "./ChecklistService";
 
-@Service("checklistAssessmentService")
-class ChecklistAssessmentService extends BaseService {
+@Service("assessmentService")
+class AssessmentService extends BaseService {
     constructor(db, beanStore) {
         super(db, beanStore);
         this.saveAssessmentTool = this.save(AssessmentTool);
         this.saveAssessmentType = this.save(AssessmentType);
         this.saveAreaOfConcern = this.save(AreaOfConcern);
-        this.saveChecklistAssessment = this.save(ChecklistAssessment, ChecklistAssessment.toDB);
         this.saveCheckpoint = this.save(CheckpointScore, CheckpointScore.toDB);
-        this.getAreaOfConcern = this.getAreaOfConcern.bind(this);
+        // this.getAreaOfConcern = this.getAreaOfConcern.bind(this);
         this.getChecklistProgress = this.getChecklistProgress.bind(this);
-    }
-
-    getAreaOfConcern(aocUUID) {
-        return this.db.objectForPrimaryKey(AreaOfConcern.schema.name, aocUUID);
-    }
-
-    _getExistingChecklistAssessment(checklist, facilityAssessment) {
-        return Object.assign({}, this.db.objects(ChecklistAssessment.schema.name)
-            .filtered('checklist = $0 AND facilityAssessment = $1',
-                checklist.uuid, facilityAssessment.uuid)[0]);
-    }
-
-    startChecklistAssessment(checklist, facilityAssessment) {
-        const existingAssessment = this._getExistingChecklistAssessment(checklist, facilityAssessment);
-        return this.saveChecklistAssessment(Object.assign(existingAssessment, {
-            checklist: checklist.uuid,
-            facilityAssessment: facilityAssessment.uuid
-        }));
     }
 
 
@@ -94,19 +74,19 @@ class ChecklistAssessmentService extends BaseService {
     }
 
     getChecklistProgress(checklistAssessment) {
-        const checkpoints = _.mapValues(_.groupBy(this.getAllCheckpointsForAssessment(checklistAssessment), (obj) => obj.checkpoint), (obj) => obj[0]);
-        let completed = Object.keys(checkpoints).length;
-        let total = this
-            .getService(ChecklistService)
-            .getAllCheckpointsForChecklist({uuid: checklistAssessment.checklist}).length;
+        // const checkpoints = _.mapValues(_.groupBy(this.getAllCheckpointsForAssessment(checklistAssessment), (obj) => obj.checkpoint), (obj) => obj[0]);
+        // let completed = Object.keys(checkpoints).length;
+        // let total = this
+        //     .getService(ChecklistService)
+        //     .getAllCheckpointsForChecklist({uuid: checklistAssessment.checklist}).length;
         return {
             progress: {
-                total: total,
-                completed: completed,
-                status: completed === 0 ? -1 : Number(completed / total >= 0.9)
+                total: 1,
+                completed: 1,
+                status: 1 === 0 ? -1 : Number(1 >= 0.9)
             }
         };
     }
 }
 
-export default ChecklistAssessmentService;
+export default AssessmentService;

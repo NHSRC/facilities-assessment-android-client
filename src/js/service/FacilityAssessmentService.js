@@ -1,14 +1,7 @@
 import BaseService from "./BaseService";
 import Service from "../framework/bean/Service";
-import _ from 'lodash';
-import AreaOfConcern from "../models/AreaOfConcern";
 import AssessmentTool from "../models/AssessmentTool";
-import ChecklistAssessment from "../models/ChecklistAssessment";
-import CheckpointScore from "../models/CheckpointScore";
 import AssessmentType from "../models/AssessmentType";
-import Checkpoint from "../models/Checkpoint";
-import MeasurableElement from "../models/MeasurableElement";
-import Standard from "../models/Standard";
 import FacilityAssessment from "../models/FacilityAssessment";
 
 @Service("facilityAssessmentService")

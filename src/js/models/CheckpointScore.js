@@ -8,7 +8,7 @@ class CheckpointScore {
         properties: {
             uuid: 'string',
             checklist: 'string',
-            checklistAssessment: 'string',
+            facilityAssessment: 'string',
             checkpoint: 'string',
             score: {type: 'int', default: 0},
             remarks: {type: 'string', optional: true},

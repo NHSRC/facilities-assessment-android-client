@@ -42,7 +42,7 @@ class AreasOfConcern extends AbstractComponent {
             .from(this)
             .with({
                 areaOfConcern: aoc,
-                checklist: this.props.params.checklist
+                ...this.props.params
             })
             .to(Standards);
     }

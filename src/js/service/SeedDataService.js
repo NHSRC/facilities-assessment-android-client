@@ -11,7 +11,7 @@ import checkpoints from "../../config/checkpoints.json";
 import RegionService from "./RegionService";
 import FacilitiesService from "./FacilitiesService";
 import DepartmentService from "./DepartmentService";
-import ChecklistAssessmentService from "./ChecklistAssessmentService";
+import ChecklistAssessmentService from "./AssessmentService";
 import ChecklistService from "./ChecklistService";
 
 @Service("seedDataService")

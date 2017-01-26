@@ -1,5 +1,5 @@
 import FacilitiesService from "../service/FacilitiesService";
-import ChecklistAssessmentService from "../service/ChecklistAssessmentService";
+import ChecklistAssessmentService from "../service/AssessmentService";
 import FacilityAssessmentService from "../service/FacilityAssessmentService";
 import _ from 'lodash';
 
@@ -86,7 +86,11 @@ const facilitySelected = function (state, action, beans) {
     const facilityAssessmentService = beans.get(FacilityAssessmentService);
     const hasActiveFacilityAssessment = !_.isEmpty(facilityAssessmentService.getExistingAssessment(state.selectedFacility, state.selectedAssessmentTool, state.selectedAssessmentType));
     const facilityAssessment = facilityAssessmentService.startAssessment(state.selectedFacility, state.selectedAssessmentTool, state.selectedAssessmentType);
-    return Object.assign(state, {"facilitySelected": true, "facilityAssessment": facilityAssessment});
+    return Object.assign(state, {
+        "facilitySelected": true,
+        "facilityAssessment": facilityAssessment,
+        "hasActiveFacilityAssessment": false, //TODO: MIHIR Change before committing
+    });
 };
 
 const reset_form = function (state, action, bean) {
@@ -102,6 +106,7 @@ const reset_form = function (state, action, bean) {
         selectedFacility: undefined,
         selectedAssessmentType: undefined,
         selectedAssessmentTool: undefined,
+        hasActiveFacilityAssessment: false,
     });
 };
 

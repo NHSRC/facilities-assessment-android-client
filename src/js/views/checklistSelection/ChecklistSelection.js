@@ -6,7 +6,6 @@ import PrimaryColors from '../styles/PrimaryColors';
 import Typography from '../styles/Typography';
 import Actions from "../../action";
 import TypedTransition from "../../framework/routing/TypedTransition";
-import Assessment from '../assessment/Assessment';
 import FlatUITheme from '../themes/flatUI';
 import Path from "../../framework/routing/Path";
 import AssessmentStatus from './AssessmentStatus';
@@ -43,7 +42,7 @@ class ChecklistSelection extends AbstractComponent {
 
     componentWillMount() {
         this.dispatchAction(Actions.ALL_CHECKLISTS, {
-            assessmentTool: this.props.params.selectedAssessmentTool,
+            assessmentTool: this.props.params.assessmentTool,
             facilityAssessment: this.props.params.facilityAssessment
         });
     }
@@ -51,9 +50,7 @@ class ChecklistSelection extends AbstractComponent {
     handleOnPress(checklist) {
         return () => TypedTransition.from(this).with({
             checklist: checklist,
-            facility: this.props.params.selectedFacility,
-            assessmentType: this.props.params.selectedAssessmentType,
-            facilityAssessment: this.props.params.facilityAssessment
+            ...this.props.params
         }).to(AreasOfConcern);
     }
 
@@ -74,10 +71,10 @@ class ChecklistSelection extends AbstractComponent {
                 <Content>
                     <View style={{margin: deviceWidth * 0.04,}}>
                         <Text style={[Typography.paperFontHeadline, ChecklistSelection.styles.subheader]}>
-                            {this.props.params.selectedFacility.name}
+                            {this.props.params.facility.name}
                         </Text>
                         <Text style={[Typography.paperFontCaption, ChecklistSelection.styles.caption]}>
-                            {this.props.params.selectedAssessmentTool.name}
+                            {this.props.params.assessmentTool.name}
                         </Text>
                         <AssessmentStatus
                             total={this.state.checklists.length}
