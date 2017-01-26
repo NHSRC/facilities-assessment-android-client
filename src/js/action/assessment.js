@@ -6,7 +6,7 @@ import AssessmentService from "../service/AssessmentService";
 const getCheckpoints = function (state, actionParams, beans) {
     const checklistService = beans.get(ChecklistService);
     let checkpoints = checklistService
-        .getCheckpointsFor(actionParams.checklist, actionParams.areaOfConcern.uuid, actionParams.standard.uuid);
+        .getCheckpointsFor(actionParams.checklist.uuid, actionParams.areaOfConcern.uuid, actionParams.standard.uuid);
     return Object.assign(state, {
         checkpoints: checkpoints,
     });

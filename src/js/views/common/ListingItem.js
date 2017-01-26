@@ -18,8 +18,9 @@ class ListingItem extends AbstractComponent {
             flexWrap: 'nowrap',
             margin: 0,
             marginTop: deviceHeight * .01667,
-            height: deviceHeight * 0.06,
         },
+        big: {height: deviceHeight * 0.125,},
+        small: {height: deviceHeight * 0.06,},
         buttonText: {
             backgroundColor: PrimaryColors.light_black,
             width: deviceWidth * 0.72,
@@ -39,16 +40,28 @@ class ListingItem extends AbstractComponent {
     });
 
     render() {
+        const style = {
+            big: {
+                button: ListingItem.styles.big,
+                text: Typography.paperFontTitle,
+                label: Typography.paperFontHeadline
+            },
+            small: {
+                button: ListingItem.styles.small,
+                text: Typography.paperFontSubhead,
+                label: Typography.paperFontBody1
+            }
+        }[(this.props.type || "small")];
         return (
             <TouchableWithoutFeedback onPress={this.props.onPress}>
-                <View style={ListingItem.styles.button}>
+                <View style={[ListingItem.styles.button, style.button]}>
                     <View style={ListingItem.styles.buttonText}>
-                        <Text style={[Typography.paperFontSubhead, {color: PrimaryColors.subheader_black}]}>
+                        <Text style={[style.text, {color: PrimaryColors.subheader_black}]}>
                             {this.props.item.name}
                         </Text>
                     </View>
                     <View style={[ListingItem.styles.buttonLabel, {backgroundColor: this.props.labelColor}]}>
-                        <Text style={[Typography.paperFontBody1, {color: "#FFF"}]}>
+                        <Text style={[style.label, {color: "#FFF"}]}>
                             {this.props.item.reference}
                         </Text>
                     </View>

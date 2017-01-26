@@ -8,27 +8,30 @@ import Path from "../../framework/routing/Path";
 import PrimaryColors from "../styles/PrimaryColors";
 import Actions from '../../action';
 import ListingItem from '../common/ListingItem';
+import QuestionAnswer from './QuestionAnswer';
+import Pagination from './Pagination';
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
 
-@Path("/checklistAssessment")
-class ChecklistAssessment extends AbstractComponent {
+@Path("/assessment")
+class Assessment extends AbstractComponent {
     constructor(props, context) {
         super(props, context);
         const store = context.getStore();
         this.state = store.getState().checklistAssessment;
-        this.unsubscribe = store.subscribeTo('checklistAssessment', this.handleChange.bind(this));
+        this.unsubscribe = store.subscribeTo('assessment', this.handleChange.bind(this));
     }
 
     static styles = StyleSheet.create({});
 
     handleChange() {
-        const newState = this.context.getStore().getState().checklistAssessment;
+        const newState = this.context.getStore().getState().assessment;
         this.setState(newState);
     }
 
     componentWillMount() {
+        this.dispatchAction(Actions.GET_CHECKPOINTS, {...this.props.params});
     }
 
     componentWillUnmount() {
@@ -48,12 +51,13 @@ class ChecklistAssessment extends AbstractComponent {
                 <Content>
                     <View style={{margin: deviceWidth * 0.04,}}>
                         <ListingItem labelColor={PrimaryColors.yellow} item={this.props.params.standard}/>
-                        <ListingItem labelColor={PrimaryColors.blue} item={this.props.params.standard}/>
+                        <QuestionAnswer checkpoint={this.state.checkpoints[0]}/>
                     </View>
+                    <Pagination checkpoints={this.state.checkpoints}/>
                 </Content>
             </Container>
         );
     }
 }
 
-export default ChecklistAssessment;
+export default Assessment;
