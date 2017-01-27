@@ -42,7 +42,6 @@ class AnswerInfo extends AbstractComponent {
                     {assessmentMethods}
                 </Text>
             </View>
-
         );
     }
 }
