@@ -18,11 +18,20 @@ class ListingItem extends AbstractComponent {
             flexWrap: 'nowrap',
             margin: 0,
             marginTop: deviceHeight * .01667,
+            borderWidth: 1,
+            borderStyle: 'solid',
+            borderColor: PrimaryColors.light_black
         },
         big: {height: deviceHeight * 0.125,},
         small: {height: deviceHeight * 0.06,},
+        buttonTextBig: {
+            fontFamily: "Roboto,Noto,sans-serif",
+            fontSize: 28,
+            fontWeight: "400",
+            lineHeight: 42
+        },
         buttonText: {
-            backgroundColor: PrimaryColors.light_black,
+            backgroundColor: "#fafafa",
             width: deviceWidth * 0.72,
             paddingLeft: deviceHeight * .02,
             margin: 0,
@@ -43,8 +52,8 @@ class ListingItem extends AbstractComponent {
         const style = {
             big: {
                 button: ListingItem.styles.big,
-                text: Typography.paperFontTitle,
-                label: Typography.paperFontHeadline
+                text: ListingItem.styles.buttonTextBig,
+                label: Typography.paperFontHeadline,
             },
             small: {
                 button: ListingItem.styles.small,

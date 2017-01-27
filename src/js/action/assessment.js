@@ -2,13 +2,17 @@ import ChecklistService from "../service/ChecklistService";
 import _ from 'lodash';
 import Immutable from 'immutable';
 import AssessmentService from "../service/AssessmentService";
+import CheckpointScore from '../models/CheckpointScore';
 
 const getCheckpoints = function (state, actionParams, beans) {
     const checklistService = beans.get(ChecklistService);
-    let checkpoints = checklistService
+    const checkpoints = checklistService
         .getCheckpointsFor(actionParams.checklist.uuid, actionParams.areaOfConcern.uuid, actionParams.standard.uuid);
+    const checkpointScores = checkpoints.map((checkpoint) =>
+        CheckpointScore.create(checkpoint, actionParams.standard,
+            actionParams.areaOfConcern, actionParams.facilityAssessment));
     return Object.assign(state, {
-        checkpoints: checkpoints,
+        checkpoints: checkpointScores,
     });
 };
 

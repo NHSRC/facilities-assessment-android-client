@@ -87,6 +87,13 @@ class AssessmentService extends BaseService {
             }
         };
     }
+
+    getLastUpdatedCheckpoint(assessmentUUID, checklistUUID, areaOfConcernUUID, standardUUID) {
+        return Object.assign({}, this.db.objects(CheckpointScore.schema.name)
+            .filtered('checklist = $0 AND facilityAssessment = $1 AND areaOfConcern = $2 AND standard = $3',
+                checklistUUID, assessmentUUID, areaOfConcernUUID, standardUUID)
+            .sorted('dateUpdated', true)[0]);
+    }
 }
 
 export default AssessmentService;

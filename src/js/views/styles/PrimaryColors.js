@@ -13,6 +13,7 @@ export default {
     "green": "#5C832F",
     "some": "#990000",
     "blue": "#3f51b5",
+    "lighBlue": "#1976d2",
     "complete": "#ffa000",
     "incomplete": "#ffc107"
 };

@@ -53,9 +53,9 @@ class Dashboard extends AbstractComponent {
                         }]}>NHSRC</Title>
                     </Header>
                     <Tabs style={StartView.styles.tabs} renderTabBar={() => <CustomTabBar/>}>
-                        <StartView tabLabel="Start"/>
-                        <OpenView tabLabel="Open"/>
-                        <ReportsView tabLabel="Reports"/>
+                        <StartView tabLabel="START"/>
+                        <OpenView tabLabel="OPEN"/>
+                        <ReportsView tabLabel="REPORTS"/>
                     </Tabs>
                 </Content>
             </Container>

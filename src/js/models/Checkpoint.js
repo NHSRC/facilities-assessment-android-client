@@ -15,6 +15,16 @@ class Checkpoint {
             amPatientInterview: {type: 'bool', default: false},
             amRecordReview: {type: 'bool', default: false}
         }
-    }
+    };
+
+    static getAssessmentMethods(checkpoint) {
+        const ams = {
+            "amObservation": "OB",
+            "amStaffInterview": "SI",
+            "amPatientInterview": "PI",
+            "amRecordReview": "RR"
+        };
+        return Object.keys(ams).filter((am) => checkpoint[am]).map((am) => ams[am]);
+    };
 }
 export default Checkpoint;

@@ -10,6 +10,7 @@ import Actions from '../../action';
 import ListingItem from '../common/ListingItem';
 import QuestionAnswer from './QuestionAnswer';
 import Pagination from './Pagination';
+import _ from 'lodash';
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
@@ -40,6 +41,7 @@ class Assessment extends AbstractComponent {
 
 
     render() {
+        const currentCheckpoint = this.state.checkpoints.find((checkpoint) => _.isEmpty(checkpoint.score));
         return (
             <Container theme={FlatUITheme}>
                 <Header>
@@ -51,9 +53,9 @@ class Assessment extends AbstractComponent {
                 <Content>
                     <View style={{margin: deviceWidth * 0.04,}}>
                         <ListingItem labelColor={PrimaryColors.yellow} item={this.props.params.standard}/>
-                        <QuestionAnswer checkpoint={this.state.checkpoints[0]}/>
+                        <QuestionAnswer checkpoint={currentCheckpoint}/>
                     </View>
-                    <Pagination checkpoints={this.state.checkpoints}/>
+                    <Pagination currentCheckpoint={currentCheckpoint} checkpoints={this.state.checkpoints}/>
                 </Content>
             </Container>
         );
