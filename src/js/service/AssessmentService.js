@@ -65,8 +65,8 @@ class AssessmentService extends BaseService {
             .map(this.nameAndId)[0];
     }
 
-    saveCheckpointScore(checklistAssessment, checkpoint, score) {
-        return this.saveCheckpointField(checklistAssessment, checkpoint)({score: score});
+    saveCheckpointScore(checkpoint) {
+        return Object.assign({}, this.saveCheckpoint(checkpoint));
     }
 
     saveCheckpointRemarks(checklistAssessment, checkpoint, remarks) {

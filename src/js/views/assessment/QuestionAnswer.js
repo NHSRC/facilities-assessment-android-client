@@ -14,6 +14,7 @@ const deviceHeight = Dimensions.get('window').height;
 class QuestionAnswer extends AbstractComponent {
     constructor(props, context) {
         super(props, context);
+        this.handleOnPress = this.handleOnPress.bind(this);
     }
 
     static styles = StyleSheet.create({
@@ -70,29 +71,40 @@ class QuestionAnswer extends AbstractComponent {
             shadowRadius: 2,
             borderRadius: 2
         },
+        activeCompliance: {
+            backgroundColor: PrimaryColors.blue
+        },
     });
 
     handleOnPress(score) {
-        return () => console.log(score);
+        return () => this.dispatchAction(Actions.UPDATE_CHECKPOINT, {
+            checkpoint: Object.assign(this.props.checkpoint, {score: score})
+        });
     }
 
     render() {
         const assessmentMethods = Checkpoint.getAssessmentMethods(this.props.checkpoint.checkpoint).join("/");
+        const currentScore = this.props.checkpoint.score;
         const complianceItems = [["Non Compliant", 0], ["Partially Compliant", 1], ["Fully Compliant", 2]]
             .map(([text, score], idx) => (
                 <TouchableWithoutFeedback key={idx} onPress={this.handleOnPress(score)}>
-                    <View style={QuestionAnswer.styles.complianceItem}>
+                    <View
+                        style={[QuestionAnswer.styles.complianceItem,
+                            score === currentScore ? QuestionAnswer.styles.activeCompliance : {}]}>
                         <Text style={[Typography.paperFontTitle, {
                             fontWeight: "400",
-                            color: PrimaryColors.subheader_black
+                            color: score === currentScore ? "white" : PrimaryColors.subheader_black
                         }]}>
                             {text}
                         </Text>
-                        <Text style={[Typography.paperFontDisplay1, {color: PrimaryColors.subheader_black}]}>
+                        <Text
+                            style={[Typography.paperFontDisplay1,
+                                {color: score === currentScore ? "white" : PrimaryColors.subheader_black}]}>
                             {score}
                         </Text>
                     </View>
                 </TouchableWithoutFeedback>));
+
         return (
             <View style={QuestionAnswer.styles.container}>
                 <ListingItem type='big' labelColor={PrimaryColors.lighBlue} item={this.props.checkpoint.checkpoint}/>

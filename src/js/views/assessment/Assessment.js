@@ -41,7 +41,7 @@ class Assessment extends AbstractComponent {
 
 
     render() {
-        const currentCheckpoint = this.state.checkpoints.find((checkpoint) => _.isEmpty(checkpoint.score));
+        const currentCheckpoint = this.state.checkpoints[0];
         return (
             <Container theme={FlatUITheme}>
                 <Header>
