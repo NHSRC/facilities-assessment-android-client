@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Dimensions, View, Text, TouchableWithoutFeedback, StyleSheet} from 'react-native';
-import {Container, Content, Title, Button, Header, Icon} from 'native-base';
+import {InputGroup, Input} from 'native-base';
 import AbstractComponent from "../common/AbstractComponent";
 import PrimaryColors from "../styles/PrimaryColors";
 import Actions from '../../action';
@@ -53,6 +53,10 @@ class QuestionAnswer extends AbstractComponent {
             alignSelf: 'stretch',
             marginTop: 8,
         },
+        remarks: {
+            alignSelf: 'stretch',
+            marginTop: deviceHeight * .025
+        },
         complianceItem: {
             flexDirection: 'row',
             flexWrap: 'nowrap',
@@ -82,9 +86,16 @@ class QuestionAnswer extends AbstractComponent {
         });
     }
 
+    handleRemarks(remarks) {
+        return () => this.dispatchAction(Actions.UPDATE_CHECKPOINT, {
+            checkpoint: Object.assign(this.props.checkpoint, {remarks: remarks})
+        });
+    }
+
     render() {
         const assessmentMethods = Checkpoint.getAssessmentMethods(this.props.checkpoint.checkpoint).join("/");
         const currentScore = this.props.checkpoint.score;
+        //TODO: Mihir: Clean this bit up.
         const complianceItems = [["Non Compliant", 0], ["Partially Compliant", 1], ["Fully Compliant", 2]]
             .map(([text, score], idx) => (
                 <TouchableWithoutFeedback key={idx} onPress={this.handleOnPress(score)}>
@@ -120,6 +131,13 @@ class QuestionAnswer extends AbstractComponent {
                         </View>
                         <View style={QuestionAnswer.styles.compliance}>
                             {complianceItems}
+                        </View>
+                        <View style={QuestionAnswer.styles.remarks}>
+                            <InputGroup borderType='underline'>
+                                <Input
+                                    onChangeText={this.handleRemarks}
+                                    placeholder='Enter your comment here...'/>
+                            </InputGroup>
                         </View>
                     </View>
                 </View>
