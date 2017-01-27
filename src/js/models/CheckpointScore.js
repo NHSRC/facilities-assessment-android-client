@@ -24,18 +24,18 @@ class CheckpointScore {
         return obj;
     }
 
-    static create(checkpoint, standard, areaOfConcern, facilityAssessment) {
-        return {
+    static create(checkpoint, standard, areaOfConcern, checklist, facilityAssessment, existingCheckpoint) {
+        return Object.assign({
             uuid: UUID.generate(),
-            checklist: checkpoint.checklist,
             facilityAssessment: facilityAssessment.uuid,
+            checklist: checklist.uuid,
             areaOfConcern: areaOfConcern.uuid,
             standard: standard.uuid,
             checkpoint: checkpoint,
             score: undefined,
             remarks: undefined,
             dateUpdated: undefined,
-        };
+        }, existingCheckpoint, {checkpoint: checkpoint});
     }
 }
 

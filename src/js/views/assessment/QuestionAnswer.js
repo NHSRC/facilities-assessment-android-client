@@ -15,6 +15,7 @@ class QuestionAnswer extends AbstractComponent {
     constructor(props, context) {
         super(props, context);
         this.handleOnPress = this.handleOnPress.bind(this);
+        this.handleRemarks = this.handleRemarks.bind(this);
     }
 
     static styles = StyleSheet.create({
@@ -87,7 +88,7 @@ class QuestionAnswer extends AbstractComponent {
     }
 
     handleRemarks(remarks) {
-        return () => this.dispatchAction(Actions.UPDATE_CHECKPOINT, {
+        return this.dispatchAction(Actions.UPDATE_CHECKPOINT, {
             checkpoint: Object.assign(this.props.checkpoint, {remarks: remarks})
         });
     }
@@ -135,6 +136,8 @@ class QuestionAnswer extends AbstractComponent {
                         <View style={QuestionAnswer.styles.remarks}>
                             <InputGroup borderType='underline'>
                                 <Input
+                                    autoCorrect={true}
+                                    value={this.props.checkpoint.remarks}
                                     onChangeText={this.handleRemarks}
                                     placeholder='Enter your comment here...'/>
                             </InputGroup>

@@ -6,11 +6,17 @@ import CheckpointScore from '../models/CheckpointScore';
 
 const getCheckpoints = function (state, actionParams, beans) {
     const checklistService = beans.get(ChecklistService);
+    const assessmentService = beans.get(AssessmentService);
     const checkpoints = checklistService
         .getCheckpointsFor(actionParams.checklist.uuid, actionParams.areaOfConcern.uuid, actionParams.standard.uuid);
-    const checkpointScores = checkpoints.map((checkpoint) =>
-        CheckpointScore.create(checkpoint, actionParams.standard,
-            actionParams.areaOfConcern, actionParams.facilityAssessment));
+    const checkpointScores = checkpoints
+        .map((checkpoint) =>
+            Object.assign(assessmentService
+                    .getCheckpointScore(checkpoint, actionParams.standard,
+                        actionParams.areaOfConcern, actionParams.checklist, actionParams.facilityAssessment),
+                {checkpoint: checkpoint}))
+        .map((checkpoint) => CheckpointScore.create(checkpoint.checkpoint, actionParams.standard,
+            actionParams.areaOfConcern, actionParams.checklist, actionParams.facilityAssessment, checkpoint));
     return Object.assign(state, {
         checkpoints: checkpointScores,
     });

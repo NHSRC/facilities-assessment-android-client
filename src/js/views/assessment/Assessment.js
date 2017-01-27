@@ -54,8 +54,8 @@ class Assessment extends AbstractComponent {
                     <View style={{margin: deviceWidth * 0.04,}}>
                         <ListingItem labelColor={PrimaryColors.yellow} item={this.props.params.standard}/>
                         <QuestionAnswer checkpoint={currentCheckpoint}/>
+                        <Pagination currentCheckpoint={currentCheckpoint} checkpoints={this.state.checkpoints}/>
                     </View>
-                    <Pagination currentCheckpoint={currentCheckpoint} checkpoints={this.state.checkpoints}/>
                 </Content>
             </Container>
         );

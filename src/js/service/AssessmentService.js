@@ -69,8 +69,12 @@ class AssessmentService extends BaseService {
         return Object.assign({}, this.saveCheckpoint(checkpoint));
     }
 
-    saveCheckpointRemarks(checklistAssessment, checkpoint, remarks) {
-        return this.saveCheckpointField(checklistAssessment, checkpoint)({remarks: remarks});
+
+    getCheckpointScore(checkpoint, standard, areaOfConcern, checklist, facilityAssessment) {
+        return Object.assign({}, this.db.objects(CheckpointScore.schema.name)
+            .filtered('checkpoint = $0 AND standard = $1 AND areaOfConcern = $2 ' +
+                'AND checklist =$3 AND facilityAssessment = $4',
+                checkpoint.uuid, standard.uuid, areaOfConcern.uuid, checklist.uuid, facilityAssessment.uuid)[0]);
     }
 
     getChecklistProgress(checklistAssessment) {
