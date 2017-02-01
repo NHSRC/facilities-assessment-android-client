@@ -7,6 +7,7 @@ import ListingItem from '../common/ListingItem';
 import Compliance from './Compliance';
 import Remarks from './Remarks';
 import AnswerInfo from './AnswerInfo';
+import Toolbar from './Toolbar';
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
@@ -43,14 +44,16 @@ class QuestionAnswer extends AbstractComponent {
     render() {
         return (
             <View style={QuestionAnswer.styles.container}>
-                <ListingItem type='big' labelColor={PrimaryColors.lighBlue} item={this.props.checkpoint.checkpoint}/>
+                <ListingItem type='big' labelColor={PrimaryColors.lighBlue}
+                             item={this.props.currentCheckpoint.checkpoint}/>
                 <View style={QuestionAnswer.styles.answerContainer}>
                     <View style={QuestionAnswer.styles.answer}>
-                        <AnswerInfo checkpoint={this.props.checkpoint}/>
-                        <Compliance checkpoint={this.props.checkpoint}/>
-                        <Remarks checkpoint={this.props.checkpoint}/>
+                        <AnswerInfo checkpoint={this.props.currentCheckpoint}/>
+                        <Compliance checkpoint={this.props.currentCheckpoint}/>
+                        <Remarks checkpoint={this.props.currentCheckpoint}/>
                     </View>
                 </View>
+                <Toolbar {...this.props}/>
             </View>
         );
     }

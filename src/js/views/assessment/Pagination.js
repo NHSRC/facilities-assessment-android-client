@@ -17,11 +17,12 @@ class Pagination extends AbstractComponent {
 
     static styles = StyleSheet.create({
         container: {
+            marginTop: deviceHeight * .088,
             alignSelf: 'stretch',
             flexDirection: 'row',
             flexWrap: 'nowrap',
             justifyContent: 'flex-start',
-            alignItems: 'center'
+            alignItems: 'center',
         }
     });
 
