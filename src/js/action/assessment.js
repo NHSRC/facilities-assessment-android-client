@@ -1,6 +1,5 @@
 import ChecklistService from "../service/ChecklistService";
 import _ from 'lodash';
-import Immutable from 'immutable';
 import AssessmentService from "../service/AssessmentService";
 import CheckpointScore from '../models/CheckpointScore';
 
@@ -19,6 +18,7 @@ const getCheckpoints = function (state, actionParams, beans) {
             actionParams.areaOfConcern, actionParams.checklist, actionParams.facilityAssessment, checkpoint));
     return Object.assign(state, {
         checkpoints: checkpointScores,
+        currentCheckpoint: _.head(checkpointScores)
     });
 };
 
@@ -36,11 +36,14 @@ const updateCheckpoint = function (state, actionParams, beans) {
     return Object.assign({}, state, {checkpoints: checkpoints});
 };
 
+const changePage = function (state, actionParams, beans) {
+    return Object.assign(state, {currentCheckpoint: actionParams.currentCheckpoint});
+};
+
 export default new Map([
     ["GET_CHECKPOINTS", getCheckpoints],
     ["UPDATE_CHECKPOINT", updateCheckpoint],
-    // ["ADD_REMARKS", addRemarks],
-    // ["SAVE_CHECKLIST", saveChecklist]
+    ["CHANGE_PAGE", changePage],
 ]);
 
 export let assessmentInit = {

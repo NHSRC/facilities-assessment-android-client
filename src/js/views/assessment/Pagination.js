@@ -27,9 +27,7 @@ class Pagination extends AbstractComponent {
 
     handleOnPress(checkpoint) {
         return () => {
-            console.log("\n\n");
-            console.log(checkpoint.checkpoint.name);
-            console.log("\n\n");
+            this.dispatchAction(Actions.CHANGE_PAGE, {currentCheckpoint: checkpoint});
         };
     }
 

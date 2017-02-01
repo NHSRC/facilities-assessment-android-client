@@ -41,7 +41,6 @@ class Assessment extends AbstractComponent {
 
 
     render() {
-        const currentCheckpoint = this.state.checkpoints.find((checkpoint) => _.isEmpty(checkpoint.dateUpdated));
         return (
             <Container theme={FlatUITheme}>
                 <Header>
@@ -53,8 +52,9 @@ class Assessment extends AbstractComponent {
                 <Content>
                     <View style={{margin: deviceWidth * 0.04,}}>
                         <ListingItem labelColor={PrimaryColors.yellow} item={this.props.params.standard}/>
-                        <QuestionAnswer checkpoint={currentCheckpoint}/>
-                        <Pagination currentCheckpoint={currentCheckpoint} checkpoints={this.state.checkpoints}/>
+                        <QuestionAnswer checkpoint={this.state.currentCheckpoint}/>
+                        <Pagination currentCheckpoint={this.state.currentCheckpoint}
+                                    checkpoints={this.state.checkpoints}/>
                     </View>
                 </Content>
             </Container>
