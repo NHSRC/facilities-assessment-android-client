@@ -77,8 +77,8 @@ class SeedDataService extends BaseService {
     }
 
     create(seedEntity) {
-        var serviceInstance = this.getService(seedEntity.service);
-        return seedEntity.entity.map((e)=>serviceInstance[seedEntity.method](e));
+        let serviceInstance = this.getService(seedEntity.service);
+        return seedEntity.entity.map((e) => serviceInstance[seedEntity.method](e));
     }
 
 }
