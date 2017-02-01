@@ -3,10 +3,10 @@ import {createStore, combineReducers} from 'redux';
 import initReducers from '../reducer';
 
 function AppStoreFactory(beans) {
-    var store = createStore(combineReducers(initReducers(beans)));
+    let store = createStore(combineReducers(initReducers(beans)));
     store.subscribeTo = (stateKey, handler) => {
-        var prevState = Object.assign({}, store.getState()[stateKey]);
-        const handlerWrapper = ()=> {
+        let prevState = Object.assign({}, store.getState()[stateKey]);
+        const handlerWrapper = () => {
             const nextState = Object.assign({}, store.getState()[stateKey]);
             if (!_.isEqual(nextState, prevState)) {
                 handler();
