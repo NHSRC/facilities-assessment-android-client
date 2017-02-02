@@ -4,7 +4,8 @@ import AbstractComponent from "../common/AbstractComponent";
 import PrimaryColors from "../styles/PrimaryColors";
 import Typography from "../styles/Typography";
 import Actions from '../../action';
-import {Button, Icon} from 'native-base';
+import {Icon} from 'native-base';
+import {comp} from 'immutable';
 import _ from 'lodash';
 
 
@@ -63,6 +64,10 @@ class Toolbar extends AbstractComponent {
         return _.head(checkpoints).uuid === currentCheckpoint.uuid;
     }
 
+    showFinished(currentCheckpoint, checkpoints) {
+        return this.isLast(currentCheckpoint, checkpoints) && checkpoints.every(({score}) => _.isNumber(score));
+    }
+
     getCurrentIndex() {
         return _.findIndex(this.props.checkpoints,
             (checkpoint) => this.props.currentCheckpoint.uuid === checkpoint.uuid);
@@ -79,7 +84,7 @@ class Toolbar extends AbstractComponent {
     }
 
     onFinish() {
-
+        this.props.goBack();
     }
 
     renderButton(button, key) {
@@ -98,7 +103,7 @@ class Toolbar extends AbstractComponent {
         const ButtonsToRender = [
             {label: "PREV", onPress: this.onPrev.bind(this), doRender: this.isNotFirst.bind(this)},
             {label: "NEXT", onPress: this.onNext.bind(this), doRender: this.isNotLast.bind(this)},
-            {label: "FINISH", onPress: this.onFinish, doRender: this.isLast.bind(this)}
+            {label: "FINISH", onPress: this.onFinish.bind(this), doRender: this.showFinished.bind(this)}
         ].filter((button) => button.doRender(this.props.currentCheckpoint, this.props.checkpoints))
             .map((button, key) => this.renderButton(button, key));
         return (
