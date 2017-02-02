@@ -86,7 +86,7 @@ class Toolbar extends AbstractComponent {
         return (
             <TouchableWithoutFeedback key={key} onPress={button.onPress}>
                 <View style={Toolbar.styles.actionButton}>
-                    <Text style={Toolbar.styles.actionButtonText}>
+                    <Text style={[Toolbar.styles.actionButtonText, Typography.paperFontBody1]}>
                         {button.label}
                     </Text>
                 </View>
@@ -96,9 +96,9 @@ class Toolbar extends AbstractComponent {
 
     render() {
         const ButtonsToRender = [
-            {label: "Prev", onPress: this.onPrev.bind(this), doRender: this.isNotFirst.bind(this)},
-            {label: "Next", onPress: this.onNext.bind(this), doRender: this.isNotLast.bind(this)},
-            {label: "Finish", onPress: this.onFinish, doRender: this.isLast.bind(this)}
+            {label: "PREV", onPress: this.onPrev.bind(this), doRender: this.isNotFirst.bind(this)},
+            {label: "NEXT", onPress: this.onNext.bind(this), doRender: this.isNotLast.bind(this)},
+            {label: "FINISH", onPress: this.onFinish, doRender: this.isLast.bind(this)}
         ].filter((button) => button.doRender(this.props.currentCheckpoint, this.props.checkpoints))
             .map((button, key) => this.renderButton(button, key));
         return (

@@ -20,7 +20,7 @@ class Pagination extends AbstractComponent {
             marginTop: deviceHeight * .088,
             alignSelf: 'stretch',
             flexDirection: 'row',
-            flexWrap: 'nowrap',
+            flexWrap: 'wrap',
             justifyContent: 'flex-start',
             alignItems: 'center',
         }
