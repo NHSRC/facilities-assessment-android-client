@@ -9,6 +9,7 @@ export default {
     "button_black": "rgba(0,0,0,0.70)",
     "caption_black": "rgba(0,0,0,0.54)",
     "light_black": "rgba(0,0,0,0.12)",
+    "medium_black": "rgba(0,0,0,0.38)",
     "green": "#5C832F",
     "some": "#990000",
     "blue": "#3f51b5",
