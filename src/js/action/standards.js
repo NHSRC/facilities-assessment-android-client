@@ -15,6 +15,7 @@ const allStandards = function (state, action, beans) {
 
 export default new Map([
     ["ALL_STANDARDS", allStandards],
+    ["UPDATE_PROGRESS", allStandards],
 ]);
 
 export let standardsInit = {

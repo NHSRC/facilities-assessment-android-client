@@ -12,6 +12,7 @@ const allAreasOfConcern = function (state, action, beans) {
 
 export default new Map([
     ["ALL_AREAS_OF_CONCERN", allAreasOfConcern],
+    ["UPDATE_PROGRESS", allAreasOfConcern],
 ]);
 
 export let areasOfConcernInit = {

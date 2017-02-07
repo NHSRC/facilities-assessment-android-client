@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Dimensions, View, Text, TouchableWithoutFeedback, StyleSheet} from 'react-native';
 import AbstractComponent from "../common/AbstractComponent";
-import ListingItem from './ListingItem';
+import ProgressListingItem from './ProgressListingItem';
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
@@ -23,7 +23,10 @@ class Listing extends AbstractComponent {
 
     render() {
         const items = this.props.items.map((item, idx) =>
-            <ListingItem key={idx} item={item} onPress={this.props.onPress(item)} labelColor={this.props.labelColor}/>
+            <ProgressListingItem key={idx}
+                                 item={item}
+                                 onPress={this.props.onPress(item)}
+                                 labelColor={this.props.labelColor}/>
         );
         return (
             <View>
