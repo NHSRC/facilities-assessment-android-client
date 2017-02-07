@@ -13,8 +13,9 @@ class AbstractComponent extends Component {
     };
 
     dispatchAction(actionName, params) {
-        this.context.getStore().dispatch({"type": actionName, ...params});
+        return this.context.getStore().dispatch({"type": actionName, ...params});
     }
+
 }
 
 export default AbstractComponent;

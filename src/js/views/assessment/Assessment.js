@@ -54,7 +54,8 @@ class Assessment extends AbstractComponent {
                         <ListingItem labelColor={PrimaryColors.yellow} item={this.props.params.standard}/>
                         <QuestionAnswer goBack={() => TypedTransition.from(this).goBack()}
                                         checkpoints={this.state.checkpoints}
-                                        currentCheckpoint={this.state.currentCheckpoint}/>
+                                        currentCheckpoint={this.state.currentCheckpoint}
+                                        {...this.props}/>
                         <Pagination currentCheckpoint={this.state.currentCheckpoint}
                                     checkpoints={this.state.checkpoints}/>
                     </View>

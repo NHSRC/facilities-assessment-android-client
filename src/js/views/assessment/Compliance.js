@@ -22,9 +22,14 @@ class Compliance extends AbstractComponent {
     });
 
     handleOnPress(score) {
-        return () => this.dispatchAction(Actions.UPDATE_CHECKPOINT, {
-            checkpoint: Object.assign(this.props.checkpoint, {score: score})
-        });
+        return () => {
+            this.dispatchAction(Actions.UPDATE_CHECKPOINT, {
+                checkpoint: Object.assign(this.props.checkpoint, {score: score}),
+            });
+            this.dispatchAction(Actions.UPDATE_PROGRESS, {
+                ...this.props.params
+            });
+        }
     }
 
     render() {

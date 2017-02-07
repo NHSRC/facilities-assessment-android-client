@@ -24,7 +24,8 @@ const saveFacilityAssessment = function (state, action, beans) {
 
 export default new Map([
     ["ALL_CHECKLISTS", allChecklists],
-    ["SAVE_FACILITY_ASSESSMENT", saveFacilityAssessment]
+    ["SAVE_FACILITY_ASSESSMENT", saveFacilityAssessment],
+    ["UPDATE_PROGRESS", allChecklists]
 ]);
 
 export let checklistSelectionInit = {

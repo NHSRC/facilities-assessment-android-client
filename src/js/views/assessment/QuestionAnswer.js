@@ -49,7 +49,7 @@ class QuestionAnswer extends AbstractComponent {
                 <View style={QuestionAnswer.styles.answerContainer}>
                     <View style={QuestionAnswer.styles.answer}>
                         <AnswerInfo checkpoint={this.props.currentCheckpoint}/>
-                        <Compliance checkpoint={this.props.currentCheckpoint}/>
+                        <Compliance checkpoint={this.props.currentCheckpoint} {...this.props}/>
                         <Remarks checkpoint={this.props.currentCheckpoint}/>
                     </View>
                 </View>
