@@ -1,14 +1,18 @@
 import ChecklistService from "../service/ChecklistService";
 import FacilityAssessmentService from "../service/FacilityAssessmentService";
-import ChecklistAssessmentService from "../service/AssessmentService";
+import AssessmentService from "../service/AssessmentService";
 import _ from 'lodash';
 
 const allChecklists = function (state, action, beans) {
     const checklists = beans.get(ChecklistService).getChecklistsFor(action.assessmentTool);
-    const checklistAssessmentService = beans.get(ChecklistAssessmentService);
+    const assessmentService = beans.get(AssessmentService);
     const checklistProgress = checklists
-        .map(checklistAssessmentService.getChecklistProgress);
-    return Object.assign(state, {"checklists": _.zipWith(checklists, checklistProgress, Object.assign)});
+        .map((checklist) => assessmentService.getChecklistProgress(checklist, action.facilityAssessment));
+    const completedChecklists = checklistProgress.filter(({progress: {completed, total}}) => completed === total).length;
+    return Object.assign(state, {
+        "checklists": _.zipWith(checklists, checklistProgress, Object.assign),
+        "assessmentProgress": {total: checklists.length, completed: completedChecklists}
+    });
 };
 
 const saveFacilityAssessment = function (state, action, beans) {
@@ -24,5 +28,6 @@ export default new Map([
 ]);
 
 export let checklistSelectionInit = {
-    checklists: []
+    checklists: [],
+    assessmentProgress: {total: 0, completed: 0}
 };

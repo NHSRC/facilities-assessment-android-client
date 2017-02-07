@@ -31,7 +31,8 @@ class Standards extends AbstractComponent {
     componentWillMount() {
         this.dispatchAction(Actions.ALL_STANDARDS, {
             checklist: this.props.params.checklist,
-            areaOfConcern: this.props.params.areaOfConcern
+            areaOfConcern: this.props.params.areaOfConcern,
+            facilityAssessment: this.props.params.facilityAssessment
         })
     }
 

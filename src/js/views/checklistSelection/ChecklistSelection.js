@@ -41,10 +41,7 @@ class ChecklistSelection extends AbstractComponent {
     }
 
     componentWillMount() {
-        this.dispatchAction(Actions.ALL_CHECKLISTS, {
-            assessmentTool: this.props.params.assessmentTool,
-            facilityAssessment: this.props.params.facilityAssessment
-        });
+        this.dispatchAction(Actions.ALL_CHECKLISTS, {...this.props.params});
     }
 
     handleOnPress(checklist) {
@@ -59,7 +56,6 @@ class ChecklistSelection extends AbstractComponent {
     }
 
     render() {
-        const completedChecklistsCount = this.state.checklists.filter((checklist) => checklist.progress.status === 1).length;
         return (
             <Container theme={FlatUITheme}>
                 <Header>
@@ -77,12 +73,10 @@ class ChecklistSelection extends AbstractComponent {
                             {this.props.params.assessmentTool.name}
                         </Text>
                         <AssessmentStatus
-                            total={this.state.checklists.length}
-                            completed={completedChecklistsCount}/>
+                            assessmentProgress={this.state.assessmentProgress}/>
                         <Checklists
                             handleOnPress={this.handleOnPress.bind(this)}
-                            total={this.state.checklists.length}
-                            completed={completedChecklistsCount}
+                            assessmentProgress={this.state.assessmentProgress}
                             allChecklists={this.state.checklists}
                         />
                     </View>

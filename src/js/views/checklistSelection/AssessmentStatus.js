@@ -27,7 +27,7 @@ class AssessmentStatus extends AbstractComponent {
     });
 
     render() {
-        const progressRatio = this.props.completed / this.props.total;
+        const progressRatio = this.props.assessmentProgress.completed / this.props.assessmentProgress.total;
         return (
             <View style={AssessmentStatus.styles.statusContainer}>
                 <View style={AssessmentStatus.styles.textContainer}>

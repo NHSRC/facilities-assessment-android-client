@@ -57,7 +57,7 @@ class Checklists extends AbstractComponent {
                 <View style={Checklists.styles.checklistsHeader}>
                     <Text style={[Typography.paperFontSubhead, Checklists.styles.checklistsText]}>Checklists</Text>
                     <Text style={[Typography.paperFontBody1, Checklists.styles.checklistsText]}>
-                        {this.props.completed}/{this.props.total}
+                        {this.props.assessmentProgress.completed}/{this.props.assessmentProgress.total}
                     </Text>
                 </View>
                 <View style={Checklists.styles.checklists}>

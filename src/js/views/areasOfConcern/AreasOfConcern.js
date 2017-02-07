@@ -30,7 +30,7 @@ class AreasOfConcern extends AbstractComponent {
     }
 
     componentWillMount() {
-        this.dispatchAction(Actions.ALL_AREAS_OF_CONCERN, {checklist: this.props.params.checklist})
+        this.dispatchAction(Actions.ALL_AREAS_OF_CONCERN, {...this.props.params})
     }
 
     componentWillUnmount() {

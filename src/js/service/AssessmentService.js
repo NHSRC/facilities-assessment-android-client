@@ -18,51 +18,7 @@ class AssessmentService extends BaseService {
         this.saveAssessmentType = this.save(AssessmentType);
         this.saveAreaOfConcern = this.save(AreaOfConcern);
         this.saveCheckpoint = this.save(CheckpointScore, CheckpointScore.toDB);
-        // this.getAreaOfConcern = this.getAreaOfConcern.bind(this);
         this.getChecklistProgress = this.getChecklistProgress.bind(this);
-    }
-
-
-    _getExistingCheckpoint(checklistAssessment, checkpoint) {
-        return Object.assign({}, this.db.objects(CheckpointScore.schema.name)
-            .filtered('checklist = $0 AND checklistAssessment = $1 AND checkpoint = $2',
-                checklistAssessment.checklist, checklistAssessment.uuid, checkpoint.uuid)[0]);
-    }
-
-    saveCheckpointField(checklistAssessment, checkpoint) {
-        return (opts) => this.saveCheckpoint(Object.assign(this._getExistingCheckpoint(checklistAssessment, checkpoint), {
-            checklist: checklistAssessment.checklist,
-            checklistAssessment: checklistAssessment.uuid,
-            checkpoint: checkpoint.uuid,
-            ...opts
-        }));
-    }
-
-    getAllCheckpointsForAssessment(checklistAssessment) {
-        return Object.assign({}, this.db.objects(CheckpointScore.schema.name)
-            .filtered('checklist = $0 AND checklistAssessment = $1',
-                checklistAssessment.checklist, checklistAssessment.uuid));
-    }
-
-    getLatestUpdatedCheckpointForAssessment(checklistAssessment) {
-        return Object.assign({}, this.db.objects(CheckpointScore.schema.name)
-            .filtered('checklist = $0 AND checklistAssessment = $1',
-                checklistAssessment.checklist, checklistAssessment.uuid)
-            .sorted('dateUpdated', true)[0]);
-    }
-
-    getStandardForCheckpoint(checkpointUUID) {
-        const checkpoint = this.db.objectForPrimaryKey(Checkpoint.schema.name, checkpointUUID);
-        const measurableElement = this.db.objectForPrimaryKey(MeasurableElement.schema.name, checkpoint.measurableElement);
-        return this.db.objects(Standard.schema.name)
-            .filtered("measurableElements.uuid = $0", measurableElement.uuid)
-            .map(this.nameAndId)[0];
-    }
-
-    getAreaOfConcernForStandard(standardUUID) {
-        return this.db.objects(AreaOfConcern.schema.name)
-            .filtered("standards.uuid = $0", standardUUID)
-            .map(this.nameAndId)[0];
     }
 
     saveCheckpointScore(checkpoint) {
@@ -77,27 +33,34 @@ class AssessmentService extends BaseService {
                 checkpoint.uuid, standard.uuid, areaOfConcern.uuid, checklist.uuid, facilityAssessment.uuid)[0]);
     }
 
-    getChecklistProgress(checklistAssessment) {
-        // const checkpoints = _.mapValues(_.groupBy(this.getAllCheckpointsForAssessment(checklistAssessment), (obj) => obj.checkpoint), (obj) => obj[0]);
-        // let completed = Object.keys(checkpoints).length;
-        // let total = this
-        //     .getService(ChecklistService)
-        //     .getAllCheckpointsForChecklist({uuid: checklistAssessment.checklist}).length;
-        return {
-            progress: {
-                total: 1,
-                completed: 1,
-                status: 1 === 0 ? -1 : Number(1 >= 0.9)
-            }
-        };
+    getStandardProgress(standard, areaOfConcern, checklist, facilityAssessment) {
+        const checklistService = this.getService(ChecklistService);
+        const checkpoints = checklistService.getCheckpointsFor(checklist.uuid, areaOfConcern.uuid, standard.uuid);
+        const checkpointScores = this.db.objects(CheckpointScore.schema.name)
+            .filtered('standard = $0 AND areaOfConcern = $1 ' +
+                'AND checklist =$2 AND facilityAssessment = $3',
+                standard.uuid, areaOfConcern.uuid, checklist.uuid, facilityAssessment.uuid)
+            .map(this.pickKeys(["score", "checkpoint"]));
+        const completed = checkpointScores.filter(({score}) => _.isNumber(score)).length;
+        return {progress: {total: checkpoints.length, completed: completed}};
     }
 
-    getLastUpdatedCheckpoint(assessmentUUID, checklistUUID, areaOfConcernUUID, standardUUID) {
-        return Object.assign({}, this.db.objects(CheckpointScore.schema.name)
-            .filtered('checklist = $0 AND facilityAssessment = $1 AND areaOfConcern = $2 AND standard = $3',
-                checklistUUID, assessmentUUID, areaOfConcernUUID, standardUUID)
-            .sorted('dateUpdated', true)[0]);
+    getAreaOfConcernProgress(areaOfConcern, checklist, facilityAssessment) {
+        const standards = areaOfConcern.standards
+            .map((standard) => this.getStandardProgress(standard, areaOfConcern, checklist, facilityAssessment));
+        const completed = standards.filter(({progress: {completed, total}}) => completed === total).length;
+        return {progress: {total: standards.length, completed: completed}};
     }
+
+    getChecklistProgress(checklist, facilityAssessment) {
+        const checklistService = this.getService(ChecklistService);
+        const fullChecklist = checklistService.getChecklist(checklist.uuid);
+        const areasOfConcern = fullChecklist.areasOfConcern
+            .map((aoc) => this.getAreaOfConcernProgress(aoc, checklist, facilityAssessment));
+        const completed = areasOfConcern.filter(({progress: {completed, total}}) => completed === total).length;
+        return {progress: {total: areasOfConcern.length, completed: completed}};
+    }
+
 }
 
 export default AssessmentService;

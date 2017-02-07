@@ -117,7 +117,11 @@ class Toolbar extends AbstractComponent {
                         }]}>
                             <Icon size={14} style={[Toolbar.styles.yellowText]}
                                   name="warning"/>
-                            <Text style={[Toolbar.styles.yellowText, Typography.paperFontCode2, {marginTop: 7}]}>
+                            <Text style={[Toolbar.styles.yellowText, Typography.paperFontCode2, {
+                                marginTop: 4,
+                                marginLeft: 5,
+                                paddingRight: 3
+                            }]}>
                                 NOT APPLICABLE
                             </Text>
                         </View>
