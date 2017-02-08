@@ -6,6 +6,7 @@ import FlatUITheme from '../themes/flatUI';
 import TypedTransition from "../../framework/routing/TypedTransition";
 import Path from "../../framework/routing/Path";
 import PrimaryColors from "../styles/PrimaryColors";
+import Typography from "../styles/Typography";
 import Actions from '../../action';
 import ListingItem from '../common/ListingItem';
 import QuestionAnswer from './QuestionAnswer';
@@ -47,7 +48,10 @@ class Assessment extends AbstractComponent {
                     <Button transparent onPress={() => TypedTransition.from(this).goBack()}>
                         <Icon style={{marginTop: 10}} name='arrow-back'/>
                     </Button>
-                    <Title>{this.props.params.standard.name}</Title>
+                    <Title style={[Typography.paperFontHeadline,
+                        {fontWeight: 'bold', color: PrimaryColors.subheader_black}]}>
+                        {this.props.params.standard.name}
+                    </Title>
                 </Header>
                 <Content>
                     <View style={{margin: deviceWidth * 0.04,}}>

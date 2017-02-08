@@ -72,7 +72,10 @@ class ChecklistSelection extends AbstractComponent {
                     <Button transparent onPress={() => TypedTransition.from(this).goBack()}>
                         <Icon style={{marginTop: 10}} name='arrow-back'/>
                     </Button>
-                    <Title>Assessment</Title>
+                    <Title style={[Typography.paperFontHeadline,
+                        {fontWeight: 'bold', color: PrimaryColors.subheader_black}]}>
+                        Assessment
+                    </Title>
                 </Header>
                 <Content>
                     <View style={{margin: deviceWidth * 0.04,}}>

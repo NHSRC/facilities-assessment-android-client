@@ -6,6 +6,7 @@ import FlatUITheme from '../themes/flatUI';
 import TypedTransition from "../../framework/routing/TypedTransition";
 import Path from "../../framework/routing/Path";
 import PrimaryColors from "../styles/PrimaryColors";
+import Typography from "../styles/Typography";
 import Listing from '../common/Listing';
 import Actions from '../../action';
 import Standards from "../standards/Standards";
@@ -54,7 +55,10 @@ class AreasOfConcern extends AbstractComponent {
                     <Button transparent onPress={() => TypedTransition.from(this).goBack()}>
                         <Icon style={{marginTop: 10}} name='arrow-back'/>
                     </Button>
-                    <Title>{this.props.params.checklist.name}</Title>
+                    <Title style={[Typography.paperFontHeadline,
+                        {fontWeight: 'bold', color: PrimaryColors.subheader_black}]}>
+                        {this.props.params.checklist.name}
+                    </Title>
                 </Header>
                 <Content>
                     <View style={{margin: deviceWidth * 0.04,}}>

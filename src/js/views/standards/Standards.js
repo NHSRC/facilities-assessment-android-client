@@ -8,6 +8,7 @@ import Path from "../../framework/routing/Path";
 import Listing from '../common/Listing';
 import Actions from '../../action';
 import PrimaryColors from "../styles/PrimaryColors";
+import Typography from "../styles/Typography";
 import Assessment from '../assessment/Assessment';
 
 const deviceWidth = Dimensions.get('window').width;
@@ -54,7 +55,10 @@ class Standards extends AbstractComponent {
                     <Button transparent onPress={() => TypedTransition.from(this).goBack()}>
                         <Icon style={{marginTop: 10}} name='arrow-back'/>
                     </Button>
-                    <Title>{this.props.params.areaOfConcern.name}</Title>
+                    <Title style={[Typography.paperFontHeadline,
+                        {fontWeight: 'bold', color: PrimaryColors.subheader_black}]}>
+                        {this.props.params.areaOfConcern.name}
+                    </Title>
                 </Header>
                 <Content>
                     <View style={{margin: deviceWidth * 0.04,}}>
