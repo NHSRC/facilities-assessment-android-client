@@ -3,6 +3,7 @@ import Service from "../framework/bean/Service";
 import _ from 'lodash';
 import AreaOfConcern from "../models/AreaOfConcern";
 import AssessmentTool from "../models/AssessmentTool";
+import FacilityAssessment from "../models/FacilityAssessment";
 import CheckpointScore from "../models/CheckpointScore";
 import AssessmentType from "../models/AssessmentType";
 import Checkpoint from "../models/Checkpoint";

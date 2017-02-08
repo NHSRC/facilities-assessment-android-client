@@ -3,6 +3,7 @@ import Service from "../framework/bean/Service";
 import AssessmentTool from "../models/AssessmentTool";
 import AssessmentType from "../models/AssessmentType";
 import FacilityAssessment from "../models/FacilityAssessment";
+import FacilityService from './FacilitiesService';
 
 @Service("facilityAssessmentService")
 class FacilityAssessmentService extends BaseService {
@@ -39,6 +40,14 @@ class FacilityAssessmentService extends BaseService {
         return this.saveAssessment(Object.assign(existingAssessment, {
             endDate: new Date()
         }));
+    }
+
+    getAllOpenAssessments() {
+        const facilityService = this.getService(FacilityService);
+        return this.db.objects(FacilityAssessment.schema.name)
+            .filtered('endDate = null AND submitted = false')
+            .map((assessment) =>
+                Object.assign({}, assessment, {facility: facilityService.getFacility(assessment.facility)}));
     }
 }
 

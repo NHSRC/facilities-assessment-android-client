@@ -33,6 +33,15 @@ class FacilitiesService extends BaseService {
     getFacilityTypes() {
         return this.db.objects(FacilityType.schema.name).map(this.nameAndId);
     }
+
+    getFacilityType(facilityTypeUUID) {
+        return Object.assign({}, this.db.objectForPrimaryKey(FacilityType.schema.name, facilityTypeUUID));
+    }
+
+    getFacility(facilityUUID) {
+        const facility = Object.assign({}, this.db.objectForPrimaryKey(Facility.schema.name, facilityUUID));
+        return Object.assign({}, facility, {facilityType: this.getFacilityType(facility.facilityType)})
+    }
 }
 
 export default FacilitiesService;

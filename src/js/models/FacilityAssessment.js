@@ -12,7 +12,8 @@ class FacilityAssessment {
             assessmentType: 'string',
             startDate: {type: 'date', default: new Date()},
             endDate: {type: 'date', optional: true},
-            dateUpdated: {type: 'date', default: new Date()}
+            dateUpdated: {type: 'date', default: new Date()},
+            submitted: {type: 'bool', default: false},
         }
     };
 

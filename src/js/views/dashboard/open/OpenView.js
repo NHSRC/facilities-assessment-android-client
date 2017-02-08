@@ -1,33 +1,34 @@
 import React, {Component} from 'react';
 import {Text, StyleSheet, View, ScrollView} from 'react-native';
 import AbstractComponent from "../../common/AbstractComponent";
+import Actions from '../../../action';
 import Dashboard from '../Dashboard';
-import {Title, Content, Icon, Button} from 'native-base';
 
 
 class OpenView extends AbstractComponent {
     constructor(props, context) {
         super(props, context);
-        // const store = context.getStore();
-        // this.state = store.getState().dashboard;
-        // this.unsubscribe = store.subscribeTo('dashboard', this.handleChange.bind(this));
-        // this.handleOnPress = this.handleOnPress.bind(this);
+        const store = context.getStore();
+        this.state = store.getState().openAssessments;
+        this.unsubscribe = store.subscribeTo('openAssessments', this.handleChange.bind(this));
     }
 
 
     handleChange() {
-        // const newState = this.context.getStore().getState().dashboard;
-        // this.setState(newState);
+        const newState = this.context.getStore().getState().openAssessments;
+        this.setState(newState);
     }
 
-    componentDidMount() {
+    componentWillMount() {
+        this.dispatchAction(Actions.ALL_ASSESSMENTS);
     }
 
     componentWillUnmount() {
-        // this.unsubscribe();
+        this.unsubscribe();
     }
 
     render() {
+        console.log(this.state);
         return (
             <View style={Dashboard.styles.tab}>
 
