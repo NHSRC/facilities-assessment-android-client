@@ -39,7 +39,7 @@ class Pagination extends AbstractComponent {
                 handleOnPress={this.handleOnPress(checkpoint)}
                 checkpoint={checkpoint}
                 current={this.props.currentCheckpoint.uuid === checkpoint.uuid}
-                saved={!_.isEmpty(checkpoint.score)}/>));
+                saved={_.isNumber(checkpoint.score)}/>));
         return (
             <View style={Pagination.styles.container}>
                 {pages}
