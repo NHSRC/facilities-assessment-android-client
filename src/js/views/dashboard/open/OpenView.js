@@ -3,6 +3,8 @@ import {Text, StyleSheet, View, ScrollView} from 'react-native';
 import AbstractComponent from "../../common/AbstractComponent";
 import Actions from '../../../action';
 import Dashboard from '../Dashboard';
+import AssessmentList from './AssessmentList';
+import _ from 'lodash';
 
 
 class OpenView extends AbstractComponent {
@@ -28,10 +30,28 @@ class OpenView extends AbstractComponent {
     }
 
     render() {
-        console.log(this.state);
+        const AssessmentLists = [
+            {
+                header: "SUBMIT ASSESSMENTS",
+                assessments: this.state.completedAssessments,
+                buttonText: "SUBMIT"
+            },
+            {
+                header: "OPEN ASSESSMENTS",
+                assessments: this.state.openAssessments,
+                buttonText: "CONTINUE"
+            },
+            {
+                header: "SUBMITTED ASSESSMENTS",
+                assessments: this.state.submittedAssessments,
+                buttonText: "VIEW"
+            }
+        ].filter(({assessments}) => !_.isEmpty(assessments))
+            .map((assessmentList, key) =>
+                <AssessmentList key={key} {...assessmentList}/>);
         return (
             <View style={Dashboard.styles.tab}>
-
+                {AssessmentLists}
             </View>
         );
     }
