@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Dimensions, View, Text, TouchableWithoutFeedback, StyleSheet} from 'react-native';
 import AbstractComponent from "../common/AbstractComponent";
+import {Icon} from 'native-base';
 import PrimaryColors from "../styles/PrimaryColors";
 import Typography from "../styles/Typography";
 
@@ -45,9 +46,41 @@ class ProgressListingItem extends AbstractComponent {
             justifyContent: 'center',
             alignItems: 'center'
         },
+        completeButtonContainer: {
+            backgroundColor: PrimaryColors.light_black,
+            borderRadius: 100,
+            flexDirection: 'row',
+            flexWrap: 'nowrap',
+            width: deviceWidth * 0.18,
+            height: deviceHeight * .033,
+            alignItems: 'center',
+            marginRight: deviceWidth * 0.02667
+        }
     });
 
+    renderComplete() {
+        return (
+            <TouchableWithoutFeedback>
+                <View style={ProgressListingItem.styles.completeButtonContainer}>
+                    <Icon style={{color: PrimaryColors.yellow}} name="check-circle"/>
+                    <Text style={{marginLeft: 5}}>Complete</Text>
+                </View>
+            </TouchableWithoutFeedback>);
+    }
+
+    renderProgress() {
+        return (
+            <Text style={[Typography.paperFontBody1, {
+                color: PrimaryColors.subheader_black,
+                marginRight: deviceWidth * 0.02667
+            }]}>
+                {`${this.props.item.progress.completed}/${this.props.item.progress.total}`}
+            </Text>);
+    }
+
     render() {
+        const ProgressIndicator = this.props.item.progress.completed === this.props.item.progress.total ?
+            this.renderComplete() : this.renderProgress();
         return (
             <TouchableWithoutFeedback onPress={this.props.onPress}>
                 <View style={[ProgressListingItem.styles.button, ProgressListingItem.styles.small]}>
@@ -55,12 +88,7 @@ class ProgressListingItem extends AbstractComponent {
                         <Text style={[Typography.paperFontSubhead, {color: PrimaryColors.subheader_black}]}>
                             {this.props.item.name}
                         </Text>
-                        <Text style={[Typography.paperFontBody1, {
-                            color: PrimaryColors.subheader_black,
-                            marginRight: deviceWidth * 0.02667
-                        }]}>
-                            {`${this.props.item.progress.completed}/${this.props.item.progress.total}`}
-                        </Text>
+                        {ProgressIndicator}
                     </View>
                     <View style={[ProgressListingItem.styles.buttonLabel, {backgroundColor: this.props.labelColor}]}>
                         <Text style={[Typography.paperFontBody1, {color: "#FFF"}]}>

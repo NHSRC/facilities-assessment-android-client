@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import {Text, StyleSheet, View, ScrollView, Dimensions, Alert} from 'react-native';
+import {Text, StyleSheet, View, ScrollView, Dimensions, Alert, TouchableWithoutFeedback} from 'react-native';
 import AbstractComponent from "../common/AbstractComponent";
-import {List, ListItem, InputGroup, Button, Radio, Picker} from 'native-base';
+import {List, ListItem, Button, Icon} from 'native-base';
 import Typography from '../styles/Typography';
+import PrimaryColors from '../styles/PrimaryColors';
 import Dashboard from './Dashboard';
 import Actions from '../../action';
 import StateDistrict from './StateDistrict';
@@ -16,6 +17,7 @@ import ChecklistSelection from "../checklistSelection/ChecklistSelection";
 
 
 const deviceWidth = Dimensions.get('window').width;
+const deviceHeight = Dimensions.get('window').height;
 
 
 class StartView extends AbstractComponent {
