@@ -3,7 +3,7 @@ import {Text, StyleSheet, View, ScrollView} from 'react-native';
 import AbstractComponent from "../../common/AbstractComponent";
 import Actions from '../../../action';
 import Dashboard from '../Dashboard';
-import AssessmentList from './AssessmentList';
+import AssessmentList from '../common/AssessmentList';
 import _ from 'lodash';
 import TypedTransition from "../../../framework/routing/TypedTransition";
 import ChecklistSelection from "../../checklistSelection/ChecklistSelection";
