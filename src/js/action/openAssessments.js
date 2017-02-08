@@ -5,7 +5,13 @@ import FacilityAssessmentService from "../service/FacilityAssessmentService";
 const allAssessments = function (state, action, beans) {
     const assessmentService = beans.get(FacilityAssessmentService);
     const openAssessments = assessmentService.getAllOpenAssessments();
-    return Object.assign(state, {openAssessments: openAssessments});
+    const completedAssessments = assessmentService.getAllCompletedAssessments();
+    const submittedAssessments = assessmentService.getAllSubmittedAssessments();
+    return Object.assign(state, {
+        openAssessments: openAssessments,
+        completedAssessments: completedAssessments,
+        submittedAssessments: submittedAssessments
+    });
 };
 
 export default new Map([

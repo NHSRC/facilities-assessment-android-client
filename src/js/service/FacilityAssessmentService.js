@@ -42,12 +42,25 @@ class FacilityAssessmentService extends BaseService {
         }));
     }
 
-    getAllOpenAssessments() {
+
+    getAssessmentsWithCriteria(criteria) {
         const facilityService = this.getService(FacilityService);
         return this.db.objects(FacilityAssessment.schema.name)
-            .filtered('endDate = null AND submitted = false')
+            .filtered(criteria)
             .map((assessment) =>
                 Object.assign({}, assessment, {facility: facilityService.getFacility(assessment.facility)}));
+    }
+
+    getAllOpenAssessments() {
+        return this.getAssessmentsWithCriteria('endDate = null AND submitted = false');
+    }
+
+    getAllCompletedAssessments() {
+        return this.getAssessmentsWithCriteria('endDate != null AND submitted = false');
+    }
+
+    getAllSubmittedAssessments() {
+        return this.getAssessmentsWithCriteria('endDate != null AND submitted = true');
     }
 }
 
