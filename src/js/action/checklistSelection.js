@@ -15,17 +15,17 @@ const allChecklists = function (state, action, beans) {
     });
 };
 
-const saveFacilityAssessment = function (state, action, beans) {
+const completeAssessment = function (state, action, beans) {
     const facilityAssessmentService = beans.get(FacilityAssessmentService);
-    const endAssessment = facilityAssessmentService.endAssessment(action.assessment);
+    const endAssessment = facilityAssessmentService.endAssessment(action.facilityAssessment);
     action.cb();
     return Object.assign(state);
 };
 
 export default new Map([
     ["ALL_CHECKLISTS", allChecklists],
-    ["SAVE_FACILITY_ASSESSMENT", saveFacilityAssessment],
-    ["UPDATE_PROGRESS", allChecklists]
+    ["COMPLETE_ASSESSMENT", completeAssessment],
+    ["UPDATE_PROGRESS", allChecklists],
 ]);
 
 export let checklistSelectionInit = {

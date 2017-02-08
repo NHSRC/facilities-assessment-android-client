@@ -11,6 +11,7 @@ import Path from "../../framework/routing/Path";
 import AssessmentStatus from './AssessmentStatus';
 import Checklists from './Checklists';
 import AreasOfConcern from "../areasOfConcern/AreasOfConcern";
+import SubmitButton from '../common/SubmitButton';
 
 
 const deviceWidth = Dimensions.get('window').width;
@@ -55,7 +56,16 @@ class ChecklistSelection extends AbstractComponent {
         this.unsubscribe();
     }
 
+    completeAssessment() {
+        this.dispatchAction(Actions.COMPLETE_ASSESSMENT, {
+            cb: () => TypedTransition.from(this).goBack(),
+            ...this.props.params
+        });
+        this.dispatchAction(Actions.ALL_ASSESSMENTS);
+    }
+
     render() {
+        let assessmentComplete = this.state.assessmentProgress.completed === this.state.assessmentProgress.total;
         return (
             <Container theme={FlatUITheme}>
                 <Header>
@@ -78,6 +88,11 @@ class ChecklistSelection extends AbstractComponent {
                             handleOnPress={this.handleOnPress.bind(this)}
                             assessmentProgress={this.state.assessmentProgress}
                             allChecklists={this.state.checklists}
+                        />
+                        <SubmitButton buttonStyle={{marginTop: 30}}
+                                      onPress={this.completeAssessment.bind(this)}
+                                      buttonText="COMPLETE ASSESSMENT"
+                                      showButton={assessmentComplete}
                         />
                     </View>
                 </Content>

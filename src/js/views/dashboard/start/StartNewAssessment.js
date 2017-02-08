@@ -18,10 +18,14 @@ class StartNewAssessment extends AbstractComponent {
         const isComplete = !(_.isEmpty(this.props.data.selectedAssessmentTool) || _.isEmpty(this.props.data.selectedAssessmentType));
         return (
             <Button
-                onPress={() => this.dispatchAction(Actions.FACILITY_SELECT)}
+                onPress={() => {
+                    this.dispatchAction(Actions.FACILITY_SELECT);
+                    this.dispatchAction(Actions.ALL_ASSESSMENTS);
+                }}
                 style={[StartNewAssessment.styles.blockButton, isComplete ?
                     {} : {backgroundColor: "rgba(0, 0, 0, 0.38)",}]}
-                block>
+                block
+                disabled={!isComplete}>
                 START NEW ASSESSMENT
             </Button>
         );

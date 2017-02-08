@@ -17,6 +17,7 @@ class AssessmentList extends AbstractComponent {
 
     static styles = StyleSheet.create({
         container: {
+            marginTop: deviceheight * .025,
             flexDirection: 'column',
             flexWrap: 'nowrap',
             justifyContent: 'flex-start',
