@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {Text, StyleSheet, View, ScrollView, Dimensions} from 'react-native';
 import AbstractComponent from "../common/AbstractComponent";
-import StartView from './StartView';
+import StartView from './start/StartView';
 import FlatUITheme from '../themes/flatUI';
-import OpenView from './OpenView';
-import ReportsView from './ReportsView';
+import OpenView from './open/OpenView';
+import ReportsView from './reports/ReportsView';
 import {Container, Header, Title, Content, Icon, Button, Tabs} from 'native-base';
 import Path, {PathRoot} from "../../framework/routing/Path";
 import Typography from '../styles/Typography';

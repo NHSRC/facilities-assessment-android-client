@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import AbstractComponent from "../common/AbstractComponent";
+import AbstractComponent from "../../common/AbstractComponent";
 import {Button} from 'native-base';
 import {StyleSheet} from 'react-native';
-import PrimaryColors from "../styles/PrimaryColors";
+import PrimaryColors from "../../styles/PrimaryColors";
 import _ from 'lodash';
-import Actions from "../../action";
+import Actions from "../../../action";
 
 
 class StartNewAssessment extends AbstractComponent {

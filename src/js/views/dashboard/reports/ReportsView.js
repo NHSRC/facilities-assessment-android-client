@@ -1,12 +1,10 @@
 import React, {Component} from 'react';
 import {Text, StyleSheet, View, ScrollView} from 'react-native';
-import AbstractComponent from "../common/AbstractComponent";
-import Dashboard from './Dashboard';
-import {Title, Content, Icon, Button} from 'native-base';
+import AbstractComponent from "../../common/AbstractComponent";
+import Dashboard from '../Dashboard';
+import {Container, Header, Title, Content, Icon, Button} from 'native-base';
 
-
-
-class OpenView extends AbstractComponent {
+class ReportsView extends AbstractComponent {
     constructor(props, context) {
         super(props, context);
         // const store = context.getStore();
@@ -15,6 +13,7 @@ class OpenView extends AbstractComponent {
         // this.handleOnPress = this.handleOnPress.bind(this);
     }
 
+    static styles = StyleSheet.create({});
 
     handleChange() {
         // const newState = this.context.getStore().getState().dashboard;
@@ -31,10 +30,9 @@ class OpenView extends AbstractComponent {
     render() {
         return (
             <View style={Dashboard.styles.tab}>
-
             </View>
         );
     }
 }
 
-export default OpenView;
+export default ReportsView;

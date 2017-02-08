@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {Text, StyleSheet, View} from 'react-native';
-import AbstractComponent from "../common/AbstractComponent";
+import AbstractComponent from "../../common/AbstractComponent";
 import AssessmentPicker from './AssessmentPicker';
-import Actions from "../../action";
+import Actions from "../../../action";
 
 
 class Facility extends AbstractComponent {

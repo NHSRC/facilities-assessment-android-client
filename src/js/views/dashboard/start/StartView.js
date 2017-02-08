@@ -1,19 +1,19 @@
 import React, {Component} from 'react';
 import {Text, StyleSheet, View, ScrollView, Dimensions, Alert, TouchableWithoutFeedback} from 'react-native';
-import AbstractComponent from "../common/AbstractComponent";
+import AbstractComponent from "../../common/AbstractComponent";
 import {List, ListItem, Button, Icon} from 'native-base';
-import Typography from '../styles/Typography';
-import PrimaryColors from '../styles/PrimaryColors';
-import Dashboard from './Dashboard';
-import Actions from '../../action';
+import Typography from '../../styles/Typography';
+import PrimaryColors from '../../styles/PrimaryColors';
+import Dashboard from '../Dashboard';
+import Actions from '../../../action';
 import StateDistrict from './StateDistrict';
 import FacilityType from './FacilityType';
 import Facility from './Facility';
 import AssessmentType from './AssessmentType';
 import AssessmentTools from './AssessmentTools';
 import StartNewAssessment from './StartNewAssessment';
-import TypedTransition from "../../framework/routing/TypedTransition";
-import ChecklistSelection from "../checklistSelection/ChecklistSelection";
+import TypedTransition from "../../../framework/routing/TypedTransition";
+import ChecklistSelection from "../../checklistSelection/ChecklistSelection";
 
 
 const deviceWidth = Dimensions.get('window').width;

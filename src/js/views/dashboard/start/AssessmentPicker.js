@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {Text, StyleSheet, View} from 'react-native';
-import AbstractComponent from "../common/AbstractComponent";
+import AbstractComponent from "../../common/AbstractComponent";
 import {Picker} from 'native-base';
-import PrimaryColors from "../styles/PrimaryColors";
+import PrimaryColors from "../../styles/PrimaryColors";
 const Item = Picker.Item;
 
 class AssessmentPicker extends AbstractComponent {
