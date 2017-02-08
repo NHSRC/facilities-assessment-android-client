@@ -5,6 +5,8 @@ import Actions from '../../../action';
 import Dashboard from '../Dashboard';
 import AssessmentList from './AssessmentList';
 import _ from 'lodash';
+import TypedTransition from "../../../framework/routing/TypedTransition";
+import ChecklistSelection from "../../checklistSelection/ChecklistSelection";
 
 
 class OpenView extends AbstractComponent {
@@ -29,22 +31,42 @@ class OpenView extends AbstractComponent {
         this.unsubscribe();
     }
 
+    handleContinue(assessment) {
+        return () => TypedTransition.from(this).with({
+            assessmentTool: assessment.assessmentTool,
+            facility: assessment.facility,
+            assessmentType: assessment.assessmentType,
+            facilityAssessment: assessment
+        }).to(ChecklistSelection)
+    }
+
+    handleSubmit(assessment) {
+        return () => console.log(`Submit - ${assessment.facility.name} ${assessment.facility.facilityType.name}`);
+    }
+
+    handleView(assessment) {
+        return () => console.log(`View - ${assessment.facility.name} ${assessment.facility.facilityType.name}`);
+    }
+
     render() {
         const AssessmentLists = [
             {
                 header: "SUBMIT ASSESSMENTS",
                 assessments: this.state.completedAssessments,
-                buttonText: "SUBMIT"
+                buttonText: "SUBMIT",
+                handlePress: this.handleSubmit.bind(this),
             },
             {
                 header: "OPEN ASSESSMENTS",
                 assessments: this.state.openAssessments,
-                buttonText: "CONTINUE"
+                buttonText: "CONTINUE",
+                handlePress: this.handleContinue.bind(this),
             },
             {
                 header: "SUBMITTED ASSESSMENTS",
                 assessments: this.state.submittedAssessments,
-                buttonText: "VIEW"
+                buttonText: "VIEW",
+                handlePress: this.handleView.bind(this),
             }
         ].filter(({assessments}) => !_.isEmpty(assessments))
             .map((assessmentList, key) =>

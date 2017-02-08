@@ -10,6 +10,8 @@ class FacilityAssessmentService extends BaseService {
     constructor(db, beanStore) {
         super(db, beanStore);
         this.saveAssessment = this.save(FacilityAssessment, FacilityAssessment.toDB);
+        this.getAssessmentTool = this.getAssessmentTool.bind(this);
+        this.getAssessmentType = this.getAssessmentType.bind(this);
     }
 
     getAssessmentTools() {
@@ -42,13 +44,24 @@ class FacilityAssessmentService extends BaseService {
         }));
     }
 
+    getAssessmentTool(assessmentToolUUID) {
+        return Object.assign({}, this.db.objectForPrimaryKey(AssessmentTool.schema.name, assessmentToolUUID));
+    }
+
+    getAssessmentType(assessmentTypeUUID) {
+        return Object.assign({}, this.db.objectForPrimaryKey(AssessmentType.schema.name, assessmentTypeUUID));
+    }
 
     getAssessmentsWithCriteria(criteria) {
         const facilityService = this.getService(FacilityService);
         return this.db.objects(FacilityAssessment.schema.name)
             .filtered(criteria)
             .map((assessment) =>
-                Object.assign({}, assessment, {facility: facilityService.getFacility(assessment.facility)}));
+                Object.assign({}, assessment, {
+                    facility: facilityService.getFacility(assessment.facility),
+                    assessmentTool: this.getAssessmentTool(assessment.assessmentTool),
+                    assessmentType: this.getAssessmentType(assessment.assessmentType)
+                }));
     }
 
     getAllOpenAssessments() {

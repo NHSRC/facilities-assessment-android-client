@@ -68,7 +68,7 @@ class AssessmentList extends AbstractComponent {
                     </Text>
                 </View>
                 <View style={AssessmentList.styles.listItemButtonContainer}>
-                    <TouchableWithoutFeedback>
+                    <TouchableWithoutFeedback onPress={this.props.handlePress(assessment)}>
                         <View style={AssessmentList.styles.listItemButton}>
                             <Text style={[Typography.paperFontBody1, {color: "white"}]}>
                                 {this.props.buttonText}
