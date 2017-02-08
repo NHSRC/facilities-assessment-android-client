@@ -56,8 +56,9 @@ class AssessmentList extends AbstractComponent {
         },
     });
 
-    render() {
-        const Assessments = this.props.assessments.map((assessment, key) =>
+
+    renderAssessment(assessment, key) {
+        return (
             <View key={key} style={AssessmentList.styles.listItem}>
                 <View style={AssessmentList.styles.listItemText}>
                     <Text style={[Typography.paperFontSubhead, {color: PrimaryColors.subheader_black}]}>
@@ -77,6 +78,10 @@ class AssessmentList extends AbstractComponent {
                     </TouchableWithoutFeedback>
                 </View>
             </View>);
+    }
+
+    render() {
+        const Assessments = this.props.assessments.map(this.renderAssessment.bind(this));
         return (
             <View style={AssessmentList.styles.container}>
                 <View style={AssessmentList.styles.header}>
