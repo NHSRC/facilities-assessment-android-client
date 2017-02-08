@@ -24,7 +24,7 @@ class StartView extends AbstractComponent {
     constructor(props, context) {
         super(props, context);
         const store = context.getStore();
-        this.state = store.getState().dashboard;
+        this.state = store.getState().facilitySelection;
         this.unsubscribe = store.subscribeTo('facilitySelection', this.handleChange.bind(this));
         this.changeView = this.changeView.bind(this);
         this.resetForm = this.resetForm.bind(this);
