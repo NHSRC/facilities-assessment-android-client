@@ -14,7 +14,8 @@ class CheckpointScore {
             checkpoint: 'string',
             score: {type: 'int', default: 0},
             remarks: {type: 'string', optional: true},
-            dateUpdated: {type: 'date', default: new Date()}
+            dateUpdated: {type: 'date', default: new Date()},
+            submitted: {type: 'bool', default: false},
         }
     };
 
@@ -35,6 +36,7 @@ class CheckpointScore {
             score: undefined,
             remarks: undefined,
             dateUpdated: undefined,
+            submitted: false,
         }, existingCheckpoint, {checkpoint: checkpoint});
     }
 }
