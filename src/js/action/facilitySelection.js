@@ -89,7 +89,7 @@ const facilitySelected = function (state, action, beans) {
     return Object.assign(state, {
         "facilitySelected": true,
         "facilityAssessment": facilityAssessment,
-        "hasActiveFacilityAssessment": false, //TODO: MIHIR Change before committing
+        "hasActiveFacilityAssessment": hasActiveFacilityAssessment,
     });
 };
 
