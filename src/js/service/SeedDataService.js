@@ -1,6 +1,6 @@
 import BaseService from "./BaseService";
 import Service from "../framework/bean/Service";
-import regions from "../../config/regions.json";
+import states from "../../config/states.json";
 import facilityTypes from "../../config/facilityTypes.json";
 import departments from "../../config/departments.json";
 import assessmentTools from "../../config/assessmentTools.json";
@@ -8,11 +8,11 @@ import assessmentTypes from "../../config/assessmentTypes.json";
 import checklists from "../../config/checklists.json";
 import areasOfConcern from "../../config/areasOfConcern.json";
 import checkpoints from "../../config/checkpoints.json";
-import RegionService from "./RegionService";
 import FacilitiesService from "./FacilitiesService";
 import DepartmentService from "./DepartmentService";
 import ChecklistAssessmentService from "./AssessmentService";
 import ChecklistService from "./ChecklistService";
+import StateService from './StateService'
 
 @Service("seedDataService")
 class SeedDataService extends BaseService {
@@ -28,7 +28,7 @@ class SeedDataService extends BaseService {
     }
 
     isNotSeeded() {
-        return this.getService(RegionService).getAllRegions().length === 0;
+        return this.getService(StateService).getAllStates().length === 0;
     }
 
     createAll() {
@@ -39,9 +39,9 @@ class SeedDataService extends BaseService {
                 "entity": facilityTypes
             },
             {
-                "service": RegionService,
-                "method": "saveRegion",
-                "entity": regions
+                "service": StateService,
+                "method": "saveState",
+                "entity": states
             },
             {
                 "service": ChecklistAssessmentService,
