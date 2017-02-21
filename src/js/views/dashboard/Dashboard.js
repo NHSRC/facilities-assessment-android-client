@@ -45,7 +45,7 @@ class Dashboard extends AbstractComponent {
                 <Content>
                     <Header style={Dashboard.styles.header}>
                         <Button transparent>
-                            <Icon style={{marginTop: 10}} name={"menu"}/>
+                            <Icon style={{marginTop: 10}} name="menu"/>
                         </Button>
                         <Title style={[Typography.paperFontHeadline, {
                             fontWeight: 'bold',
