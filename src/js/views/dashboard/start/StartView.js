@@ -85,7 +85,7 @@ class StartView extends AbstractComponent {
 
     render() {
         const FormComponents =
-            [StateDistrict, FacilityType, Facility, AssessmentType, AssessmentTools, StartNewAssessment]
+            [AssessmentTools, StateDistrict, FacilityType, Facility, AssessmentType, StartNewAssessment]
                 .map((FormComponent, idx) =>
                     <ListItem key={idx} style={StartView.styles.formRow}>
                         <FormComponent data={this.state}/>
