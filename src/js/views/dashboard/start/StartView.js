@@ -28,7 +28,6 @@ class StartView extends AbstractComponent {
         this.unsubscribe = store.subscribeTo('facilitySelection', this.handleChange.bind(this));
         this.changeView = this.changeView.bind(this);
         this.resetForm = this.resetForm.bind(this);
-        this.showConfirmation = this.showConfirmation.bind(this);
     }
 
     static styles = StyleSheet.create({
