@@ -41,8 +41,7 @@ class StartView extends AbstractComponent {
 
     handleChange() {
         const newState = this.context.getStore().getState().facilitySelection;
-        const fn = (newState.facilitySelected ? (newState.hasActiveFacilityAssessment ? this.showConfirmation : this.changeView.bind(this) ) : this.setState.bind(this));
-        fn(newState);
+        (newState.facilitySelected ? this.changeView.bind(this) : this.setState.bind(this))(newState);
     }
 
     changeView(newState) {
@@ -62,16 +61,6 @@ class StartView extends AbstractComponent {
             cb: () => {
             }
         });
-    }
-
-    showConfirmation(newState) {
-        Alert.alert("Assessment Already Exists", "To continue the assessment use the Open tab.", [
-            {
-                text: "Ok",
-                onPress: () => this.resetForm(),
-                style: 'cancel'
-            }
-        ]);
     }
 
     componentWillUnmount() {
