@@ -4,6 +4,7 @@ class AssessmentTool {
         primaryKey: 'uuid',
         properties: {
             name: 'string',
+            mode: 'string',
             uuid: 'string'
         }
     }

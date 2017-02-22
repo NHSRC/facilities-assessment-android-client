@@ -1,22 +1,32 @@
 [
   {
-    "name": "Urban Primary Health Center",
-    "uuid": "9ad6d761-46ab-412e-ba63-a1b836cb1bf1"
-  },
-  {
-    "name": "District Hospital",
+    "name": "District Hospital (DH)",
+    "mode": "nqas",
     "uuid": "c76a1683-ea08-4472-a7b2-6588716501e5"
   },
   {
-    "name": "Community Health Center",
+    "name": "Community Health Center (CHC)",
+    "mode": "nqas",
     "uuid": "2ada7ffa-63c5-44d5-ba28-f7dd19eaf45e"
   },
   {
-    "name": "Rural Primary Health Center",
+    "name": "Primary Health Center (PHC)",
+    "mode": "nqas",
     "uuid": "d8de2716-cc30-4af7-9011-638e34077222"
   },
   {
-    "name": "Kayakalp",
-    "uuid": "b92c5338-11ba-49dc-b81d-ddaf1683f5ea"
+    "name": "PHC",
+    "mode": "kayakalp",
+    "uuid": "73ee3872-b4d5-46b0-9048-baeaa4e3135a"
+  },
+  {
+    "name": "UPHC, APHC",
+    "mode": "kayakalp",
+    "uuid": "95c7a718-1030-41fa-9d8b-5aa90978c045"
+  },
+  {
+    "name": "DH, SDH and CHC",
+    "mode": "kayakalp",
+    "uuid": "fa7b531a-4404-4f2f-91b7-9858b9a582ec"
   }
 ]

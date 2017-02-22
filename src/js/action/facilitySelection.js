@@ -7,7 +7,7 @@ const allStates = function (state, action, beans) {
     let facilitiesService = beans.get(FacilitiesService);
     let facilityAssessmentService = beans.get(FacilityAssessmentService);
     const states = facilitiesService.getAllStates();
-    const assessmentTools = facilityAssessmentService.getAssessmentTools();
+    const assessmentTools = facilityAssessmentService.getAssessmentTools(action.mode);
     return Object.assign(state, {
         "allStates": states,
         "facilitySelected": false,

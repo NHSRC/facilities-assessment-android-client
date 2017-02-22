@@ -24,7 +24,7 @@ class ReportsView extends AbstractComponent {
     }
 
     componentWillMount() {
-        this.dispatchAction(Actions.ALL_ASSESSMENTS);
+        this.dispatchAction(Actions.ALL_ASSESSMENTS, {...this.props});
     }
 
     componentWillUnmount() {

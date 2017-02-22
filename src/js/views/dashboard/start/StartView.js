@@ -79,7 +79,7 @@ class StartView extends AbstractComponent {
     }
 
     componentWillMount() {
-        this.dispatchAction(Actions.ALL_STATES);
+        this.dispatchAction(Actions.ALL_STATES, {...this.props});
     }
 
 

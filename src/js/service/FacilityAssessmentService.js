@@ -14,8 +14,10 @@ class FacilityAssessmentService extends BaseService {
         this.getAssessmentType = this.getAssessmentType.bind(this);
     }
 
-    getAssessmentTools() {
-        return this.db.objects(AssessmentTool.schema.name).map(this.nameAndId);
+    getAssessmentTools(mode) {
+        return this.db.objects(AssessmentTool.schema.name)
+            .filtered('mode = $0', mode.toLowerCase())
+            .map(this.nameAndId);
     }
 
     getAssessmentTypes() {
