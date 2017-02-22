@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Text, StyleSheet, View, ScrollView} from 'react-native';
+import _ from 'lodash';
 import AbstractComponent from "../../common/AbstractComponent";
 import Dashboard from '../Dashboard';
 import Actions from '../../../action';

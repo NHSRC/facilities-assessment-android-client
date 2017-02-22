@@ -13,7 +13,6 @@ import PrimaryColors from '../styles/PrimaryColors';
 
 const deviceWidth = Dimensions.get('window').width;
 
-@PathRoot
 @Path("/dashboard")
 class Dashboard extends AbstractComponent {
     constructor(props, context) {
@@ -35,10 +34,6 @@ class Dashboard extends AbstractComponent {
         }
     });
 
-    componentWillUnmount() {
-        this.unsubscribe();
-    }
-
     render() {
         return (
             <Container theme={FlatUITheme}>
@@ -50,7 +45,7 @@ class Dashboard extends AbstractComponent {
                         <Title style={[Typography.paperFontHeadline, {
                             fontWeight: 'bold',
                             color: PrimaryColors.subheader_black
-                        }]}>NHSRC</Title>
+                        }]}>{this.props.params.mode}</Title>
                     </Header>
                     <Tabs style={StartView.styles.tabs} renderTabBar={() => <CustomTabBar/>}>
                         <StartView tabLabel="START"/>
