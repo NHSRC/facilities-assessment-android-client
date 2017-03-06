@@ -12,11 +12,11 @@ class Compliance extends AbstractComponent {
 
     static styles = StyleSheet.create({
         compliance: {
-            flexDirection: 'column',
+            flexDirection: 'row',
             flexWrap: 'nowrap',
             justifyContent: 'flex-start',
-            alignItems: 'stretch',
-            alignSelf: 'stretch',
+            alignItems: 'center',
+            alignSelf: 'center',
             marginTop: 8,
         },
     });

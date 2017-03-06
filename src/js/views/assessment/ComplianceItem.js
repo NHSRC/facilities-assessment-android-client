@@ -16,6 +16,7 @@ class ComplianceItem extends AbstractComponent {
         complianceItem: {
             flexDirection: 'row',
             flexWrap: 'nowrap',
+            width: deviceWidth * .273,
             justifyContent: 'space-between',
             alignItems: 'center',
             backgroundColor: PrimaryColors.light_black,
@@ -25,6 +26,7 @@ class ComplianceItem extends AbstractComponent {
             paddingBottom: deviceHeight * .01667,
             paddingLeft: deviceWidth * .04,
             paddingRight: deviceWidth * .04,
+            marginRight: 8,
             shadowColor: '#000',
             shadowOffset: {width: 0, height: 2},
             shadowOpacity: 0.2,
