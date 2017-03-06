@@ -109,23 +109,6 @@ class Toolbar extends AbstractComponent {
         return (
             <View style={Toolbar.styles.container}>
                 <View>
-                    <TouchableWithoutFeedback>
-                        <View style={[Toolbar.styles.actionButtons, {
-                            borderBottomWidth: 1,
-                            borderBottomColor: PrimaryColors.yellow,
-                            borderStyle: 'solid',
-                        }]}>
-                            <Icon size={14} style={[Toolbar.styles.yellowText]}
-                                  name="warning"/>
-                            <Text style={[Toolbar.styles.yellowText, Typography.paperFontCode2, {
-                                marginTop: 4,
-                                marginLeft: 5,
-                                paddingRight: 3
-                            }]}>
-                                NOT APPLICABLE
-                            </Text>
-                        </View>
-                    </TouchableWithoutFeedback>
                 </View>
                 <View style={Toolbar.styles.actionButtons}>
                     {ButtonsToRender}
