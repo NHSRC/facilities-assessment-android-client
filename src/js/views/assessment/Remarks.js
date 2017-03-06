@@ -29,7 +29,7 @@ class Remarks extends AbstractComponent {
         },
         textBox: {
             alignSelf: 'stretch',
-            marginTop: deviceHeight * .025
+            marginTop: 8
         },
         saving: {
             alignSelf: 'flex-end',
