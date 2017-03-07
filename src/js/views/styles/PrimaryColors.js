@@ -16,5 +16,6 @@ export default {
     "transparentBlue": "rgba(63, 81, 181, 0.7)",
     "lighBlue": "#1976d2",
     "complete": "#ffa000",
-    "incomplete": "#ffc107"
+    "incomplete": "#ffc107",
+    "darkGrey": "rgba(42, 42, 66, 0.87)"
 };
