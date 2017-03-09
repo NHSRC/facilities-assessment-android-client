@@ -41,11 +41,9 @@ class ComplianceItem extends AbstractComponent {
     render() {
         const style = new Map([[true, {
             button: ComplianceItem.styles.activeComplianceItem,
-            text: {color: "white"},
             score: {color: "white"},
         }], [false, {
             button: {},
-            text: {color: PrimaryColors.subheader_black},
             score: {color: PrimaryColors.subheader_black},
         }]]).get(this.props.active);
 
