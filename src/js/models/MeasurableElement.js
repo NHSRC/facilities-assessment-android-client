@@ -5,7 +5,8 @@ class MeasurableElement {
         properties: {
             name: 'string',
             uuid: 'string',
-            reference: 'string'
+            reference: 'string',
+            tags: {type: 'list', objectType: 'Tag'},
         }
     };
 

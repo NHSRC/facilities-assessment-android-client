@@ -13,7 +13,8 @@ import StringObj from "./StringObj";
 import FacilityAssessment from "./FacilityAssessment";
 import CheckpointScore from "./CheckpointScore";
 import AssessmentType from "./AssessmentType";
+import Tag from './Tag';
 
 export default {
-    schema: [StringObj, Checkpoint, MeasurableElement, Standard, AreaOfConcern, Department, FacilityType, AssessmentTool, Facility, District, State, Checklist, FacilityAssessment, CheckpointScore, AssessmentType]
+    schema: [StringObj, Tag, Checkpoint, MeasurableElement, Standard, AreaOfConcern, Department, FacilityType, AssessmentTool, Facility, District, State, Checklist, FacilityAssessment, CheckpointScore, AssessmentType]
 };

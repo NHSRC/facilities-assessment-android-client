@@ -7,6 +7,7 @@ class Standard {
             name: 'string',
             uuid: 'string',
             reference: 'string',
+            tags: {type: 'list', objectType: 'Tag'},
             measurableElements: {type: 'list', objectType: 'MeasurableElement'}
         }
     };

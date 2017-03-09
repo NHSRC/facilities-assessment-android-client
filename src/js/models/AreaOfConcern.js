@@ -7,6 +7,7 @@ class AreaOfConcern {
             name: 'string',
             uuid: 'string',
             reference: 'string',
+            tags: {type: 'list', objectType: 'Tag'},
             standards: {type: 'list', objectType: 'Standard'}
         }
     };
