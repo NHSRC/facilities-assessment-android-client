@@ -17,7 +17,7 @@ class ComplianceItem extends AbstractComponent {
             flexDirection: 'row',
             flexWrap: 'nowrap',
             width: deviceWidth * .273,
-            justifyContent: 'space-between',
+            justifyContent: 'center',
             alignItems: 'center',
             backgroundColor: PrimaryColors.light_black,
             alignSelf: 'stretch',
@@ -51,11 +51,7 @@ class ComplianceItem extends AbstractComponent {
 
         return (
             <TouchableWithoutFeedback onPress={this.props.handleOnPress}>
-                <View
-                    style={[ComplianceItem.styles.complianceItem, style.button]}>
-                    <Text style={[Typography.paperFontTitle, {fontWeight: "400", ...style.text}]}>
-                        {this.props.text}
-                    </Text>
+                <View style={[ComplianceItem.styles.complianceItem, style.button]}>
                     <Text
                         style={[Typography.paperFontDisplay1, style.score]}>
                         {this.props.score}
