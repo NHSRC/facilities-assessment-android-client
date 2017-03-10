@@ -206,5 +206,44 @@
     "amStaffInterview": true,
     "amPatientInterview": false,
     "amRecordReview": true
+  },
+  {
+    "uuid": "76123dc1-e74b-42d4-98b6-e0069fc1b10c",
+    "name": "Availability of dedicated paediatric ward",
+    "meansOfVerification": "",
+    "measurableElement": "9c32e470-aa74-4229-b0ff-a1858799105b",
+    "checklist": "edca0c95-298d-415a-93df-b45e054fff25",
+    "isDefault": true,
+    "state": "a62e279c-014c-4901-93b4-aa55f7492a02",
+    "amObservation": true,
+    "amStaffInterview": true,
+    "amPatientInterview": false,
+    "amRecordReview": false
+  },
+  {
+    "uuid": "6395441f-714c-4b29-bf8d-501c2a593317",
+    "name": "Availability of isolation room",
+    "meansOfVerification": "",
+    "measurableElement": "9c32e470-aa74-4229-b0ff-a1858799105b",
+    "checklist": "edca0c95-298d-415a-93df-b45e054fff25",
+    "isDefault": true,
+    "state": "a62e279c-014c-4901-93b4-aa55f7492a02",
+    "amObservation": true,
+    "amStaffInterview": true,
+    "amPatientInterview": false,
+    "amRecordReview": false
+  },
+  {
+    "uuid": "0de58b1c-0a1b-4005-ae54-9746a5093c1b",
+    "name": "Availability of nursing care services 24X7",
+    "meansOfVerification": "",
+    "measurableElement": "d12581b3-ea5a-47ae-ac28-d266c06a1a3a",
+    "checklist": "edca0c95-298d-415a-93df-b45e054fff25",
+    "isDefault": true,
+    "state": "a62e279c-014c-4901-93b4-aa55f7492a02",
+    "amObservation": false,
+    "amStaffInterview": true,
+    "amPatientInterview": false,
+    "amRecordReview": true
   }
 ]
