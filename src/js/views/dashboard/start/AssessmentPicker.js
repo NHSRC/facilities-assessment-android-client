@@ -15,7 +15,7 @@ class AssessmentPicker extends AbstractComponent {
         pickerContainer: {
             flex: .5,
             borderBottomWidth: 1,
-            borderBottomColor: "#1F000012",
+            borderBottomColor: "rgba(255, 255, 255, 0.12)",
             borderStyle: "solid",
         },
     });
@@ -32,8 +32,11 @@ class AssessmentPicker extends AbstractComponent {
     render() {
         const pickerItems = [<Item key={-1} label={this.props.message}
                                    value={this.props.message}
-                                   color="rgba(0,0,0,0.54)"/>].concat(this.props.items.map((item, idx) => (
-            <Item key={idx} label={item.name} value={item.uuid}/>)));
+                                   color="rgba(255, 255, 255, 0.7)"/>].concat(this.props.items.map((item, idx) => (
+            <Item
+                color={"white"}
+                key={idx} label={item.name}
+                value={item.uuid}/>)));
 
         return (
             <View style={[AssessmentPicker.styles.pickerContainer, this.props.optStyles]}>

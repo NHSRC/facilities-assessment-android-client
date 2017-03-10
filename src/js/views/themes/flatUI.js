@@ -201,9 +201,9 @@ export default {
 
 
     // Tabs
-    tabBgColor: '#F8F8F8',
+    tabBgColor: '#303030',
     tabFontSize: 20,
-    tabTextColor: '#222222',
+    tabTextColor: 'white',
     tabUnderlineColor: PrimaryColors.blue,
 
 

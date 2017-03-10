@@ -17,14 +17,14 @@ class AssessmentTools extends AbstractComponent {
 
     static styles = StyleSheet.create({
         subheader: {
-            color: PrimaryColors.subheader_black,
+            color: "white",
         },
         inactiveButton: {
             width: deviceWidth * 0.43,
             marginTop: deviceheight * 0.02667,
             flexDirection: "row",
             justifyContent: 'flex-start',
-            backgroundColor: "rgba(0, 0, 0, 0.38)",
+            backgroundColor: "rgba(255, 255, 255, 0.7)",
             elevation: 0,
             shadowOffset: {width: 0, height: 0},
         },
@@ -38,7 +38,7 @@ class AssessmentTools extends AbstractComponent {
             shadowOffset: {width: 0, height: 0},
         },
         inactiveText: {
-            color: PrimaryColors.button_black,
+            color: PrimaryColors.subheader_black,
             fontSize: 14
         },
         activeText: {
@@ -69,7 +69,8 @@ class AssessmentTools extends AbstractComponent {
                         textStyle={isSelected ? AssessmentTools.styles.activeText : AssessmentTools.styles.inactiveText}
                         iconLeft={true}
                         onPress={this.onSelect(assessmentTool)}>
-                        <Icon style={{fontSize: 20}} name='assessment'/>
+                        <Icon style={{fontSize: 20, color: isSelected ? "white" : PrimaryColors.subheader_black}}
+                              name='assessment'/>
                         {assessmentTool.name}
                     </Button>)
             }

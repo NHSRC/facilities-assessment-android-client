@@ -27,11 +27,6 @@ export default class CustomTabBar extends NativeBaseComponent {
                 height: 45,
                 flexDirection: 'row',
                 justifyContent: 'space-around',
-                borderWidth: 1,
-                borderTopWidth: 0,
-                borderLeftWidth: 0,
-                borderRightWidth: 0,
-                borderBottomColor: '#ccc',
             }
         }
     }
@@ -64,7 +59,7 @@ export default class CustomTabBar extends NativeBaseComponent {
         const tabUnderlineStyle = {
             position: 'absolute',
             width: deviceWidth / numberOfTabs,
-            height: 2,
+            height: 4,
             backgroundColor: this.getTheme().tabUnderlineColor,
             bottom: 0,
         };

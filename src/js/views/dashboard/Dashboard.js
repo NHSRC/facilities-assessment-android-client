@@ -23,6 +23,7 @@ class Dashboard extends AbstractComponent {
         header: {
             shadowOffset: {width: 0, height: 0},
             elevation: 0,
+            backgroundColor: '#303030',
         },
         tabs: {
             flex: 3,
@@ -40,11 +41,11 @@ class Dashboard extends AbstractComponent {
                 <Content>
                     <Header style={Dashboard.styles.header}>
                         <Button transparent>
-                            <Icon style={{marginTop: 10}} name="menu"/>
+                            <Icon style={{marginTop: 10, color: "white"}} name="menu"/>
                         </Button>
                         <Title style={[Typography.paperFontHeadline, {
                             fontWeight: 'bold',
-                            color: PrimaryColors.subheader_black
+                            color: "white"
                         }]}>{this.props.params.mode}</Title>
                     </Header>
                     <Tabs style={StartView.styles.tabs} renderTabBar={() => <CustomTabBar/>}>
