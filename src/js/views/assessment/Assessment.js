@@ -12,6 +12,7 @@ import ListingItem from '../common/ListingItem';
 import QuestionAnswer from './QuestionAnswer';
 import Pagination from './Pagination';
 import _ from 'lodash';
+import Dashboard from '../dashboard/Dashboard';
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
@@ -44,12 +45,12 @@ class Assessment extends AbstractComponent {
     render() {
         return (
             <Container theme={FlatUITheme}>
-                <Header>
+                <Header style={Dashboard.styles.header}>
                     <Button transparent onPress={() => TypedTransition.from(this).goBack()}>
-                        <Icon style={{marginTop: 10}} name='arrow-back'/>
+                        <Icon style={{marginTop: 10, color: "white"}} name='arrow-back'/>
                     </Button>
                     <Title style={[Typography.paperFontHeadline,
-                        {fontWeight: 'bold', color: PrimaryColors.subheader_black}]}>
+                        {fontWeight: 'bold', color: "white"}]}>
                         {this.props.params.standard.name}
                     </Title>
                 </Header>

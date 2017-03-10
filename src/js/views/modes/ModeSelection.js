@@ -34,7 +34,7 @@ class ModeSelection extends AbstractComponent {
         header: {
             shadowOffset: {width: 0, height: 0},
             elevation: 0,
-            backgroundColor: '#303030',
+            backgroundColor: '#212121',
         },
         image: {
             height: deviceHeight * 0.33,
