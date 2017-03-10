@@ -11,7 +11,7 @@ class FacilitiesAssessment extends Component {
             flex: 1,
             justifyContent: 'center',
             alignItems: 'stretch',
-            backgroundColor: '#FFFFFF'
+            backgroundColor: '#303030'
         }
     });
 

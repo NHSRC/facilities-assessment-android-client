@@ -34,6 +34,7 @@ class ModeSelection extends AbstractComponent {
         header: {
             shadowOffset: {width: 0, height: 0},
             elevation: 0,
+            backgroundColor: '#303030',
         },
         image: {
             height: deviceHeight * 0.33,
@@ -59,16 +60,16 @@ class ModeSelection extends AbstractComponent {
             <Container theme={FlatUITheme}>
                 <Header style={ModeSelection.styles.header}>
                     <Button transparent>
-                        <Icon style={{marginTop: 10}} name="menu"/>
+                        <Icon style={{marginTop: 10, color: 'white'}} name="menu"/>
                     </Button>
                     <Title style={[Typography.paperFontHeadline, {
                         fontWeight: 'bold',
-                        color: PrimaryColors.subheader_black
+                        color: 'white'
                     }]}>Facilities Assessment</Title>
                 </Header>
                 <Content>
                     <View style={ModeSelection.styles.container}>
-                        <Text style={[Typography.paperFontHeadline, {color: PrimaryColors.darkGrey}]}>
+                        <Text style={[Typography.paperFontHeadline, {color: 'white'}]}>
                             Choose an Assessment Type
                         </Text>
                         <Card style={ModeSelection.styles.card}>
