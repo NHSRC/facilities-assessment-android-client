@@ -12,7 +12,6 @@ const deviceHeight = Dimensions.get('window').height;
 class AnswerInfo extends AbstractComponent {
     constructor(props, context) {
         super(props, context);
-        this.showMeansOfVerification = this.showMeansOfVerification.bind(this);
     }
 
     static styles = StyleSheet.create({
@@ -24,21 +23,15 @@ class AnswerInfo extends AbstractComponent {
         },
     });
 
-    showMeansOfVerification() {
-        if (!_.isEmpty(this.props.checkpoint.checkpoint.meansOfVerification)) {
-            Alert.alert("Means of Verification", this.props.checkpoint.checkpoint.meansOfVerification);
-        }
-    }
 
     render() {
         const assessmentMethods = Checkpoint.getAssessmentMethods(this.props.checkpoint.checkpoint).join("/");
         return (
             <View style={AnswerInfo.styles.answerInfo}>
-                <Text onPress={this.showMeansOfVerification}
-                      style={[Typography.paperFontBody1, {color: PrimaryColors.blue}]}>
-                    Means of Verification
+                <Text style={[Typography.paperFontBody1, {color: PrimaryColors.caption_black}]}>
+                    CHECKPOINT
                 </Text>
-                <Text style={[Typography.paperFontBody1, {color: PrimaryColors.subheader_black}]}>
+                <Text style={[Typography.paperFontBody1, {color: PrimaryColors.caption_black}]}>
                     {assessmentMethods}
                 </Text>
             </View>

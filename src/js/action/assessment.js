@@ -9,6 +9,8 @@ const getCheckpoints = function (state, actionParams, beans) {
     const checkpoints = checklistService
         .getCheckpointsFor(actionParams.checklist.uuid, actionParams.areaOfConcern.uuid, actionParams.standard.uuid);
     const checkpointScores = checkpoints
+        .map((checkpoint) => Object.assign({}, checkpoint,
+            {measurableElement: checklistService.getMeasurableElement(checkpoint.measurableElement)}))
         .map((checkpoint) =>
             Object.assign(assessmentService
                     .getCheckpointScore(checkpoint, actionParams.standard,

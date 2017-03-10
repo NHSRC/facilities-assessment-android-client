@@ -17,6 +17,7 @@ class ComplianceItem extends AbstractComponent {
             flexDirection: 'row',
             flexWrap: 'nowrap',
             width: deviceWidth * .273,
+            height: deviceHeight * .09375,
             justifyContent: 'center',
             alignItems: 'center',
             backgroundColor: PrimaryColors.light_black,

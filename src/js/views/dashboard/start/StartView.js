@@ -50,7 +50,8 @@ class StartView extends AbstractComponent {
                     assessmentTool: this.state.selectedAssessmentTool,
                     facility: this.state.selectedFacility,
                     assessmentType: this.state.selectedAssessmentType,
-                    facilityAssessment: newState.facilityAssessment
+                    facilityAssessment: newState.facilityAssessment,
+                    ...this.props
                 }).to(ChecklistSelection)
         })
     }

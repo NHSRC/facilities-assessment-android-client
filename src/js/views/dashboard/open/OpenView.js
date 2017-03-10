@@ -32,12 +32,15 @@ class OpenView extends AbstractComponent {
     }
 
     handleContinue(assessment) {
-        return () => TypedTransition.from(this).with({
-            assessmentTool: assessment.assessmentTool,
-            facility: assessment.facility,
-            assessmentType: assessment.assessmentType,
-            facilityAssessment: assessment
-        }).to(ChecklistSelection)
+        return () => {
+            TypedTransition.from(this).with({
+                assessmentTool: assessment.assessmentTool,
+                facility: assessment.facility,
+                assessmentType: assessment.assessmentType,
+                facilityAssessment: assessment,
+                ...this.props
+            }).to(ChecklistSelection);
+        }
     }
 
     handleSubmit(assessment) {

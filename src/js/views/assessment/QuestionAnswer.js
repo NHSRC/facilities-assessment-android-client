@@ -3,6 +3,7 @@ import {Dimensions, View, Text, TouchableWithoutFeedback, StyleSheet} from 'reac
 import AbstractComponent from "../common/AbstractComponent";
 import PrimaryColors from "../styles/PrimaryColors";
 import Actions from '../../action';
+import CheckpointText from './CheckpointText';
 import ListingItem from '../common/ListingItem';
 import Compliance from './Compliance';
 import Remarks from './Remarks';
@@ -42,18 +43,24 @@ class QuestionAnswer extends AbstractComponent {
     });
 
     render() {
+        const MeasurableElement = new Map([
+            ["kayakalp", (<View/>)],
+            ["nqas", (
+                <ListingItem labelColor={PrimaryColors.lighBlue}
+                             item={this.props.currentCheckpoint.checkpoint.measurableElement}/>)]
+        ]).get(this.props.params.mode.toLowerCase());
         return (
             <View style={QuestionAnswer.styles.container}>
-                <ListingItem type='big' labelColor={PrimaryColors.lighBlue}
-                             item={this.props.currentCheckpoint.checkpoint}/>
+                {MeasurableElement}
                 <View style={QuestionAnswer.styles.answerContainer}>
                     <View style={QuestionAnswer.styles.answer}>
                         <AnswerInfo checkpoint={this.props.currentCheckpoint}/>
+                        <CheckpointText checkpoint={this.props.currentCheckpoint}/>
                         <Compliance checkpoint={this.props.currentCheckpoint} {...this.props}/>
                         <Remarks checkpoint={this.props.currentCheckpoint}/>
                     </View>
                 </View>
-                <Toolbar {...this.props}/>
+                <Toolbar checkpoint={this.props.currentCheckpoint} {...this.props}/>
             </View>
         );
     }

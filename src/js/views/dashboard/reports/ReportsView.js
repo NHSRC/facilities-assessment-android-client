@@ -36,7 +36,8 @@ class ReportsView extends AbstractComponent {
             assessmentTool: assessment.assessmentTool,
             facility: assessment.facility,
             assessmentType: assessment.assessmentType,
-            facilityAssessment: assessment
+            facilityAssessment: assessment,
+            ...this.props
         }).to(Reports)
     }
 

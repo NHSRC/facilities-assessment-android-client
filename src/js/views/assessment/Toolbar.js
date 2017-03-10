@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Dimensions, View, Text, TouchableWithoutFeedback, StyleSheet} from 'react-native';
+import {Dimensions, View, Text, TouchableWithoutFeedback, StyleSheet, Alert} from 'react-native';
 import AbstractComponent from "../common/AbstractComponent";
 import PrimaryColors from "../styles/PrimaryColors";
 import Typography from "../styles/Typography";
@@ -15,6 +15,7 @@ const deviceHeight = Dimensions.get('window').height;
 class Toolbar extends AbstractComponent {
     constructor(props, context) {
         super(props, context);
+        this.showMeansOfVerification = this.showMeansOfVerification.bind(this);
     }
 
     static styles = StyleSheet.create({
@@ -99,6 +100,12 @@ class Toolbar extends AbstractComponent {
         );
     }
 
+    showMeansOfVerification() {
+        if (!_.isEmpty(this.props.checkpoint.checkpoint.meansOfVerification)) {
+            Alert.alert("Means of Verification", this.props.checkpoint.checkpoint.meansOfVerification);
+        }
+    }
+
     render() {
         const ButtonsToRender = [
             {label: "PREV", onPress: this.onPrev.bind(this), doRender: this.isNotFirst.bind(this)},
@@ -109,6 +116,14 @@ class Toolbar extends AbstractComponent {
         return (
             <View style={Toolbar.styles.container}>
                 <View>
+                    <Text onPress={this.showMeansOfVerification}
+                          style={[Typography.paperFontBody1, {
+                              fontWeight: '500',
+                              color: PrimaryColors.yellow,
+                              textDecorationLine: 'underline'
+                          }]}>
+                        Means of Verification
+                    </Text>
                 </View>
                 <View style={Toolbar.styles.actionButtons}>
                     {ButtonsToRender}

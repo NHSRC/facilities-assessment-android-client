@@ -2,6 +2,7 @@ import BaseService from "./BaseService";
 import Service from "../framework/bean/Service";
 import _ from 'lodash';
 import Checklist from "../models/Checklist";
+import MeasurableElement from "../models/MeasurableElement";
 import Checkpoint from "../models/Checkpoint";
 import DepartmentService from "./DepartmentService";
 import {comp} from "transducers-js"
@@ -77,6 +78,10 @@ class ChecklistService extends BaseService {
             .find((aoc) => aoc.uuid === aocUUID).standards
             .find((standard) => standard.uuid === standardUUID).measurableElements
             .map((me) => me.checkpoints));
+    }
+
+    getMeasurableElement(measurableElementUUID) {
+        return this.db.objectForPrimaryKey(MeasurableElement.schema.name, measurableElementUUID);
     }
 
     getAllCheckpointsForChecklist(checklist) {
