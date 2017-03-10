@@ -21,7 +21,7 @@ class Checklists extends AbstractComponent {
             alignItems: 'center'
         },
         checklistsText: {
-            color: PrimaryColors.subheader_black,
+            color: "white",
         },
         checklistButton: {
             padding: deviceWidth * 0.04,

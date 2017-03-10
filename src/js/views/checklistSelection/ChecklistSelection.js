@@ -12,6 +12,7 @@ import AssessmentStatus from './AssessmentStatus';
 import Checklists from './Checklists';
 import AreasOfConcern from "../areasOfConcern/AreasOfConcern";
 import SubmitButton from '../common/SubmitButton';
+import Dashboard from '../dashboard/Dashboard';
 
 
 const deviceWidth = Dimensions.get('window').width;
@@ -28,11 +29,11 @@ class ChecklistSelection extends AbstractComponent {
 
     static styles = StyleSheet.create({
         subheader: {
-            color: PrimaryColors.subheader_black,
+            color: "white",
             marginTop: deviceHeight * 0.0125
         },
         caption: {
-            color: PrimaryColors.caption_black
+            color: "rgba(255,255,255,0.7)"
         },
     });
 
@@ -68,12 +69,12 @@ class ChecklistSelection extends AbstractComponent {
         let assessmentComplete = this.state.assessmentProgress.completed === this.state.assessmentProgress.total;
         return (
             <Container theme={FlatUITheme}>
-                <Header>
+                <Header style={Dashboard.styles.header}>
                     <Button transparent onPress={() => TypedTransition.from(this).goBack()}>
-                        <Icon style={{marginTop: 10}} name='arrow-back'/>
+                        <Icon style={{marginTop: 10, color: "white"}} name='arrow-back'/>
                     </Button>
                     <Title style={[Typography.paperFontHeadline,
-                        {fontWeight: 'bold', color: PrimaryColors.subheader_black}]}>
+                        {fontWeight: 'bold', color: "white"}]}>
                         Assessment
                     </Title>
                 </Header>

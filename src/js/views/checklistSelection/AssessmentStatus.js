@@ -22,7 +22,7 @@ class AssessmentStatus extends AbstractComponent {
             justifyContent: "space-between"
         },
         textColor: {
-            color: PrimaryColors.subheader_black
+            color: "white"
         },
     });
 
