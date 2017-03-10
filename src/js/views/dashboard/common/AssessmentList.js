@@ -22,7 +22,7 @@ class AssessmentList extends AbstractComponent {
             flexWrap: 'nowrap',
             justifyContent: 'flex-start',
             borderBottomWidth: 1,
-            borderColor: PrimaryColors.light_black
+            borderColor: PrimaryColors.dark_white
         },
         header: {
             alignSelf: 'flex-start',
@@ -37,7 +37,7 @@ class AssessmentList extends AbstractComponent {
             flexWrap: 'nowrap',
             justifyContent: 'space-between',
             borderBottomWidth: 1,
-            borderColor: PrimaryColors.light_black,
+            borderColor: PrimaryColors.dark_white,
             height: deviceheight * .1106,
         },
         listItemText: {
@@ -62,10 +62,10 @@ class AssessmentList extends AbstractComponent {
         return (
             <View key={key} style={AssessmentList.styles.listItem}>
                 <View style={AssessmentList.styles.listItemText}>
-                    <Text style={[Typography.paperFontSubhead, {color: PrimaryColors.subheader_black}]}>
+                    <Text style={[Typography.paperFontSubhead, {color: "white"}]}>
                         {assessment.facility.name}
                     </Text>
-                    <Text style={[Typography.paperFontCaption, {color: PrimaryColors.caption_black, marginTop: 4}]}>
+                    <Text style={[Typography.paperFontCaption, {color: "rgba(255,255,255,0.7)", marginTop: 4}]}>
                         {assessment.facility.facilityType.name}
                     </Text>
                 </View>
@@ -86,7 +86,7 @@ class AssessmentList extends AbstractComponent {
         return (
             <View style={AssessmentList.styles.container}>
                 <View style={AssessmentList.styles.header}>
-                    <Text style={[Typography.paperFontBody1, {color: PrimaryColors.subheader_black}]}>
+                    <Text style={[Typography.paperFontBody1, {color: "white"}]}>
                         {this.props.header}
                     </Text>
                 </View>
