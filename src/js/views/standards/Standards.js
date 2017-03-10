@@ -10,6 +10,7 @@ import Actions from '../../action';
 import PrimaryColors from "../styles/PrimaryColors";
 import Typography from "../styles/Typography";
 import Assessment from '../assessment/Assessment';
+import Dashboard from '../dashboard/Dashboard';
 
 const deviceWidth = Dimensions.get('window').width;
 
@@ -51,12 +52,12 @@ class Standards extends AbstractComponent {
     render() {
         return (
             <Container theme={FlatUITheme}>
-                <Header>
+                <Header style={Dashboard.styles.header}>
                     <Button transparent onPress={() => TypedTransition.from(this).goBack()}>
-                        <Icon style={{marginTop: 10}} name='arrow-back'/>
+                        <Icon style={{marginTop: 10, color: "white"}} name='arrow-back'/>
                     </Button>
                     <Title style={[Typography.paperFontHeadline,
-                        {fontWeight: 'bold', color: PrimaryColors.subheader_black}]}>
+                        {fontWeight: 'bold', color: "white"}]}>
                         {this.props.params.areaOfConcern.name}
                     </Title>
                 </Header>
