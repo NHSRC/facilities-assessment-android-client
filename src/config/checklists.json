@@ -1,50 +1,18 @@
 [
   {
-    "name": "U-PHC Labour Room",
-    "uuid": "835bd6f5-287a-4b82-b8d9-dc93e1343b24",
+    "name": "DH Labour Room",
+    "uuid": "f27c4147-248b-4d9a-a1ee-8c0e1f62d56f",
     "department": "20cef8c0-3c81-4357-a525-842760e32c7a",
-    "assessmentTool": "d8de2716-cc30-4af7-9011-638e34077222",
-    "areasOfConcern": [
-      "82334bef-b2ee-4bc7-9c21-1e894b707e89",
-      "46693321-eb35-4b10-84d9-6a2c30197ce9",
-      "170aa2b4-1a11-43fa-ba5f-53c4ce0630f4",
-      "b1f343f1-0f65-47bf-ac7c-a6cf80520f70",
-      "792fbbfb-995a-47b9-8f23-7150503e7350",
-      "c65e6089-404f-408f-88a0-4068028607d4",
-      "317fcb4c-f403-47a9-988c-7debbe1294fc",
-      "e3d76318-82bd-4de9-b385-2bf83966ba37"
-    ]
-  },
-  {
-    "name": "DH Pediatric Room",
-    "uuid": "06c410fa-2b9a-481f-baeb-e99e85a7d67a",
-    "department": "08787b7f-8afd-4b52-bb56-1c850e718d6a",
     "assessmentTool": "c76a1683-ea08-4472-a7b2-6588716501e5",
     "areasOfConcern": [
-      "82334bef-b2ee-4bc7-9c21-1e894b707e89",
-      "46693321-eb35-4b10-84d9-6a2c30197ce9",
-      "170aa2b4-1a11-43fa-ba5f-53c4ce0630f4",
-      "b1f343f1-0f65-47bf-ac7c-a6cf80520f70",
-      "792fbbfb-995a-47b9-8f23-7150503e7350",
-      "c65e6089-404f-408f-88a0-4068028607d4",
-      "317fcb4c-f403-47a9-988c-7debbe1294fc",
-      "e3d76318-82bd-4de9-b385-2bf83966ba37"
+      "152e0e26-72c7-433f-b044-ccce06cc37d0",
+      "d8670305-d76b-49df-84a8-ac8b830a4688",
+      "689c79f7-7d94-45da-a730-21c827a6504c",
+      "2a46fada-d55b-4417-a3ca-bfcc3efdd57e",
+      "d3e54230-8721-425f-89a0-2760c58a9a33",
+      "98aed380-dd16-44b8-9418-40e655133887",
+      "b81d8677-f3a6-42b5-bb03-e914b6cb8aa5",
+      "c5de7636-456d-4c90-ad50-10fa98dcc2bd"
     ]
-  },
-  {
-    "name": "PHC",
-    "uuid": "edca0c95-298d-415a-93df-b45e054fff25",
-    "department": "20cef8c0-3c81-4357-a525-842760e32c7a",
-    "assessmentTool": "73ee3872-b4d5-46b0-9048-baeaa4e3135a",
-    "areasOfConcern": [
-      "82334bef-b2ee-4bc7-9c21-1e894b707e89",
-      "46693321-eb35-4b10-84d9-6a2c30197ce9",
-      "170aa2b4-1a11-43fa-ba5f-53c4ce0630f4",
-      "b1f343f1-0f65-47bf-ac7c-a6cf80520f70",
-      "792fbbfb-995a-47b9-8f23-7150503e7350",
-      "c65e6089-404f-408f-88a0-4068028607d4",
-      "317fcb4c-f403-47a9-988c-7debbe1294fc",
-      "e3d76318-82bd-4de9-b385-2bf83966ba37"
-    ]
-  },
+  }
 ]
