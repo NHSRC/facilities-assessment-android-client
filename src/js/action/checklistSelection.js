@@ -7,12 +7,12 @@ const allChecklists = function (state, action, beans) {
     const checklistService = beans.get(ChecklistService);
     const assessmentService = beans.get(AssessmentService);
     const checklists = checklistService.getChecklistsFor(action.assessmentTool);
-    _.defer(checklistService.cacheAllChecklists, checklists);
     const checklistProgress = checklists
         .map((checklist) => assessmentService.getChecklistProgress(checklist, action.facilityAssessment));
     const completedChecklists = checklistProgress
         .filter((checklistProgress) =>
         !_.isEmpty(checklistProgress.progress.total) && checklistProgress.completed === checklistProgress.total).length;
+    checklistService.cacheAllChecklists(checklists);
     return Object.assign(state, {
         "checklists": _.zipWith(checklists, checklistProgress, Object.assign),
         "assessmentProgress": {total: checklists.length, completed: completedChecklists}

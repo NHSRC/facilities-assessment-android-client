@@ -37,7 +37,7 @@ class ChecklistService extends BaseService {
         return this.db.objectForPrimaryKey(AreaOfConcern.schema.name, aocUUID);
     }
 
-    cacheAllChecklists(checklists) {
+    async cacheAllChecklists(checklists) {
         const cacheService = this.getService(CacheService);
         checklists.map((checklist) => cacheService.put(checklist.uuid, this.getChecklist(checklist.uuid)));
     }

@@ -3,7 +3,7 @@ import {Text, StyleSheet, View, ScrollView, TouchableWithoutFeedback, Dimensions
 import AbstractComponent from "../common/AbstractComponent";
 import PrimaryColors from "../styles/PrimaryColors";
 import Typography from "../styles/Typography";
-import TypedTransition from "../../framework/routing/TypedTransition";
+import _ from 'lodash';
 
 const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
@@ -40,13 +40,17 @@ class Checklists extends AbstractComponent {
         }
     });
 
+    getProgress(checklist) {
+        return `${checklist.progress.completed}/${checklist.progress.total}`;
+    }
+
     render() {
         const checklists = this.props.allChecklists.map((checklist, idx) =>
             <TouchableWithoutFeedback onPress={this.props.handleOnPress(checklist)} key={idx}>
                 <View style={[Checklists.styles.checklistsHeader, Checklists.styles.checklistButton]}>
                     <Text style={[Typography.paperFontSubhead, {color: "#FFF"}]}>{checklist.name}</Text>
                     <Text style={[Typography.paperFontCaption, {color: "#FFF"}]}>
-                        {checklist.progress.completed}/{checklist.progress.total}
+                        {_.isEmpty(checklist.progress.total) ? "" : this.getProgress(checklist)}
                     </Text>
                 </View>
             </TouchableWithoutFeedback>
