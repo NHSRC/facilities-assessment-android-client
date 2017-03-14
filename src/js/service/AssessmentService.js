@@ -3,15 +3,12 @@ import Service from "../framework/bean/Service";
 import _ from 'lodash';
 import AreaOfConcern from "../models/AreaOfConcern";
 import AssessmentTool from "../models/AssessmentTool";
-import FacilityAssessment from "../models/FacilityAssessment";
 import CheckpointScore from "../models/CheckpointScore";
 import AssessmentType from "../models/AssessmentType";
-import Checkpoint from "../models/Checkpoint";
-import MeasurableElement from "../models/MeasurableElement";
-import Standard from "../models/Standard";
 import ChecklistService from "./ChecklistService";
 import ChecklistProgress from "../models/ChecklistProgress";
 import AreaOfConcernProgress from "../models/AreaOfConcernProgress";
+import StandardProgress from "../models/StandardProgress";
 
 @Service("assessmentService")
 class AssessmentService extends BaseService {
@@ -37,15 +34,10 @@ class AssessmentService extends BaseService {
     }
 
     getStandardProgress(standard, areaOfConcern, checklist, facilityAssessment) {
-        const checklistService = this.getService(ChecklistService);
-        const checkpoints = checklistService.getCheckpointsFor(checklist.uuid, areaOfConcern.uuid, standard.uuid);
-        const checkpointScores = this.db.objects(CheckpointScore.schema.name)
-            .filtered('standard = $0 AND areaOfConcern = $1 ' +
-                'AND checklist =$2 AND facilityAssessment = $3',
-                standard.uuid, areaOfConcern.uuid, checklist.uuid, facilityAssessment.uuid)
-            .map(this.pickKeys(["score", "checkpoint"]));
-        const completed = checkpointScores.filter(({score}) => _.isNumber(score)).length;
-        return {progress: {total: checkpoints.length, completed: completed}};
+        let standardProgress = this.db.objects(StandardProgress.schema.name)
+            .filtered('checklist = $0 AND areaOfConcern= $1 AND facilityAssessment = $2 AND standard = $3',
+                checklist.uuid, areaOfConcern.uuid, facilityAssessment.uuid, standard.uuid);
+        return {progress: {total: standardProgress.total, completed: standardProgress.completed}};
     }
 
     getAreaOfConcernProgress(areaOfConcern, checklist, facilityAssessment) {
