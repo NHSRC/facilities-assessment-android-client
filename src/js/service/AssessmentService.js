@@ -10,6 +10,7 @@ import Checkpoint from "../models/Checkpoint";
 import MeasurableElement from "../models/MeasurableElement";
 import Standard from "../models/Standard";
 import ChecklistService from "./ChecklistService";
+import ChecklistProgress from "../models/ChecklistProgress";
 
 @Service("assessmentService")
 class AssessmentService extends BaseService {
@@ -54,12 +55,9 @@ class AssessmentService extends BaseService {
     }
 
     getChecklistProgress(checklist, facilityAssessment) {
-        const checklistService = this.getService(ChecklistService);
-        const fullChecklist = checklistService.getChecklist(checklist.uuid);
-        const areasOfConcern = fullChecklist.areasOfConcern
-            .map((aoc) => this.getAreaOfConcernProgress(aoc, checklist, facilityAssessment));
-        const completed = areasOfConcern.filter(({progress: {completed, total}}) => completed === total).length;
-        return {progress: {total: areasOfConcern.length, completed: completed}};
+        let checklistProgress = this.db.objects(ChecklistProgress.schema.name)
+            .filtered('checklist = $0 AND facilityAssessment = $1', checklist.uuid, facilityAssessment.uuid);
+        return {progress: {total: checklistProgress.total, completed: checklistProgress.completed}};
     }
 
 }

@@ -3,7 +3,6 @@ class ChecklistProgress {
         name: 'ChecklistProgress',
         primaryKey: 'uuid',
         properties: {
-            name: 'string',
             uuid: 'string',
             checklist: 'string',
             facilityAssessment: 'string',

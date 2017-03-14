@@ -4,11 +4,15 @@ import AssessmentService from "../service/AssessmentService";
 import _ from 'lodash';
 
 const allChecklists = function (state, action, beans) {
-    const checklists = beans.get(ChecklistService).getChecklistsFor(action.assessmentTool);
+    const checklistService = beans.get(ChecklistService);
     const assessmentService = beans.get(AssessmentService);
+    const checklists = checklistService.getChecklistsFor(action.assessmentTool);
+    _.defer(checklistService.cacheAllChecklists, checklists);
     const checklistProgress = checklists
         .map((checklist) => assessmentService.getChecklistProgress(checklist, action.facilityAssessment));
-    const completedChecklists = checklistProgress.filter(({progress: {completed, total}}) => completed === total).length;
+    const completedChecklists = checklistProgress
+        .filter((checklistProgress) =>
+        !_.isEmpty(checklistProgress.progress.total) && checklistProgress.completed === checklistProgress.total).length;
     return Object.assign(state, {
         "checklists": _.zipWith(checklists, checklistProgress, Object.assign),
         "assessmentProgress": {total: checklists.length, completed: completedChecklists}

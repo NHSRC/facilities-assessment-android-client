@@ -3,7 +3,6 @@ class AreaOfConcernProgress {
         name: 'AreaOfConcernProgress',
         primaryKey: 'uuid',
         properties: {
-            name: 'string',
             uuid: 'string',
             areaOfConcern: 'string',
             facilityAssessment: 'string',

@@ -40,7 +40,6 @@ class Checklists extends AbstractComponent {
         }
     });
 
-
     render() {
         const checklists = this.props.allChecklists.map((checklist, idx) =>
             <TouchableWithoutFeedback onPress={this.props.handleOnPress(checklist)} key={idx}>

@@ -5,6 +5,7 @@ import Checklist from "../models/Checklist";
 import MeasurableElement from "../models/MeasurableElement";
 import Checkpoint from "../models/Checkpoint";
 import DepartmentService from "./DepartmentService";
+import CacheService from "./CacheService";
 import {comp} from "transducers-js"
 import AreaOfConcern from "../models/AreaOfConcern";
 
@@ -14,6 +15,7 @@ class ChecklistService extends BaseService {
         super(db, beanStore);
         this.saveChecklist = this.save(Checklist, this.toStringObj("areasOfConcern"));
         this.saveCheckpoint = this.save(Checkpoint);
+        this.cacheAllChecklists = this.cacheAllChecklists.bind(this);
     }
 
     init() {
@@ -33,6 +35,11 @@ class ChecklistService extends BaseService {
 
     getAreaOfConcern(aocUUID) {
         return this.db.objectForPrimaryKey(AreaOfConcern.schema.name, aocUUID);
+    }
+
+    cacheAllChecklists(checklists) {
+        const cacheService = this.getService(CacheService);
+        checklists.map((checklist) => cacheService.put(checklist.uuid, this.getChecklist(checklist.uuid)));
     }
 
     getChecklist(checklistUUID) {

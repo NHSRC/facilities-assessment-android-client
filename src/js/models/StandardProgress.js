@@ -3,7 +3,6 @@ class StandardProgress {
         name: 'StandardProgress',
         primaryKey: 'uuid',
         properties: {
-            name: 'string',
             uuid: 'string',
             standard: 'string',
             facilityAssessment: 'string',
