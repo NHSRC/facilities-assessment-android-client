@@ -11,6 +11,7 @@ import MeasurableElement from "../models/MeasurableElement";
 import Standard from "../models/Standard";
 import ChecklistService from "./ChecklistService";
 import ChecklistProgress from "../models/ChecklistProgress";
+import AreaOfConcernProgress from "../models/AreaOfConcernProgress";
 
 @Service("assessmentService")
 class AssessmentService extends BaseService {
@@ -48,10 +49,10 @@ class AssessmentService extends BaseService {
     }
 
     getAreaOfConcernProgress(areaOfConcern, checklist, facilityAssessment) {
-        const standards = areaOfConcern.standards
-            .map((standard) => this.getStandardProgress(standard, areaOfConcern, checklist, facilityAssessment));
-        const completed = standards.filter(({progress: {completed, total}}) => completed === total).length;
-        return {progress: {total: standards.length, completed: completed}};
+        let aocProgress = this.db.objects(AreaOfConcernProgress.schema.name)
+            .filtered('checklist = $0 AND areaOfConcern= $1 AND facilityAssessment = $2',
+                checklist.uuid, areaOfConcern.uuid, facilityAssessment.uuid);
+        return {progress: {total: aocProgress.total, completed: aocProgress.completed}};
     }
 
     getChecklistProgress(checklist, facilityAssessment) {

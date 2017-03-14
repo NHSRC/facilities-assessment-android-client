@@ -43,6 +43,11 @@ class ChecklistService extends BaseService {
     }
 
     getChecklist(checklistUUID) {
+        const cacheService = this.getService(CacheService);
+        let cachedChecklist = cacheService.get(checklistUUID);
+        if (!_.isEmpty(cachedChecklist)) {
+            return cachedChecklist;
+        }
         const checkpoints = _.groupBy(this.db.objects(Checkpoint.schema.name)
             .filtered("checklist = $0", checklistUUID), 'measurableElement');
         let checklist = this.db.objectForPrimaryKey(Checklist.schema.name, checklistUUID);

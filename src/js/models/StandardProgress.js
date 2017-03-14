@@ -5,6 +5,8 @@ class StandardProgress {
         properties: {
             uuid: 'string',
             standard: 'string',
+            areaOfConcern: 'string',
+            checklist: 'string',
             facilityAssessment: 'string',
             total: "int",
             completed: "int",

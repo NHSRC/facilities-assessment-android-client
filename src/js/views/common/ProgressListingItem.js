@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import {Dimensions, View, Text, TouchableWithoutFeedback, StyleSheet} from 'react-native';
+import _ from 'lodash';
 import AbstractComponent from "../common/AbstractComponent";
 import {Icon} from 'native-base';
 import PrimaryColors from "../styles/PrimaryColors";
 import Typography from "../styles/Typography";
+
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
@@ -68,18 +70,23 @@ class ProgressListingItem extends AbstractComponent {
             </TouchableWithoutFeedback>);
     }
 
+    getProgress(item) {
+        return `${item.progress.completed}/${item.progress.total}`;
+    }
+
     renderProgress() {
         return (
             <Text style={[Typography.paperFontBody1, {
                 color: PrimaryColors.subheader_black,
                 marginRight: deviceWidth * 0.02667
             }]}>
-                {`${this.props.item.progress.completed}/${this.props.item.progress.total}`}
+                {_.isEmpty(this.props.item.progress.total) ? "" : this.getProgress(this.props.item)}
             </Text>);
     }
 
     render() {
-        const ProgressIndicator = this.props.item.progress.completed === this.props.item.progress.total ?
+        const ProgressIndicator = !_.isEmpty(this.props.item.progress.total) &&
+        this.props.item.progress.completed === this.props.item.progress.total ?
             this.renderComplete() : this.renderProgress();
         return (
             <TouchableWithoutFeedback onPress={this.props.onPress}>
