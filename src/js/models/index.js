@@ -14,7 +14,10 @@ import FacilityAssessment from "./FacilityAssessment";
 import CheckpointScore from "./CheckpointScore";
 import AssessmentType from "./AssessmentType";
 import Tag from './Tag';
+import ChecklistProgress from './ChecklistProgress';
+import AreaOfConcernProgress from './AreaOfConcernProgress';
+import StandardProgress from './StandardProgress';
 
 export default {
-    schema: [StringObj, Tag, Checkpoint, MeasurableElement, Standard, AreaOfConcern, Department, FacilityType, AssessmentTool, Facility, District, State, Checklist, FacilityAssessment, CheckpointScore, AssessmentType]
+    schema: [StringObj, ChecklistProgress, StandardProgress, AreaOfConcernProgress, Tag, Checkpoint, MeasurableElement, Standard, AreaOfConcern, Department, FacilityType, AssessmentTool, Facility, District, State, Checklist, FacilityAssessment, CheckpointScore, AssessmentType]
 };
