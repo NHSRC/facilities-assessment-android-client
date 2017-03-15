@@ -68,10 +68,7 @@ class AssessmentService extends BaseService {
 
     updatedAreaOfConcernProgress(areaOfConcern, checklist, facilityAssessment) {
         let existingProgress = this.existingAOCProgress(areaOfConcern, checklist, facilityAssessment);
-        const completed = areaOfConcern.standards.filter((standard) => {
-            const standardProgress = this.getStandardProgress(standard, areaOfConcern, checklist, facilityAssessment);
-            return _.isNumber(standardProgress.progress.completed) && standardProgress.progress.completed === standardProgress.progress.total;
-        }).length;
+        const completed = this.getCompletedStandards(areaOfConcern, checklist, facilityAssessment);
         return Object.assign({}, existingProgress, {
             total: areaOfConcern.standards.length,
             completed: completed,
@@ -81,11 +78,19 @@ class AssessmentService extends BaseService {
         });
     }
 
-    getAreaOfConcernProgress(areaOfConcern, checklist, facilityAssessment) {
-        let aocProgress = this.updatedAreaOfConcernProgress(areaOfConcern, checklist, facilityAssessment);
-        return {progress: {total: aocProgress.total, completed: aocProgress.completed}};
+    getCompletedStandards(areaOfConcern, checklist, facilityAssessment) {
+        return areaOfConcern.standards.filter((standard) => {
+            const standardProgress = this.getStandardProgress(standard, areaOfConcern, checklist, facilityAssessment);
+            return _.isNumber(standardProgress.progress.completed) && standardProgress.progress.completed === standardProgress.progress.total;
+        }).length;
     }
-    
+
+    getAreaOfConcernProgress(areaOfConcern, checklist, facilityAssessment) {
+        let aocProgress = this.existingAOCProgress(areaOfConcern, checklist, facilityAssessment);
+        let completed = this.getCompletedStandards(areaOfConcern, checklist, facilityAssessment);
+        return {progress: {total: aocProgress.total, completed: completed}};
+    }
+
     updateAreaOfConcernProgress(areaOfConcern, checklist, facilityAssessment) {
         let updatedProgress = this.updatedAreaOfConcernProgress(areaOfConcern, checklist, facilityAssessment);
         return Object.assign({}, this.saveAreaOfConcernProgress(updatedProgress));
@@ -99,4 +104,6 @@ class AssessmentService extends BaseService {
 
 }
 
-export default AssessmentService;
+export
+default
+AssessmentService;
