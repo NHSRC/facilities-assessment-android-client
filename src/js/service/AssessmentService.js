@@ -66,24 +66,28 @@ class AssessmentService extends BaseService {
                 checklist.uuid, areaOfConcern.uuid, facilityAssessment.uuid)[0]);
     }
 
-    getAreaOfConcernProgress(areaOfConcern, checklist, facilityAssessment) {
-        let aocProgress = this.existingAOCProgress(areaOfConcern, checklist, facilityAssessment);
-        return {progress: {total: aocProgress.total, completed: aocProgress.completed}};
-    }
-
-    updateAreaOfConcernProgress(areaOfConcern, checklist, facilityAssessment) {
+    updatedAreaOfConcernProgress(areaOfConcern, checklist, facilityAssessment) {
         let existingProgress = this.existingAOCProgress(areaOfConcern, checklist, facilityAssessment);
         const completed = areaOfConcern.standards.filter((standard) => {
             const standardProgress = this.getStandardProgress(standard, areaOfConcern, checklist, facilityAssessment);
             return _.isNumber(standardProgress.progress.completed) && standardProgress.progress.completed === standardProgress.progress.total;
         }).length;
-        let updatedProgress = Object.assign({}, existingProgress, {
+        return Object.assign({}, existingProgress, {
             total: areaOfConcern.standards.length,
             completed: completed,
             areaOfConcern: areaOfConcern.uuid,
             checklist: checklist.uuid,
             facilityAssessment: facilityAssessment.uuid,
         });
+    }
+
+    getAreaOfConcernProgress(areaOfConcern, checklist, facilityAssessment) {
+        let aocProgress = this.updatedAreaOfConcernProgress(areaOfConcern, checklist, facilityAssessment);
+        return {progress: {total: aocProgress.total, completed: aocProgress.completed}};
+    }
+    
+    updateAreaOfConcernProgress(areaOfConcern, checklist, facilityAssessment) {
+        let updatedProgress = this.updatedAreaOfConcernProgress(areaOfConcern, checklist, facilityAssessment);
         return Object.assign({}, this.saveAreaOfConcernProgress(updatedProgress));
     }
 
