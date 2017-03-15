@@ -80,12 +80,12 @@ class ProgressListingItem extends AbstractComponent {
                 color: PrimaryColors.subheader_black,
                 marginRight: deviceWidth * 0.02667
             }]}>
-                {_.isEmpty(this.props.item.progress.total) ? "" : this.getProgress(this.props.item)}
+                {_.isNumber(this.props.item.progress.total) ? this.getProgress(this.props.item) : ""}
             </Text>);
     }
 
     render() {
-        const ProgressIndicator = !_.isEmpty(this.props.item.progress.total) &&
+        const ProgressIndicator = _.isNumber(this.props.item.progress.total) &&
         this.props.item.progress.completed === this.props.item.progress.total ?
             this.renderComplete() : this.renderProgress();
         return (

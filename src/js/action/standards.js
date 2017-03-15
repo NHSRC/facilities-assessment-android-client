@@ -13,9 +13,22 @@ const allStandards = function (state, action, beans) {
     return Object.assign(state, {"standards": _.zipWith(standards, standardsProgress, Object.assign)});
 };
 
+const updateProgress = function (state, action, beans) {
+    const assessmentService = beans.get(AssessmentService);
+    const updatedProgress = assessmentService.updateStandardProgress(action.standard, action.areaOfConcern, action.checklist, action.facilityAssessment);
+    const newStandards = state.standards.map((standard) => standard.uuid === action.standard.uuid ?
+        Object.assign(standard, {
+            progress: {
+                total: updatedProgress.total,
+                completed: updatedProgress.completed
+            }
+        }) : standard);
+    return Object.assign(state, {"standards": newStandards});
+};
+
 export default new Map([
     ["ALL_STANDARDS", allStandards],
-    ["UPDATE_PROGRESS", allStandards],
+    ["UPDATE_PROGRESS", updateProgress],
 ]);
 
 export let standardsInit = {

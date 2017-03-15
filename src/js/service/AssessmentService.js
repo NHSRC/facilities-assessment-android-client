@@ -17,6 +17,8 @@ class AssessmentService extends BaseService {
         this.saveAssessmentTool = this.save(AssessmentTool);
         this.saveAssessmentType = this.save(AssessmentType);
         this.saveAreaOfConcern = this.save(AreaOfConcern);
+        this.saveAreaOfConcernProgress = this.save(AreaOfConcernProgress, AreaOfConcernProgress.toDB);
+        this.saveStandardProgress = this.save(StandardProgress, StandardProgress.toDB);
         this.saveCheckpoint = this.save(CheckpointScore, CheckpointScore.toDB);
         this.getChecklistProgress = this.getChecklistProgress.bind(this);
     }
@@ -33,18 +35,56 @@ class AssessmentService extends BaseService {
                 checkpoint.uuid, standard.uuid, areaOfConcern.uuid, checklist.uuid, facilityAssessment.uuid)[0]);
     }
 
-    getStandardProgress(standard, areaOfConcern, checklist, facilityAssessment) {
-        let standardProgress = this.db.objects(StandardProgress.schema.name)
+    existingStandardProgress(standard, areaOfConcern, checklist, facilityAssessment) {
+        return Object.assign({}, this.db.objects(StandardProgress.schema.name)
             .filtered('checklist = $0 AND areaOfConcern= $1 AND facilityAssessment = $2 AND standard = $3',
-                checklist.uuid, areaOfConcern.uuid, facilityAssessment.uuid, standard.uuid);
+                checklist.uuid, areaOfConcern.uuid, facilityAssessment.uuid, standard.uuid)[0]);
+    }
+
+    getStandardProgress(standard, areaOfConcern, checklist, facilityAssessment) {
+        let standardProgress = this.existingStandardProgress(standard, areaOfConcern, checklist, facilityAssessment);
         return {progress: {total: standardProgress.total, completed: standardProgress.completed}};
     }
 
-    getAreaOfConcernProgress(areaOfConcern, checklist, facilityAssessment) {
-        let aocProgress = this.db.objects(AreaOfConcernProgress.schema.name)
+    updateStandardProgress(standard, areaOfConcern, checklist, facilityAssessment) {
+        let existingProgress = this.existingStandardProgress(standard, areaOfConcern, checklist, facilityAssessment);
+        const totalCheckpoints = () => _.flatten(standard.measurableElements.map((me) => me.checkpoints)).length;
+        let updatedProgress = Object.assign({}, existingProgress, {
+            total: _.isNumber(existingProgress.total) ? existingProgress.total : totalCheckpoints(),
+            completed: _.isNumber(existingProgress.completed) ? existingProgress.completed + 1 : 1,
+            areaOfConcern: areaOfConcern.uuid,
+            checklist: checklist.uuid,
+            facilityAssessment: facilityAssessment.uuid,
+            standard: standard.uuid,
+        });
+        return Object.assign({}, this.saveStandardProgress(updatedProgress));
+    }
+
+    existingAOCProgress(areaOfConcern, checklist, facilityAssessment) {
+        return Object.assign({}, this.db.objects(AreaOfConcernProgress.schema.name)
             .filtered('checklist = $0 AND areaOfConcern= $1 AND facilityAssessment = $2',
-                checklist.uuid, areaOfConcern.uuid, facilityAssessment.uuid);
+                checklist.uuid, areaOfConcern.uuid, facilityAssessment.uuid)[0]);
+    }
+
+    getAreaOfConcernProgress(areaOfConcern, checklist, facilityAssessment) {
+        let aocProgress = this.existingAOCProgress(areaOfConcern, checklist, facilityAssessment);
         return {progress: {total: aocProgress.total, completed: aocProgress.completed}};
+    }
+
+    updateAreaOfConcernProgress(areaOfConcern, checklist, facilityAssessment) {
+        let existingProgress = this.existingAOCProgress(areaOfConcern, checklist, facilityAssessment);
+        const completed = areaOfConcern.standards.filter((standard) => {
+            const standardProgress = this.getStandardProgress(standard, areaOfConcern, checklist, facilityAssessment);
+            return _.isNumber(standardProgress.progress.completed) && standardProgress.progress.completed === standardProgress.progress.total;
+        }).length;
+        let updatedProgress = Object.assign({}, existingProgress, {
+            total: areaOfConcern.standards.length,
+            completed: completed,
+            areaOfConcern: areaOfConcern.uuid,
+            checklist: checklist.uuid,
+            facilityAssessment: facilityAssessment.uuid,
+        });
+        return Object.assign({}, this.saveAreaOfConcernProgress(updatedProgress));
     }
 
     getChecklistProgress(checklist, facilityAssessment) {

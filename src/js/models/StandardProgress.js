@@ -1,3 +1,6 @@
+import _ from "lodash";
+import UUID from '../utility/UUID';
+
 class StandardProgress {
     static schema = {
         name: 'StandardProgress',
@@ -11,7 +14,12 @@ class StandardProgress {
             total: "int",
             completed: "int",
         }
-    }
+    };
+
+    static toDB(obj) {
+        obj.uuid = _.isEmpty(obj.uuid) ? UUID.generate() : obj.uuid;
+        return obj;
+    };
 }
 
 export default StandardProgress;

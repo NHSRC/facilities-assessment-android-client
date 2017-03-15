@@ -1,3 +1,6 @@
+import _ from 'lodash';
+import UUID from '../utility/UUID';
+
 class AreaOfConcernProgress {
     static schema = {
         name: 'AreaOfConcernProgress',
@@ -10,6 +13,11 @@ class AreaOfConcernProgress {
             total: "int",
             completed: "int",
         }
+    };
+
+    static toDB(obj) {
+        obj.uuid = _.isEmpty(obj.uuid) ? UUID.generate() : obj.uuid;
+        return obj;
     }
 }
 
