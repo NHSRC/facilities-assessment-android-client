@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Dimensions, View, Text, TouchableWithoutFeedback, StyleSheet, Image} from 'react-native';
-import {Container, Content, Title, Button, Header, Icon, Thumbnail, Card, CardItem} from 'native-base';
+import {Container, Content, Title, Button, Header, Icon, Thumbnail, Card, CardItem, Footer} from 'native-base';
 import AbstractComponent from "../common/AbstractComponent";
 import FlatUITheme from '../themes/flatUI';
 import TypedTransition from "../../framework/routing/TypedTransition";
@@ -55,7 +55,24 @@ class ModeSelection extends AbstractComponent {
         return () => TypedTransition.from(this).with({mode: mode}).to(Dashboard);
     }
 
+    renderMode(mode, modeText, icon) {
+        return (
+            <Card style={ModeSelection.styles.card}>
+                <CardItem onPress={this.handleOnPress(mode)}>
+                    <Thumbnail size={deviceWidth * .233}
+                               resizeMode="contain"
+                               style={ModeSelection.styles.cardImage}
+                               source={icon}/>
+                    <Text style={[Typography.paperFontSubhead, {color: PrimaryColors.subheader_black}]}>
+                        {modeText}
+                    </Text>
+                </CardItem>
+            </Card>
+        )
+    }
+
     render() {
+
         return (
             <Container theme={FlatUITheme}>
                 <Header style={ModeSelection.styles.header}>
@@ -72,28 +89,8 @@ class ModeSelection extends AbstractComponent {
                         <Text style={[Typography.paperFontHeadline, {color: 'white'}]}>
                             Choose an Assessment Type
                         </Text>
-                        <Card style={ModeSelection.styles.card}>
-                            <CardItem onPress={this.handleOnPress("NQAS")}>
-                                <Thumbnail size={deviceWidth * .233}
-                                           resizeMode="contain"
-                                           style={ModeSelection.styles.cardImage}
-                                           source={qaIcon}/>
-                                <Text style={[Typography.paperFontSubhead, {color: PrimaryColors.subheader_black}]}>
-                                    NQAS
-                                </Text>
-                            </CardItem>
-                        </Card>
-                        <Card style={ModeSelection.styles.card}>
-                            <CardItem onPress={this.handleOnPress("Kayakalp")}>
-                                <Thumbnail size={deviceWidth * .233}
-                                           style={ModeSelection.styles.cardImage}
-                                           resizeMode="contain"
-                                           source={kayakalpIcon}/>
-                                <Text style={[Typography.paperFontSubhead, {color: PrimaryColors.subheader_black}]}>
-                                    Kayakalp
-                                </Text>
-                            </CardItem>
-                        </Card>
+                        {this.renderMode("NQAS", "NQAS", qaIcon)}
+                        {this.renderMode("Kayakalp", "Kayakalp", kayakalpIcon)}
                     </View>
                 </Content>
             </Container>
