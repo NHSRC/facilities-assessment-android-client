@@ -18,9 +18,6 @@ class ChecklistService extends BaseService {
         this.cacheAllChecklists = this.cacheAllChecklists.bind(this);
     }
 
-    init() {
-    }
-
     getChecklistsFor(assessmentTool) {
         const departmentService = this.getService(DepartmentService);
         return this.db.objects(Checklist.schema.name)
@@ -63,7 +60,7 @@ class ChecklistService extends BaseService {
                                 me["checkpoints"] = checkpoints[me.uuid];
                                 return me;
                             })
-                            .filter((me) => !_.isNil(me.checkpoints))
+                            .filter((me) => !_.isEmpty(me.checkpoints))
                             .map((me) => {
                                 me.checkpoints = me.checkpoints.map((checkpoints, idx) =>
                                     Object.assign(checkpoints, {reference: `${me.reference}.${idx + 1}`}));
@@ -94,10 +91,6 @@ class ChecklistService extends BaseService {
 
     getMeasurableElement(measurableElementUUID) {
         return this.db.objectForPrimaryKey(MeasurableElement.schema.name, measurableElementUUID);
-    }
-
-    getAllCheckpointsForChecklist(checklist) {
-        return this.db.objects(Checkpoint.schema.name).filtered('checklist = $0', checklist.uuid).map(this.nameAndId);
     }
 }
 
