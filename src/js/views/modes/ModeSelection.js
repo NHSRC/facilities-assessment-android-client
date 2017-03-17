@@ -5,11 +5,10 @@ import AbstractComponent from "../common/AbstractComponent";
 import FlatUITheme from '../themes/flatUI';
 import TypedTransition from "../../framework/routing/TypedTransition";
 import Path, {PathRoot} from "../../framework/routing/Path";
-import Actions from '../../action';
 import PrimaryColors from "../styles/PrimaryColors";
 import Typography from "../styles/Typography";
 import Dashboard from '../dashboard/Dashboard';
-const qaIcon = require('../img/qa.png');
+const nqasIcon = require('../img/nqas.png');
 const kayakalpIcon = require('../img/kayakalp.png');
 
 const deviceWidth = Dimensions.get('window').width;
@@ -89,7 +88,7 @@ class ModeSelection extends AbstractComponent {
                         <Text style={[Typography.paperFontHeadline, {color: 'white'}]}>
                             Choose an Assessment Type
                         </Text>
-                        {this.renderMode("NQAS", "NQAS", qaIcon)}
+                        {this.renderMode("NQAS", "NQAS", nqasIcon)}
                         {this.renderMode("Kayakalp", "Kayakalp", kayakalpIcon)}
                     </View>
                 </Content>
