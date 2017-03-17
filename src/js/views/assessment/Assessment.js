@@ -51,7 +51,7 @@ class Assessment extends AbstractComponent {
                     </Button>
                     <Title style={[Typography.paperFontHeadline,
                         {fontWeight: 'bold', color: "white"}]}>
-                        {this.props.params.standard.name}
+                        {`${this.props.params.standard.reference} - ${_.truncate(this.props.params.standard.name, {length: 25})}`}
                     </Title>
                 </Header>
                 <Content>
@@ -60,7 +60,7 @@ class Assessment extends AbstractComponent {
                         <QuestionAnswer goBack={() => TypedTransition.from(this).goBack()}
                                         checkpoints={this.state.checkpoints}
                                         currentCheckpoint={this.state.currentCheckpoint}
-                                        {...this.props}/>
+                            {...this.props}/>
                         <Pagination currentCheckpoint={this.state.currentCheckpoint}
                                     checkpoints={this.state.checkpoints}/>
                     </View>
