@@ -26,10 +26,25 @@ const completeAssessment = function (state, action, beans) {
     return Object.assign(state);
 };
 
+const updateChecklistProgress = function (state, action, beans) {
+    const assessmentService = beans.get(AssessmentService);
+    let updatedProgress = assessmentService.updateChecklistProgress(action.checklist, action.facilityAssessment);
+    const newChecklists = state.checklists.map((checklist) => checklist.uuid === action.checklist.uuid ?
+        Object.assign(checklist, {
+            progress: {
+                total: updatedProgress.total,
+                completed: updatedProgress.completed
+            }
+        }) : checklist);
+
+    return Object.assign(state, {"checklists": newChecklists});
+};
+
+
 export default new Map([
     ["ALL_CHECKLISTS", allChecklists],
     ["COMPLETE_ASSESSMENT", completeAssessment],
-    ["UPDATE_CHECKLIST_PROGRESS", allChecklists],
+    ["UPDATE_CHECKLIST_PROGRESS", updateChecklistProgress],
 ]);
 
 export let checklistSelectionInit = {

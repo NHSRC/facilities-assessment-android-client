@@ -22,7 +22,8 @@ class ChecklistService extends BaseService {
         const departmentService = this.getService(DepartmentService);
         return this.db.objects(Checklist.schema.name)
             .filtered("assessmentTool = $0", assessmentTool.uuid)
-            .map(this.pickKeys(["department", "assessmentTool"]))
+            .map(this.pickKeys(["department", "assessmentTool", "areasOfConcern"]))
+            .map(this.fromStringObj("areasOfConcern"))
             .map((checklist) => {
                     checklist.department = departmentService.getDepartment(checklist.department);
                     return checklist;

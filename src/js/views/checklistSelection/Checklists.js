@@ -50,7 +50,7 @@ class Checklists extends AbstractComponent {
                 <View style={[Checklists.styles.checklistsHeader, Checklists.styles.checklistButton]}>
                     <Text style={[Typography.paperFontSubhead, {color: "#FFF"}]}>{checklist.name}</Text>
                     <Text style={[Typography.paperFontCaption, {color: "#FFF"}]}>
-                        {_.isEmpty(checklist.progress.total) ? "" : this.getProgress(checklist)}
+                        {_.isNumber(checklist.progress.total) ? this.getProgress(checklist) : ""}
                     </Text>
                 </View>
             </TouchableWithoutFeedback>
