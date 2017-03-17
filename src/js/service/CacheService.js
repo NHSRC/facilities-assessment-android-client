@@ -19,6 +19,11 @@ class CacheService extends BaseService {
     get(key) {
         return this.cache[key];
     }
+
+    getOrExec(key, execFunction) {
+        let value = this.get(key);
+        return _.isEmpty(value)? execFunction(): value;
+    }
 }
 
 export default CacheService;

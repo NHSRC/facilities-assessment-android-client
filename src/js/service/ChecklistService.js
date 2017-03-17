@@ -41,39 +41,40 @@ class ChecklistService extends BaseService {
     }
 
     getChecklist(checklistUUID) {
-        const cacheService = this.getService(CacheService);
-        let cachedChecklist = cacheService.get(checklistUUID);
-        if (!_.isEmpty(cachedChecklist)) {
-            return cachedChecklist;
-        }
-        const checkpoints = _.groupBy(this.db.objects(Checkpoint.schema.name)
-            .filtered("checklist = $0", checklistUUID), 'measurableElement');
-        let checklist = this.db.objectForPrimaryKey(Checklist.schema.name, checklistUUID);
-        checklist = comp(this.fromStringObj("areasOfConcern"), this.pickKeys(["areasOfConcern"]))(checklist);
-        checklist.areasOfConcern = checklist.areasOfConcern
-            .map(this.getAreaOfConcern.bind(this))
-            .map(AreaOfConcern.fromDB)
-            .map((aoc) => {
-                aoc.standards = aoc.standards
-                    .map((standard) => {
-                        standard.measurableElements = standard.measurableElements
-                            .map((me) => {
-                                me["checkpoints"] = checkpoints[me.uuid];
-                                return me;
-                            })
-                            .filter((me) => !_.isEmpty(me.checkpoints))
-                            .map((me) => {
-                                me.checkpoints = me.checkpoints.map((checkpoints, idx) =>
-                                    Object.assign(checkpoints, {reference: `${me.reference}.${idx + 1}`}));
-                                return me;
-                            });
-                        return standard;
-                    })
-                    .filter((standard) => !_.isEmpty(standard.measurableElements));
-                return aoc;
-            });
-        return checklist;
+        const getChecklist = (checklistUUID) => {
+            const checkpoints = _.groupBy(this.db.objects(Checkpoint.schema.name)
+                .filtered("checklist = $0", checklistUUID), 'measurableElement');
+            let checklist = this.db.objectForPrimaryKey(Checklist.schema.name, checklistUUID);
+            checklist = comp(this.fromStringObj("areasOfConcern"), this.pickKeys(["areasOfConcern"]))(checklist);
+            checklist.areasOfConcern = checklist.areasOfConcern
+                .map(this.getAreaOfConcern.bind(this))
+                .map(AreaOfConcern.fromDB)
+                .map((aoc) => {
+                    aoc.standards = aoc.standards
+                        .map((standard) => {
+                            standard.measurableElements = standard.measurableElements
+                                .map((me) => {
+                                    me["checkpoints"] = checkpoints[me.uuid];
+                                    return me;
+                                })
+                                .filter((me) => !_.isEmpty(me.checkpoints))
+                                .map((me) => {
+                                    me.checkpoints = me.checkpoints.map((checkpoints, idx) =>
+                                        Object.assign(checkpoints, {reference: `${me.reference}.${idx + 1}`}));
+                                    return me;
+                                });
+                            return standard;
+                        })
+                        .filter((standard) => !_.isEmpty(standard.measurableElements));
+                    return aoc;
+                });
+            return checklist;
+        };
+
+        return this.getService(CacheService)
+            .getOrExec(checklistUUID, () => getChecklist(checklistUUID));
     }
+
 
     getAreasOfConcernsFor(checklistUUID) {
         return this.getChecklist(checklistUUID).areasOfConcern;

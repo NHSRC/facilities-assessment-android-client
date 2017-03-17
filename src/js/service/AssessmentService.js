@@ -108,8 +108,8 @@ class AssessmentService extends BaseService {
     }
 
     getChecklistProgress(checklist, facilityAssessment) {
-        let checklistProgress = this.db.objects(ChecklistProgress.schema.name)
-            .filtered('checklist = $0 AND facilityAssessment = $1', checklist.uuid, facilityAssessment.uuid);
+        let checklistProgress = Object.assign({}, this.db.objects(ChecklistProgress.schema.name)
+            .filtered('checklist = $0 AND facilityAssessment = $1', checklist.uuid, facilityAssessment.uuid)[0]);
         return {progress: {total: checklistProgress.total, completed: checklistProgress.completed}};
     }
 
@@ -120,10 +120,7 @@ class AssessmentService extends BaseService {
     }
 
     updateChecklistProgress(checklist, facilityAssessment) {
-        let fullChecklist = this.getService(CacheService).get(checklist.uuid);
-        if (_.isEmpty(fullChecklist)) {
-            fullChecklist = this.getService(ChecklistService).getChecklist(checklist.uuid);
-        }
+        let fullChecklist = this.getService(ChecklistService).getChecklist(checklist.uuid);
         const existingProgress = this.existingChecklistProgress(fullChecklist, facilityAssessment);
         const completed = this.getCompletedAreasOfConcern(fullChecklist, facilityAssessment);
         return Object.assign({}, this.saveChecklistProgress(Object.assign({}, existingProgress,
