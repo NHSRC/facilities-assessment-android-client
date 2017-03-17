@@ -28,7 +28,7 @@ const updateProgress = function (state, action, beans) {
 
 export default new Map([
     ["ALL_STANDARDS", allStandards],
-    ["UPDATE_PROGRESS", updateProgress],
+    ["UPDATE_STANDARD_PROGRESS", updateProgress],
 ]);
 
 export let standardsInit = {

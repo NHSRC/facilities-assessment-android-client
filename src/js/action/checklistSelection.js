@@ -29,7 +29,7 @@ const completeAssessment = function (state, action, beans) {
 export default new Map([
     ["ALL_CHECKLISTS", allChecklists],
     ["COMPLETE_ASSESSMENT", completeAssessment],
-    ["UPDATE_PROGRESS", allChecklists],
+    ["UPDATE_CHECKLIST_PROGRESS", allChecklists],
 ]);
 
 export let checklistSelectionInit = {

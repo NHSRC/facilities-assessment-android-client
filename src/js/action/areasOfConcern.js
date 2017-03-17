@@ -26,7 +26,7 @@ const updateProgress = function (state, action, beans) {
 
 export default new Map([
     ["ALL_AREAS_OF_CONCERN", allAreasOfConcern],
-    ["UPDATE_PROGRESS", updateProgress],
+    ["UPDATE_AREA_OF_CONCERN_PROGRESS", updateProgress],
 ]);
 
 export let areasOfConcernInit = {
