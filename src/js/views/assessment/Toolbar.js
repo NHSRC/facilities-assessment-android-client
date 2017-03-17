@@ -100,10 +100,9 @@ class Toolbar extends AbstractComponent {
         );
     }
 
+
     showMeansOfVerification() {
-        if (!_.isEmpty(this.props.checkpoint.checkpoint.meansOfVerification)) {
-            Alert.alert("Means of Verification", this.props.checkpoint.checkpoint.meansOfVerification);
-        }
+        Alert.alert("Means of Verification", this.props.checkpoint.checkpoint.meansOfVerification);
     }
 
     render() {
@@ -113,18 +112,21 @@ class Toolbar extends AbstractComponent {
             {label: "FINISH", onPress: this.onFinish.bind(this), doRender: this.showFinished.bind(this)}
         ].filter((button) => button.doRender(this.props.currentCheckpoint, this.props.checkpoints))
             .map((button, key) => this.renderButton(button, key));
-        return (
-            <View style={Toolbar.styles.container}>
-                <View>
-                    <Text onPress={this.showMeansOfVerification}
-                          style={[Typography.paperFontBody1, {
+        let meansOfVerificationLink = _.isEmpty(this.props.checkpoint.checkpoint.meansOfVerification) ?
+            (<View/>) :
+            (<View>
+                <Text onPress={this.showMeansOfVerification}
+                      style={[Typography.paperFontBody1, {
                               fontWeight: '500',
                               color: PrimaryColors.yellow,
                               textDecorationLine: 'underline'
                           }]}>
-                        Means of Verification
-                    </Text>
-                </View>
+                    Means of Verification
+                </Text>
+            </View>);
+        return (
+            <View style={Toolbar.styles.container}>
+                {meansOfVerificationLink}
                 <View style={Toolbar.styles.actionButtons}>
                     {ButtonsToRender}
                 </View>

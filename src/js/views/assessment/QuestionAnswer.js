@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {Dimensions, View, Text, TouchableWithoutFeedback, StyleSheet} from 'react-native';
 import AbstractComponent from "../common/AbstractComponent";
 import PrimaryColors from "../styles/PrimaryColors";
-import Actions from '../../action';
 import CheckpointText from './CheckpointText';
 import ListingItem from '../common/ListingItem';
 import Compliance from './Compliance';
