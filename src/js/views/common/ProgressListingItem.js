@@ -25,7 +25,9 @@ class ProgressListingItem extends AbstractComponent {
             borderStyle: 'solid',
             borderColor: PrimaryColors.light_black
         },
-        small: {height: deviceHeight * 0.06,},
+        small: {
+            minHeight: deviceHeight * 0.06,
+        },
         buttonTextBig: {
             fontFamily: "Roboto,Noto,sans-serif",
             fontSize: 28,
