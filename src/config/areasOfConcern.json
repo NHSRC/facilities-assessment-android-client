@@ -1,7 +1,7 @@
 [
   {
     "name": "Service Provision",
-    "uuid": "152e0e26-72c7-433f-b044-ccce06cc37d0",
+    "uuid": "d6928ca6-c032-4d13-822f-6738ec41c937",
     "reference": "A",
     "standards": [
       {
@@ -280,7 +280,7 @@
   },
   {
     "name": "Patient Rights",
-    "uuid": "d8670305-d76b-49df-84a8-ac8b830a4688",
+    "uuid": "80de038d-30e9-4919-af88-029408979699",
     "reference": "B",
     "standards": [
       {
@@ -462,7 +462,7 @@
   },
   {
     "name": "Inputs",
-    "uuid": "689c79f7-7d94-45da-a730-21c827a6504c",
+    "uuid": "f68ac022-e752-43b6-95a4-53f3683da582",
     "reference": "C",
     "standards": [
       {
@@ -666,7 +666,7 @@
   },
   {
     "name": "Support Services",
-    "uuid": "2a46fada-d55b-4417-a3ca-bfcc3efdd57e",
+    "uuid": "5a1f8ebb-5d46-495c-b4ca-c459125a1dc2",
     "reference": "D",
     "standards": [
       {
@@ -965,7 +965,7 @@
   },
   {
     "name": "Clinical Services",
-    "uuid": "d3e54230-8721-425f-89a0-2760c58a9a33",
+    "uuid": "66e9c1b9-50d3-42ab-925f-df6e3cf1d701",
     "reference": "E",
     "standards": [
       {
@@ -1678,7 +1678,7 @@
   },
   {
     "name": "Infection Control",
-    "uuid": "98aed380-dd16-44b8-9418-40e655133887",
+    "uuid": "c1887ddb-8b51-4ad5-b890-7b8878e644b7",
     "reference": "F",
     "standards": [
       {
@@ -1839,7 +1839,7 @@
   },
   {
     "name": "Quality Management",
-    "uuid": "b81d8677-f3a6-42b5-bb03-e914b6cb8aa5",
+    "uuid": "366c3e41-8716-41c4-bef9-17c6f4581c48",
     "reference": "G",
     "standards": [
       {
@@ -2032,7 +2032,7 @@
   },
   {
     "name": "Outcome",
-    "uuid": "c5de7636-456d-4c90-ad50-10fa98dcc2bd",
+    "uuid": "b4b38234-a335-4035-b2c2-62c2d536231d",
     "reference": "H",
     "standards": [
       {

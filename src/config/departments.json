@@ -22,5 +22,9 @@
   {
     "name": "Pediatric Ward",
     "uuid": "08787b7f-8afd-4b52-bb56-1c850e718d6a"
+  },
+  {
+    "name": "OPD",
+    "uuid": "d4591d8e-3249-4cea-90b2-425665fdb0d0"
   }
 ]
