@@ -26,6 +26,7 @@ class Checklists extends AbstractComponent {
         checklistButton: {
             padding: deviceWidth * 0.04,
             alignSelf: 'stretch',
+            marginTop: deviceHeight * 0.02,
             elevation: 0,
             height: deviceHeight * 0.06,
             shadowOffset: {width: 0, height: 0},
