@@ -2,13 +2,14 @@ import React, {Component} from 'react';
 import {Text, StyleSheet, View, ScrollView, Dimensions} from 'react-native';
 import AbstractComponent from "../common/AbstractComponent";
 import FlatUITheme from '../themes/flatUI';
-import {Container, Header, Title, Content, Icon, Button, Tabs} from 'native-base';
+import {Container, Header, Title, Content, Icon, Button, Thumbnail} from 'native-base';
 import Path from "../../framework/routing/Path";
 import Typography from '../styles/Typography';
 import PrimaryColors from '../styles/PrimaryColors';
 import TypedTransition from "../../framework/routing/TypedTransition";
 
 const deviceWidth = Dimensions.get('window').width;
+const comingSoon = require('../img/coming_soon.jpeg');
 
 @Path("/reports")
 class Reports extends AbstractComponent {
@@ -39,7 +40,7 @@ class Reports extends AbstractComponent {
                             Reports
                         </Title>
                     </Header>
-                    <Text>HEllo World</Text>
+
                 </Content>
             </Container>
         );

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {Text, StyleSheet, View, ScrollView} from 'react-native';
+import {Text, StyleSheet, View, ScrollView, Dimensions} from 'react-native';
+import {Thumbnail} from 'native-base';
 import _ from 'lodash';
 import AbstractComponent from "../../common/AbstractComponent";
 import Dashboard from '../Dashboard';
@@ -7,6 +8,9 @@ import Actions from '../../../action';
 import AssessmentList from '../common/AssessmentList';
 import Reports from '../../reports/Reports';
 import TypedTransition from "../../../framework/routing/TypedTransition";
+const comingSoon = require('../../img/coming_soon.jpeg');
+
+const deviceWidth = Dimensions.get('window').width;
 
 class ReportsView extends AbstractComponent {
     constructor(props, context) {
@@ -60,7 +64,11 @@ class ReportsView extends AbstractComponent {
                 <AssessmentList key={key} {...assessmentList}/>);
         return (
             <View style={Dashboard.styles.tab}>
-                {AssessmentLists}
+                <Text style={{color: 'white', fontSize: 36, alignSelf: 'center'}}>Coming Soon</Text>
+                <Thumbnail size={deviceWidth * .9}
+                           style={{alignSelf: 'center'}}
+                           resizeMode="contain"
+                           source={comingSoon}/>
             </View>
         );
     }
