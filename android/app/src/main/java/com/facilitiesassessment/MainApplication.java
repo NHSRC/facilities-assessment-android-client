@@ -1,7 +1,6 @@
 package com.facilitiesassessment;
 
 import android.app.Application;
-import android.util.Log;
 
 import com.facebook.react.ReactApplication;
 import com.RNFetchBlob.RNFetchBlobPackage;
@@ -16,7 +15,6 @@ import com.crashlytics.android.Crashlytics;
 import io.fabric.sdk.android.Fabric;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.soloader.SoLoader;
-
 
 
 import java.util.Arrays;
