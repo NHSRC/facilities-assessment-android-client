@@ -2,9 +2,11 @@ import FacilitiesService from "../service/FacilitiesService";
 import ChecklistAssessmentService from "../service/AssessmentService";
 import FacilityAssessmentService from "../service/FacilityAssessmentService";
 import _ from 'lodash';
+import SearchService from "../service/SearchService";
 
 const allStates = function (state, action, beans) {
     let facilitiesService = beans.get(FacilitiesService);
+    let searchService = beans.get(SearchService);
     let facilityAssessmentService = beans.get(FacilityAssessmentService);
     const states = facilitiesService.getAllStates();
     const assessmentTools = facilityAssessmentService.getAssessmentTools(action.mode);

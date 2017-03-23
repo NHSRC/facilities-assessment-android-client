@@ -6,3 +6,4 @@ export * from './StateService';
 export * from './DepartmentService';
 export * from './ChecklistService';
 export * from './CacheService';
+export * from './SearchService';
