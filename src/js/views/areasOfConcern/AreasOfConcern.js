@@ -11,6 +11,7 @@ import Listing from '../common/Listing';
 import Actions from '../../action';
 import Standards from "../standards/Standards";
 import Dashboard from '../dashboard/Dashboard';
+import SearchPage from "../search/SearchPage";
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
@@ -60,6 +61,9 @@ class AreasOfConcern extends AbstractComponent {
                         {fontWeight: 'bold', color: "white"}]}>
                         {this.props.params.checklist.name}
                     </Title>
+                    <Button transparent onPress={() => TypedTransition.from(this).to(SearchPage)}>
+                        <Icon style={{paddingTop: 10, color: "white"}} name='search'/>
+                    </Button>
                 </Header>
                 <Content>
                     <View style={{margin: deviceWidth * 0.04,}}>

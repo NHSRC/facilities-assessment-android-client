@@ -151,7 +151,7 @@ export default {
         return this.textColor;
     },
     get inputColorPlaceholder() {
-        return '#575757';
+        return 'rgba(255, 255, 255, 0.8)';
     },
 
     inputGroupMarginBottom: 10,

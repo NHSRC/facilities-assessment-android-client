@@ -11,6 +11,7 @@ import PrimaryColors from "../styles/PrimaryColors";
 import Typography from "../styles/Typography";
 import Assessment from '../assessment/Assessment';
 import Dashboard from '../dashboard/Dashboard';
+import SearchPage from "../search/SearchPage";
 
 const deviceWidth = Dimensions.get('window').width;
 
@@ -60,6 +61,9 @@ class Standards extends AbstractComponent {
                         {fontWeight: 'bold', color: "white"}]}>
                         {this.props.params.areaOfConcern.name}
                     </Title>
+                    <Button transparent onPress={() => TypedTransition.from(this).to(SearchPage)}>
+                        <Icon style={{paddingTop: 10, color: "white"}} name='search'/>
+                    </Button>
                 </Header>
                 <Content>
                     <View style={{margin: deviceWidth * 0.04,}}>
