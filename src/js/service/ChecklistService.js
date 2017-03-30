@@ -84,6 +84,19 @@ class ChecklistService extends BaseService {
         return this.getChecklist(checklistUUID).areasOfConcern.find((aoc) => aoc.uuid === aocUUID).standards;
     }
 
+    getAreaConcernForStandard(checklistUUID, standardUUID) {
+        return this.getChecklist(checklistUUID).areasOfConcern.find((aoc) =>
+            !_.isEmpty(aoc.standards.find((standard) => standard.uuid === standardUUID)));
+    }
+
+    getStandardForMeasurableElement(checklistUUID, meUUID) {
+        return this.getChecklist(checklistUUID)
+            .areasOfConcern.find((aoc) =>
+                !_.isEmpty(aoc.standards
+                    .find((standard) => !_.isEmpty(standard.measurableElements
+                        .find((me) => me.uuid === meUUID)))));
+    }
+
     getCheckpointsFor(checklistUUID, aocUUID, standardUUID) {
         return _.flatten(this.getChecklist(checklistUUID).areasOfConcern
             .find((aoc) => aoc.uuid === aocUUID).standards

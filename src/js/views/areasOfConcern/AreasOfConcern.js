@@ -61,7 +61,7 @@ class AreasOfConcern extends AbstractComponent {
                         {fontWeight: 'bold', color: "white"}]}>
                         {this.props.params.checklist.name}
                     </Title>
-                    <Button transparent onPress={() => TypedTransition.from(this).to(SearchPage)}>
+                    <Button transparent onPress={() => TypedTransition.from(this).with({...this.props.params}).to(SearchPage)}>
                         <Icon style={{paddingTop: 10, color: "white"}} name='search'/>
                     </Button>
                 </Header>

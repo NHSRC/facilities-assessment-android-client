@@ -13,7 +13,6 @@ import Checklists from './Checklists';
 import AreasOfConcern from "../areasOfConcern/AreasOfConcern";
 import SubmitButton from '../common/SubmitButton';
 import Dashboard from '../dashboard/Dashboard';
-import SearchPage from '../search/SearchPage';
 
 
 const deviceWidth = Dimensions.get('window').width;
@@ -78,9 +77,6 @@ class ChecklistSelection extends AbstractComponent {
                         {fontWeight: 'bold', color: "white"}]}>
                         Assessment
                     </Title>
-                    <Button transparent onPress={() => TypedTransition.from(this).to(SearchPage)}>
-                        <Icon style={{paddingTop: 10, color: "white"}} name='search'/>
-                    </Button>
                 </Header>
                 <Content>
                     <View style={{margin: deviceWidth * 0.04,}}>

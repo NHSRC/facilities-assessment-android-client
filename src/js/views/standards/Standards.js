@@ -61,7 +61,8 @@ class Standards extends AbstractComponent {
                         {fontWeight: 'bold', color: "white"}]}>
                         {this.props.params.areaOfConcern.name}
                     </Title>
-                    <Button transparent onPress={() => TypedTransition.from(this).to(SearchPage)}>
+                    <Button transparent
+                            onPress={() => TypedTransition.from(this).with({...this.props.params}).to(SearchPage)}>
                         <Icon style={{paddingTop: 10, color: "white"}} name='search'/>
                     </Button>
                 </Header>

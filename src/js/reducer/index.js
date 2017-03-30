@@ -4,6 +4,7 @@ import assessmentActions, {assessmentInit} from '../action/assessment';
 import areasOfConcernActions, {areasOfConcernInit} from '../action/areasOfConcern';
 import standardsActions, {standardsInit} from '../action/standards';
 import openAssessmentsActions, {openAssessmentsInit} from '../action/openAssessments';
+import searchActions, {searchInit} from '../action/search';
 import Reducer from './Reducer';
 
 export default (beans) => {
@@ -38,6 +39,11 @@ export default (beans) => {
             "stateKey": "openAssessments",
             "actions": openAssessmentsActions,
             "initState": openAssessmentsInit
+        },
+        {
+            "stateKey": "search",
+            "actions": searchActions,
+            "initState": searchInit
         }
     ].forEach(({stateKey, actions, initState}) => {
         reducerMap[stateKey] = Reducer.factory(actions, initState, beans);

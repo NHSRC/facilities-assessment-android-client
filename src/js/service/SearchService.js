@@ -1,6 +1,7 @@
 import BaseService from "./BaseService";
 import Service from "../framework/bean/Service";
 import Tag from "../models/Tag";
+import _ from 'lodash';
 import AreaOfConcern from "../models/AreaOfConcern";
 import Standard from "../models/Standard";
 import MeasurableElement from "../models/MeasurableElement";
@@ -14,22 +15,23 @@ class SearchService extends BaseService {
     init() {
     }
 
+    search(schema, searchText) {
+        return _.isEmpty(searchText) ? [] :
+            this.db.objects(schema.schema.name)
+                .filtered('tags.name BEGINSWITH[c] $0', searchText)
+                .map(this.pickKeys(["reference"]));
+    }
+
     searchAreasOfConcern(searchText) {
-        return this.db.objects(AreaOfConcern.schema.name)
-            .filtered('tags.name BEGINSWITH[c] $0', searchText)
-            .map(this.nameAndId);
+        return this.search(AreaOfConcern, searchText);
     }
 
     searchStandards(searchText) {
-        return this.db.objects(Standard.schema.name)
-            .filtered('tags.name BEGINSWITH[c] $0', searchText)
-            .map(this.nameAndId);
+        return this.search(Standard, searchText);
     }
 
     searchMeasurableElements(searchText) {
-        return this.db.objects(MeasurableElement.schema.name)
-            .filtered('tags.name BEGINSWITH[c] $0', searchText)
-            .map(this.nameAndId);
+        return this.search(MeasurableElement, searchText);
     }
 }
 
