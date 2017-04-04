@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Text, StyleSheet, View, ScrollView, Dimensions} from 'react-native';
-import {Thumbnail} from 'native-base';
 import _ from 'lodash';
 import AbstractComponent from "../../common/AbstractComponent";
 import Dashboard from '../Dashboard';
@@ -8,7 +7,6 @@ import Actions from '../../../action';
 import AssessmentList from '../common/AssessmentList';
 import Reports from '../../reports/Reports';
 import TypedTransition from "../../../framework/routing/TypedTransition";
-const comingSoon = require('../../img/coming_soon.jpeg');
 
 const deviceWidth = Dimensions.get('window').width;
 
