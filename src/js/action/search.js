@@ -13,18 +13,6 @@ const searchFor = function (state, action, beans) {
         .filter((std) => !_.isEmpty(std.areaOfConcern));
 
     const measurableElements = [];
-    // searchService.searchMeasurableElements(action.searchText)
-    // .map((me) => Object.assign(me, {
-    //     standard: checklistService.getStandardForMeasurableElement(action.checklist.uuid, me.uuid)
-    // }))
-    // .filter((me) => !_.isEmpty(me.standard))
-    // .map((me) => Object.assign(me, {
-    //     standard: {
-    //         ...me.standard,
-    //         areasOfConcern: checklistService.getAreaConcernForStandard(action.checklist.uuid, me.standard.uuid)
-    //     }
-    // }))
-    // .filter((me) => !_.isEmpty(me.standard.areasOfConcern));
     return Object.assign(state, {
         searchText: action.searchText,
         results: {
