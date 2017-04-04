@@ -6,15 +6,16 @@ const searchFor = function (state, action, beans) {
     const searchService = beans.get(SearchService);
     const checklistService = beans.get(ChecklistService);
 
-    const areasOfConcern = searchService.searchAreasOfConcern(action.searchText);
+    const searchText = action.searchText;
+    const areasOfConcern = searchService.searchAreasOfConcern(searchText);
 
-    const standards = searchService.searchStandards(action.searchText)
+    const standards = searchService.searchStandards(searchText)
         .map((std) => Object.assign(std, {areaOfConcern: checklistService.getAreaConcernForStandard(action.checklist.uuid, std.uuid)}))
         .filter((std) => !_.isEmpty(std.areaOfConcern));
 
     const measurableElements = [];
     return Object.assign(state, {
-        searchText: action.searchText,
+        searchText: searchText,
         results: {
             AreasOfConcern: areasOfConcern,
             Standards: standards,
