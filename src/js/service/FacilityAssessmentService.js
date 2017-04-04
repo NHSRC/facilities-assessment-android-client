@@ -54,28 +54,31 @@ class FacilityAssessmentService extends BaseService {
         return Object.assign({}, this.db.objectForPrimaryKey(AssessmentType.schema.name, assessmentTypeUUID));
     }
 
-    getAssessmentsWithCriteria(criteria) {
-        const facilityService = this.getService(FacilityService);
-        return this.db.objects(FacilityAssessment.schema.name)
-            .filtered(criteria)
-            .map((assessment) =>
-                Object.assign({}, assessment, {
-                    facility: facilityService.getFacility(assessment.facility),
-                    assessmentTool: this.getAssessmentTool(assessment.assessmentTool),
-                    assessmentType: this.getAssessmentType(assessment.assessmentType)
-                }));
+    getAssessmentsWithCriteria(mode) {
+        return (criteria) => {
+            const facilityService = this.getService(FacilityService);
+            return this.db.objects(FacilityAssessment.schema.name)
+                .filtered(criteria)
+                .map((assessment) =>
+                    Object.assign({}, assessment, {
+                        facility: facilityService.getFacility(assessment.facility),
+                        assessmentTool: this.getAssessmentTool(assessment.assessmentTool),
+                        assessmentType: this.getAssessmentType(assessment.assessmentType)
+                    }))
+                .filter((assessment) => assessment.assessmentTool.mode.toLowerCase() === mode.toLowerCase());
+        };
     }
 
-    getAllOpenAssessments() {
-        return this.getAssessmentsWithCriteria('endDate = null AND submitted = false');
+    getAllOpenAssessments(mode) {
+        return this.getAssessmentsWithCriteria(mode)('endDate = null AND submitted = false');
     }
 
-    getAllCompletedAssessments() {
-        return this.getAssessmentsWithCriteria('endDate != null AND submitted = false');
+    getAllCompletedAssessments(mode) {
+        return this.getAssessmentsWithCriteria(mode)('endDate != null AND submitted = false');
     }
 
-    getAllSubmittedAssessments() {
-        return this.getAssessmentsWithCriteria('endDate != null AND submitted = true');
+    getAllSubmittedAssessments(mode) {
+        return this.getAssessmentsWithCriteria(mode)('endDate != null AND submitted = true');
     }
 }
 

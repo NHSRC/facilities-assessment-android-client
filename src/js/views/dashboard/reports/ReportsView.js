@@ -64,11 +64,7 @@ class ReportsView extends AbstractComponent {
                 <AssessmentList key={key} {...assessmentList}/>);
         return (
             <View style={Dashboard.styles.tab}>
-                <Text style={{color: 'white', fontSize: 36, alignSelf: 'center'}}>Coming Soon</Text>
-                <Thumbnail size={deviceWidth * .9}
-                           style={{alignSelf: 'center'}}
-                           resizeMode="contain"
-                           source={comingSoon}/>
+                {AssessmentLists}
             </View>
         );
     }

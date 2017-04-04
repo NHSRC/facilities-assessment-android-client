@@ -4,9 +4,10 @@ import FacilityAssessmentService from "../service/FacilityAssessmentService";
 
 const allAssessments = function (state, action, beans) {
     const assessmentService = beans.get(FacilityAssessmentService);
-    const openAssessments = assessmentService.getAllOpenAssessments();
-    const completedAssessments = assessmentService.getAllCompletedAssessments();
-    const submittedAssessments = assessmentService.getAllSubmittedAssessments();
+    const assessmentMode = action.mode;
+    const openAssessments = assessmentService.getAllOpenAssessments(assessmentMode);
+    const completedAssessments = assessmentService.getAllCompletedAssessments(assessmentMode);
+    const submittedAssessments = assessmentService.getAllSubmittedAssessments(assessmentMode);
     return Object.assign(state, {
         openAssessments: openAssessments,
         completedAssessments: completedAssessments,

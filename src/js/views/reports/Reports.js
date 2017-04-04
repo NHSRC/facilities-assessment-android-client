@@ -15,6 +15,9 @@ const comingSoon = require('../img/coming_soon.jpeg');
 class Reports extends AbstractComponent {
     constructor(props, context) {
         super(props, context);
+        const store = context.getStore();
+        // this.state = store.getState().reports;
+        // this.unsubscribe = this.unsubscribe = store.subscribeTo('reports', this.handleChange.bind(this));
     }
 
     static styles = StyleSheet.create({
