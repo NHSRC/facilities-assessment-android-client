@@ -9,7 +9,6 @@ import PrimaryColors from '../styles/PrimaryColors';
 import TypedTransition from "../../framework/routing/TypedTransition";
 
 const deviceWidth = Dimensions.get('window').width;
-const comingSoon = require('../img/coming_soon.jpeg');
 
 @Path("/reports")
 class Reports extends AbstractComponent {
