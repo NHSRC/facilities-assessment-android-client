@@ -77,7 +77,7 @@ class StartView extends AbstractComponent {
             [AssessmentTools, StateDistrict, FacilityType, Facility, AssessmentType, StartNewAssessment]
                 .map((FormComponent, idx) =>
                     <ListItem key={idx} style={StartView.styles.formRow}>
-                        <FormComponent data={this.state}/>
+                        <FormComponent data={this.state} {...this.props}/>
                     </ListItem>);
         return (
             <View style={Dashboard.styles.tab}>
