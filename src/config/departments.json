@@ -26,5 +26,9 @@
   {
     "name": "OPD",
     "uuid": "d4591d8e-3249-4cea-90b2-425665fdb0d0"
+  },
+  {
+    "name": "Pharmacy",
+    "uuid": "95f0e5fb-69fe-409a-bb9a-80715205fed3"
   }
 ]
