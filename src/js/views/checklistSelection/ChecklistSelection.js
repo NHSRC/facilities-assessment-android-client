@@ -62,7 +62,7 @@ class ChecklistSelection extends AbstractComponent {
             cb: () => TypedTransition.from(this).goBack(),
             ...this.props.params
         });
-        this.dispatchAction(Actions.ALL_ASSESSMENTS);
+        this.dispatchAction(Actions.ALL_ASSESSMENTS, {mode: this.props.params.mode});
     }
 
     render() {
