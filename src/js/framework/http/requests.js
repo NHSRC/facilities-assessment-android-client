@@ -1,4 +1,10 @@
-const fetchFactory = (endpoint, method = "GET", params) => fetch(endpoint, {"method": method, ...params});
+import _ from 'lodash';
+
+const fetchFactory = (endpoint, method = "GET", params, responseModifier, cb, errorHandler) =>
+    fetch(endpoint, {"method": method, ...params})
+        .then(responseModifier)
+        .then(cb)
+        .catch(errorHandler);
 
 const makeHeader = (type) => new Map([['json', {
     headers: {
@@ -8,30 +14,14 @@ const makeHeader = (type) => new Map([['json', {
 }], ['text', {headers: {'Accept': 'text/plain', 'Content-Type': 'text/plain'}}]]).get(type);
 
 
-let _get = (endpoint, cb, errorHandler) => {
-    return fetchFactory(endpoint, "GET", makeHeader("json"))
-        .then((response) => {
-            return response.json();
-        })
-        .then(cb)
-        .catch(errorHandler);
-};
+let _get = (endpoint, cb, errorHandler) =>
+    fetchFactory(endpoint, "GET", makeHeader("json"), (response) => response.json(), cb, errorHandler);
 
-let _getText = (endpoint, cb, errorHandler) => {
-    return fetchFactory(endpoint, "GET", makeHeader("text"))
-        .then((response) => {
-            return response.text();
-        })
-        .then(cb)
-        .catch(errorHandler);
-};
+let _getText = (endpoint, cb, errorHandler) =>
+    fetchFactory(endpoint, "GET", makeHeader("json"), (response) => response.text(), cb, errorHandler);
 
-let _post = (endpoint, file, cb) => {
-    return fetchFactory(endpoint, "POST", {body: file})
-        .then(cb)
-};
-
-export let post = _post;
+export let post = (endpoint, body, cb) =>
+    fetchFactory(endpoint, "POST", {body: JSON.stringify(body), ...makeHeader("json")}, _.identity, cb, ()=>{});
 
 export let get = (endpoint, cb, errorHandler) => {
     return new Map([[true, _get], [false, _getText]]).get(endpoint.endsWith(".json"))(endpoint, cb, errorHandler);

@@ -44,7 +44,10 @@ class OpenView extends AbstractComponent {
     }
 
     handleSubmit(assessment) {
-        return () => console.log(`Submit - ${assessment.facility.name} ${assessment.facility.facilityType.name}`);
+        return () => {
+            console.log(`Submit - ${assessment.facility.name} ${assessment.facility.facilityType.name}`);
+            return this.dispatchAction(Actions.SYNC_ASSESSMENT, {"assessment": assessment});
+        }
     }
 
     handleView(assessment) {

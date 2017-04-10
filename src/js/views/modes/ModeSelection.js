@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {Dimensions, View, Text, TouchableWithoutFeedback, StyleSheet, Image} from 'react-native';
-import {Container, Content, Title, Button, Header, Icon, Thumbnail, Card, CardItem, Footer} from 'native-base';
+import {Dimensions, View, Text, TouchableWithoutFeedback, StyleSheet, Image, TextInput} from 'react-native';
+import {Container, Content, Title, Button, Header, Icon, Thumbnail, Card, CardItem} from 'native-base';
 import AbstractComponent from "../common/AbstractComponent";
 import FlatUITheme from '../themes/flatUI';
 import TypedTransition from "../../framework/routing/TypedTransition";

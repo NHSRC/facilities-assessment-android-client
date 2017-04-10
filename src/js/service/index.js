@@ -7,3 +7,4 @@ export * from './DepartmentService';
 export * from './ChecklistService';
 export * from './CacheService';
 export * from './SearchService';
+export * from './SyncService';
