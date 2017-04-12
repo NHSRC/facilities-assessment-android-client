@@ -8,6 +8,7 @@ import DepartmentService from "./DepartmentService";
 import CacheService from "./CacheService";
 import {comp} from "transducers-js"
 import AreaOfConcern from "../models/AreaOfConcern";
+import CheckpointScore from "../models/CheckpointScore";
 
 @Service("checklistService")
 class ChecklistService extends BaseService {
@@ -15,7 +16,9 @@ class ChecklistService extends BaseService {
         super(db, beanStore);
         this.saveChecklist = this.save(Checklist, this.toStringObj("areasOfConcern"));
         this.saveCheckpoint = this.save(Checkpoint);
+        this.saveCheckpointScore = this.save(CheckpointScore, CheckpointScore.toDB);
         this.cacheAllChecklists = this.cacheAllChecklists.bind(this);
+        this.markCheckpointScoresSubmitted = this.markCheckpointScoresSubmitted.bind(this);
     }
 
     getChecklistsFor(assessmentTool) {
@@ -106,6 +109,19 @@ class ChecklistService extends BaseService {
 
     getMeasurableElement(measurableElementUUID) {
         return this.db.objectForPrimaryKey(MeasurableElement.schema.name, measurableElementUUID);
+    }
+
+    getCheckpointScoresFor(checklistUUID, assessmentUUID) {
+        return this.db.objects(CheckpointScore.schema.name)
+            .filtered("checklist = $0 AND facilityAssessment = $1", checklistUUID, assessmentUUID)
+            .map((checkpointScore) => Object.assign({}, checkpointScore));
+    }
+
+    markCheckpointScoresSubmitted(checkpointScores) {
+        return checkpointScores.map(({uuid}) => this.saveCheckpointScore({
+            uuid: uuid,
+            submitted: true
+        }));
     }
 }
 

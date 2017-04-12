@@ -74,11 +74,15 @@ class FacilityAssessmentService extends BaseService {
     }
 
     getAllCompletedAssessments(mode) {
-        return this.getAssessmentsWithCriteria(mode)('endDate != null AND submitted = false');
+        return this.getAssessmentsWithCriteria(mode)('endDate != null AND submitted = true');
     }
 
     getAllSubmittedAssessments(mode) {
         return this.getAssessmentsWithCriteria(mode)('endDate != null AND submitted = true');
+    }
+
+    markSubmitted({uuid}) {
+        return this.saveAssessment({uuid: uuid, submitted: true});
     }
 }
 

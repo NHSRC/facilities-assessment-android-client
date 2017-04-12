@@ -21,7 +21,7 @@ class AssessmentService extends BaseService {
         this.saveAreaOfConcernProgress = this.save(AreaOfConcernProgress, AreaOfConcernProgress.toDB);
         this.saveStandardProgress = this.save(StandardProgress, StandardProgress.toDB);
         this.saveCheckpoint = this.save(CheckpointScore, CheckpointScore.toDB);
-        this.saveChecklistProgress = this.save(ChecklistProgress, ChecklistProgress.toDB)
+        this.saveChecklistProgress = this.save(ChecklistProgress, ChecklistProgress.toDB);
         this.getChecklistProgress = this.getChecklistProgress.bind(this);
     }
 
