@@ -20,32 +20,37 @@ class SyncService extends BaseService {
     }
 
 
-    syncChecklists(facilityAssessment) {
-        const checklistService = this.getService(ChecklistService);
-        const facilityAssessmentService = this.getService(FacilityAssessmentService);
-        const batchRequest = new BatchRequest();
-        const checklists = checklistService.getChecklistsFor(facilityAssessment.assessmentTool);
-        checklists.map(({uuid, name, department, assessmentTool}) =>
-            Object.assign({
-                uuid: uuid,
-                name: name,
-                department: department.uuid,
-                facilityAssessment: facilityAssessment.uuid,
-                checkpointScores: checklistService
-                    .getCheckpointScoresFor(uuid, facilityAssessment.uuid)
-                    .map(checkpointScoreMapper)
-            }))
-            .map((checklist) =>
-                batchRequest.post(`${appConfig.serverURL}/api/facility-assessment/checklist`,
-                    checklist,
-                    checklistService.markCheckpointScoresSubmitted));
-        batchRequest.fire((final) => facilityAssessmentService.markSubmitted(facilityAssessment),
-            (error) => console.log("Failed"));
+    syncChecklists(cb) {
+        return (facilityAssessment) => {
+            const checklistService = this.getService(ChecklistService);
+            const facilityAssessmentService = this.getService(FacilityAssessmentService);
+            const batchRequest = new BatchRequest();
+            const checklists = checklistService.getChecklistsFor(facilityAssessment.assessmentTool);
+            checklists.map(({uuid, name, department, assessmentTool}) =>
+                Object.assign({
+                    uuid: uuid,
+                    name: name,
+                    department: department.uuid,
+                    facilityAssessment: facilityAssessment.uuid,
+                    checkpointScores: checklistService
+                        .getCheckpointScoresFor(uuid, facilityAssessment.uuid)
+                        .map(checkpointScoreMapper)
+                }))
+                .map((checklist) =>
+                    batchRequest.post(`${appConfig.serverURL}/api/facility-assessment/checklist`,
+                        checklist,
+                        checklistService.markCheckpointScoresSubmitted));
+            batchRequest.fire((final) => {
+                    facilityAssessmentService.markSubmitted(facilityAssessment);
+                    cb();
+                },
+                (error) => console.log("Failed"));
+        }
     }
 
-    syncFacilityAssessment(assessment) {
+    syncFacilityAssessment(assessment, cb) {
         let facilityAssessmentDTO = facilityAssessmentMapper(assessment);
-        post(`${appConfig.serverURL}/api/facility-assessment`, facilityAssessmentDTO, this.syncChecklists);
+        post(`${appConfig.serverURL}/api/facility-assessment`, facilityAssessmentDTO, this.syncChecklists(cb));
     }
 }
 

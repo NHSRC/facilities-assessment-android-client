@@ -44,10 +44,11 @@ class OpenView extends AbstractComponent {
     }
 
     handleSubmit(assessment) {
-        return () => {
-            console.log(`Submit - ${assessment.facility.name} ${assessment.facility.facilityType.name}`);
-            return this.dispatchAction(Actions.SYNC_ASSESSMENT, {"assessment": assessment});
-        }
+        return () => this.dispatchAction(Actions.SYNC_ASSESSMENT, {
+            "assessment": assessment,
+            cb: () => this.dispatchAction(Actions.ASSESSMENT_SYNCED, {assessment: assessment})
+        });
+
     }
 
     handleView(assessment) {
@@ -55,10 +56,12 @@ class OpenView extends AbstractComponent {
     }
 
     render() {
+        let completedAssessments = this.state.completedAssessments.map((assessment) => this.state.syncing.indexOf(assessment.uuid) >= 0 ?
+            {syncing: true, ...assessment} : assessment);
         const AssessmentLists = [
             {
                 header: "SUBMIT ASSESSMENTS",
-                assessments: this.state.completedAssessments,
+                assessments: completedAssessments,
                 buttonText: "SUBMIT",
                 handlePress: this.handleSubmit.bind(this),
             },

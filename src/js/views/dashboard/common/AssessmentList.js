@@ -1,5 +1,13 @@
 import React, {Component} from 'react';
-import {Text, StyleSheet, View, ScrollView, Dimensions, TouchableWithoutFeedback} from 'react-native';
+import {
+    Text,
+    StyleSheet,
+    View,
+    ScrollView,
+    Dimensions,
+    TouchableWithoutFeedback,
+    ActivityIndicator
+} from 'react-native';
 import AbstractComponent from "../../common/AbstractComponent";
 import Actions from '../../../action';
 import Dashboard from '../Dashboard';
@@ -57,6 +65,16 @@ class AssessmentList extends AbstractComponent {
         },
     });
 
+    renderSpinner() {
+        return (<ActivityIndicator animating={true} size={"large"} style={{height: 80}}/>);
+    }
+
+    renderButtonContent(buttonText) {
+        return (
+            <Text style={[Typography.paperFontBody1, {color: "white"}]}>
+                {buttonText}
+            </Text>);
+    }
 
     renderAssessment(assessment, key) {
         return (
@@ -72,9 +90,7 @@ class AssessmentList extends AbstractComponent {
                 <View style={AssessmentList.styles.listItemButtonContainer}>
                     <TouchableWithoutFeedback onPress={this.props.handlePress(assessment)}>
                         <View style={AssessmentList.styles.listItemButton}>
-                            <Text style={[Typography.paperFontBody1, {color: "white"}]}>
-                                {this.props.buttonText}
-                            </Text>
+                            {assessment.syncing ? this.renderSpinner() : this.renderButtonContent(this.props.buttonText)}
                         </View>
                     </TouchableWithoutFeedback>
                 </View>
