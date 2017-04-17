@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, StyleSheet, View, ScrollView, Dimensions} from 'react-native';
+import {Text, StyleSheet, View, ScrollView, Dimensions, Alert} from 'react-native';
 import AbstractComponent from "../common/AbstractComponent";
 import {Container, Header, Title, Content, Icon, Button} from 'native-base';
 import PrimaryColors from '../styles/PrimaryColors';
@@ -58,11 +58,24 @@ class ChecklistSelection extends AbstractComponent {
     }
 
     completeAssessment() {
-        this.dispatchAction(Actions.COMPLETE_ASSESSMENT, {
-            cb: () => TypedTransition.from(this).goBack(),
-            ...this.props.params
-        });
-        this.dispatchAction(Actions.ALL_ASSESSMENTS, {mode: this.props.params.mode});
+        Alert.alert("Confirmation", "Are you sure you want to close/complete the assessment?", [
+            {
+                text: "Yes",
+                onPress: () => {
+                    this.dispatchAction(Actions.COMPLETE_ASSESSMENT, {
+                        cb: () => TypedTransition.from(this).goBack(),
+                        ...this.props.params
+                    });
+                    this.dispatchAction(Actions.ALL_ASSESSMENTS, {mode: this.props.params.mode});
+                }
+            },
+            {
+                text: "No",
+                onPress: () => {},
+                style: 'cancel'
+            }
+        ]);
+
     }
 
     render() {
