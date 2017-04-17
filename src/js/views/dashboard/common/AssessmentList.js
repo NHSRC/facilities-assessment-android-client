@@ -66,7 +66,7 @@ class AssessmentList extends AbstractComponent {
     });
 
     renderSpinner() {
-        return (<ActivityIndicator animating={true} size={"large"} style={{height: 80}}/>);
+        return (<ActivityIndicator animating={true} size={"large"} color="white" style={{height: 80}}/>);
     }
 
     renderButtonContent(buttonText) {

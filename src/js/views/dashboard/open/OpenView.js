@@ -46,7 +46,7 @@ class OpenView extends AbstractComponent {
     handleSubmit(assessment) {
         return () => this.dispatchAction(Actions.SYNC_ASSESSMENT, {
             "assessment": assessment,
-            cb: () => this.dispatchAction(Actions.ASSESSMENT_SYNCED, {assessment: assessment})
+            cb: () => this.dispatchAction(Actions.ASSESSMENT_SYNCED, {assessment: assessment, ...this.props})
         });
 
     }

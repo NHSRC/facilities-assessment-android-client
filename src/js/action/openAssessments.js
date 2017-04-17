@@ -23,7 +23,15 @@ const syncAssessment = function (state, action, beans) {
 };
 
 const assessmentSynced = function (state, action, beans) {
-    return Object.assign(state, {syncing: state.syncing.filter((uuid) => uuid !== action.assessment.uuid)});
+    const assessmentService = beans.get(FacilityAssessmentService);
+    const assessmentMode = action.mode;
+    const completedAssessments = assessmentService.getAllCompletedAssessments(assessmentMode);
+    const submittedAssessments = assessmentService.getAllSubmittedAssessments(assessmentMode);
+    return Object.assign(state, {
+        syncing: state.syncing.filter((uuid) => uuid !== action.assessment.uuid),
+        completedAssessments: completedAssessments,
+        submittedAssessments: submittedAssessments
+    });
 };
 
 
