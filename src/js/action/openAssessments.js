@@ -34,10 +34,22 @@ const assessmentSynced = function (state, action, beans) {
     });
 };
 
+const markAssessmentUnsubmitted = function (state, action, beans) {
+    if (_.isEmpty(action.facilityAssessment.endDate) && !action.facilityAssessment.submitted) return {...state};
+    const assessmentService = beans.get(FacilityAssessmentService);
+    assessmentService.markUnSubmitted(action.facilityAssessment);
+    const assessmentMode = action.mode;
+    const openAssessments = assessmentService.getAllOpenAssessments(assessmentMode);
+    const submittedAssessments = assessmentService.getAllSubmittedAssessments(assessmentMode);
+    return Object.assign(state, {openAssessments: openAssessments, submittedAssessments: submittedAssessments});
+};
+
 
 export default new Map([
     ["ALL_ASSESSMENTS", allAssessments],
     ["SYNC_ASSESSMENT", syncAssessment],
+    ["COMPLETE_ASSESSMENT", allAssessments],
+    ["UPDATE_CHECKPOINT", markAssessmentUnsubmitted],
     ["ASSESSMENT_SYNCED", assessmentSynced],
 ]);
 

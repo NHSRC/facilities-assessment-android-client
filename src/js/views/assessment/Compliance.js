@@ -34,6 +34,7 @@ class Compliance extends AbstractComponent {
 
             this.dispatchAction(Actions.UPDATE_CHECKPOINT, {
                 checkpoint: Object.assign(this.props.checkpoint, {score: score}),
+                ...this.props.params
             });
         }
     }

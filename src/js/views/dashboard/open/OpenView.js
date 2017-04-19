@@ -52,7 +52,7 @@ class OpenView extends AbstractComponent {
     }
 
     handleView(assessment) {
-        return () => console.log(`View - ${assessment.facility.name} ${assessment.facility.facilityType.name}`);
+        return this.handleContinue(assessment);
     }
 
     render() {

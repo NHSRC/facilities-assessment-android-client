@@ -84,6 +84,10 @@ class FacilityAssessmentService extends BaseService {
     markSubmitted({uuid}) {
         return this.saveAssessment({uuid: uuid, submitted: true});
     }
+
+    markUnSubmitted({uuid}) {
+        return this.saveAssessment({uuid: uuid, submitted: false, endDate: null});
+    }
 }
 
 export default FacilityAssessmentService;
