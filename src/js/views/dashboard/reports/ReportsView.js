@@ -48,14 +48,22 @@ class ReportsView extends AbstractComponent {
             {
                 header: "COMPLETED ASSESSMENTS",
                 assessments: this.state.completedAssessments,
-                buttonText: "VIEW DETAILS",
-                handlePress: this.showReports.bind(this),
+                buttons: [
+                    {
+                        text: "VIEW DETAILS",
+                        onPress: this.showReports.bind(this)
+                    },
+                ]
             },
             {
                 header: "SUBMITTED ASSESSMENTS",
                 assessments: this.state.submittedAssessments,
-                buttonText: "VIEW DETAILS",
-                handlePress: this.showReports.bind(this),
+                buttons: [
+                    {
+                        text: "VIEW DETAILS",
+                        onPress: this.showReports.bind(this)
+                    },
+                ]
             }
         ].filter(({assessments}) => !_.isEmpty(assessments))
             .map((assessmentList, key) =>

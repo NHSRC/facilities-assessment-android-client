@@ -51,10 +51,6 @@ class OpenView extends AbstractComponent {
 
     }
 
-    handleView(assessment) {
-        return this.handleContinue(assessment);
-    }
-
     render() {
         let completedAssessments = this.state.completedAssessments.map((assessment) => this.state.syncing.indexOf(assessment.uuid) >= 0 ?
             {syncing: true, ...assessment} : assessment);
@@ -62,20 +58,36 @@ class OpenView extends AbstractComponent {
             {
                 header: "SUBMIT ASSESSMENTS",
                 assessments: completedAssessments,
-                buttonText: "SUBMIT",
-                handlePress: this.handleSubmit.bind(this),
+                buttons: [
+                    {
+                        text: "SUBMIT",
+                        onPress: this.handleSubmit.bind(this)
+                    },
+                    {
+                        text: "EDIT",
+                        onPress: this.handleContinue.bind(this)
+                    }
+                ]
             },
             {
                 header: "OPEN ASSESSMENTS",
                 assessments: this.state.openAssessments,
-                buttonText: "CONTINUE",
-                handlePress: this.handleContinue.bind(this),
+                buttons: [
+                    {
+                        text: "CONTINUE",
+                        onPress: this.handleContinue.bind(this)
+                    },
+                ]
             },
             {
                 header: "SUBMITTED ASSESSMENTS",
                 assessments: this.state.submittedAssessments,
-                buttonText: "VIEW",
-                handlePress: this.handleView.bind(this),
+                buttons: [
+                    {
+                        text: "EDIT",
+                        onPress: this.handleContinue.bind(this)
+                    },
+                ]
             }
         ].filter(({assessments}) => !_.isEmpty(assessments))
             .map((assessmentList, key) =>

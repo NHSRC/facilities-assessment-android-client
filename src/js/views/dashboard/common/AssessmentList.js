@@ -77,6 +77,14 @@ class AssessmentList extends AbstractComponent {
     }
 
     renderAssessment(assessment, key) {
+        const buttons = this.props.buttons.map((button, key) =>
+            <View key={key} style={AssessmentList.styles.listItemButtonContainer}>
+                <TouchableWithoutFeedback onPress={button.onPress(assessment)}>
+                    <View style={AssessmentList.styles.listItemButton}>
+                        {assessment.syncing ? this.renderSpinner() : this.renderButtonContent(button.text)}
+                    </View>
+                </TouchableWithoutFeedback>
+            </View>);
         return (
             <View key={key} style={AssessmentList.styles.listItem}>
                 <View style={AssessmentList.styles.listItemText}>
@@ -87,13 +95,7 @@ class AssessmentList extends AbstractComponent {
                         {assessment.facility.facilityType.name}
                     </Text>
                 </View>
-                <View style={AssessmentList.styles.listItemButtonContainer}>
-                    <TouchableWithoutFeedback onPress={this.props.handlePress(assessment)}>
-                        <View style={AssessmentList.styles.listItemButton}>
-                            {assessment.syncing ? this.renderSpinner() : this.renderButtonContent(this.props.buttonText)}
-                        </View>
-                    </TouchableWithoutFeedback>
-                </View>
+                {buttons}
             </View>);
     }
 
