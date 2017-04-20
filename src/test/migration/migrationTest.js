@@ -1,6 +1,5 @@
 import {expect} from 'chai';
 import realmObj from '../../js/models/index';
-import FacilityAssessment from '../../js/models/FacilityAssessment';
 
 describe('Migration Framework Test', () => {
     it("Shouldn't run migrations if version is up to date", () => {
