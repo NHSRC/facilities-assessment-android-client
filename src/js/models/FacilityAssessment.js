@@ -7,6 +7,7 @@ class FacilityAssessment {
         primaryKey: 'uuid',
         properties: {
             uuid: 'string',
+            syncedUuid: {type: 'string', optional: true},
             facility: 'string',
             assessmentTool: 'string',
             assessmentType: 'string',

@@ -20,10 +20,14 @@ class SyncService extends BaseService {
     }
 
 
-    syncChecklists(cb) {
+    syncChecklists(originalAssessment, cb) {
         return (facilityAssessment) => {
             const checklistService = this.getService(ChecklistService);
             const facilityAssessmentService = this.getService(FacilityAssessmentService);
+            facilityAssessmentService.addSyncedUuid({
+                uuid: originalAssessment.uuid,
+                syncedUuid: facilityAssessment.uuid
+            });
             const batchRequest = new BatchRequest();
             const checklists = checklistService.getChecklistsFor(facilityAssessment.assessmentTool);
             checklists.map(({uuid, name, department, assessmentTool}) =>
@@ -31,9 +35,9 @@ class SyncService extends BaseService {
                     uuid: uuid,
                     name: name,
                     department: department.uuid,
-                    facilityAssessment: facilityAssessment.uuid,
+                    facilityAssessment: originalAssessment.uuid,
                     checkpointScores: checklistService
-                        .getCheckpointScoresFor(uuid, facilityAssessment.uuid)
+                        .getCheckpointScoresFor(uuid, originalAssessment.uuid)
                         .map(checkpointScoreMapper)
                 }))
                 .map((checklist) =>
@@ -41,7 +45,7 @@ class SyncService extends BaseService {
                         checklist,
                         checklistService.markCheckpointScoresSubmitted));
             batchRequest.fire((final) => {
-                    facilityAssessmentService.markSubmitted(facilityAssessment);
+                    facilityAssessmentService.markSubmitted(originalAssessment);
                     cb();
                 },
                 (error) => console.log("Failed"));
@@ -50,7 +54,8 @@ class SyncService extends BaseService {
 
     syncFacilityAssessment(assessment, cb) {
         let facilityAssessmentDTO = facilityAssessmentMapper(assessment);
-        post(`${appConfig.serverURL}/api/facility-assessment`, facilityAssessmentDTO, this.syncChecklists(cb));
+        post(`${appConfig.serverURL}/api/facility-assessment`, facilityAssessmentDTO,
+            this.syncChecklists(assessment, cb));
     }
 }
 

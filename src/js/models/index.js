@@ -17,7 +17,21 @@ import Tag from './Tag';
 import ChecklistProgress from './ChecklistProgress';
 import AreaOfConcernProgress from './AreaOfConcernProgress';
 import StandardProgress from './StandardProgress';
+import _ from 'lodash';
 
 export default {
-    schema: [StringObj, ChecklistProgress, StandardProgress, AreaOfConcernProgress, Tag, Checkpoint, MeasurableElement, Standard, AreaOfConcern, Department, FacilityType, AssessmentTool, Facility, District, State, Checklist, FacilityAssessment, CheckpointScore, AssessmentType]
+    schema: [StringObj, ChecklistProgress, StandardProgress, AreaOfConcernProgress, Tag, Checkpoint, MeasurableElement, Standard, AreaOfConcern, Department, FacilityType, AssessmentTool, Facility, District, State, Checklist, FacilityAssessment, CheckpointScore, AssessmentType],
+    schemaVersion: 1,
+    migration: (oldRealm, newRealm) => {
+        const version = (version) => (db) => db.schemaVersion < version;
+        const addingSyncedUUID = (oldDB, newDB) => {
+            let oldObjs = oldDB.objects(FacilityAssessment.schema.name);
+            let newObjs = newDB.objects(FacilityAssessment.schema.name);
+            newObjs.forEach((newObj) => newObj.syncedUuid = null);
+        };
+
+        const migrationMap = [[version(1), addingSyncedUUID]];
+        migrationMap.filter(([matcher, ign]) => matcher(oldRealm))
+            .forEach(([ign, execFn]) => execFn(oldRealm, newRealm));
+    }
 };
