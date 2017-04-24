@@ -18,5 +18,5 @@ describe('Migration Framework Test', () => {
         let newDB = {schemaVersion: 1, objects: () => newObjs};
         realmObj.migration(oldDB, newDB);
         expect(newDB.objects()).to.deep.equal([{name: "Something", syncedUuid: null}]);
-    })
+    });
 });

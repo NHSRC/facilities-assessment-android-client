@@ -30,8 +30,13 @@ export default {
             newObjs.forEach((newObj) => newObj.syncedUuid = null);
         };
 
+        const migrationExecutor = (fn) => (oldRealm, newRealm) => {
+            fn.apply(null, [oldRealm, newRealm]);
+            newRealm = oldRealm;
+        };
+
         const migrationMap = [[version(1), addingSyncedUUID]];
         migrationMap.filter(([matcher, ign]) => matcher(oldRealm))
-            .forEach(([ign, execFn]) => execFn(oldRealm, newRealm));
+            .forEach(([ign, execFn]) => migrationExecutor(execFn)(oldRealm, newRealm));
     }
 };
