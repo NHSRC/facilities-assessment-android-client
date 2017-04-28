@@ -1,14 +1,14 @@
 [
   {
     "name": "District Hospital",
-    "uuid": "2681eb75-072d-407d-b363-77d0637beb0c"
+    "uuid": "77cceb53-7d71-456c-a9ee-c870774707ad"
   },
   {
     "name": "Primary Health Center",
-    "uuid": "354b88eb-94af-4bf3-8c2a-84116de5b227"
+    "uuid": "c1837c18-5b63-4e3f-8e56-cb5d9bdf2e86"
   },
   {
     "name": "Community Hospital",
-    "uuid": "960cca17-fedc-4566-ab25-5da1b5d54d88"
+    "uuid": "be22ffe8-ce18-4aac-a50d-fa1ee9a93251"
   }
 ]
