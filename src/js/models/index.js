@@ -24,6 +24,7 @@ export default {
     schemaVersion: 1,
     migration: (oldRealm, newRealm) => {
         const version = (version) => (db) => db.schemaVersion < version;
+
         const addingSyncedUUID = (oldDB, newDB) => {
             let oldObjs = oldDB.objects(FacilityAssessment.schema.name);
             let newObjs = newDB.objects(FacilityAssessment.schema.name);
@@ -36,6 +37,7 @@ export default {
         };
 
         const migrationMap = [[version(1), addingSyncedUUID]];
+
         migrationMap.filter(([matcher, ign]) => matcher(oldRealm))
             .forEach(([ign, execFn]) => migrationExecutor(execFn)(oldRealm, newRealm));
     }
