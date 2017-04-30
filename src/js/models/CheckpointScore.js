@@ -12,7 +12,7 @@ class CheckpointScore {
             areaOfConcern: 'string',
             standard: 'string',
             checkpoint: 'string',
-            score: {type: 'int', default: 0},
+            score: {type: 'int', optional: true},
             remarks: {type: 'string', optional: true},
             dateUpdated: {type: 'date', default: new Date()},
             submitted: {type: 'bool', default: false},

@@ -56,7 +56,7 @@ class QuestionAnswer extends AbstractComponent {
                         <AnswerInfo checkpoint={this.props.currentCheckpoint}/>
                         <CheckpointText checkpoint={this.props.currentCheckpoint}/>
                         <Compliance checkpoint={this.props.currentCheckpoint} {...this.props}/>
-                        <Remarks checkpoint={this.props.currentCheckpoint}/>
+                        <Remarks checkpoint={this.props.currentCheckpoint} {...this.props}/>
                     </View>
                 </View>
                 <Toolbar checkpoint={this.props.currentCheckpoint} {...this.props}/>
