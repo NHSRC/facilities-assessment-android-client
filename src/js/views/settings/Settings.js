@@ -59,13 +59,15 @@ class Settings extends AbstractComponent {
         return (
             <Container theme={FlatUITheme}>
                 <Header style={Settings.styles.header}>
-                    <Button transparent>
-                        <Icon style={{marginTop: 10, color: 'white'}} name="menu"/>
+                    <Button
+                        onPress={() => TypedTransition.from(this).goBack()}
+                        transparent>
+                        <Icon style={{marginTop: 10, color: 'white'}} name="arrow-back"/>
                     </Button>
                     <Title style={[Typography.paperFontHeadline, {
                         fontWeight: 'bold',
                         color: 'white'
-                    }]}>Menu</Title>
+                    }]}>Settings</Title>
                 </Header>
                 <Content>
                     <View style={Settings.styles.container}>
@@ -89,7 +91,7 @@ class Settings extends AbstractComponent {
                                 "SYNC META-DATA"}
                             onPress={() =>
                                 this.dispatchAction(Actions.SYNC_META_DATA,
-                                    {cb: ()=>this.dispatchAction(Actions.SYNCED_META_DATA)})}
+                                    {cb: () => this.dispatchAction(Actions.SYNCED_META_DATA)})}
                             showButton={true}/>
                         <Text style={{color: "white", marginBottom: 30}}>
                             Last Synced Date - {formatDate(this.state.lastSyncedDate)}
