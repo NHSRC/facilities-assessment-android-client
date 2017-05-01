@@ -59,6 +59,11 @@ class SyncService extends BaseService {
         post(`${this.serverURL}/api/facility-assessment`, facilityAssessmentDTO,
             this.syncChecklists(assessment, cb));
     }
+
+    syncMetaData(cb) {
+        console.log("Syncing MEta Data");
+        setTimeout(cb, 2000);
+    }
 }
 
 export default SyncService;

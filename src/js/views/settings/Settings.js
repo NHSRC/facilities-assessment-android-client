@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
-import {Dimensions, View, Text, TouchableWithoutFeedback, StyleSheet, Image, TextInput} from 'react-native';
+import {
+    Dimensions, View, Text, TouchableWithoutFeedback, StyleSheet, Image, TextInput,
+    ActivityIndicator
+} from 'react-native';
 import {Container, Content, Title, Button, Header, Icon, InputGroup, Input} from 'native-base';
 import AbstractComponent from "../common/AbstractComponent";
 import FlatUITheme from '../themes/flatUI';
@@ -9,6 +12,7 @@ import Path from "../../framework/routing/Path";
 import PrimaryColors from "../styles/PrimaryColors";
 import Typography from "../styles/Typography";
 import Actions from '../../action';
+import {formatDate} from '../../utility/DateUtils';
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
@@ -38,7 +42,7 @@ class Settings extends AbstractComponent {
         textBox: {
             alignSelf: 'stretch',
             marginTop: 8,
-            marginBottom: 8
+            marginBottom: 20
         },
     });
 
@@ -77,6 +81,21 @@ class Settings extends AbstractComponent {
                                     placeholder='http://enter-your-server-url.com'/>
                             </InputGroup>
                         </View>
+
+                        <SubmitButton
+                            buttonText={this.state.syncing ?
+                                (<ActivityIndicator animating={true} size={"large"} color="white"
+                                                    style={{height: 80}}/>) :
+                                "SYNC META-DATA"}
+                            onPress={() =>
+                                this.dispatchAction(Actions.SYNC_META_DATA,
+                                    {cb: ()=>this.dispatchAction(Actions.SYNCED_META_DATA)})}
+                            showButton={true}/>
+                        <Text style={{color: "white", marginBottom: 30}}>
+                            Last Synced Date - {formatDate(this.state.lastSyncedDate)}
+                        </Text>
+
+
                         <SubmitButton buttonText={"UPDATE SETTINGS"}
                                       onPress={() => this.dispatchAction(Actions.UPDATE_SETTINGS)}
                                       showButton={true}/>
