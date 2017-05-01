@@ -7,7 +7,8 @@ import BatchRequest from "../framework/http/BatchRequest";
 import ChecklistService from "./ChecklistService";
 import checkpointScoreMapper from '../mapper/checkpointScoreMapper';
 import FacilityAssessmentService from './FacilityAssessmentService';
-import appConfig from '../../config/app.config.json';
+import SettingsService from './SettingsService';
+
 
 @Service("syncService")
 class SyncService extends BaseService {
@@ -17,6 +18,7 @@ class SyncService extends BaseService {
     }
 
     init() {
+        this.serverURL = this.getService(SettingsService).getServerURL();
     }
 
 
@@ -41,7 +43,7 @@ class SyncService extends BaseService {
                         .map(checkpointScoreMapper)
                 }))
                 .map((checklist) =>
-                    batchRequest.post(`${appConfig.serverURL}/api/facility-assessment/checklist`,
+                    batchRequest.post(`${this.serverURL}/api/facility-assessment/checklist`,
                         checklist,
                         checklistService.markCheckpointScoresSubmitted));
             batchRequest.fire((final) => {
@@ -54,7 +56,7 @@ class SyncService extends BaseService {
 
     syncFacilityAssessment(assessment, cb) {
         let facilityAssessmentDTO = facilityAssessmentMapper(assessment);
-        post(`${appConfig.serverURL}/api/facility-assessment`, facilityAssessmentDTO,
+        post(`${this.serverURL}/api/facility-assessment`, facilityAssessmentDTO,
             this.syncChecklists(assessment, cb));
     }
 }

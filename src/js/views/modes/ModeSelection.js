@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Dimensions, View, Text, TouchableWithoutFeedback, StyleSheet, Image, TextInput} from 'react-native';
+import {Dimensions, View, Text, Navigator, StyleSheet} from 'react-native';
 import {Container, Content, Title, Button, Header, Icon, Thumbnail, Card, CardItem} from 'native-base';
 import AbstractComponent from "../common/AbstractComponent";
 import FlatUITheme from '../themes/flatUI';
@@ -8,6 +8,7 @@ import Path, {PathRoot} from "../../framework/routing/Path";
 import PrimaryColors from "../styles/PrimaryColors";
 import Typography from "../styles/Typography";
 import Dashboard from '../dashboard/Dashboard';
+import Settings from "../settings/Settings";
 const nqasIcon = require('../img/nqas.png');
 const kayakalpIcon = require('../img/kayakalp.png');
 
@@ -75,7 +76,9 @@ class ModeSelection extends AbstractComponent {
         return (
             <Container theme={FlatUITheme}>
                 <Header style={ModeSelection.styles.header}>
-                    <Button transparent>
+                    <Button
+                        onPress={() => TypedTransition.from(this).to(Settings, Navigator.SceneConfigs.FloatFromLeft)}
+                        transparent>
                         <Icon style={{marginTop: 10, color: 'white'}} name="menu"/>
                     </Button>
                     <Title style={[Typography.paperFontHeadline, {

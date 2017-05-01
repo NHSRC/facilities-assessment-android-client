@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, StyleSheet, View, ScrollView, Dimensions} from 'react-native';
+import {Text, StyleSheet, View, ScrollView, Dimensions, Navigator} from 'react-native';
 import AbstractComponent from "../common/AbstractComponent";
 import StartView from './start/StartView';
 import FlatUITheme from '../themes/flatUI';
@@ -10,6 +10,8 @@ import Path, {PathRoot} from "../../framework/routing/Path";
 import Typography from '../styles/Typography';
 import CustomTabBar from '../common/CustomTabBar';
 import PrimaryColors from '../styles/PrimaryColors';
+import TypedTransition from "../../framework/routing/TypedTransition";
+import Settings from "../settings/Settings";
 
 const deviceWidth = Dimensions.get('window').width;
 
@@ -40,7 +42,9 @@ class Dashboard extends AbstractComponent {
             <Container theme={FlatUITheme}>
                 <Content>
                     <Header style={Dashboard.styles.header}>
-                        <Button transparent>
+                        <Button
+                            onPress={() => TypedTransition.from(this).to(Settings, Navigator.SceneConfigs.FloatFromLeft)}
+                            transparent>
                             <Icon style={{marginTop: 10, color: "white"}} name="menu"/>
                         </Button>
                         <Title style={[Typography.paperFontHeadline, {
