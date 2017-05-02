@@ -27,3 +27,10 @@ export let post = (endpoint, body, cb) =>
 export let get = (endpoint, cb, errorHandler) => {
     return new Map([[true, _get], [false, _getText]]).get(endpoint.endsWith(".json"))(endpoint, cb, errorHandler);
 };
+
+export let getJSON = (endpoint, cb, errorHandler) => {
+    if (errorHandler === undefined) {
+        errorHandler = (arg) => {};
+    }
+    return _get(endpoint, cb, errorHandler);
+};

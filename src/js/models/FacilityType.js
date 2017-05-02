@@ -1,4 +1,6 @@
-class FacilityType {
+import BaseEntity from "./BaseEntity";
+
+class FacilityType extends BaseEntity {
     static schema = {
         name: 'FacilityType',
         primaryKey: 'uuid',
