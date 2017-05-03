@@ -1,11 +1,14 @@
 import _ from "lodash";
 import DefaultEntityResourceMapper from "./DefaultEntityResourceMapper";
+import EntityService from "../../service/EntityService";
+import Logger from "../../framework/Logger";
 
 class EntityMetaData {
-    constructor(entityType, parentClass, mapper) {
+    constructor(entityType, parentClass, mapper, serviceClass) {
         this.entityType = entityType;
         this.mapper = _.isNil(mapper) ? DefaultEntityResourceMapper : mapper;
         this.parentClass = parentClass;
+        this.serviceClass = _.isNil(serviceClass) ? EntityService : serviceClass;
     }
 
     get entityClass() {
@@ -17,11 +20,11 @@ class EntityMetaData {
     }
 
     get resourceName() {
-        return _.camelCase(this.entityType.schema.name);
+        return _.camelCase(this.entityName);
     }
 
     get entityName() {
-        return this.entityType.schema.name;
+        return _.isNil(this.entityType.schema) ? this.entityType.entityName : this.entityType.schema.name;
     }
 }
 

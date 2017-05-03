@@ -5,6 +5,8 @@ import _ from "lodash";
 import UUID from "../utility/UUID";
 import Logger from "../framework/Logger";
 import EntitiesMetaData from '../models/entityMetaData/EntitiesMetaData';
+import EntityMetaData from "../models/entityMetaData/EntityMetaData";
+import FacilityType from "../models/FacilityType";
 
 @Service("entitySyncStatusService")
 class EntitySyncStatusService extends BaseService {
@@ -12,12 +14,12 @@ class EntitySyncStatusService extends BaseService {
         super(db, beanStore);
     }
 
-    init() {
-        this.setup(EntitiesMetaData.referenceEntityTypes);
-    }
-
     getSchema() {
         return EntitySyncStatus.schema.name;
+    }
+
+    init() {
+        this.setup(EntitiesMetaData.referenceEntityTypes);
     }
 
     get(entityName) {
@@ -28,16 +30,15 @@ class EntitySyncStatusService extends BaseService {
         return entitySyncStatuses[0];
     }
 
-    setup(entityMetaDataModel) {
+    setup(entitiesMetaData) {
         const self = this;
-
-        entityMetaDataModel.forEach(function(entity) {
-            if (_.isNil(self.get(entity.entityName))) {
+        entitiesMetaData.forEach((entityMetaData) => {
+            if (_.isNil(self.get(entityMetaData.entityName))) {
                 try {
-                    const entitySyncStatus = EntitySyncStatus.create(entity.entityName, EntitySyncStatus.REALLY_OLD_DATE, UUID.generate());
+                    const entitySyncStatus = EntitySyncStatus.create(entityMetaData.entityName, EntitySyncStatus.REALLY_OLD_DATE, UUID.generate());
                     self.save(EntitySyncStatus)(entitySyncStatus);
                 } catch (e) {
-                    Logger.logError('EntitySyncStatusService', `${entity.entityName} failed`);
+                    Logger.logError('EntitySyncStatusService', `${entityMetaData.entityName} failed`);
                     throw e;
                 }
             }
