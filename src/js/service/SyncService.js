@@ -71,7 +71,7 @@ class SyncService extends BaseService {
     }
 
     syncMetaData(cb) {
-        this.pullData(EntitiesMetaData.referenceEntityTypes.map(_.identity));
+        this.pullData(EntitiesMetaData.referenceEntityTypes);
         setTimeout(cb, 2000);
     }
 
