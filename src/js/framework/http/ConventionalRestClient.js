@@ -24,7 +24,6 @@ class ConventionalRestClient {
 
         const url = `${urlParts.join("/")}?${params.join("&")}`;
 
-        Logger.logDebug('ConventionalRestClient', `Calling: ${url}`);
         getJSON(url, (response) => {
             const resources = response["_embedded"][`${entityMetaData.resourceName}`];
             _.forEach(resources, (resource) => {

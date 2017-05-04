@@ -1,16 +1,16 @@
-import React, {Component} from "react";
-import PathRegistry from "./framework/routing/PathRegistry";
-import "./views";
-import AppStoreFactory from "./store/AppStore";
+import React, {Component} from 'react';
+import PathRegistry from './framework/routing/PathRegistry';
+import './views';
+import AppStoreFactory from './store/AppStore';
 import Realm from "realm";
-import models from "./models";
+import models from './models';
 import BeanRegistry from "./framework/bean/BeanRegistry";
-import Logger from "./framework/Logger";
+import SeedDataService from "./service/SeedDataService";
 
 export default class App extends Component {
+
     constructor(props, context) {
         super(props, context);
-        Logger.setCurrentLogLevel(Logger.LogLevel.Debug);
         this.db = new Realm(models);
         this.beans = BeanRegistry.init(this.db, this);
         this.routes = PathRegistry.routes();
