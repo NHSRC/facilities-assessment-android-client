@@ -113,7 +113,7 @@ class ChecklistService extends BaseService {
 
     getCheckpointScoresFor(checklistUUID, assessmentUUID) {
         return this.db.objects(CheckpointScore.schema.name)
-            .filtered("checklist = $0 AND facilityAssessment = $1", checklistUUID, assessmentUUID)
+            .filtered("score != null AND checklist = $0 AND facilityAssessment = $1", checklistUUID, assessmentUUID)
             .map((checkpointScore) => Object.assign({}, checkpointScore));
     }
 

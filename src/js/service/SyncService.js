@@ -50,16 +50,21 @@ class SyncService extends BaseService {
                 .map((checklist) =>
                     batchRequest.post(`${this.serverURL}/api/facility-assessment/checklist`,
                         checklist,
-                        checklistService.markCheckpointScoresSubmitted));
+                        checklistService.markCheckpointScoresSubmitted,
+                        ()=>{}));
             batchRequest.fire((final) => {
                     facilityAssessmentService.markSubmitted(originalAssessment);
                     cb();
                 },
-                (error) => console.log("Failed"));
+                (error) => {
+                    console.log("Failed");
+                    console.log(error);
+                });
         }
     }
 
     syncFacilityAssessment(assessment, cb) {
+        this.serverURL = this.getService(SettingsService).getServerURL();
         let facilityAssessmentDTO = facilityAssessmentMapper(assessment);
         post(`${this.serverURL}/api/facility-assessment`, facilityAssessmentDTO,
             this.syncChecklists(assessment, cb));

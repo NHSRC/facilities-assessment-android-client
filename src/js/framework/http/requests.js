@@ -20,9 +20,9 @@ let _get = (endpoint, cb, errorHandler) =>
 let _getText = (endpoint, cb, errorHandler) =>
     fetchFactory(endpoint, "GET", makeHeader("json"), (response) => response.text(), cb, errorHandler);
 
-export let post = (endpoint, body, cb) =>
+export let post = (endpoint, body, cb, errorHandler) =>
     fetchFactory(endpoint, "POST", {body: JSON.stringify(body), ...makeHeader("json")}, (response)=>response.json()
-        , cb, ()=>{});
+        , cb, errorHandler);
 
 export let get = (endpoint, cb, errorHandler) => {
     return new Map([[true, _get], [false, _getText]]).get(endpoint.endsWith(".json"))(endpoint, cb, errorHandler);

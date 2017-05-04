@@ -17,8 +17,8 @@ class BatchRequest {
         this.requestQueue.push(() => httpGet(endpoint, cb, errorHandler));
     }
 
-    post(endpoint, requestBody, cb) {
-        this.requestQueue.push(() => httpPost(endpoint, requestBody, cb));
+    post(endpoint, requestBody, cb, errorHandler) {
+        this.requestQueue.push(() => httpPost(endpoint, requestBody, cb, errorHandler));
     }
 
     fire(finalCallback, errorCallback) {
