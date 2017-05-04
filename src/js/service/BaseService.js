@@ -1,5 +1,4 @@
-import _ from "lodash";
-
+import _ from 'lodash';
 export default class BaseService {
     constructor(db, beanStore) {
         this.db = db;

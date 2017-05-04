@@ -12,18 +12,18 @@ import EntitySyncStatusService from "./EntitySyncStatusService";
 import EntitySyncStatus from "../models/sync/EntitySyncStatus";
 import ConventionalRestClient from "../framework/http/ConventionalRestClient";
 import Logger from "../framework/Logger";
-import EntitiesMetaData from "../models/entityMetaData/EntitiesMetaData";
 
 @Service("syncService")
 class SyncService extends BaseService {
     constructor(db, beanStore) {
         super(db, beanStore);
         this.syncChecklists = this.syncChecklists.bind(this);
+        this.baseService = this.getService(BaseService);
+        this.entitySyncStatusService = this.getService(EntitySyncStatusService);
+        this.conventionalRestClient = new ConventionalRestClient(this.getService(SettingsService));
     }
 
     init() {
-        this.entitySyncStatusService = this.getService(EntitySyncStatusService);
-        this.conventionalRestClient = new ConventionalRestClient(this.getService(SettingsService));
         this.serverURL = this.getService(SettingsService).getServerURL();
     }
 
@@ -71,7 +71,7 @@ class SyncService extends BaseService {
     }
 
     syncMetaData(cb) {
-        this.pullData(EntitiesMetaData.referenceEntityTypes);
+        console.log("Syncing MEta Data");
         setTimeout(cb, 2000);
     }
 
@@ -94,10 +94,10 @@ class SyncService extends BaseService {
     persist(resourcesWithSameTimeStamp, entityMetaData) {
         resourcesWithSameTimeStamp.forEach((resource) => {
             const entity = entityMetaData.mapFromResource(resource);
-            this.save(entityMetaData.entityClass)(entity);
+            this.baseService.save(entityMetaData.entityClass)(entity);
             if (!_.isNil(entityMetaData.parentClass)) {
-                const parentEntity = entityMetaData.parentClass.associateChild(entity, entityMetaData.entityClass, resource, this);
-                this.save(entityMetaData.parentClass)(parentEntity);
+                const parentEntity = entityMetaData.parentClass.associateChild(entity, entityMetaData.entityClass, resource, this.baseService);
+                this.baseService.save(entityMetaData.parentClass)(parentEntity);
             }
         });
 

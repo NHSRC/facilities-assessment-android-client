@@ -9,4 +9,3 @@ export * from './CacheService';
 export * from './SearchService';
 export * from './SyncService';
 export * from './SettingsService';
-export * from './EntitySyncStatusService';
