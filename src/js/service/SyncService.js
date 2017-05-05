@@ -37,7 +37,7 @@ class SyncService extends BaseService {
                     uuid: uuid,
                     name: name,
                     department: department.uuid,
-                    facilityAssessment: originalAssessment.uuid,
+                    facilityAssessment: facilityAssessment.uuid,
                     checkpointScores: checklistService
                         .getCheckpointScoresFor(uuid, originalAssessment.uuid)
                         .map(checkpointScoreMapper)
