@@ -42,18 +42,17 @@ class SyncService extends BaseService {
                         .getCheckpointScoresFor(uuid, originalAssessment.uuid)
                         .map(checkpointScoreMapper)
                 }))
-                .map((checklist) =>
-                    batchRequest.post(`${this.serverURL}/api/facility-assessment/checklist`,
-                        checklist,
-                        checklistService.markCheckpointScoresSubmitted,
-                        ()=>{}));
+                .map((checklist) => batchRequest.post(`${this.serverURL}/api/facility-assessment/checklist`,
+                    checklist,
+                    checklistService.markCheckpointScoresSubmitted,
+                    () => {
+                    }));
             batchRequest.fire((final) => {
                     facilityAssessmentService.markSubmitted(originalAssessment);
                     cb();
                 },
                 (error) => {
-                    console.log("Failed");
-                    console.log(error);
+                    cb();
                 });
         }
     }
@@ -61,8 +60,9 @@ class SyncService extends BaseService {
     syncFacilityAssessment(assessment, cb) {
         this.serverURL = this.getService(SettingsService).getServerURL();
         let facilityAssessmentDTO = facilityAssessmentMapper(assessment);
+        console.log(JSON.stringify(facilityAssessmentDTO));
         post(`${this.serverURL}/api/facility-assessment`, facilityAssessmentDTO,
-            this.syncChecklists(assessment, cb));
+            this.syncChecklists(assessment, cb), cb);
     }
 
     syncMetaData(cb) {
