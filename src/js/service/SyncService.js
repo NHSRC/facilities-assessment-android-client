@@ -13,6 +13,8 @@ import EntitySyncStatus from "../models/sync/EntitySyncStatus";
 import ConventionalRestClient from "../framework/http/ConventionalRestClient";
 import Logger from "../framework/Logger";
 import EntitiesMetaData from "../models/entityMetaData/EntitiesMetaData";
+import EntityService from "./EntityService";
+import moment from "moment";
 
 @Service("syncService")
 class SyncService extends BaseService {
@@ -24,6 +26,7 @@ class SyncService extends BaseService {
     init() {
         this.entitySyncStatusService = this.getService(EntitySyncStatusService);
         this.conventionalRestClient = new ConventionalRestClient(this.getService(SettingsService));
+        this.entityService = this.getService(EntityService);
         this.serverURL = this.getService(SettingsService).getServerURL();
     }
 
@@ -86,6 +89,7 @@ class SyncService extends BaseService {
             return;
         }
 
+        Logger.logDebug('SyncService', entityMetaData.entityName);
         const entitySyncStatus = this.entitySyncStatusService.get(entityMetaData.entityName);
         Logger.logInfo('SyncService', `${entitySyncStatus.entityName} was last loaded up to "${entitySyncStatus.loadedSince}"`);
         this.conventionalRestClient.loadData(entityMetaData, entitySyncStatus.loadedSince, 0,
@@ -98,9 +102,10 @@ class SyncService extends BaseService {
     persist(resourcesWithSameTimeStamp, entityMetaData) {
         resourcesWithSameTimeStamp.forEach((resource) => {
             const entity = entityMetaData.mapFromResource(resource);
-            this.getService(entityMetaData.serviceClass).save(entity);
+            Logger.logDebug('SyncService', JSON.stringify(entity));
+            this.getService(entityMetaData.serviceClass).save(entityMetaData.entityClass, entity);
             if (!_.isNil(entityMetaData.parentClass)) {
-                const parentEntity = entityMetaData.parentClass.associateChild(entity, entityMetaData.entityClass, resource, this);
+                const parentEntity = entityMetaData.parentClass.associateChild(entity, entityMetaData.entityClass, resource, this.entityService);
                 this.save(entityMetaData.parentClass)(parentEntity);
             }
         });
@@ -109,8 +114,8 @@ class SyncService extends BaseService {
         const entitySyncStatus = new EntitySyncStatus();
         entitySyncStatus.name = entityMetaData.entityName;
         entitySyncStatus.uuid = currentEntitySyncStatus.uuid;
-        entitySyncStatus.loadedSince = new Date(resourcesWithSameTimeStamp[0]["lastModifiedDateTime"]);
-        this.entitySyncStatusService.save(entitySyncStatus);
+        entitySyncStatus.loadedSince = moment(resourcesWithSameTimeStamp[0]["lastModifiedDate"]).toDate();
+        this.entitySyncStatusService.save(EntitySyncStatus)(entitySyncStatus);
     }
 }
 

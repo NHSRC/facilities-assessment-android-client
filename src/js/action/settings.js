@@ -2,7 +2,7 @@ import _ from 'lodash';
 import SettingsService from "../service/SettingsService";
 import {minDate} from '../utility/DateUtils';
 import SyncService from "../service/SyncService";
-
+import SeedDataService from "../service/SeedDataService";
 
 const initialSettings = function (state, action, beans) {
     const settingsService = beans.get(SettingsService);
@@ -29,12 +29,19 @@ const syncedMetaData = function (state, action, beans) {
     return Object.assign(state, settingsService.saveSettings({lastSyncedDate: new Date()}), {syncing: false});
 };
 
+const cleanData = function (state, action, beans) {
+    const seedDataService = beans.get(SeedDataService);
+    seedDataService.deleteAllData();
+    return Object.assign(state, {});
+};
+
 export default new Map([
     ["INITIAL_SETTINGS", initialSettings],
     ["UPDATE_SETTINGS", updateSettings],
     ["UPDATE_SETTINGS_VIEW", updateView],
     ["SYNC_META_DATA", syncMetaData],
     ["SYNCED_META_DATA", syncedMetaData],
+    ['CLEAN_DATA', cleanData]
 ]);
 
 export let settingsInit = {

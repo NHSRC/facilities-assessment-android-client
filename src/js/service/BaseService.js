@@ -47,4 +47,28 @@ export default class BaseService {
             return this.db.objectForPrimaryKey(entityClass.schema.name, entity.uuid);
         }
     }
+
+    findByUUID(uuid, schema) {
+        if (_.isEmpty(uuid)) throw Error("UUID is empty or null");
+        return this.findByKey("uuid", uuid, schema);
+    }
+
+    findByKey(keyName, value, schemaName) {
+        const entities = this.findAllByKey(keyName, value, schemaName);
+        return this.getReturnValue(entities);
+    }
+
+    findAllByKey(keyName, value, schemaName) {
+        return this.findAllByCriteria(`${keyName}="${value}"`, schemaName);
+    }
+
+    findAllByCriteria(filterCriteria, schema) {
+        return this.db.objects(schema).filtered(filterCriteria);
+    }
+
+    getReturnValue(entities) {
+        if (entities.length === 0) return undefined;
+        if (entities.length === 1) return entities[0];
+        return entities;
+    }
 }

@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import moment from "moment";
 
 class General {
     static formatDate(date) {
@@ -8,6 +7,17 @@ class General {
 
     static formatRange(question) {
         return `[${question.lowAbsolute} - ${question.hiAbsolute}]`;
+    }
+
+    static pick(from, attributes, listAttributes) {
+        const picked = _.pick(from, attributes);
+        if (!_.isNil(listAttributes)) {
+            listAttributes.forEach((listAttribute) => {
+                picked[listAttribute] = [];
+                from[listAttribute].forEach((item) => picked[listAttribute].push(item));
+            });
+        }
+        return picked;
     }
 }
 
