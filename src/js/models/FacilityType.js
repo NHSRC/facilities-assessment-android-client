@@ -8,7 +8,7 @@ class FacilityType extends BaseEntity {
             name: 'string',
             uuid: 'string'
         }
-    }
+    };
 }
 
 

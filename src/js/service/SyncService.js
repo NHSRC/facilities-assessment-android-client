@@ -71,7 +71,11 @@ class SyncService extends BaseService {
     }
 
     syncMetaData(cb) {
-        this.pullData(EntitiesMetaData.referenceEntityTypes.map(_.identity));
+        this.pullData(EntitiesMetaData.referenceEntityTypes, () => {
+            Logger.logInfo('SyncService', 'Sync completed!')
+        }, (error) => {
+            Logger.logError('SyncService', error);
+        });
         setTimeout(cb, 2000);
     }
 
@@ -94,7 +98,7 @@ class SyncService extends BaseService {
     persist(resourcesWithSameTimeStamp, entityMetaData) {
         resourcesWithSameTimeStamp.forEach((resource) => {
             const entity = entityMetaData.mapFromResource(resource);
-            this.save(entityMetaData.entityClass)(entity);
+            this.getService(entityMetaData.serviceClass).save(entity);
             if (!_.isNil(entityMetaData.parentClass)) {
                 const parentEntity = entityMetaData.parentClass.associateChild(entity, entityMetaData.entityClass, resource, this);
                 this.save(entityMetaData.parentClass)(parentEntity);
