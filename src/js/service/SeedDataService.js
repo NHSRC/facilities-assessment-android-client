@@ -15,6 +15,10 @@ import ChecklistAssessmentService from "./AssessmentService";
 import ChecklistService from "./ChecklistService";
 import StateService from './StateService'
 import SettingsService from "./SettingsService";
+import EntitiesMetaData from "../models/entityMetaData/EntitiesMetaData";
+import Logger from "../framework/Logger";
+import EntitySyncStatus from "../models/sync/EntitySyncStatus";
+import EntityMetaData from "../models/entityMetaData/EntityMetaData";
 
 @Service("seedDataService")
 class SeedDataService extends BaseService {
@@ -25,7 +29,7 @@ class SeedDataService extends BaseService {
 
     init() {
         if (this.isNotSeeded()) {
-            this.createAll();
+            // this.createAll();
         }
     }
 
@@ -89,6 +93,22 @@ class SeedDataService extends BaseService {
         return seedEntity.entity.map((e) => serviceInstance[seedEntity.method](e));
     }
 
+    deleteAllData() {
+        const db = this.db;
+        let entitiesToDelete = EntitiesMetaData.referenceEntityTypes;
+        entitiesToDelete.push(new EntityMetaData(EntitySyncStatus));
+        entitiesToDelete.forEach((entityMetaData) => {
+            if (entityMetaData.isMappedToDb) {
+                Logger.logDebug('SeedDataService', `Deleting all data from ${entityMetaData.entityName}`);
+                db.write(() => {
+                    const objects = db.objects(entityMetaData.entityName);
+                    db.delete(objects);
+                });
+            } else {
+                Logger.logDebug('SeedDataService', `Skipping as not mapped to db - ${entityMetaData.entityName}`);
+            }
+        });
+    }
 }
 
 export default SeedDataService;

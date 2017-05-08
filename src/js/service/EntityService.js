@@ -1,5 +1,6 @@
 import Service from "../framework/bean/Service";
 import BaseService from "./BaseService";
+import Logger from "../framework/Logger";
 
 @Service('entityService')
 class EntityService extends BaseService {

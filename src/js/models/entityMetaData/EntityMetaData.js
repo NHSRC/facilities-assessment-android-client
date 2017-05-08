@@ -6,7 +6,7 @@ import Logger from "../../framework/Logger";
 class EntityMetaData {
     constructor(entityType, parentClass, mapper, serviceClass) {
         this.entityType = entityType;
-        this.mapper = _.isNil(mapper) ? DefaultEntityResourceMapper : mapper;
+        this.mapper = _.isNil(mapper) ? new DefaultEntityResourceMapper() : mapper;
         this.parentClass = parentClass;
         this.serviceClass = _.isNil(serviceClass) ? EntityService : serviceClass;
     }
@@ -16,7 +16,7 @@ class EntityMetaData {
     }
 
     mapFromResource(resource) {
-        this.mapper.fromResource(resource);
+        return this.mapper.fromResource(resource);
     }
 
     get resourceName() {
@@ -24,7 +24,11 @@ class EntityMetaData {
     }
 
     get entityName() {
-        return _.isNil(this.entityType.schema) ? this.entityType.entityName : this.entityType.schema.name;
+        return this.isMappedToDb ? this.entityType.schema.name : this.entityType.entityName;
+    }
+
+    get isMappedToDb() {
+        return !_.isNil(this.entityType.schema);
     }
 }
 
