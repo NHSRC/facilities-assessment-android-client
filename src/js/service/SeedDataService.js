@@ -30,7 +30,8 @@ class SeedDataService extends BaseService {
     }
 
     isNotSeeded() {
-        return this.getService(StateService).getAllStates().length === 0;
+        let allStates = this.getService(StateService).getAllStates();
+        return allStates.length === 0;
     }
 
     createAll() {

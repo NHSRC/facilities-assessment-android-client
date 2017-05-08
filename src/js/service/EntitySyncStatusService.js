@@ -35,17 +35,13 @@ class EntitySyncStatusService extends BaseService {
             if (_.isNil(self.get(entity.entityName))) {
                 try {
                     const entitySyncStatus = EntitySyncStatus.create(entity.entityName, EntitySyncStatus.REALLY_OLD_DATE, UUID.generate());
-                    self.save(entitySyncStatus);
+                    self.save(EntitySyncStatus)(entitySyncStatus);
                 } catch (e) {
                     Logger.logError('EntitySyncStatusService', `${entity.entityName} failed`);
                     throw e;
                 }
             }
         });
-    }
-
-    save(entitySyncStatus) {
-        super.save(EntitySyncStatus)(entitySyncStatus);
     }
 }
 
