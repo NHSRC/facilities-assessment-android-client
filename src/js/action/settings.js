@@ -4,6 +4,7 @@ import {minDate} from '../utility/DateUtils';
 import SyncService from "../service/SyncService";
 import SeedDataService from "../service/SeedDataService";
 
+
 const initialSettings = function (state, action, beans) {
     const settingsService = beans.get(SettingsService);
     return Object.assign(state, settingsService.get());
@@ -11,7 +12,8 @@ const initialSettings = function (state, action, beans) {
 
 const updateView = function (state, action, beans) {
     const settingsService = beans.get(SettingsService);
-    return Object.assign(state, settingsService.saveSettings({serverURL: action.serverURL}));
+    const serverURL = _.isEmpty(action.serverURL) ? "http://" : action.serverURL;
+    return Object.assign(state, settingsService.saveSettings({serverURL: serverURL}));
 };
 
 const updateSettings = function (state, action, beans) {
@@ -48,7 +50,7 @@ export default new Map([
 ]);
 
 export let settingsInit = {
-    serverURL: "",
+    serverURL: "http://",
     lastSyncedDate: minDate,
     syncing: false,
 };
