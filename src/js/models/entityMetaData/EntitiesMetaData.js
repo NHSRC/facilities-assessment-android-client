@@ -19,7 +19,7 @@ class EntitiesMetaData {
     //order is important. last entity in each (tx and ref) with be executed first. parent and referred entity (in case of many to one) should be synced before the child.
     static get referenceEntityTypes() {
         return [
-            new EntityMetaData(Checkpoint),
+            new EntityMetaData(Checkpoint, undefined, new CheckpointMapper()),
             new EntityMetaData(MeasurableElement, Standard),
             new EntityMetaData(Standard, AreaOfConcern),
             new EntityMetaData(AreaOfConcern),
@@ -67,6 +67,19 @@ class CheckpointTag {
 class FacilityMapper {
     fromResource(resource) {
         resource.facilityType = ResourceUtil.getUUIDFor(resource, 'facilityTypeUUID');
+        return resource;
+    }
+}
+
+class CheckpointMapper {
+    fromResource(resource) {
+        resource.checklist = ResourceUtil.getUUIDFor(resource, 'checklistUUID');
+        resource.measurableElement = ResourceUtil.getUUIDFor(resource, 'measurableElementUUID');
+        resource.state = ResourceUtil.getUUIDFor(resource, 'stateUUID');
+        resource.amObservation = resource['assessmentMethodObservation'];
+        resource.amStaffInterview = resource['assessmentMethodStaffInterview'];
+        resource.amPatientInterview = resource['assessmentMethodPatientInterview'];
+        resource.amRecordReview = resource['assessmentMethodRecordReview'];
         return resource;
     }
 }

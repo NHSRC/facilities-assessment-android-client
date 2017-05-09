@@ -20,7 +20,7 @@ class EntityMetaData {
     }
 
     get resourceName() {
-        return _.camelCase(this.entityName);
+        return `${_.camelCase(this.entityName)}`;
     }
 
     get entityName() {

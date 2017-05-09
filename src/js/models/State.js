@@ -17,7 +17,7 @@ class State extends BaseEntity {
         var state = entityService.findByUUID(ResourceUtil.getUUIDFor(childResource, "stateUUID"), State.schema.name);
         state = General.pick(state, ["uuid"], ["districts"]);
         if (childEntityClass.schema.name === 'District') {
-            BaseEntity.addOrUpdateChild(this.districts, childEntity);
+            BaseEntity.addOrUpdateChild(state.districts, childEntity);
         }
         return state;
     }
