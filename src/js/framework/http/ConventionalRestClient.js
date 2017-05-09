@@ -18,7 +18,7 @@ class ConventionalRestClient {
 
         let params = [];
         params.push(`lastModifiedDateTime=${moment(lastUpdatedLocally).add(1, "ms").toISOString()}`);
-        params.push("size=5");
+        params.push("size=200");
         params.push(`page=${pageNumber}`);
         params.push("sort=lastModifiedDateTime,asc");
 

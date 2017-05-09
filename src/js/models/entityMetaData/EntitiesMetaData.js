@@ -35,7 +35,8 @@ class EntitiesMetaData {
             new EntityMetaData(Facility, District, new FacilityMapper()),
             new EntityMetaData(District, State),
             new EntityMetaData(State),
-            new EntityMetaData(FacilityType)
+            new EntityMetaData(FacilityType),
+            new EntityMetaData(AssessmentType)
         ].map(_.identity);
     }
 }

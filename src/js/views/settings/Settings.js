@@ -91,7 +91,11 @@ class Settings extends AbstractComponent {
                                 "SYNC META-DATA"}
                             onPress={() =>
                                 this.dispatchAction(Actions.SYNC_META_DATA,
-                                    {cb: () => this.dispatchAction(Actions.SYNCED_META_DATA)})}
+                                    {cb: () => {
+                                        this.dispatchAction(Actions.SYNCED_META_DATA);
+                                        this.dispatchAction(Actions.ALL_STATES);
+                                    }})
+                            }
                             showButton={true}/>
                         <Text style={{color: "white", marginBottom: 30}}>
                             Last Synced Date - {formatDate(this.state.lastSyncedDate)}
