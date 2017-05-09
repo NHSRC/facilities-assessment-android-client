@@ -99,9 +99,10 @@ class Settings extends AbstractComponent {
 
 
                         <SubmitButton buttonText={"UPDATE SETTINGS"}
-                                      onPress={() => this.dispatchAction(Actions.UPDATE_SETTINGS)}
+                                      onPress={() => this.dispatchAction(Actions.UPDATE_SETTINGS,
+                                          {cb: () => TypedTransition.from(this).goBack()})}
                                       showButton={true}/>
-
+                        <View style={{margin: 15}}/>
                         <SubmitButton buttonText={"CLEAN DATA"}
                                       onPress={() => this.dispatchAction(Actions.CLEAN_DATA)}
                                       showButton={true}/>

@@ -10,12 +10,15 @@ const initialSettings = function (state, action, beans) {
 };
 
 const updateView = function (state, action, beans) {
-    return Object.assign(state, {serverURL: action.serverURL});
+    const settingsService = beans.get(SettingsService);
+    return Object.assign(state, settingsService.saveSettings({serverURL: action.serverURL}));
 };
 
 const updateSettings = function (state, action, beans) {
     const settingsService = beans.get(SettingsService);
-    return Object.assign(state, settingsService.saveSettings({serverURL: state.serverURL}));
+    let newState = Object.assign(state, settingsService.saveSettings({serverURL: state.serverURL}));
+    action.cb();
+    return newState;
 };
 
 const syncMetaData = function (state, action, beans) {
