@@ -1,5 +1,6 @@
 import {getJSON, post} from '../../framework/http/requests';
 import _ from "lodash";
+import {makeParams} from './httpUtils';
 import moment from "moment";
 import Logger from "../Logger";
 
@@ -13,16 +14,16 @@ class ConventionalRestClient {
         urlParts.push(this.settingsService.getServerURL());
         urlParts.push(entityMetaData.resourceName);
         urlParts.push("search");
-        const resourceSearchFilterURL = entityMetaData.type === "tx"? entityMetaData.resourceSearchFilterURL : "lastModified";
+        const resourceSearchFilterURL = "lastModified";
         urlParts.push(resourceSearchFilterURL);
 
-        let params = [];
-        params.push(`lastModifiedDateTime=${moment(lastUpdatedLocally).add(1, "ms").toISOString()}`);
-        params.push("size=200");
-        params.push(`page=${pageNumber}`);
-        params.push("sort=lastModifiedDateTime,asc");
-
-        const url = `${urlParts.join("/")}?${params.join("&")}`;
+        let params = makeParams({
+            lastModifiedDateTime: moment(lastUpdatedLocally).add(1, "ms").toISOString(),
+            size: 200,
+            page: pageNumber,
+            sort: "sort=lastModifiedDateTime,asc"
+        });
+        const url = `${urlParts.join("/")}?${params}`;
 
         Logger.logDebug('ConventionalRestClient', `Calling: ${url}`);
         getJSON(url, (response) => {
