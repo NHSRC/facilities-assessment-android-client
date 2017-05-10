@@ -1,6 +1,7 @@
-class EntitySyncStatus {
-    static REALLY_OLD_DATE = new Date('1900-01-01');
+import UUID from "../../utility/UUID";
+import {minDate} from "../../utility/DateUtils";
 
+class EntitySyncStatus {
     static schema = {
         name: 'EntitySyncStatus',
         primaryKey: 'uuid',
@@ -11,11 +12,11 @@ class EntitySyncStatus {
         }
     };
 
-    static create(entityName, date, uuid) {
-        var entitySyncStatus = new EntitySyncStatus();
-        entitySyncStatus.uuid = uuid;
+    static create({entityName}) {
+        let entitySyncStatus = new EntitySyncStatus();
+        entitySyncStatus.uuid = UUID.generate();
         entitySyncStatus.entityName = entityName;
-        entitySyncStatus.loadedSince = date;
+        entitySyncStatus.loadedSince = minDate;
         return entitySyncStatus;
     }
 }
