@@ -7,6 +7,7 @@ export * from './DepartmentService';
 export * from './ChecklistService';
 export * from './CacheService';
 export * from './SearchService';
-export * from './SyncService';
+export * from './ReferenceDataSyncService';
 export * from './SettingsService';
 export * from './EntitySyncStatusService';
+export * from './AssessmentSyncService';

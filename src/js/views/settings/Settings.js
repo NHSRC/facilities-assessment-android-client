@@ -93,7 +93,7 @@ class Settings extends AbstractComponent {
                                 this.dispatchAction(Actions.SYNC_META_DATA,
                                     {cb: () => {
                                         this.dispatchAction(Actions.SYNCED_META_DATA);
-                                        this.dispatchAction(Actions.ALL_STATES);
+                                        this.props.params.cb();
                                     }})
                             }
                             showButton={true}/>

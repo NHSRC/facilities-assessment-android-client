@@ -12,6 +12,7 @@ import CustomTabBar from '../common/CustomTabBar';
 import PrimaryColors from '../styles/PrimaryColors';
 import TypedTransition from "../../framework/routing/TypedTransition";
 import Settings from "../settings/Settings";
+import Actions from '../../action';
 
 const deviceWidth = Dimensions.get('window').width;
 
@@ -43,7 +44,9 @@ class Dashboard extends AbstractComponent {
                 <Content>
                     <Header style={Dashboard.styles.header}>
                         <Button
-                            onPress={() => TypedTransition.from(this).to(Settings, Navigator.SceneConfigs.FloatFromLeft)}
+                            onPress={() => TypedTransition.from(this)
+                                .with({cb: () => this.dispatchAction(Actions.ALL_STATES, {...this.props.params})})
+                                .to(Settings, Navigator.SceneConfigs.FloatFromLeft)}
                             transparent>
                             <Icon style={{marginTop: 10, color: "white"}} name="menu"/>
                         </Button>

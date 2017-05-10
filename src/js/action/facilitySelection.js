@@ -120,7 +120,7 @@ export default new Map([
     ["SELECT_ASSESSMENT_TYPE", selectAssessmentType],
     ["FACILITY_SELECT", facilitySelected],
     ["SELECT_ASSESSMENT_TOOL", selectAssessmentTool],
-    ["RESET_FORM", reset_form]
+    ["RESET_FORM", reset_form],
 ]);
 
 export let facilitySelectionInit = {

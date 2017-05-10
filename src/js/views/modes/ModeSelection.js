@@ -77,7 +77,9 @@ class ModeSelection extends AbstractComponent {
             <Container theme={FlatUITheme}>
                 <Header style={ModeSelection.styles.header}>
                     <Button
-                        onPress={() => TypedTransition.from(this).to(Settings, Navigator.SceneConfigs.FloatFromLeft)}
+                        onPress={() => TypedTransition.from(this)
+                            .with({cb: ()=>{}})
+                            .to(Settings, Navigator.SceneConfigs.FloatFromLeft)}
                         transparent>
                         <Icon style={{marginTop: 10, color: 'white'}} name="menu"/>
                     </Button>

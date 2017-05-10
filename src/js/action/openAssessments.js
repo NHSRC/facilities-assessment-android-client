@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import ChecklistService from "../service/ChecklistService";
 import FacilityAssessmentService from "../service/FacilityAssessmentService";
-import SyncService from "../service/SyncService";
+import AssessmentSyncService from "../service/AssessmentSyncService";
 
 const allAssessments = function (state, action, beans) {
     const assessmentService = beans.get(FacilityAssessmentService);
@@ -17,8 +17,8 @@ const allAssessments = function (state, action, beans) {
 };
 
 const syncAssessment = function (state, action, beans) {
-    const syncService = beans.get(SyncService);
-    syncService.syncFacilityAssessment(action.assessment, action.cb);
+    const assessmentSyncService = beans.get(AssessmentSyncService);
+    assessmentSyncService.syncFacilityAssessment(action.assessment, action.cb);
     return Object.assign(state, {syncing: [action.assessment.uuid].concat(state.syncing)});
 };
 

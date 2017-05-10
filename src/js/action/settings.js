@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import SettingsService from "../service/SettingsService";
 import {minDate} from '../utility/DateUtils';
-import SyncService from "../service/SyncService";
+import ReferenceDataSyncService from "../service/ReferenceDataSyncService";
 import SeedDataService from "../service/SeedDataService";
 
 
@@ -24,8 +24,8 @@ const updateSettings = function (state, action, beans) {
 };
 
 const syncMetaData = function (state, action, beans) {
-    const syncService = beans.get(SyncService);
-    syncService.syncMetaData(action.cb);
+    const referenceDataSyncService = beans.get(ReferenceDataSyncService);
+    referenceDataSyncService.syncMetaData(action.cb);
     return Object.assign(state, {syncing: true})
 };
 
