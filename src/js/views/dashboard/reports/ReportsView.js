@@ -21,12 +21,8 @@ class ReportsView extends AbstractComponent {
     static styles = StyleSheet.create({});
 
     handleChange() {
-        const newState = this.context.getStore().getState().dashboard;
+        const newState = this.context.getStore().getState().openAssessments;
         this.setState(newState);
-    }
-
-    componentWillMount() {
-        this.dispatchAction(Actions.ALL_ASSESSMENTS, {...this.props});
     }
 
     componentWillUnmount() {
