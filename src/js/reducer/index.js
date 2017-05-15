@@ -6,6 +6,7 @@ import standardsActions, {standardsInit} from '../action/standards';
 import openAssessmentsActions, {openAssessmentsInit} from '../action/openAssessments';
 import searchActions, {searchInit} from '../action/search';
 import settingsActions, {settingsInit} from '../action/settings';
+import reportsActions, {reportsInit} from '../action/reports';
 import Reducer from './Reducer';
 
 export default (beans) => {
@@ -50,6 +51,11 @@ export default (beans) => {
             "stateKey": "settings",
             "actions": settingsActions,
             "initState": settingsInit
+        },
+        {
+            "stateKey": "reports",
+            "actions": reportsActions,
+            "initState": reportsInit
         }
     ].forEach(({stateKey, actions, initState}) => {
         reducerMap[stateKey] = Reducer.factory(actions, initState, beans);
