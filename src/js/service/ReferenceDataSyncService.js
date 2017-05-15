@@ -58,8 +58,8 @@ class ReferenceDataSyncService extends BaseService {
     persist(resourcesWithSameTimeStamp, entityMetaData) {
         resourcesWithSameTimeStamp.forEach((resource) => {
             const entity = entityMetaData.mapFromResource(resource);
-            Logger.logDebug('ReferenceDataSyncService', JSON.stringify(entity));
-            this.getService(entityMetaData.serviceClass).save(entityMetaData.entityClass, entity);
+            let savedEntity = this.getService(entityMetaData.serviceClass).save(entityMetaData.entityClass, entity);
+            Logger.logDebug('ReferenceDataSyncService', JSON.stringify(savedEntity));
             if (!_.isNil(entityMetaData.parentClass)) {
                 const parentEntity = entityMetaData.parentClass.associateChild(entity, entityMetaData.entityClass, resource, this.entityService);
                 this.save(entityMetaData.parentClass)(parentEntity);

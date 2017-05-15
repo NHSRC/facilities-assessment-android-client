@@ -14,6 +14,8 @@ import Facility from "../Facility";
 import TagService from "../../service/TagService";
 import _ from 'lodash';
 import ResourceUtil from "../../utility/ResourceUtil";
+import ChecklistService from "../../service/ChecklistService";
+import Checklist from "../Checklist";
 
 class EntitiesMetaData {
     //order is important. last entity in each (tx and ref) with be executed first. parent and referred entity (in case of many to one) should be synced before the child.
@@ -81,6 +83,19 @@ class CheckpointMapper {
         resource.amStaffInterview = resource['assessmentMethodStaffInterview'];
         resource.amPatientInterview = resource['assessmentMethodPatientInterview'];
         resource.amRecordReview = resource['assessmentMethodRecordReview'];
+        return resource;
+    }
+}
+
+class ChecklistMapper {
+    fromResource(resource) {
+        let checklist = new Checklist();
+        checklist.name = resource.name;
+        checklist.uuid = resource.uuid;
+        resource.department = ResourceUtil.getUUIDFor(resource, "departmentUUID");
+        resource.assessmentTool = ResourceUtil.getUUIDFor(resource, "assessmentToolUUID");
+        resource.areasOfConcern = ResourceUtil.getUUIDsFor(resource, "areasOfConcernUUIDs")
+            .map((aoc) => Object.assign({value: aoc}));
         return resource;
     }
 }

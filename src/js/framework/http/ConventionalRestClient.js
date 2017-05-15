@@ -12,6 +12,7 @@ class ConventionalRestClient {
     loadData(entityMetaData, lastUpdatedLocally, pageNumber, allEntityMetaData, executePerResourcesWithSameTimestamp, executeNextResource, resourcesWithSameTimestamp, onError) {
         let urlParts = [];
         urlParts.push(this.settingsService.getServerURL());
+        urlParts.push("api");
         urlParts.push(entityMetaData.resourceName);
         urlParts.push("search");
         const resourceSearchFilterURL = "lastModified";
