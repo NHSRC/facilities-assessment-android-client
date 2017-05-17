@@ -10,7 +10,7 @@ import Actions from "../../../action";
 class StartNewAssessment extends AbstractComponent {
     static styles = StyleSheet.create({
         blockButton: {
-            backgroundColor: PrimaryColors.blue,
+            backgroundColor: "#ffa000",
         },
     });
 
