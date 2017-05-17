@@ -13,6 +13,7 @@ import Checklists from './Checklists';
 import AreasOfConcern from "../areasOfConcern/AreasOfConcern";
 import SubmitButton from '../common/SubmitButton';
 import Dashboard from '../dashboard/Dashboard';
+import {formatDateHuman} from '../../utility/DateUtils';
 
 
 const deviceWidth = Dimensions.get('window').width;
@@ -71,7 +72,8 @@ class ChecklistSelection extends AbstractComponent {
             },
             {
                 text: "No",
-                onPress: () => {},
+                onPress: () => {
+                },
                 style: 'cancel'
             }
         ]);
@@ -98,6 +100,9 @@ class ChecklistSelection extends AbstractComponent {
                         </Text>
                         <Text style={[Typography.paperFontCaption, ChecklistSelection.styles.caption]}>
                             {this.props.params.assessmentTool.name}
+                        </Text>
+                        <Text style={[Typography.paperFontCaption, ChecklistSelection.styles.caption]}>
+                            {`Assessment Start Date - ${formatDateHuman(this.props.params.facilityAssessment.startDate)}`}
                         </Text>
                         <AssessmentStatus
                             assessmentProgress={this.state.assessmentProgress}/>
