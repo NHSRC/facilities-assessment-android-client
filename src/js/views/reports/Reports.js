@@ -9,6 +9,7 @@ import PrimaryColors from '../styles/PrimaryColors';
 import TypedTransition from "../../framework/routing/TypedTransition";
 import Actions from '../../action';
 import OverallScore from "./OverallScore";
+import ScoreTabs from "./ScoreTabs";
 
 const deviceWidth = Dimensions.get('window').width;
 
@@ -46,6 +47,7 @@ class Reports extends AbstractComponent {
     }
 
     render() {
+        console.log(this.state);
         return (
             <Container theme={FlatUITheme}>
                 <Header style={Reports.styles.header}>
@@ -62,6 +64,7 @@ class Reports extends AbstractComponent {
                 </Header>
                 <Content>
                     <OverallScore score={this.state.overallScore}/>
+                    <ScoreTabs data={this.state}/>
                 </Content>
             </Container>
         );
