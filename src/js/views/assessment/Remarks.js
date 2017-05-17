@@ -63,7 +63,7 @@ class Remarks extends AbstractComponent {
                             autoCorrect={true}
                             value={this.props.checkpoint.remarks}
                             onChangeText={this.handleRemarks}
-                            placeholder='Enter your comment here...'/>
+                            placeholder='Enter your remarks here...'/>
                     </InputGroup>
                 </View>
                 <View style={Remarks.styles.saving}>
