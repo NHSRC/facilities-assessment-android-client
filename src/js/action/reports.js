@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import ReportService from '../service/ReportService';
 
+
 const getAllScores = function (state, action, beans) {
     const reportService = beans.get(ReportService);
     let overallScore = reportService.overallScore(action.facilityAssessment);
@@ -9,12 +10,17 @@ const getAllScores = function (state, action, beans) {
     return {
         overallScore: overallScore,
         scoreByDepartment: scoreByDepartment,
+        scoresToShow: scoreByAreaOfConcern,
         scoreByAreaOfConcern: scoreByAreaOfConcern
     };
 };
 
 const selectTab = function (state, action, beans) {
-    return Object.assign(state, {selectedTab: action.selectedTab});
+    const scoreMap = {"CONCERN": state.scoreByAreaOfConcern, "DEPARTMENT": state.scoreByDepartment};
+    return Object.assign(state, {
+        scoresToShow: scoreMap[action.selectedTab],
+        selectedTab: action.selectedTab
+    });
 };
 
 export default new Map([
@@ -24,6 +30,7 @@ export default new Map([
 
 export let reportsInit = {
     overallScore: 0.0,
+    scoresToShow: {},
     scoreByDepartment: {},
     scoreByAreaOfConcern: {},
     selectedTab: 'CONCERN',

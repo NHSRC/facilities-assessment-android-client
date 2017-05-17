@@ -9,6 +9,7 @@ import PrimaryColors from '../styles/PrimaryColors';
 import TypedTransition from "../../framework/routing/TypedTransition";
 import Actions from '../../action';
 import TabBar from "./TabBar";
+import ScoreList from './ScoreList';
 
 
 const deviceWidth = Dimensions.get('window').width;
@@ -34,6 +35,7 @@ class ScoreTabs extends AbstractComponent {
         return (
             <View style={ScoreTabs.styles.container}>
                 <TabBar tabs={this.props.data.tabs} selectedTab={this.props.data.selectedTab}/>
+                <ScoreList scores={this.props.data.scoresToShow}/>
             </View>
         );
     }

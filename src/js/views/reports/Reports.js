@@ -47,7 +47,6 @@ class Reports extends AbstractComponent {
     }
 
     render() {
-        console.log(this.state);
         return (
             <Container theme={FlatUITheme}>
                 <Header style={Reports.styles.header}>
