@@ -57,7 +57,7 @@ class Dashboard extends AbstractComponent {
                     </Header>
                     <Tabs style={StartView.styles.tabs} renderTabBar={() => <CustomTabBar/>}>
                         <StartView tabLabel="START" {...this.props.params}/>
-                        <OpenView tabLabel="OPEN" {...this.props.params}/>
+                        <OpenView tabLabel="ONGOING" {...this.props.params}/>
                         <ReportsView tabLabel="REPORTS" {...this.props.params}/>
                     </Tabs>
                 </Content>
