@@ -5,6 +5,7 @@ import CheckpointScore from "../models/CheckpointScore";
 import Checklist from "../models/Checklist";
 import DepartmentService from "./DepartmentService";
 import AreaOfConcern from "../models/AreaOfConcern";
+import Standard from "../models/Standard";
 
 @Service("reportService")
 class ReportService extends BaseService {
@@ -39,7 +40,6 @@ class ReportService extends BaseService {
     }
 
     scoreByAreaOfConcern(facilityAssessment) {
-        let departmentService = this.getService(DepartmentService);
         const allCheckpoints = this.db.objects(CheckpointScore)
             .filtered("facilityAssessment = $0", facilityAssessment.uuid)
             .map(_.identity);
@@ -51,6 +51,21 @@ class ReportService extends BaseService {
                 (_.sumBy(checkpointScores, "score") / (checkpointScores.length * 2)) * 100;
         });
         return scorePerAreaOfConcern;
+    }
+
+
+    scoreByStandard(facilityAssessment) {
+        const allCheckpoints = this.db.objects(CheckpointScore)
+            .filtered("facilityAssessment = $0", facilityAssessment.uuid)
+            .map(_.identity);
+        let scorePerStandard = {};
+        const checkpointsPerAreaOfConcern = _.groupBy(allCheckpoints, 'standard');
+        _.toPairs(checkpointsPerAreaOfConcern).map(([standard, checkpointScores]) => {
+            let completeStandard = Object.assign({}, this.db.objectForPrimaryKey(Standard.schema.name, standard));
+            scorePerStandard[completeStandard.name] =
+                (_.sumBy(checkpointScores, "score") / (checkpointScores.length * 2)) * 100;
+        });
+        return scorePerStandard;
     }
 }
 

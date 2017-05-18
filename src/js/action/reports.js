@@ -7,17 +7,23 @@ const getAllScores = function (state, action, beans) {
     let overallScore = reportService.overallScore(action.facilityAssessment);
     let scoreByDepartment = reportService.scoreByDepartment(action.facilityAssessment);
     let scoreByAreaOfConcern = reportService.scoreByAreaOfConcern(action.facilityAssessment);
+    let scoreByStandard = reportService.scoreByStandard(action.facilityAssessment);
     return {
         ...state,
         overallScore: overallScore,
         scoreByDepartment: scoreByDepartment,
         scoresToShow: scoreByAreaOfConcern,
+        scoreByStandard: scoreByStandard,
         scoreByAreaOfConcern: scoreByAreaOfConcern
     };
 };
 
 const selectTab = function (state, action, beans) {
-    const scoreMap = {"CONCERN": state.scoreByAreaOfConcern, "DEPARTMENT": state.scoreByDepartment};
+    const scoreMap = {
+        "AREA OF CONCERN": state.scoreByAreaOfConcern,
+        "DEPARTMENT": state.scoreByDepartment,
+        "STANDARD": state.scoreByStandard
+    };
     return Object.assign(state, {
         scoresToShow: scoreMap[action.selectedTab],
         selectedTab: action.selectedTab
@@ -34,6 +40,7 @@ export let reportsInit = {
     scoresToShow: {},
     scoreByDepartment: {},
     scoreByAreaOfConcern: {},
-    selectedTab: 'CONCERN',
-    tabs: ['CONCERN', 'DEPARTMENT']
+    scoreByStandard: {},
+    selectedTab: 'AREA OF CONCERN',
+    tabs: ['AREA OF CONCERN', 'DEPARTMENT', 'STANDARD']
 };
