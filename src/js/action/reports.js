@@ -8,6 +8,7 @@ const getAllScores = function (state, action, beans) {
     let scoreByDepartment = reportService.scoreByDepartment(action.facilityAssessment);
     let scoreByAreaOfConcern = reportService.scoreByAreaOfConcern(action.facilityAssessment);
     return {
+        ...state,
         overallScore: overallScore,
         scoreByDepartment: scoreByDepartment,
         scoresToShow: scoreByAreaOfConcern,
