@@ -16,7 +16,7 @@ class FacilityAssessmentService extends BaseService {
 
     getAssessmentTools(mode) {
         return this.db.objects(AssessmentTool.schema.name)
-            .filtered('mode = $0', mode.toLowerCase())
+            .filtered('mode =[c] $0', mode.toLowerCase())
             .map(this.nameAndId);
     }
 

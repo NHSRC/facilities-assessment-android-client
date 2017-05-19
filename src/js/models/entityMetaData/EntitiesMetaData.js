@@ -22,6 +22,7 @@ class EntitiesMetaData {
     static get referenceEntityTypes() {
         return [
             new EntityMetaData(Checkpoint, undefined, new CheckpointMapper()),
+            new EntityMetaData(Checklist, undefined, new ChecklistMapper()),
             new EntityMetaData(MeasurableElement, Standard),
             new EntityMetaData(Standard, AreaOfConcern),
             new EntityMetaData(AreaOfConcern),
