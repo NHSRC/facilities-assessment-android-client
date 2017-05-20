@@ -83,8 +83,14 @@ class ChecklistService extends BaseService {
         return this.getChecklist(checklistUUID).areasOfConcern;
     }
 
+    standardRefComparator(standard) {
+        let standardReference = new RegExp("([A-Z]{1})([0-9]{1,3})");
+        return parseInt(standard.reference.match(standardReference)[2]);
+    }
+
     getStandardsFor(checklistUUID, aocUUID) {
-        return this.getChecklist(checklistUUID).areasOfConcern.find((aoc) => aoc.uuid === aocUUID).standards;
+        return _.sortBy(this.getChecklist(checklistUUID).areasOfConcern.find((aoc) => aoc.uuid === aocUUID).standards,
+            this.standardRefComparator);
     }
 
     getAreaConcernForStandard(checklistUUID, standardUUID) {
