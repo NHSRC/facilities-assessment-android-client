@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {
     Dimensions, View, Text, TouchableWithoutFeedback, StyleSheet, Image, TextInput,
-    ActivityIndicator
+    ActivityIndicator, Alert
 } from 'react-native';
 import {Container, Content, Title, Button, Header, Icon, InputGroup, Input} from 'native-base';
 import AbstractComponent from "../common/AbstractComponent";
@@ -53,6 +53,23 @@ class Settings extends AbstractComponent {
 
     componentWillMount() {
         this.dispatchAction(Actions.INITIAL_SETTINGS);
+    }
+
+    cleanData() {
+        Alert.alert(
+            'Do you want delete data',
+            "This will remove the reference, configuration and leave transaction data useless",
+            [
+                {
+                    text: 'Yes', onPress: () => {
+                        this.dispatchAction(Actions.CLEAN_DATA);
+                    }
+                },
+                {
+                    text: 'No', onPress: () => {
+                }}
+            ]
+        )
     }
 
     render() {
@@ -108,7 +125,7 @@ class Settings extends AbstractComponent {
                                       showButton={true}/>
                         <View style={{margin: 15}}/>
                         <SubmitButton buttonText={"CLEAN DATA"}
-                                      onPress={() => this.dispatchAction(Actions.CLEAN_DATA)}
+                                      onPress={() => this.cleanData()}
                                       showButton={true}/>
                     </View>
                 </Content>

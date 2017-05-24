@@ -9,7 +9,7 @@ class ConventionalRestClient {
         this.settingsService = settingsService;
     }
 
-    loadData(entityMetaData, lastUpdatedLocally, pageNumber, allEntityMetaData, executePerResourcesWithSameTimestamp, executeNextResource, resourcesWithSameTimestamp, onError) {
+    loadData(entityMetaData, lastUpdatedLocally, pageNumber, allEntityMetaData, executeResourcesWithSameTimestamp, executeNextResource, resourcesWithSameTimestamp, onError) {
         let urlParts = [];
         urlParts.push(this.settingsService.getServerURL());
         urlParts.push("api");
@@ -30,25 +30,26 @@ class ConventionalRestClient {
         getJSON(url, (response) => {
             const resources = response["_embedded"][`${entityMetaData.resourceName}`];
             _.forEach(resources, (resource) => {
-                Logger.logDebug('ConventionalRestClient', `Number of resources with same timestamp: ${resourcesWithSameTimestamp.length}`);
                 if (resourcesWithSameTimestamp.length === 0)
                     resourcesWithSameTimestamp.push(resource);
-                else if (resourcesWithSameTimestamp.length > 0 && resourcesWithSameTimestamp[0]["lastModifiedDateTime"] === resource["lastModifiedDateTime"])
+                else if (resourcesWithSameTimestamp.length > 0 && resourcesWithSameTimestamp[0]["lastModifiedDate"] === resource["lastModifiedDate"])
                     resourcesWithSameTimestamp.push(resource);
                 else {
                     Logger.logDebug('ConventionalRestClient', `Executing sync action on: ${resourcesWithSameTimestamp.length} items for resource: ${entityMetaData.resourceName}`);
-                    executePerResourcesWithSameTimestamp(resourcesWithSameTimestamp, entityMetaData);
+                    executeResourcesWithSameTimestamp(resourcesWithSameTimestamp, entityMetaData);
                     resourcesWithSameTimestamp = [resource];
                 }
             });
 
             if (ConventionalRestClient.morePagesForThisResource(response)) {
-                this.loadData(entityMetaData, lastUpdatedLocally, pageNumber + 1, allEntityMetaData, executePerResourcesWithSameTimestamp, executeNextResource, resourcesWithSameTimestamp, onError);
+                Logger.logDebug('ConventionalRestClient', `More resources for: ${entityMetaData.resourceName}`);
+                this.loadData(entityMetaData, lastUpdatedLocally, pageNumber + 1, allEntityMetaData, executeResourcesWithSameTimestamp, executeNextResource, resourcesWithSameTimestamp, onError);
             } else if (resourcesWithSameTimestamp.length > 0) {
                 Logger.logDebug('ConventionalRestClient', `Executing sync action on: ${resourcesWithSameTimestamp.length} items for resource: ${entityMetaData.resourceName}`);
-                executePerResourcesWithSameTimestamp(resourcesWithSameTimestamp, entityMetaData);
+                executeResourcesWithSameTimestamp(resourcesWithSameTimestamp, entityMetaData);
                 executeNextResource(allEntityMetaData);
             } else {
+                Logger.logDebug('ConventionalRestClient', `Executing next resource`);
                 executeNextResource(allEntityMetaData);
             }
         }, onError);

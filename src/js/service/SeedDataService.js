@@ -19,6 +19,7 @@ import EntitiesMetaData from "../models/entityMetaData/EntitiesMetaData";
 import Logger from "../framework/Logger";
 import EntitySyncStatus from "../models/sync/EntitySyncStatus";
 import EntityMetaData from "../models/entityMetaData/EntityMetaData";
+import EntitySyncStatusService from "./EntitySyncStatusService";
 
 @Service("seedDataService")
 class SeedDataService extends BaseService {
@@ -108,6 +109,7 @@ class SeedDataService extends BaseService {
                 Logger.logDebug('SeedDataService', `Skipping as not mapped to db - ${entityMetaData.entityName}`);
             }
         });
+        this.getService(EntitySyncStatusService).setup(EntitiesMetaData.referenceEntityTypes);
     }
 }
 

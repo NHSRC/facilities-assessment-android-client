@@ -9,7 +9,7 @@ class ResourceUtil {
 
     static getUUIDsFor(resource, property) {
         const props = resource["_links"][`${property}`];
-        if (_.isNil(props)) return undefined;
+        if (_.isNil(props)) return [];
         return props.map((prop) => prop.href);
     }
 }
