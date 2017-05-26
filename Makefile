@@ -70,3 +70,6 @@ database-client:
 
 clear-packager:
 	watchman watch-del . ; watchman watch-project .
+
+deploy-apk-local:
+	cp android/app/build/outputs/apk/app-release.apk ../facilities-assessment-server/external/app.apk

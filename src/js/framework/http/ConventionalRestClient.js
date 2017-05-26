@@ -19,10 +19,9 @@ class ConventionalRestClient {
         urlParts.push(resourceSearchFilterURL);
 
         let params = makeParams({
-            lastModifiedDateTime: moment(lastUpdatedLocally).add(1, "ms").toISOString(),
+            lastModifiedDate: moment(lastUpdatedLocally).add(1, "ms").toISOString(),
             size: 200,
-            page: pageNumber,
-            sort: "sort=lastModifiedDateTime,asc"
+            page: pageNumber
         });
         const url = `${urlParts.join("/")}?${params}`;
 
