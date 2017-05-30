@@ -80,7 +80,8 @@ class ChecklistService extends BaseService {
 
 
     getAreasOfConcernsFor(checklistUUID) {
-        return this.getChecklist(checklistUUID).areasOfConcern;
+        const areasOfConcern = this.getChecklist(checklistUUID).areasOfConcern;
+        return _.sortBy(areasOfConcern, ['reference']);
     }
 
     standardRefComparator(standard) {
