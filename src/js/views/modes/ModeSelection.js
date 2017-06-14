@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {Dimensions, View, Text, Navigator, StyleSheet} from 'react-native';
-import {Container, Content, Title, Button, Header, Icon, Thumbnail, Card, CardItem} from 'native-base';
+import {Dimensions, View, Text, Navigator, StyleSheet, TouchableWithoutFeedback, Image} from 'react-native';
+import {Container, Content, Title, Button, Header, Icon, Thumbnail} from 'native-base';
 import AbstractComponent from "../common/AbstractComponent";
 import FlatUITheme from '../themes/flatUI';
 import TypedTransition from "../../framework/routing/TypedTransition";
@@ -27,7 +27,7 @@ class ModeSelection extends AbstractComponent {
         container: {
             margin: deviceWidth * 0.04,
             flex: 1,
-            flexDirection: 'column',
+            flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center'
         },
@@ -41,11 +41,12 @@ class ModeSelection extends AbstractComponent {
             width: deviceWidth * .5,
             marginTop: deviceHeight * .05,
         },
-        card: {
-            width: deviceWidth * .836,
-            marginTop: deviceHeight * .025,
+        mode: {
+            backgroundColor: 'transparent',
         },
         cardImage: {
+            width: 150,
+            height: 300,
             marginRight: deviceWidth * .06,
         },
     });
@@ -55,30 +56,16 @@ class ModeSelection extends AbstractComponent {
         return () => TypedTransition.from(this).with({mode: mode}).to(Dashboard);
     }
 
-    renderMode(mode, modeText, icon) {
-        return (
-            <Card style={ModeSelection.styles.card}>
-                <CardItem onPress={this.handleOnPress(mode)}>
-                    <Thumbnail size={deviceWidth * .233}
-                               resizeMode="contain"
-                               style={ModeSelection.styles.cardImage}
-                               source={icon}/>
-                    <Text style={[Typography.paperFontSubhead, {color: PrimaryColors.subheader_black}]}>
-                        {modeText}
-                    </Text>
-                </CardItem>
-            </Card>
-        )
-    }
-
     render() {
-
         return (
             <Container theme={FlatUITheme}>
                 <Header style={ModeSelection.styles.header}>
                     <Button
                         onPress={() => TypedTransition.from(this)
-                            .with({cb: ()=>{}})
+                            .with({
+                                cb: () => {
+                                }
+                            })
                             .to(Settings, Navigator.SceneConfigs.FloatFromLeft)}
                         transparent>
                         <Icon style={{marginTop: 10, color: 'white'}} name="menu"/>
@@ -89,12 +76,30 @@ class ModeSelection extends AbstractComponent {
                     }]}>Facilities Assessment</Title>
                 </Header>
                 <Content>
+                    <Text style={[Typography.paperFontHeadline, {color: 'white', alignSelf: 'center', marginTop: 16}]}>
+                        Choose an Assessment Type
+                    </Text>
                     <View style={ModeSelection.styles.container}>
-                        <Text style={[Typography.paperFontHeadline, {color: 'white'}]}>
-                            Choose an Assessment Type
-                        </Text>
-                        {this.renderMode("NQAS", "NQAS", nqasIcon)}
-                        {this.renderMode("Kayakalp", "Kayakalp", kayakalpIcon)}
+                        <TouchableWithoutFeedback onPress={this.handleOnPress("NQAS")}>
+                            <View style={ModeSelection.styles.mode}>
+                                <Image resizeMode="contain"
+                                       style={{
+                                           width: deviceWidth * .275,
+                                           marginLeft: deviceWidth * .06,
+                                       }}
+                                       source={nqasIcon}/>
+                            </View>
+                        </TouchableWithoutFeedback>
+                        <TouchableWithoutFeedback onPress={this.handleOnPress("Kayakalp")}>
+                            <View style={ModeSelection.styles.mode}>
+                                <Image resizeMode="contain"
+                                       style={{
+                                           width: deviceWidth * .33,
+                                           marginRight: deviceWidth * .06,
+                                       }}
+                                       source={kayakalpIcon}/>
+                            </View>
+                        </TouchableWithoutFeedback>
                     </View>
                 </Content>
             </Container>
