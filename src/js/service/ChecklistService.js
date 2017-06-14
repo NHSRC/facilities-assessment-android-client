@@ -89,8 +89,16 @@ class ChecklistService extends BaseService {
         return parseInt(standard.reference.match(standardReference)[2]);
     }
 
+    meRefComparator(me) {
+        let meReference = new RegExp("([A-Z]{1})([0-9]{1,3})\.([0-9]{1,3})");
+        return parseInt(me.reference.match(meReference)[3]);
+    }
+
     getStandardsFor(checklistUUID, aocUUID) {
-        return _.sortBy(this.getChecklist(checklistUUID).areasOfConcern.find((aoc) => aoc.uuid === aocUUID).standards,
+        return _.sortBy(this.getChecklist(checklistUUID)
+                .areasOfConcern
+                .find((aoc) => aoc.uuid === aocUUID)
+                .standards,
             this.standardRefComparator);
     }
 
@@ -108,10 +116,13 @@ class ChecklistService extends BaseService {
     }
 
     getCheckpointsFor(checklistUUID, aocUUID, standardUUID) {
-        return _.flatten(this.getChecklist(checklistUUID).areasOfConcern
+        let measurableElements = this.getChecklist(checklistUUID).areasOfConcern
             .find((aoc) => aoc.uuid === aocUUID).standards
-            .find((standard) => standard.uuid === standardUUID).measurableElements
-            .map((me) => me.checkpoints));
+            .find((standard) => standard.uuid === standardUUID).measurableElements;
+        measurableElements = _.sortBy(measurableElements, this.meRefComparator);
+        let checkpoints = measurableElements
+            .map((me) => _.sortBy(me.checkpoints, ['sortOrder']));
+        return _.flatten(checkpoints);
     }
 
     getMeasurableElement(measurableElementUUID) {

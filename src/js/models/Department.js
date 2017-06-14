@@ -4,7 +4,8 @@ class Department {
         primaryKey: 'uuid',
         properties: {
             name: 'string',
-            uuid: 'string'
+            uuid: 'string',
+            sortOrder: {type: 'int', default: 0}
         }
     }
 }

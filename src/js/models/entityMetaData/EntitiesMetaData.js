@@ -84,6 +84,7 @@ class CheckpointMapper {
         resource.amStaffInterview = resource['assessmentMethodStaffInterview'];
         resource.amPatientInterview = resource['assessmentMethodPatientInterview'];
         resource.amRecordReview = resource['assessmentMethodRecordReview'];
+        resource.sortOrder = resource['sortOrder'];
         return resource;
     }
 }
