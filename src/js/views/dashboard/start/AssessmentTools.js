@@ -21,6 +21,8 @@ class AssessmentTools extends AbstractComponent {
         },
         inactiveButton: {
             width: deviceWidth * 0.43,
+            paddingTop: 16,
+            paddingBottom: 16,
             marginTop: deviceheight * 0.02667,
             flexDirection: "row",
             justifyContent: 'flex-start',
@@ -30,6 +32,8 @@ class AssessmentTools extends AbstractComponent {
         },
         activeButton: {
             width: deviceWidth * 0.43,
+            paddingTop: 16,
+            paddingBottom: 16,
             marginTop: deviceheight * 0.02667,
             backgroundColor: PrimaryColors.blue,
             flexDirection: "row",
