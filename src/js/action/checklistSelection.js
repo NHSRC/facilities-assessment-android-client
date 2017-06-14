@@ -38,8 +38,15 @@ const updateChecklistProgress = function (state, action, beans) {
                 completed: updatedProgress.completed
             }
         }) : checklist);
-
-    return Object.assign(state, {"checklists": newChecklists});
+    const completedChecklists = newChecklists
+        .filter((checklistProgress) =>
+            _.isNumber(checklistProgress.progress.total) &&
+            checklistProgress.progress.completed === checklistProgress.progress.total
+        ).length;
+    return Object.assign(state, {
+        checklists: newChecklists,
+        assessmentProgress: {total: newChecklists.length, completed: completedChecklists}
+    });
 };
 
 
