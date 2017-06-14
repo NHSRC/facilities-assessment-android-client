@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Dimensions, View, Text, TouchableWithoutFeedback, StyleSheet} from 'react-native';
 import AbstractComponent from "../common/AbstractComponent";
 import Actions from '../../action';
+import _ from 'lodash';
 import ComplianceItem from './ComplianceItem';
 
 class Compliance extends AbstractComponent {
@@ -22,7 +23,17 @@ class Compliance extends AbstractComponent {
     });
 
 
-    handleOnPress(score) {
+    getCurrentIndex() {
+        return _.findIndex(this.props.checkpoints,
+            (checkpoint) => this.props.currentCheckpoint.uuid === checkpoint.uuid);
+    }
+
+    next() {
+        const nextCheckpoint = this.props.checkpoints[this.getCurrentIndex() + 1];
+        this.dispatchAction(Actions.CHANGE_PAGE, {currentCheckpoint: nextCheckpoint});
+    }
+
+    handleOnPress(score, fn) {
         return () => {
             if (!_.isNumber(this.props.checkpoint.score)) {
                 [
@@ -36,14 +47,15 @@ class Compliance extends AbstractComponent {
                 checkpoint: Object.assign(this.props.checkpoint, {score: score}),
                 ...this.props.params
             });
+            setTimeout(fn, 600);
         }
     }
 
     render() {
         const currentScore = this.props.checkpoint.score;
-        const complianceItems = [["Non Compliant", 0], ["Partially Compliant", 1], ["Fully Compliant", 2]]
-            .map(([text, score], idx) => (
-                <ComplianceItem key={idx} score={score} text={text} handleOnPress={this.handleOnPress(score)}
+        const complianceItems = [["Non Compliant", 0, _.noop], ["Partially Compliant", 1, _.noop], ["Fully Compliant", 2, this.next.bind(this)]]
+            .map(([text, score, fn], idx) => (
+                <ComplianceItem key={idx} score={score} text={text} handleOnPress={this.handleOnPress(score, fn)}
                                 active={currentScore === score}/>
             ));
         return (
