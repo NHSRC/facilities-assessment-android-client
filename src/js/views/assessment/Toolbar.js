@@ -67,7 +67,7 @@ class Toolbar extends AbstractComponent {
     }
 
     showFinished(currentCheckpoint, checkpoints) {
-        return this.isLast(currentCheckpoint, checkpoints) && checkpoints.every(({score}) => _.isNumber(score));
+        return checkpoints.every(({score}) => _.isNumber(score));
     }
 
     getCurrentIndex() {
