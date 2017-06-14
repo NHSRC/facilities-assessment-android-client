@@ -21,6 +21,7 @@ class Toolbar extends AbstractComponent {
     static styles = StyleSheet.create({
         container: {
             flexDirection: 'row',
+            flex: 1,
             flexWrap: 'nowrap',
             justifyContent: 'space-between',
             marginTop: deviceHeight * .01667,
@@ -114,14 +115,17 @@ class Toolbar extends AbstractComponent {
             .map((button, key) => this.renderButton(button, key));
         let meansOfVerificationLink = _.isEmpty(this.props.checkpoint.checkpoint.meansOfVerification) ?
             (<View/>) :
-            (<View>
-                <Text onPress={this.showMeansOfVerification}
-                      style={[Typography.paperFontBody1, {
-                              fontWeight: '500',
-                              color: PrimaryColors.yellow,
-                              textDecorationLine: 'underline'
-                          }]}>
+            (<View style={{flex: .4, marginRight: 10}}>
+                <Text
+                    style={[Typography.paperFontBody1, {
+                        fontWeight: '500',
+                        color: PrimaryColors.yellow,
+                        textDecorationLine: 'underline'
+                    }]}>
                     Means of Verification
+                </Text>
+                <Text style={{color: "white"}}>
+                    {this.props.checkpoint.checkpoint.meansOfVerification}
                 </Text>
             </View>);
         return (
