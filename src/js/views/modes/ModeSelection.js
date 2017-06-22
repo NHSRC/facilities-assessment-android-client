@@ -25,6 +25,10 @@ class ModeSelection extends AbstractComponent {
 
     static styles = StyleSheet.create({
         container: {
+            flexDirection: 'column',
+            justifyContent: 'center',
+        },
+        modeContainer: {
             margin: deviceWidth * 0.04,
             flex: 1,
             flexDirection: 'row',
@@ -76,30 +80,36 @@ class ModeSelection extends AbstractComponent {
                     }]}>Facilities Assessment</Title>
                 </Header>
                 <Content>
-                    <Text style={[Typography.paperFontHeadline, {color: 'white', alignSelf: 'center', marginTop: 16}]}>
-                        Choose an Assessment Type
-                    </Text>
                     <View style={ModeSelection.styles.container}>
-                        <TouchableWithoutFeedback onPress={this.handleOnPress("NQAS")}>
-                            <View style={ModeSelection.styles.mode}>
-                                <Image resizeMode="contain"
-                                       style={{
-                                           width: deviceWidth * .275,
-                                           marginLeft: deviceWidth * .06,
-                                       }}
-                                       source={nqasIcon}/>
-                            </View>
-                        </TouchableWithoutFeedback>
-                        <TouchableWithoutFeedback onPress={this.handleOnPress("Kayakalp")}>
-                            <View style={ModeSelection.styles.mode}>
-                                <Image resizeMode="contain"
-                                       style={{
-                                           width: deviceWidth * .33,
-                                           marginRight: deviceWidth * .06,
-                                       }}
-                                       source={kayakalpIcon}/>
-                            </View>
-                        </TouchableWithoutFeedback>
+                        <Text style={[Typography.paperFontHeadline, {
+                            color: 'white',
+                            alignSelf: 'center',
+                            marginTop: 16
+                        }]}>
+                            Choose an Assessment Type
+                        </Text>
+                        <View style={ModeSelection.styles.modeContainer}>
+                            <TouchableWithoutFeedback onPress={this.handleOnPress("NQAS")}>
+                                <View style={ModeSelection.styles.mode}>
+                                    <Image resizeMode="contain"
+                                           style={{
+                                               width: deviceWidth * .275,
+                                               marginLeft: deviceWidth * .06,
+                                           }}
+                                           source={nqasIcon}/>
+                                </View>
+                            </TouchableWithoutFeedback>
+                            <TouchableWithoutFeedback onPress={this.handleOnPress("Kayakalp")}>
+                                <View style={ModeSelection.styles.mode}>
+                                    <Image resizeMode="contain"
+                                           style={{
+                                               width: deviceWidth * .33,
+                                               marginRight: deviceWidth * .06,
+                                           }}
+                                           source={kayakalpIcon}/>
+                                </View>
+                            </TouchableWithoutFeedback>
+                        </View>
                     </View>
                 </Content>
             </Container>
