@@ -40,7 +40,7 @@ class OverallScore extends AbstractComponent {
             <View style={OverallScore.styles.container}>
                 <AnimatedGaugeProgress
                     size={deviceHeight * .25}
-                    width={4}
+                    width={6}
                     fill={this.props.score}
                     rotation={90}
                     cropDegree={120}
