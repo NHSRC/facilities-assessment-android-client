@@ -11,6 +11,7 @@ export default {
     "light_black": "rgba(0,0,0,0.12)",
     "dark_white": "rgba(255,255,255,0.12)",
     "medium_white": "rgba(255,255,255,0.70)",
+    "grey": "rgba(255,255,255,0.40)",
     "medium_black": "rgba(0,0,0,0.38)",
     "green": "#5C832F",
     "some": "#990000",
