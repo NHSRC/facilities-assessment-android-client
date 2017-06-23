@@ -98,6 +98,11 @@ class ProgressListingItem extends AbstractComponent {
         return (
             <TouchableWithoutFeedback onPress={this.props.onPress}>
                 <View style={[ProgressListingItem.styles.button, ProgressListingItem.styles.small]}>
+                    <View style={[ProgressListingItem.styles.buttonLabel, {backgroundColor: this.props.labelColor}]}>
+                        <Text style={[Typography.paperFontBody1, {color: "#FFF"}]}>
+                            {this.props.item.reference}
+                        </Text>
+                    </View>
                     <View style={ProgressListingItem.styles.buttonText}>
                         <Text style={[Typography.paperFontSubhead, {color: PrimaryColors.subheader_black, flex: 0.7}]}>
                             {this.props.item.name}
@@ -105,11 +110,6 @@ class ProgressListingItem extends AbstractComponent {
                         <View style={ProgressListingItem.styles.progressIndicator}>
                             {ProgressIndicator}
                         </View>
-                    </View>
-                    <View style={[ProgressListingItem.styles.buttonLabel, {backgroundColor: this.props.labelColor}]}>
-                        <Text style={[Typography.paperFontBody1, {color: "#FFF"}]}>
-                            {this.props.item.reference}
-                        </Text>
                     </View>
                 </View>
             </TouchableWithoutFeedback>);
