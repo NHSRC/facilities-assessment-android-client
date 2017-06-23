@@ -48,18 +48,12 @@ class ProgressListingItem extends AbstractComponent {
         buttonLabel: {
             width: deviceWidth * 0.2,
             margin: 0,
-            justifyContent: 'center',
+            justifyContent: 'space-between',
             alignItems: 'center'
         },
         completeButtonContainer: {
-            backgroundColor: PrimaryColors.light_black,
-            borderRadius: 100,
-            flexDirection: 'row',
-            flexWrap: 'nowrap',
-            width: deviceWidth * 0.18,
-            height: deviceHeight * .033,
             alignItems: 'center',
-            marginRight: deviceWidth * 0.02667,
+            justifyContent: 'center',
         },
         progressIndicator: {
             flex: 0.3,
@@ -71,8 +65,7 @@ class ProgressListingItem extends AbstractComponent {
         return (
             <TouchableWithoutFeedback>
                 <View style={ProgressListingItem.styles.completeButtonContainer}>
-                    <Icon style={{color: PrimaryColors.yellow}} name="check-circle"/>
-                    <Text style={{marginLeft: 5}}>Complete</Text>
+                    <Icon style={{color: PrimaryColors.blue}} name="check-circle"/>
                 </View>
             </TouchableWithoutFeedback>);
     }
@@ -83,9 +76,8 @@ class ProgressListingItem extends AbstractComponent {
 
     renderProgress() {
         return (
-            <Text style={[Typography.paperFontSubhead, {
-                color: PrimaryColors.subheader_black,
-                marginRight: deviceWidth * 0.02667,
+            <Text style={[Typography.paperFontBody1, {
+                color: "white"
             }]}>
                 {_.isNumber(this.props.item.progress.total) ? this.getProgress(this.props.item) : ""}
             </Text>);
@@ -102,14 +94,14 @@ class ProgressListingItem extends AbstractComponent {
                         <Text style={[Typography.paperFontBody1, {color: "#FFF"}]}>
                             {this.props.item.reference}
                         </Text>
+                        <View style={ProgressListingItem.styles.progressIndicator}>
+                            {ProgressIndicator}
+                        </View>
                     </View>
                     <View style={ProgressListingItem.styles.buttonText}>
                         <Text style={[Typography.paperFontSubhead, {color: PrimaryColors.subheader_black, flex: 0.7}]}>
                             {this.props.item.name}
                         </Text>
-                        <View style={ProgressListingItem.styles.progressIndicator}>
-                            {ProgressIndicator}
-                        </View>
                     </View>
                 </View>
             </TouchableWithoutFeedback>);
