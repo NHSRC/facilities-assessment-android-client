@@ -14,6 +14,7 @@ import AssessmentTools from './AssessmentTools';
 import StartNewAssessment from './StartNewAssessment';
 import TypedTransition from "../../../framework/routing/TypedTransition";
 import ChecklistSelection from "../../checklistSelection/ChecklistSelection";
+import FacilityText from "./FacilityText";
 
 
 const deviceWidth = Dimensions.get('window').width;
@@ -48,7 +49,7 @@ class StartView extends AbstractComponent {
             cb: () =>
                 TypedTransition.from(this).with({
                     assessmentTool: this.state.selectedAssessmentTool,
-                    facility: this.state.selectedFacility,
+                    facility: newState.selectedFacility,
                     assessmentType: this.state.selectedAssessmentType,
                     facilityAssessment: newState.facilityAssessment,
                     ...this.props
@@ -74,7 +75,7 @@ class StartView extends AbstractComponent {
 
     render() {
         const FormComponents =
-            [AssessmentTools, StateDistrict, FacilityType, Facility, AssessmentType, StartNewAssessment]
+            [AssessmentTools, StateDistrict, FacilityType, Facility, FacilityText, AssessmentType, StartNewAssessment]
                 .map((FormComponent, idx) =>
                     <ListItem key={idx} style={StartView.styles.formRow}>
                         <FormComponent data={this.state} {...this.props}/>

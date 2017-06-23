@@ -14,7 +14,6 @@ describe('Reference Sort Test', () => {
         let meReferences = [{reference: "A1.13"}, {reference: "A1.23"}, {reference: "A1.10"}, {reference: "A1.2"}, {reference: "A1.1"}, {reference: "A1.4"}, {reference: "A1.100"}, {reference: "A1.9"}, {reference: "A1.10"}];
         let checklistService = new ChecklistService();
         let sortedMEs = _.sortBy(meReferences, checklistService.meRefComparator);
-        console.log(sortedMEs);
         expect(sortedMEs).to.deep.equals([
             {reference: 'A1.1'},
             {reference: 'A1.2'},

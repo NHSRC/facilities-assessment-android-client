@@ -65,6 +65,19 @@ const selectFacility = function (state, action, beans) {
         "facilitySelected": false,
         "assessmentTypes": assessmentTypes,
         "selectedAssessmentType": undefined,
+        "facilityName": ""
+    });
+};
+
+const enterFacilityName = function (state, action, beans) {
+    const facilityAssessmentService = beans.get(FacilityAssessmentService);
+    const assessmentTypes = facilityAssessmentService.getAssessmentTypes();
+    return Object.assign(state, {
+        "facilitySelected": false,
+        "assessmentTypes": assessmentTypes,
+        "selectedAssessmentType": undefined,
+        "selectedFacility": undefined,
+        "facilityName": action.facilityName
     });
 };
 
@@ -85,9 +98,15 @@ const selectAssessmentTool = function (state, action, beans) {
 
 const facilitySelected = function (state, action, beans) {
     const facilityAssessmentService = beans.get(FacilityAssessmentService);
-    const hasActiveFacilityAssessment = !_.isEmpty(facilityAssessmentService.getExistingAssessment(state.selectedFacility, state.selectedAssessmentTool, state.selectedAssessmentType));
-    const facilityAssessment = facilityAssessmentService.startAssessment(state.selectedFacility, state.selectedAssessmentTool, state.selectedAssessmentType);
+    const facilitiesService = beans.get(FacilitiesService);
+    let selectedFacility = state.selectedFacility;
+    if (!_.isEmpty(state.facilityName)) {
+        selectedFacility = facilitiesService.saveFacility(state.facilityName, state.selectedDistrict);
+    }
+    const hasActiveFacilityAssessment = !_.isEmpty(facilityAssessmentService.getExistingAssessment(selectedFacility, state.selectedAssessmentTool, state.selectedAssessmentType));
+    const facilityAssessment = facilityAssessmentService.startAssessment(selectedFacility, state.selectedAssessmentTool, state.selectedAssessmentType);
     return Object.assign(state, {
+        "selectedFacility": selectedFacility,
         "facilitySelected": true,
         "facilityAssessment": facilityAssessment,
         "hasActiveFacilityAssessment": hasActiveFacilityAssessment,
@@ -120,6 +139,7 @@ export default new Map([
     ["SELECT_ASSESSMENT_TYPE", selectAssessmentType],
     ["FACILITY_SELECT", facilitySelected],
     ["SELECT_ASSESSMENT_TOOL", selectAssessmentTool],
+    ["ENTER_FACILITY_NAME", enterFacilityName],
     ["RESET_FORM", reset_form],
 ]);
 
@@ -133,6 +153,7 @@ export let facilitySelectionInit = {
     hasActiveFacilityAssessment: false,
     facilityAssessment: undefined,
     assessmentTools: [],
+    facilityName: "",
     assessmentTypes: [],
     allStates: [],
     districtsForState: [],
