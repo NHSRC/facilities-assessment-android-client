@@ -64,14 +64,14 @@ class ListingItem extends AbstractComponent {
         return (
             <TouchableWithoutFeedback onPress={this.props.onPress}>
                 <View style={[ListingItem.styles.button, style.button]}>
-                    <View style={ListingItem.styles.buttonText}>
-                        <Text style={[style.text, {color: PrimaryColors.subheader_black}]}>
-                            {this.props.item.name}
-                        </Text>
-                    </View>
                     <View style={[ListingItem.styles.buttonLabel, {backgroundColor: this.props.labelColor}]}>
                         <Text style={[style.label, {color: "#FFF"}]}>
                             {this.props.item.reference}
+                        </Text>
+                    </View>
+                    <View style={ListingItem.styles.buttonText}>
+                        <Text style={[style.text, {color: PrimaryColors.subheader_black}]}>
+                            {this.props.item.name}
                         </Text>
                     </View>
                 </View>
