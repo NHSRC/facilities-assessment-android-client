@@ -68,7 +68,7 @@ class AreasOfConcern extends AbstractComponent {
                 <Content>
                     <View style={{margin: deviceWidth * 0.04,}}>
                         <Listing
-                            labelColor={PrimaryColors.dark_white}
+                            labelColor={PrimaryColors.medium_white}
                             onPress={this.handleOnPress.bind(this)}
                             items={this.state.areasOfConcern}/>
                     </View>
