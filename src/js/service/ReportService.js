@@ -6,6 +6,7 @@ import Checklist from "../models/Checklist";
 import DepartmentService from "./DepartmentService";
 import AreaOfConcern from "../models/AreaOfConcern";
 import Standard from "../models/Standard";
+import ChecklistService from "./ChecklistService";
 
 @Service("reportService")
 class ReportService extends BaseService {
@@ -66,6 +67,30 @@ class ReportService extends BaseService {
                 (_.sumBy(checkpointScores, "score") / (checkpointScores.length * 2)) * 100;
         });
         return scorePerStandard;
+    }
+
+    assessedCheckpoints(facilityAssessment) {
+        return this.db.objects(CheckpointScore)
+            .filtered("facilityAssessment = $0", facilityAssessment.uuid)
+            .map(_.identity).length;
+    }
+
+    getCheckpointsWithCompliance(facilityAssessment, compliance) {
+        return this.db.objects(CheckpointScore)
+            .filtered("facilityAssessment = $0 AND score = $1", facilityAssessment.uuid, compliance)
+            .map(_.identity);
+    }
+
+    compliantCheckpoints(facilityAssessment) {
+        return this.getCheckpointsWithCompliance(facilityAssessment, 2).length;
+    }
+
+    partiallyCompliantCheckpoints(facilityAssessment) {
+        return this.getCheckpointsWithCompliance(facilityAssessment, 1).length;
+    }
+
+    nonCompliantCheckpoints(facilityAssessment) {
+        return this.getCheckpointsWithCompliance(facilityAssessment, 1).length;
     }
 }
 

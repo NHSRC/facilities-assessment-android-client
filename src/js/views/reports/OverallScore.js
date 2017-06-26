@@ -22,9 +22,12 @@ class OverallScore extends AbstractComponent {
 
     static styles = StyleSheet.create({
         container: {
+            padding: 10,
             backgroundColor: PrimaryColors.blue,
             height: deviceHeight * .264,
-            justifyContent: 'center',
+            flexDirection: 'row',
+            flexWrap: 'nowrap',
+            justifyContent: 'space-between',
             alignItems: 'center'
         },
         scorePercentage: {
@@ -57,6 +60,20 @@ class OverallScore extends AbstractComponent {
                             </Text>
                         </View>}
                 </AnimatedGaugeProgress>
+                <View>
+                    <Text style={{color: "white"}}>
+                        {`Checkpoints Assessed - ${this.props.checkpointStats.assessedCheckpoints}`}
+                    </Text>
+                    <Text style={{color: "white"}}>
+                        {`Non Compliant Checkpoints - ${this.props.checkpointStats.nonCompliantCheckpoints}`}
+                    </Text>
+                    <Text style={{color: "white"}}>
+                        {`Partially Compliant Checkpoints - ${this.props.checkpointStats.partiallyCompliantCheckpoints}`}
+                    </Text>
+                    <Text style={{color: "white"}}>
+                        {`Fully Compliant Checkpoints - ${this.props.checkpointStats.fullyCompliantCheckpoints}`}
+                    </Text>
+                </View>
             </View>
         );
     }

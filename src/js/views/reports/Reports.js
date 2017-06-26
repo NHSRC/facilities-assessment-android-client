@@ -62,7 +62,7 @@ class Reports extends AbstractComponent {
                     }]}>Reports</Title>
                 </Header>
                 <Content>
-                    <OverallScore score={this.state.overallScore}/>
+                    <OverallScore score={this.state.overallScore} checkpointStats={this.state.checkpointStats}/>
                     <ScoreTabs data={this.state}/>
                 </Content>
             </Container>

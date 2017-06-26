@@ -4,17 +4,27 @@ import ReportService from '../service/ReportService';
 
 const getAllScores = function (state, action, beans) {
     const reportService = beans.get(ReportService);
-    let overallScore = reportService.overallScore(action.facilityAssessment);
-    let scoreByDepartment = reportService.scoreByDepartment(action.facilityAssessment);
-    let scoreByAreaOfConcern = reportService.scoreByAreaOfConcern(action.facilityAssessment);
-    let scoreByStandard = reportService.scoreByStandard(action.facilityAssessment);
+    const overallScore = reportService.overallScore(action.facilityAssessment);
+    const scoreByDepartment = reportService.scoreByDepartment(action.facilityAssessment);
+    const scoreByAreaOfConcern = reportService.scoreByAreaOfConcern(action.facilityAssessment);
+    const scoreByStandard = reportService.scoreByStandard(action.facilityAssessment);
+    const assessedCheckpoints = reportService.assessedCheckpoints(action.facilityAssessment);
+    const compliantCheckpoints = reportService.compliantCheckpoints(action.facilityAssessment);
+    const partiallyCompliantCheckpoints = reportService.partiallyCompliantCheckpoints(action.facilityAssessment);
+    const nonCompliantCheckpoints = reportService.nonCompliantCheckpoints(action.facilityAssessment);
     return {
         ...state,
         overallScore: overallScore,
         scoreByDepartment: scoreByDepartment,
         scoresToShow: scoreByAreaOfConcern,
         scoreByStandard: scoreByStandard,
-        scoreByAreaOfConcern: scoreByAreaOfConcern
+        scoreByAreaOfConcern: scoreByAreaOfConcern,
+        checkpointStats: {
+            assessedCheckpoints: assessedCheckpoints,
+            partiallyCompliantCheckpoints: partiallyCompliantCheckpoints,
+            fullyCompliantCheckpoints: compliantCheckpoints,
+            nonCompliantCheckpoints: nonCompliantCheckpoints
+        }
     };
 };
 
@@ -41,6 +51,12 @@ export let reportsInit = {
     scoreByDepartment: {},
     scoreByAreaOfConcern: {},
     scoreByStandard: {},
+    checkpointStats: {
+        assessedCheckpoints: 0,
+        partiallyCompliantCheckpoints: 0,
+        fullyCompliantCheckpoints: 0,
+        nonCompliantCheckpoints: 0
+    },
     selectedTab: 'AREA OF CONCERN',
     tabs: ['AREA OF CONCERN', 'DEPARTMENT', 'STANDARD']
 };
