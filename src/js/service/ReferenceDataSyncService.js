@@ -24,7 +24,7 @@ class ReferenceDataSyncService extends BaseService {
 
     init() {
         this.entitySyncStatusService = this.getService(EntitySyncStatusService);
-        this.conventionalRestClient = new ConventionalRestClient(this.getService(SettingsService));
+        this.conventionalRestClient = new ConventionalRestClient(this.getService(SettingsService), this.db);
         this.entityService = this.getService(EntityService);
         this.serverURL = this.getService(SettingsService).getServerURL();
     }
@@ -57,12 +57,11 @@ class ReferenceDataSyncService extends BaseService {
 
     persist(resourcesWithSameTimeStamp, entityMetaData) {
         resourcesWithSameTimeStamp.forEach((resource) => {
-            // Logger.logDebug(`ReferenceDataSyncService ${entityMetaData.entityName}`, JSON.stringify(resource));
             const entity = entityMetaData.mapFromResource(resource);
-            let savedEntity = this.getService(entityMetaData.serviceClass).save(entityMetaData.entityClass, entity);
+            let savedEntity = this.getService(entityMetaData.serviceClass).saveWithinTx(entityMetaData.entityClass, entity);
             if (!_.isNil(entityMetaData.parentClass)) {
                 const parentEntity = entityMetaData.parentClass.associateChild(entity, entityMetaData.entityClass, resource, this.entityService);
-                this.save(entityMetaData.parentClass)(parentEntity);
+                this.saveWithinTx(entityMetaData.parentClass, parentEntity);
             }
         });
 
@@ -71,7 +70,7 @@ class ReferenceDataSyncService extends BaseService {
         entitySyncStatus.name = entityMetaData.entityName;
         entitySyncStatus.uuid = currentEntitySyncStatus.uuid;
         entitySyncStatus.loadedSince = moment(resourcesWithSameTimeStamp[0]["lastModifiedDate"]).toDate();
-        this.entitySyncStatusService.save(EntitySyncStatus)(entitySyncStatus);
+        this.entitySyncStatusService.saveWithinTx(EntitySyncStatus, entitySyncStatus);
     }
 }
 

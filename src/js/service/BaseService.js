@@ -18,15 +18,15 @@ export default class BaseService {
     }
 
     fromStringObj(key) {
-        return (entity)=> {
-            entity[key] = entity[key].map((strObj)=>strObj.value);
+        return (entity) => {
+            entity[key] = entity[key].map((strObj) => strObj.value);
             return entity;
         }
     }
 
     toStringObj(key) {
-        return (entity)=> {
-            entity[key] = entity[key].map((str)=> {
+        return (entity) => {
+            entity[key] = entity[key].map((str) => {
                 return {"value": str}
             });
             return entity;
@@ -34,16 +34,16 @@ export default class BaseService {
     }
 
     pickKeys(keys) {
-        return (obj)=>_.pick(obj, ["name", "uuid"].concat(keys));
+        return (obj) => _.pick(obj, ["name", "uuid"].concat(keys));
     }
 
     nameAndId(obj) {
-        return _.pick(obj, ["name", "uuid"])
+        return _.pick(obj, ["name", "uuid"]);
     }
 
     save(entityClass, transformFN = _.identity) {
-        return (entity)=> {
-            this.db.write(()=>this.db.create(entityClass.schema.name, transformFN(entity), true));
+        return (entity) => {
+            this.db.write(() => this.db.create(entityClass.schema.name, transformFN(entity), true));
             return this.db.objectForPrimaryKey(entityClass.schema.name, entity.uuid);
         }
     }
@@ -70,5 +70,10 @@ export default class BaseService {
         if (entities.length === 0) return undefined;
         if (entities.length === 1) return entities[0];
         return entities;
+    }
+
+    saveWithinTx(entityClass, entity) {
+        this.db.create(entityClass.schema.name, entity, true);
+        return this.db.objectForPrimaryKey(entityClass.schema.name, entity.uuid);
     }
 }

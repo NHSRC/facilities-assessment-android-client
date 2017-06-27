@@ -5,8 +5,9 @@ import moment from "moment";
 import Logger from "../Logger";
 
 class ConventionalRestClient {
-    constructor(settingsService) {
+    constructor(settingsService, db) {
         this.settingsService = settingsService;
+        this.db = db;
     }
 
     loadData(entityMetaData, lastUpdatedLocally, pageNumber, allEntityMetaData, executeResourcesWithSameTimestamp, executeNextResource, resourcesWithSameTimestamp, onError) {
@@ -28,16 +29,19 @@ class ConventionalRestClient {
         Logger.logDebug('ConventionalRestClient', `Calling: ${url}`);
         getJSON(url, (response) => {
             const resources = response["_embedded"][`${entityMetaData.resourceName}`];
-            _.forEach(resources, (resource) => {
-                if (resourcesWithSameTimestamp.length === 0)
-                    resourcesWithSameTimestamp.push(resource);
-                else if (resourcesWithSameTimestamp.length > 0 && resourcesWithSameTimestamp[0]["lastModifiedDate"] === resource["lastModifiedDate"])
-                    resourcesWithSameTimestamp.push(resource);
-                else {
-                    Logger.logDebug('ConventionalRestClient', `Executing sync action on: ${resourcesWithSameTimestamp.length} items for resource: ${entityMetaData.resourceName}`);
-                    executeResourcesWithSameTimestamp(resourcesWithSameTimestamp, entityMetaData);
-                    resourcesWithSameTimestamp = [resource];
-                }
+
+            this.db.write(() => {
+                _.forEach(resources, (resource) => {
+                    if (resourcesWithSameTimestamp.length === 0)
+                        resourcesWithSameTimestamp.push(resource);
+                    else if (resourcesWithSameTimestamp.length > 0 && resourcesWithSameTimestamp[0]["lastModifiedDate"] === resource["lastModifiedDate"])
+                        resourcesWithSameTimestamp.push(resource);
+                    else {
+                        Logger.logDebug('ConventionalRestClient', `Executing sync action on: ${resourcesWithSameTimestamp.length} items for resource: ${entityMetaData.resourceName}`);
+                        executeResourcesWithSameTimestamp(resourcesWithSameTimestamp, entityMetaData);
+                        resourcesWithSameTimestamp = [resource];
+                    }
+                });
             });
 
             if (ConventionalRestClient.morePagesForThisResource(response)) {
@@ -45,12 +49,15 @@ class ConventionalRestClient {
                 this.loadData(entityMetaData, lastUpdatedLocally, pageNumber + 1, allEntityMetaData, executeResourcesWithSameTimestamp, executeNextResource, resourcesWithSameTimestamp, onError);
             } else if (resourcesWithSameTimestamp.length > 0) {
                 Logger.logDebug('ConventionalRestClient', `Executing sync action on: ${resourcesWithSameTimestamp.length} items for resource: ${entityMetaData.resourceName}`);
-                executeResourcesWithSameTimestamp(resourcesWithSameTimestamp, entityMetaData);
+                this.db.write(() => {
+                    executeResourcesWithSameTimestamp(resourcesWithSameTimestamp, entityMetaData);
+                });
                 executeNextResource(allEntityMetaData);
             } else {
                 Logger.logDebug('ConventionalRestClient', `Executing next resource`);
                 executeNextResource(allEntityMetaData);
             }
+
         }, onError);
     }
 
