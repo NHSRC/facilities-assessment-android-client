@@ -1,14 +1,5 @@
 import BaseService from "./BaseService";
 import Service from "../framework/bean/Service";
-import states from "../../config/states.json";
-import facilityTypes from "../../config/facilityTypes.json";
-import departments from "../../config/departments.json";
-import assessmentTools from "../../config/assessmentTools.json";
-import settings from "../../config/settings.json";
-import assessmentTypes from "../../config/assessmentTypes.json";
-import checklists from "../../config/checklists.json";
-import areasOfConcern from "../../config/areasOfConcern.json";
-import checkpoints from "../../config/checkpoints.json";
 import FacilitiesService from "./FacilitiesService";
 import DepartmentService from "./DepartmentService";
 import ChecklistAssessmentService from "./AssessmentService";
@@ -39,7 +30,7 @@ class SeedDataService extends BaseService {
         return allStates.length === 0;
     }
 
-    createAll() {
+/*    createAll() {
         [
             {
                 "service": SettingsService,
@@ -87,7 +78,7 @@ class SeedDataService extends BaseService {
                 "entity": assessmentTypes
             }
         ].map(this.create);
-    }
+    }*/
 
     create(seedEntity) {
         let serviceInstance = this.getService(seedEntity.service);
