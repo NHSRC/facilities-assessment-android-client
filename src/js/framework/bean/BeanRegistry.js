@@ -10,6 +10,7 @@ class BeanRegistry extends Registry {
     init(db) {
         this.entities = new Map(Array.from(this.entities).map(([name, bean]) => [bean, new bean(db, this)]));
         _.map(Array.from(this.entities.entries()), ([name, bean]) => bean.init());
+        _.map(Array.from(this.entities.entries()), ([name, bean]) => bean.postInit());
         return this.entities;
     }
 }

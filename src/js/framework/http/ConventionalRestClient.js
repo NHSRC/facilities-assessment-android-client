@@ -10,6 +10,10 @@ class ConventionalRestClient {
         this.db = db;
     }
 
+    getData(endpoint, cb, errorHandler) {
+        getJSON(endpoint, cb, errorHandler);
+    }
+
     loadData(entityMetaData, lastUpdatedLocally, pageNumber, allEntityMetaData, executeResourcesWithSameTimestamp, executeNextResource, resourcesWithSameTimestamp, onError) {
         let urlParts = [];
         urlParts.push(this.settingsService.getServerURL());
@@ -27,7 +31,7 @@ class ConventionalRestClient {
         const url = `${urlParts.join("/")}?${params}`;
 
         Logger.logDebug('ConventionalRestClient', `Calling: ${url}`);
-        getJSON(url, (response) => {
+        this.getData(url, (response) => {
             const resources = response["_embedded"][`${entityMetaData.resourceName}`];
 
             this.db.write(() => {

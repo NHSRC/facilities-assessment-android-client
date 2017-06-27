@@ -5,12 +5,16 @@ export default class BaseService {
         this.db = db;
         this.beanStore = beanStore;
         this.init = this.init.bind(this);
+        this.postInit = this.postInit.bind(this);
         this.save = this.save.bind(this);
         this.nameAndId = this.nameAndId.bind(this);
         this.pickKeys = this.pickKeys.bind(this);
     }
 
     init() {
+    }
+
+    postInit() {
     }
 
     getService(name) {

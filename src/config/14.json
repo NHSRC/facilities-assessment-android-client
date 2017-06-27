@@ -1,0 +1,2536 @@
+{
+  "_embedded" : {
+    "standard" : [ {
+      "createdDate" : "2017-06-27T11:58:45.059+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.059+0000",
+      "uuid" : "ff010f44-ae3a-4483-8046-ea7fc2c571ab",
+      "inactive" : false,
+      "name" : "Health services provided at the facility are appropriate to community needs.",
+      "reference" : "A6",
+      "_links" : {
+        "self" : {
+          "href" : "/1"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "e68af41c-ceb2-4d61-a565-e7a8b9fdefa3"
+        },
+        "measurableElements" : {
+          "href" : "/1/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/1/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:45.071+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.071+0000",
+      "uuid" : "76b20be2-ec9f-4eed-b6f0-cceea6942e97",
+      "inactive" : false,
+      "name" : "Facility provides RMNCHA Services",
+      "reference" : "A2",
+      "_links" : {
+        "self" : {
+          "href" : "/2"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "e68af41c-ceb2-4d61-a565-e7a8b9fdefa3"
+        },
+        "measurableElements" : {
+          "href" : "/2/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/2/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:45.118+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.118+0000",
+      "uuid" : "1caf121d-1be1-4b9b-a39a-de0563d4f8e4",
+      "inactive" : false,
+      "name" : "Facility provides services as mandated in national Health Programs/ state scheme",
+      "reference" : "A4",
+      "_links" : {
+        "self" : {
+          "href" : "/3"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "e68af41c-ceb2-4d61-a565-e7a8b9fdefa3"
+        },
+        "measurableElements" : {
+          "href" : "/3/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/3/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:45.159+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.159+0000",
+      "uuid" : "ae89452a-bc98-4a09-b9c0-ab43c19fb7f5",
+      "inactive" : false,
+      "name" : "Facility Provides Curative Services",
+      "reference" : "A1",
+      "_links" : {
+        "self" : {
+          "href" : "/4"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "e68af41c-ceb2-4d61-a565-e7a8b9fdefa3"
+        },
+        "measurableElements" : {
+          "href" : "/4/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/4/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:45.228+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.228+0000",
+      "uuid" : "6299fdf2-ca8b-4787-953f-45c41642d3df",
+      "inactive" : false,
+      "name" : "Facility provides support services",
+      "reference" : "A5",
+      "_links" : {
+        "self" : {
+          "href" : "/5"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "e68af41c-ceb2-4d61-a565-e7a8b9fdefa3"
+        },
+        "measurableElements" : {
+          "href" : "/5/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/5/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:45.246+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.246+0000",
+      "uuid" : "3e51f5b2-396a-4fdf-a46e-271cb8b7adaa",
+      "inactive" : false,
+      "name" : "Facility Provides diagnostic Services",
+      "reference" : "A3",
+      "_links" : {
+        "self" : {
+          "href" : "/6"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "e68af41c-ceb2-4d61-a565-e7a8b9fdefa3"
+        },
+        "measurableElements" : {
+          "href" : "/6/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/6/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:45.279+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.279+0000",
+      "uuid" : "a379b2dd-dd81-4fb5-8edc-e6c5311db252",
+      "inactive" : false,
+      "name" : "Services are delivered in a manner that is sensitive to gender, religious, and cultural needs, and there are no barrier on account of physical economic, cultural or social reasons.",
+      "reference" : "B2",
+      "_links" : {
+        "self" : {
+          "href" : "/7"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "cd21c1b8-7b7b-4401-96cd-766c8bd2d007"
+        },
+        "measurableElements" : {
+          "href" : "/7/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/7/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:45.330+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.330+0000",
+      "uuid" : "6046ac67-88cb-425e-8551-f5090e1c5425",
+      "inactive" : false,
+      "name" : "Facility provides the information to care seekers, attendants & community about the available services and their modalities",
+      "reference" : "B1",
+      "_links" : {
+        "self" : {
+          "href" : "/8"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "cd21c1b8-7b7b-4401-96cd-766c8bd2d007"
+        },
+        "measurableElements" : {
+          "href" : "/8/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/8/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:45.441+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.441+0000",
+      "uuid" : "17e6c874-7e78-4dde-8be5-4b1f154dcfe6",
+      "inactive" : false,
+      "name" : "Facility maintains the privacy, confidentiality & Dignity of patient and related information.",
+      "reference" : "B3",
+      "_links" : {
+        "self" : {
+          "href" : "/9"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "cd21c1b8-7b7b-4401-96cd-766c8bd2d007"
+        },
+        "measurableElements" : {
+          "href" : "/9/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/9/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:45.495+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.495+0000",
+      "uuid" : "06ea546c-43cd-4fb8-acf3-2f0cfd2b607a",
+      "inactive" : false,
+      "name" : "Facility ensures that there are no financial barrier to access and that there is financial protection given from cost of care.",
+      "reference" : "B5",
+      "_links" : {
+        "self" : {
+          "href" : "/10"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "cd21c1b8-7b7b-4401-96cd-766c8bd2d007"
+        },
+        "measurableElements" : {
+          "href" : "/10/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/10/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:45.562+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.562+0000",
+      "uuid" : "6975636f-c6d9-4e99-93d6-2d4117593d66",
+      "inactive" : false,
+      "name" : "Facility has defined and established procedures for informing and involving patient and their families about treatment and obtaining informed consent wherever it is required.",
+      "reference" : "B4",
+      "_links" : {
+        "self" : {
+          "href" : "/11"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "cd21c1b8-7b7b-4401-96cd-766c8bd2d007"
+        },
+        "measurableElements" : {
+          "href" : "/11/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/11/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:45.607+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.607+0000",
+      "uuid" : "42954fd7-e10b-4483-a8cd-cbfb78da5283",
+      "inactive" : false,
+      "name" : "The facility has equipment & instruments required for assured list of services.",
+      "reference" : "C6",
+      "_links" : {
+        "self" : {
+          "href" : "/12"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "ac3b5686-3edf-4536-91ed-5d6eedbb5a29"
+        },
+        "measurableElements" : {
+          "href" : "/12/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/12/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:45.731+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.731+0000",
+      "uuid" : "74046943-405c-40b0-8c3a-dd301b90e9e5",
+      "inactive" : false,
+      "name" : "The facility has infrastructure for delivery of assured services, and available infrastructure meets the prevalent norms",
+      "reference" : "C1",
+      "_links" : {
+        "self" : {
+          "href" : "/13"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "ac3b5686-3edf-4536-91ed-5d6eedbb5a29"
+        },
+        "measurableElements" : {
+          "href" : "/13/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/13/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:45.957+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.957+0000",
+      "uuid" : "74a2fe2d-464c-4964-bbf4-86cd4af6234c",
+      "inactive" : false,
+      "name" : "Facility provides drugs and consumables required for assured list of services.",
+      "reference" : "C5",
+      "_links" : {
+        "self" : {
+          "href" : "/14"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "ac3b5686-3edf-4536-91ed-5d6eedbb5a29"
+        },
+        "measurableElements" : {
+          "href" : "/14/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/14/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:46.057+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:46.057+0000",
+      "uuid" : "b00d523f-be60-4309-aaf8-bcd6d2abbe25",
+      "inactive" : false,
+      "name" : "The facility has adequate qualified and trained staff, required for providing the assured services to the current case load",
+      "reference" : "C4",
+      "_links" : {
+        "self" : {
+          "href" : "/15"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "ac3b5686-3edf-4536-91ed-5d6eedbb5a29"
+        },
+        "measurableElements" : {
+          "href" : "/15/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/15/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:46.220+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:46.220+0000",
+      "uuid" : "bafc8f15-a1c7-4bee-976c-7898475f3472",
+      "inactive" : false,
+      "name" : "The facility ensures the physical safety of the infrastructure.",
+      "reference" : "C2",
+      "_links" : {
+        "self" : {
+          "href" : "/16"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "ac3b5686-3edf-4536-91ed-5d6eedbb5a29"
+        },
+        "measurableElements" : {
+          "href" : "/16/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/16/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:46.291+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:46.291+0000",
+      "uuid" : "b17d55ac-5af1-41f6-a94b-351c28163acc",
+      "inactive" : false,
+      "name" : "The facility has established Programme for fire safety and other disaster",
+      "reference" : "C3",
+      "_links" : {
+        "self" : {
+          "href" : "/17"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "ac3b5686-3edf-4536-91ed-5d6eedbb5a29"
+        },
+        "measurableElements" : {
+          "href" : "/17/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/17/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:46.359+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:46.359+0000",
+      "uuid" : "2bce0a82-476f-4fd0-b482-4cc8eb7525a5",
+      "inactive" : false,
+      "name" : "The facility has established Programme for maintenance and upkeep of the facility",
+      "reference" : "D4",
+      "_links" : {
+        "self" : {
+          "href" : "/18"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "24f04394-2242-41ee-9fd0-5896d554288a"
+        },
+        "measurableElements" : {
+          "href" : "/18/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/18/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:46.484+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:46.484+0000",
+      "uuid" : "44debb65-54d9-4db2-b3cc-037da34124ea",
+      "inactive" : false,
+      "name" : "Hospital has defined and established procedures for Financial Management",
+      "reference" : "D9",
+      "_links" : {
+        "self" : {
+          "href" : "/19"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "24f04394-2242-41ee-9fd0-5896d554288a"
+        },
+        "measurableElements" : {
+          "href" : "/19/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/19/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:46.491+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:46.491+0000",
+      "uuid" : "f5c969de-2a1f-4686-9820-fda2cbd73422",
+      "inactive" : false,
+      "name" : "The facility ensures 24X7 water and power backup as per requirement of service delivery, and support services norms",
+      "reference" : "D5",
+      "_links" : {
+        "self" : {
+          "href" : "/20"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "24f04394-2242-41ee-9fd0-5896d554288a"
+        },
+        "measurableElements" : {
+          "href" : "/20/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/20/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:46.574+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:46.574+0000",
+      "uuid" : "7db2f3bc-0c00-4cda-bf66-8d297ae5ce33",
+      "inactive" : false,
+      "name" : "Dietary services are available as per service provision and nutritional requirement of the patients.",
+      "reference" : "D6",
+      "_links" : {
+        "self" : {
+          "href" : "/21"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "24f04394-2242-41ee-9fd0-5896d554288a"
+        },
+        "measurableElements" : {
+          "href" : "/21/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/21/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:46.575+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:46.575+0000",
+      "uuid" : "b581d87e-593d-4619-9915-481d5c71920c",
+      "inactive" : false,
+      "name" : "The facility has established Programme for inspection, testing and maintenance and calibration of Equipment.",
+      "reference" : "D1",
+      "_links" : {
+        "self" : {
+          "href" : "/22"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "24f04394-2242-41ee-9fd0-5896d554288a"
+        },
+        "measurableElements" : {
+          "href" : "/22/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/22/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:46.636+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:46.636+0000",
+      "uuid" : "e46cbffc-187b-4a69-b84d-a71b2e43695f",
+      "inactive" : false,
+      "name" : "The facility has defined and established procedures for promoting public participation in management of hospital transparency and accountability.",
+      "reference" : "D8",
+      "_links" : {
+        "self" : {
+          "href" : "/23"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "24f04394-2242-41ee-9fd0-5896d554288a"
+        },
+        "measurableElements" : {
+          "href" : "/23/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/23/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:46.644+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:46.644+0000",
+      "uuid" : "9a331613-af25-4cbd-92b8-8060d41aa130",
+      "inactive" : false,
+      "name" : "Roles & Responsibilities of administrative and clinical staff are determined as per govt. regulations and standards operating procedures.",
+      "reference" : "D11",
+      "_links" : {
+        "self" : {
+          "href" : "/24"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "24f04394-2242-41ee-9fd0-5896d554288a"
+        },
+        "measurableElements" : {
+          "href" : "/24/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/24/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:46.702+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:46.702+0000",
+      "uuid" : "c74952e3-dac3-4aee-8fc8-c4cc89f7b5ec",
+      "inactive" : false,
+      "name" : "Facility is compliant with all statutory and regulatory requirement imposed by local, state or central government",
+      "reference" : "D10",
+      "_links" : {
+        "self" : {
+          "href" : "/25"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "24f04394-2242-41ee-9fd0-5896d554288a"
+        },
+        "measurableElements" : {
+          "href" : "/25/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/25/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:46.720+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:46.720+0000",
+      "uuid" : "2db643d7-ef09-4512-bcc9-750a53597341",
+      "inactive" : false,
+      "name" : "The facility has defined procedures for storage, inventory management and dispensing of drugs in pharmacy and patient care areas",
+      "reference" : "D2",
+      "_links" : {
+        "self" : {
+          "href" : "/26"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "24f04394-2242-41ee-9fd0-5896d554288a"
+        },
+        "measurableElements" : {
+          "href" : "/26/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/26/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:46.852+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:46.852+0000",
+      "uuid" : "3805b71d-2376-46d1-b650-b12d63ea0bcf",
+      "inactive" : false,
+      "name" : "The facility provides safe, secure and comfortable environment to staff, patients and visitors.",
+      "reference" : "D3",
+      "_links" : {
+        "self" : {
+          "href" : "/27"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "24f04394-2242-41ee-9fd0-5896d554288a"
+        },
+        "measurableElements" : {
+          "href" : "/27/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/27/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:46.961+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:46.961+0000",
+      "uuid" : "c6045507-c829-42aa-8f9e-3334d9963243",
+      "inactive" : false,
+      "name" : "Facility has established procedure for monitoring the quality of outsourced services and adheres to contractual obligations",
+      "reference" : "D12",
+      "_links" : {
+        "self" : {
+          "href" : "/28"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "24f04394-2242-41ee-9fd0-5896d554288a"
+        },
+        "measurableElements" : {
+          "href" : "/28/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/28/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:46.982+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:46.982+0000",
+      "uuid" : "cd0fa195-5e3b-4da4-8811-2eaaffb1b579",
+      "inactive" : false,
+      "name" : "The facility ensures clean linen to the patients",
+      "reference" : "D7",
+      "_links" : {
+        "self" : {
+          "href" : "/29"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "24f04394-2242-41ee-9fd0-5896d554288a"
+        },
+        "measurableElements" : {
+          "href" : "/29/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/29/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:47.028+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:47.028+0000",
+      "uuid" : "9ebc0908-fe61-4393-9ed6-e2702212e838",
+      "inactive" : false,
+      "name" : "Facility provides Adolescent Reproductive and Sexual Health services as per guidelines",
+      "reference" : "E22",
+      "_links" : {
+        "self" : {
+          "href" : "/30"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "20141664-8c7c-4610-9e76-64c35aae49df"
+        },
+        "measurableElements" : {
+          "href" : "/30/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/30/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:47.045+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:47.045+0000",
+      "uuid" : "ca56ad24-cb88-4dbb-ae34-cddf8d8216bc",
+      "inactive" : false,
+      "name" : "Facility has established procedures for Anaesthetic Services",
+      "reference" : "E14",
+      "_links" : {
+        "self" : {
+          "href" : "/31"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "20141664-8c7c-4610-9e76-64c35aae49df"
+        },
+        "measurableElements" : {
+          "href" : "/31/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/31/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:47.058+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:47.058+0000",
+      "uuid" : "cdcbc936-ac5f-4661-8562-9fad38e2ea32",
+      "inactive" : false,
+      "name" : "The facility has defined and established procedures for nursing care",
+      "reference" : "E4",
+      "_links" : {
+        "self" : {
+          "href" : "/32"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "20141664-8c7c-4610-9e76-64c35aae49df"
+        },
+        "measurableElements" : {
+          "href" : "/32/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/32/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:47.124+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:47.124+0000",
+      "uuid" : "566c9c7f-694c-4987-bff8-7ce58471a1a9",
+      "inactive" : false,
+      "name" : "Facility follows standard treatment guidelines defined by state/Central government for prescribing the generic drugs & their rational use.",
+      "reference" : "E6",
+      "_links" : {
+        "self" : {
+          "href" : "/33"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "20141664-8c7c-4610-9e76-64c35aae49df"
+        },
+        "measurableElements" : {
+          "href" : "/33/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/33/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:47.167+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:47.167+0000",
+      "uuid" : "da5a99e5-125f-490e-bfb9-ded25a52a6c4",
+      "inactive" : false,
+      "name" : "Facility has established procedures for Intranatal care as per guidelines",
+      "reference" : "E18",
+      "_links" : {
+        "self" : {
+          "href" : "/34"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "20141664-8c7c-4610-9e76-64c35aae49df"
+        },
+        "measurableElements" : {
+          "href" : "/34/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/34/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:47.194+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:47.194+0000",
+      "uuid" : "e4b8310f-636a-49e9-a4e7-50cf523b65f9",
+      "inactive" : false,
+      "name" : "The facility has defined and established procedures for clinical assessment and reassessment of the patients.",
+      "reference" : "E2",
+      "_links" : {
+        "self" : {
+          "href" : "/35"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "20141664-8c7c-4610-9e76-64c35aae49df"
+        },
+        "measurableElements" : {
+          "href" : "/35/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/35/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:47.236+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:47.236+0000",
+      "uuid" : "9e7cf3c8-456c-4238-ab5b-09a2f38481b5",
+      "inactive" : false,
+      "name" : "Facility has defined and established procedures for maintaining, updating of patients’ clinical records and their storage",
+      "reference" : "E8",
+      "_links" : {
+        "self" : {
+          "href" : "/36"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "20141664-8c7c-4610-9e76-64c35aae49df"
+        },
+        "measurableElements" : {
+          "href" : "/36/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/36/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:47.319+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:47.319+0000",
+      "uuid" : "6cff6075-28fb-4af1-b117-8db4757c3a81",
+      "inactive" : false,
+      "name" : "The facility has defined and established procedures for Emergency Services and Disaster Management",
+      "reference" : "E11",
+      "_links" : {
+        "self" : {
+          "href" : "/37"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "20141664-8c7c-4610-9e76-64c35aae49df"
+        },
+        "measurableElements" : {
+          "href" : "/37/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/37/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:47.365+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:47.365+0000",
+      "uuid" : "50d0a5f7-86b7-4ec8-b85b-01c824376100",
+      "inactive" : false,
+      "name" : "Facility has defined and established procedures of Surgical Services",
+      "reference" : "E15",
+      "_links" : {
+        "self" : {
+          "href" : "/38"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "20141664-8c7c-4610-9e76-64c35aae49df"
+        },
+        "measurableElements" : {
+          "href" : "/38/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/38/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:47.378+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:47.378+0000",
+      "uuid" : "6dfe5712-8e23-4644-8d85-f86d30b2d033",
+      "inactive" : false,
+      "name" : "Facility has a procedure to identify high risk and vulnerable patients.",
+      "reference" : "E5",
+      "_links" : {
+        "self" : {
+          "href" : "/39"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "20141664-8c7c-4610-9e76-64c35aae49df"
+        },
+        "measurableElements" : {
+          "href" : "/39/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/39/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:47.394+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:47.394+0000",
+      "uuid" : "0cf81514-071d-468e-b990-74630be76b2c",
+      "inactive" : false,
+      "name" : "Facility has established procedures for abortion and family planning as per government guidelines and law",
+      "reference" : "E21",
+      "_links" : {
+        "self" : {
+          "href" : "/40"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "20141664-8c7c-4610-9e76-64c35aae49df"
+        },
+        "measurableElements" : {
+          "href" : "/40/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/40/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:47.413+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:47.413+0000",
+      "uuid" : "0ee9b3f8-a3af-463f-b249-9f188885c8e4",
+      "inactive" : false,
+      "name" : "The facility has defined procedures for registration, consultation and admission of patients.",
+      "reference" : "E1",
+      "_links" : {
+        "self" : {
+          "href" : "/41"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "20141664-8c7c-4610-9e76-64c35aae49df"
+        },
+        "measurableElements" : {
+          "href" : "/41/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/41/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:47.469+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:47.469+0000",
+      "uuid" : "8e0d6f00-ecbc-4079-8a78-a80f231ab273",
+      "inactive" : false,
+      "name" : "Facility provides National health program as per operational/Clinical Guidelines",
+      "reference" : "E23",
+      "_links" : {
+        "self" : {
+          "href" : "/42"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "20141664-8c7c-4610-9e76-64c35aae49df"
+        },
+        "measurableElements" : {
+          "href" : "/42/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/42/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:47.495+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:47.495+0000",
+      "uuid" : "0d111b68-8948-46a6-9b04-0cb1e2f6270e",
+      "inactive" : false,
+      "name" : "The facility has defined and established procedures for end of life care and death",
+      "reference" : "E16",
+      "_links" : {
+        "self" : {
+          "href" : "/43"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "20141664-8c7c-4610-9e76-64c35aae49df"
+        },
+        "measurableElements" : {
+          "href" : "/43/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/43/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:47.535+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:47.535+0000",
+      "uuid" : "8cb79353-d3a7-4ee7-9963-6ef43ee30b33",
+      "inactive" : false,
+      "name" : "The facility has defined and established procedures for discharge of patient.",
+      "reference" : "E9",
+      "_links" : {
+        "self" : {
+          "href" : "/44"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "20141664-8c7c-4610-9e76-64c35aae49df"
+        },
+        "measurableElements" : {
+          "href" : "/44/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/44/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:47.590+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:47.590+0000",
+      "uuid" : "39f0a207-dd54-4fd7-850b-119adf33d7a7",
+      "inactive" : false,
+      "name" : "The facility has defined and established procedures for Blood Bank/Storage Management and Transfusion.",
+      "reference" : "E13",
+      "_links" : {
+        "self" : {
+          "href" : "/45"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "20141664-8c7c-4610-9e76-64c35aae49df"
+        },
+        "measurableElements" : {
+          "href" : "/45/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/45/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:47.660+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:47.660+0000",
+      "uuid" : "5fdefaec-6804-47af-b3cc-108e600e7798",
+      "inactive" : false,
+      "name" : "Facility has established procedures for postnatal care as per guidelines",
+      "reference" : "E19",
+      "_links" : {
+        "self" : {
+          "href" : "/46"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "20141664-8c7c-4610-9e76-64c35aae49df"
+        },
+        "measurableElements" : {
+          "href" : "/46/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/46/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:47.672+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:47.672+0000",
+      "uuid" : "f141d9ef-0e44-49ca-8090-9fd96d786472",
+      "inactive" : false,
+      "name" : "Facility has defined and established procedures for continuity of care of patient and referral",
+      "reference" : "E3",
+      "_links" : {
+        "self" : {
+          "href" : "/47"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "20141664-8c7c-4610-9e76-64c35aae49df"
+        },
+        "measurableElements" : {
+          "href" : "/47/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/47/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:47.738+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:47.738+0000",
+      "uuid" : "b896ec05-8d03-416e-90f6-3b4cc7b95462",
+      "inactive" : false,
+      "name" : "The facility has defined and established procedures for intensive care.",
+      "reference" : "E10",
+      "_links" : {
+        "self" : {
+          "href" : "/48"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "20141664-8c7c-4610-9e76-64c35aae49df"
+        },
+        "measurableElements" : {
+          "href" : "/48/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/48/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:47.749+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:47.749+0000",
+      "uuid" : "9691691b-b65c-4b50-9121-e85a07e16c77",
+      "inactive" : false,
+      "name" : "The facility has defined and established procedures of diagnostic services",
+      "reference" : "E12",
+      "_links" : {
+        "self" : {
+          "href" : "/49"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "20141664-8c7c-4610-9e76-64c35aae49df"
+        },
+        "measurableElements" : {
+          "href" : "/49/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/49/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:47.785+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:47.785+0000",
+      "uuid" : "d810e06e-1059-4cda-a55c-7766839a2ca3",
+      "inactive" : false,
+      "name" : "Facility has defined procedures for safe drug administration",
+      "reference" : "E7",
+      "_links" : {
+        "self" : {
+          "href" : "/50"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "20141664-8c7c-4610-9e76-64c35aae49df"
+        },
+        "measurableElements" : {
+          "href" : "/50/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/50/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:47.860+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:47.860+0000",
+      "uuid" : "b3b597d2-5361-42e8-91eb-319ff5b5ea8a",
+      "inactive" : false,
+      "name" : "Facility has established procedures for Antenatal care as per guidelines",
+      "reference" : "E17",
+      "_links" : {
+        "self" : {
+          "href" : "/51"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "20141664-8c7c-4610-9e76-64c35aae49df"
+        },
+        "measurableElements" : {
+          "href" : "/51/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/51/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:47.889+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:47.889+0000",
+      "uuid" : "b5a6823a-77ab-4bb9-97c4-fc953c14ad14",
+      "inactive" : false,
+      "name" : "The facility has established procedures for care of new born, infant and child as per guidelines",
+      "reference" : "E20",
+      "_links" : {
+        "self" : {
+          "href" : "/52"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "20141664-8c7c-4610-9e76-64c35aae49df"
+        },
+        "measurableElements" : {
+          "href" : "/52/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/52/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:47.922+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:47.922+0000",
+      "uuid" : "c11d975b-b0c8-41c1-ac4a-fc11c009796b",
+      "inactive" : false,
+      "name" : "Facility has standard Procedures for processing of equipments and instruments",
+      "reference" : "F4",
+      "_links" : {
+        "self" : {
+          "href" : "/53"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "a92f5f18-e649-4b33-b2c2-1339612f996b"
+        },
+        "measurableElements" : {
+          "href" : "/53/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/53/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:48.018+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:48.018+0000",
+      "uuid" : "d265ca2e-be7d-4519-b0b3-c58bd4f0b6a8",
+      "inactive" : false,
+      "name" : "Facility ensures standard practices and materials for Personal protection",
+      "reference" : "F3",
+      "_links" : {
+        "self" : {
+          "href" : "/54"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "a92f5f18-e649-4b33-b2c2-1339612f996b"
+        },
+        "measurableElements" : {
+          "href" : "/54/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/54/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:48.075+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:48.075+0000",
+      "uuid" : "18aab19d-4a7c-4fa9-b529-44e11f940747",
+      "inactive" : false,
+      "name" : "Physical layout and environmental control of the patient care areas ensures infection prevention",
+      "reference" : "F5",
+      "_links" : {
+        "self" : {
+          "href" : "/55"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "a92f5f18-e649-4b33-b2c2-1339612f996b"
+        },
+        "measurableElements" : {
+          "href" : "/55/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/55/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:48.179+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:48.179+0000",
+      "uuid" : "c9076042-3403-46f1-b376-898893cf7c6c",
+      "inactive" : false,
+      "name" : "Facility has infection control program and procedures in place for prevention and measurement of hospital associated infection",
+      "reference" : "F1",
+      "_links" : {
+        "self" : {
+          "href" : "/56"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "a92f5f18-e649-4b33-b2c2-1339612f996b"
+        },
+        "measurableElements" : {
+          "href" : "/56/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/56/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:48.245+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:48.245+0000",
+      "uuid" : "91ef17b9-38fd-4e45-84c7-fa08918c4d39",
+      "inactive" : false,
+      "name" : "Facility has defined and established procedures for segregation, collection, treatment and disposal of Bio Medical and hazardous Waste.",
+      "reference" : "F6",
+      "_links" : {
+        "self" : {
+          "href" : "/57"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "a92f5f18-e649-4b33-b2c2-1339612f996b"
+        },
+        "measurableElements" : {
+          "href" : "/57/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/57/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:48.385+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:48.385+0000",
+      "uuid" : "76ff75ca-610a-4c1e-8bb0-33813d38de29",
+      "inactive" : false,
+      "name" : "Facility has defined and Implemented procedures for ensuring hand hygiene practices and antisepsis",
+      "reference" : "F2",
+      "_links" : {
+        "self" : {
+          "href" : "/58"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "a92f5f18-e649-4b33-b2c2-1339612f996b"
+        },
+        "measurableElements" : {
+          "href" : "/58/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/58/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:48.486+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:48.486+0000",
+      "uuid" : "9b80840d-b69f-43d2-a781-c26e2c40e47c",
+      "inactive" : false,
+      "name" : "The facility has established organizational framework for quality improvement",
+      "reference" : "G1",
+      "_links" : {
+        "self" : {
+          "href" : "/59"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "dac0c34b-2ec3-4fd0-8f6e-f7fcd24be3ad"
+        },
+        "measurableElements" : {
+          "href" : "/59/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/59/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:48.507+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:48.507+0000",
+      "uuid" : "598c20d3-b3c0-4037-8b63-49acc2f1ff0a",
+      "inactive" : false,
+      "name" : "Facility has established system for patient and employee satisfaction",
+      "reference" : "G2",
+      "_links" : {
+        "self" : {
+          "href" : "/60"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "dac0c34b-2ec3-4fd0-8f6e-f7fcd24be3ad"
+        },
+        "measurableElements" : {
+          "href" : "/60/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/60/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:48.524+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:48.524+0000",
+      "uuid" : "7d961417-6e14-40fd-b233-381193e4899d",
+      "inactive" : false,
+      "name" : "Facility has established, documented implemented and maintained Standard Operating Procedures for all key processes and support services.",
+      "reference" : "G4",
+      "_links" : {
+        "self" : {
+          "href" : "/61"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "dac0c34b-2ec3-4fd0-8f6e-f7fcd24be3ad"
+        },
+        "measurableElements" : {
+          "href" : "/61/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/61/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:48.725+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:48.725+0000",
+      "uuid" : "58188bb6-f5bb-4ea4-8461-8f7080e318f1",
+      "inactive" : false,
+      "name" : "Facility have established internal and external quality assurance programs wherever it is critical to quality.",
+      "reference" : "G3",
+      "_links" : {
+        "self" : {
+          "href" : "/62"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "dac0c34b-2ec3-4fd0-8f6e-f7fcd24be3ad"
+        },
+        "measurableElements" : {
+          "href" : "/62/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/62/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:48.773+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:48.773+0000",
+      "uuid" : "86141b38-7206-4b6f-9406-573aee591699",
+      "inactive" : false,
+      "name" : "Facility seeks continually improvement by practicing Quality method and tools.",
+      "reference" : "G8",
+      "_links" : {
+        "self" : {
+          "href" : "/63"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "dac0c34b-2ec3-4fd0-8f6e-f7fcd24be3ad"
+        },
+        "measurableElements" : {
+          "href" : "/63/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/63/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:48.843+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:48.843+0000",
+      "uuid" : "59ecc717-4761-4159-b337-e90c194923ff",
+      "inactive" : false,
+      "name" : "Facility maps its key processes and seeks to make them more efficient by reducing non value adding activities and wastages",
+      "reference" : "G5",
+      "_links" : {
+        "self" : {
+          "href" : "/64"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "dac0c34b-2ec3-4fd0-8f6e-f7fcd24be3ad"
+        },
+        "measurableElements" : {
+          "href" : "/64/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/64/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:48.874+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:48.874+0000",
+      "uuid" : "b3706c90-95eb-4c94-bb31-42e4d5d2f458",
+      "inactive" : false,
+      "name" : "The facility has established system of periodic review as internal assessment , medical & death audit and prescription audit",
+      "reference" : "G6",
+      "_links" : {
+        "self" : {
+          "href" : "/65"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "dac0c34b-2ec3-4fd0-8f6e-f7fcd24be3ad"
+        },
+        "measurableElements" : {
+          "href" : "/65/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/65/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:48.948+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:48.948+0000",
+      "uuid" : "e1aec14b-5892-4600-b4a4-58e1e5271ca9",
+      "inactive" : false,
+      "name" : "The facility has defined and established Quality Policy & Quality Objectives",
+      "reference" : "G7",
+      "_links" : {
+        "self" : {
+          "href" : "/66"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "dac0c34b-2ec3-4fd0-8f6e-f7fcd24be3ad"
+        },
+        "measurableElements" : {
+          "href" : "/66/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/66/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:48.984+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:48.984+0000",
+      "uuid" : "bacf7c6a-29c9-45a2-85e9-c2f0b19d36e9",
+      "inactive" : false,
+      "name" : "The facility measures Clinical Care & Safety Indicators and tries to reach State/National benchmark",
+      "reference" : "H3",
+      "_links" : {
+        "self" : {
+          "href" : "/67"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "43600f80-5206-497e-8a78-5ad59159566d"
+        },
+        "measurableElements" : {
+          "href" : "/67/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/67/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.042+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.042+0000",
+      "uuid" : "d6662beb-6a34-4537-81fe-25497224ebd1",
+      "inactive" : false,
+      "name" : "The facility measures Efficiency Indicators and ensure to reach State/National Benchmark",
+      "reference" : "H2",
+      "_links" : {
+        "self" : {
+          "href" : "/68"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "43600f80-5206-497e-8a78-5ad59159566d"
+        },
+        "measurableElements" : {
+          "href" : "/68/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/68/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.096+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.096+0000",
+      "uuid" : "302ddb9c-5232-4933-8bca-b8b68c3bd787",
+      "inactive" : false,
+      "name" : "The facility measures Service Quality Indicators and endeavours to reach State/National benchmark",
+      "reference" : "H4",
+      "_links" : {
+        "self" : {
+          "href" : "/69"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "43600f80-5206-497e-8a78-5ad59159566d"
+        },
+        "measurableElements" : {
+          "href" : "/69/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/69/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.133+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.133+0000",
+      "uuid" : "8251a339-edb2-4bf6-9e06-d91100b22468",
+      "inactive" : false,
+      "name" : "The facility measures Productivity Indicators and ensures compliance with State/National benchmarks",
+      "reference" : "H1",
+      "_links" : {
+        "self" : {
+          "href" : "/70"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "43600f80-5206-497e-8a78-5ad59159566d"
+        },
+        "measurableElements" : {
+          "href" : "/70/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/70/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.283+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.283+0000",
+      "uuid" : "058af6bc-6131-42e6-b1b9-c3408fdf2dd7",
+      "inactive" : false,
+      "name" : "Infrastructure Maintenance",
+      "reference" : "A5",
+      "_links" : {
+        "self" : {
+          "href" : "/71"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "0008a925-875c-4d9c-8fac-bcde520b3d86"
+        },
+        "measurableElements" : {
+          "href" : "/71/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/71/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.294+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.294+0000",
+      "uuid" : "94f329c4-8ea6-475c-a23b-e785dda1a89a",
+      "inactive" : false,
+      "name" : "Removal of Junk Material",
+      "reference" : "A8",
+      "_links" : {
+        "self" : {
+          "href" : "/72"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "0008a925-875c-4d9c-8fac-bcde520b3d86"
+        },
+        "measurableElements" : {
+          "href" : "/72/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/72/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.301+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.301+0000",
+      "uuid" : "a7bc83b7-6451-4da5-80a1-685cff5cf189",
+      "inactive" : false,
+      "name" : "Pest & Animal Control",
+      "reference" : "A1",
+      "_links" : {
+        "self" : {
+          "href" : "/73"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "0008a925-875c-4d9c-8fac-bcde520b3d86"
+        },
+        "measurableElements" : {
+          "href" : "/73/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/73/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.307+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.307+0000",
+      "uuid" : "123f7ee0-200d-4a5a-ad6d-453f1a820445",
+      "inactive" : false,
+      "name" : "Maintenance of Open Areas",
+      "reference" : "A3",
+      "_links" : {
+        "self" : {
+          "href" : "/74"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "0008a925-875c-4d9c-8fac-bcde520b3d86"
+        },
+        "measurableElements" : {
+          "href" : "/74/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/74/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.314+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.314+0000",
+      "uuid" : "cb11ce5f-048e-4692-83c7-c2705d6f03dd",
+      "inactive" : false,
+      "name" : "Illumination",
+      "reference" : "A6",
+      "_links" : {
+        "self" : {
+          "href" : "/75"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "0008a925-875c-4d9c-8fac-bcde520b3d86"
+        },
+        "measurableElements" : {
+          "href" : "/75/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/75/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.322+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.322+0000",
+      "uuid" : "53567215-7f3f-40c0-a17d-6d60808b463d",
+      "inactive" : false,
+      "name" : "Hospital / Facility Appearance",
+      "reference" : "A4",
+      "_links" : {
+        "self" : {
+          "href" : "/76"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "0008a925-875c-4d9c-8fac-bcde520b3d86"
+        },
+        "measurableElements" : {
+          "href" : "/76/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/76/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.329+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.329+0000",
+      "uuid" : "79253911-70ff-4418-beb9-4afd782a3b9b",
+      "inactive" : false,
+      "name" : "Maintenance of Furniture & Fixture",
+      "reference" : "A7",
+      "_links" : {
+        "self" : {
+          "href" : "/77"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "0008a925-875c-4d9c-8fac-bcde520b3d86"
+        },
+        "measurableElements" : {
+          "href" : "/77/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/77/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.338+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.338+0000",
+      "uuid" : "ead267cd-b7cd-479e-a46b-a2bf620a3eaa",
+      "inactive" : false,
+      "name" : "Water Conservation",
+      "reference" : "A9",
+      "_links" : {
+        "self" : {
+          "href" : "/78"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "0008a925-875c-4d9c-8fac-bcde520b3d86"
+        },
+        "measurableElements" : {
+          "href" : "/78/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/78/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.345+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.345+0000",
+      "uuid" : "b44c05bf-2c15-45b9-b07d-b21a5b51cafe",
+      "inactive" : false,
+      "name" : "Landscaping & Gardening",
+      "reference" : "A2",
+      "_links" : {
+        "self" : {
+          "href" : "/79"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "0008a925-875c-4d9c-8fac-bcde520b3d86"
+        },
+        "measurableElements" : {
+          "href" : "/79/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/79/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.352+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.352+0000",
+      "uuid" : "50f4a0c2-2f9e-45d5-9eca-72308aecd045",
+      "inactive" : false,
+      "name" : "Work Place Management",
+      "reference" : "A10",
+      "_links" : {
+        "self" : {
+          "href" : "/80"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "0008a925-875c-4d9c-8fac-bcde520b3d86"
+        },
+        "measurableElements" : {
+          "href" : "/80/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/80/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.358+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.358+0000",
+      "uuid" : "a9ee33bd-b031-4cdc-bb66-72e10b1b67c9",
+      "inactive" : false,
+      "name" : "Cleanliness of Procedure Areas",
+      "reference" : "B3",
+      "_links" : {
+        "self" : {
+          "href" : "/81"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "96d2d0ff-5eba-4edb-98c6-67e99822943d"
+        },
+        "measurableElements" : {
+          "href" : "/81/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/81/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.364+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.364+0000",
+      "uuid" : "e716b70b-99d9-419d-81cd-e61ef34dd4bc",
+      "inactive" : false,
+      "name" : "Cleanliness of Toilets",
+      "reference" : "B6",
+      "_links" : {
+        "self" : {
+          "href" : "/82"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "96d2d0ff-5eba-4edb-98c6-67e99822943d"
+        },
+        "measurableElements" : {
+          "href" : "/82/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/82/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.370+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.370+0000",
+      "uuid" : "550a7554-7063-45f4-947c-03f4957fba5b",
+      "inactive" : false,
+      "name" : "Use of Standard Methods Cleaning",
+      "reference" : "B8",
+      "_links" : {
+        "self" : {
+          "href" : "/83"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "96d2d0ff-5eba-4edb-98c6-67e99822943d"
+        },
+        "measurableElements" : {
+          "href" : "/83/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/83/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.377+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.377+0000",
+      "uuid" : "9e872064-d65b-4bcc-b82e-0bcad65546fb",
+      "inactive" : false,
+      "name" : "Cleanliness of Wards",
+      "reference" : "B2",
+      "_links" : {
+        "self" : {
+          "href" : "/84"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "96d2d0ff-5eba-4edb-98c6-67e99822943d"
+        },
+        "measurableElements" : {
+          "href" : "/84/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/84/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.384+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.384+0000",
+      "uuid" : "530d072d-5d24-44e5-abd9-d21947a61a4b",
+      "inactive" : false,
+      "name" : "Cleanliness of Auxiliary Areas",
+      "reference" : "B5",
+      "_links" : {
+        "self" : {
+          "href" : "/85"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "96d2d0ff-5eba-4edb-98c6-67e99822943d"
+        },
+        "measurableElements" : {
+          "href" : "/85/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/85/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.392+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.392+0000",
+      "uuid" : "a16040a9-5c75-4784-a730-4b2421423278",
+      "inactive" : false,
+      "name" : "Cleanliness of Ambulatory Area (OPD, Emergency, Lab)",
+      "reference" : "B4",
+      "_links" : {
+        "self" : {
+          "href" : "/86"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "96d2d0ff-5eba-4edb-98c6-67e99822943d"
+        },
+        "measurableElements" : {
+          "href" : "/86/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/86/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.399+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.399+0000",
+      "uuid" : "54dab7ff-674b-4e5a-b4d7-db3ca2aed9f8",
+      "inactive" : false,
+      "name" : "Use of standards materials and Equipment for Cleaning",
+      "reference" : "B7",
+      "_links" : {
+        "self" : {
+          "href" : "/87"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "96d2d0ff-5eba-4edb-98c6-67e99822943d"
+        },
+        "measurableElements" : {
+          "href" : "/87/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/87/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.404+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.404+0000",
+      "uuid" : "f8e1d57c-be81-412c-9c83-4cd60f69cc9a",
+      "inactive" : false,
+      "name" : "Monitoring of Cleanliness Activities",
+      "reference" : "B9",
+      "_links" : {
+        "self" : {
+          "href" : "/88"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "96d2d0ff-5eba-4edb-98c6-67e99822943d"
+        },
+        "measurableElements" : {
+          "href" : "/88/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/88/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.410+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.410+0000",
+      "uuid" : "cac6ca05-9e42-4a07-abfb-c8a2687f29f9",
+      "inactive" : false,
+      "name" : "Drainage and Sewage Management",
+      "reference" : "B10",
+      "_links" : {
+        "self" : {
+          "href" : "/89"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "96d2d0ff-5eba-4edb-98c6-67e99822943d"
+        },
+        "measurableElements" : {
+          "href" : "/89/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/89/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.416+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.416+0000",
+      "uuid" : "5130b67b-c04f-4459-a0b5-6a7f997724dc",
+      "inactive" : false,
+      "name" : "Cleanliness of Circulation Area",
+      "reference" : "B1",
+      "_links" : {
+        "self" : {
+          "href" : "/90"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "96d2d0ff-5eba-4edb-98c6-67e99822943d"
+        },
+        "measurableElements" : {
+          "href" : "/90/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/90/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.424+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.424+0000",
+      "uuid" : "1d7829be-fdc7-4dab-a7fd-e44e31ca997f",
+      "inactive" : false,
+      "name" : "Implementation of Biomedical Waste Rules 2016",
+      "reference" : "C1",
+      "_links" : {
+        "self" : {
+          "href" : "/91"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "098e688e-c6ce-4bf1-8da0-46639d7a94e2"
+        },
+        "measurableElements" : {
+          "href" : "/91/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/91/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.430+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.430+0000",
+      "uuid" : "2e408e13-0644-45be-b416-73c19a88b1cb",
+      "inactive" : false,
+      "name" : "Storage of Biomedical Waste",
+      "reference" : "C4",
+      "_links" : {
+        "self" : {
+          "href" : "/92"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "098e688e-c6ce-4bf1-8da0-46639d7a94e2"
+        },
+        "measurableElements" : {
+          "href" : "/92/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/92/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.438+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.438+0000",
+      "uuid" : "bcd6534c-0a9e-4d85-a504-21e51d477596",
+      "inactive" : false,
+      "name" : "Disposal of Biomedical waste",
+      "reference" : "C5",
+      "_links" : {
+        "self" : {
+          "href" : "/93"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "098e688e-c6ce-4bf1-8da0-46639d7a94e2"
+        },
+        "measurableElements" : {
+          "href" : "/93/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/93/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.446+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.446+0000",
+      "uuid" : "81a92f51-d687-4eb4-8999-b89fd083c6d1",
+      "inactive" : false,
+      "name" : "Equipment and Supplies for Bio Medical Waste Management",
+      "reference" : "C9",
+      "_links" : {
+        "self" : {
+          "href" : "/94"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "098e688e-c6ce-4bf1-8da0-46639d7a94e2"
+        },
+        "measurableElements" : {
+          "href" : "/94/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/94/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.452+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.452+0000",
+      "uuid" : "880bbe3d-1b70-4355-a599-e73cb716c994",
+      "inactive" : false,
+      "name" : "Sharp Management",
+      "reference" : "C3",
+      "_links" : {
+        "self" : {
+          "href" : "/95"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "098e688e-c6ce-4bf1-8da0-46639d7a94e2"
+        },
+        "measurableElements" : {
+          "href" : "/95/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/95/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.456+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.456+0000",
+      "uuid" : "34754f14-2092-4cdb-9d15-bc44cd05b6f7",
+      "inactive" : false,
+      "name" : "Liquid Waste Management",
+      "reference" : "C8",
+      "_links" : {
+        "self" : {
+          "href" : "/96"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "098e688e-c6ce-4bf1-8da0-46639d7a94e2"
+        },
+        "measurableElements" : {
+          "href" : "/96/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/96/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.462+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.462+0000",
+      "uuid" : "b2bb924e-8629-4f3a-bd41-f0c5b50456ab",
+      "inactive" : false,
+      "name" : "Management Hazardous Waste",
+      "reference" : "C6",
+      "_links" : {
+        "self" : {
+          "href" : "/97"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "098e688e-c6ce-4bf1-8da0-46639d7a94e2"
+        },
+        "measurableElements" : {
+          "href" : "/97/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/97/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.468+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.468+0000",
+      "uuid" : "4a52ec02-3548-4f49-8a61-424b6830d1e3",
+      "inactive" : false,
+      "name" : "Solid General Waste Management",
+      "reference" : "C7",
+      "_links" : {
+        "self" : {
+          "href" : "/98"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "098e688e-c6ce-4bf1-8da0-46639d7a94e2"
+        },
+        "measurableElements" : {
+          "href" : "/98/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/98/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.475+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.475+0000",
+      "uuid" : "b09addd0-c58b-4aa8-b941-230088247774",
+      "inactive" : false,
+      "name" : "Statuary Compliances",
+      "reference" : "C10",
+      "_links" : {
+        "self" : {
+          "href" : "/99"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "098e688e-c6ce-4bf1-8da0-46639d7a94e2"
+        },
+        "measurableElements" : {
+          "href" : "/99/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/99/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.482+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.482+0000",
+      "uuid" : "48ff7d04-ea9b-42d7-b1f9-fc2cf4b72112",
+      "inactive" : false,
+      "name" : "Segregated Collection and Transportation of Biomedical Waste",
+      "reference" : "C2",
+      "_links" : {
+        "self" : {
+          "href" : "/100"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "098e688e-c6ce-4bf1-8da0-46639d7a94e2"
+        },
+        "measurableElements" : {
+          "href" : "/100/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/100/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.491+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.491+0000",
+      "uuid" : "0a11bf35-1b0b-4afa-89b0-8cd47653ba35",
+      "inactive" : false,
+      "name" : "Isolation and Barrier Nursing",
+      "reference" : "D7",
+      "_links" : {
+        "self" : {
+          "href" : "/101"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "7278742e-8837-451f-b0c6-84c6c7220af8"
+        },
+        "measurableElements" : {
+          "href" : "/101/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/101/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.498+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.498+0000",
+      "uuid" : "a56563c0-69a1-4a96-a42d-4ac4313f1a9e",
+      "inactive" : false,
+      "name" : "Infection Control Program",
+      "reference" : "D8",
+      "_links" : {
+        "self" : {
+          "href" : "/102"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "7278742e-8837-451f-b0c6-84c6c7220af8"
+        },
+        "measurableElements" : {
+          "href" : "/102/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/102/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.503+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.503+0000",
+      "uuid" : "84001d58-b0aa-4d38-b960-7fba611fb7de",
+      "inactive" : false,
+      "name" : "Hospital Acquired Infection Surveillance",
+      "reference" : "D9",
+      "_links" : {
+        "self" : {
+          "href" : "/103"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "7278742e-8837-451f-b0c6-84c6c7220af8"
+        },
+        "measurableElements" : {
+          "href" : "/103/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/103/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.509+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.509+0000",
+      "uuid" : "8a923828-aacf-4ec3-94a5-551f774a453c",
+      "inactive" : false,
+      "name" : "Personal Protective Practices",
+      "reference" : "D3",
+      "_links" : {
+        "self" : {
+          "href" : "/104"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "7278742e-8837-451f-b0c6-84c6c7220af8"
+        },
+        "measurableElements" : {
+          "href" : "/104/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/104/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.515+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.515+0000",
+      "uuid" : "51f87250-0dff-42a0-a0c4-7e4f2a875d06",
+      "inactive" : false,
+      "name" : "Disinfection & Sterilization of Instruments",
+      "reference" : "D5",
+      "_links" : {
+        "self" : {
+          "href" : "/105"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "7278742e-8837-451f-b0c6-84c6c7220af8"
+        },
+        "measurableElements" : {
+          "href" : "/105/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/105/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.523+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.523+0000",
+      "uuid" : "1cb1ba18-fed9-4a45-b2be-f52754cb6bf7",
+      "inactive" : false,
+      "name" : "Decontamination and Cleaning of Instruments",
+      "reference" : "D4",
+      "_links" : {
+        "self" : {
+          "href" : "/106"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "7278742e-8837-451f-b0c6-84c6c7220af8"
+        },
+        "measurableElements" : {
+          "href" : "/106/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/106/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.530+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.530+0000",
+      "uuid" : "d8b6adcc-c7f2-41e5-8bf7-18c96457e788",
+      "inactive" : false,
+      "name" : "Environment Control",
+      "reference" : "D10",
+      "_links" : {
+        "self" : {
+          "href" : "/107"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "7278742e-8837-451f-b0c6-84c6c7220af8"
+        },
+        "measurableElements" : {
+          "href" : "/107/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/107/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.539+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.539+0000",
+      "uuid" : "d4c2f707-d589-4cc1-86f9-fe474f0eab48",
+      "inactive" : false,
+      "name" : "Hand Hygiene",
+      "reference" : "D1",
+      "_links" : {
+        "self" : {
+          "href" : "/108"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "7278742e-8837-451f-b0c6-84c6c7220af8"
+        },
+        "measurableElements" : {
+          "href" : "/108/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/108/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.547+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.547+0000",
+      "uuid" : "0c276523-d0c7-46e6-9eb8-ec0e1258cde8",
+      "inactive" : false,
+      "name" : "Spill Management",
+      "reference" : "D6",
+      "_links" : {
+        "self" : {
+          "href" : "/109"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "7278742e-8837-451f-b0c6-84c6c7220af8"
+        },
+        "measurableElements" : {
+          "href" : "/109/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/109/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.553+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.553+0000",
+      "uuid" : "54c64257-6b5c-4d7e-8dbb-44b1d5a168c7",
+      "inactive" : false,
+      "name" : "Personal Protective Equipment (PPE)",
+      "reference" : "D2",
+      "_links" : {
+        "self" : {
+          "href" : "/110"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "7278742e-8837-451f-b0c6-84c6c7220af8"
+        },
+        "measurableElements" : {
+          "href" : "/110/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/110/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.560+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.560+0000",
+      "uuid" : "a9305174-c199-40e9-a16e-6e800e2fa93f",
+      "inactive" : false,
+      "name" : "Security Services",
+      "reference" : "E4",
+      "_links" : {
+        "self" : {
+          "href" : "/111"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "722d3e9d-55bb-4b08-befe-8f185079864c"
+        },
+        "measurableElements" : {
+          "href" : "/111/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/111/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.565+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.565+0000",
+      "uuid" : "0dcf60de-35b9-4140-b1a2-e02d6e8d6e27",
+      "inactive" : false,
+      "name" : "Kitchen Services",
+      "reference" : "E3",
+      "_links" : {
+        "self" : {
+          "href" : "/112"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "722d3e9d-55bb-4b08-befe-8f185079864c"
+        },
+        "measurableElements" : {
+          "href" : "/112/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/112/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.573+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.573+0000",
+      "uuid" : "5aed513f-a617-4056-85c6-15f30293b855",
+      "inactive" : false,
+      "name" : "Laundary Services & Linen Management",
+      "reference" : "E1",
+      "_links" : {
+        "self" : {
+          "href" : "/113"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "722d3e9d-55bb-4b08-befe-8f185079864c"
+        },
+        "measurableElements" : {
+          "href" : "/113/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/113/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.579+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.579+0000",
+      "uuid" : "5a326726-b6a2-4750-a293-71016c0196fe",
+      "inactive" : false,
+      "name" : "Out-sourced Services Management",
+      "reference" : "E5",
+      "_links" : {
+        "self" : {
+          "href" : "/114"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "722d3e9d-55bb-4b08-befe-8f185079864c"
+        },
+        "measurableElements" : {
+          "href" : "/114/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/114/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.587+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.587+0000",
+      "uuid" : "d4fd8bed-0c68-46cf-829e-e196fb0d681c",
+      "inactive" : false,
+      "name" : "Water Sanitation",
+      "reference" : "E2",
+      "_links" : {
+        "self" : {
+          "href" : "/115"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "722d3e9d-55bb-4b08-befe-8f185079864c"
+        },
+        "measurableElements" : {
+          "href" : "/115/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/115/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.595+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.595+0000",
+      "uuid" : "1462ae94-224f-47aa-896c-1a09e4f9723d",
+      "inactive" : false,
+      "name" : "Information Education and Communication",
+      "reference" : "F2",
+      "_links" : {
+        "self" : {
+          "href" : "/116"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "3096914b-3ff1-4f0c-a5e8-ee347b15291e"
+        },
+        "measurableElements" : {
+          "href" : "/116/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/116/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.601+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.601+0000",
+      "uuid" : "c88e4096-7afb-44ea-b8a0-1c070e2f6493",
+      "inactive" : false,
+      "name" : "Staff Hygiene and Dress Code",
+      "reference" : "F5",
+      "_links" : {
+        "self" : {
+          "href" : "/117"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "3096914b-3ff1-4f0c-a5e8-ee347b15291e"
+        },
+        "measurableElements" : {
+          "href" : "/117/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/117/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.608+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.608+0000",
+      "uuid" : "d1c4d99a-f00a-438b-a76d-222497fdc614",
+      "inactive" : false,
+      "name" : "Community Monitoring & Patient Participation",
+      "reference" : "F1",
+      "_links" : {
+        "self" : {
+          "href" : "/118"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "3096914b-3ff1-4f0c-a5e8-ee347b15291e"
+        },
+        "measurableElements" : {
+          "href" : "/118/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/118/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.615+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.615+0000",
+      "uuid" : "6704d16c-6626-4809-8ee3-ef10d238aa42",
+      "inactive" : false,
+      "name" : "Training and Capacity Building and Standardization",
+      "reference" : "F4",
+      "_links" : {
+        "self" : {
+          "href" : "/119"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "3096914b-3ff1-4f0c-a5e8-ee347b15291e"
+        },
+        "measurableElements" : {
+          "href" : "/119/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/119/areaOfConcern"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.623+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.623+0000",
+      "uuid" : "e0cffa07-07fb-48ba-8865-99228e308f76",
+      "inactive" : false,
+      "name" : "Leadership and Team work",
+      "reference" : "F3",
+      "_links" : {
+        "self" : {
+          "href" : "/120"
+        },
+        "areaOfConcernUUID" : {
+          "href" : "3096914b-3ff1-4f0c-a5e8-ee347b15291e"
+        },
+        "measurableElements" : {
+          "href" : "/120/measurableElements"
+        },
+        "areaOfConcern" : {
+          "href" : "/120/areaOfConcern"
+        }
+      }
+    } ]
+  },
+  "_links" : {
+    "self" : {
+      "href" : "1900-01-01T00:00:00.001Z&size=200&page=0"
+    }
+  },
+  "page" : {
+    "size" : 200,
+    "totalElements" : 120,
+    "totalPages" : 1,
+    "number" : 0
+  }
+}

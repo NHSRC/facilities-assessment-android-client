@@ -1,0 +1,915 @@
+{
+  "_embedded" : {
+    "checklist" : [ {
+      "createdDate" : "2017-06-27T11:58:45.041+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.041+0000",
+      "uuid" : "9d546f50-cf76-418f-84c3-72c43e6a4082",
+      "inactive" : false,
+      "name" : "Department Wise",
+      "_links" : {
+        "self" : {
+          "href" : "/1"
+        },
+        "departmentUUID" : {
+          "href" : "6d364b01-9c29-4202-aac2-a09bc75cfaca"
+        },
+        "assessmentToolUUID" : {
+          "href" : "9838ed0e-b8d0-431f-966a-07be97c73c1e"
+        },
+        "department" : {
+          "href" : "/1/department"
+        },
+        "areasOfConcern" : {
+          "href" : "/1/areasOfConcern"
+        },
+        "checkpoints" : {
+          "href" : "/1/checkpoints"
+        },
+        "assessmentTool" : {
+          "href" : "/1/assessmentTool"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:45.044+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.044+0000",
+      "uuid" : "eaea7de5-8b27-479e-a7f3-a1cecfe6748f",
+      "inactive" : false,
+      "name" : "Emergency",
+      "_links" : {
+        "self" : {
+          "href" : "/2"
+        },
+        "departmentUUID" : {
+          "href" : "869901e8-143f-4e65-a7c9-5a43f0c523d4"
+        },
+        "assessmentToolUUID" : {
+          "href" : "9838ed0e-b8d0-431f-966a-07be97c73c1e"
+        },
+        "areasOfConcernUUIDs" : [ {
+          "href" : "e68af41c-ceb2-4d61-a565-e7a8b9fdefa3"
+        }, {
+          "href" : "cd21c1b8-7b7b-4401-96cd-766c8bd2d007"
+        }, {
+          "href" : "ac3b5686-3edf-4536-91ed-5d6eedbb5a29"
+        }, {
+          "href" : "24f04394-2242-41ee-9fd0-5896d554288a"
+        }, {
+          "href" : "20141664-8c7c-4610-9e76-64c35aae49df"
+        }, {
+          "href" : "a92f5f18-e649-4b33-b2c2-1339612f996b"
+        }, {
+          "href" : "dac0c34b-2ec3-4fd0-8f6e-f7fcd24be3ad"
+        }, {
+          "href" : "43600f80-5206-497e-8a78-5ad59159566d"
+        } ],
+        "department" : {
+          "href" : "/2/department"
+        },
+        "areasOfConcern" : {
+          "href" : "/2/areasOfConcern"
+        },
+        "checkpoints" : {
+          "href" : "/2/checkpoints"
+        },
+        "assessmentTool" : {
+          "href" : "/2/assessmentTool"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:45.045+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.045+0000",
+      "uuid" : "11e59ccb-380d-4cad-ae92-712e94164532",
+      "inactive" : false,
+      "name" : "OPD",
+      "_links" : {
+        "self" : {
+          "href" : "/3"
+        },
+        "departmentUUID" : {
+          "href" : "851a7be0-1178-4aec-9437-944077c55a22"
+        },
+        "assessmentToolUUID" : {
+          "href" : "9838ed0e-b8d0-431f-966a-07be97c73c1e"
+        },
+        "areasOfConcernUUIDs" : [ {
+          "href" : "e68af41c-ceb2-4d61-a565-e7a8b9fdefa3"
+        }, {
+          "href" : "cd21c1b8-7b7b-4401-96cd-766c8bd2d007"
+        }, {
+          "href" : "ac3b5686-3edf-4536-91ed-5d6eedbb5a29"
+        }, {
+          "href" : "24f04394-2242-41ee-9fd0-5896d554288a"
+        }, {
+          "href" : "20141664-8c7c-4610-9e76-64c35aae49df"
+        }, {
+          "href" : "a92f5f18-e649-4b33-b2c2-1339612f996b"
+        }, {
+          "href" : "dac0c34b-2ec3-4fd0-8f6e-f7fcd24be3ad"
+        }, {
+          "href" : "43600f80-5206-497e-8a78-5ad59159566d"
+        } ],
+        "department" : {
+          "href" : "/3/department"
+        },
+        "areasOfConcern" : {
+          "href" : "/3/areasOfConcern"
+        },
+        "checkpoints" : {
+          "href" : "/3/checkpoints"
+        },
+        "assessmentTool" : {
+          "href" : "/3/assessmentTool"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:45.045+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.045+0000",
+      "uuid" : "575395eb-48b9-4412-9dcf-e56f2934ff48",
+      "inactive" : false,
+      "name" : "Labour Room",
+      "_links" : {
+        "self" : {
+          "href" : "/4"
+        },
+        "departmentUUID" : {
+          "href" : "402d65f7-9647-4b33-a5bb-2cf35cbd3880"
+        },
+        "assessmentToolUUID" : {
+          "href" : "9838ed0e-b8d0-431f-966a-07be97c73c1e"
+        },
+        "areasOfConcernUUIDs" : [ {
+          "href" : "e68af41c-ceb2-4d61-a565-e7a8b9fdefa3"
+        }, {
+          "href" : "cd21c1b8-7b7b-4401-96cd-766c8bd2d007"
+        }, {
+          "href" : "ac3b5686-3edf-4536-91ed-5d6eedbb5a29"
+        }, {
+          "href" : "24f04394-2242-41ee-9fd0-5896d554288a"
+        }, {
+          "href" : "20141664-8c7c-4610-9e76-64c35aae49df"
+        }, {
+          "href" : "a92f5f18-e649-4b33-b2c2-1339612f996b"
+        }, {
+          "href" : "dac0c34b-2ec3-4fd0-8f6e-f7fcd24be3ad"
+        }, {
+          "href" : "43600f80-5206-497e-8a78-5ad59159566d"
+        } ],
+        "department" : {
+          "href" : "/4/department"
+        },
+        "areasOfConcern" : {
+          "href" : "/4/areasOfConcern"
+        },
+        "checkpoints" : {
+          "href" : "/4/checkpoints"
+        },
+        "assessmentTool" : {
+          "href" : "/4/assessmentTool"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:45.046+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.046+0000",
+      "uuid" : "14573f68-57b1-42e5-a5f4-591a44db7998",
+      "inactive" : false,
+      "name" : "Maternity Ward",
+      "_links" : {
+        "self" : {
+          "href" : "/5"
+        },
+        "departmentUUID" : {
+          "href" : "7238f9d0-26a0-498e-86f3-37aea8686da2"
+        },
+        "assessmentToolUUID" : {
+          "href" : "9838ed0e-b8d0-431f-966a-07be97c73c1e"
+        },
+        "areasOfConcernUUIDs" : [ {
+          "href" : "e68af41c-ceb2-4d61-a565-e7a8b9fdefa3"
+        }, {
+          "href" : "cd21c1b8-7b7b-4401-96cd-766c8bd2d007"
+        }, {
+          "href" : "ac3b5686-3edf-4536-91ed-5d6eedbb5a29"
+        }, {
+          "href" : "24f04394-2242-41ee-9fd0-5896d554288a"
+        }, {
+          "href" : "20141664-8c7c-4610-9e76-64c35aae49df"
+        }, {
+          "href" : "a92f5f18-e649-4b33-b2c2-1339612f996b"
+        }, {
+          "href" : "dac0c34b-2ec3-4fd0-8f6e-f7fcd24be3ad"
+        }, {
+          "href" : "43600f80-5206-497e-8a78-5ad59159566d"
+        } ],
+        "department" : {
+          "href" : "/5/department"
+        },
+        "areasOfConcern" : {
+          "href" : "/5/areasOfConcern"
+        },
+        "checkpoints" : {
+          "href" : "/5/checkpoints"
+        },
+        "assessmentTool" : {
+          "href" : "/5/assessmentTool"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:45.047+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.047+0000",
+      "uuid" : "657f37c4-0744-4481-ad18-d51488d71f07",
+      "inactive" : false,
+      "name" : "Ped Ward",
+      "_links" : {
+        "self" : {
+          "href" : "/6"
+        },
+        "departmentUUID" : {
+          "href" : "8199f123-608c-41f7-8121-1673718e17e6"
+        },
+        "assessmentToolUUID" : {
+          "href" : "9838ed0e-b8d0-431f-966a-07be97c73c1e"
+        },
+        "areasOfConcernUUIDs" : [ {
+          "href" : "e68af41c-ceb2-4d61-a565-e7a8b9fdefa3"
+        }, {
+          "href" : "cd21c1b8-7b7b-4401-96cd-766c8bd2d007"
+        }, {
+          "href" : "ac3b5686-3edf-4536-91ed-5d6eedbb5a29"
+        }, {
+          "href" : "24f04394-2242-41ee-9fd0-5896d554288a"
+        }, {
+          "href" : "20141664-8c7c-4610-9e76-64c35aae49df"
+        }, {
+          "href" : "a92f5f18-e649-4b33-b2c2-1339612f996b"
+        }, {
+          "href" : "dac0c34b-2ec3-4fd0-8f6e-f7fcd24be3ad"
+        }, {
+          "href" : "43600f80-5206-497e-8a78-5ad59159566d"
+        } ],
+        "department" : {
+          "href" : "/6/department"
+        },
+        "areasOfConcern" : {
+          "href" : "/6/areasOfConcern"
+        },
+        "checkpoints" : {
+          "href" : "/6/checkpoints"
+        },
+        "assessmentTool" : {
+          "href" : "/6/assessmentTool"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:45.048+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.048+0000",
+      "uuid" : "d2dd1098-4e75-427b-929b-26ce80af34e5",
+      "inactive" : false,
+      "name" : "SNCU",
+      "_links" : {
+        "self" : {
+          "href" : "/7"
+        },
+        "departmentUUID" : {
+          "href" : "38741a64-f9e8-456d-a984-4c2168bc7af4"
+        },
+        "assessmentToolUUID" : {
+          "href" : "9838ed0e-b8d0-431f-966a-07be97c73c1e"
+        },
+        "areasOfConcernUUIDs" : [ {
+          "href" : "e68af41c-ceb2-4d61-a565-e7a8b9fdefa3"
+        }, {
+          "href" : "cd21c1b8-7b7b-4401-96cd-766c8bd2d007"
+        }, {
+          "href" : "ac3b5686-3edf-4536-91ed-5d6eedbb5a29"
+        }, {
+          "href" : "24f04394-2242-41ee-9fd0-5896d554288a"
+        }, {
+          "href" : "20141664-8c7c-4610-9e76-64c35aae49df"
+        }, {
+          "href" : "a92f5f18-e649-4b33-b2c2-1339612f996b"
+        }, {
+          "href" : "dac0c34b-2ec3-4fd0-8f6e-f7fcd24be3ad"
+        }, {
+          "href" : "43600f80-5206-497e-8a78-5ad59159566d"
+        } ],
+        "department" : {
+          "href" : "/7/department"
+        },
+        "areasOfConcern" : {
+          "href" : "/7/areasOfConcern"
+        },
+        "checkpoints" : {
+          "href" : "/7/checkpoints"
+        },
+        "assessmentTool" : {
+          "href" : "/7/assessmentTool"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:45.048+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.048+0000",
+      "uuid" : "e3f8ad8e-336f-4177-bddf-351cc66cb7e5",
+      "inactive" : false,
+      "name" : "NRC",
+      "_links" : {
+        "self" : {
+          "href" : "/8"
+        },
+        "departmentUUID" : {
+          "href" : "b24645ba-f3b4-4196-a0fd-30f0fcc3de64"
+        },
+        "assessmentToolUUID" : {
+          "href" : "9838ed0e-b8d0-431f-966a-07be97c73c1e"
+        },
+        "areasOfConcernUUIDs" : [ {
+          "href" : "e68af41c-ceb2-4d61-a565-e7a8b9fdefa3"
+        }, {
+          "href" : "cd21c1b8-7b7b-4401-96cd-766c8bd2d007"
+        }, {
+          "href" : "ac3b5686-3edf-4536-91ed-5d6eedbb5a29"
+        }, {
+          "href" : "24f04394-2242-41ee-9fd0-5896d554288a"
+        }, {
+          "href" : "20141664-8c7c-4610-9e76-64c35aae49df"
+        }, {
+          "href" : "a92f5f18-e649-4b33-b2c2-1339612f996b"
+        }, {
+          "href" : "dac0c34b-2ec3-4fd0-8f6e-f7fcd24be3ad"
+        }, {
+          "href" : "43600f80-5206-497e-8a78-5ad59159566d"
+        } ],
+        "department" : {
+          "href" : "/8/department"
+        },
+        "areasOfConcern" : {
+          "href" : "/8/areasOfConcern"
+        },
+        "checkpoints" : {
+          "href" : "/8/checkpoints"
+        },
+        "assessmentTool" : {
+          "href" : "/8/assessmentTool"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:45.049+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.049+0000",
+      "uuid" : "28d2b720-7a1d-48ce-a03a-18a4d3a2703e",
+      "inactive" : false,
+      "name" : "OT",
+      "_links" : {
+        "self" : {
+          "href" : "/9"
+        },
+        "departmentUUID" : {
+          "href" : "52f30887-3a07-49ee-8ec2-ddbf0af7bddc"
+        },
+        "assessmentToolUUID" : {
+          "href" : "9838ed0e-b8d0-431f-966a-07be97c73c1e"
+        },
+        "areasOfConcernUUIDs" : [ {
+          "href" : "e68af41c-ceb2-4d61-a565-e7a8b9fdefa3"
+        }, {
+          "href" : "cd21c1b8-7b7b-4401-96cd-766c8bd2d007"
+        }, {
+          "href" : "ac3b5686-3edf-4536-91ed-5d6eedbb5a29"
+        }, {
+          "href" : "24f04394-2242-41ee-9fd0-5896d554288a"
+        }, {
+          "href" : "20141664-8c7c-4610-9e76-64c35aae49df"
+        }, {
+          "href" : "a92f5f18-e649-4b33-b2c2-1339612f996b"
+        }, {
+          "href" : "dac0c34b-2ec3-4fd0-8f6e-f7fcd24be3ad"
+        }, {
+          "href" : "43600f80-5206-497e-8a78-5ad59159566d"
+        } ],
+        "department" : {
+          "href" : "/9/department"
+        },
+        "areasOfConcern" : {
+          "href" : "/9/areasOfConcern"
+        },
+        "checkpoints" : {
+          "href" : "/9/checkpoints"
+        },
+        "assessmentTool" : {
+          "href" : "/9/assessmentTool"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:45.050+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.050+0000",
+      "uuid" : "b8dca366-9f86-4c3c-9080-c9b29aba8cb2",
+      "inactive" : false,
+      "name" : "PP Unit",
+      "_links" : {
+        "self" : {
+          "href" : "/10"
+        },
+        "departmentUUID" : {
+          "href" : "253d4a3e-8fa3-4d29-a0ec-7a57a6385e5c"
+        },
+        "assessmentToolUUID" : {
+          "href" : "9838ed0e-b8d0-431f-966a-07be97c73c1e"
+        },
+        "areasOfConcernUUIDs" : [ {
+          "href" : "e68af41c-ceb2-4d61-a565-e7a8b9fdefa3"
+        }, {
+          "href" : "cd21c1b8-7b7b-4401-96cd-766c8bd2d007"
+        }, {
+          "href" : "ac3b5686-3edf-4536-91ed-5d6eedbb5a29"
+        }, {
+          "href" : "24f04394-2242-41ee-9fd0-5896d554288a"
+        }, {
+          "href" : "20141664-8c7c-4610-9e76-64c35aae49df"
+        }, {
+          "href" : "a92f5f18-e649-4b33-b2c2-1339612f996b"
+        }, {
+          "href" : "dac0c34b-2ec3-4fd0-8f6e-f7fcd24be3ad"
+        }, {
+          "href" : "43600f80-5206-497e-8a78-5ad59159566d"
+        } ],
+        "department" : {
+          "href" : "/10/department"
+        },
+        "areasOfConcern" : {
+          "href" : "/10/areasOfConcern"
+        },
+        "checkpoints" : {
+          "href" : "/10/checkpoints"
+        },
+        "assessmentTool" : {
+          "href" : "/10/assessmentTool"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:45.050+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.050+0000",
+      "uuid" : "764f1af0-1e77-4a35-b795-ce44ce55dd71",
+      "inactive" : false,
+      "name" : "ICU",
+      "_links" : {
+        "self" : {
+          "href" : "/11"
+        },
+        "departmentUUID" : {
+          "href" : "ac31f7ab-5342-4e68-97bc-29f1ce3535f4"
+        },
+        "assessmentToolUUID" : {
+          "href" : "9838ed0e-b8d0-431f-966a-07be97c73c1e"
+        },
+        "areasOfConcernUUIDs" : [ {
+          "href" : "e68af41c-ceb2-4d61-a565-e7a8b9fdefa3"
+        }, {
+          "href" : "cd21c1b8-7b7b-4401-96cd-766c8bd2d007"
+        }, {
+          "href" : "ac3b5686-3edf-4536-91ed-5d6eedbb5a29"
+        }, {
+          "href" : "24f04394-2242-41ee-9fd0-5896d554288a"
+        }, {
+          "href" : "20141664-8c7c-4610-9e76-64c35aae49df"
+        }, {
+          "href" : "a92f5f18-e649-4b33-b2c2-1339612f996b"
+        }, {
+          "href" : "dac0c34b-2ec3-4fd0-8f6e-f7fcd24be3ad"
+        }, {
+          "href" : "43600f80-5206-497e-8a78-5ad59159566d"
+        } ],
+        "department" : {
+          "href" : "/11/department"
+        },
+        "areasOfConcern" : {
+          "href" : "/11/areasOfConcern"
+        },
+        "checkpoints" : {
+          "href" : "/11/checkpoints"
+        },
+        "assessmentTool" : {
+          "href" : "/11/assessmentTool"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:45.051+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.051+0000",
+      "uuid" : "b71a988c-8302-4d54-a1be-52792c392094",
+      "inactive" : false,
+      "name" : "IPD",
+      "_links" : {
+        "self" : {
+          "href" : "/12"
+        },
+        "departmentUUID" : {
+          "href" : "c2d83a7e-cff5-4839-a799-7a1427698f8e"
+        },
+        "assessmentToolUUID" : {
+          "href" : "9838ed0e-b8d0-431f-966a-07be97c73c1e"
+        },
+        "areasOfConcernUUIDs" : [ {
+          "href" : "e68af41c-ceb2-4d61-a565-e7a8b9fdefa3"
+        }, {
+          "href" : "cd21c1b8-7b7b-4401-96cd-766c8bd2d007"
+        }, {
+          "href" : "ac3b5686-3edf-4536-91ed-5d6eedbb5a29"
+        }, {
+          "href" : "24f04394-2242-41ee-9fd0-5896d554288a"
+        }, {
+          "href" : "20141664-8c7c-4610-9e76-64c35aae49df"
+        }, {
+          "href" : "a92f5f18-e649-4b33-b2c2-1339612f996b"
+        }, {
+          "href" : "dac0c34b-2ec3-4fd0-8f6e-f7fcd24be3ad"
+        }, {
+          "href" : "43600f80-5206-497e-8a78-5ad59159566d"
+        } ],
+        "department" : {
+          "href" : "/12/department"
+        },
+        "areasOfConcern" : {
+          "href" : "/12/areasOfConcern"
+        },
+        "checkpoints" : {
+          "href" : "/12/checkpoints"
+        },
+        "assessmentTool" : {
+          "href" : "/12/assessmentTool"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:45.052+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.052+0000",
+      "uuid" : "c7795b4c-809c-40b2-a1af-276324d9912b",
+      "inactive" : false,
+      "name" : "Blood Bank",
+      "_links" : {
+        "self" : {
+          "href" : "/13"
+        },
+        "departmentUUID" : {
+          "href" : "9ba01cf8-3dc1-4e4a-8604-303c0e2c438c"
+        },
+        "assessmentToolUUID" : {
+          "href" : "9838ed0e-b8d0-431f-966a-07be97c73c1e"
+        },
+        "areasOfConcernUUIDs" : [ {
+          "href" : "e68af41c-ceb2-4d61-a565-e7a8b9fdefa3"
+        }, {
+          "href" : "cd21c1b8-7b7b-4401-96cd-766c8bd2d007"
+        }, {
+          "href" : "ac3b5686-3edf-4536-91ed-5d6eedbb5a29"
+        }, {
+          "href" : "24f04394-2242-41ee-9fd0-5896d554288a"
+        }, {
+          "href" : "20141664-8c7c-4610-9e76-64c35aae49df"
+        }, {
+          "href" : "a92f5f18-e649-4b33-b2c2-1339612f996b"
+        }, {
+          "href" : "dac0c34b-2ec3-4fd0-8f6e-f7fcd24be3ad"
+        }, {
+          "href" : "43600f80-5206-497e-8a78-5ad59159566d"
+        } ],
+        "department" : {
+          "href" : "/13/department"
+        },
+        "areasOfConcern" : {
+          "href" : "/13/areasOfConcern"
+        },
+        "checkpoints" : {
+          "href" : "/13/checkpoints"
+        },
+        "assessmentTool" : {
+          "href" : "/13/assessmentTool"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:45.053+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.053+0000",
+      "uuid" : "8cff7386-87a7-44f9-8986-587a59ad48d5",
+      "inactive" : false,
+      "name" : "Lab",
+      "_links" : {
+        "self" : {
+          "href" : "/14"
+        },
+        "departmentUUID" : {
+          "href" : "75ecab7c-f38f-4ebb-a2f4-eb26bf7708ec"
+        },
+        "assessmentToolUUID" : {
+          "href" : "9838ed0e-b8d0-431f-966a-07be97c73c1e"
+        },
+        "areasOfConcernUUIDs" : [ {
+          "href" : "e68af41c-ceb2-4d61-a565-e7a8b9fdefa3"
+        }, {
+          "href" : "cd21c1b8-7b7b-4401-96cd-766c8bd2d007"
+        }, {
+          "href" : "ac3b5686-3edf-4536-91ed-5d6eedbb5a29"
+        }, {
+          "href" : "24f04394-2242-41ee-9fd0-5896d554288a"
+        }, {
+          "href" : "20141664-8c7c-4610-9e76-64c35aae49df"
+        }, {
+          "href" : "a92f5f18-e649-4b33-b2c2-1339612f996b"
+        }, {
+          "href" : "dac0c34b-2ec3-4fd0-8f6e-f7fcd24be3ad"
+        }, {
+          "href" : "43600f80-5206-497e-8a78-5ad59159566d"
+        } ],
+        "department" : {
+          "href" : "/14/department"
+        },
+        "areasOfConcern" : {
+          "href" : "/14/areasOfConcern"
+        },
+        "checkpoints" : {
+          "href" : "/14/checkpoints"
+        },
+        "assessmentTool" : {
+          "href" : "/14/assessmentTool"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:45.054+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.054+0000",
+      "uuid" : "a7a9882d-154c-4891-a15c-1798d88efba1",
+      "inactive" : false,
+      "name" : "Radiology",
+      "_links" : {
+        "self" : {
+          "href" : "/15"
+        },
+        "departmentUUID" : {
+          "href" : "7a06cebc-0e38-45d3-aece-ee2339e845b0"
+        },
+        "assessmentToolUUID" : {
+          "href" : "9838ed0e-b8d0-431f-966a-07be97c73c1e"
+        },
+        "areasOfConcernUUIDs" : [ {
+          "href" : "e68af41c-ceb2-4d61-a565-e7a8b9fdefa3"
+        }, {
+          "href" : "cd21c1b8-7b7b-4401-96cd-766c8bd2d007"
+        }, {
+          "href" : "ac3b5686-3edf-4536-91ed-5d6eedbb5a29"
+        }, {
+          "href" : "24f04394-2242-41ee-9fd0-5896d554288a"
+        }, {
+          "href" : "20141664-8c7c-4610-9e76-64c35aae49df"
+        }, {
+          "href" : "a92f5f18-e649-4b33-b2c2-1339612f996b"
+        }, {
+          "href" : "dac0c34b-2ec3-4fd0-8f6e-f7fcd24be3ad"
+        }, {
+          "href" : "43600f80-5206-497e-8a78-5ad59159566d"
+        } ],
+        "department" : {
+          "href" : "/15/department"
+        },
+        "areasOfConcern" : {
+          "href" : "/15/areasOfConcern"
+        },
+        "checkpoints" : {
+          "href" : "/15/checkpoints"
+        },
+        "assessmentTool" : {
+          "href" : "/15/assessmentTool"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:45.055+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.055+0000",
+      "uuid" : "01608f5e-d1f4-42de-9df0-a2e34f315acd",
+      "inactive" : false,
+      "name" : "Pharmacy",
+      "_links" : {
+        "self" : {
+          "href" : "/16"
+        },
+        "departmentUUID" : {
+          "href" : "f268ea2b-ccd7-426f-a6c7-98ff4bc579e9"
+        },
+        "assessmentToolUUID" : {
+          "href" : "9838ed0e-b8d0-431f-966a-07be97c73c1e"
+        },
+        "areasOfConcernUUIDs" : [ {
+          "href" : "e68af41c-ceb2-4d61-a565-e7a8b9fdefa3"
+        }, {
+          "href" : "cd21c1b8-7b7b-4401-96cd-766c8bd2d007"
+        }, {
+          "href" : "ac3b5686-3edf-4536-91ed-5d6eedbb5a29"
+        }, {
+          "href" : "24f04394-2242-41ee-9fd0-5896d554288a"
+        }, {
+          "href" : "20141664-8c7c-4610-9e76-64c35aae49df"
+        }, {
+          "href" : "a92f5f18-e649-4b33-b2c2-1339612f996b"
+        }, {
+          "href" : "dac0c34b-2ec3-4fd0-8f6e-f7fcd24be3ad"
+        }, {
+          "href" : "43600f80-5206-497e-8a78-5ad59159566d"
+        } ],
+        "department" : {
+          "href" : "/16/department"
+        },
+        "areasOfConcern" : {
+          "href" : "/16/areasOfConcern"
+        },
+        "checkpoints" : {
+          "href" : "/16/checkpoints"
+        },
+        "assessmentTool" : {
+          "href" : "/16/assessmentTool"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:45.056+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.056+0000",
+      "uuid" : "b67fd83a-fa84-476f-bfe5-87592d04b8d5",
+      "inactive" : false,
+      "name" : "Auxillary services",
+      "_links" : {
+        "self" : {
+          "href" : "/17"
+        },
+        "departmentUUID" : {
+          "href" : "c3a25d52-1b66-457c-8d3d-d660435278c1"
+        },
+        "assessmentToolUUID" : {
+          "href" : "9838ed0e-b8d0-431f-966a-07be97c73c1e"
+        },
+        "areasOfConcernUUIDs" : [ {
+          "href" : "e68af41c-ceb2-4d61-a565-e7a8b9fdefa3"
+        }, {
+          "href" : "cd21c1b8-7b7b-4401-96cd-766c8bd2d007"
+        }, {
+          "href" : "ac3b5686-3edf-4536-91ed-5d6eedbb5a29"
+        }, {
+          "href" : "24f04394-2242-41ee-9fd0-5896d554288a"
+        }, {
+          "href" : "20141664-8c7c-4610-9e76-64c35aae49df"
+        }, {
+          "href" : "a92f5f18-e649-4b33-b2c2-1339612f996b"
+        }, {
+          "href" : "dac0c34b-2ec3-4fd0-8f6e-f7fcd24be3ad"
+        }, {
+          "href" : "43600f80-5206-497e-8a78-5ad59159566d"
+        } ],
+        "department" : {
+          "href" : "/17/department"
+        },
+        "areasOfConcern" : {
+          "href" : "/17/areasOfConcern"
+        },
+        "checkpoints" : {
+          "href" : "/17/checkpoints"
+        },
+        "assessmentTool" : {
+          "href" : "/17/assessmentTool"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:45.057+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.057+0000",
+      "uuid" : "4796dd43-3ab9-4416-95a2-a6c8318969ca",
+      "inactive" : false,
+      "name" : "Mortuary",
+      "_links" : {
+        "self" : {
+          "href" : "/18"
+        },
+        "departmentUUID" : {
+          "href" : "a5457886-fe19-4cf4-922b-9bdc44cce07a"
+        },
+        "assessmentToolUUID" : {
+          "href" : "9838ed0e-b8d0-431f-966a-07be97c73c1e"
+        },
+        "areasOfConcernUUIDs" : [ {
+          "href" : "e68af41c-ceb2-4d61-a565-e7a8b9fdefa3"
+        }, {
+          "href" : "cd21c1b8-7b7b-4401-96cd-766c8bd2d007"
+        }, {
+          "href" : "ac3b5686-3edf-4536-91ed-5d6eedbb5a29"
+        }, {
+          "href" : "24f04394-2242-41ee-9fd0-5896d554288a"
+        }, {
+          "href" : "20141664-8c7c-4610-9e76-64c35aae49df"
+        }, {
+          "href" : "a92f5f18-e649-4b33-b2c2-1339612f996b"
+        }, {
+          "href" : "dac0c34b-2ec3-4fd0-8f6e-f7fcd24be3ad"
+        }, {
+          "href" : "43600f80-5206-497e-8a78-5ad59159566d"
+        } ],
+        "department" : {
+          "href" : "/18/department"
+        },
+        "areasOfConcern" : {
+          "href" : "/18/areasOfConcern"
+        },
+        "checkpoints" : {
+          "href" : "/18/checkpoints"
+        },
+        "assessmentTool" : {
+          "href" : "/18/assessmentTool"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:45.057+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.057+0000",
+      "uuid" : "e3f87692-c081-4ed0-bbda-fd953588ee79",
+      "inactive" : false,
+      "name" : "Admin",
+      "_links" : {
+        "self" : {
+          "href" : "/19"
+        },
+        "departmentUUID" : {
+          "href" : "b92017ea-642c-431c-9228-08c8e16b24e0"
+        },
+        "assessmentToolUUID" : {
+          "href" : "9838ed0e-b8d0-431f-966a-07be97c73c1e"
+        },
+        "areasOfConcernUUIDs" : [ {
+          "href" : "e68af41c-ceb2-4d61-a565-e7a8b9fdefa3"
+        }, {
+          "href" : "cd21c1b8-7b7b-4401-96cd-766c8bd2d007"
+        }, {
+          "href" : "ac3b5686-3edf-4536-91ed-5d6eedbb5a29"
+        }, {
+          "href" : "24f04394-2242-41ee-9fd0-5896d554288a"
+        }, {
+          "href" : "20141664-8c7c-4610-9e76-64c35aae49df"
+        }, {
+          "href" : "a92f5f18-e649-4b33-b2c2-1339612f996b"
+        }, {
+          "href" : "dac0c34b-2ec3-4fd0-8f6e-f7fcd24be3ad"
+        }, {
+          "href" : "43600f80-5206-497e-8a78-5ad59159566d"
+        } ],
+        "department" : {
+          "href" : "/19/department"
+        },
+        "areasOfConcern" : {
+          "href" : "/19/areasOfConcern"
+        },
+        "checkpoints" : {
+          "href" : "/19/checkpoints"
+        },
+        "assessmentTool" : {
+          "href" : "/19/assessmentTool"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.281+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.281+0000",
+      "uuid" : "968aa9c8-563a-46b6-96be-4a847be2bda3",
+      "inactive" : false,
+      "name" : "Kayakalp",
+      "_links" : {
+        "self" : {
+          "href" : "/20"
+        },
+        "departmentUUID" : {
+          "href" : "36bcb1f9-73df-4ef5-9c18-305885da5cd2"
+        },
+        "assessmentToolUUID" : {
+          "href" : "a197a532-6486-4adc-ae3b-7bcf8628de0f"
+        },
+        "areasOfConcernUUIDs" : [ {
+          "href" : "0008a925-875c-4d9c-8fac-bcde520b3d86"
+        }, {
+          "href" : "96d2d0ff-5eba-4edb-98c6-67e99822943d"
+        }, {
+          "href" : "098e688e-c6ce-4bf1-8da0-46639d7a94e2"
+        }, {
+          "href" : "7278742e-8837-451f-b0c6-84c6c7220af8"
+        }, {
+          "href" : "722d3e9d-55bb-4b08-befe-8f185079864c"
+        }, {
+          "href" : "3096914b-3ff1-4f0c-a5e8-ee347b15291e"
+        } ],
+        "department" : {
+          "href" : "/20/department"
+        },
+        "areasOfConcern" : {
+          "href" : "/20/areasOfConcern"
+        },
+        "checkpoints" : {
+          "href" : "/20/checkpoints"
+        },
+        "assessmentTool" : {
+          "href" : "/20/assessmentTool"
+        }
+      }
+    } ]
+  },
+  "_links" : {
+    "self" : {
+      "href" : "1900-01-01T00:00:00.001Z&size=200&page=0"
+    }
+  },
+  "page" : {
+    "size" : 200,
+    "totalElements" : 20,
+    "totalPages" : 1,
+    "number" : 0
+  }
+}

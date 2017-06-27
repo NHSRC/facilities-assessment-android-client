@@ -1,0 +1,106 @@
+{
+  "_embedded" : {
+    "assessmentTool" : [ {
+      "createdDate" : "2017-06-27T11:58:44.723+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:44.723+0000",
+      "uuid" : "9838ed0e-b8d0-431f-966a-07be97c73c1e",
+      "inactive" : false,
+      "name" : "District Hospital (DH)",
+      "mode" : "nqas",
+      "_links" : {
+        "self" : {
+          "href" : "/1"
+        },
+        "assessmentTool" : {
+          "href" : "/1"
+        },
+        "checklists" : {
+          "href" : "/1/checklists"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:44.723+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:44.723+0000",
+      "uuid" : "dce99084-fdc7-49a7-b699-e2031bf47de7",
+      "inactive" : false,
+      "name" : "Community Hospital (CH)",
+      "mode" : "nqas",
+      "_links" : {
+        "self" : {
+          "href" : "/2"
+        },
+        "assessmentTool" : {
+          "href" : "/2"
+        },
+        "checklists" : {
+          "href" : "/2/checklists"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:44.723+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:44.723+0000",
+      "uuid" : "0e0a37dc-a3a1-4841-8171-da377c6a5bbe",
+      "inactive" : false,
+      "name" : "Primary Health Center (PHC)",
+      "mode" : "nqas",
+      "_links" : {
+        "self" : {
+          "href" : "/3"
+        },
+        "assessmentTool" : {
+          "href" : "/3"
+        },
+        "checklists" : {
+          "href" : "/3/checklists"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:44.723+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:44.723+0000",
+      "uuid" : "d331e798-f6cc-4547-a5a6-a51b9765c196",
+      "inactive" : false,
+      "name" : "Urban Primary Health Center (PHC)",
+      "mode" : "nqas",
+      "_links" : {
+        "self" : {
+          "href" : "/4"
+        },
+        "assessmentTool" : {
+          "href" : "/4"
+        },
+        "checklists" : {
+          "href" : "/4/checklists"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:44.723+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:44.723+0000",
+      "uuid" : "a197a532-6486-4adc-ae3b-7bcf8628de0f",
+      "inactive" : false,
+      "name" : "Kayakalp",
+      "mode" : "Kayakalp",
+      "_links" : {
+        "self" : {
+          "href" : "/5"
+        },
+        "assessmentTool" : {
+          "href" : "/5"
+        },
+        "checklists" : {
+          "href" : "/5/checklists"
+        }
+      }
+    } ]
+  },
+  "_links" : {
+    "self" : {
+      "href" : "1900-01-01T00:00:00.001Z&size=200&page=0"
+    }
+  },
+  "page" : {
+    "size" : 200,
+    "totalElements" : 5,
+    "totalPages" : 1,
+    "number" : 0
+  }
+}

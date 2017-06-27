@@ -1,0 +1,16 @@
+{
+  "_embedded" : {
+    "assessmentType" : [ ]
+  },
+  "_links" : {
+    "self" : {
+      "href" : "2017-06-27T11:58:44.702Z&size=200&page=0"
+    }
+  },
+  "page" : {
+    "size" : 200,
+    "totalElements" : 0,
+    "totalPages" : 0,
+    "number" : 0
+  }
+}

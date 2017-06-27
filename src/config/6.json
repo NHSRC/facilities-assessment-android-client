@@ -1,0 +1,296 @@
+{
+  "_embedded" : {
+    "department" : [ {
+      "createdDate" : "2017-06-27T11:58:45.031+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.031+0000",
+      "uuid" : "6d364b01-9c29-4202-aac2-a09bc75cfaca",
+      "inactive" : false,
+      "name" : "Department Wise",
+      "_links" : {
+        "self" : {
+          "href" : "/1"
+        },
+        "department" : {
+          "href" : "/1"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:45.034+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.034+0000",
+      "uuid" : "869901e8-143f-4e65-a7c9-5a43f0c523d4",
+      "inactive" : false,
+      "name" : "Emergency",
+      "_links" : {
+        "self" : {
+          "href" : "/2"
+        },
+        "department" : {
+          "href" : "/2"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:45.034+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.034+0000",
+      "uuid" : "851a7be0-1178-4aec-9437-944077c55a22",
+      "inactive" : false,
+      "name" : "OPD",
+      "_links" : {
+        "self" : {
+          "href" : "/3"
+        },
+        "department" : {
+          "href" : "/3"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:45.034+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.034+0000",
+      "uuid" : "402d65f7-9647-4b33-a5bb-2cf35cbd3880",
+      "inactive" : false,
+      "name" : "Labour Room",
+      "_links" : {
+        "self" : {
+          "href" : "/4"
+        },
+        "department" : {
+          "href" : "/4"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:45.035+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.035+0000",
+      "uuid" : "7238f9d0-26a0-498e-86f3-37aea8686da2",
+      "inactive" : false,
+      "name" : "Maternity Ward",
+      "_links" : {
+        "self" : {
+          "href" : "/5"
+        },
+        "department" : {
+          "href" : "/5"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:45.035+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.035+0000",
+      "uuid" : "8199f123-608c-41f7-8121-1673718e17e6",
+      "inactive" : false,
+      "name" : "Ped Ward",
+      "_links" : {
+        "self" : {
+          "href" : "/6"
+        },
+        "department" : {
+          "href" : "/6"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:45.036+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.036+0000",
+      "uuid" : "38741a64-f9e8-456d-a984-4c2168bc7af4",
+      "inactive" : false,
+      "name" : "SNCU",
+      "_links" : {
+        "self" : {
+          "href" : "/7"
+        },
+        "department" : {
+          "href" : "/7"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:45.037+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.037+0000",
+      "uuid" : "b24645ba-f3b4-4196-a0fd-30f0fcc3de64",
+      "inactive" : false,
+      "name" : "NRC",
+      "_links" : {
+        "self" : {
+          "href" : "/8"
+        },
+        "department" : {
+          "href" : "/8"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:45.037+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.037+0000",
+      "uuid" : "52f30887-3a07-49ee-8ec2-ddbf0af7bddc",
+      "inactive" : false,
+      "name" : "OT",
+      "_links" : {
+        "self" : {
+          "href" : "/9"
+        },
+        "department" : {
+          "href" : "/9"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:45.038+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.038+0000",
+      "uuid" : "253d4a3e-8fa3-4d29-a0ec-7a57a6385e5c",
+      "inactive" : false,
+      "name" : "PP Unit",
+      "_links" : {
+        "self" : {
+          "href" : "/10"
+        },
+        "department" : {
+          "href" : "/10"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:45.038+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.038+0000",
+      "uuid" : "ac31f7ab-5342-4e68-97bc-29f1ce3535f4",
+      "inactive" : false,
+      "name" : "ICU",
+      "_links" : {
+        "self" : {
+          "href" : "/11"
+        },
+        "department" : {
+          "href" : "/11"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:45.038+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.038+0000",
+      "uuid" : "c2d83a7e-cff5-4839-a799-7a1427698f8e",
+      "inactive" : false,
+      "name" : "IPD",
+      "_links" : {
+        "self" : {
+          "href" : "/12"
+        },
+        "department" : {
+          "href" : "/12"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:45.039+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.039+0000",
+      "uuid" : "9ba01cf8-3dc1-4e4a-8604-303c0e2c438c",
+      "inactive" : false,
+      "name" : "Blood Bank",
+      "_links" : {
+        "self" : {
+          "href" : "/13"
+        },
+        "department" : {
+          "href" : "/13"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:45.039+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.039+0000",
+      "uuid" : "75ecab7c-f38f-4ebb-a2f4-eb26bf7708ec",
+      "inactive" : false,
+      "name" : "Lab",
+      "_links" : {
+        "self" : {
+          "href" : "/14"
+        },
+        "department" : {
+          "href" : "/14"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:45.040+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.040+0000",
+      "uuid" : "7a06cebc-0e38-45d3-aece-ee2339e845b0",
+      "inactive" : false,
+      "name" : "Radiology",
+      "_links" : {
+        "self" : {
+          "href" : "/15"
+        },
+        "department" : {
+          "href" : "/15"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:45.040+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.040+0000",
+      "uuid" : "f268ea2b-ccd7-426f-a6c7-98ff4bc579e9",
+      "inactive" : false,
+      "name" : "Pharmacy",
+      "_links" : {
+        "self" : {
+          "href" : "/16"
+        },
+        "department" : {
+          "href" : "/16"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:45.040+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.040+0000",
+      "uuid" : "c3a25d52-1b66-457c-8d3d-d660435278c1",
+      "inactive" : false,
+      "name" : "Auxillary services",
+      "_links" : {
+        "self" : {
+          "href" : "/17"
+        },
+        "department" : {
+          "href" : "/17"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:45.041+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.041+0000",
+      "uuid" : "a5457886-fe19-4cf4-922b-9bdc44cce07a",
+      "inactive" : false,
+      "name" : "Mortuary",
+      "_links" : {
+        "self" : {
+          "href" : "/18"
+        },
+        "department" : {
+          "href" : "/18"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:45.041+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:45.041+0000",
+      "uuid" : "b92017ea-642c-431c-9228-08c8e16b24e0",
+      "inactive" : false,
+      "name" : "Admin",
+      "_links" : {
+        "self" : {
+          "href" : "/19"
+        },
+        "department" : {
+          "href" : "/19"
+        }
+      }
+    }, {
+      "createdDate" : "2017-06-27T11:58:49.278+0000",
+      "lastModifiedDate" : "2017-06-27T11:58:49.278+0000",
+      "uuid" : "36bcb1f9-73df-4ef5-9c18-305885da5cd2",
+      "inactive" : false,
+      "name" : "Kayakalp",
+      "_links" : {
+        "self" : {
+          "href" : "/20"
+        },
+        "department" : {
+          "href" : "/20"
+        }
+      }
+    } ]
+  },
+  "_links" : {
+    "self" : {
+      "href" : "1900-01-01T00:00:00.001Z&size=200&page=0"
+    }
+  },
+  "page" : {
+    "size" : 200,
+    "totalElements" : 20,
+    "totalPages" : 1,
+    "number" : 0
+  }
+}
