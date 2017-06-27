@@ -22,6 +22,10 @@ class Logger {
         Logger.log(source, message, Logger.LogLevel.Debug);
     }
 
+    static logDebugObject(source, object) {
+        Logger.log(source, JSON.stringify(object), Logger.LogLevel.Debug);
+    }
+
     static logInfo(source, message) {
         Logger.log(source, message, Logger.LogLevel.Info);
     }
@@ -37,6 +41,10 @@ class Logger {
     static log(source, message, level) {
         if (level >= Logger.getCurrentLogLevel())
             console.log(`[${source}] ${message}`);
+    }
+
+    static canLog(level) {
+        return Logger.getCurrentLogLevel() <= level;
     }
 }
 
