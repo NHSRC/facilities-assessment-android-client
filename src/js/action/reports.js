@@ -46,14 +46,16 @@ const aocByDept = function (areaOfConcern, cb, facilityAssessment, beans) {
     cb(areaOfConcern, scores);
 };
 
-const deptByAoc = function () {
-
+const deptByAoc = function (department, cb, facilityAssessment, beans) {
+    const reportService = beans.get(ReportService);
+    let scores = reportService.areasOfConcernScoreForDepartment(department, facilityAssessment);
+    cb(department, scores);
 };
 
 const drillDown = function (state, action, beans) {
     const scoresToShow = {
         "AREA OF CONCERN": aocByDept,
-        "DEPARTMENT": _.noop,
+        "DEPARTMENT": deptByAoc,
         "STANDARD": _.noop
     }[state.selectedTab](action.selectionName, action.cb, action.facilityAssessment, beans);
     return Object.assign(state, {});

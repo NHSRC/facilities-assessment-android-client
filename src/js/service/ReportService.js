@@ -70,10 +70,16 @@ class ReportService extends BaseService {
     }
 
     departmentScoreForAreaOfConcern(areaOfConcern, facilityAssessment) {
-        let selectedAreaOfConcern = this.db.objects(Checklist)
-            .filtered("assessmentTool = $0", facilityAssessment.assessmentTool)
-            .map(_.identity)[0]
-            .areasOfConcern.find((aoc) => aoc.name === areaOfConcern);
+        let areasOfConcernUUIDs = this.db.objects(Checklist.schema.name)
+            .filtered("assessmentTool = $0", facilityAssessment.assessmentTool.uuid)
+            .map((ch) => Object.assign({}, ch))
+            .map(this.fromStringObj("areasOfConcern"))[0]
+            .areasOfConcern.map(_.identity);
+        let checklistService = this.getService(ChecklistService);
+        let selectedAreaOfConcern =
+            areasOfConcernUUIDs.map(checklistService.getAreaOfConcern.bind(this))
+                .map(this.pickKeys(["uuid", "name"]))
+                .find((aoc) => aoc.name === areaOfConcern);
         let departmentService = this.getService(DepartmentService);
         const allCheckpoints = this.db.objects(CheckpointScore)
             .filtered("facilityAssessment = $0 AND areaOfConcern = $1", facilityAssessment.uuid, selectedAreaOfConcern.uuid)
@@ -87,6 +93,21 @@ class ReportService extends BaseService {
                 (_.sumBy(checkpointScores, "score") / (checkpointScores.length * 2)) * 100;
         });
         return scorePerDeparment;
+    }
+
+    areasOfConcernScoreForDepartment(department, facilityAssessment) {
+        let checklist = this.db.objects(Checklist.schema.name).filtered("name = $0", department).map(this.nameAndId)[0];
+        const allCheckpoints = this.db.objects(CheckpointScore)
+            .filtered("facilityAssessment = $0 AND checklist = $1", facilityAssessment.uuid, checklist.uuid)
+            .map(_.identity);
+        let scorePerAreaOfConcern = {};
+        const checkpointsPerAreaOfConcern = _.groupBy(allCheckpoints, 'areaOfConcern');
+        _.toPairs(checkpointsPerAreaOfConcern).map(([areaOfConcern, checkpointScores]) => {
+            let completeAreaOfConcern = Object.assign({}, this.db.objectForPrimaryKey(AreaOfConcern.schema.name, areaOfConcern));
+            scorePerAreaOfConcern[completeAreaOfConcern.name] =
+                (_.sumBy(checkpointScores, "score") / (checkpointScores.length * 2)) * 100;
+        });
+        return scorePerAreaOfConcern;
     }
 
     assessedCheckpoints(facilityAssessment) {

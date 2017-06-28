@@ -42,16 +42,16 @@ class ScoreList extends AbstractComponent {
     });
 
     handlePress(selectionName) {
-        return () => this.dispatchAction(Actions.DRILL_DOWN, {
+        return this.dispatchAction(Actions.DRILL_DOWN, {
             facilityAssessment: this.props.facilityAssessment,
             selectionName: selectionName,
             cb: (title, data) => TypedTransition.from(this).with({title: title, data: data}).to(DrillDownView)
-        })
+        });
     }
 
     render() {
         let Items = _.toPairs(this.props.scores).map(([item, score], idx) => (
-            <ListItem key={idx} onPress={(item) => this.handlePress(item)} style={ScoreList.styles.scoreItem}>
+            <ListItem key={idx} onPress={() => this.handlePress(item)} style={ScoreList.styles.scoreItem}>
                 <View style={ScoreList.styles.scoreItemContainer}>
                     <Text style={[Typography.paperFontBody1, {color: "black"}]}>{item}</Text>
                     <Text style={[Typography.paperFontBody1, {color: "black"}]}>{`${parseInt(score)}%`}</Text>

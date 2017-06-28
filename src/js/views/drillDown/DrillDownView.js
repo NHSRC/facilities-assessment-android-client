@@ -29,14 +29,10 @@ class DrillDownView extends AbstractComponent {
         }
     });
 
-    componentWillUnmount() {
-        this.unsubscribe();
-    }
-
     render() {
         return (
             <Container theme={FlatUITheme}>
-                <Header style={Reports.styles.header}>
+                <Header style={DrillDownView.styles.header}>
                     <Button
                         onPress={() => TypedTransition.from(this)
                             .goBack()}
@@ -49,7 +45,7 @@ class DrillDownView extends AbstractComponent {
                     }]}>{this.props.params.title}</Title>
                 </Header>
                 <Content>
-                    <ScoreList scores={this.prop.params.data}/>
+                    <ScoreList scores={this.props.params.data}/>
                 </Content>
             </Container>
         );
