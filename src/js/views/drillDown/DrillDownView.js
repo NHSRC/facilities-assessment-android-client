@@ -8,23 +8,14 @@ import Typography from '../styles/Typography';
 import PrimaryColors from '../styles/PrimaryColors';
 import TypedTransition from "../../framework/routing/TypedTransition";
 import Actions from '../../action';
-import OverallScore from "./OverallScore";
-import ScoreTabs from "./ScoreTabs";
+import ScoreList from "../reports/ScoreList";
 
 const deviceWidth = Dimensions.get('window').width;
 
-@Path("/reports")
-class Reports extends AbstractComponent {
+@Path("/drillDownView")
+class DrillDownView extends AbstractComponent {
     constructor(props, context) {
         super(props, context);
-        const store = context.getStore();
-        this.state = store.getState().reports;
-        this.unsubscribe = this.unsubscribe = store.subscribeTo('reports', this.handleChange.bind(this));
-    }
-
-    handleChange() {
-        const newState = this.context.getStore().getState().reports;
-        this.setState(newState);
     }
 
     static styles = StyleSheet.create({
@@ -42,10 +33,6 @@ class Reports extends AbstractComponent {
         this.unsubscribe();
     }
 
-    componentWillMount() {
-        this.dispatchAction(Actions.GET_ALL_SCORES, {...this.props.params})
-    }
-
     render() {
         return (
             <Container theme={FlatUITheme}>
@@ -59,15 +46,14 @@ class Reports extends AbstractComponent {
                     <Title style={[Typography.paperFontHeadline, {
                         fontWeight: 'bold',
                         color: 'white'
-                    }]}>Reports</Title>
+                    }]}>{this.props.params.title}</Title>
                 </Header>
                 <Content>
-                    <OverallScore score={this.state.overallScore} checkpointStats={this.state.checkpointStats}/>
-                    <ScoreTabs facilityAssessment={this.props.params.facilityAssessment} data={this.state}/>
+                    <ScoreList scores={this.prop.params.data}/>
                 </Content>
             </Container>
         );
     }
 }
 
-export default Reports;
+export default DrillDownView;

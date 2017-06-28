@@ -35,7 +35,7 @@ class ScoreTabs extends AbstractComponent {
         return (
             <View style={ScoreTabs.styles.container}>
                 <TabBar tabs={this.props.data.tabs} selectedTab={this.props.data.selectedTab}/>
-                <ScoreList scores={this.props.data.scoresToShow}/>
+                <ScoreList facilityAssessment={this.props.facilityAssessment} scores={this.props.data.scoresToShow}/>
             </View>
         );
     }

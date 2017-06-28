@@ -69,6 +69,26 @@ class ReportService extends BaseService {
         return scorePerStandard;
     }
 
+    departmentScoreForAreaOfConcern(areaOfConcern, facilityAssessment) {
+        let selectedAreaOfConcern = this.db.objects(Checklist)
+            .filtered("assessmentTool = $0", facilityAssessment.assessmentTool)
+            .map(_.identity)[0]
+            .areasOfConcern.find((aoc) => aoc.name === areaOfConcern);
+        let departmentService = this.getService(DepartmentService);
+        const allCheckpoints = this.db.objects(CheckpointScore)
+            .filtered("facilityAssessment = $0 AND areaOfConcern = $1", facilityAssessment.uuid, selectedAreaOfConcern.uuid)
+            .map(_.identity);
+        let scorePerDeparment = {};
+        const checkpointsPerDepartment = _.groupBy(allCheckpoints, 'checklist');
+        _.toPairs(checkpointsPerDepartment).map(([checklist, checkpointScores]) => {
+            let completeChecklist = Object.assign({}, this.db.objectForPrimaryKey(Checklist.schema.name, checklist));
+            completeChecklist.department = departmentService.getDepartment(completeChecklist.department);
+            scorePerDeparment[completeChecklist.department.name] =
+                (_.sumBy(checkpointScores, "score") / (checkpointScores.length * 2)) * 100;
+        });
+        return scorePerDeparment;
+    }
+
     assessedCheckpoints(facilityAssessment) {
         return this.db.objects(CheckpointScore)
             .filtered("facilityAssessment = $0", facilityAssessment.uuid)

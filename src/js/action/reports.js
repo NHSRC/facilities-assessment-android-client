@@ -40,8 +40,28 @@ const selectTab = function (state, action, beans) {
     });
 };
 
+const aocByDept = function (areaOfConcern, cb, facilityAssessment, beans) {
+    const reportService = beans.get(ReportService);
+    let scores = reportService.departmentScoreForAreaOfConcern(areaOfConcern, facilityAssessment);
+    cb(areaOfConcern, scores);
+};
+
+const deptByAoc = function () {
+
+};
+
+const drillDown = function (state, action, beans) {
+    const scoresToShow = {
+        "AREA OF CONCERN": aocByDept,
+        "DEPARTMENT": _.noop,
+        "STANDARD": _.noop
+    }[state.selectedTab](action.selectionName, action.cb, action.facilityAssessment, beans);
+    return Object.assign(state, {});
+};
+
 export default new Map([
     ["GET_ALL_SCORES", getAllScores],
+    ["DRILL_DOWN", drillDown],
     ["SELECT_TAB", selectTab],
 ]);
 
