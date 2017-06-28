@@ -19,7 +19,7 @@ class SearchService extends BaseService {
         return _.isEmpty(searchText) ? [] :
             this.db.objects(schema.schema.name)
                 .filtered('tags.name BEGINSWITH[c] $0', searchText)
-                .map(this.pickKeys(["reference"]));
+                .map(_.identity);
     }
 
     searchAreasOfConcern(searchText) {
