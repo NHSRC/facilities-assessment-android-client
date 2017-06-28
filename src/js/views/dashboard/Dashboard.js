@@ -43,12 +43,8 @@ class Dashboard extends AbstractComponent {
             <Container theme={FlatUITheme}>
                 <Content>
                     <Header style={Dashboard.styles.header}>
-                        <Button
-                            onPress={() => TypedTransition.from(this)
-                                .with({cb: () => this.dispatchAction(Actions.ALL_STATES, {...this.props.params})})
-                                .to(Settings, Navigator.SceneConfigs.FloatFromLeft)}
-                            transparent>
-                            <Icon style={{marginTop: 10, color: "white"}} name="menu"/>
+                        <Button transparent onPress={() => TypedTransition.from(this).goBack()}>
+                            <Icon style={{marginTop: 10, color: "white"}} name='arrow-back'/>
                         </Button>
                         <Title style={[Typography.paperFontHeadline, {
                             fontWeight: 'bold',
