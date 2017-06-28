@@ -16,16 +16,17 @@ import _ from 'lodash';
 import ResourceUtil from "../../utility/ResourceUtil";
 import ChecklistService from "../../service/ChecklistService";
 import Checklist from "../Checklist";
+import FacilityAssessment from "../FacilityAssessment";
+import CheckpointScore from "../CheckpointScore";
+import Logger from "../../framework/Logger";
+import moment from "moment";
 
 class EntitiesMetaData {
-    //order is important. last entity in each (tx and ref) with be executed first. parent and referred entity (in case of many to one) should be synced before the child.
+    //order is important. last entity with be executed first. parent and referred entity (in case of many to one) should be synced before the child.
     static get referenceEntityTypes() {
         return [
-            new EntityMetaData(StandardTag, Standard, new EntityTagMapper(), TagService),
-            new EntityMetaData(AreaOfConcernTag, AreaOfConcern, new EntityTagMapper(), TagService),
-            new EntityMetaData(MeasurableElementTag, MeasurableElement, new EntityTagMapper(), TagService),
-            new EntityMetaData(Tag),
-
+            new EntityMetaData(CheckpointScore, undefined, new CheckpointScoreMapper()),
+            new EntityMetaData(FacilityAssessment, undefined, new FacilityAssessmentMapper()),
             new EntityMetaData(Checkpoint, undefined, new CheckpointMapper()),
             new EntityMetaData(Checklist, undefined, new ChecklistMapper()),
             new EntityMetaData(MeasurableElement, Standard),
@@ -94,13 +95,38 @@ class CheckpointMapper {
 
 class ChecklistMapper {
     fromResource(resource) {
-        let checklist = new Checklist();
-        checklist.name = resource.name;
-        checklist.uuid = resource.uuid;
         resource.department = ResourceUtil.getUUIDFor(resource, "departmentUUID");
         resource.assessmentTool = ResourceUtil.getUUIDFor(resource, "assessmentToolUUID");
         resource.areasOfConcern = ResourceUtil.getUUIDsFor(resource, "areasOfConcernUUIDs")
             .map((aoc) => Object.assign({value: aoc}));
+        return resource;
+    }
+}
+
+class FacilityAssessmentMapper {
+    fromResource(resource) {
+        resource.uuid = resource.id;
+        resource.facility = ResourceUtil.getUUIDFor(resource, "facilityUUID");
+        resource.assessmentTool = ResourceUtil.getUUIDFor(resource, "assessmentToolUUID");
+        resource.submitted = true;
+        resource.startDate = moment(resource.startDate).toDate();
+        resource.endDate = moment(resource.endDate).toDate();
+        resource.dateUpdated = moment(resource.lastModifiedDate).toDate();
+        resource.assessmentType = ResourceUtil.getUUIDFor(resource, "assessmentTypeUUID");
+        return resource;
+    }
+}
+
+class CheckpointScoreMapper {
+    fromResource(resource) {
+        resource.uuid = resource.id;
+        resource.checklist = ResourceUtil.getUUIDFor(resource, "checklistUUID");
+        resource.facilityAssessment = ResourceUtil.getUUIDFor(resource, "facilityAssessmentUUID");
+        resource.checkpoint = ResourceUtil.getUUIDFor(resource, "checkpointUUID");
+        resource.areaOfConcern = ResourceUtil.getUUIDFor(resource, "areaOfConcernUUID");
+        resource.standard = ResourceUtil.getUUIDFor(resource, "standardUUID");
+        resource.submitted = true;
+        resource.dateUpdated = moment(resource.lastModifiedDate).toDate();
         return resource;
     }
 }

@@ -105,7 +105,7 @@ class Settings extends AbstractComponent {
                             buttonText={this.state.syncing ?
                                 (<ActivityIndicator animating={true} size={"large"} color="white"
                                                     style={{height: 80}}/>) :
-                                "SYNC META-DATA"}
+                                "DOWNLOAD DATA"}
                             onPress={() =>
                                 this.dispatchAction(Actions.SYNC_META_DATA,
                                     {cb: () => {
