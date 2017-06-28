@@ -63,7 +63,7 @@ class Reports extends AbstractComponent {
                 </Header>
                 <Content>
                     <OverallScore score={this.state.overallScore} checkpointStats={this.state.checkpointStats}/>
-                    <ScoreTabs facilityAssessment={this.props.params.facilityAssessment} data={this.state}/>
+                    <ScoreTabs mode={this.props.params.mode} facilityAssessment={this.props.params.facilityAssessment} data={this.state}/>
                 </Content>
             </Container>
         );

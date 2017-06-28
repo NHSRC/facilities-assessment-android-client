@@ -80,5 +80,5 @@ export let reportsInit = {
         nonCompliantCheckpoints: 0
     },
     selectedTab: 'AREA OF CONCERN',
-    tabs: ['AREA OF CONCERN', 'DEPARTMENT', 'STANDARD']
+    tabs: ['AREA OF CONCERN', 'DEPARTMENT', 'STANDARD'],
 };

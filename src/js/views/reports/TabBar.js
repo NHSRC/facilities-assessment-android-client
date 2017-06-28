@@ -8,6 +8,7 @@ import Typography from '../styles/Typography';
 import PrimaryColors from '../styles/PrimaryColors';
 import TypedTransition from "../../framework/routing/TypedTransition";
 import Actions from '../../action';
+import _ from 'lodash';
 
 
 const deviceWidth = Dimensions.get('window').width;
@@ -50,14 +51,23 @@ class TabBar extends AbstractComponent {
         }
     });
 
+    isKayakalp() {
+        return this.props.mode.toLowerCase() === "kayakalp";
+    }
+
     render() {
-        const Tabs = this.props.tabs.map((tab, idx) => (
-            <View key={idx} style={tab === this.props.selectedTab ? TabBar.styles.selectedTab : TabBar.styles.tab}>
-                <TouchableWithoutFeedback onPress={() => this.dispatchAction(Actions.SELECT_TAB, {selectedTab: tab})}>
+        const tabMap = {"THEMES": "AREA OF CONCERN", "CRITERIA": "STANDARD"};
+        const reverseTabMap = _.invert(tabMap);
+        const tabs = this.isKayakalp() ? ["THEMES", "CRITERIA"] : this.props.tabs;
+        const selectedTab = this.isKayakalp() ? reverseTabMap[this.props.selectedTab] : this.props.selectedTab;
+        const Tabs = tabs.map((tab, idx) => (
+            <View key={idx} style={tab === selectedTab ? TabBar.styles.selectedTab : TabBar.styles.tab}>
+                <TouchableWithoutFeedback
+                    onPress={() => this.dispatchAction(Actions.SELECT_TAB, {selectedTab: this.isKayakalp() ? tabMap[tab] : tab})}>
                     <View>
                         <Text
                             style={[Typography.paperFontBody2,
-                                tab === this.props.selectedTab ? TabBar.styles.selectedTabText : TabBar.styles.tabText]}>
+                                tab === selectedTab ? TabBar.styles.selectedTabText : TabBar.styles.tabText]}>
                             {tab}
                         </Text>
                     </View>
