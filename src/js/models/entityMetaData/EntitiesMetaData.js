@@ -21,6 +21,11 @@ class EntitiesMetaData {
     //order is important. last entity in each (tx and ref) with be executed first. parent and referred entity (in case of many to one) should be synced before the child.
     static get referenceEntityTypes() {
         return [
+            new EntityMetaData(StandardTag, Standard, new EntityTagMapper(), TagService),
+            new EntityMetaData(AreaOfConcernTag, AreaOfConcern, new EntityTagMapper(), TagService),
+            new EntityMetaData(MeasurableElementTag, MeasurableElement, new EntityTagMapper(), TagService),
+            new EntityMetaData(Tag),
+
             new EntityMetaData(Checkpoint, undefined, new CheckpointMapper()),
             new EntityMetaData(Checklist, undefined, new ChecklistMapper()),
             new EntityMetaData(MeasurableElement, Standard),
@@ -28,11 +33,6 @@ class EntitiesMetaData {
             new EntityMetaData(AreaOfConcern),
             new EntityMetaData(AssessmentType),
 
-            new EntityMetaData(StandardTag, undefined, undefined, TagService),
-            new EntityMetaData(AreaOfConcernTag, undefined, undefined, TagService),
-            new EntityMetaData(MeasurableElementTag, undefined, undefined, TagService),
-            new EntityMetaData(CheckpointTag, undefined, undefined, TagService),
-            new EntityMetaData(Tag),
             new EntityMetaData(Department),
             new EntityMetaData(AssessmentTool),
             new EntityMetaData(Facility, District, new FacilityMapper()),
@@ -62,9 +62,12 @@ class MeasurableElementTag {
     }
 }
 
-class CheckpointTag {
-    static get entityName() {
-        return 'CheckpointTag';
+
+class EntityTagMapper {
+    fromResource(resource) {
+        resource.uuid = ResourceUtil.getUUIDFor(resource, 'uuid');
+        resource.name = ResourceUtil.getUUIDFor(resource, 'name');
+        return resource;
     }
 }
 

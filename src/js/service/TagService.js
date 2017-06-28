@@ -6,6 +6,9 @@ class TagService extends BaseService {
     constructor(db, beanStore) {
         super(db, beanStore);
     }
+    saveWithinTx(){
+
+    }
 }
 
 export default TagService;

@@ -30,6 +30,9 @@ class EntityMetaData {
     get isMappedToDb() {
         return !_.isNil(this.entityType.schema);
     }
+    static getSchemaName(entityClass){
+        return _.isEmpty(entityClass.schema) ? entityClass.entityName : entityClass.schema.name;
+    }
 }
 
 export default EntityMetaData;
