@@ -131,7 +131,7 @@ class ReportService extends BaseService {
     }
 
     nonCompliantCheckpoints(facilityAssessment) {
-        return this.getCheckpointsWithCompliance(facilityAssessment, 1).length;
+        return this.getCheckpointsWithCompliance(facilityAssessment, 0).length;
     }
 }
 
