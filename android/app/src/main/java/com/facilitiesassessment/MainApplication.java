@@ -3,6 +3,7 @@ package com.facilitiesassessment;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import cl.json.RNSharePackage;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -31,6 +32,7 @@ public class MainApplication extends Application implements ReactApplication {
             return Arrays.<ReactPackage>asList(
                     new FabricPackage(),
                     new MainReactPackage(),
+            new RNSharePackage(),
                     new RealmReactPackage(),
                     new VectorIconsPackage()
             );
