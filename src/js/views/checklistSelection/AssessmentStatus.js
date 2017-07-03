@@ -3,7 +3,7 @@ import {Text, StyleSheet, View, ScrollView, ProgressBarAndroid as ProgressBar, D
 import AbstractComponent from "../common/AbstractComponent";
 import PrimaryColors from "../styles/PrimaryColors";
 import Typography from "../styles/Typography";
-import moment from 'moment';
+import _ from 'lodash';
 
 const deviceHeight = Dimensions.get('window').height;
 
@@ -35,7 +35,7 @@ class AssessmentStatus extends AbstractComponent {
                         Assessment Status
                     </Text>
                     <Text style={[Typography.paperFontBody1, AssessmentStatus.styles.textColor]}>
-                        {progressRatio * 100}% Complete
+                        {_.ceil(progressRatio * 100, 2)}% Complete
                     </Text>
                 </View>
                 <ProgressBar
