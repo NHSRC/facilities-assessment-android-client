@@ -33,11 +33,11 @@ class FacilitiesService extends BaseService {
     }
 
     getAllDistrictsFor(stateUUID) {
-        return this.db.objectForPrimaryKey(State.schema.name, stateUUID).districts.map(this.nameAndId);
+        return this.db.objectForPrimaryKey(State.schema.name, stateUUID).districts.sorted('name').map(this.nameAndId);
     }
 
     getAllFacilitiesFor(districtUUID, facilityType) {
-        return this.db.objectForPrimaryKey(District.schema.name, districtUUID).facilities
+        return this.db.objectForPrimaryKey(District.schema.name, districtUUID).facilities.sorted('name')
             .map(this.pickKeys(["facilityType"]));
     }
 
@@ -46,7 +46,7 @@ class FacilitiesService extends BaseService {
     }
 
     getFacilityTypes() {
-        return this.db.objects(FacilityType.schema.name).map(this.nameAndId);
+        return this.db.objects(FacilityType.schema.name).sorted('name').map(this.nameAndId);
     }
 
     getFacilityType(facilityTypeUUID) {
