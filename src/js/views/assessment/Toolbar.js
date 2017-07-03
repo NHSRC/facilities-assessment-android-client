@@ -90,9 +90,10 @@ class Toolbar extends AbstractComponent {
     }
 
     renderButton(button, key) {
+        const extraStyles = _.isEmpty(button.style) ? {} : button.style;
         return (
             <TouchableWithoutFeedback key={key} onPress={button.onPress}>
-                <View style={Toolbar.styles.actionButton}>
+                <View style={[Toolbar.styles.actionButton, extraStyles]}>
                     <Text style={[Toolbar.styles.actionButtonText, Typography.paperFontBody1]}>
                         {button.label}
                     </Text>
@@ -110,7 +111,8 @@ class Toolbar extends AbstractComponent {
         const ButtonsToRender = [
             {label: "PREV", onPress: this.onPrev.bind(this), doRender: this.isNotFirst.bind(this)},
             {label: "NEXT", onPress: this.onNext.bind(this), doRender: this.isNotLast.bind(this)},
-            {label: "FINISH", onPress: this.onFinish.bind(this), doRender: this.showFinished.bind(this)}
+            {label: "FINISH", onPress: this.onFinish.bind(this), doRender: this.showFinished.bind(this),
+                style:{backgroundColor: PrimaryColors.complete}}
         ].filter((button) => button.doRender(this.props.currentCheckpoint, this.props.checkpoints))
             .map((button, key) => this.renderButton(button, key));
         let meansOfVerificationLink = _.isEmpty(this.props.checkpoint.checkpoint.meansOfVerification) ?

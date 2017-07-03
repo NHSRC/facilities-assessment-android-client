@@ -32,7 +32,7 @@ class PageMarker extends AbstractComponent {
                 text: {color: 'white'}
             },
             saved: {
-                container: {backgroundColor: PrimaryColors.transparentBlue},
+                container: {backgroundColor: PrimaryColors.complete},
                 text: {color: 'white'}
             },
             normal: {
