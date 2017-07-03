@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Dimensions, View, Text, TouchableWithoutFeedback, StyleSheet} from 'react-native';
+import {Dimensions, View, Text, TouchableWithoutFeedback, StyleSheet, ToastAndroid} from 'react-native';
 import AbstractComponent from "../common/AbstractComponent";
 import Actions from '../../action';
 import _ from 'lodash';
@@ -9,6 +9,7 @@ class Compliance extends AbstractComponent {
     constructor(props, context) {
         super(props, context);
         this.handleOnPress = this.handleOnPress.bind(this);
+        this.remarkNotif = this.remarkNotif.bind(this);
     }
 
     static styles = StyleSheet.create({
@@ -47,13 +48,17 @@ class Compliance extends AbstractComponent {
                 checkpoint: Object.assign(this.props.checkpoint, {score: score}),
                 ...this.props.params
             });
-            setTimeout(fn, 600);
+            fn();
         }
+    }
+
+    remarkNotif() {
+        ToastAndroid.showWithGravity("Please enter a remark", ToastAndroid.SHORT, ToastAndroid.CENTER);
     }
 
     render() {
         const currentScore = this.props.checkpoint.score;
-        const complianceItems = [["Non Compliant", 0, _.noop], ["Partially Compliant", 1, _.noop], ["Fully Compliant", 2, _.noop]]
+        const complianceItems = [["Non Compliant", 0, this.remarkNotif], ["Partially Compliant", 1, this.remarkNotif], ["Fully Compliant", 2, _.noop]]
             .map(([text, score, fn], idx) => (
                 <ComplianceItem key={idx} score={score} text={text} handleOnPress={this.handleOnPress(score, fn)}
                                 active={currentScore === score}/>
