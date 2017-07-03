@@ -7,6 +7,7 @@ import DepartmentService from "./DepartmentService";
 import AreaOfConcern from "../models/AreaOfConcern";
 import Standard from "../models/Standard";
 import ChecklistService from "./ChecklistService";
+import ChecklistProgress from "../models/ChecklistProgress";
 
 @Service("reportService")
 class ReportService extends BaseService {
@@ -132,6 +133,16 @@ class ReportService extends BaseService {
 
     nonCompliantCheckpoints(facilityAssessment) {
         return this.getCheckpointsWithCompliance(facilityAssessment, 0).length;
+    }
+
+    totalChecklists(facilityAssessment) {
+        let checklistProgress = this.db.objects(ChecklistProgress.schema.name).filtered("facilityAssessment = $0", facilityAssessment.uuid)[0];
+        return checklistProgress.total;
+    }
+
+    assessedChecklists(facilityAssessment) {
+        let checklistProgress = this.db.objects(ChecklistProgress.schema.name).filtered("facilityAssessment = $0", facilityAssessment.uuid)[0];
+        return checklistProgress.completed;
     }
 }
 

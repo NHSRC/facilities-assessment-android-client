@@ -13,6 +13,8 @@ const getAllScores = function (state, action, beans) {
     const compliantCheckpoints = reportService.compliantCheckpoints(action.facilityAssessment);
     const partiallyCompliantCheckpoints = reportService.partiallyCompliantCheckpoints(action.facilityAssessment);
     const nonCompliantCheckpoints = reportService.nonCompliantCheckpoints(action.facilityAssessment);
+    const totalChecklists = reportService.totalChecklists(action.facilityAssessment);
+    const assessedChecklists = reportService.assessedChecklists(action.facilityAssessment);
     return {
         ...state,
         overallScore: overallScore,
@@ -25,6 +27,10 @@ const getAllScores = function (state, action, beans) {
             partiallyCompliantCheckpoints: partiallyCompliantCheckpoints,
             fullyCompliantCheckpoints: compliantCheckpoints,
             nonCompliantCheckpoints: nonCompliantCheckpoints
+        },
+        checklistStats: {
+            total: totalChecklists,
+            assessed: assessedChecklists
         }
     };
 };
@@ -93,6 +99,10 @@ export let reportsInit = {
         partiallyCompliantCheckpoints: 0,
         fullyCompliantCheckpoints: 0,
         nonCompliantCheckpoints: 0
+    },
+    checklistStats: {
+        assessed: 0,
+        total: 0
     },
     selectedTab: 'AREA OF CONCERN',
     tabs: ['AREA OF CONCERN', 'DEPARTMENT', 'STANDARD'],

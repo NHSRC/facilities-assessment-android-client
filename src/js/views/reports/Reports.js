@@ -91,7 +91,8 @@ class Reports extends AbstractComponent {
                     </Button>
                 </Header>
                 <Content ref="reports">
-                    <OverallScore score={this.state.overallScore} checkpointStats={this.state.checkpointStats}/>
+                    <OverallScore score={this.state.overallScore} checkpointStats={this.state.checkpointStats}
+                                  checklistStats={this.state.checklistStats}/>
                     <ScoreTabs mode={this.props.params.mode} facilityAssessment={this.props.params.facilityAssessment}
                                data={this.state}/>
                 </Content>
