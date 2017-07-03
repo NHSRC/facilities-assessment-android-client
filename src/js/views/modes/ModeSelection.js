@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Dimensions, View, Text, Navigator, StyleSheet, TouchableWithoutFeedback, Image} from 'react-native';
-import {Container, Content, Title, Button, Header, Icon, Thumbnail} from 'native-base';
+import {Container, Content, Title, Button, Header, Icon, Thumbnail, Footer} from 'native-base';
 import AbstractComponent from "../common/AbstractComponent";
 import FlatUITheme from '../themes/flatUI';
 import TypedTransition from "../../framework/routing/TypedTransition";
@@ -11,6 +11,7 @@ import Dashboard from '../dashboard/Dashboard';
 import Settings from "../settings/Settings";
 const nqasIcon = require('../img/nqas.png');
 const kayakalpIcon = require('../img/kayakalp.png');
+const nhsrcbanner = require('../img/nhsrcbanner.png');
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
@@ -37,17 +38,8 @@ class ModeSelection extends AbstractComponent {
             elevation: 0,
             backgroundColor: '#212121',
         },
-        image: {
-            height: deviceHeight * 0.33,
-            width: deviceWidth * .5,
-        },
         mode: {
             backgroundColor: 'transparent',
-        },
-        cardImage: {
-            width: 150,
-            height: 300,
-            marginRight: deviceWidth * .06,
         },
     });
 
@@ -95,6 +87,7 @@ class ModeSelection extends AbstractComponent {
                                 <View style={ModeSelection.styles.mode}>
                                     <Image resizeMode="contain"
                                            style={{
+                                               maxHeight: 300,
                                                width: deviceWidth * .275,
                                                marginLeft: deviceWidth * .06,
                                            }}
@@ -105,6 +98,7 @@ class ModeSelection extends AbstractComponent {
                                 <View style={ModeSelection.styles.mode}>
                                     <Image resizeMode="contain"
                                            style={{
+                                               maxHeight: 300,
                                                width: deviceWidth * .33,
                                                marginRight: deviceWidth * .06,
                                            }}
@@ -114,6 +108,13 @@ class ModeSelection extends AbstractComponent {
                         </View>
                     </View>
                 </Content>
+                <Footer style={{backgroundColor: 'transparent'}}>
+                    <Image resizeMode="contain"
+                           style={{
+                               width: deviceWidth,
+                           }}
+                           source={nhsrcbanner}/>
+                </Footer>
             </Container>
         );
     }
