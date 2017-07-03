@@ -26,14 +26,11 @@ class ModeSelection extends AbstractComponent {
     static styles = StyleSheet.create({
         container: {
             flexDirection: 'column',
-            justifyContent: 'center',
+            justifyContent: 'flex-start',
         },
         modeContainer: {
-            margin: deviceWidth * 0.04,
-            flex: 1,
             flexDirection: 'row',
             justifyContent: 'space-between',
-            alignItems: 'center'
         },
         header: {
             shadowOffset: {width: 0, height: 0},
@@ -43,7 +40,6 @@ class ModeSelection extends AbstractComponent {
         image: {
             height: deviceHeight * 0.33,
             width: deviceWidth * .5,
-            marginTop: deviceHeight * .05,
         },
         mode: {
             backgroundColor: 'transparent',
@@ -77,10 +73,16 @@ class ModeSelection extends AbstractComponent {
                     <Title style={[Typography.paperFontHeadline, {
                         fontWeight: 'bold',
                         color: 'white'
-                    }]}>Facilities Assessment</Title>
+                    }]}>GUNAK</Title>
                 </Header>
                 <Content>
                     <View style={ModeSelection.styles.container}>
+                        <Text style={[Typography.paperFontHeadline, {
+                            color: PrimaryColors.yellow,
+                            alignSelf: 'center',
+                            marginTop: 16
+                        }]}>Welcome
+                        </Text>
                         <Text style={[Typography.paperFontHeadline, {
                             color: 'white',
                             alignSelf: 'center',
