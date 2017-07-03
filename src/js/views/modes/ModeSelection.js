@@ -65,7 +65,7 @@ class ModeSelection extends AbstractComponent {
                     <Title style={[Typography.paperFontHeadline, {
                         fontWeight: 'bold',
                         color: 'white'
-                    }]}>GUNAK</Title>
+                    }]}>GUNAK (गुणक)</Title>
                 </Header>
                 <Content>
                     <View style={ModeSelection.styles.container}>
@@ -73,7 +73,7 @@ class ModeSelection extends AbstractComponent {
                             color: PrimaryColors.yellow,
                             alignSelf: 'center',
                             marginTop: 16
-                        }]}>Welcome
+                        }]}>Facilities Assessment Tool
                         </Text>
                         <Text style={[Typography.paperFontHeadline, {
                             color: 'white',
