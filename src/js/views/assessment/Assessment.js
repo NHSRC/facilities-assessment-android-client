@@ -57,7 +57,6 @@ class Assessment extends AbstractComponent {
                 </Header>
                 <Content>
                     <View style={{margin: deviceWidth * 0.04,}}>
-                        <SubmitButton buttonText={`${this.props.params.checklist.name} Checklist`} onPress={_.noop}/>
                         <QuestionAnswer goBack={() => TypedTransition.from(this).goBack()}
                                         checkpoints={this.state.checkpoints}
                                         currentCheckpoint={this.state.currentCheckpoint}
