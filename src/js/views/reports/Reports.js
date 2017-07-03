@@ -10,6 +10,8 @@ import TypedTransition from "../../framework/routing/TypedTransition";
 import Actions from '../../action';
 import OverallScore from "./OverallScore";
 import ScoreTabs from "./ScoreTabs";
+import Share from 'react-native-share';
+import _ from 'lodash';
 
 const deviceWidth = Dimensions.get('window').width;
 
@@ -46,6 +48,15 @@ class Reports extends AbstractComponent {
         this.dispatchAction(Actions.GET_ALL_SCORES, {...this.props.params})
     }
 
+    share(shareOpts) {
+        Share.open(shareOpts);
+    }
+
+    exportAll() {
+        this.dispatchAction(Actions.EXPORT_ASSESSMENT, {...this.props.params, cb: this.share.bind(this)});
+    }
+
+
     render() {
         return (
             <Container theme={FlatUITheme}>
@@ -60,10 +71,17 @@ class Reports extends AbstractComponent {
                         fontWeight: 'bold',
                         color: 'white'
                     }]}>Reports</Title>
+                    <Button
+                        onPress={this.exportAll.bind(this)}
+                        transparent>
+                        <Icon style={{marginTop: 10, color: 'white'}} name="get-app"/>
+                    </Button>
+
                 </Header>
                 <Content>
                     <OverallScore score={this.state.overallScore} checkpointStats={this.state.checkpointStats}/>
-                    <ScoreTabs mode={this.props.params.mode} facilityAssessment={this.props.params.facilityAssessment} data={this.state}/>
+                    <ScoreTabs mode={this.props.params.mode} facilityAssessment={this.props.params.facilityAssessment}
+                               data={this.state}/>
                 </Content>
             </Container>
         );

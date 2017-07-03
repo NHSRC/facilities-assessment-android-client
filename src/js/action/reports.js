@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import ReportService from '../service/ReportService';
+import ExportService from "../service/ExportService";
 
 
 const getAllScores = function (state, action, beans) {
@@ -58,6 +59,18 @@ const drillDown = function (state, action, beans) {
         "DEPARTMENT": deptByAoc,
         "STANDARD": _.noop
     }[state.selectedTab](action.selectionName, action.cb, action.facilityAssessment, beans);
+    return Object.assign(state);
+};
+
+const exportAllRaw = function (state, action, beans) {
+    const exportService = beans.get(ExportService);
+    let exportedCSV = exportService.exportAllRaw(action.facilityAssessment);
+    action.cb({
+        url: exportedCSV,
+        title: "Assessment",
+        message: "PFA: Assessment in Excel Format",
+        subject: "Assessment Excel"
+    });
     return Object.assign(state, {});
 };
 
@@ -65,6 +78,7 @@ export default new Map([
     ["GET_ALL_SCORES", getAllScores],
     ["DRILL_DOWN", drillDown],
     ["SELECT_TAB", selectTab],
+    ["EXPORT_ASSESSMENT", exportAllRaw],
 ]);
 
 export let reportsInit = {
