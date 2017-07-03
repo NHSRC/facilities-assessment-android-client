@@ -87,7 +87,7 @@ class Reports extends AbstractComponent {
                     <Button
                         onPress={this.snapshot.bind(this)}
                         transparent>
-                        <Icon style={{marginTop: 10, color: 'white'}} name="share"/>
+                        <Icon style={{fontSize: 22,marginTop: 10, color: 'white'}} name="share"/>
                     </Button>
                 </Header>
                 <Content ref="reports">
