@@ -12,6 +12,7 @@ import OverallScore from "./OverallScore";
 import ScoreTabs from "./ScoreTabs";
 import Share from 'react-native-share';
 import _ from 'lodash';
+import {takeSnapshot} from "react-native-view-shot";
 
 const deviceWidth = Dimensions.get('window').width;
 
@@ -56,6 +57,13 @@ class Reports extends AbstractComponent {
         this.dispatchAction(Actions.EXPORT_ASSESSMENT, {...this.props.params, cb: this.share.bind(this)});
     }
 
+    snapshot() {
+        takeSnapshot(this.refs["reports"], {
+            format: "jpeg",
+            result: "data-uri"
+        }).then(uri => this.share({url: uri}));
+    }
+
 
     render() {
         return (
@@ -76,9 +84,13 @@ class Reports extends AbstractComponent {
                         transparent>
                         <Icon style={{marginTop: 10, color: 'white'}} name="get-app"/>
                     </Button>
-
+                    <Button
+                        onPress={this.snapshot.bind(this)}
+                        transparent>
+                        <Icon style={{marginTop: 10, color: 'white'}} name="share"/>
+                    </Button>
                 </Header>
-                <Content>
+                <Content ref="reports">
                     <OverallScore score={this.state.overallScore} checkpointStats={this.state.checkpointStats}/>
                     <ScoreTabs mode={this.props.params.mode} facilityAssessment={this.props.params.facilityAssessment}
                                data={this.state}/>
