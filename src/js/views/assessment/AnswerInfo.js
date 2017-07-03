@@ -31,7 +31,7 @@ class AnswerInfo extends AbstractComponent {
                 <Text style={[Typography.paperFontBody1, {color: PrimaryColors.caption_black}]}>
                     CHECKPOINT
                 </Text>
-                <Text style={[Typography.paperFontBody1, {color: PrimaryColors.caption_black}]}>
+                <Text style={[Typography.paperFontBody1, {color: PrimaryColors.yellow, fontWeight: '900'}]}>
                     {assessmentMethods}
                 </Text>
             </View>
