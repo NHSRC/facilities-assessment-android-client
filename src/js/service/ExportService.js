@@ -6,8 +6,12 @@ import MeasurableElement from "../models/MeasurableElement";
 import Standard from "../models/Standard";
 import AreaOfConcern from "../models/AreaOfConcern";
 import Checklist from "../models/Checklist";
+import FacilityAssessment from "../models/FacilityAssessment";
+import Facility from "../models/Facility";
+import AssessmentTool from "../models/AssessmentTool";
+import {formatDateHuman} from '../utility/DateUtils';
 import _ from 'lodash';
-import {encode} from 'base-64';
+import RNFS from 'react-native-fs';
 
 @Service("exportService")
 class ExportService extends BaseService {
@@ -44,6 +48,19 @@ class ExportService extends BaseService {
         return Object.assign({}, checkpoint, {checklist: checklistName});
     }
 
+    generateMetadata(facilityAssessment, suffix = "", extension = ".csv") {
+        facilityAssessment = this.db.objectForPrimaryKey(FacilityAssessment.schema.name, facilityAssessment.uuid);
+        const facility = this.db.objectForPrimaryKey(Facility.schema.name, facilityAssessment.facility);
+        const assessmentTool = this.db.objectForPrimaryKey(AssessmentTool.schema.name, facilityAssessment.assessmentTool);
+        return {
+            filename: `${[facility.name, assessmentTool.name, suffix]
+                .join("-")}${extension}`,
+            facilityName: facility.name,
+            assessmentTool: assessmentTool.name,
+            assessmentDate: formatDateHuman(facilityAssessment.startDate)
+        };
+    }
+
     exportAllRaw(facilityAssessment) {
         const exportKeys = ["checklist", "areaOfConcernReference", "areaOfConcern", "standardReference", "standard", "measurableElementReference", "measurableElement", "checkpoint", "score", "remarks"];
         const exportKeyHeaders = ["Department",
@@ -51,6 +68,7 @@ class ExportService extends BaseService {
             "Standard Reference", "Standard",
             "Measurable Element Reference", "Measurable Element",
             "Checkpoint", "Score", "Remarks"];
+        const metadata = this.generateMetadata(facilityAssessment, "full-assessment");
         const allCheckpoints = this.db.objects(CheckpointScore.schema.name)
             .filtered("facilityAssessment = $0", facilityAssessment.uuid)
             .map(this.backfillCheckpointAndMeasurableElement.bind(this))
@@ -59,13 +77,18 @@ class ExportService extends BaseService {
             .map(this.backfillChecklist.bind(this))
             .map((assessment) => _.pick(assessment, exportKeys))
             .map(Object.values);
-        return this.toCSV(exportKeyHeaders, allCheckpoints);
+        let exportPath = this.toCSV(metadata.filename, exportKeyHeaders, allCheckpoints);
+        return {exportPath: exportPath, ...metadata};
     }
 
-    toCSV(headers, collectionOfCollections) {
+    toCSV(filename, headers, collectionOfCollections) {
         const csvCollection = [headers].concat(collectionOfCollections);
         let csvAsString = csvCollection.map((col) => col.map((item) => `"${_.toString(item).replace(/"/g, "'")}"`).join()).join('\n');
-        return `data:text/csv;base64,${encode(csvAsString)}`;
+        const filePath = `${RNFS.ExternalDirectoryPath}/${filename}`;
+        RNFS.writeFile(filePath, csvAsString, 'utf8')
+            .then(_.noop)
+            .catch(_.noop);
+        return filePath;
     }
 }
 

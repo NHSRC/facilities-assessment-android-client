@@ -64,12 +64,13 @@ const drillDown = function (state, action, beans) {
 
 const exportAllRaw = function (state, action, beans) {
     const exportService = beans.get(ExportService);
-    let exportedCSV = exportService.exportAllRaw(action.facilityAssessment);
+    let exportedCSVMetadata = exportService.exportAllRaw(action.facilityAssessment);
     action.cb({
-        url: exportedCSV,
-        title: "Assessment",
-        message: "PFA: Assessment in Excel Format",
-        subject: "Assessment Excel"
+        url: `file://${exportedCSVMetadata.exportPath}`,
+        title: `${exportedCSVMetadata.facilityName}'s Assessment on ${exportedCSVMetadata.assessmentDate}`,
+        message: `${exportedCSVMetadata.facilityName}'s ${exportedCSVMetadata.assessmentTool} Assessment on ${exportedCSVMetadata.assessmentDate} `,
+        subject: `${exportedCSVMetadata.facilityName}'s Assessment on ${exportedCSVMetadata.assessmentDate}`,
+        type: 'text/csv'
     });
     return Object.assign(state, {});
 };

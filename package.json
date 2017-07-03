@@ -13,7 +13,6 @@
     "coverage": "istanbul cover --report lcov _mocha --require ./node_modules/react-native-mock/mock.js --require src/test/testHelper.js $(find ./src/test -name '*Test.js')"
   },
   "dependencies": {
-    "base-64": "^0.1.0",
     "immutable": "^3.8.1",
     "invariant": "^2.2.2",
     "lodash": "^4.12.0",
@@ -22,6 +21,7 @@
     "react": "^15.4.2",
     "react-native": "^0.42.3",
     "react-native-fabric": "^0.4.1",
+    "react-native-fs": "^2.3.3",
     "react-native-material-design-styles": "^0.2.6",
     "react-native-share": "^1.0.20",
     "react-native-simple-gauge": "^0.1.2",

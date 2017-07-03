@@ -83,10 +83,12 @@ class ChecklistSelection extends AbstractComponent {
 
     render() {
         let assessmentComplete = this.state.assessmentProgress.completed === this.state.assessmentProgress.total;
-        const showCompleteButton = _.every(
-            this.state.checklists
-                .filter((checklist) => _.isNumber(checklist.progress.total)),
-            (checklist) => checklist.progress.total === checklist.progress.completed);
+        let startedChecklists = this.state.checklists
+            .filter((checklist) => _.isNumber(checklist.progress.total));
+        const showCompleteButton = startedChecklists.length !== 0 && _.every(
+                startedChecklists,
+                (checklist) => checklist.progress.total === checklist.progress.completed
+            );
         return (
             <Container theme={FlatUITheme}>
                 <Header style={Dashboard.styles.header}>
@@ -119,7 +121,7 @@ class ChecklistSelection extends AbstractComponent {
                         <SubmitButton buttonStyle={{marginTop: 30, backgroundColor: '#ffa000'}}
                                       onPress={this.completeAssessment.bind(this)}
                                       buttonText={assessmentComplete ? "COMPLETE ASSESSMENT" : "CLOSE ASSESSMENT"}
-                                      showButton={true}
+                                      showButton={showCompleteButton}
                         />
                     </View>
                 </Content>
