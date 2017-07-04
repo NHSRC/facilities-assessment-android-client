@@ -46,8 +46,8 @@ class OverallScore extends AbstractComponent {
             <View style={OverallScore.styles.container}>
                 <View style={{marginBottom: 10}}>
                     <Text
-                        style={[Typography.paperFontHeadline, {color: "white", alignSelf: 'center'}]}>
-                        {`${this.props.facility.name}'s assessment on ${formatDateOnlyHuman(this.props.facilityAssessment.startDate)}`}
+                        style={[Typography.paperFontTitle, {color: "white", alignSelf: 'center'}]}>
+                        {`${this.props.facility.name}'s ${this.props.assessmentType.name} assessment on ${formatDateOnlyHuman(this.props.facilityAssessment.startDate)}`}
                     </Text>
                 </View>
                 <View style={OverallScore.styles.innerContainer}>
