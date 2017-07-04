@@ -8,6 +8,7 @@ import Typography from '../styles/Typography';
 import PrimaryColors from '../styles/PrimaryColors';
 import TypedTransition from "../../framework/routing/TypedTransition";
 import Actions from '../../action';
+import _ from 'lodash';
 import ScoreList from "../reports/ScoreList";
 
 const deviceWidth = Dimensions.get('window').width;
@@ -45,7 +46,7 @@ class DrillDownView extends AbstractComponent {
                     }]}>{this.props.params.title}</Title>
                 </Header>
                 <Content>
-                    <ScoreList scores={this.props.params.data}/>
+                    <ScoreList scores={this.props.params.data} handlePress={_.noop}/>
                 </Content>
             </Container>
         );
