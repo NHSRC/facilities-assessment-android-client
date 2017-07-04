@@ -120,7 +120,7 @@ class ChecklistSelection extends AbstractComponent {
                         />
                         <SubmitButton buttonStyle={{marginTop: 30, backgroundColor: '#ffa000'}}
                                       onPress={this.completeAssessment.bind(this)}
-                                      buttonText={assessmentComplete ? "COMPLETE ASSESSMENT" : "GENERATE SCORES"}
+                                      buttonText={assessmentComplete ? "COMPLETE ASSESSMENT" : "GENERATE SCORECARD"}
                                       showButton={true}
                         />
                     </View>
