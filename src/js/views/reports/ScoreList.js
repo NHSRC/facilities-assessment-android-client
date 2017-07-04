@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Text, StyleSheet, View, ScrollView, Dimensions} from 'react-native';
 import AbstractComponent from "../common/AbstractComponent";
 import FlatUITheme from '../themes/flatUI';
-import {List, ListItem} from 'native-base';
+import {Badge, List, ListItem} from 'native-base';
 import Path from "../../framework/routing/Path";
 import Typography from '../styles/Typography';
 import PrimaryColors from '../styles/PrimaryColors';
@@ -37,7 +37,8 @@ class ScoreList extends AbstractComponent {
         scoreItemContainer: {
             flexDirection: 'row',
             justifyContent: 'space-between',
-            alignItems: 'center'
+            alignItems: 'center',
+            flex: 1,
         }
     });
 
@@ -54,8 +55,18 @@ class ScoreList extends AbstractComponent {
         let Items = _.toPairs(this.props.scores).map(([item, score], idx) => (
             <ListItem key={idx} onPress={() => onPressHandler(item)} style={ScoreList.styles.scoreItem}>
                 <View style={ScoreList.styles.scoreItemContainer}>
-                    <Text style={[Typography.paperFontBody1, {color: "black"}]}>{item}</Text>
-                    <Text style={[Typography.paperFontBody1, {color: "black"}]}>{`${parseInt(score)}%`}</Text>
+                    <Text style={[Typography.paperFontSubhead, {color: "black", flex: .85}]}>{item}</Text>
+                    <Text style={{flex: .05}}/>
+                    <View style={{
+                        backgroundColor: PrimaryColors.yellow,
+                        flex: .1,
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                    }}>
+                        <Text style={[Typography.paperFontSubhead, {color: 'white', fontWeight: '900'}]}>
+                            {`${parseInt(score)}%`}
+                        </Text>
+                    </View>
                 </View>
             </ListItem>
         ));
