@@ -81,11 +81,17 @@ const exportAllRaw = function (state, action, beans) {
     return Object.assign(state, {});
 };
 
+const exportOptions = function (state, action, beans) {
+    return Object.assign(state, {showExportOptions: !state.showExportOptions});
+};
+
+
 export default new Map([
     ["GET_ALL_SCORES", getAllScores],
     ["DRILL_DOWN", drillDown],
     ["SELECT_TAB", selectTab],
     ["EXPORT_ASSESSMENT", exportAllRaw],
+    ["EXPORT_OPTIONS", exportOptions],
 ]);
 
 export let reportsInit = {
@@ -94,6 +100,7 @@ export let reportsInit = {
     scoreByDepartment: {},
     scoreByAreaOfConcern: {},
     scoreByStandard: {},
+    showExportOptions: false,
     checkpointStats: {
         assessedCheckpoints: 0,
         partiallyCompliantCheckpoints: 0,
