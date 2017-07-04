@@ -65,7 +65,7 @@ class ModeSelection extends AbstractComponent {
                     <Title style={[Typography.paperFontHeadline, {
                         fontWeight: 'bold',
                         color: 'white'
-                    }]}>GUNAK (गुणक)</Title>
+                    }]}>GUNAK गुणक</Title>
                 </Header>
                 <Content>
                     <View style={ModeSelection.styles.container}>
