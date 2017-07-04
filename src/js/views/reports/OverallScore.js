@@ -62,13 +62,13 @@ class OverallScore extends AbstractComponent {
                 </AnimatedGaugeProgress>
                 <View>
                     <Text style={{color: "white"}}>
-                        {`Checklists Assessed - ${this.props.checklistStats.assessed}/${this.props.checklistStats.total}`}
+                        {`Checklists Assessed: ${this.props.checklistStats.assessed}/${this.props.checklistStats.total}`}
                     </Text>
                     <Text style={{color: "white"}}>
-                        {`Non Compliant Checkpoints - ${this.props.checkpointStats.nonCompliantCheckpoints}`}
+                        {`Non Compliant: ${this.props.checkpointStats.nonCompliantCheckpoints}`}
                     </Text>
                     <Text style={{color: "white"}}>
-                        {`Partially Compliant Checkpoints - ${this.props.checkpointStats.partiallyCompliantCheckpoints}`}
+                        {`Partially Compliant: ${this.props.checkpointStats.partiallyCompliantCheckpoints}`}
                     </Text>
                 </View>
             </View>
