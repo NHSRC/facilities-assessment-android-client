@@ -10,6 +10,8 @@ import TypedTransition from "../../framework/routing/TypedTransition";
 import Actions from '../../action';
 import _ from 'lodash';
 import ScoreList from "../reports/ScoreList";
+import {takeSnapshot} from "react-native-view-shot";
+import Share from "react-native-share";
 
 const deviceWidth = Dimensions.get('window').width;
 
@@ -30,6 +32,17 @@ class DrillDownView extends AbstractComponent {
         }
     });
 
+    share(shareOpts) {
+        Share.open(shareOpts);
+    }
+
+    snapshot() {
+        takeSnapshot(this.refs["drilldown"], {
+            format: "jpeg",
+            result: "data-uri"
+        }).then(uri => this.share({url: uri}));
+    }
+
     render() {
         return (
             <Container theme={FlatUITheme}>
@@ -44,8 +57,13 @@ class DrillDownView extends AbstractComponent {
                         fontWeight: 'bold',
                         color: 'white'
                     }]}>{this.props.params.title}</Title>
+                    <Button
+                        onPress={this.snapshot.bind(this)}
+                        transparent>
+                        <Icon style={{fontSize: 22, marginTop: 10, color: 'white'}} name="share"/>
+                    </Button>
                 </Header>
-                <Content>
+                <Content ref="drilldown">
                     <ScoreList scores={this.props.params.data} handlePress={_.noop}/>
                 </Content>
             </Container>
