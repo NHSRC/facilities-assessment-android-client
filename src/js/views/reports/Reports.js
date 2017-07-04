@@ -78,7 +78,7 @@ class Reports extends AbstractComponent {
     }
 
     exportCurrentTab() {
-        console.log("Exporting Current Tab");
+        this.dispatchAction(Actions.EXPORT_CURRENT_TAB, {...this.props.params, cb: this.share.bind(this)})
     }
 
     exportOptions() {

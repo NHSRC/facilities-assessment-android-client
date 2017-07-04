@@ -12,6 +12,7 @@ import AssessmentTool from "../models/AssessmentTool";
 import {formatDateHuman} from '../utility/DateUtils';
 import _ from 'lodash';
 import RNFS from 'react-native-fs';
+import ReportService from "./ReportService";
 
 @Service("exportService")
 class ExportService extends BaseService {
@@ -78,6 +79,33 @@ class ExportService extends BaseService {
             .map((assessment) => _.pick(assessment, exportKeys))
             .map(Object.values);
         let exportPath = this.toCSV(metadata.filename, exportKeyHeaders, allCheckpoints);
+        return {exportPath: exportPath, ...metadata};
+    }
+
+    exportAOC(facilityAssessment) {
+        const metadata = this.generateMetadata(facilityAssessment, "aoc-scores");
+        let reportService = this.getService(ReportService);
+        let scoreByAreaOfConcern = reportService.scoreByAreaOfConcern(facilityAssessment);
+        scoreByAreaOfConcern["Overall"] = reportService.overallScore(facilityAssessment);
+        let exportPath = this.toCSV(metadata.filename, ["Area of Concern", "Score"], _.toPairs(scoreByAreaOfConcern));
+        return {exportPath: exportPath, ...metadata};
+    }
+
+    exportDepartment(facilityAssessment) {
+        const metadata = this.generateMetadata(facilityAssessment, "department-scores");
+        let reportService = this.getService(ReportService);
+        let scoreByDepartment = reportService.scoreByDepartment(facilityAssessment);
+        scoreByDepartment["Overall"] = reportService.overallScore(facilityAssessment);
+        let exportPath = this.toCSV(metadata.filename, ["Department", "Score"], _.toPairs(scoreByDepartment));
+        return {exportPath: exportPath, ...metadata};
+    }
+
+    exportStandard(facilityAssessment) {
+        const metadata = this.generateMetadata(facilityAssessment, "standard-scores");
+        let reportService = this.getService(ReportService);
+        let scoreByStandard = reportService.scoreByStandard(facilityAssessment);
+        scoreByStandard["Overall"] = reportService.overallScore(facilityAssessment);
+        let exportPath = this.toCSV(metadata.filename, ["Standard", "Score"], _.toPairs(scoreByStandard));
         return {exportPath: exportPath, ...metadata};
     }
 

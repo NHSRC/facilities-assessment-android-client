@@ -78,10 +78,39 @@ const exportAllRaw = function (state, action, beans) {
         subject: `${exportedCSVMetadata.facilityName}'s Assessment on ${exportedCSVMetadata.assessmentDate}`,
         type: 'text/csv'
     });
-    return Object.assign(state, {});
+    return Object.assign(state, {showExportOptions: !state.showExportOptions});
 };
 
 const exportOptions = function (state, action, beans) {
+    return Object.assign(state, {showExportOptions: !state.showExportOptions});
+};
+
+const exportAOC = function (exportService, facilityAssessment) {
+    return exportService.exportAOC(facilityAssessment);
+};
+
+const exportDepartments = function (exportService, facilityAssessment) {
+    return exportService.exportDepartment(facilityAssessment);
+};
+
+const exportStandards = function (exportService, facilityAssessment) {
+    return exportService.exportStandard(facilityAssessment);
+};
+
+const exportCurrentTab = function (state, action, beans) {
+    const exportFN = {
+        'AREA OF CONCERN': exportAOC,
+        'DEPARTMENT': exportDepartments,
+        'STANDARD': exportStandards
+    }[state.selectedTab];
+    let csvMetadata = exportFN(beans.get(ExportService), action.facilityAssessment);
+    action.cb({
+        url: `file://${csvMetadata.exportPath}`,
+        title: `${csvMetadata.facilityName}'s Assessment on ${csvMetadata.assessmentDate}`,
+        message: `${csvMetadata.facilityName}'s ${csvMetadata.assessmentTool} Assessment on ${csvMetadata.assessmentDate} `,
+        subject: `${csvMetadata.facilityName}'s Assessment on ${csvMetadata.assessmentDate}`,
+        type: 'text/csv'
+    });
     return Object.assign(state, {showExportOptions: !state.showExportOptions});
 };
 
@@ -91,6 +120,7 @@ export default new Map([
     ["DRILL_DOWN", drillDown],
     ["SELECT_TAB", selectTab],
     ["EXPORT_ASSESSMENT", exportAllRaw],
+    ["EXPORT_CURRENT_TAB", exportCurrentTab],
     ["EXPORT_OPTIONS", exportOptions],
 ]);
 
