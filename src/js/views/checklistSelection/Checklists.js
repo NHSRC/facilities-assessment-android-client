@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Text, StyleSheet, View, ScrollView, TouchableWithoutFeedback, Dimensions} from "react-native";
+import {Text, StyleSheet, View, Image, TouchableWithoutFeedback, Dimensions} from "react-native";
 import AbstractComponent from "../common/AbstractComponent";
 import PrimaryColors from "../styles/PrimaryColors";
 import Typography from "../styles/Typography";
@@ -49,6 +49,8 @@ class Checklists extends AbstractComponent {
         const checklists = this.props.allChecklists.map((checklist, idx) =>
             <TouchableWithoutFeedback onPress={this.props.handleOnPress(checklist)} key={idx}>
                 <View style={[Checklists.styles.checklistsHeader, Checklists.styles.checklistButton]}>
+                    <Image style={{height: deviceHeight * 0.06, width: deviceHeight * 0.06}} resizeMode="contain"
+                           source={{uri: _.snakeCase(checklist.name.toLowerCase())}}/>
                     <Text style={[Typography.paperFontSubhead, {color: "#FFF"}]}>{checklist.name}</Text>
                     <Text style={[Typography.paperFontCaption, {color: "#FFF"}]}>
                         {_.isNumber(checklist.progress.total) ? this.getProgress(checklist) : ""}

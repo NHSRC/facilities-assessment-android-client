@@ -114,6 +114,7 @@ class ChecklistSelection extends AbstractComponent {
                         <AssessmentStatus
                             assessmentProgress={this.state.assessmentProgress}/>
                         <Checklists
+                            assessmentTool={this.props.params.assessmentTool}
                             handleOnPress={this.handleOnPress.bind(this)}
                             assessmentProgress={this.state.assessmentProgress}
                             allChecklists={this.state.checklists}
