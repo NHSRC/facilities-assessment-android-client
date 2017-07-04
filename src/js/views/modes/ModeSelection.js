@@ -88,7 +88,7 @@ class ModeSelection extends AbstractComponent {
                                     <Image resizeMode="contain"
                                            style={{
                                                maxHeight: 300,
-                                               width: deviceWidth * .275,
+                                               width: deviceWidth * .4,
                                                marginLeft: deviceWidth * .06,
                                            }}
                                            source={nqasIcon}/>
