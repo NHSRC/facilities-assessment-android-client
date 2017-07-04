@@ -41,6 +41,9 @@ class ModeSelection extends AbstractComponent {
         mode: {
             backgroundColor: 'transparent',
         },
+        highlight: {
+            fontWeight: '900'
+        }
     });
 
 
@@ -72,8 +75,11 @@ class ModeSelection extends AbstractComponent {
                         <Text style={[Typography.paperFontHeadline, {
                             color: PrimaryColors.yellow,
                             alignSelf: 'center',
-                            marginTop: 16
-                        }]}>Facilities Assessment Tool
+                            marginTop: 16,
+                        }]}>
+                            <Text style={ModeSelection.styles.highlight}>Gu</Text>
+                            ide for <Text style={ModeSelection.styles.highlight}>N</Text>QAS & <Text
+                            style={ModeSelection.styles.highlight}>K</Text>ayakalp
                         </Text>
                         <Text style={[Typography.paperFontHeadline, {
                             color: 'white',
