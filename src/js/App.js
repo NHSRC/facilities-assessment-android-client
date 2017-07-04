@@ -6,13 +6,12 @@ import Realm from "realm";
 import models from "./models";
 import BeanRegistry from "./framework/bean/BeanRegistry";
 import Logger from "./framework/Logger";
-import {ActivityIndicator, Text, View} from "react-native";
-import PrimaryColors from "./views/styles/PrimaryColors";
+import {Text, View} from "react-native";
 
 export default class App extends Component {
     constructor(props, context) {
         super(props, context);
-        Logger.setCurrentLogLevel(Logger.LogLevel.Debug);
+        Logger.setCurrentLogLevel(Logger.LogLevel.Error);
         this.db = new Realm(models);
         this.state = {seeding: true};
     }

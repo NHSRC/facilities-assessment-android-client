@@ -73,3 +73,8 @@ clear-packager:
 
 deploy-apk-local:
 	cp android/app/build/outputs/apk/app-release.apk ../facilities-assessment-server/external/app.apk
+
+install_release_version:
+	adb install android/app/build/outputs/apk/app-release.apk
+
+reinstall_release_version: uninstall install_release_version

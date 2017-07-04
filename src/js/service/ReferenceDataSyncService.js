@@ -71,7 +71,7 @@ class ReferenceDataSyncService extends BaseService {
 
         const currentEntitySyncStatus = this.entitySyncStatusService.get(entityMetaData.entityName);
         const entitySyncStatus = new EntitySyncStatus();
-        entitySyncStatus.name = entityMetaData.entityName;
+        entitySyncStatus.entityName = entityMetaData.entityName;
         entitySyncStatus.uuid = currentEntitySyncStatus.uuid;
         entitySyncStatus.loadedSince = moment(resourcesWithSameTimeStamp[0]["lastModifiedDate"]).toDate();
         Logger.logDebug('ReferenceDataSyncService', `${entitySyncStatus.entityName} was last loaded up to "${entitySyncStatus.loadedSince}"`);
