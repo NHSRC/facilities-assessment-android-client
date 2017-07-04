@@ -86,8 +86,8 @@ class Reports extends AbstractComponent {
     }
 
     render() {
-        const exportOptions = [{title: `Export ${this.state.selectedTab}`, cb: this.exportCurrentTab.bind(this)},
-            {title: `Export Assessment`, cb: this.exportAll.bind(this)}];
+        const exportOptions = [{title: `Export ${_.startCase(this.state.selectedTab.toLowerCase())} Scorecard`, cb: this.exportCurrentTab.bind(this)},
+            {title: `Export All Checklists`, cb: this.exportAll.bind(this)}];
         return (
             <Container theme={FlatUITheme}>
                 <Header style={Reports.styles.header}>
