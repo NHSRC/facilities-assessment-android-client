@@ -32,7 +32,7 @@ class ConventionalRestClient {
 
         Logger.logDebug('ConventionalRestClient', `Calling: ${url}`);
         this.getData(url, (response) => {
-            const resources = response["_embedded"][`${entityMetaData.resourceName}`];
+            const resources = _.isNil(response["_embedded"]) ? response : response["_embedded"][`${entityMetaData.resourceName}`];
 
             this.db.write(() => {
                 _.forEach(resources, (resource) => {
@@ -41,7 +41,7 @@ class ConventionalRestClient {
                     else if (resourcesWithSameTimestamp.length > 0 && resourcesWithSameTimestamp[0]["lastModifiedDate"] === resource["lastModifiedDate"])
                         resourcesWithSameTimestamp.push(resource);
                     else {
-                        Logger.logDebug('ConventionalRestClient', `Executing sync action on: ${resourcesWithSameTimestamp.length} items for resource: ${entityMetaData.resourceName}`);
+                        Logger.logDebug('ConventionalRestClient', `Resource timestamp changed, executing sync action on: ${resourcesWithSameTimestamp.length} items for resource: ${entityMetaData.resourceName}`);
                         executeResourcesWithSameTimestamp(resourcesWithSameTimestamp, entityMetaData);
                         resourcesWithSameTimestamp = [resource];
                     }
@@ -49,10 +49,10 @@ class ConventionalRestClient {
             });
 
             if (ConventionalRestClient.morePagesForThisResource(response)) {
-                Logger.logDebug('ConventionalRestClient', `More resources for: ${entityMetaData.resourceName}`);
+                Logger.logDebug('ConventionalRestClient', `More pages for resource: ${entityMetaData.resourceName}`);
                 this.loadData(entityMetaData, lastUpdatedLocally, pageNumber + 1, allEntityMetaData, executeResourcesWithSameTimestamp, executeNextResource, resourcesWithSameTimestamp, onError);
             } else if (resourcesWithSameTimestamp.length > 0) {
-                Logger.logDebug('ConventionalRestClient', `Executing sync action on: ${resourcesWithSameTimestamp.length} items for resource: ${entityMetaData.resourceName}`);
+                Logger.logDebug('ConventionalRestClient', `No more pages for resource, executing sync action on: ${resourcesWithSameTimestamp.length} items for resource: ${entityMetaData.resourceName}`);
                 this.db.write(() => {
                     executeResourcesWithSameTimestamp(resourcesWithSameTimestamp, entityMetaData);
                 });

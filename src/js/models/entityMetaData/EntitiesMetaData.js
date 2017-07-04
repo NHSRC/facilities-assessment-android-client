@@ -8,23 +8,21 @@ import Department from "../Department";
 import District from "../District";
 import MeasurableElement from "../MeasurableElement";
 import Standard from "../Standard";
-import Tag from "../Tag";
 import EntityMetaData from "./EntityMetaData";
 import Facility from "../Facility";
-import TagService from "../../service/TagService";
-import _ from 'lodash';
+import _ from "lodash";
 import ResourceUtil from "../../utility/ResourceUtil";
-import ChecklistService from "../../service/ChecklistService";
 import Checklist from "../Checklist";
 import FacilityAssessment from "../FacilityAssessment";
 import CheckpointScore from "../CheckpointScore";
-import Logger from "../../framework/Logger";
 import moment from "moment";
+import FacilityAssessmentProgressService from "../../service/FacilityAssessmentProgressService";
 
 class EntitiesMetaData {
     //order is important. last entity with be executed first. parent and referred entity (in case of many to one) should be synced before the child.
     static get referenceEntityTypes() {
         return [
+            new EntityMetaData(FacilityAssessmentProgress, undefined, undefined, FacilityAssessmentProgressService),
             new EntityMetaData(CheckpointScore, undefined, new CheckpointScoreMapper()),
             new EntityMetaData(FacilityAssessment, undefined, new FacilityAssessmentMapper()),
             new EntityMetaData(Checkpoint, undefined, new CheckpointMapper()),
@@ -42,33 +40,6 @@ class EntitiesMetaData {
             new EntityMetaData(FacilityType),
             new EntityMetaData(AssessmentType)
         ].map(_.identity);
-    }
-}
-
-class StandardTag {
-    static get entityName() {
-        return 'StandardTag';
-    }
-}
-
-class AreaOfConcernTag {
-    static get entityName() {
-        return 'AreaOfConcernTag';
-    }
-}
-
-class MeasurableElementTag {
-    static get entityName() {
-        return 'MeasurableElementTag';
-    }
-}
-
-
-class EntityTagMapper {
-    fromResource(resource) {
-        resource.uuid = ResourceUtil.getUUIDFor(resource, 'uuid');
-        resource.name = ResourceUtil.getUUIDFor(resource, 'name');
-        return resource;
     }
 }
 
@@ -128,6 +99,12 @@ class CheckpointScoreMapper {
         resource.submitted = true;
         resource.dateUpdated = moment(resource.lastModifiedDate).toDate();
         return resource;
+    }
+}
+
+class FacilityAssessmentProgress {
+    static get entityName() {
+        return 'FacilityAssessmentProgress';
     }
 }
 

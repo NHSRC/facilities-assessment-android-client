@@ -70,6 +70,11 @@ export default class BaseService {
         return this.db.objects(schema).filtered(filterCriteria);
     }
 
+    findByCriteria(filterCriteria, entityClass) {
+        let all = this.findAllByCriteria(filterCriteria, entityClass.schema.name);
+        return this.getReturnValue(all);
+    }
+
     getReturnValue(entities) {
         if (entities.length === 0) return undefined;
         if (entities.length === 1) return entities[0];

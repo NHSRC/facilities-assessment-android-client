@@ -38,6 +38,10 @@ class ReferenceDataSyncService extends BaseService {
         });
     }
 
+    updateProgress() {
+        this.findByKey('areaOfConcern', );
+    }
+
     pullData(unprocessedEntityMetaData, onComplete, onError) {
         const entityMetaData = unprocessedEntityMetaData.pop();
         if (_.isNil(entityMetaData)) {
@@ -70,6 +74,7 @@ class ReferenceDataSyncService extends BaseService {
         entitySyncStatus.name = entityMetaData.entityName;
         entitySyncStatus.uuid = currentEntitySyncStatus.uuid;
         entitySyncStatus.loadedSince = moment(resourcesWithSameTimeStamp[0]["lastModifiedDate"]).toDate();
+        Logger.logDebug('ReferenceDataSyncService', `${entitySyncStatus.entityName} was last loaded up to "${entitySyncStatus.loadedSince}"`);
         this.entitySyncStatusService.saveWithinTx(EntitySyncStatus, entitySyncStatus);
     }
 }
