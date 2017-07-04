@@ -23,9 +23,6 @@ class ExportOptions extends AbstractComponent {
             backgroundColor: 'white',
             alignSelf: 'stretch',
             justifyContent: 'center',
-            borderWidth: 1,
-            borderStyle: 'solid',
-            borderColor: PrimaryColors.light_black
         },
         item: {
             color: PrimaryColors.subheader_black
@@ -47,7 +44,7 @@ class ExportOptions extends AbstractComponent {
                     {Options}
                 </List>
                 <Button style={{backgroundColor: PrimaryColors.blue, alignSelf: 'stretch'}} block
-                        onPress={this.onClose}>
+                        onPress={this.props.onClose}>
                     Close
                 </Button>
             </View>
