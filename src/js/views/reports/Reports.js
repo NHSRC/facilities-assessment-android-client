@@ -100,7 +100,7 @@ class Reports extends AbstractComponent {
                     <Title style={[Typography.paperFontHeadline, {
                         fontWeight: 'bold',
                         color: 'white'
-                    }]}>Reports</Title>
+                    }]}>{`${this.props.params.mode.toUpperCase()} Scorecard`}</Title>
                     <Button
                         onPress={this.exportOptions}
                         transparent>
