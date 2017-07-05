@@ -23,6 +23,11 @@ class SettingsService extends BaseService {
     getServerURL() {
         return this.get().serverURL;
     }
+
+    hasServerURL() {
+        const serverURL = this.getServerURL();
+        return !_.isEmpty(serverURL) && serverURL !== "http://";
+    }
 }
 
 export default SettingsService;

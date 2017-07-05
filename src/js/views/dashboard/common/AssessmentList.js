@@ -13,6 +13,7 @@ import Actions from '../../../action';
 import Dashboard from '../Dashboard';
 import Typography from '../../styles/Typography';
 import PrimaryColors from '../../styles/PrimaryColors';
+import _ from 'lodash';
 
 
 const deviceWidth = Dimensions.get('window').width;
@@ -77,14 +78,16 @@ class AssessmentList extends AbstractComponent {
     }
 
     renderAssessment(assessment, key) {
-        const buttons = this.props.buttons.map((button, key) =>
-            <View key={key} style={AssessmentList.styles.listItemButtonContainer}>
-                <TouchableWithoutFeedback onPress={button.onPress(assessment)}>
-                    <View style={AssessmentList.styles.listItemButton}>
-                        {assessment.syncing ? this.renderSpinner() : this.renderButtonContent(button.text)}
-                    </View>
-                </TouchableWithoutFeedback>
-            </View>);
+        const buttons = this.props.buttons
+            .filter((button, key) => !_.isFunction(button.shouldRender) || button.shouldRender())
+            .map((button, key) =>
+                <View key={key} style={AssessmentList.styles.listItemButtonContainer}>
+                    <TouchableWithoutFeedback onPress={button.onPress(assessment)}>
+                        <View style={AssessmentList.styles.listItemButton}>
+                            {assessment.syncing ? this.renderSpinner() : this.renderButtonContent(button.text)}
+                        </View>
+                    </TouchableWithoutFeedback>
+                </View>);
         return (
             <View key={key} style={AssessmentList.styles.listItem}>
                 <View style={AssessmentList.styles.listItemText}>

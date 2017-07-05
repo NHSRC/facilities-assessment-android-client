@@ -2,17 +2,21 @@ import _ from 'lodash';
 import ChecklistService from "../service/ChecklistService";
 import FacilityAssessmentService from "../service/FacilityAssessmentService";
 import AssessmentSyncService from "../service/AssessmentSyncService";
+import SettingsService from "../service/SettingsService";
 
 const allAssessments = function (state, action, beans) {
     const assessmentService = beans.get(FacilityAssessmentService);
+    const settingsService = beans.get(SettingsService);
     const assessmentMode = action.mode;
+    const serverConnected = settingsService.hasServerURL();
     const openAssessments = assessmentService.getAllOpenAssessments(assessmentMode);
     const completedAssessments = assessmentService.getAllCompletedAssessments(assessmentMode);
     const submittedAssessments = assessmentService.getAllSubmittedAssessments(assessmentMode);
     return Object.assign(state, {
         openAssessments: openAssessments,
         completedAssessments: completedAssessments,
-        submittedAssessments: submittedAssessments
+        submittedAssessments: submittedAssessments,
+        serverConnected: serverConnected
     });
 };
 
@@ -58,4 +62,5 @@ export let openAssessmentsInit = {
     openAssessments: [],
     completedAssessments: [],
     submittedAssessments: [],
+    serverConnected: false
 };

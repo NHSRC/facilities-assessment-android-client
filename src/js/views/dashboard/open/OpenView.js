@@ -51,6 +51,10 @@ class OpenView extends AbstractComponent {
 
     }
 
+    allowSubmit() {
+        return this.state.serverConnected;
+    }
+
     render() {
         let completedAssessments = this.state.completedAssessments.map((assessment) => this.state.syncing.indexOf(assessment.uuid) >= 0 ?
             {syncing: true, ...assessment} : assessment);
@@ -61,6 +65,7 @@ class OpenView extends AbstractComponent {
                 buttons: [
                     {
                         text: "SUBMIT",
+                        shouldRender: this.allowSubmit.bind(this),
                         onPress: this.handleSubmit.bind(this)
                     },
                     {
