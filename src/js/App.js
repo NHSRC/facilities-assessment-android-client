@@ -42,7 +42,7 @@ export default class App extends Component {
         return this.state.seeding ? (
             <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', margin: 8}}>
                 <Text style={{color: "white", fontSize: 24}}>
-                    The App is being setup. Do not close the App.
+                    The App is being setup. Do not close the App. It may take upto 5 Minutes.
                 </Text>
             </View>) : this.routes;
 
