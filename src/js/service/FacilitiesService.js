@@ -29,7 +29,7 @@ class FacilitiesService extends BaseService {
     }
 
     getAllStates() {
-        return this.db.objects(State.schema.name).map(this.nameAndId);
+        return this.db.objects(State.schema.name).sorted('name').map(this.nameAndId);
     }
 
     getAllDistrictsFor(stateUUID) {
