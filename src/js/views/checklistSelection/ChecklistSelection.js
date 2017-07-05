@@ -15,6 +15,7 @@ import SubmitButton from '../common/SubmitButton';
 import Dashboard from '../dashboard/Dashboard';
 import {formatDateHuman} from '../../utility/DateUtils';
 import _ from 'lodash';
+import Reports from "../reports/Reports";
 
 
 const deviceWidth = Dimensions.get('window').width;
@@ -60,30 +61,22 @@ class ChecklistSelection extends AbstractComponent {
     }
 
     completeAssessment() {
-        Alert.alert("Confirmation", "Are you sure you want to close/complete the assessment?", [
-            {
-                text: "Yes",
-                onPress: () => {
-                    this.dispatchAction(Actions.COMPLETE_ASSESSMENT, {
-                        cb: () => TypedTransition.from(this).goBack(),
-                        ...this.props.params
-                    });
-                    this.dispatchAction(Actions.ALL_ASSESSMENTS, {mode: this.props.params.mode});
-                }
-            },
-            {
-                text: "No",
-                onPress: () => {
-                },
-                style: 'cancel'
-            }
-        ]);
-
+        this.dispatchAction(Actions.COMPLETE_ASSESSMENT, {
+            cb: () => TypedTransition.from(this).with({
+                assessmentTool: this.props.params.facilityAssessment.assessmentTool,
+                facility: this.props.params.facilityAssessment.facility,
+                assessmentType: this.props.params.facilityAssessment.assessmentType,
+                facilityAssessment: this.props.params.facilityAssessment,
+                ...this.props.params
+            }).to(Reports),
+            ...this.props.params
+        });
+        this.dispatchAction(Actions.ALL_ASSESSMENTS, {mode: this.props.params.mode});
     }
 
     render() {
         let assessmentComplete = this.state.assessmentProgress.completed === this.state.assessmentProgress.total;
-        const showCompleteButton = this.state.assessmentProgress.completed>0;
+        const showCompleteButton = this.state.assessmentProgress.completed > 0;
         return (
             <Container theme={FlatUITheme}>
                 <Header style={Dashboard.styles.header}>
