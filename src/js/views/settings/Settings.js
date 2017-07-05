@@ -113,7 +113,7 @@ class Settings extends AbstractComponent {
                                         this.props.params.cb();
                                     }})
                             }
-                            showButton={true}/>
+                            showButton={this.state.serverConnected}/>
                         <Text style={{color: "white", marginBottom: 30}}>
                             Last Synced Date - {formatDate(this.state.lastSyncedDate)}
                         </Text>
@@ -122,11 +122,11 @@ class Settings extends AbstractComponent {
                         <SubmitButton buttonText={"UPDATE SETTINGS"}
                                       onPress={() => this.dispatchAction(Actions.UPDATE_SETTINGS,
                                           {cb: () => TypedTransition.from(this).goBack()})}
-                                      showButton={true}/>
+                                      showButton={this.state.serverConnected}/>
                         <View style={{margin: 15}}/>
                         <SubmitButton buttonText={"CLEAN DATA"}
                                       onPress={() => this.cleanData()}
-                                      showButton={true}/>
+                                      showButton={this.state.serverConnected}/>
                     </View>
                 </Content>
             </Container>

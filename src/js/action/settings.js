@@ -7,7 +7,7 @@ import SeedDataService from "../service/SeedDataService";
 
 const initialSettings = function (state, action, beans) {
     const settingsService = beans.get(SettingsService);
-    return Object.assign(state, settingsService.get());
+    return Object.assign(state, settingsService.get(), {serverConnected: settingsService.hasServerURL()});
 };
 
 const updateView = function (state, action, beans) {
@@ -53,4 +53,5 @@ export let settingsInit = {
     serverURL: "http://",
     lastSyncedDate: minDate,
     syncing: false,
+    serverConnected: false
 };
