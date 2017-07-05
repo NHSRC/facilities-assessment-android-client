@@ -46,7 +46,7 @@ class ReportsView extends AbstractComponent {
                 assessments: this.state.completedAssessments,
                 buttons: [
                     {
-                        text: "VIEW DETAILS",
+                        text: "VIEW",
                         onPress: this.showReports.bind(this)
                     },
                 ]
@@ -56,7 +56,7 @@ class ReportsView extends AbstractComponent {
                 assessments: this.state.submittedAssessments,
                 buttons: [
                     {
-                        text: "VIEW DETAILS",
+                        text: "VIEW",
                         onPress: this.showReports.bind(this)
                     },
                 ]
