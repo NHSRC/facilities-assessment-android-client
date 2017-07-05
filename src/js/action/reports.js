@@ -116,7 +116,7 @@ const exportCurrentTab = function (state, action, beans) {
 
 const exportCurrentView = function (state, action, beans) {
     const exportService = beans.get(ExportService);
-    const newImageDest = exportService.copyOverImage(action.uri);
+    const newImageDest = exportService.copyOverImage(action.facilityAssessment, state.selectedTab, action.uri);
     action.cb({
         url: `file://${newImageDest}`
     });

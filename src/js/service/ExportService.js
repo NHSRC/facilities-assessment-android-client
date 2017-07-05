@@ -119,8 +119,9 @@ class ExportService extends BaseService {
         return filePath;
     }
 
-    copyOverImage(fileURI) {
-        const filePath = `${RNFS.ExternalDirectoryPath}/temp.jpeg`;
+    copyOverImage(facilityAssessment, suffix, fileURI) {
+        const metadata = this.generateMetadata(facilityAssessment, _.kebabCase(suffix), ".jpeg");
+        const filePath = `${RNFS.ExternalDirectoryPath}/${_.snakeCase(metadata.facilityName)}.jpeg`;
         RNFS.copyFile(fileURI.replace("file://", ""), filePath, 'utf8')
             .then(_.noop)
             .catch(_.noop);
