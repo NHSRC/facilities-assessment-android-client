@@ -73,8 +73,13 @@ class Reports extends AbstractComponent {
     snapshot() {
         takeSnapshot(this.refs["reports"], {
             format: "jpeg",
-            result: "data-uri"
-        }).then(uri => this.share({url: uri}));
+            result: "file"
+        }).then(uri =>
+            this.dispatchAction(Actions.EXPORT_CURRENT_VIEW, {
+                ...this.props.params,
+                uri: uri,
+                cb: this.share.bind(this)
+            }));
     }
 
     exportCurrentTab() {
@@ -86,7 +91,10 @@ class Reports extends AbstractComponent {
     }
 
     render() {
-        const exportOptions = [{title: `Export ${_.startCase(this.state.selectedTab.toLowerCase())} Scorecard`, cb: this.exportCurrentTab.bind(this)},
+        const exportOptions = [{
+            title: `Export ${_.startCase(this.state.selectedTab.toLowerCase())} Scorecard`,
+            cb: this.exportCurrentTab.bind(this)
+        },
             {title: `Export All Checklists`, cb: this.exportAll.bind(this)}];
         return (
             <Container theme={FlatUITheme}>

@@ -114,6 +114,14 @@ const exportCurrentTab = function (state, action, beans) {
     return Object.assign(state, {showExportOptions: !state.showExportOptions});
 };
 
+const exportCurrentView = function (state, action, beans) {
+    const exportService = beans.get(ExportService);
+    const newImageDest = exportService.copyOverImage(action.uri);
+    action.cb({
+        url: `file://${newImageDest}`
+    });
+    return Object.assign(state, {});
+};
 
 export default new Map([
     ["GET_ALL_SCORES", getAllScores],
@@ -122,6 +130,7 @@ export default new Map([
     ["EXPORT_ASSESSMENT", exportAllRaw],
     ["EXPORT_CURRENT_TAB", exportCurrentTab],
     ["EXPORT_OPTIONS", exportOptions],
+    ["EXPORT_CURRENT_VIEW", exportCurrentView],
 ]);
 
 export let reportsInit = {

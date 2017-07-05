@@ -118,6 +118,14 @@ class ExportService extends BaseService {
             .catch(_.noop);
         return filePath;
     }
+
+    copyOverImage(fileURI) {
+        const filePath = `${RNFS.ExternalDirectoryPath}/temp.jpeg`;
+        RNFS.copyFile(fileURI.replace("file://", ""), filePath, 'utf8')
+            .then(_.noop)
+            .catch(_.noop);
+        return filePath;
+    }
 }
 
 export default ExportService;
