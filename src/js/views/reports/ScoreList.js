@@ -55,15 +55,20 @@ class ScoreList extends AbstractComponent {
         let Items = _.toPairs(this.props.scores).map(([item, score], idx) => (
             <ListItem key={idx} onPress={() => onPressHandler(item)} style={ScoreList.styles.scoreItem}>
                 <View style={ScoreList.styles.scoreItemContainer}>
-                    <Text style={[Typography.paperFontSubhead, {color: "black", flex: .85}]}>{item}</Text>
+                    <Text style={[Typography.paperFontSubhead, {color: "black", flex: .80}]}>{item}</Text>
                     <Text style={{flex: .05}}/>
                     <View style={{
                         backgroundColor: PrimaryColors.yellow,
-                        flex: .1,
-                        justifyContent: 'center',
+                        flex: .15,
+                        justifyContent: 'flex-start',
                         alignItems: 'center'
                     }}>
-                        <Text style={[Typography.paperFontSubhead, {color: 'white', fontWeight: '900'}]}>
+                        <Text style={[Typography.paperFontSubhead, {
+                            color: 'white',
+                            fontWeight: '900',
+                            paddingTop: 5,
+                            paddingBottom: 5
+                        }]}>
                             {`${parseInt(score)}%`}
                         </Text>
                     </View>
