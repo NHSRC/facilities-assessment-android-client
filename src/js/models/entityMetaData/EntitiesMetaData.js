@@ -17,12 +17,13 @@ import FacilityAssessment from "../FacilityAssessment";
 import CheckpointScore from "../CheckpointScore";
 import moment from "moment";
 import FacilityAssessmentProgressService from "../../service/FacilityAssessmentProgressService";
+import DeploymentAppConfiguration from "../DeploymentAppConfiguration";
 
 class EntitiesMetaData {
     //order is important. last entity with be executed first. parent and referred entity (in case of many to one) should be synced before the child.
     static get referenceEntityTypes() {
         return [
-            // new EntityMetaData(FacilityAssessmentProgress, undefined, undefined, FacilityAssessmentProgressService),
+            new EntityMetaData(FacilityAssessmentProgress, undefined, undefined, FacilityAssessmentProgressService),
             new EntityMetaData(CheckpointScore, undefined, new CheckpointScoreMapper()),
             new EntityMetaData(FacilityAssessment, undefined, new FacilityAssessmentMapper()),
             new EntityMetaData(Checkpoint, undefined, new CheckpointMapper()),
@@ -38,7 +39,8 @@ class EntitiesMetaData {
             new EntityMetaData(District, State),
             new EntityMetaData(State),
             new EntityMetaData(FacilityType),
-            new EntityMetaData(AssessmentType)
+            new EntityMetaData(AssessmentType),
+            new EntityMetaData(DeploymentAppConfiguration)
         ].map(_.identity);
     }
 }

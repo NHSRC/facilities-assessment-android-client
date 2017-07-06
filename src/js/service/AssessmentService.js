@@ -77,11 +77,9 @@ class AssessmentService extends BaseService {
         }).length;
     }
 
-
     getAreaOfConcernProgress(areaOfConcern, checklist, facilityAssessment) {
         let aocProgress = this.existingAOCProgress(areaOfConcern, checklist, facilityAssessment);
-        let completed = this.getCompletedStandards(areaOfConcern, checklist, facilityAssessment);
-        return {progress: {total: aocProgress.total, completed: completed}};
+        return {progress: {total: aocProgress.total, completed: aocProgress.completed}};
     }
 
     updateAreaOfConcernProgress(areaOfConcern, checklist, facilityAssessment) {

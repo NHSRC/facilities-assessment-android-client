@@ -76,6 +76,15 @@ export default class BaseService {
         return this.getReturnValue(all);
     }
 
+    findAll(entityClass) {
+        return this.db.objects(entityClass.schema.name);
+    }
+
+    findOne(entityClass) {
+        let all = this.findAll(entityClass);
+        return this.getReturnValue(all);
+    }
+
     getReturnValue(entities) {
         if (entities.length === 0) return undefined;
         if (entities.length === 1) return entities[0];
