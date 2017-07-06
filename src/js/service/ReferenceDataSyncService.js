@@ -49,7 +49,6 @@ class ReferenceDataSyncService extends BaseService {
             return;
         }
 
-        Logger.logDebug('ReferenceDataSyncService', entityMetaData.entityName);
         const entitySyncStatus = this.entitySyncStatusService.get(entityMetaData.entityName);
         Logger.logInfo('ReferenceDataSyncService', `${entitySyncStatus.entityName} was last loaded up to "${entitySyncStatus.loadedSince}"`);
         this.conventionalRestClient.loadData(entityMetaData, entitySyncStatus.loadedSince, 0,
@@ -62,7 +61,8 @@ class ReferenceDataSyncService extends BaseService {
     persist(resourcesWithSameTimeStamp, entityMetaData) {
         resourcesWithSameTimeStamp.forEach((resource) => {
             const entity = entityMetaData.mapFromResource(resource);
-            let savedEntity = this.getService(entityMetaData.serviceClass).saveWithinTx(entityMetaData.entityClass, entity);
+            let service = this.getService(entityMetaData.serviceClass);
+            let savedEntity = service.saveWithinTx(entityMetaData.entityClass, entity);
             if (!_.isNil(entityMetaData.parentClass)) {
                 const parentEntity = entityMetaData.parentClass.associateChild(entity, entityMetaData.entityClass, resource, this.entityService);
                 this.saveWithinTx(entityMetaData.parentClass, parentEntity);
@@ -74,7 +74,6 @@ class ReferenceDataSyncService extends BaseService {
         entitySyncStatus.entityName = entityMetaData.entityName;
         entitySyncStatus.uuid = currentEntitySyncStatus.uuid;
         entitySyncStatus.loadedSince = moment(resourcesWithSameTimeStamp[0]["lastModifiedDate"]).toDate();
-        Logger.logDebug('ReferenceDataSyncService', `${entitySyncStatus.entityName} was last loaded up to "${entitySyncStatus.loadedSince}"`);
         this.entitySyncStatusService.saveWithinTx(EntitySyncStatus, entitySyncStatus);
     }
 }

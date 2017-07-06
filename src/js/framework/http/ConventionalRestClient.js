@@ -4,6 +4,8 @@ import {makeParams} from './httpUtils';
 import moment from "moment";
 import Logger from "../Logger";
 
+const tzOffset = new Date().getTimezoneOffset();
+
 class ConventionalRestClient {
     constructor(settingsService, db) {
         this.settingsService = settingsService;
@@ -66,7 +68,8 @@ class ConventionalRestClient {
     }
 
     static morePagesForThisResource(response) {
-        return response["page"]["number"] < (response["page"]["totalPages"] - 1);
+        let notAPagedResource = _.isNil(response["page"]);
+        return notAPagedResource ? false : response["page"]["number"] < (response["page"]["totalPages"] - 1);
     }
 
     postEntity(getNextItem, onCompleteCurrentItem, onComplete, onError) {

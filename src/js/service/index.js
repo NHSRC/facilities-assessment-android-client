@@ -12,3 +12,4 @@ export * from './SettingsService';
 export * from './EntitySyncStatusService';
 export * from './AssessmentSyncService';
 export * from './ReportService';
+export * from './FacilityAssessmentProgressService';
