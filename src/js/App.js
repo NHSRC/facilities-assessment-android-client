@@ -8,16 +8,14 @@ import BeanRegistry from "./framework/bean/BeanRegistry";
 import Logger from "./framework/Logger";
 import {Text, View} from "react-native";
 
-var routes;
-var beans;
-var appStore;
-var db;
+let routes, beans, appStore, db = undefined;
 
 export default class App extends Component {
     constructor(props, context) {
         super(props, context);
         Logger.setCurrentLogLevel(Logger.LogLevel.Debug);
         this.state = {seeding: true};
+        this.seed = this.seed.bind(this);
     }
 
     static childContextTypes = {
@@ -32,14 +30,18 @@ export default class App extends Component {
         }
     });
 
-    componentDidMount() {
+    seed() {
         if (db === undefined) {
             db = new Realm(models);
             beans = BeanRegistry.init(db);
             appStore = AppStoreFactory(beans);
             routes = PathRegistry.routes();
         }
-        setTimeout(() => this.setState({seeding: false}), 100);
+        this.setState({seeding: false});
+    }
+
+    componentDidMount() {
+        setTimeout(this.seed, 100);
     }
 
     render() {
