@@ -14,6 +14,7 @@ export default class App extends Component {
         Logger.setCurrentLogLevel(Logger.LogLevel.Error);
         this.db = new Realm(models);
         this.state = {seeding: true};
+        this.seed = this.seed.bind(this);
     }
 
     static childContextTypes = {
@@ -28,14 +29,15 @@ export default class App extends Component {
         }
     });
 
-    componentDidMount() {
-        setTimeout(() => {
-            this.beans = BeanRegistry.init(this.db);
-            this.routes = PathRegistry.routes();
-            this.appStore = AppStoreFactory(this.beans);
-            this.setState({seeding: false});
-        }, 100);
+    async seed(cb) {
+        this.beans = BeanRegistry.init(this.db);
+        this.routes = PathRegistry.routes();
+        this.appStore = AppStoreFactory(this.beans);
+        cb();
+    }
 
+    componentDidMount() {
+        setTimeout(() => this.seed(() => this.setState({seeding: false})), 100);
     }
 
     render() {
