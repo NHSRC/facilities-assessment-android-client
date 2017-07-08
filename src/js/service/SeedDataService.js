@@ -8,9 +8,8 @@ import EntityMetaData from "../models/entityMetaData/EntityMetaData";
 import EntitySyncStatusService from "./EntitySyncStatusService";
 import ReferenceDataSyncService from "./ReferenceDataSyncService";
 import LocalReferenceDataSyncService from "./LocalReferenceDataSyncService";
-import EntityService from "./EntityService";
-import DeploymentAppConfigurationService from "./DeploymentAppConfigurationService";
 import PackagedJSON from "./PackagedJSON";
+import Config from 'react-native-config';
 
 @Service("seedDataService")
 class SeedDataService extends BaseService {
@@ -32,8 +31,8 @@ class SeedDataService extends BaseService {
      a(72);*/
 
     postInit() {
-        let appConfiguration = this.getService(DeploymentAppConfigurationService).getConfig();
-        if (this.isNotSeeded() && appConfiguration.seedDataPackaged) {
+        Logger.logDebug('SeedDataService', `Config.USE_PACKAGED_SEED_DATA=${Config.USE_PACKAGED_SEED_DATA}`);
+        if (this.isNotSeeded() && Config.USE_PACKAGED_SEED_DATA === "true") {
             let localReferenceDataSyncService = new LocalReferenceDataSyncService(this.db, this.beanStore, this.getService(ReferenceDataSyncService));
             localReferenceDataSyncService.syncMetaDataFromLocal(PackagedJSON.getFiles());
         }

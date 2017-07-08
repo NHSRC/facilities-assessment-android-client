@@ -2,7 +2,8 @@ import BaseService from "./BaseService";
 import Service from "../framework/bean/Service";
 import _ from 'lodash';
 import Settings from "../models/Settings";
-import {minDate} from '../utility/DateUtils';
+import Config from 'react-native-config';
+import Logger from "../framework/Logger";
 
 @Service("settingsService")
 class SettingsService extends BaseService {
@@ -21,7 +22,9 @@ class SettingsService extends BaseService {
     }
 
     getServerURL() {
-        return this.get().serverURL;
+        let serverURL = this.get().serverURL;
+        if (_.isEmpty(serverURL)) return Config.SERVER_URL;
+        return serverURL;
     }
 
     hasServerURL() {

@@ -10,8 +10,14 @@ endif
 install: ansible_check
 	ansible-playbook setup/dev.yml -i setup/local
 
-run-android:
-	ANDROID_HOME=/usr/local/opt/android-sdk react-native run-android
+run_android:
+	ANDROID_HOME=/usr/local/opt/android-sdk ENVFILE=.env.staging react-native run-android
+
+run_android_cg:
+	ANDROID_HOME=/usr/local/opt/android-sdk ENVFILE=.env.cg react-native run-android
+
+run_android_mp:
+	ANDROID_HOME=/usr/local/opt/android-sdk ENVFILE=.env.mp react-native run-android
 
 run-packager:
 	REACT_EDITOR=atom ./node_modules/react-native/packager/packager.sh start --reset-cache
@@ -44,9 +50,14 @@ ci-test:
 	npm install -g codeclimate-test-reporter
 	codeclimate-test-reporter < coverage/lcov.info
 
-
 release:
 	cd android; ./gradlew assembleRelease
+
+release_cg:
+	cd android; ENVFILE=.env.cg ./gradlew assembleRelease
+
+release_mp:
+	cd android; ENVFILE=.env.mp ./gradlew assembleRelease
 
 release-offline:
 	cd android; ./gradlew --offline assembleRelease
@@ -56,7 +67,9 @@ log:
 uninstall:
 	adb uninstall com.facilitiesassessment
 
-reinstall: uninstall run-android
+reinstall: uninstall run_android
+reinstall_cg: uninstall run_android_cg
+reinstall_mp: uninstall run_android_mp
 
 ts := $(shell /bin/date "+%Y-%m-%d---%H-%M-%S")
 

@@ -3,7 +3,7 @@ import SettingsService from "../service/SettingsService";
 import {minDate} from '../utility/DateUtils';
 import ReferenceDataSyncService from "../service/ReferenceDataSyncService";
 import SeedDataService from "../service/SeedDataService";
-
+import Config from 'react-native-config';
 
 const initialSettings = function (state, action, beans) {
     const settingsService = beans.get(SettingsService);
@@ -50,7 +50,7 @@ export default new Map([
 ]);
 
 export let settingsInit = {
-    serverURL: "http://",
+    serverURL: Config.SERVER_URL,
     lastSyncedDate: minDate,
     syncing: false,
     serverConnected: false

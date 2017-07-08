@@ -3,6 +3,7 @@ package com.facilitiesassessment;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
 import fr.greweb.reactnativeviewshot.RNViewShotPackage;
 import com.rnfs.RNFSPackage;
 import cl.json.RNSharePackage;
@@ -34,6 +35,7 @@ public class MainApplication extends Application implements ReactApplication {
             return Arrays.<ReactPackage>asList(
                     new FabricPackage(),
                     new MainReactPackage(),
+            new ReactNativeConfigPackage(),
             new RNViewShotPackage(),
             new RNFSPackage(),
             new RNSharePackage(),

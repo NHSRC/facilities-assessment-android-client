@@ -17,7 +17,6 @@ import FacilityAssessment from "../FacilityAssessment";
 import CheckpointScore from "../CheckpointScore";
 import moment from "moment";
 import FacilityAssessmentProgressService from "../../service/FacilityAssessmentProgressService";
-import DeploymentAppConfiguration from "../DeploymentAppConfiguration";
 
 class EntitiesMetaData {
     //order is important. last entity with be executed first. parent and referred entity (in case of many to one) should be synced before the child.
@@ -39,8 +38,7 @@ class EntitiesMetaData {
             new EntityMetaData(District, State),
             new EntityMetaData(State),
             new EntityMetaData(FacilityType),
-            new EntityMetaData(AssessmentType),
-            new EntityMetaData(DeploymentAppConfiguration)
+            new EntityMetaData(AssessmentType)
         ].map(_.identity);
     }
 }

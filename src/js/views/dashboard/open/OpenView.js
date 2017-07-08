@@ -7,6 +7,7 @@ import AssessmentList from '../common/AssessmentList';
 import _ from 'lodash';
 import TypedTransition from "../../../framework/routing/TypedTransition";
 import ChecklistSelection from "../../checklistSelection/ChecklistSelection";
+import Logger from "../../../framework/Logger";
 
 
 class OpenView extends AbstractComponent {

@@ -13,17 +13,15 @@ import StringObj from "./StringObj";
 import FacilityAssessment from "./FacilityAssessment";
 import CheckpointScore from "./CheckpointScore";
 import AssessmentType from "./AssessmentType";
-import Tag from './Tag';
-import ChecklistProgress from './ChecklistProgress';
-import AreaOfConcernProgress from './AreaOfConcernProgress';
-import StandardProgress from './StandardProgress';
-import Settings from './Settings';
-import _ from 'lodash';
+import Tag from "./Tag";
+import ChecklistProgress from "./ChecklistProgress";
+import AreaOfConcernProgress from "./AreaOfConcernProgress";
+import StandardProgress from "./StandardProgress";
+import Settings from "./Settings";
 import EntitySyncStatus from "./sync/EntitySyncStatus";
-import DeploymentAppConfiguration from "./DeploymentAppConfiguration";
 
 export default {
-    schema: [StringObj, ChecklistProgress, StandardProgress, AreaOfConcernProgress, Tag, Checkpoint, MeasurableElement, Standard, AreaOfConcern, Department, FacilityType, AssessmentTool, Facility, District, State, Checklist, FacilityAssessment, CheckpointScore, AssessmentType, Settings, EntitySyncStatus, DeploymentAppConfiguration],
+    schema: [StringObj, ChecklistProgress, StandardProgress, AreaOfConcernProgress, Tag, Checkpoint, MeasurableElement, Standard, AreaOfConcern, Department, FacilityType, AssessmentTool, Facility, District, State, Checklist, FacilityAssessment, CheckpointScore, AssessmentType, Settings, EntitySyncStatus],
     schemaVersion: 3,
     migration: (oldRealm, newRealm) => {
         const version = (version) => (db) => db.schemaVersion < version;
