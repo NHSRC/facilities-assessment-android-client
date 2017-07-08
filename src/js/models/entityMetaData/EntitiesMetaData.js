@@ -76,7 +76,6 @@ class ChecklistMapper {
 
 class FacilityAssessmentMapper {
     fromResource(resource) {
-        resource.uuid = resource.id;
         resource.facility = ResourceUtil.getUUIDFor(resource, "facilityUUID");
         resource.assessmentTool = ResourceUtil.getUUIDFor(resource, "assessmentToolUUID");
         resource.submitted = true;
@@ -90,7 +89,6 @@ class FacilityAssessmentMapper {
 
 class CheckpointScoreMapper {
     fromResource(resource) {
-        resource.uuid = resource.id;
         resource.checklist = ResourceUtil.getUUIDFor(resource, "checklistUUID");
         resource.facilityAssessment = ResourceUtil.getUUIDFor(resource, "facilityAssessmentUUID");
         resource.checkpoint = ResourceUtil.getUUIDFor(resource, "checkpointUUID");

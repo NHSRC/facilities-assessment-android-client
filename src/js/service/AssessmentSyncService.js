@@ -57,6 +57,7 @@ class AssessmentSyncService extends BaseService {
                     cb();
                 },
                 (error) => {
+                    Logger.logError('AssessmentSyncService', JSON.stringify(error));
                     cb();
                 });
         }
