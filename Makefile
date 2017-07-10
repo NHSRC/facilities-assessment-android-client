@@ -11,7 +11,7 @@ install: ansible_check
 	ansible-playbook setup/dev.yml -i setup/local
 
 run_android:
-	ANDROID_HOME=/usr/local/opt/android-sdk ENVFILE=.env.staging react-native run-android
+	ANDROID_HOME=/usr/local/opt/android-sdk ENVFILE=.env react-native run-android
 
 run_android_cg:
 	ANDROID_HOME=/usr/local/opt/android-sdk ENVFILE=.env.cg react-native run-android
