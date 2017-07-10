@@ -5,7 +5,6 @@ import PrimaryColors from "../styles/PrimaryColors";
 import Typography from "../styles/Typography";
 import Actions from '../../action';
 import {Icon} from 'native-base';
-import {comp} from 'immutable';
 import _ from 'lodash';
 
 

@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
 import {ActivityIndicator, StyleSheet, Alert} from 'react-native';
-import {Map} from 'immutable';
 
 class AbstractComponent extends Component {
     constructor(props, context) {
         super(props, context);
         this.renderComponent = this.renderComponent.bind(this);
-        this.spinnerDefaults = Map({color: 'white', size: 'small'});
+        this.spinnerDefaults = Map([["color", 'white'], ["size", 'small']]);
         this.showError = this.showError.bind(this);
     }
 
