@@ -9,7 +9,7 @@ import EntitySyncStatusService from "./EntitySyncStatusService";
 import ReferenceDataSyncService from "./ReferenceDataSyncService";
 import LocalReferenceDataSyncService from "./LocalReferenceDataSyncService";
 import PackagedJSON from "./PackagedJSON";
-import FAConfig from '../FAConfig';
+import Config from "react-native-config";
 
 @Service("seedDataService")
 class SeedDataService extends BaseService {
@@ -31,7 +31,7 @@ class SeedDataService extends BaseService {
      a(72);*/
 
     postInit() {
-        if (this.isNotSeeded() && FAConfig.USE_PACKAGED_SEED_DATA === "true") {
+        if (this.isNotSeeded() && Config.USE_PACKAGED_SEED_DATA === "true") {
             let localReferenceDataSyncService = new LocalReferenceDataSyncService(this.db, this.beanStore, this.getService(ReferenceDataSyncService));
             localReferenceDataSyncService.syncMetaDataFromLocal(PackagedJSON.getFiles());
         }

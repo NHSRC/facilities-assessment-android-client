@@ -65,3 +65,5 @@
 -dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
 -dontwarn okio.**
 -dontwarn com.facebook.**
+
+-keep class com.facilitiesassessment.BuildConfig { *; }

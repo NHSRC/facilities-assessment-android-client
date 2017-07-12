@@ -7,6 +7,7 @@ import models from "./models";
 import BeanRegistry from "./framework/bean/BeanRegistry";
 import Logger from "./framework/Logger";
 import {Text, View} from "react-native";
+import Config from "react-native-config";
 
 let routes, beans, appStore, db = undefined;
 
@@ -36,6 +37,7 @@ export default class App extends Component {
             beans = BeanRegistry.init(db);
             appStore = AppStoreFactory(beans);
             routes = PathRegistry.routes();
+            Logger.logDebugObject('App', Config);
         }
         this.setState({seeding: false});
     }

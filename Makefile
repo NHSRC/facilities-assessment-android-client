@@ -94,3 +94,9 @@ install_release_version:
 	adb install android/app/build/outputs/apk/app-release.apk
 
 reinstall_release_version: uninstall install_release_version
+
+stop_app:
+	adb shell am force-stop com.facilitiesassessment
+
+start_app:
+	adb shell am start -n com.facilitiesassessment/com.facilitiesassessment.MainActivity

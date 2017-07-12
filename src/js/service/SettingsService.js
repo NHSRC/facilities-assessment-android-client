@@ -1,9 +1,7 @@
 import BaseService from "./BaseService";
 import Service from "../framework/bean/Service";
-import _ from 'lodash';
+import _ from "lodash";
 import Settings from "../models/Settings";
-import Logger from "../framework/Logger";
-import FAConfig from '../FAConfig';
 
 @Service("settingsService")
 class SettingsService extends BaseService {
@@ -23,7 +21,7 @@ class SettingsService extends BaseService {
 
     getServerURL() {
         let serverURL = this.get().serverURL;
-        if (_.isEmpty(serverURL)) return FAConfig.SERVER_URL;
+        if (_.isEmpty(serverURL)) return Config.SERVER_URL;
         return serverURL;
     }
 
