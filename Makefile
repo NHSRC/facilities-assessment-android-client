@@ -50,17 +50,20 @@ ci-test:
 	npm install -g codeclimate-test-reporter
 	codeclimate-test-reporter < coverage/lcov.info
 
+#RELEASE
 release:
 	cd android; ./gradlew assembleRelease
 
 release_cg:
-	cd android; ENVFILE=.env.cg ./gradlew assembleRelease
+	cd android && ENVFILE=.env.cg ./gradlew assembleRelease
 
 release_mp:
 	cd android; ENVFILE=.env.mp ./gradlew assembleRelease
 
 release-offline:
 	cd android; ./gradlew --offline assembleRelease
+
+#DEVELOPMENT
 log:
 	adb logcat *:S ReactNative:V ReactNativeJS:V
 
@@ -78,10 +81,10 @@ deploy:
 	make release
 	@curl -T android/app/build/outputs/apk/app-release.apk -umihirk:$(BINTRAY_API_KEY) https://api.bintray.com/content/nhsrc/generic/facilities-assessment-android-client/latest/facilitiesassessment-$(ts).apk?publish=1
 
-database-client:
+database_client:
 	adb pull /data/data/com.facilitiesassessment/files/default.realm
 
-clear-packager:
+clear_packager:
 	watchman watch-del . ; watchman watch-project .
 
 deploy-apk-local:
