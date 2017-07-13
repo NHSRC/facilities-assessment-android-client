@@ -1,6 +1,7 @@
 import BaseService from "./BaseService";
 import Service from "../framework/bean/Service";
 import _ from "lodash";
+import Config from "react-native-config";
 import Settings from "../models/Settings";
 
 @Service("settingsService")

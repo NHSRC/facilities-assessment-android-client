@@ -3,6 +3,7 @@ import SettingsService from "../service/SettingsService";
 import {minDate} from '../utility/DateUtils';
 import ReferenceDataSyncService from "../service/ReferenceDataSyncService";
 import SeedDataService from "../service/SeedDataService";
+import Config from "react-native-config";
 
 const initialSettings = function (state, action, beans) {
     const settingsService = beans.get(SettingsService);
