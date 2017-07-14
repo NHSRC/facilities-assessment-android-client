@@ -32,10 +32,11 @@ class ScoreTabs extends AbstractComponent {
     });
 
     render() {
+        const scoresToShow = this.props.data.tabs.find((tab) => tab.isSelected).scores;
         return (
             <View style={ScoreTabs.styles.container}>
                 <TabBar mode={this.props.mode} tabs={this.props.data.tabs}/>
-                <ScoreList facilityAssessment={this.props.facilityAssessment} scores={this.props.data.scoresToShow}/>
+                <ScoreList facilityAssessment={this.props.facilityAssessment} scores={scoresToShow}/>
             </View>
         );
     }
