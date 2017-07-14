@@ -3,12 +3,21 @@ import ReportService from '../service/ReportService';
 import ExportService from "../service/ExportService";
 
 
+const scoringMap = new Map([
+    ['AREA OF CONCERN', 'scoreByAreaOfConcern'],
+    ['DEPARTMENT', 'scoreByDepartment'],
+    ['STANDARD', 'scoreByStandard']
+]);
+
 const getAllScores = function (state, action, beans) {
     const reportService = beans.get(ReportService);
     const overallScore = reportService.overallScore(action.facilityAssessment);
-    const scoreByDepartment = reportService.scoreByDepartment(action.facilityAssessment);
-    const scoreByAreaOfConcern = reportService.scoreByAreaOfConcern(action.facilityAssessment);
-    const scoreByStandard = reportService.scoreByStandard(action.facilityAssessment);
+    const tabs = state.tabs.map((tab) => Object.assign(tab, {
+            scores: reportService[scoringMap.get(tab.title)](action.facilityAssessment),
+            isSelected: tab.title === "AREA OF CONCERN"
+        })
+    );
+    const selectedTab = tabs.find((tab) => tab.isSelected).title;
     const assessedCheckpoints = reportService.assessedCheckpoints(action.facilityAssessment);
     const compliantCheckpoints = reportService.compliantCheckpoints(action.facilityAssessment);
     const partiallyCompliantCheckpoints = reportService.partiallyCompliantCheckpoints(action.facilityAssessment);
@@ -18,10 +27,8 @@ const getAllScores = function (state, action, beans) {
     return {
         ...state,
         overallScore: overallScore,
-        scoreByDepartment: scoreByDepartment,
-        scoresToShow: scoreByAreaOfConcern,
-        scoreByStandard: scoreByStandard,
-        scoreByAreaOfConcern: scoreByAreaOfConcern,
+        tabs: tabs,
+        selectedTab: selectedTab,
         checkpointStats: {
             assessedCheckpoints: assessedCheckpoints,
             partiallyCompliantCheckpoints: partiallyCompliantCheckpoints,
@@ -36,15 +43,12 @@ const getAllScores = function (state, action, beans) {
 };
 
 const selectTab = function (state, action, beans) {
-    const scoreMap = {
-        "AREA OF CONCERN": state.scoreByAreaOfConcern,
-        "DEPARTMENT": state.scoreByDepartment,
-        "STANDARD": state.scoreByStandard
-    };
-    return Object.assign(state, {
-        scoresToShow: scoreMap[action.selectedTab],
-        selectedTab: action.selectedTab
-    });
+    const tabs = state.tabs
+        .map((tab) => Object.assign(tab, {isSelected: false}))
+        .map((tab) => Object.assign(tab, {
+            isSelected: tab.title === action.selectedTab
+        }));
+    return {...state, tabs: state.tabs, selectTab: action.selectedTab};
 };
 
 const aocByDept = function (areaOfConcern, cb, facilityAssessment, beans) {
@@ -135,11 +139,26 @@ export default new Map([
 
 export let reportsInit = {
     overallScore: 0.0,
-    scoresToShow: {},
-    scoreByDepartment: {},
-    scoreByAreaOfConcern: {},
-    scoreByStandard: {},
+    overallScoreText: "Overall Score",
+    tabs: [
+        {
+            title: "AREA OF CONCERN",
+            scores: {},
+            isSelected: true
+        },
+        {
+            title: "DEPARTMENT",
+            scores: {},
+            isSelected: false
+        },
+        {
+            title: "STANDARD",
+            scores: {},
+            isSelected: false
+        }
+    ],
     showExportOptions: false,
+    selectedTab: "AREA OF CONCERN",
     checkpointStats: {
         assessedCheckpoints: 0,
         partiallyCompliantCheckpoints: 0,
@@ -150,6 +169,4 @@ export let reportsInit = {
         assessed: 0,
         total: 0
     },
-    selectedTab: 'AREA OF CONCERN',
-    tabs: ['AREA OF CONCERN', 'DEPARTMENT', 'STANDARD'],
 };

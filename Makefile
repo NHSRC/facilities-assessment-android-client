@@ -20,7 +20,7 @@ run_android_mp:
 	ANDROID_HOME=/usr/local/opt/android-sdk ENVFILE=.env.mp react-native run-android
 
 run-packager:
-	REACT_EDITOR=atom ./node_modules/react-native/packager/packager.sh start --reset-cache
+	REACT_EDITOR=subl ./node_modules/react-native/packager/packager.sh start --reset-cache
 
 deps:
 	npm install

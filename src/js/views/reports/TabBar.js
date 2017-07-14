@@ -51,24 +51,16 @@ class TabBar extends AbstractComponent {
         }
     });
 
-    isKayakalp() {
-        return this.props.mode.toLowerCase() === "kayakalp";
-    }
-
     render() {
-        const tabMap = {"THEMES": "AREA OF CONCERN", "CRITERIA": "STANDARD"};
-        const reverseTabMap = _.invert(tabMap);
-        const tabs = this.isKayakalp() ? ["THEMES", "CRITERIA"] : this.props.tabs;
-        const selectedTab = this.isKayakalp() ? reverseTabMap[this.props.selectedTab] : this.props.selectedTab;
-        const Tabs = tabs.map((tab, idx) => (
-            <View key={idx} style={tab === selectedTab ? TabBar.styles.selectedTab : TabBar.styles.tab}>
+        const Tabs = this.props.tabs.map((tab, idx) => (
+            <View key={idx} style={tab.isSelected ? TabBar.styles.selectedTab : TabBar.styles.tab}>
                 <TouchableWithoutFeedback
-                    onPress={() => this.dispatchAction(Actions.SELECT_TAB, {selectedTab: this.isKayakalp() ? tabMap[tab] : tab})}>
+                    onPress={() => this.dispatchAction(Actions.SELECT_TAB, {selectedTab: tab.title})}>
                     <View>
                         <Text
                             style={[Typography.paperFontBody2,
-                                tab === selectedTab ? TabBar.styles.selectedTabText : TabBar.styles.tabText]}>
-                            {tab}
+                                tab.isSelected ? TabBar.styles.selectedTabText : TabBar.styles.tabText]}>
+                            {tab.title}
                         </Text>
                     </View>
                 </TouchableWithoutFeedback>
