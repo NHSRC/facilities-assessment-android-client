@@ -1,15 +1,9 @@
 import React, {Component} from 'react';
 import {Text, StyleSheet, View, ScrollView, Dimensions} from 'react-native';
 import AbstractComponent from "../common/AbstractComponent";
-import FlatUITheme from '../themes/flatUI';
-import {Container, Header, Title, Content, Icon, Button} from 'native-base';
-import Path from "../../framework/routing/Path";
-import Typography from '../styles/Typography';
-import PrimaryColors from '../styles/PrimaryColors';
-import TypedTransition from "../../framework/routing/TypedTransition";
-import Actions from '../../action';
 import TabBar from "./TabBar";
 import ScoreList from './ScoreList';
+import  _ from "lodash";
 
 
 const deviceWidth = Dimensions.get('window').width;
@@ -32,11 +26,16 @@ class ScoreTabs extends AbstractComponent {
     });
 
     render() {
-        const scoresToShow = this.props.data.tabs.find((tab) => tab.isSelected).scores;
+        let selectedTab = this.props.data.tabs.find((tab) => tab.isSelected);
+        const scoresToShow = selectedTab.scores;
+        const drillable = !_.isEmpty(selectedTab.drillDown);
         return (
             <View style={ScoreTabs.styles.container}>
                 <TabBar mode={this.props.mode} tabs={this.props.data.tabs}/>
-                <ScoreList params={this.props.params} facilityAssessment={this.props.facilityAssessment} scores={scoresToShow}/>
+                <ScoreList params={this.props.params}
+                           facilityAssessment={this.props.facilityAssessment}
+                           scores={scoresToShow}
+                           drillable={drillable}/>
             </View>
         );
     }

@@ -52,7 +52,7 @@ class ScoreList extends AbstractComponent {
     }
 
     render() {
-        const onPressHandler = _.isFunction(this.props.handlePress) ? this.props.handlePress : this.handlePress.bind(this);
+        const onPressHandler = this.props.drillable ? this.handlePress.bind(this) : _.noop;
         let Items = _.toPairs(this.props.scores).map(([item, score], idx) => (
             <ListItem key={idx} onPress={() => onPressHandler(item)} style={ScoreList.styles.scoreItem}>
                 <View style={ScoreList.styles.scoreItemContainer}>

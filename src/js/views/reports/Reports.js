@@ -90,6 +90,11 @@ class Reports extends AbstractComponent {
         this.dispatchAction(Actions.EXPORT_OPTIONS, {...this.props.params});
     }
 
+    back() {
+        this.props.params.drilledDown ? this.dispatchAction(Actions.INIT_REPORTS, {...this.props.params}) : _.noop();
+        TypedTransition.from(this).goBack();
+    }
+
     render() {
         const exportOptions = [{
             title: `Export ${_.startCase(this.state.selectedTab.toLowerCase())} Scorecard`,
@@ -100,8 +105,7 @@ class Reports extends AbstractComponent {
             <Container theme={FlatUITheme}>
                 <Header style={Reports.styles.header}>
                     <Button
-                        onPress={() => TypedTransition.from(this)
-                            .goBack()}
+                        onPress={this.back.bind(this)}
                         transparent>
                         <Icon style={{marginTop: 10, color: 'white'}} name="arrow-back"/>
                     </Button>

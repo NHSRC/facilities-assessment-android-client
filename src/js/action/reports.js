@@ -147,6 +147,10 @@ const exportCurrentView = function (state, action, beans) {
     return Object.assign(state, {});
 };
 
+const initReports = function (state, action, beans) {
+    return getAllScores(reportsInit, action, beans);
+};
+
 export default new Map([
     ["GET_ALL_SCORES", getAllScores],
     ["DRILL_DOWN", drillDown],
@@ -155,6 +159,7 @@ export default new Map([
     ["EXPORT_CURRENT_TAB", exportCurrentTab],
     ["EXPORT_OPTIONS", exportOptions],
     ["EXPORT_CURRENT_VIEW", exportCurrentView],
+    ["INIT_REPORTS", initReports],
 ]);
 
 export let reportsInit = {
