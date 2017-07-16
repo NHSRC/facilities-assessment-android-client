@@ -12,7 +12,9 @@ const scoringMap = new Map([
     ['aoc-std', 'standardScoreForAreaOfConcern'],
     ['dep', 'scoreByDepartment'],
     ['dep-aoc', 'areasOfConcernScoreForDepartment'],
-    ['std', 'scoreByStandard']
+    ['std', 'scoreByStandard'],
+    ['std-me', 'standardScoreByMeasurableElement'],
+    ['std-dep', 'standardScoreByDepartment'],
 ]);
 
 const getAllScores = function (state, action, beans) {
