@@ -2,20 +2,7 @@ import _ from 'lodash';
 import ReportService from '../service/ReportService';
 import ExportService from "../service/ExportService";
 import defaultTabs from './reportingTabs.json';
-//
-//
-// {
-//     "title": "MEASURABLE ELEMENT",
-//     "slug": "std-me",
-//     "scores": {},
-//     "isSelected": true
-// },
-// {
-//     "title": "DEPARTMENT",
-//     "slug": "std-dep",
-//     "scores": {},
-//     "isSelected": false
-// }
+
 
 const getSelectedTab = (tabs) => tabs.find((tab) => tab.isSelected);
 

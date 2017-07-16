@@ -39,7 +39,18 @@
     "scores": {},
     "isSelected": false,
     "drillDown": [
-
+      {
+        "title": "MEASURABLE ELEMENT",
+        "slug": "std-me",
+        "scores": {},
+        "isSelected": true
+      },
+      {
+        "title": "DEPARTMENT",
+        "slug": "std-dep",
+        "scores": {},
+        "isSelected": false
+      }
     ]
   }
 ]
