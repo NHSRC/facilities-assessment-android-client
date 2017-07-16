@@ -11,6 +11,7 @@ import Actions from '../../action';
 import TabBar from "./TabBar";
 import _ from 'lodash';
 import DrillDownView from '../drillDown/DrillDownView';
+import Reports from "./Reports";
 
 
 const deviceWidth = Dimensions.get('window').width;
@@ -43,11 +44,11 @@ class ScoreList extends AbstractComponent {
     });
 
     handlePress(selectionName) {
-        return this.dispatchAction(Actions.DRILL_DOWN, {
+        this.dispatchAction(Actions.DRILL_DOWN, {
             facilityAssessment: this.props.facilityAssessment,
             selectionName: selectionName,
-            cb: (title, data) => TypedTransition.from(this).with({title: title, data: data}).to(DrillDownView)
         });
+        TypedTransition.from(this).with({...this.props.params, drilledDown: true}).to(Reports);
     }
 
     render() {

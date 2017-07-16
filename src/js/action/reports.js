@@ -1,23 +1,41 @@
 import _ from 'lodash';
 import ReportService from '../service/ReportService';
 import ExportService from "../service/ExportService";
+import defaultTabs from './reportingTabs.json';
+//
+//
+// {
+//     "title": "MEASURABLE ELEMENT",
+//     "slug": "std-me",
+//     "scores": {},
+//     "isSelected": true
+// },
+// {
+//     "title": "DEPARTMENT",
+//     "slug": "std-dep",
+//     "scores": {},
+//     "isSelected": false
+// }
 
+const getSelectedTab = (tabs) => tabs.find((tab) => tab.isSelected);
 
 const scoringMap = new Map([
-    ['AREA OF CONCERN', 'scoreByAreaOfConcern'],
-    ['DEPARTMENT', 'scoreByDepartment'],
-    ['STANDARD', 'scoreByStandard']
+    ['aoc', 'scoreByAreaOfConcern'],
+    ['aoc-dep', 'departmentScoreForAreaOfConcern'],
+    ['aoc-std', 'standardScoreForAreaOfConcern'],
+    ['dep', 'scoreByDepartment'],
+    ['dep-aoc', 'areasOfConcernScoreForDepartment'],
+    ['std', 'scoreByStandard']
 ]);
 
 const getAllScores = function (state, action, beans) {
     const reportService = beans.get(ReportService);
     const overallScore = reportService.overallScore(action.facilityAssessment);
     const tabs = state.tabs.map((tab) => Object.assign(tab, {
-            scores: reportService[scoringMap.get(tab.title)](action.facilityAssessment),
-            isSelected: tab.title === "AREA OF CONCERN"
+            scores: reportService[scoringMap.get(tab.slug)](action.facilityAssessment)
         })
     );
-    const selectedTab = tabs.find((tab) => tab.isSelected).title;
+    const selectedTabTitle = getSelectedTab(tabs).title;
     const assessedCheckpoints = reportService.assessedCheckpoints(action.facilityAssessment);
     const compliantCheckpoints = reportService.compliantCheckpoints(action.facilityAssessment);
     const partiallyCompliantCheckpoints = reportService.partiallyCompliantCheckpoints(action.facilityAssessment);
@@ -28,7 +46,7 @@ const getAllScores = function (state, action, beans) {
         ...state,
         overallScore: overallScore,
         tabs: tabs,
-        selectedTab: selectedTab,
+        selectedTab: selectedTabTitle,
         checkpointStats: {
             assessedCheckpoints: assessedCheckpoints,
             partiallyCompliantCheckpoints: partiallyCompliantCheckpoints,
@@ -64,12 +82,14 @@ const deptByAoc = function (department, cb, facilityAssessment, beans) {
 };
 
 const drillDown = function (state, action, beans) {
-    const scoresToShow = {
-        "AREA OF CONCERN": aocByDept,
-        "DEPARTMENT": deptByAoc,
-        "STANDARD": _.noop
-    }[state.selectedTab](action.selectionName, action.cb, action.facilityAssessment, beans);
-    return Object.assign(state);
+    let reportService = beans.get(ReportService);
+    const drilledDownTabs = state.tabs.find((tab) => tab.isSelected).drillDown;
+    const tabs = drilledDownTabs.map((tab) => Object.assign(tab, {
+            scores: reportService[scoringMap.get(tab.slug)](action.selectionName, action.facilityAssessment)
+        })
+    );
+    const selectedTabTitle = getSelectedTab(tabs).title;
+    return {...state, tabs: tabs, selectTab: selectedTabTitle};
 };
 
 const exportAllRaw = function (state, action, beans) {
@@ -140,23 +160,7 @@ export default new Map([
 export let reportsInit = {
     overallScore: 0.0,
     overallScoreText: "Overall Score",
-    tabs: [
-        {
-            title: "AREA OF CONCERN",
-            scores: {},
-            isSelected: true
-        },
-        {
-            title: "DEPARTMENT",
-            scores: {},
-            isSelected: false
-        },
-        {
-            title: "STANDARD",
-            scores: {},
-            isSelected: false
-        }
-    ],
+    tabs: defaultTabs,
     showExportOptions: false,
     selectedTab: "AREA OF CONCERN",
     checkpointStats: {

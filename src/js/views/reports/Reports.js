@@ -59,7 +59,7 @@ class Reports extends AbstractComponent {
     }
 
     componentWillMount() {
-        this.dispatchAction(Actions.GET_ALL_SCORES, {...this.props.params})
+        this.props.params.drilledDown ? _.noop() : this.dispatchAction(Actions.GET_ALL_SCORES, {...this.props.params});
     }
 
     share(shareOpts) {
@@ -124,6 +124,7 @@ class Reports extends AbstractComponent {
                     <OverallScore score={this.state.overallScore} checkpointStats={this.state.checkpointStats}
                                   checklistStats={this.state.checklistStats} {...this.props.params}/>
                     <ScoreTabs mode={this.props.params.mode}
+                               params={this.props.params}
                                facilityAssessment={this.props.params.facilityAssessment}
                                data={this.state}/>
                     <Modal transparent={true} visible={this.state.showExportOptions}

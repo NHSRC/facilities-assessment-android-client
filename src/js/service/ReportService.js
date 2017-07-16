@@ -61,8 +61,8 @@ class ReportService extends BaseService {
             .filtered("facilityAssessment = $0", facilityAssessment.uuid)
             .map(_.identity);
         let scorePerStandard = {};
-        const checkpointsPerAreaOfConcern = _.groupBy(allCheckpoints, 'standard');
-        _.toPairs(checkpointsPerAreaOfConcern).map(([standard, checkpointScores]) => {
+        const checkpointsPerStandard = _.groupBy(allCheckpoints, 'standard');
+        _.toPairs(checkpointsPerStandard).map(([standard, checkpointScores]) => {
             let completeStandard = Object.assign({}, this.db.objectForPrimaryKey(Standard.schema.name, standard));
             scorePerStandard[completeStandard.name] =
                 (_.sumBy(checkpointScores, "score") / (checkpointScores.length * 2)) * 100;
@@ -109,6 +109,30 @@ class ReportService extends BaseService {
                 (_.sumBy(checkpointScores, "score") / (checkpointScores.length * 2)) * 100;
         });
         return scorePerAreaOfConcern;
+    }
+
+    standardScoreForAreaOfConcern(areaOfConcern, facilityAssessment) {
+        let areasOfConcernUUIDs = this.db.objects(Checklist.schema.name)
+            .filtered("assessmentTool = $0", facilityAssessment.assessmentTool.uuid)
+            .map((ch) => Object.assign({}, ch))
+            .map(this.fromStringObj("areasOfConcern"))[0]
+            .areasOfConcern.map(_.identity);
+        let checklistService = this.getService(ChecklistService);
+        let selectedAreaOfConcern =
+            areasOfConcernUUIDs.map(checklistService.getAreaOfConcern.bind(this))
+                .map(this.pickKeys(["uuid", "name"]))
+                .find((aoc) => aoc.name === areaOfConcern);
+        const allCheckpoints = this.db.objects(CheckpointScore)
+            .filtered("facilityAssessment = $0 and areaOfConcern = $1", facilityAssessment.uuid, selectedAreaOfConcern.uuid)
+            .map(_.identity);
+        let scorePerStandard = {};
+        const checkpointsPerStandard = _.groupBy(allCheckpoints, 'standard');
+        _.toPairs(checkpointsPerStandard).map(([standard, checkpointScores]) => {
+            let completeStandard = Object.assign({}, this.db.objectForPrimaryKey(Standard.schema.name, standard));
+            scorePerStandard[completeStandard.name] =
+                (_.sumBy(checkpointScores, "score") / (checkpointScores.length * 2)) * 100;
+        });
+        return scorePerStandard;
     }
 
     assessedCheckpoints(facilityAssessment) {
