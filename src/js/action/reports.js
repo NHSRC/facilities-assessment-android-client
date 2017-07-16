@@ -58,18 +58,6 @@ const selectTab = function (state, action, beans) {
     return {...state, tabs: state.tabs, selectTab: action.selectedTab};
 };
 
-const aocByDept = function (areaOfConcern, cb, facilityAssessment, beans) {
-    const reportService = beans.get(ReportService);
-    let scores = reportService.departmentScoreForAreaOfConcern(areaOfConcern, facilityAssessment);
-    cb(areaOfConcern, scores);
-};
-
-const deptByAoc = function (department, cb, facilityAssessment, beans) {
-    const reportService = beans.get(ReportService);
-    let scores = reportService.areasOfConcernScoreForDepartment(department, facilityAssessment);
-    cb(department, scores);
-};
-
 const drillDown = function (state, action, beans) {
     let reportService = beans.get(ReportService);
     const drilledDownTabs = state.tabs.find((tab) => tab.isSelected).drillDown;
