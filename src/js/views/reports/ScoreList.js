@@ -43,10 +43,11 @@ class ScoreList extends AbstractComponent {
         }
     });
 
-    handlePress(selectionName) {
+    handlePress(selectionName, score) {
         this.dispatchAction(Actions.DRILL_DOWN, {
             facilityAssessment: this.props.facilityAssessment,
             selectionName: selectionName,
+            overallScore: score
         });
         TypedTransition.from(this).with({...this.props.params, drilledDown: true}).to(Reports);
     }
@@ -54,7 +55,7 @@ class ScoreList extends AbstractComponent {
     render() {
         const onPressHandler = this.props.drillable ? this.handlePress.bind(this) : _.noop;
         let Items = _.toPairs(this.props.scores).map(([item, score], idx) => (
-            <ListItem key={idx} onPress={() => onPressHandler(item)} style={ScoreList.styles.scoreItem}>
+            <ListItem key={idx} onPress={() => onPressHandler(item, score)} style={ScoreList.styles.scoreItem}>
                 <View style={ScoreList.styles.scoreItemContainer}>
                     <Text style={[Typography.paperFontSubhead, {color: "black", flex: .80}]}>{item}</Text>
                     <Text style={{flex: .05}}/>

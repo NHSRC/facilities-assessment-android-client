@@ -101,6 +101,8 @@ class Reports extends AbstractComponent {
             cb: this.exportCurrentTab.bind(this)
         },
             {title: `Export All Checklists`, cb: this.exportAll.bind(this)}];
+        const title = this.props.params.drilledDown ? _.truncate(this.state.selectionName, {length: 25})
+            : `${this.props.params.mode.toUpperCase()} Scorecard`;
         return (
             <Container theme={FlatUITheme}>
                 <Header style={Reports.styles.header}>
@@ -112,7 +114,9 @@ class Reports extends AbstractComponent {
                     <Title style={[Typography.paperFontHeadline, {
                         fontWeight: 'bold',
                         color: 'white'
-                    }]}>{`${this.props.params.mode.toUpperCase()} Scorecard`}</Title>
+                    }]}>
+                        {title}
+                    </Title>
                     <Button
                         onPress={this.exportOptions}
                         transparent>
@@ -125,7 +129,9 @@ class Reports extends AbstractComponent {
                     </Button>
                 </Header>
                 <Content ref="reports">
-                    <OverallScore score={this.state.overallScore} checkpointStats={this.state.checkpointStats}
+                    <OverallScore score={this.state.overallScore}
+                                  scoreText={this.state.overallScoreText}
+                                  checkpointStats={this.state.checkpointStats}
                                   checklistStats={this.state.checklistStats} {...this.props.params}/>
                     <ScoreTabs mode={this.props.params.mode}
                                params={this.props.params}

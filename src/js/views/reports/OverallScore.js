@@ -10,6 +10,7 @@ import TypedTransition from "../../framework/routing/TypedTransition";
 import Actions from '../../action';
 import {formatDateOnlyHuman} from '../../utility/DateUtils';
 import {AnimatedGaugeProgress, GaugeProgress} from 'react-native-simple-gauge';
+import _ from 'lodash';
 
 
 const deviceWidth = Dimensions.get('window').width;
@@ -70,7 +71,7 @@ class OverallScore extends AbstractComponent {
                                     {`${parseInt(this.props.score)}%`}
                                 </Text>
                                 <Text style={[Typography.paperFontBody1, OverallScore.styles.scoreText]}>
-                                    Overall Score
+                                    {`${_.startCase(this.props.scoreText.toLowerCase())} Score`}
                                 </Text>
                             </View>}
                     </AnimatedGaugeProgress>

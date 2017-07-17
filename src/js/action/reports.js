@@ -59,13 +59,21 @@ const selectTab = function (state, action, beans) {
 
 const drillDown = function (state, action, beans) {
     let reportService = beans.get(ReportService);
-    const drilledDownTabs = state.tabs.find((tab) => tab.isSelected).drillDown;
+    let prevSelectedTab = getSelectedTab(state.tabs);
+    const drilledDownTabs = prevSelectedTab.drillDown;
     const tabs = drilledDownTabs.map((tab) => Object.assign(tab, {
             scores: reportService[scoringMap.get(tab.slug)](action.selectionName, action.facilityAssessment)
         })
     );
-    const selectedTabTitle = getSelectedTab(tabs).title;
-    return {...state, tabs: tabs, selectTab: selectedTabTitle};
+    const newSelectedTabTitle = getSelectedTab(tabs).title;
+    return {
+        ...state,
+        tabs: tabs,
+        selectTab: newSelectedTabTitle,
+        overallScore: action.overallScore,
+        overallScoreText: prevSelectedTab.title,
+        selectionName: action.selectionName
+    };
 };
 
 const exportAllRaw = function (state, action, beans) {
@@ -140,10 +148,11 @@ export default new Map([
 
 export let reportsInit = {
     overallScore: 0.0,
-    overallScoreText: "Overall Score",
+    overallScoreText: "Overall",
     tabs: defaultTabs,
     showExportOptions: false,
     selectedTab: "AREA OF CONCERN",
+    selectionName: '',
     checkpointStats: {
         assessedCheckpoints: 0,
         partiallyCompliantCheckpoints: 0,
