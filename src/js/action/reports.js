@@ -54,7 +54,7 @@ const selectTab = function (state, action, beans) {
         .map((tab) => Object.assign(tab, {
             isSelected: tab.title === action.selectedTab
         }));
-    return {...state, tabs: state.tabs, selectTab: action.selectedTab};
+    return {...state, tabs: tabs, selectTab: action.selectedTab};
 };
 
 const drillDown = function (state, action, beans) {
@@ -106,6 +106,11 @@ const exportStandards = function (exportService, facilityAssessment) {
 };
 
 const exportCurrentTab = function (state, action, beans) {
+    const reportService = beans.get(ReportService);
+    const tabs = state.tabs.map((tab) => Object.assign(tab, {
+            scores: reportService[scoringMap.get(tab.slug)](action.facilityAssessment)
+        })
+    );
     const exportFN = {
         'AREA OF CONCERN': exportAOC,
         'DEPARTMENT': exportDepartments,
