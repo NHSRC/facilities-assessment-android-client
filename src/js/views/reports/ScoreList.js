@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, StyleSheet, View, ScrollView, Dimensions} from 'react-native';
+import {Text, StyleSheet, View, ScrollView, Dimensions, Navigator} from 'react-native';
 import AbstractComponent from "../common/AbstractComponent";
 import FlatUITheme from '../themes/flatUI';
 import {Badge, List, ListItem} from 'native-base';
@@ -49,7 +49,10 @@ class ScoreList extends AbstractComponent {
             selectionName: selectionName,
             overallScore: score
         });
-        TypedTransition.from(this).with({...this.props.params, drilledDown: true}).to(Reports);
+        TypedTransition
+            .from(this)
+            .with({...this.props.params, drilledDown: true})
+            .to(Reports, Navigator.SceneConfigs.FadeAndroid);
     }
 
     render() {
