@@ -8,6 +8,8 @@ import AreaOfConcern from "../models/AreaOfConcern";
 import Standard from "../models/Standard";
 import ChecklistService from "./ChecklistService";
 import ChecklistProgress from "../models/ChecklistProgress";
+import Checkpoint from "../models/Checkpoint";
+import MeasurableElement from "../models/MeasurableElement";
 
 @Service("reportService")
 class ReportService extends BaseService {
@@ -133,6 +135,30 @@ class ReportService extends BaseService {
                 (_.sumBy(checkpointScores, "score") / (checkpointScores.length * 2)) * 100;
         });
         return scorePerStandard;
+    }
+
+    measurableElementForCheckpoint(checkpointUUID) {
+        const measurableElementUUID = this.db.objectForPrimaryKey(Checkpoint.schema.name, checkpointUUID).measurableElement;
+        return this.db.objectForPrimaryKey(MeasurableElement.schema.name, measurableElementUUID).name;
+    }
+
+    measurableElementScoreForStandard(standard, facilityAssessment) {
+        const standardUUID = this.db.objects(Standard.schema.name)
+            .filtered('name = $0', standard)
+            .map(this.nameAndId)[0].uuid;
+        let allCheckpoints = this.db.objects(CheckpointScore.schema.name)
+            .filtered("facilityAssessment = $0 AND standard = $1",
+                facilityAssessment.uuid,
+                standardUUID)
+            .map((cs) => Object.assign(cs,
+                {measurableElement: this.measurableElementForCheckpoint(cs.checkpoint)}
+            ));
+        let scorePerMeasurableElement = {};
+        let checkpointsPerMeasurableElements = _.groupBy(allCheckpoints, 'measurableElement');
+        _.toPairs(checkpointsPerMeasurableElements)
+            .map(([me, checkpointScores]) => scorePerMeasurableElement[me] =
+                (((_.sumBy(checkpointScores, "score") / (checkpointScores.length * 2)) * 100)));
+        return scorePerMeasurableElement;
     }
 
     assessedCheckpoints(facilityAssessment) {
