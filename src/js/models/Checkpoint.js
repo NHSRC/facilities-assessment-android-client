@@ -10,7 +10,6 @@ class Checkpoint {
             checklist: "string",
             isDefault: {type: "bool", default: true},
             state: {type: "string", optional: true},
-            tags: {type: 'list', objectType: 'Tag'},
             amObservation: {type: 'bool', default: false},
             amStaffInterview: {type: 'bool', default: false},
             amPatientInterview: {type: 'bool', default: false},

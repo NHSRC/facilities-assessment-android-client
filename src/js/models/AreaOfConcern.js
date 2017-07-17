@@ -2,7 +2,6 @@ import Standard from "./Standard";
 import ResourceUtil from "../utility/ResourceUtil";
 import General from "../utility/General";
 import BaseEntity from "./BaseEntity";
-import Tag from "./Tag";
 import EntityMetaData from "./entityMetaData/EntityMetaData";
 
 class AreaOfConcern {
@@ -13,7 +12,6 @@ class AreaOfConcern {
             name: 'string',
             uuid: 'string',
             reference: 'string',
-            tags: {type: 'list', objectType: 'Tag'},
             standards: {type: 'list', objectType: 'Standard'}
         }
     };

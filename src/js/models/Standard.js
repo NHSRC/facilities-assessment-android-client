@@ -3,7 +3,6 @@ import ResourceUtil from "../utility/ResourceUtil";
 import General from "../utility/General";
 import BaseEntity from "./BaseEntity";
 import MeasurableElement from './MeasurableElement';
-import Tag from "./Tag";
 import EntityMetaData from "./entityMetaData/EntityMetaData";
 
 class Standard {
@@ -14,7 +13,6 @@ class Standard {
             name: 'string',
             uuid: 'string',
             reference: 'string',
-            tags: {type: 'list', objectType: 'Tag'},
             measurableElements: {type: 'list', objectType: 'MeasurableElement'}
         }
     };
@@ -31,9 +29,6 @@ class Standard {
         if (schemaName === MeasurableElement.schema.name) {
             standard = General.pick(standard, ["uuid"], ["measurableElements"]);
             BaseEntity.addOrUpdateChild(standard.measurableElements, childEntity);
-        } else if (schemaName === "StandardTag") {
-            standard = General.pick(standard, ["uuid"], ["tags"]);
-            BaseEntity.addOrUpdateChild(standard.tags, childEntity);
         }
         return standard;
     }
