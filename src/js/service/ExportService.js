@@ -109,6 +109,14 @@ class ExportService extends BaseService {
         return {exportPath: exportPath, ...metadata};
     }
 
+    exportCurrent(current, scores, headers, facilityAssessment) {
+        const metadata = this.generateMetadata(facilityAssessment, `${current}-scores`);
+        const reportService = this.getService(ReportService);
+        scores["Overall"] = reportService.overallScore(facilityAssessment);
+        const exportPath = this.toCSV(metadata.filename, headers, _.toPairs(scores));
+        return {exportPath: exportPath, ...metadata};
+    }
+
     toCSV(filename, headers, collectionOfCollections) {
         const csvCollection = [headers].concat(collectionOfCollections);
         let csvAsString = csvCollection.map((col) => col.map((item) => `"${_.toString(item).replace(/"/g, "'")}"`).join()).join('\n');

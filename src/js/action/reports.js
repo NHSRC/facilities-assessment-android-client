@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import ReportService from '../service/ReportService';
 import ExportService from "../service/ExportService";
-import defaultTabs from './reportingTabs.json';
+import defaultTabs from './reportingTabs';
 
 
 const getSelectedTab = (tabs) => tabs.find((tab) => tab.isSelected);
@@ -69,7 +69,7 @@ const drillDown = function (state, action, beans) {
     return {
         ...state,
         tabs: tabs,
-        selectTab: newSelectedTabTitle,
+        selectedTab: newSelectedTabTitle,
         overallScore: action.overallScore,
         overallScoreText: prevSelectedTab.title,
         selectionName: action.selectionName
@@ -106,17 +106,12 @@ const exportStandards = function (exportService, facilityAssessment) {
 };
 
 const exportCurrentTab = function (state, action, beans) {
-    const reportService = beans.get(ReportService);
-    const tabs = state.tabs.map((tab) => Object.assign(tab, {
-            scores: reportService[scoringMap.get(tab.slug)](action.facilityAssessment)
-        })
-    );
-    const exportFN = {
-        'AREA OF CONCERN': exportAOC,
-        'DEPARTMENT': exportDepartments,
-        'STANDARD': exportStandards
-    }[state.selectedTab];
-    let csvMetadata = exportFN(beans.get(ExportService), action.facilityAssessment);
+    const exportService = beans.get(ExportService);
+    const selectedTab = getSelectedTab(state.tabs);
+    let csvMetadata = exportService.exportCurrent(_.startCase(selectedTab.title.toLowerCase()),
+        {...selectedTab.scores},
+        selectedTab.headers,
+        action.facilityAssessment);
     action.cb({
         url: `file://${csvMetadata.exportPath}`,
         title: `${csvMetadata.facilityName}'s Assessment on ${csvMetadata.assessmentDate}`,
