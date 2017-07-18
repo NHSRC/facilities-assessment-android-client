@@ -10,7 +10,8 @@ class ResourceUtil {
     static getUUIDsFor(resource, property) {
         const props = resource["_links"][`${property}`];
         if (_.isNil(props)) return [];
-        return props.map((prop) => prop.href);
+        // https://github.com/spring-projects/spring-hateoas/issues/288
+        return Array.isArray(props) ? props.map((prop) => prop.href) : [props.href];
     }
 }
 
