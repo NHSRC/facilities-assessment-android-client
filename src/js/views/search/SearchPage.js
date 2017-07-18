@@ -63,28 +63,14 @@ class SearchPage extends AbstractComponent {
         this.dispatchAction(Actions.SEARCH_FOR, {searchText: searchText, ...this.props.params});
     }
 
-    gotoAreaOfConcern(aoc) {
-        TypedTransition.from(this).with({...this.props.params, areaOfConcern: aoc}).to(Standards);
-    }
-
-    gotoStandard(standard) {
-        TypedTransition.from(this).with({
-            ...this.props.params,
-            standard: standard,
-            areaOfConcern: standard.areaOfConcern
-        })
-            .to(Assessment);
-    }
-
     gotoMeasurableElement(me) {
     }
 
+    gotoCheckpoint(checkpoint) {
+    }
+
     goto(element) {
-        return {
-            "AreasOfConcern": this.gotoAreaOfConcern.bind(this),
-            "Standards": this.gotoStandard.bind(this),
-            "MeasurableElements": this.gotoMeasurableElement.bind(this)
-        }[element];
+
     }
 
     renderSearchResultsFor([element, results], index) {
@@ -126,7 +112,7 @@ class SearchPage extends AbstractComponent {
                 </View>
                 <Content>
                     <View style={{margin: deviceWidth * 0.04,}}>
-                        {this.renderSearchResults(this.state.results)}
+                        {/*{this.renderSearchResults(this.state.results)}*/}
                     </View>
                 </Content>
             </Container>

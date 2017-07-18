@@ -16,6 +16,7 @@ import Dashboard from '../dashboard/Dashboard';
 import {formatDateHuman} from '../../utility/DateUtils';
 import _ from 'lodash';
 import Reports from "../reports/Reports";
+import SearchPage from "../search/SearchPage";
 
 
 const deviceWidth = Dimensions.get('window').width;
@@ -87,6 +88,9 @@ class ChecklistSelection extends AbstractComponent {
                         {fontWeight: 'bold', color: "white"}]}>
                         Assessment
                     </Title>
+                    <Button transparent onPress={() => TypedTransition.from(this).with({...this.props.params}).to(SearchPage)}>
+                        <Icon style={{paddingTop: 10, color: "white"}} name='search'/>
+                    </Button>
                 </Header>
                 <Content>
                     <View style={{margin: deviceWidth * 0.04,}}>

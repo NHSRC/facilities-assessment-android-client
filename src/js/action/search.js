@@ -3,7 +3,10 @@ import SearchService from "../service/SearchService";
 import ChecklistService from "../service/ChecklistService";
 
 const searchFor = function (state, action, beans) {
-    return state;
+    const searchService = beans.get(SearchService);
+    let checkpoints = searchService.searchCheckpoints(action.searchText);
+    let measurableElements = searchService.searchMeasurableElements(action.searchText);
+    return {...state, results: {Checkpoints: checkpoints, MeasurableElements: measurableElements}};
 };
 
 export default new Map([
@@ -12,5 +15,5 @@ export default new Map([
 
 export let searchInit = {
     searchText: "",
-    results: {AreasOfConcern: [], Standards: [], MeasurableElements: []}
+    results: {Checkpoints: [], MeasurableElements: []}
 };
