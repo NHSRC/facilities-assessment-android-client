@@ -46,6 +46,10 @@ export default class BaseService {
         return _.pick(obj, ["name", "uuid"]);
     }
 
+    onlyId({uuid}) {
+        return uuid;
+    }
+
     save(entityClass, transformFN = _.identity) {
         return (entity) => {
             this.db.write(() => this.db.create(entityClass.schema.name, transformFN(entity), true));

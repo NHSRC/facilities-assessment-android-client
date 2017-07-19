@@ -43,6 +43,10 @@ class ChecklistService extends BaseService {
         checklists.map((checklist) => cacheService.put(checklist.uuid, this.getChecklist(checklist.uuid)));
     }
 
+    getChecklistNameAndId(checklistUUID) {
+        return this.nameAndId({...this.db.objectForPrimaryKey(Checklist.schema.name, checklistUUID)});
+    }
+
     getChecklist(checklistUUID) {
         const getChecklist = (checklistUUID) => {
             const checkpoints = _.groupBy(this.db.objects(Checkpoint.schema.name)
@@ -103,16 +107,18 @@ class ChecklistService extends BaseService {
     }
 
     getAreaConcernForStandard(checklistUUID, standardUUID) {
-        return this.getChecklist(checklistUUID).areasOfConcern.find((aoc) =>
+        let areasOfConcern = this.getChecklist(checklistUUID).areasOfConcern;
+        return areasOfConcern.find((aoc) =>
             !_.isEmpty(aoc.standards.find((standard) => standard.uuid === standardUUID)));
     }
 
     getStandardForMeasurableElement(checklistUUID, meUUID) {
-        return this.getChecklist(checklistUUID)
-            .areasOfConcern.find((aoc) =>
-                !_.isEmpty(aoc.standards
-                    .find((standard) => !_.isEmpty(standard.measurableElements
-                        .find((me) => me.uuid === meUUID)))));
+        let resultantStandard = {};
+        this.getChecklist(checklistUUID).areasOfConcern.forEach((aoc) =>
+            !_.isEmpty(aoc.standards
+                .forEach((standard) => !_.isEmpty(standard.measurableElements
+                    .find((me) => me.uuid === meUUID)) ? resultantStandard = standard : _.noop())));
+        return resultantStandard;
     }
 
     getCheckpointsFor(checklistUUID, aocUUID, standardUUID) {

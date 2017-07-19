@@ -5,6 +5,8 @@ import AreaOfConcern from "../models/AreaOfConcern";
 import Standard from "../models/Standard";
 import MeasurableElement from "../models/MeasurableElement";
 import Checkpoint from "../models/Checkpoint";
+import Checklist from "../models/Checklist";
+import ChecklistService from "./ChecklistService";
 
 @Service("searchService")
 class SearchService extends BaseService {
@@ -13,22 +15,35 @@ class SearchService extends BaseService {
     }
 
     init() {
+        this.checklistService = this.getService(ChecklistService)
     }
 
-    search(schema, searchText, limit = 10) {
-        return _.isEmpty(searchText) ? [] :
-            this.db.objects(schema.schema.name)
-                .filtered('name CONTAINS[c] $0', searchText)
-                .slice(0, limit)
-                .map(this.pickKeys(["reference"]));
+    backfillCheckpoint(checkpoint) {
+        const desiredKeys = this.pickKeys(["reference"]);
+        const measurableElement = desiredKeys(this.checklistService.getMeasurableElement(checkpoint.measurableElement));
+        const standard = desiredKeys(this.checklistService
+            .getStandardForMeasurableElement(checkpoint.checklist, measurableElement.uuid));
+        const aoc = desiredKeys(this.checklistService.getAreaConcernForStandard(checkpoint.checklist, standard.uuid));
+        const checklist = desiredKeys(this.checklistService.getChecklistNameAndId(checkpoint.checklist));
+        return {
+            ...checkpoint,
+            measurableElement: measurableElement,
+            standard: standard,
+            areaOfConcern: aoc,
+            checklist: checklist
+        };
     }
 
-    searchCheckpoints(searchText) {
-        return this.search(Checkpoint, searchText);
-    }
-
-    searchMeasurableElements(searchText) {
-        return this.search(MeasurableElement, searchText);
+    search(assessmentTool, searchText, limit = 20) {
+        if (_.isEmpty(searchText)) return [];
+        const checklistUUIDs = this.checklistService.getChecklistsFor(assessmentTool).map(this.onlyId);
+        let checklistCriteria = checklistUUIDs.map((uuid) => `checklist = '${uuid}'`).join(' OR ');
+        return this.db.objects(Checkpoint.schema.name)
+            .filtered(checklistCriteria)
+            .filtered(`name CONTAINS[c] $0`, searchText)
+            .slice(0, limit)
+            .map(this.pickKeys(["reference", "measurableElement", "checklist"]))
+            .map(this.backfillCheckpoint.bind(this));
     }
 }
 

@@ -4,9 +4,8 @@ import ChecklistService from "../service/ChecklistService";
 
 const searchFor = function (state, action, beans) {
     const searchService = beans.get(SearchService);
-    let checkpoints = searchService.searchCheckpoints(action.searchText);
-    let measurableElements = searchService.searchMeasurableElements(action.searchText);
-    return {...state, results: {Checkpoints: checkpoints, MeasurableElements: measurableElements}};
+    let checkpoints = searchService.search(action.facilityAssessment.assessmentTool, action.searchText);
+    return {...state, results: {Checkpoints: checkpoints}};
 };
 
 export default new Map([
@@ -15,5 +14,5 @@ export default new Map([
 
 export let searchInit = {
     searchText: "",
-    results: {Checkpoints: [], MeasurableElements: []}
+    results: {Checkpoints: []}
 };
