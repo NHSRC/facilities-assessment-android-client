@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import SearchService from "../service/SearchService";
-import ChecklistService from "../service/ChecklistService";
 
 const searchFor = function (state, action, beans) {
     const searchService = beans.get(SearchService);
