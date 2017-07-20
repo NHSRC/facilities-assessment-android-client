@@ -22,7 +22,7 @@ import EntitySyncStatus from "./sync/EntitySyncStatus";
 
 export default {
     schema: [StringObj, ChecklistProgress, StandardProgress, AreaOfConcernProgress, Checkpoint, MeasurableElement, Standard, AreaOfConcern, Department, FacilityType, AssessmentTool, Facility, District, State, Checklist, FacilityAssessment, CheckpointScore, AssessmentType, Settings, EntitySyncStatus],
-    schemaVersion: 4,
+    schemaVersion: 5,
     migration: (oldRealm, newRealm) => {
         const version = (version) => (db) => db.schemaVersion < version;
 
@@ -62,6 +62,12 @@ export default {
             newDB.delete(oldObjs);
         };
 
+        const aAllCheckpoints = (oldDb, newDb) => {
+            let oldObjs = oldDb.objects(CheckpointScore.schema.name);
+            let newObjs = oldDb.objects(CheckpointScore.schema.name);
+            newObjs.map((newObj) => newObj.na = false);
+        };
+
         const migrationExecutor = (fn) => (oldRealm, newRealm) => {
             fn.apply(null, [oldRealm, newRealm]);
             newRealm = oldRealm;
@@ -70,7 +76,8 @@ export default {
         const migrationMap = [
             [version(1), addingSyncedUUID],
             [version(2), addSortOrder],
-            [version(3), deleteAllTags]
+            [version(3), deleteAllTags],
+            [version(4), aAllCheckpoints],
         ];
 
         migrationMap.filter(([matcher, ign]) => matcher(oldRealm))

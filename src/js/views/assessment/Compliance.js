@@ -8,7 +8,6 @@ import ComplianceItem from './ComplianceItem';
 class Compliance extends AbstractComponent {
     constructor(props, context) {
         super(props, context);
-        this.handleOnPress = this.handleOnPress.bind(this);
         this.remarkNotif = this.remarkNotif.bind(this);
     }
 
@@ -34,23 +33,6 @@ class Compliance extends AbstractComponent {
         this.dispatchAction(Actions.CHANGE_PAGE, {currentCheckpoint: nextCheckpoint});
     }
 
-    handleOnPress(score, fn) {
-        return () => {
-            if (!_.isNumber(this.props.checkpoint.score)) {
-                [
-                    Actions.UPDATE_STANDARD_PROGRESS,
-                    Actions.UPDATE_AREA_OF_CONCERN_PROGRESS,
-                    Actions.UPDATE_CHECKLIST_PROGRESS
-                ].map((action) => this.dispatchAction(action, {...this.props.params}));
-            }
-
-            this.dispatchAction(Actions.UPDATE_CHECKPOINT, {
-                checkpoint: Object.assign(this.props.checkpoint, {score: score}),
-                ...this.props.params
-            });
-            fn();
-        }
-    }
 
     remarkNotif() {
         ToastAndroid.showWithGravity("Please enter a remark", ToastAndroid.SHORT, ToastAndroid.CENTER);
@@ -67,7 +49,8 @@ class Compliance extends AbstractComponent {
                 .slice(0, this.props.checkpoint.checkpoint.scoreLevels), ([ig1, val, ig2]) => val);
         const ComplianceItemsComponents = complianceItems
             .map(([text, score, fn], idx) => (
-                <ComplianceItem key={idx} score={score} text={text} handleOnPress={this.handleOnPress(score, fn)}
+                <ComplianceItem key={idx} score={score} text={text}
+                                handleOnPress={this.props.updateCheckpoint(this.props.checkpoint, {score: score}, fn)}
                                 active={currentScore === score}/>
             ));
         return (

@@ -16,6 +16,7 @@ class CheckpointScore {
             remarks: {type: 'string', optional: true},
             dateUpdated: {type: 'date', default: new Date()},
             submitted: {type: 'bool', default: false},
+            na: {type: 'bool', default: false}
         }
     };
 
