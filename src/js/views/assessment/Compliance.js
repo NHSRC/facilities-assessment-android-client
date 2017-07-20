@@ -58,14 +58,21 @@ class Compliance extends AbstractComponent {
 
     render() {
         const currentScore = this.props.checkpoint.score;
-        const complianceItems = [["Non Compliant", 0, this.remarkNotif], ["Partially Compliant", 1, this.remarkNotif], ["Fully Compliant", 2, _.noop]]
+        let complianceItems = _.sortBy(
+            [
+                ["Non Compliant", 0, this.remarkNotif],
+                ["Fully Compliant", 2, _.noop],
+                ["Partially Compliant", 1, this.remarkNotif]
+            ]
+                .slice(0, this.props.checkpoint.checkpoint.scoreLevels), ([ig1, val, ig2]) => val);
+        const ComplianceItemsComponents = complianceItems
             .map(([text, score, fn], idx) => (
                 <ComplianceItem key={idx} score={score} text={text} handleOnPress={this.handleOnPress(score, fn)}
                                 active={currentScore === score}/>
             ));
         return (
             <View style={Compliance.styles.compliance}>
-                {complianceItems}
+                {ComplianceItemsComponents}
             </View>
         );
     }
