@@ -17,6 +17,7 @@ import {formatDateHuman} from '../../utility/DateUtils';
 import _ from 'lodash';
 import Reports from "../reports/Reports";
 import SearchPage from "../search/SearchPage";
+import Config from "react-native-config";
 
 
 const deviceWidth = Dimensions.get('window').width;
@@ -77,7 +78,8 @@ class ChecklistSelection extends AbstractComponent {
 
     render() {
         let assessmentComplete = this.state.assessmentProgress.completed === this.state.assessmentProgress.total;
-        const showCompleteButton = this.state.assessmentProgress.completed > 0;
+        const allowIncompleteSubmit = (Config.ALLOW_INCOMPLETE_SUBMIT === 'true');
+        const showCompleteButton = allowIncompleteSubmit || this.state.assessmentProgress.completed > 0;
         return (
             <Container theme={FlatUITheme}>
                 <Header style={Dashboard.styles.header}>
@@ -88,7 +90,8 @@ class ChecklistSelection extends AbstractComponent {
                         {fontWeight: 'bold', color: "white"}]}>
                         Assessment
                     </Title>
-                    <Button transparent onPress={() => TypedTransition.from(this).with({...this.props.params}).to(SearchPage)}>
+                    <Button transparent
+                            onPress={() => TypedTransition.from(this).with({...this.props.params}).to(SearchPage)}>
                         <Icon style={{paddingTop: 10, color: "white"}} name='search'/>
                     </Button>
                 </Header>
