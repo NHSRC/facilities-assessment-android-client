@@ -19,7 +19,7 @@ class ReportService extends BaseService {
 
     overallScore(facilityAssessment) {
         const allCheckpoints = this.db.objects(CheckpointScore)
-            .filtered("facilityAssessment = $0", facilityAssessment.uuid)
+            .filtered("facilityAssessment = $0 and na = false", facilityAssessment.uuid)
             .map(_.identity);
         const checkpointsPerDepartment = _.groupBy(allCheckpoints, 'checklist');
         const scorePerDepartment = _.toPairs(checkpointsPerDepartment)
@@ -30,7 +30,7 @@ class ReportService extends BaseService {
     scoreByDepartment(facilityAssessment) {
         let departmentService = this.getService(DepartmentService);
         const allCheckpoints = this.db.objects(CheckpointScore)
-            .filtered("facilityAssessment = $0", facilityAssessment.uuid)
+            .filtered("facilityAssessment = $0 ", facilityAssessment.uuid)
             .map(_.identity);
         let scorePerDeparment = {};
         const checkpointsPerDepartment = _.groupBy(allCheckpoints, 'checklist');
@@ -45,7 +45,7 @@ class ReportService extends BaseService {
 
     scoreByAreaOfConcern(facilityAssessment) {
         const allCheckpoints = this.db.objects(CheckpointScore)
-            .filtered("facilityAssessment = $0", facilityAssessment.uuid)
+            .filtered("facilityAssessment = $0 and na = false", facilityAssessment.uuid)
             .map(_.identity);
         let scorePerAreaOfConcern = {};
         const checkpointsPerAreaOfConcern = _.groupBy(allCheckpoints, 'areaOfConcern');
@@ -60,7 +60,7 @@ class ReportService extends BaseService {
 
     scoreByStandard(facilityAssessment) {
         const allCheckpoints = this.db.objects(CheckpointScore)
-            .filtered("facilityAssessment = $0", facilityAssessment.uuid)
+            .filtered("facilityAssessment = $0 and na = false", facilityAssessment.uuid)
             .map(_.identity);
         let scorePerStandard = {};
         const checkpointsPerStandard = _.groupBy(allCheckpoints, 'standard');
@@ -85,7 +85,7 @@ class ReportService extends BaseService {
                 .find((aoc) => aoc.name === areaOfConcern);
         let departmentService = this.getService(DepartmentService);
         const allCheckpoints = this.db.objects(CheckpointScore)
-            .filtered("facilityAssessment = $0 AND areaOfConcern = $1", facilityAssessment.uuid, selectedAreaOfConcern.uuid)
+            .filtered("facilityAssessment = $0 AND areaOfConcern = $1 and na = false", facilityAssessment.uuid, selectedAreaOfConcern.uuid)
             .map(_.identity);
         let scorePerDeparment = {};
         const checkpointsPerDepartment = _.groupBy(allCheckpoints, 'checklist');
@@ -101,7 +101,7 @@ class ReportService extends BaseService {
     areasOfConcernScoreForDepartment(department, facilityAssessment) {
         let checklist = this.db.objects(Checklist.schema.name).filtered("name = $0", department).map(this.nameAndId)[0];
         const allCheckpoints = this.db.objects(CheckpointScore)
-            .filtered("facilityAssessment = $0 AND checklist = $1", facilityAssessment.uuid, checklist.uuid)
+            .filtered("facilityAssessment = $0 AND checklist = $1 and na = false", facilityAssessment.uuid, checklist.uuid)
             .map(_.identity);
         let scorePerAreaOfConcern = {};
         const checkpointsPerAreaOfConcern = _.groupBy(allCheckpoints, 'areaOfConcern');
@@ -125,7 +125,7 @@ class ReportService extends BaseService {
                 .map(this.pickKeys(["uuid", "name"]))
                 .find((aoc) => aoc.name === areaOfConcern);
         const allCheckpoints = this.db.objects(CheckpointScore)
-            .filtered("facilityAssessment = $0 and areaOfConcern = $1", facilityAssessment.uuid, selectedAreaOfConcern.uuid)
+            .filtered("facilityAssessment = $0 and areaOfConcern = $1 and na = false", facilityAssessment.uuid, selectedAreaOfConcern.uuid)
             .map(_.identity);
         let scorePerStandard = {};
         const checkpointsPerStandard = _.groupBy(allCheckpoints, 'standard');
@@ -147,7 +147,7 @@ class ReportService extends BaseService {
             .filtered('name = $0', standard)
             .map(this.nameAndId)[0].uuid;
         let allCheckpoints = this.db.objects(CheckpointScore.schema.name)
-            .filtered("facilityAssessment = $0 AND standard = $1",
+            .filtered("facilityAssessment = $0 AND standard = $1 and na = false",
                 facilityAssessment.uuid,
                 standardUUID)
             .map((cs) => Object.assign(cs,
@@ -169,7 +169,7 @@ class ReportService extends BaseService {
 
     getCheckpointsWithCompliance(facilityAssessment, compliance) {
         return this.db.objects(CheckpointScore)
-            .filtered("facilityAssessment = $0 AND score = $1", facilityAssessment.uuid, compliance)
+            .filtered("facilityAssessment = $0 AND score = $1 and na = false", facilityAssessment.uuid, compliance)
             .map(_.identity);
     }
 
