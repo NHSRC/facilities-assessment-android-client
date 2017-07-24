@@ -22,7 +22,7 @@ const allAssessments = function (state, action, beans) {
 
 const syncAssessment = function (state, action, beans) {
     const assessmentSyncService = beans.get(AssessmentSyncService);
-    assessmentSyncService.syncFacilityAssessment(action.assessment, action.cb);
+    assessmentSyncService.syncFacilityAssessment(action.assessment, action.cb, action.errorHandler);
     return Object.assign(state, {syncing: [action.assessment.uuid].concat(state.syncing)});
 };
 

@@ -27,7 +27,7 @@ class AssessmentSyncService extends BaseService {
         this.serverURL = this.getService(SettingsService).getServerURL();
     }
 
-    syncChecklists(originalAssessment, cb) {
+    syncChecklists(originalAssessment, cb, errorHandler) {
         return (facilityAssessment) => {
             const checklistService = this.getService(ChecklistService);
             const facilityAssessmentService = this.getService(FacilityAssessmentService);
@@ -58,16 +58,16 @@ class AssessmentSyncService extends BaseService {
                 },
                 (error) => {
                     Logger.logError('AssessmentSyncService', JSON.stringify(error));
-                    cb();
+                    errorHandler();
                 });
         }
     }
 
-    syncFacilityAssessment(assessment, cb) {
+    syncFacilityAssessment(assessment, cb, errorHandler) {
         this.serverURL = this.getService(SettingsService).getServerURL();
         let facilityAssessmentDTO = facilityAssessmentMapper(assessment);
         post(`${this.serverURL}/api/facility-assessment`, facilityAssessmentDTO,
-            this.syncChecklists(assessment, cb), cb);
+            this.syncChecklists(assessment, cb, errorHandler), errorHandler);
     }
 }
 

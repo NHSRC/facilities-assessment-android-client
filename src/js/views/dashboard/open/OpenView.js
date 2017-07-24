@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, StyleSheet, View, ScrollView} from 'react-native';
+import {View, Alert} from 'react-native';
 import AbstractComponent from "../../common/AbstractComponent";
 import Actions from '../../../action';
 import Dashboard from '../Dashboard';
@@ -47,9 +47,22 @@ class OpenView extends AbstractComponent {
     handleSubmit(assessment) {
         return () => this.dispatchAction(Actions.SYNC_ASSESSMENT, {
             "assessment": assessment,
-            cb: () => this.dispatchAction(Actions.ASSESSMENT_SYNCED, {assessment: assessment, ...this.props})
+            cb: () => this.dispatchAction(Actions.ASSESSMENT_SYNCED, {assessment: assessment, ...this.props}),
+            errorHandler: () => this.submissionError(assessment)
         });
+    }
 
+    submissionError(assessment) {
+        Alert.alert(
+            'Submission Error',
+            "An error occured submitting the assessment. Please check connectivity to the server.",
+            [
+                {
+                    text: 'Ok',
+                    onPress: () => this.dispatchAction(Actions.ASSESSMENT_SYNCED, {assessment: assessment, ...this.props})
+                }
+            ]
+        )
     }
 
     allowSubmit() {
