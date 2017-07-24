@@ -74,32 +74,37 @@ class QuestionAnswer extends AbstractComponent {
 
         const isNotApplicable = _.isBoolean(this.props.currentCheckpoint.na) && this.props.currentCheckpoint.na;
         const NA = this.props.currentCheckpoint.checkpoint.optional ? (
-            <View style={{
-                flexDirection: 'row',
-                flexWrap: 'nowrap',
-                justifyContent: 'space-between',
-                alignSelf: 'stretch',
-                marginBottom: 10
-            }}>
-                <Text
-                    style={[Typography.paperFontBody1,
-                        {
-                            color: isNotApplicable ? PrimaryColors.red : PrimaryColors.caption_black,
-                            fontWeight: isNotApplicable ? '900' : '400'
-                        }]}>
-                    {`${isNotApplicable ? "Not" : ""} Applicable`}
-                </Text>
-                <Switch thumbTintColor={isNotApplicable ? PrimaryColors.red : PrimaryColors.blue}
-                        tintColor={PrimaryColors.blue}
-                        onTintColor={PrimaryColors.red}
-                        onValueChange={(value) => this.updateCheckpoint(this.props.currentCheckpoint, {na: value}, _.noop)()}
-                        value={isNotApplicable}/>
-            </View>)
+                <View style={{
+                    flexDirection: 'row',
+                    flexWrap: 'nowrap',
+                    justifyContent: 'space-between',
+                    alignSelf: 'stretch',
+                    marginBottom: 10
+                }}>
+                    <Text
+                        style={[Typography.paperFontBody1,
+                            {
+                                color: isNotApplicable ? PrimaryColors.red : PrimaryColors.caption_black,
+                                fontWeight: isNotApplicable ? '900' : '400'
+                            }]}>
+                        {`${isNotApplicable ? "Not" : ""} Applicable`}
+                    </Text>
+                    <Switch thumbTintColor={isNotApplicable ? PrimaryColors.red : PrimaryColors.blue}
+                            tintColor={PrimaryColors.blue}
+                            onTintColor={PrimaryColors.red}
+                            onValueChange={(value) => this.updateCheckpoint(this.props.currentCheckpoint, {
+                                na: value,
+                                score: null
+                            }, _.noop)()}
+                            value={isNotApplicable}/>
+                </View>)
             : (<View/>);
+
+        
 
 
         const ShowCompliance = _.isBoolean(this.props.currentCheckpoint.na) && this.props.currentCheckpoint.na ? (
-            <View/>) :
+                <View/>) :
             (<View>
                 <Compliance updateCheckpoint={this.updateCheckpoint}
                             checkpoint={this.props.currentCheckpoint} {...this.props}/>
