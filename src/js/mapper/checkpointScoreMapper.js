@@ -1,8 +1,9 @@
 export default checkpointScoreMapper =
-    ({uuid, score, remarks, checkpoint}) =>
+    ({uuid, score, remarks, checkpoint, na}) =>
         Object.assign({
             uuid: uuid,
             score: score,
             remarks: remarks,
-            checkpoint: checkpoint
+            checkpoint: checkpoint,
+            na: na
         });

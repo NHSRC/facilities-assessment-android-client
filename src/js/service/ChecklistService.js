@@ -136,9 +136,13 @@ class ChecklistService extends BaseService {
     }
 
     getCheckpointScoresFor(checklistUUID, assessmentUUID) {
-        return this.db.objects(CheckpointScore.schema.name)
+        const filledCheckpoints = this.db.objects(CheckpointScore.schema.name)
             .filtered("score != null AND checklist = $0 AND facilityAssessment = $1", checklistUUID, assessmentUUID)
             .map((checkpointScore) => Object.assign({}, checkpointScore));
+        const naCheckpoints = this.db.objects(CheckpointScore.schema.name)
+            .filtered("na = true AND checklist = $0 AND facilityAssessment = $1", checklistUUID, assessmentUUID)
+            .map((checkpointScore) => Object.assign({}, checkpointScore));
+        return filledCheckpoints.concat(naCheckpoints);
     }
 
     markCheckpointScoresSubmitted(checkpointScores) {
