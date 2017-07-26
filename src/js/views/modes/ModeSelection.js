@@ -9,6 +9,8 @@ import PrimaryColors from "../styles/PrimaryColors";
 import Typography from "../styles/Typography";
 import Dashboard from '../dashboard/Dashboard';
 import Settings from "../settings/Settings";
+import Config from 'react-native-config';
+
 const nqasIcon = require('../img/nqas.png');
 const kayakalpIcon = require('../img/kayakalp.png');
 const nhsrcbanner = require('../img/nhsrcbanner.png');
@@ -31,6 +33,7 @@ class ModeSelection extends AbstractComponent {
         },
         modeContainer: {
             flexDirection: 'row',
+            flexWrap: 'wrap',
             justifyContent: 'space-between',
         },
         header: {
@@ -52,6 +55,15 @@ class ModeSelection extends AbstractComponent {
     }
 
     render() {
+        let showDakshata = Config.DAKSHATA === 'true';
+        const Dakshata = showDakshata ? (
+            <TouchableWithoutFeedback onPress={this.handleOnPress("Dakshata")}>
+                <View>
+                    <Text style={[Typography.paperFontDisplay2, {color: 'white',}]}>Dakshata</Text>
+                </View>
+            </TouchableWithoutFeedback>
+        ) : null;
+        const additionalStyles = showDakshata ? {alignItems: 'center', justifyContent: 'center'} : {};
         return (
             <Container theme={FlatUITheme}>
                 <Header style={ModeSelection.styles.header}>
@@ -71,7 +83,7 @@ class ModeSelection extends AbstractComponent {
                     }]}>GUNAK गुणक</Title>
                 </Header>
                 <Content>
-                    <View style={ModeSelection.styles.container}>
+                    <View style={[ModeSelection.styles.container,]}>
                         <Text style={[Typography.paperFontHeadline, {
                             color: PrimaryColors.yellow,
                             alignSelf: 'center',
@@ -88,7 +100,7 @@ class ModeSelection extends AbstractComponent {
                         }]}>
                             Choose an Assessment Type
                         </Text>
-                        <View style={ModeSelection.styles.modeContainer}>
+                        <View style={[ModeSelection.styles.modeContainer, additionalStyles]}>
                             <TouchableWithoutFeedback onPress={this.handleOnPress("NQAS")}>
                                 <View style={ModeSelection.styles.mode}>
                                     <Image resizeMode="contain"
@@ -111,6 +123,7 @@ class ModeSelection extends AbstractComponent {
                                            source={kayakalpIcon}/>
                                 </View>
                             </TouchableWithoutFeedback>
+                            {Dakshata}
                         </View>
                     </View>
                 </Content>

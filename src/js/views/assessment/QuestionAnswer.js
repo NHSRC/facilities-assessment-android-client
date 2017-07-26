@@ -69,6 +69,9 @@ class QuestionAnswer extends AbstractComponent {
             ["kayakalp", (<View/>)],
             ["nqas", (
                 <ListingItem labelColor={PrimaryColors.lighBlue}
+                             item={this.props.currentCheckpoint.checkpoint.measurableElement}/>)],
+            ["dakshata", (
+                <ListingItem labelColor={PrimaryColors.lighBlue}
                              item={this.props.currentCheckpoint.checkpoint.measurableElement}/>)]
         ]).get(this.props.params.mode.toLowerCase());
 
