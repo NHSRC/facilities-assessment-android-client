@@ -63,39 +63,31 @@ class SearchPage extends AbstractComponent {
         this.dispatchAction(Actions.SEARCH_FOR, {searchText: searchText, ...this.props.params});
     }
 
-    gotoMeasurableElement(me) {
+    goto(checkpoint) {
+        TypedTransition.from(this).with({...this.props.params, toCheckpoint: checkpoint, ...checkpoint}).to(Assessment)
     }
 
-    gotoCheckpoint(checkpoint) {
-    }
 
-    goto(element) {
-
-    }
-
-    renderSearchResultsFor([element, results], index) {
-        const resultTexts = results.map((result, idx) =>
-            <TouchableWithoutFeedback key={idx} onPress={() => this.goto(element)(result)}>
-                <View>
-                    <Text style={[Typography.paperFontTitle, {color: "white", marginBottom: 16}]}>
-                        {`${result.reference} - ${result.name}`}
+    renderSearchResults(results) {
+        let resultsRender = results.map((result, idx) =>
+            <TouchableWithoutFeedback key={idx} onPress={() => this.goto(result)}>
+                <View style={{marginBottom: 16}}>
+                    <Text style={[Typography.paperFontTitle, {color: "white",}]}>
+                        {`${_.truncate(result.name, {length: 50})}`}
+                    </Text>
+                    <Text style={[Typography.paperFontSubhead, {color: "white",}]}>
+                        {` ${result.checklist.name} - ${result.standard.reference}`}
                     </Text>
                 </View>
             </TouchableWithoutFeedback>
         );
         return (
-            <View key={index} style={SearchPage.styles.resultContainer}>
+            <View style={SearchPage.styles.resultContainer}>
                 <Text style={[Typography.paperFontCaption, {color: PrimaryColors.medium_white}]}>
-                    {element.replace(/([a-z](?=[A-Z]))/g, '$1 ')}
+                    {"Checkpoints"}
                 </Text>
-                {resultTexts}
-            </View>)
-    }
-
-    renderSearchResults(searchResults) {
-        return _.toPairs(searchResults)
-            .filter(([k, v]) => !_.isEmpty(v))
-            .map(this.renderSearchResultsFor.bind(this));
+                {resultsRender}
+            </View>);
 
     }
 
@@ -106,13 +98,13 @@ class SearchPage extends AbstractComponent {
                     <Button transparent onPress={() => TypedTransition.from(this).goBack()}>
                         <Icon style={{color: "white"}} name="arrow-back"/>
                     </Button>
-                    <InputGroup >
+                    <InputGroup>
                         <Input onChangeText={this.handleSearch} placeholder="Search"/>
                     </InputGroup>
                 </View>
                 <Content>
                     <View style={{margin: deviceWidth * 0.04,}}>
-                        {/*{this.renderSearchResults(this.state.results)}*/}
+                        {this.renderSearchResults(this.state.results)}
                     </View>
                 </Content>
             </Container>

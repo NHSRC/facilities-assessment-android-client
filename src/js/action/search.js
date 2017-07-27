@@ -4,7 +4,7 @@ import SearchService from "../service/SearchService";
 const searchFor = function (state, action, beans) {
     const searchService = beans.get(SearchService);
     let checkpoints = searchService.search(action.facilityAssessment.assessmentTool, action.searchText);
-    return {...state, results: {Checkpoints: checkpoints}};
+    return {...state, results: checkpoints};
 };
 
 export default new Map([
@@ -13,5 +13,5 @@ export default new Map([
 
 export let searchInit = {
     searchText: "",
-    results: {Checkpoints: []}
+    results: []
 };

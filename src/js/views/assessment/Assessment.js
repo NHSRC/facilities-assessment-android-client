@@ -74,7 +74,7 @@ class Assessment extends AbstractComponent {
                     </Button>
                     <Title style={[Typography.paperFontHeadline,
                         {fontWeight: 'bold', color: "white"}]}>
-                        {`${this.props.params.standard.reference} - ${_.truncate(this.props.params.standard.name, {length: 25})}`}
+                        {`${this.state.standard.reference} - ${_.truncate(this.state.standard.name, {length: 25})}`}
                     </Title>
                 </Header>
                 <Content>

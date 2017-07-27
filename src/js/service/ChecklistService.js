@@ -9,6 +9,7 @@ import CacheService from "./CacheService";
 import {comp} from "transducers-js"
 import AreaOfConcern from "../models/AreaOfConcern";
 import CheckpointScore from "../models/CheckpointScore";
+import Standard from "../models/Standard";
 
 @Service("checklistService")
 class ChecklistService extends BaseService {
@@ -104,6 +105,10 @@ class ChecklistService extends BaseService {
                 .find((aoc) => aoc.uuid === aocUUID)
                 .standards,
             this.standardRefComparator);
+    }
+
+    getStandard(standardUUID) {
+        return this.pickKeys(['reference'])(this.db.objectForPrimaryKey(Standard.schema.name, standardUUID));
     }
 
     getAreaConcernForStandard(checklistUUID, standardUUID) {

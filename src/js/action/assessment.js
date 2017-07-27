@@ -3,9 +3,13 @@ import _ from 'lodash';
 import AssessmentService from "../service/AssessmentService";
 import CheckpointScore from '../models/CheckpointScore';
 
-const getCheckpoints = function (state, actionParams, beans) {
+const getCheckpoints = function (state, actions, beans) {
     const checklistService = beans.get(ChecklistService);
     const assessmentService = beans.get(AssessmentService);
+    let toCheckpointNotDefined = _.isEmpty(actions.toCheckpoint);
+    const toCheckpoint = toCheckpointNotDefined ? {} : actions.toCheckpoint;
+    const actionParams = {...actions, ...toCheckpoint};
+    const standard = checklistService.getStandard(actionParams.standard.uuid);
     const checkpoints = checklistService
         .getCheckpointsFor(actionParams.checklist.uuid, actionParams.areaOfConcern.uuid, actionParams.standard.uuid);
     const checkpointScores = checkpoints
@@ -18,9 +22,13 @@ const getCheckpoints = function (state, actionParams, beans) {
                 {checkpoint: checkpoint}))
         .map((checkpoint) => CheckpointScore.create(checkpoint.checkpoint, actionParams.standard,
             actionParams.areaOfConcern, actionParams.checklist, actionParams.facilityAssessment, checkpoint));
+    const currentCheckpoint = toCheckpointNotDefined ?
+        _.head(checkpointScores) :
+        checkpointScores.find((checkpoint) => checkpoint.checkpoint.uuid === actionParams.toCheckpoint.uuid);
     return Object.assign(state, {
         checkpoints: checkpointScores,
-        currentCheckpoint: _.head(checkpointScores)
+        currentCheckpoint: currentCheckpoint,
+        standard: standard
     });
 };
 
@@ -50,4 +58,6 @@ export default new Map([
 
 export let assessmentInit = {
     checkpoints: [],
+    currentCheckpoint: undefined,
+    standard: {name: '', reference: ''}
 };

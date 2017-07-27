@@ -19,12 +19,11 @@ class SearchService extends BaseService {
     }
 
     backfillCheckpoint(checkpoint) {
-        const desiredKeys = this.pickKeys(["reference"]);
-        const measurableElement = desiredKeys(this.checklistService.getMeasurableElement(checkpoint.measurableElement));
-        const standard = desiredKeys(this.checklistService
-            .getStandardForMeasurableElement(checkpoint.checklist, measurableElement.uuid));
-        const aoc = desiredKeys(this.checklistService.getAreaConcernForStandard(checkpoint.checklist, standard.uuid));
-        const checklist = desiredKeys(this.checklistService.getChecklistNameAndId(checkpoint.checklist));
+        const measurableElement = {...this.checklistService.getMeasurableElement(checkpoint.measurableElement)};
+        const standard = {...this.checklistService
+            .getStandardForMeasurableElement(checkpoint.checklist, measurableElement.uuid)};
+        const aoc = {...this.checklistService.getAreaConcernForStandard(checkpoint.checklist, standard.uuid)};
+        const checklist = {...this.checklistService.getChecklist(checkpoint.checklist)};
         return {
             ...checkpoint,
             measurableElement: measurableElement,
@@ -44,6 +43,7 @@ class SearchService extends BaseService {
             .slice(0, limit)
             .map(this.pickKeys(["reference", "measurableElement", "checklist"]))
             .map(this.backfillCheckpoint.bind(this));
+
     }
 }
 
