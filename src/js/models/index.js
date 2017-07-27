@@ -22,7 +22,7 @@ import EntitySyncStatus from "./sync/EntitySyncStatus";
 
 export default {
     schema: [StringObj, ChecklistProgress, StandardProgress, AreaOfConcernProgress, Checkpoint, MeasurableElement, Standard, AreaOfConcern, Department, FacilityType, AssessmentTool, Facility, District, State, Checklist, FacilityAssessment, CheckpointScore, AssessmentType, Settings, EntitySyncStatus],
-    schemaVersion: 5,
+    schemaVersion: 6,
     migration: (oldRealm, newRealm) => {
         const version = (version) => (db) => db.schemaVersion < version;
 

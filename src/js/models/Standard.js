@@ -12,6 +12,7 @@ class Standard {
         properties: {
             name: 'string',
             uuid: 'string',
+            shortName: {type: 'string', optional: true},
             reference: 'string',
             measurableElements: {type: 'list', objectType: 'MeasurableElement'}
         }
