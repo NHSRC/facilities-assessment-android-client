@@ -14,6 +14,7 @@ import Pagination from './Pagination';
 import _ from 'lodash';
 import Dashboard from '../dashboard/Dashboard';
 import GestureRecognizer from 'react-native-swipe-gestures';
+import Standard from "../../models/Standard";
 
 
 const deviceWidth = Dimensions.get('window').width;
@@ -74,7 +75,8 @@ class Assessment extends AbstractComponent {
                     </Button>
                     <Title style={[Typography.paperFontHeadline,
                         {fontWeight: 'bold', color: "white"}]}>
-                        {`${this.state.standard.reference} - ${_.truncate(this.state.standard.name, {length: 25})}`}
+                        {`${this.state.standard.reference} - ${_.truncate(Standard.getDisplayName(this.state.standard),
+                            {length: 25})}`}
                     </Title>
                 </Header>
                 <Content>

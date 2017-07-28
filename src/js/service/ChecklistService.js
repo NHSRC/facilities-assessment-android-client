@@ -108,7 +108,7 @@ class ChecklistService extends BaseService {
     }
 
     getStandard(standardUUID) {
-        return this.pickKeys(['reference'])(this.db.objectForPrimaryKey(Standard.schema.name, standardUUID));
+        return this.pickKeys(['reference', 'shortName'])(this.db.objectForPrimaryKey(Standard.schema.name, standardUUID));
     }
 
     getAreaConcernForStandard(checklistUUID, standardUUID) {

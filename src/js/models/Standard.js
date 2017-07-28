@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import MeasurableElements from './MeasurableElement';
 import ResourceUtil from "../utility/ResourceUtil";
 import General from "../utility/General";
@@ -22,6 +23,10 @@ class Standard {
         realmObj = Object.assign({}, realmObj);
         realmObj.measurableElements = realmObj.measurableElements.map(MeasurableElements.fromDB);
         return realmObj;
+    }
+
+    static getDisplayName(standard) {
+        return _.isEmpty(standard.shortName) ? standard.name : standard.shortName;
     }
 
     static associateChild(childEntity, childEntityClass, childResource, entityService) {

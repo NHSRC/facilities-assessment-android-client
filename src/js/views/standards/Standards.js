@@ -12,6 +12,8 @@ import Typography from "../styles/Typography";
 import Assessment from '../assessment/Assessment';
 import Dashboard from '../dashboard/Dashboard';
 import SearchPage from "../search/SearchPage";
+import _ from 'lodash';
+import Standard from "../../models/Standard";
 
 const deviceWidth = Dimensions.get('window').width;
 
@@ -51,6 +53,9 @@ class Standards extends AbstractComponent {
     }
 
     render() {
+        const standards = this.state.standards.map((standard) =>
+            Object.assign(standard,
+                {name: Standard.getDisplayName(standard)}));
         return (
             <Container theme={FlatUITheme}>
                 <Header style={Dashboard.styles.header}>
@@ -71,7 +76,7 @@ class Standards extends AbstractComponent {
                         <Listing
                             labelColor={PrimaryColors.yellow}
                             onPress={this.handleOnPress.bind(this)}
-                            items={this.state.standards}/>
+                            items={standards}/>
                     </View>
                 </Content>
             </Container>

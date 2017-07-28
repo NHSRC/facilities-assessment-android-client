@@ -66,7 +66,7 @@ class ReportService extends BaseService {
         const checkpointsPerStandard = _.groupBy(allCheckpoints, 'standard');
         _.toPairs(checkpointsPerStandard).map(([standard, checkpointScores]) => {
             let completeStandard = Object.assign({}, this.db.objectForPrimaryKey(Standard.schema.name, standard));
-            scorePerStandard[completeStandard.name] =
+            scorePerStandard[Standard.getDisplayName(completeStandard)] =
                 (_.sumBy(checkpointScores, "score") / (checkpointScores.length * 2)) * 100;
         });
         return scorePerStandard;
