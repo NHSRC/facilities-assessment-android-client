@@ -85,7 +85,7 @@ class ChecklistSelection extends AbstractComponent {
 
     showOtherCompleteButton() {
         const allowIncompleteSubmit = (Config.ALLOW_INCOMPLETE_SUBMIT === 'true');
-        return true || allowIncompleteSubmit || this.state.assessmentProgress.completed > 0
+        return allowIncompleteSubmit || this.state.assessmentProgress.completed > 0
     }
 
     showCompleteButton(mode) {

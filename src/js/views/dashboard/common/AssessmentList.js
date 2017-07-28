@@ -79,6 +79,7 @@ class AssessmentList extends AbstractComponent {
 
     renderAssessment(assessment, key) {
         const buttons = this.props.buttons
+            .filter((button) => _.isEmpty(button.mode) || button.mode.toLowerCase() === this.props.mode.toLowerCase())
             .filter((button, key) => !_.isFunction(button.shouldRender) || button.shouldRender())
             .map((button, key) =>
                 <View key={key} style={AssessmentList.styles.listItemButtonContainer}>

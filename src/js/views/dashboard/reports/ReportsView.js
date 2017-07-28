@@ -39,6 +39,16 @@ class ReportsView extends AbstractComponent {
         }).to(Reports)
     }
 
+    certificationCriteria(assessment) {
+        return () => TypedTransition.from(this).with({
+            assessmentTool: assessment.assessmentTool,
+            facility: assessment.facility,
+            assessmentType: assessment.assessmentType,
+            facilityAssessment: assessment,
+            ...this.props
+        }).to(Reports)
+    }
+
     render() {
         const AssessmentLists = [
             {
@@ -46,15 +56,25 @@ class ReportsView extends AbstractComponent {
                 assessments: this.state.completedAssessments,
                 buttons: [
                     {
+                        text: "CERT",
+                        onPress: this.certificationCriteria.bind(this),
+                        mode: "nqas"
+                    },
+                    {
                         text: "VIEW",
                         onPress: this.showReports.bind(this)
-                    },
+                    }
                 ]
             },
             {
                 header: "SUBMITTED ASSESSMENTS",
                 assessments: this.state.submittedAssessments,
                 buttons: [
+                    {
+                        text: "CERT",
+                        onPress: this.certificationCriteria.bind(this),
+                        mode: "nqas"
+                    },
                     {
                         text: "VIEW",
                         onPress: this.showReports.bind(this)
@@ -63,7 +83,7 @@ class ReportsView extends AbstractComponent {
             }
         ].filter(({assessments}) => !_.isEmpty(assessments))
             .map((assessmentList, key) =>
-                <AssessmentList key={key} {...assessmentList}/>);
+                <AssessmentList mode={this.props.mode} key={key} {...assessmentList}/>);
         return (
             <View style={Dashboard.styles.tab}>
                 {AssessmentLists}
