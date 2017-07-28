@@ -99,7 +99,7 @@ class ReportService extends BaseService {
     }
 
     areasOfConcernScoreForDepartment(department, facilityAssessment) {
-        let checklist = this.db.objects(Checklist.schema.name).filtered("name = $0", department).map(this.nameAndId)[0];
+        const checklist = this.db.objects(Checklist.schema.name).filtered("name = $0", department).map(this.nameAndId)[0];
         const allCheckpoints = this.db.objects(CheckpointScore)
             .filtered("facilityAssessment = $0 AND checklist = $1 and na = false", facilityAssessment.uuid, checklist.uuid)
             .map(_.identity);
@@ -159,6 +159,19 @@ class ReportService extends BaseService {
             .map(([me, checkpointScores]) => scorePerMeasurableElement[me] =
                 (((_.sumBy(checkpointScores, "score") / (checkpointScores.length * 2)) * 100)));
         return scorePerMeasurableElement;
+    }
+
+    nonAndPartiallyComplianceCheckpointsForDepartment(department, facilityAssessment) {
+        const checklist = this.db.objects(Checklist.schema.name)
+            .filtered("name = $0", department).map(this.nameAndId)[0];
+        const partialAndNonCompliantCheckpoints = this.db.objects(CheckpointScore.schema.name)
+            .filtered("facilityAssessment = $0 and checklist = $1", facilityAssessment.uuid, checklist.uuid)
+            .filtered("score = 0 or score = 1")
+            .map(this.pickKeys(['score', 'checkpoint']))
+            .map((checkpointScore) => Object.assign({}, checkpointScore,
+                {checkpoint: this.db.objectForPrimaryKey(Checkpoint.schema.name, checkpointScore.checkpoint).name}));
+        return _.fromPairs(partialAndNonCompliantCheckpoints
+            .map((checkpoint) => [checkpoint.checkpoint, checkpoint.score]));
     }
 
     assessedCheckpoints(facilityAssessment) {

@@ -50,6 +50,17 @@ export default [
                     "Score"
                 ],
                 "isSelected": true
+            },
+            {
+                "title": "NON/PARTIAL COMPLIANCE",
+                "slug": "dep-non-partial-compliance-checkpoints",
+                "scores": {},
+                "headers": [
+                    "Checkpoint",
+                    "Score"
+                ],
+                "rawScore": true,
+                "isSelected": false
             }
         ]
     },

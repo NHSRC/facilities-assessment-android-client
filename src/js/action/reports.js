@@ -12,6 +12,7 @@ const scoringMap = new Map([
     ['aoc-std', 'standardScoreForAreaOfConcern'],
     ['dep', 'scoreByDepartment'],
     ['dep-aoc', 'areasOfConcernScoreForDepartment'],
+    ['dep-non-partial-compliance-checkpoints', 'nonAndPartiallyComplianceCheckpointsForDepartment'],
     ['std', 'scoreByStandard'],
     ['std-me', 'measurableElementScoreForStandard'],
 ]);
@@ -54,7 +55,7 @@ const selectTab = function (state, action, beans) {
         .map((tab) => Object.assign(tab, {
             isSelected: tab.title === action.selectedTab
         }));
-    return {...state, tabs: tabs, selectTab: action.selectedTab};
+    return {...state, tabs: tabs, selectedTab: action.selectedTab};
 };
 
 const drillDown = function (state, action, beans) {

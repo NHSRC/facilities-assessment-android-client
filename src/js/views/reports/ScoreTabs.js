@@ -3,7 +3,7 @@ import {Text, StyleSheet, View, ScrollView, Dimensions} from 'react-native';
 import AbstractComponent from "../common/AbstractComponent";
 import TabBar from "./TabBar";
 import ScoreList from './ScoreList';
-import  _ from "lodash";
+import _ from "lodash";
 
 
 const deviceWidth = Dimensions.get('window').width;
@@ -29,12 +29,14 @@ class ScoreTabs extends AbstractComponent {
         let selectedTab = this.props.data.tabs.find((tab) => tab.isSelected);
         const scoresToShow = selectedTab.scores;
         const drillable = !_.isEmpty(selectedTab.drillDown);
+        const percentageScore = !_.isBoolean(selectedTab.rawScore);
         return (
             <View style={ScoreTabs.styles.container}>
                 <TabBar mode={this.props.mode} tabs={this.props.data.tabs}/>
                 <ScoreList params={this.props.params}
                            facilityAssessment={this.props.facilityAssessment}
                            scores={scoresToShow}
+                           percentageScore={percentageScore}
                            drillable={drillable}/>
             </View>
         );
