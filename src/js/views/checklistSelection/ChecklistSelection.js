@@ -30,6 +30,9 @@ class ChecklistSelection extends AbstractComponent {
         const store = context.getStore();
         this.state = store.getState().checklistSelection;
         this.unsubscribe = store.subscribeTo('checklistSelection', this.handleChange.bind(this));
+        this.showCompleteButton = this.showCompleteButton.bind(this);
+        this.showKayakalpCompleteButton = this.showKayakalpCompleteButton.bind(this);
+        this.showOtherCompleteButton = this.showOtherCompleteButton.bind(this);
     }
 
     static styles = StyleSheet.create({
@@ -76,10 +79,22 @@ class ChecklistSelection extends AbstractComponent {
         this.dispatchAction(Actions.ALL_ASSESSMENTS, {mode: this.props.params.mode});
     }
 
+    showKayakalpCompleteButton() {
+        return _.some(this.state.checklists, (checklist) => checklist.progress.completed > 0);
+    }
+
+    showOtherCompleteButton() {
+        const allowIncompleteSubmit = (Config.ALLOW_INCOMPLETE_SUBMIT === 'true');
+        return allowIncompleteSubmit || this.state.assessmentProgress.completed > 0
+    }
+
+    showCompleteButton(mode) {
+        return mode.toLowerCase() === "kayakalp" ? this.showKayakalpCompleteButton() : this.showOtherCompleteButton();
+    }
+
     render() {
         let assessmentComplete = this.state.assessmentProgress.completed === this.state.assessmentProgress.total;
-        const allowIncompleteSubmit = (Config.ALLOW_INCOMPLETE_SUBMIT === 'true');
-        const showCompleteButton = allowIncompleteSubmit || this.state.assessmentProgress.completed > 0;
+        const showCompleteButton = this.showCompleteButton(this.props.params.mode);
         return (
             <Container theme={FlatUITheme}>
                 <Header style={Dashboard.styles.header}>
