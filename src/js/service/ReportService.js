@@ -72,6 +72,22 @@ class ReportService extends BaseService {
         return scorePerStandard;
     }
 
+    scoreForStandards(facilityAssessment, standardRefs = []) {
+        const allCheckpoints = this.db.objects(CheckpointScore)
+            .filtered("facilityAssessment = $0 and na = false", facilityAssessment.uuid)
+            .map(_.identity);
+        let scorePerStandard = {};
+        const checkpointsPerStandard = _.groupBy(allCheckpoints, 'standard');
+        _.toPairs(checkpointsPerStandard).map(([standard, checkpointScores]) => {
+            let completeStandard = Object.assign({}, this.db.objectForPrimaryKey(Standard.schema.name, standard));
+            if (standardRefs.indexOf(completeStandard.reference) > -1) {
+                scorePerStandard[Standard.getDisplayName(completeStandard)] =
+                    (_.sumBy(checkpointScores, "score") / (checkpointScores.length * 2)) * 100;
+            }
+        });
+        return scorePerStandard;
+    }
+
     departmentScoreForAreaOfConcern(areaOfConcern, facilityAssessment) {
         let areasOfConcernUUIDs = this.db.objects(Checklist.schema.name)
             .filtered("assessmentTool = $0", facilityAssessment.assessmentTool.uuid)

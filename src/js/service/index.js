@@ -13,3 +13,5 @@ export * from './EntitySyncStatusService';
 export * from './AssessmentSyncService';
 export * from './ReportService';
 export * from './FacilityAssessmentProgressService';
+export * from './ExportService';
+export * from './CertificationService';

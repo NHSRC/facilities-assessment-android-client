@@ -6,6 +6,7 @@ import Dashboard from '../Dashboard';
 import Actions from '../../../action';
 import AssessmentList from '../common/AssessmentList';
 import Reports from '../../reports/Reports';
+import Certification from '../../cert/Certification';
 import TypedTransition from "../../../framework/routing/TypedTransition";
 
 const deviceWidth = Dimensions.get('window').width;
@@ -36,7 +37,7 @@ class ReportsView extends AbstractComponent {
             assessmentType: assessment.assessmentType,
             facilityAssessment: assessment,
             ...this.props
-        }).to(Reports)
+        }).to(Reports);
     }
 
     certificationCriteria(assessment) {
@@ -46,20 +47,25 @@ class ReportsView extends AbstractComponent {
             assessmentType: assessment.assessmentType,
             facilityAssessment: assessment,
             ...this.props
-        }).to(Reports)
+        }).to(Certification);
     }
 
     render() {
         const AssessmentLists = [
             {
-                header: "COMPLETED ASSESSMENTS",
-                assessments: this.state.completedAssessments,
+                header: "CERTIFIABLE ASSESSMENTS",
+                assessments: this.state.certifiableAssessments,
                 buttons: [
                     {
                         text: "CERT",
                         onPress: this.certificationCriteria.bind(this),
-                        mode: "nqas"
-                    },
+                    }
+                ]
+            },
+            {
+                header: "COMPLETED ASSESSMENTS",
+                assessments: this.state.completedAssessments,
+                buttons: [
                     {
                         text: "VIEW",
                         onPress: this.showReports.bind(this)
@@ -71,16 +77,11 @@ class ReportsView extends AbstractComponent {
                 assessments: this.state.submittedAssessments,
                 buttons: [
                     {
-                        text: "CERT",
-                        onPress: this.certificationCriteria.bind(this),
-                        mode: "nqas"
-                    },
-                    {
                         text: "VIEW",
                         onPress: this.showReports.bind(this)
                     },
                 ]
-            }
+            },
         ].filter(({assessments}) => !_.isEmpty(assessments))
             .map((assessmentList, key) =>
                 <AssessmentList mode={this.props.mode} key={key} {...assessmentList}/>);

@@ -11,8 +11,10 @@ const allAssessments = function (state, action, beans) {
     const serverConnected = settingsService.hasServerURL();
     const openAssessments = assessmentService.getAllOpenAssessments(assessmentMode);
     const completedAssessments = assessmentService.getAllCompletedAssessments(assessmentMode);
+    const certifiableAssessments = assessmentService.getAllCertifiableAssessments(assessmentMode);
     const submittedAssessments = assessmentService.getAllSubmittedAssessments(assessmentMode);
     return Object.assign(state, {
+        certifiableAssessments: certifiableAssessments,
         openAssessments: openAssessments,
         completedAssessments: completedAssessments,
         submittedAssessments: submittedAssessments,

@@ -4,6 +4,8 @@ import AssessmentTool from "../models/AssessmentTool";
 import AssessmentType from "../models/AssessmentType";
 import FacilityAssessment from "../models/FacilityAssessment";
 import FacilityService from './FacilitiesService';
+import ChecklistProgress from "../models/ChecklistProgress";
+import _ from 'lodash';
 
 @Service("facilityAssessmentService")
 class FacilityAssessmentService extends BaseService {
@@ -75,6 +77,22 @@ class FacilityAssessmentService extends BaseService {
 
     getAllCompletedAssessments(mode) {
         return this.getAssessmentsWithCriteria(mode)('endDate != null AND submitted = false');
+    }
+
+    isCertifiable(assessment) {
+        const checklistsProgress = this.db.objects(ChecklistProgress.schema.name)
+            .filtered("facilityAssessment = $0", assessment.uuid)
+            .map(_.identity);
+        return _.every(checklistsProgress,
+            (checklistProgress) => _.isNumber(checklistProgress.completed) && checklistProgress.completed > 0 &&
+                checklistProgress.total === checklistProgress.completed);
+    }
+
+    getAllCertifiableAssessments(mode) {
+        if (mode.toLowerCase() !== 'nqas') return [];
+        return this.getAllCompletedAssessments(mode)
+            .concat(this.getAllSubmittedAssessments(mode))
+            .filter(this.isCertifiable.bind(this));
     }
 
     getAllSubmittedAssessments(mode) {
