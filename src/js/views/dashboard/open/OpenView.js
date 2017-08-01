@@ -39,6 +39,7 @@ class OpenView extends AbstractComponent {
                 facility: assessment.facility,
                 assessmentType: assessment.assessmentType,
                 facilityAssessment: assessment,
+                state: assessment.state,
                 ...this.props
             }).to(ChecklistSelection);
         }

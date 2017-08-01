@@ -70,6 +70,7 @@ class ChecklistMapper {
         resource.assessmentTool = ResourceUtil.getUUIDFor(resource, "assessmentToolUUID");
         resource.areasOfConcern = ResourceUtil.getUUIDsFor(resource, "areasOfConcernUUIDs")
             .map((aoc) => Object.assign({value: aoc}));
+        resource.state = ResourceUtil.getUUIDFor(resource, "stateUUID");
         return resource;
     }
 }

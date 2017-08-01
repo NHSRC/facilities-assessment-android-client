@@ -53,6 +53,26 @@ class FacilitiesService extends BaseService {
         return Object.assign({}, this.db.objectForPrimaryKey(FacilityType.schema.name, facilityTypeUUID));
     }
 
+    getDistrictForFacility(facilityUUID) {
+        return {
+            ...this.db.objects(District.schema.name)
+                .filtered("facilities.uuid = $0", facilityUUID)
+                .map(_.identity)[0]
+        };
+    }
+
+    getStateForDistrict(districtUUID) {
+        return {
+            ...this.db.objects(State.schema.name)
+                .filtered("districts.uuid = $0", districtUUID)
+                .map(_.identity)[0]
+        };
+    }
+
+    getStateForFacility(facilityUUID) {
+        return this.getStateForDistrict(this.getDistrictForFacility(facilityUUID).uuid);
+    }
+
     getFacility(facilityUUID) {
         const facility = Object.assign({}, this.db.objectForPrimaryKey(Facility.schema.name, facilityUUID));
         return Object.assign({}, facility, {facilityType: this.getFacilityType(facility.facilityType)})

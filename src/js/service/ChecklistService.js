@@ -22,10 +22,17 @@ class ChecklistService extends BaseService {
         this.markCheckpointScoresSubmitted = this.markCheckpointScoresSubmitted.bind(this);
     }
 
-    getChecklistsFor(assessmentTool) {
-        const departmentService = this.getService(DepartmentService);
+    getChecklistsWithCriteria(assessmentToolUUID, state) {
         return this.db.objects(Checklist.schema.name)
-            .filtered("assessmentTool = $0", assessmentTool.uuid)
+            .filtered(`assessmentTool = '${assessmentToolUUID}' and state = ${state}`)
+            .map(_.identity);
+    }
+
+    getChecklistsFor(assessmentTool, state) {
+        const departmentService = this.getService(DepartmentService);
+        let stateSpecificChecklists = this.getChecklistsWithCriteria(assessmentTool.uuid, `'${state.uuid}'`);
+        const atSpecificChecklists = this.getChecklistsWithCriteria(assessmentTool.uuid, 'null');
+        return stateSpecificChecklists.concat(atSpecificChecklists)
             .map(this.pickKeys(["department", "assessmentTool", "areasOfConcern"]))
             .map(this.fromStringObj("areasOfConcern"))
             .map((checklist) => {

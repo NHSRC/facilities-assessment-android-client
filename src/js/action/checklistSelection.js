@@ -6,7 +6,7 @@ import _ from 'lodash';
 const allChecklists = function (state, action, beans) {
     const checklistService = beans.get(ChecklistService);
     const assessmentService = beans.get(AssessmentService);
-    const checklists = checklistService.getChecklistsFor(action.assessmentTool);
+    const checklists = checklistService.getChecklistsFor(action.assessmentTool, action.state);
     const checklistProgress = checklists
         .map((checklist) => assessmentService.getChecklistProgress(checklist, action.facilityAssessment));
     const completedChecklists = checklistProgress

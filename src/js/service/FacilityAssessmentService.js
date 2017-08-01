@@ -64,6 +64,7 @@ class FacilityAssessmentService extends BaseService {
                 .map((assessment) =>
                     Object.assign({}, assessment, {
                         facility: facilityService.getFacility(assessment.facility),
+                        state: facilityService.getStateForFacility(assessment.facility),
                         assessmentTool: this.getAssessmentTool(assessment.assessmentTool),
                         assessmentType: this.getAssessmentType(assessment.assessmentType)
                     }))
