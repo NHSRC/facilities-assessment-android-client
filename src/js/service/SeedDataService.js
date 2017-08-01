@@ -10,12 +10,14 @@ import ReferenceDataSyncService from "./ReferenceDataSyncService";
 import LocalReferenceDataSyncService from "./LocalReferenceDataSyncService";
 import PackagedJSON from "./PackagedJSON";
 import Config from "react-native-config";
+import SeedProgress from "../models/SeedProgress";
+import _ from 'lodash';
 
 @Service("seedDataService")
 class SeedDataService extends BaseService {
     constructor(db, beanStore) {
         super(db, beanStore);
-        this.create = this.create.bind(this);
+        this.SEED_PROGRESS_UUID = "bd223d42-a168-4454-9277-4704db5ab2ad";
     }
 
     /*var a = function(number) {
@@ -31,70 +33,43 @@ class SeedDataService extends BaseService {
      a(72);*/
 
     postInit() {
-        if (this.isNotSeeded() && Config.USE_PACKAGED_SEED_DATA === "true") {
+        if (this.isNotCompletelySeeded() && Config.USE_PACKAGED_SEED_DATA === "true") {
+            this.deleteAllData();
             let localReferenceDataSyncService = new LocalReferenceDataSyncService(this.db, this.beanStore, this.getService(ReferenceDataSyncService));
-            localReferenceDataSyncService.syncMetaDataFromLocal(PackagedJSON.getFiles());
+            localReferenceDataSyncService.syncMetaDataFromLocal(PackagedJSON.getFiles(), this.finishSeeding.bind(this));
         }
     }
 
-    isNotSeeded() {
-        let allStates = this.getService(StateService).getAllStates();
-        return allStates.length === 0;
+    startSeedProgress() {
+        return this.save(SeedProgress)({uuid: this.SEED_PROGRESS_UUID, started: true});
     }
 
-    createAll() {
-        [
-            {
-                "service": SettingsService,
-                "method": "saveSettings",
-                "entity": settings
-            },
-            {
-                "service": FacilitiesService,
-                "method": "saveFacilityType",
-                "entity": facilityTypes
-            },
-            {
-                "service": StateService,
-                "method": "saveState",
-                "entity": states
-            },
-            {
-                "service": ChecklistAssessmentService,
-                "method": "saveAssessmentTool",
-                "entity": assessmentTools
-            },
-            {
-                "service": DepartmentService,
-                "method": "saveDepartment",
-                "entity": departments
-            },
-            {
-                "service": ChecklistAssessmentService,
-                "method": "saveAreaOfConcern",
-                "entity": areasOfConcern
-            },
-            {
-                "service": ChecklistService,
-                "method": "saveChecklist",
-                "entity": checklists
-            },
-            {
-                "service": ChecklistService,
-                "method": "saveCheckpoint",
-                "entity": checkpoints
-            },
-            {
-                "service": ChecklistAssessmentService,
-                "method": "saveAssessmentType",
-                "entity": assessmentTypes
-            }
-        ].map(this.create);
+    updateSeedProgress(fileNumber) {
+        return this.save(SeedProgress)({
+            uuid: this.SEED_PROGRESS_UUID,
+            started: true,
+            fileNumber: fileNumber
+        });
     }
 
-    create(seedEntity) {
-        let serviceInstance = this.getService(seedEntity.service);
-        return seedEntity.entity.map((e) => serviceInstance[seedEntity.method](e));
+    finishSeeding() {
+        return this.save(SeedProgress)({
+            uuid: this.SEED_PROGRESS_UUID,
+            started: true,
+            finished: true
+        });
+    }
+
+    getSeedProgress() {
+        return {...this.db.objectForPrimaryKey(SeedProgress.schema.name, this.SEED_PROGRESS_UUID)};
+    }
+
+    isNotCompletelySeeded() {
+        let seedProgress = this.getSeedProgress();
+        if (_.isEmpty(seedProgress)) {
+            seedProgress = this.startSeedProgress();
+        }
+        return !seedProgress.finished;
     }
 
     deleteAllData() {
