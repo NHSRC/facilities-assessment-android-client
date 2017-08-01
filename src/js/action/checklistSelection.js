@@ -54,6 +54,7 @@ export default new Map([
     ["ALL_CHECKLISTS", allChecklists],
     ["COMPLETE_ASSESSMENT", completeAssessment],
     ["UPDATE_CHECKLIST_PROGRESS", updateChecklistProgress],
+    ["REDUCE_CHECKLIST_PROGRESS", updateChecklistProgress],
 ]);
 
 export let checklistSelectionInit = {

@@ -62,6 +62,20 @@ class AssessmentService extends BaseService {
         return Object.assign({}, this.saveStandardProgress(updatedProgress));
     }
 
+    reduceStandardProgress(standard, areaOfConcern, checklist, facilityAssessment) {
+        let existingProgress = this.existingStandardProgress(standard, areaOfConcern, checklist, facilityAssessment);
+        const totalCheckpoints = () => _.flatten(standard.measurableElements.map((me) => me.checkpoints)).length;
+        let updatedProgress = Object.assign({}, existingProgress, {
+            total: _.isNumber(existingProgress.total) ? existingProgress.total : totalCheckpoints(),
+            completed: _.isNumber(existingProgress.completed) ? existingProgress.completed - 1 : 0,
+            areaOfConcern: areaOfConcern.uuid,
+            checklist: checklist.uuid,
+            facilityAssessment: facilityAssessment.uuid,
+            standard: standard.uuid,
+        });
+        return Object.assign({}, this.saveStandardProgress(updatedProgress));
+    }
+
     getCompletedStandards(areaOfConcern, checklist, facilityAssessment) {
         return areaOfConcern.standards.filter((standard) => {
             const standardProgress = this.getStandardProgress(standard, areaOfConcern, checklist, facilityAssessment);

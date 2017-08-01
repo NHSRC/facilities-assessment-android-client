@@ -45,15 +45,35 @@ class QuestionAnswer extends AbstractComponent {
         },
     });
 
+    checkpointSelected(checkpoint, updateObj) {
+        return !_.isNumber(checkpoint.score) && updateObj.hasOwnProperty('score');
+    }
+
+    checkpointUnselected(checkpoint, updateObj) {
+        return _.isNumber(checkpoint.score) &&
+            updateObj.hasOwnProperty("score") &&
+            updateObj.score === checkpoint.score;
+    }
+
     updateCheckpoint(checkpoint, updateObj, fn) {
         return () => {
-            if (!_.isNumber(checkpoint.score) && updateObj.hasOwnProperty('score')) {
-                [
+            let actionList = [];
+            if (this.checkpointSelected(checkpoint, updateObj)) {
+                actionList = [
                     Actions.UPDATE_STANDARD_PROGRESS,
                     Actions.UPDATE_AREA_OF_CONCERN_PROGRESS,
                     Actions.UPDATE_CHECKLIST_PROGRESS
-                ].map((action) => this.dispatchAction(action, {...this.props.params}));
+                ];
+            } else if (this.checkpointUnselected(checkpoint, updateObj)) {
+                actionList = [
+                    Actions.REDUCE_STANDARD_PROGRESS,
+                    Actions.REDUCE_AREA_OF_CONCERN_PROGRESS,
+                    Actions.REDUCE_CHECKLIST_PROGRESS
+                ];
+                updateObj = {...updateObj, score: null};
+                fn = _.noop;
             }
+            actionList.map((action) => this.dispatchAction(action, {...this.props.params}));
 
             this.dispatchAction(Actions.UPDATE_CHECKPOINT, {
                 checkpoint: Object.assign(checkpoint, updateObj),
@@ -102,8 +122,6 @@ class QuestionAnswer extends AbstractComponent {
                             value={isNotApplicable}/>
                 </View>)
             : (<View/>);
-
-        
 
 
         const ShowCompliance = _.isBoolean(this.props.currentCheckpoint.na) && this.props.currentCheckpoint.na ? (
