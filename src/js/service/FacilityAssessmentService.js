@@ -26,18 +26,21 @@ class FacilityAssessmentService extends BaseService {
         return this.db.objects(AssessmentType.schema.name).map(this.nameAndId);
     }
 
-    getExistingAssessment(facility, assessmentTool, assessmentType) {
+    getExistingAssessment(facility, assessmentTool, assessmentType, series = null) {
+        const optCriteria = _.isEmpty(series) ? "" : ` AND seriesName = '${series}'`;
         return Object.assign({}, this.db.objects(FacilityAssessment.schema.name)
-            .filtered('facility = $0 AND assessmentTool = $1 AND assessmentType = $2 AND endDate = null',
+            .filtered(`facility = $0 AND assessmentTool = $1 AND assessmentType = $2 AND endDate = null ${optCriteria}`,
                 facility.uuid, assessmentTool.uuid, assessmentType.uuid)[0]);
     }
 
-    startAssessment(facility, assessmentTool, assessmentType) {
-        const existingAssessment = this.getExistingAssessment(facility, assessmentTool, assessmentType);
+    startAssessment(facility, assessmentTool, assessmentType, series = null) {
+        const existingAssessment = this.getExistingAssessment(facility, assessmentTool, assessmentType, series);
+        const optParams = _.isEmpty(series) ? {} : {seriesName: series};
         return this.saveAssessment(Object.assign(existingAssessment, {
             assessmentTool: assessmentTool.uuid,
             facility: facility.uuid,
-            assessmentType: assessmentType.uuid
+            assessmentType: assessmentType.uuid,
+            ...optParams
         }));
     }
 

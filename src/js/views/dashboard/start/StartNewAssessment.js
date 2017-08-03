@@ -5,6 +5,7 @@ import {StyleSheet} from 'react-native';
 import PrimaryColors from "../../styles/PrimaryColors";
 import _ from 'lodash';
 import Actions from "../../../action";
+import Config from 'react-native-config';
 
 
 class StartNewAssessment extends AbstractComponent {
@@ -15,7 +16,8 @@ class StartNewAssessment extends AbstractComponent {
     });
 
     render() {
-        const isComplete = !(_.isEmpty(this.props.data.selectedAssessmentTool) || _.isEmpty(this.props.data.selectedAssessmentType));
+        const seriesNameRequiredAndEntered = Config.ASSESSMENT_SERIES_SUPPORT === 'true' ? _.isEmpty(this.props.data.series) : false;
+        const isComplete = !(_.isEmpty(this.props.data.selectedAssessmentTool) || _.isEmpty(this.props.data.selectedAssessmentType) || seriesNameRequiredAndEntered);
         return (
             <Button
                 onPress={() => {

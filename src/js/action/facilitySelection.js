@@ -81,8 +81,15 @@ const enterFacilityName = function (state, action, beans) {
     });
 };
 
+const enterSeries = function (state, action, beans) {
+    return {
+        ...state,
+        facilitySelected: false,
+        series: action.series,
+    };
+};
+
 const selectAssessmentType = function (state, action, beans) {
-    const facilityAssessmentService = beans.get(FacilityAssessmentService);
     return Object.assign(state, {
         "facilitySelected": false,
         "selectedAssessmentType": action.selectedAssessmentType,
@@ -104,7 +111,7 @@ const facilitySelected = function (state, action, beans) {
         selectedFacility = facilitiesService.saveFacility(state.facilityName, state.selectedDistrict);
     }
     const hasActiveFacilityAssessment = !_.isEmpty(facilityAssessmentService.getExistingAssessment(selectedFacility, state.selectedAssessmentTool, state.selectedAssessmentType));
-    const facilityAssessment = facilityAssessmentService.startAssessment(selectedFacility, state.selectedAssessmentTool, state.selectedAssessmentType);
+    const facilityAssessment = facilityAssessmentService.startAssessment(selectedFacility, state.selectedAssessmentTool, state.selectedAssessmentType, state.series);
     return Object.assign(state, {
         "selectedFacility": selectedFacility,
         "facilitySelected": true,
@@ -119,6 +126,8 @@ const reset_form = function (state, action, bean) {
         facilitySelected: false,
         districtsForState: [],
         facilities: [],
+        facilityName: "",
+        series: "",
         assessmentTypes: [],
         facilityTypes: [],
         selectedState: undefined,
@@ -140,6 +149,7 @@ export default new Map([
     ["FACILITY_SELECT", facilitySelected],
     ["SELECT_ASSESSMENT_TOOL", selectAssessmentTool],
     ["ENTER_FACILITY_NAME", enterFacilityName],
+    ["ENTER_ASSESSMENT_SERIES", enterSeries],
     ["RESET_FORM", reset_form],
 ]);
 
@@ -154,6 +164,7 @@ export let facilitySelectionInit = {
     facilityAssessment: undefined,
     assessmentTools: [],
     facilityName: "",
+    series: "",
     assessmentTypes: [],
     allStates: [],
     districtsForState: [],

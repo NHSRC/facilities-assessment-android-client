@@ -15,6 +15,8 @@ import StartNewAssessment from './StartNewAssessment';
 import TypedTransition from "../../../framework/routing/TypedTransition";
 import ChecklistSelection from "../../checklistSelection/ChecklistSelection";
 import FacilityText from "./FacilityText";
+import AssessmentSeries from "./AssessmentSeries";
+import Config from 'react-native-config';
 
 
 const deviceWidth = Dimensions.get('window').width;
@@ -73,10 +75,13 @@ class StartView extends AbstractComponent {
         this.dispatchAction(Actions.ALL_STATES, {...this.props});
     }
 
+    appropriateTextField() {
+        return Config.ASSESSMENT_SERIES_SUPPORT === "true" ? AssessmentSeries : FacilityText;
+    }
 
     render() {
         const FormComponents =
-            [AssessmentTools, StateDistrict, FacilityType, Facility, FacilityText, AssessmentType, StartNewAssessment]
+            [AssessmentTools, StateDistrict, FacilityType, Facility, this.appropriateTextField(), AssessmentType, StartNewAssessment]
                 .map((FormComponent, idx) =>
                     <ListItem key={idx} style={StartView.styles.formRow}>
                         <FormComponent data={this.state} {...this.props}/>
