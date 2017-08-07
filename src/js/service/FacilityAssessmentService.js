@@ -27,9 +27,9 @@ class FacilityAssessmentService extends BaseService {
     }
 
     getExistingAssessment(facility, assessmentTool, assessmentType, series = null) {
-        const optCriteria = _.isEmpty(series) ? "" : ` AND seriesName = '${series}'`;
+        const optCriteria = _.isEmpty(series) ? "AND endDate = null" : ` AND seriesName = '${series}'`;
         return Object.assign({}, this.db.objects(FacilityAssessment.schema.name)
-            .filtered(`facility = $0 AND assessmentTool = $1 AND assessmentType = $2 AND endDate = null ${optCriteria}`,
+            .filtered(`facility = $0 AND assessmentTool = $1 AND assessmentType = $2 ${optCriteria}`,
                 facility.uuid, assessmentTool.uuid, assessmentType.uuid)[0]);
     }
 

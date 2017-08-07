@@ -1,7 +1,7 @@
 import {formatDate} from '../utility/DateUtils';
 
 export default facilityAssessmentMapper =
-    ({uuid, facility: {uuid: facilityUUID}, assessmentTool: {uuid: assessmentToolUUID}, startDate, endDate}, seriesName) =>
+    ({uuid, facility: {uuid: facilityUUID}, assessmentTool: {uuid: assessmentToolUUID}, startDate, endDate, seriesName}) =>
         Object.assign({
             uuid: uuid,
             facility: facilityUUID,

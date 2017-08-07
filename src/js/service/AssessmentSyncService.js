@@ -15,6 +15,7 @@ import Logger from "../framework/Logger";
 import EntitiesMetaData from "../models/entityMetaData/EntitiesMetaData";
 import EntityService from "./EntityService";
 import moment from "moment";
+import FacilitiesService from "./FacilitiesService";
 
 @Service("assessmentSyncService")
 class AssessmentSyncService extends BaseService {
@@ -30,13 +31,15 @@ class AssessmentSyncService extends BaseService {
     syncChecklists(originalAssessment, cb, errorHandler) {
         return (facilityAssessment) => {
             const checklistService = this.getService(ChecklistService);
+            const facilitiesService = this.getService(FacilitiesService);
+            const state = facilitiesService.getStateForFacility(facilityAssessment.facility.uuid);
             const facilityAssessmentService = this.getService(FacilityAssessmentService);
             facilityAssessmentService.addSyncedUuid({
                 uuid: originalAssessment.uuid,
                 syncedUuid: facilityAssessment.uuid
             });
             const batchRequest = new BatchRequest();
-            const checklists = checklistService.getChecklistsFor(facilityAssessment.assessmentTool);
+            const checklists = checklistService.getChecklistsFor(facilityAssessment.assessmentTool, state);
             checklists.map(({uuid, name, department, assessmentTool}) =>
                 Object.assign({
                     uuid: uuid,
@@ -49,8 +52,7 @@ class AssessmentSyncService extends BaseService {
                 }))
                 .map((checklist) => batchRequest.post(`${this.serverURL}/api/facility-assessment/checklist`,
                     checklist,
-                    checklistService.markCheckpointScoresSubmitted,
-                    () => {
+                    checklistService.markCheckpointScoresSubmitted, () => {
                     }));
             batchRequest.fire((final) => {
                     facilityAssessmentService.markSubmitted(originalAssessment);
