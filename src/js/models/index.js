@@ -69,6 +69,14 @@ export default {
             newObjs.map((newObj) => newObj.na = false);
         };
 
+        const addingSeedProgress = () => (oldRealm, newRealm) => {
+            newRealm.create(SeedProgress.schema.name, {
+                uuid: SeedProgress.UUID,
+                started: true,
+                finished: true,
+            }, true);
+        };
+
         const migrationExecutor = (fn) => (oldRealm, newRealm) => {
             fn.apply(null, [oldRealm, newRealm]);
             newRealm = oldRealm;
@@ -79,6 +87,7 @@ export default {
             [version(2), addSortOrder],
             [version(3), deleteAllTags],
             [version(4), aAllCheckpoints],
+            [version(6), addingSeedProgress],
         ];
 
         migrationMap.filter(([matcher, ign]) => matcher(oldRealm))

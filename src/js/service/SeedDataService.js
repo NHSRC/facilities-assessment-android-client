@@ -17,7 +17,7 @@ import _ from 'lodash';
 class SeedDataService extends BaseService {
     constructor(db, beanStore) {
         super(db, beanStore);
-        this.SEED_PROGRESS_UUID = "bd223d42-a168-4454-9277-4704db5ab2ad";
+        this.SEED_PROGRESS_UUID = SeedProgress.UUID;
     }
 
     /*var a = function(number) {
