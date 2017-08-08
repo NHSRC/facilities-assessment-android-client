@@ -23,7 +23,7 @@ import SeedProgress from "./SeedProgress";
 
 export default {
     schema: [StringObj, ChecklistProgress, StandardProgress, AreaOfConcernProgress, Checkpoint, MeasurableElement, Standard, AreaOfConcern, Department, FacilityType, AssessmentTool, Facility, District, State, Checklist, FacilityAssessment, CheckpointScore, AssessmentType, Settings, EntitySyncStatus, SeedProgress],
-    schemaVersion: 9,
+    schemaVersion: 10,
     migration: (oldRealm, newRealm) => {
         const version = (version) => (db) => db.schemaVersion < version;
 
@@ -69,11 +69,12 @@ export default {
             newObjs.map((newObj) => newObj.na = false);
         };
 
-        const addingSeedProgress = () => (oldRealm, newRealm) => {
+        const addingSeedProgress = (oldRealm, newRealm) => {
             newRealm.create(SeedProgress.schema.name, {
                 uuid: SeedProgress.UUID,
                 started: true,
                 finished: true,
+                fileNumber: -1
             }, true);
         };
 
