@@ -20,8 +20,10 @@ class SearchService extends BaseService {
 
     backfillCheckpoint(checkpoint) {
         const measurableElement = {...this.checklistService.getMeasurableElement(checkpoint.measurableElement)};
-        const standard = {...this.checklistService
-            .getStandardForMeasurableElement(checkpoint.checklist, measurableElement.uuid)};
+        const standard = {
+            ...this.checklistService
+                .getStandardForMeasurableElement(checkpoint.checklist, measurableElement.uuid)
+        };
         const aoc = {...this.checklistService.getAreaConcernForStandard(checkpoint.checklist, standard.uuid)};
         const checklist = {...this.checklistService.getChecklist(checkpoint.checklist)};
         return {
@@ -33,9 +35,9 @@ class SearchService extends BaseService {
         };
     }
 
-    search(assessmentTool, searchText, limit = 20) {
+    search(assessmentTool, state, searchText, limit = 20) {
         if (_.isEmpty(searchText)) return [];
-        const checklistUUIDs = this.checklistService.getChecklistsFor(assessmentTool).map(this.onlyId);
+        const checklistUUIDs = this.checklistService.getChecklistsFor(assessmentTool, state).map(this.onlyId);
         let checklistCriteria = checklistUUIDs.map((uuid) => `checklist = '${uuid}'`).join(' OR ');
         return this.db.objects(Checkpoint.schema.name)
             .filtered(checklistCriteria)

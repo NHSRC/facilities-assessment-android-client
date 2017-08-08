@@ -3,7 +3,9 @@ import SearchService from "../service/SearchService";
 
 const searchFor = function (state, action, beans) {
     const searchService = beans.get(SearchService);
-    let checkpoints = searchService.search(action.facilityAssessment.assessmentTool, action.searchText);
+    let checkpoints = searchService.search(action.facilityAssessment.assessmentTool,
+        action.facilityAssessment.state,
+        action.searchText);
     return {...state, results: checkpoints};
 };
 

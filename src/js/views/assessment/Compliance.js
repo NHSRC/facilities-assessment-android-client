@@ -40,13 +40,15 @@ class Compliance extends AbstractComponent {
 
     render() {
         const currentScore = this.props.checkpoint.score;
+        let scoreLevels = _.isEmpty(this.props.checkpoint.checkpoint.scoreLevels) || this.props.checkpoint.checkpoint.scoreLevels === 0 ? 3 :
+            this.props.checkpoint.checkpoint.scoreLevels;
         let complianceItems = _.sortBy(
             [
                 ["Non Compliant", 0, this.remarkNotif],
                 ["Fully Compliant", 2, _.noop],
                 ["Partially Compliant", 1, this.remarkNotif]
             ]
-                .slice(0, this.props.checkpoint.checkpoint.scoreLevels), ([ig1, val, ig2]) => val);
+                .slice(0, scoreLevels), ([ig1, val, ig2]) => val);
         const ComplianceItemsComponents = complianceItems
             .map(([text, score, fn], idx) => (
                 <ComplianceItem key={idx} score={score} text={text}
