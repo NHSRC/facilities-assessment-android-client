@@ -13,11 +13,8 @@ install: ansible_check
 run_android:
 	ANDROID_HOME=/usr/local/opt/android-sdk ENVFILE=.env react-native run-android
 
-run_android_cg:
-	ANDROID_HOME=/usr/local/opt/android-sdk ENVFILE=.env.cg react-native run-android
-
-run_android_mp:
-	ANDROID_HOME=/usr/local/opt/android-sdk ENVFILE=.env.mp react-native run-android
+run_android_jss:
+	ANDROID_HOME=/usr/local/opt/android-sdk ENVFILE=.env.jss react-native run-android
 
 run-packager:
 	REACT_EDITOR=subl ./node_modules/react-native/packager/packager.sh start --reset-cache
@@ -54,11 +51,8 @@ ci-test:
 release:
 	cd android; ./gradlew assembleRelease
 
-release_cg:
-	cd android && ENVFILE=.env.cg ./gradlew assembleRelease
-
-release_mp:
-	cd android; ENVFILE=.env.mp ./gradlew assembleRelease
+release_jss:
+	cd android && ENVFILE=.env.jss ./gradlew assembleRelease
 
 release-offline:
 	cd android; ./gradlew --offline assembleRelease
@@ -71,8 +65,7 @@ uninstall:
 	adb uninstall com.facilitiesassessment
 
 reinstall: uninstall run_android
-reinstall_cg: uninstall run_android_cg
-reinstall_mp: uninstall run_android_mp
+reinstall_jss: uninstall run_android_jss
 
 ts := $(shell /bin/date "+%Y-%m-%d---%H-%M-%S")
 
