@@ -1,8 +1,8 @@
 import BaseService from "./BaseService";
 import Service from "../framework/bean/Service";
 import _ from "lodash";
-import Config from "react-native-config";
 import Settings from "../models/Settings";
+import Config from "react-native-config";
 
 @Service("settingsService")
 class SettingsService extends BaseService {
@@ -13,7 +13,10 @@ class SettingsService extends BaseService {
         this.saveSettings = this.save(Settings, (entity) => Object.assign(entity, {uuid: Settings.defaultPrimaryKey}));
     }
 
-    init() {
+    postInit() {
+        if (!this.hasServerURL()) {
+            this.saveSettings({serverURL: Config.SERVER_URL});
+        }
     }
 
     get() {
@@ -21,9 +24,7 @@ class SettingsService extends BaseService {
     }
 
     getServerURL() {
-        let serverURL = this.get().serverURL;
-        if (_.isEmpty(serverURL)) return Config.SERVER_URL;
-        return serverURL;
+        return this.get().serverURL;
     }
 
     hasServerURL() {

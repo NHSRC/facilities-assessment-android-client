@@ -50,7 +50,7 @@ export default new Map([
 ]);
 
 export let settingsInit = {
-    serverURL: Config.SERVER_URL,
+    serverURL: "",
     lastSyncedDate: minDate,
     syncing: false,
     serverConnected: false
