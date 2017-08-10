@@ -4,6 +4,6 @@ import EntitiesMetaData from "../../../js/models/entityMetaData/EntitiesMetaData
 
 describe('EntitiesMetaDataTest', () => {
     it('sanity', () => {
-        expect(EntitiesMetaData.referenceEntityTypes[0].entityType).is.not.undefined;
+        expect(EntitiesMetaData.allEntityTypes[0].entityType).is.not.undefined;
     });
 });

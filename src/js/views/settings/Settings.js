@@ -62,12 +62,13 @@ class Settings extends AbstractComponent {
             [
                 {
                     text: 'Yes', onPress: () => {
-                        this.dispatchAction(Actions.CLEAN_DATA);
-                    }
+                    this.dispatchAction(Actions.CLEAN_DATA);
+                }
                 },
                 {
                     text: 'No', onPress: () => {
-                }}
+                }
+                }
             ]
         )
     }
@@ -105,24 +106,37 @@ class Settings extends AbstractComponent {
                             buttonText={this.state.syncing ?
                                 (<ActivityIndicator animating={true} size={"large"} color="white"
                                                     style={{height: 80}}/>) :
-                                "DOWNLOAD DATA"}
+                                "DOWNLOAD - FACILITIES, CHECKLISTS and ASSESSMENTS"}
+                            onPress={() =>
+                                this.dispatchAction(Actions.SYNC_ALL_DATA,
+                                    {
+                                        cb: () => {
+                                            this.dispatchAction(Actions.SYNC_ALL_DATA);
+                                            this.props.params.cb();
+                                        }
+                                    })
+                            }
+                            showButton={this.state.serverConnected}/>
+                        <View style={{marginTop: 15}}/>
+                        <SubmitButton
+                            buttonText={this.state.syncing ?
+                                (<ActivityIndicator animating={true} size={"large"} color="white"
+                                                    style={{height: 80}}/>) :
+                                "DOWNLOAD - FACILITIES and CHECKLISTS"}
                             onPress={() =>
                                 this.dispatchAction(Actions.SYNC_META_DATA,
-                                    {cb: () => {
-                                        this.dispatchAction(Actions.SYNCED_META_DATA);
-                                        this.props.params.cb();
-                                    }})
+                                    {
+                                        cb: () => {
+                                            this.dispatchAction(Actions.SYNCED_DATA);
+                                            this.props.params.cb();
+                                        }
+                                    })
                             }
                             showButton={this.state.serverConnected}/>
                         <Text style={{color: "white", marginBottom: 30}}>
                             Last Synced Date - {formatDate(this.state.lastSyncedDate)}
                         </Text>
 
-
-                        <SubmitButton buttonText={"UPDATE SETTINGS"}
-                                      onPress={() => this.dispatchAction(Actions.UPDATE_SETTINGS,
-                                          {cb: () => TypedTransition.from(this).goBack()})}
-                                      showButton={this.state.serverConnected}/>
                         <View style={{margin: 15}}/>
                         <SubmitButton buttonText={"CLEAN DATA"}
                                       onPress={() => this.cleanData()}

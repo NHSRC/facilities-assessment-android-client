@@ -29,6 +29,15 @@ class ReferenceDataSyncService extends BaseService {
         this.serverURL = this.getService(SettingsService).getServerURL();
     }
 
+    syncAllData(cb) {
+        this.pullData(EntitiesMetaData.allEntityTypes, () => {
+            Logger.logInfo('ReferenceDataSyncService', 'Sync completed!');
+            cb();
+        }, (error) => {
+            Logger.logError('ReferenceDataSyncService', error);
+        });
+    }
+
     syncMetaData(cb) {
         this.pullData(EntitiesMetaData.referenceEntityTypes, () => {
             Logger.logInfo('ReferenceDataSyncService', 'Sync completed!');

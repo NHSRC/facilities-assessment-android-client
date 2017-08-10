@@ -73,7 +73,7 @@ class SeedDataService extends BaseService {
 
     deleteAllData() {
         const db = this.db;
-        let entitiesToDelete = EntitiesMetaData.referenceEntityTypes;
+        let entitiesToDelete = EntitiesMetaData.allEntityTypes;
         entitiesToDelete.push(new EntityMetaData(EntitySyncStatus));
         entitiesToDelete.forEach((entityMetaData) => {
             if (entityMetaData.isMappedToDb) {
@@ -86,7 +86,7 @@ class SeedDataService extends BaseService {
                 Logger.logDebug('SeedDataService', `Skipping as not mapped to db - ${entityMetaData.entityName}`);
             }
         });
-        this.getService(EntitySyncStatusService).setup(EntitiesMetaData.referenceEntityTypes);
+        this.getService(EntitySyncStatusService).setup(EntitiesMetaData.allEntityTypes);
     }
 }
 

@@ -29,7 +29,13 @@ const syncMetaData = function (state, action, beans) {
     return Object.assign(state, {syncing: true})
 };
 
-const syncedMetaData = function (state, action, beans) {
+const syncAllData = function (state, action, beans) {
+    const referenceDataSyncService = beans.get(ReferenceDataSyncService);
+    referenceDataSyncService.syncAllData(action.cb);
+    return Object.assign(state, {syncing: true})
+};
+
+const syncedData = function (state, action, beans) {
     const settingsService = beans.get(SettingsService);
     return Object.assign(state, settingsService.saveSettings({lastSyncedDate: new Date()}), {syncing: false});
 };
@@ -45,7 +51,8 @@ export default new Map([
     ["UPDATE_SETTINGS", updateSettings],
     ["UPDATE_SETTINGS_VIEW", updateView],
     ["SYNC_META_DATA", syncMetaData],
-    ["SYNCED_META_DATA", syncedMetaData],
+    ["SYNC_ALL_DATA", syncAllData],
+    ["SYNCED_DATA", syncedData],
     ['CLEAN_DATA', cleanData]
 ]);
 

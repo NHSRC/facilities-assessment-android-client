@@ -20,11 +20,30 @@ import FacilityAssessmentProgressService from "../../service/FacilityAssessmentP
 
 class EntitiesMetaData {
     //order is important. last entity with be executed first. parent and referred entity (in case of many to one) should be synced before the child.
-    static get referenceEntityTypes() {
+    static get allEntityTypes() {
         return [
             new EntityMetaData(FacilityAssessmentProgress, undefined, undefined, FacilityAssessmentProgressService),
             new EntityMetaData(CheckpointScore, undefined, new CheckpointScoreMapper()),
             new EntityMetaData(FacilityAssessment, undefined, new FacilityAssessmentMapper()),
+            new EntityMetaData(Checkpoint, undefined, new CheckpointMapper()),
+            new EntityMetaData(Checklist, undefined, new ChecklistMapper()),
+            new EntityMetaData(MeasurableElement, Standard),
+            new EntityMetaData(Standard, AreaOfConcern),
+            new EntityMetaData(AreaOfConcern),
+            new EntityMetaData(AssessmentType),
+
+            new EntityMetaData(Department),
+            new EntityMetaData(AssessmentTool),
+            new EntityMetaData(Facility, District, new FacilityMapper()),
+            new EntityMetaData(District, State),
+            new EntityMetaData(State),
+            new EntityMetaData(FacilityType),
+            new EntityMetaData(AssessmentType)
+        ].map(_.identity);
+    }
+
+    static get referenceEntityTypes() {
+        return [
             new EntityMetaData(Checkpoint, undefined, new CheckpointMapper()),
             new EntityMetaData(Checklist, undefined, new ChecklistMapper()),
             new EntityMetaData(MeasurableElement, Standard),

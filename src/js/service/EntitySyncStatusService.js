@@ -16,7 +16,7 @@ class EntitySyncStatusService extends BaseService {
     }
 
     init() {
-        this.setup(EntitiesMetaData.referenceEntityTypes);
+        this.setup(EntitiesMetaData.allEntityTypes);
     }
 
     get(entityName) {
