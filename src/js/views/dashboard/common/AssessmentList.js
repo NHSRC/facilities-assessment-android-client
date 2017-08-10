@@ -92,7 +92,7 @@ class AssessmentList extends AbstractComponent {
             <View key={key} style={AssessmentList.styles.listItem}>
                 <View style={AssessmentList.styles.listItemText}>
                     <Text style={[Typography.paperFontSubhead, {color: "white"}]}>
-                        {assessment.facility.name}
+                        {`${assessment.seriesName} - ${assessment.facility.name}`}
                     </Text>
                     <Text style={[Typography.paperFontCaption, {color: "rgba(255,255,255,0.7)", marginTop: 4}]}>
                         {assessment.facility.facilityType.name}
@@ -103,7 +103,7 @@ class AssessmentList extends AbstractComponent {
     }
 
     render() {
-        const Assessments = this.props.assessments.map(this.renderAssessment.bind(this));
+        const Assessments = _.sortBy(this.props.assessments, (assessment) => assessment.seriesName).map(this.renderAssessment.bind(this));
         return (
             <View style={AssessmentList.styles.container}>
                 <View style={AssessmentList.styles.header}>
