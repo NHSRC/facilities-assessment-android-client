@@ -111,7 +111,7 @@ class Settings extends AbstractComponent {
                                 this.dispatchAction(Actions.SYNC_ALL_DATA,
                                     {
                                         cb: () => {
-                                            this.dispatchAction(Actions.SYNC_ALL_DATA);
+                                            this.dispatchAction(Actions.SYNCED_DATA);
                                             this.props.params.cb();
                                         }
                                     })
