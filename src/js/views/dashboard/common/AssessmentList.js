@@ -92,7 +92,7 @@ class AssessmentList extends AbstractComponent {
             <View key={key} style={AssessmentList.styles.listItem}>
                 <View style={AssessmentList.styles.listItemText}>
                     <Text style={[Typography.paperFontSubhead, {color: "white"}]}>
-                        {assessment.facility.name}
+                        {_.truncate(assessment.facility.name, {length: 30})}
                     </Text>
                     <Text style={[Typography.paperFontCaption, {color: "rgba(255,255,255,0.7)", marginTop: 4}]}>
                         {assessment.facility.facilityType.name}
