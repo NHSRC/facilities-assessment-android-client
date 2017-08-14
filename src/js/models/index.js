@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import Checklist from "./Checklist";
 import Checkpoint from "./Checkpoint";
 import MeasurableElement from "./MeasurableElement";
@@ -20,10 +21,11 @@ import Settings from "./Settings";
 import Tag from './Tag';
 import EntitySyncStatus from "./sync/EntitySyncStatus";
 import SeedProgress from "./SeedProgress";
+import standardShortNames from './standardShortnames';
 
 export default {
     schema: [StringObj, ChecklistProgress, StandardProgress, AreaOfConcernProgress, Checkpoint, MeasurableElement, Standard, AreaOfConcern, Department, FacilityType, AssessmentTool, Facility, District, State, Checklist, FacilityAssessment, CheckpointScore, AssessmentType, Settings, EntitySyncStatus, SeedProgress],
-    schemaVersion: 10,
+    schemaVersion: 40,
     migration: (oldRealm, newRealm) => {
         const version = (version) => (db) => db.schemaVersion < version;
 
@@ -78,6 +80,25 @@ export default {
             }, true);
         };
 
+        const addingStandardShortNames = (oldRealm, newRealm) => {
+            console.log("HERE");
+            let oldStandards = oldRealm.objects(Standard.schema.name);
+            const assessmentTools = newRealm.objects(AssessmentTool.schema.name).filtered('mode = $0', 'nqas');
+            const checklistCriteria = assessmentTools.map((at) => `assessmentTool = '${at.uuid}'`).join(' OR ');
+            const checklists = newRealm.objects(Checklist.schema.name).filtered(checklistCriteria);
+            const aocCriteria = _.flatten(
+                checklists.map((ch) => ch.areasOfConcern.map((aoc) => `uuid = '${aoc.value}'`))).join(' OR ');
+            const areasOfConcern = newRealm.objects(AreaOfConcern.schema.name).filtered(aocCriteria);
+            let standardsCriteria = _.flatten(
+                areasOfConcern.map((aoc) => aoc.standards.map((s) => `uuid = '${s.uuid}'`))).join(' OR ');
+            let newStandards = newRealm.objects(Standard.schema.name).filtered(standardsCriteria);
+            newStandards
+                .forEach((std) => {
+                    std.shortName = standardShortNames[std.reference]
+                });
+            newStandards.map((s) => console.log(s));
+        };
+
         const migrationExecutor = (fn) => (oldRealm, newRealm) => {
             fn.apply(null, [oldRealm, newRealm]);
             newRealm = oldRealm;
@@ -89,6 +110,7 @@ export default {
             [version(3), deleteAllTags],
             [version(4), aAllCheckpoints],
             [version(6), addingSeedProgress],
+            [version(100), addingStandardShortNames],
         ];
 
         migrationMap.filter(([matcher, ign]) => matcher(oldRealm))
