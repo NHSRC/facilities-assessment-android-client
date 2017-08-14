@@ -76,7 +76,7 @@ gradle.projectsEvaluated {
                             "--entry-file", entryFile, "--bundle-output", jsBundleFile, "--assets-dest", resourcesDir
                 } else {
                     commandLine "react-native", "bundle", "--platform", "android", "--dev", "${devEnabled}",
-                            "--entry-file", entryFile, "--bundle-output", jsBundleFile, "--assets-dest", resourcesDir
+                            "--entry-file", entryFile, "--bundle-output", jsBundleFile, "--assets-dest", resourcesDir, "--sourcemap-output", file("$buildDir/../../../sourcemap.js")
                 }
 
                 enabled config."bundleIn${targetName}" ||
