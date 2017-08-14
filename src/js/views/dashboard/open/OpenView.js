@@ -94,7 +94,7 @@ class OpenView extends AbstractComponent {
                 assessments: this.state.openAssessments,
                 buttons: [
                     {
-                        text: "CONTINUE",
+                        text: "GO",
                         onPress: this.handleContinue.bind(this)
                     },
                 ]
