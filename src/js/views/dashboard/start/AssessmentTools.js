@@ -61,6 +61,11 @@ class AssessmentTools extends AbstractComponent {
             this.dispatchAction(Actions.SELECT_ASSESSMENT_TOOL, {selectedAssessmentTool: assessmentTool});
     }
 
+    getAssessmentToolText(assessmentToolName) {
+        const found = assessmentToolName.match(/([a-zA-Z\s]+)\(([A-Z]+)\)/);
+        return _.isEmpty(found) ? assessmentToolName : found[2];
+    }
+
     render() {
         const selectedAssessmentTool = this.props.data.selectedAssessmentTool;
         const assessmentTools = this.props.data.assessmentTools.map((assessmentTool, idx) => {
@@ -75,7 +80,7 @@ class AssessmentTools extends AbstractComponent {
                         onPress={this.onSelect(assessmentTool)}>
                         <Icon style={{fontSize: 20, color: isSelected ? "white" : PrimaryColors.subheader_black}}
                               name='assessment'/>
-                        {assessmentTool.name}
+                        {this.getAssessmentToolText(assessmentTool.name)}
                     </Button>)
             }
         );
