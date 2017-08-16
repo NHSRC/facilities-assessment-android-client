@@ -5,7 +5,7 @@ import {
     View,
     ScrollView,
     Dimensions,
-    TouchableWithoutFeedback,
+    TouchableOpacity,
     ActivityIndicator
 } from 'react-native';
 import AbstractComponent from "../../common/AbstractComponent";
@@ -82,11 +82,11 @@ class AssessmentList extends AbstractComponent {
             .filter((button, key) => !_.isFunction(button.shouldRender) || button.shouldRender(assessment))
             .map((button, key) =>
                 <View key={key} style={AssessmentList.styles.listItemButtonContainer}>
-                    <TouchableWithoutFeedback onPress={button.onPress(assessment)}>
+                    <TouchableOpacity onPress={button.onPress(assessment)}>
                         <View style={AssessmentList.styles.listItemButton}>
                             {assessment.syncing ? this.renderSpinner() : this.renderButtonContent(button.text)}
                         </View>
-                    </TouchableWithoutFeedback>
+                    </TouchableOpacity>
                 </View>);
         return (
             <View key={key} style={AssessmentList.styles.listItem}>
