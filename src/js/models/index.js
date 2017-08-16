@@ -81,7 +81,6 @@ export default {
         };
 
         const addingStandardShortNames = (oldRealm, newRealm) => {
-            console.log("HERE");
             let oldStandards = oldRealm.objects(Standard.schema.name);
             const assessmentTools = newRealm.objects(AssessmentTool.schema.name).filtered('mode = $0', 'nqas');
             const checklistCriteria = assessmentTools.map((at) => `assessmentTool = '${at.uuid}'`).join(' OR ');
@@ -96,7 +95,6 @@ export default {
                 .forEach((std) => {
                     std.shortName = standardShortNames[std.reference]
                 });
-            newStandards.map((s) => console.log(s));
         };
 
         const migrationExecutor = (fn) => (oldRealm, newRealm) => {
