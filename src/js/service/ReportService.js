@@ -88,9 +88,14 @@ class ReportService extends BaseService {
         return scorePerStandard;
     }
 
+    getAssessmentToolUUID(facilityAssessment) {
+        return _.isEmpty(facilityAssessment.assessmentTool.uuid)
+            ? facilityAssessment.assessmentTool : facilityAssessment.assessmentTool.uuid;
+    }
+
     departmentScoreForAreaOfConcern(areaOfConcern, facilityAssessment) {
         let areasOfConcernUUIDs = this.db.objects(Checklist.schema.name)
-            .filtered("assessmentTool = $0", facilityAssessment.assessmentTool.uuid)
+            .filtered("assessmentTool = $0", this.getAssessmentToolUUID(facilityAssessment))
             .map((ch) => Object.assign({}, ch))
             .map(this.fromStringObj("areasOfConcern"))[0]
             .areasOfConcern.map(_.identity);
@@ -131,7 +136,7 @@ class ReportService extends BaseService {
 
     standardScoreForAreaOfConcern(areaOfConcern, facilityAssessment) {
         let areasOfConcernUUIDs = this.db.objects(Checklist.schema.name)
-            .filtered("assessmentTool = $0", facilityAssessment.assessmentTool.uuid)
+            .filtered("assessmentTool = $0", this.getAssessmentToolUUID(facilityAssessment))
             .map((ch) => Object.assign({}, ch))
             .map(this.fromStringObj("areasOfConcern"))[0]
             .areasOfConcern.map(_.identity);
