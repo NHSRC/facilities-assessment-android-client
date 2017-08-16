@@ -26,7 +26,6 @@ class OverallScore extends AbstractComponent {
         container: {
             padding: 10,
             backgroundColor: PrimaryColors.blue,
-            height: deviceHeight * .264,
         },
         innerContainer: {
             flexDirection: 'row',

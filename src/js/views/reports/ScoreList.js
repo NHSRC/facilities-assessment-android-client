@@ -61,11 +61,11 @@ class ScoreList extends AbstractComponent {
         let Items = _.toPairs(this.props.scores).map(([item, score], idx) => (
             <ListItem key={idx} onPress={() => onPressHandler(item, score)} style={ScoreList.styles.scoreItem}>
                 <View style={ScoreList.styles.scoreItemContainer}>
-                    <Text style={[Typography.paperFontSubhead, {color: "black", flex: .80}]}>{item}</Text>
+                    <Text style={[Typography.paperFontSubhead, {color: "black", flex: .75}]}>{item}</Text>
                     <Text style={{flex: .05}}/>
                     <View style={{
                         backgroundColor: PrimaryColors.yellow,
-                        flex: .15,
+                        flex: .20,
                         justifyContent: 'flex-start',
                         alignItems: 'center'
                     }}>
