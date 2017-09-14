@@ -16,7 +16,7 @@ run_android:
 run_android_jss:
 	ANDROID_HOME=/usr/local/opt/android-sdk ENVFILE=.env.jss react-native run-android
 
-run-packager:
+run_packager:
 	REACT_EDITOR=subl ./node_modules/react-native/packager/packager.sh start --reset-cache
 
 deps:
