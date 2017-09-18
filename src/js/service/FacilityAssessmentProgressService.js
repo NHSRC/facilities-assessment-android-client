@@ -16,7 +16,7 @@ class FacilityAssessmentProgressService extends BaseService {
 
     saveWithinTx(entityClass, facilityAssessmentProgress) {
         let entityService = this.getService(EntityService);
-        Logger.logInfo('FacilityAssessmentProgressService', `Number of checklist progress items=${facilityAssessmentProgress.checklistsProgress.length}`);
+        Logger.logInfo('FacilityAssessmentProgressService', `FacilityAssessmentUUID: ${facilityAssessmentProgress.uuid}; #checklist progress=${facilityAssessmentProgress.checklistsProgress.length}; Number of AOC progress items=${facilityAssessmentProgress.areaOfConcernsProgress.length}; # Standards progress=${facilityAssessmentProgress.standardsProgress.length}`);
         facilityAssessmentProgress.checklistsProgress.forEach((checklistProgressResource) => {
             let checklistProgress = entityService.findByCriteria(`checklist="${checklistProgressResource.uuid}" AND facilityAssessment="${facilityAssessmentProgress.uuid}"`, ChecklistProgress);
             if (_.isNil(checklistProgress)) {
@@ -30,7 +30,6 @@ class FacilityAssessmentProgressService extends BaseService {
             entityService.saveWithinTx(ChecklistProgress, checklistProgress);
         });
 
-        Logger.logInfo('FacilityAssessmentProgressService', `Number of AOC progress items=${facilityAssessmentProgress.areaOfConcernsProgress.length}`);
         facilityAssessmentProgress.areaOfConcernsProgress.forEach((aocProgressResource) => {
             let aocProgress = entityService.findByCriteria(`areaOfConcern="${aocProgressResource.uuid}" AND checklist="${aocProgressResource.checklistUUID}" AND facilityAssessment="${facilityAssessmentProgress.uuid}"`, AreaOfConcernProgress);
             if (_.isNil(aocProgress)) {
@@ -47,7 +46,6 @@ class FacilityAssessmentProgressService extends BaseService {
             entityService.saveWithinTx(AreaOfConcernProgress, aocProgress);
         });
 
-        Logger.logInfo('FacilityAssessmentProgressService', `Number of Standards progress items=${facilityAssessmentProgress.standardsProgress.length}`);
         facilityAssessmentProgress.standardsProgress.forEach((standardProgressResource) => {
             let standardProgress = entityService.findByCriteria(`standard="${standardProgressResource.uuid}" AND areaOfConcern="${standardProgressResource.aocUUID}" AND checklist="${standardProgressResource.checklistUUID}" AND facilityAssessment="${facilityAssessmentProgress.uuid}"`, StandardProgress);
             if (_.isNil(standardProgress)) {

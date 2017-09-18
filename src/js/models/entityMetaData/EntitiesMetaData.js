@@ -60,6 +60,14 @@ class EntitiesMetaData {
             new EntityMetaData(AssessmentType)
         ].map(_.identity);
     }
+
+    static get txEntityTypes() {
+        return [
+            new EntityMetaData(FacilityAssessmentProgress, undefined, undefined, FacilityAssessmentProgressService),
+            new EntityMetaData(CheckpointScore, undefined, new CheckpointScoreMapper()),
+            new EntityMetaData(FacilityAssessment, undefined, new FacilityAssessmentMapper()),
+        ].map(_.identity);
+    }
 }
 
 class FacilityMapper {

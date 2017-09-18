@@ -72,9 +72,23 @@ class SeedDataService extends BaseService {
     }
 
     deleteAllData() {
+        this._deleteData(EntitiesMetaData.allEntityTypes);
+    }
+
+    deleteTxData() {
+        this._deleteData(EntitiesMetaData.txEntityTypes);
+    }
+
+    _deleteData(entitiesToDelete) {
         const db = this.db;
-        let entitiesToDelete = EntitiesMetaData.allEntityTypes;
-        entitiesToDelete.push(new EntityMetaData(EntitySyncStatus));
+        let entitySyncStatusService = this.getService(EntitySyncStatusService);
+
+        db.write(() => {
+            entitiesToDelete.forEach((entityMetaData) => {
+                entitySyncStatusService.deleteEntitySyncStatusFor(entityMetaData.entityName);
+            });
+        });
+
         entitiesToDelete.forEach((entityMetaData) => {
             if (entityMetaData.isMappedToDb) {
                 Logger.logDebug('SeedDataService', `Deleting all data from ${entityMetaData.entityName}`);
@@ -86,7 +100,7 @@ class SeedDataService extends BaseService {
                 Logger.logDebug('SeedDataService', `Skipping as not mapped to db - ${entityMetaData.entityName}`);
             }
         });
-        this.getService(EntitySyncStatusService).setup(EntitiesMetaData.allEntityTypes);
+        entitySyncStatusService.setup(EntitiesMetaData.allEntityTypes);
     }
 }
 

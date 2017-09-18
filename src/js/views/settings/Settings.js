@@ -58,11 +58,29 @@ class Settings extends AbstractComponent {
     cleanData() {
         Alert.alert(
             'Do you want delete data',
-            "This will remove the reference, configuration and leave transaction data useless",
+            "This will remove the reference, configuration and transaction data.",
             [
                 {
                     text: 'Yes', onPress: () => {
                     this.dispatchAction(Actions.CLEAN_DATA);
+                }
+                },
+                {
+                    text: 'No', onPress: () => {
+                }
+                }
+            ]
+        )
+    }
+
+    cleanTxData() {
+        Alert.alert(
+            'Do you want delete data',
+            "This will remove the Tx data.",
+            [
+                {
+                    text: 'Yes', onPress: () => {
+                    this.dispatchAction(Actions.CLEAN_TXDATA);
                 }
                 },
                 {
@@ -138,8 +156,13 @@ class Settings extends AbstractComponent {
                         </Text>
 
                         <View style={{margin: 15}}/>
-                        <SubmitButton buttonText={"CLEAN DATA"}
+                        <SubmitButton buttonText={"CLEAN ALL DATA"}
                                       onPress={() => this.cleanData()}
+                                      showButton={this.state.serverConnected}/>
+
+                        <View style={{margin: 15}}/>
+                        <SubmitButton buttonText={"CLEAN TX DATA"}
+                                      onPress={() => this.cleanTxData()}
                                       showButton={this.state.serverConnected}/>
                     </View>
                 </Content>

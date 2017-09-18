@@ -46,6 +46,12 @@ const cleanData = function (state, action, beans) {
     return Object.assign(state, {});
 };
 
+const cleanTxData = function (state, action, beans) {
+    const seedDataService = beans.get(SeedDataService);
+    seedDataService.deleteTxData();
+    return Object.assign(state, {});
+};
+
 export default new Map([
     ["INITIAL_SETTINGS", initialSettings],
     ["UPDATE_SETTINGS", updateSettings],
@@ -53,7 +59,8 @@ export default new Map([
     ["SYNC_META_DATA", syncMetaData],
     ["SYNC_ALL_DATA", syncAllData],
     ["SYNCED_DATA", syncedData],
-    ['CLEAN_DATA', cleanData]
+    ['CLEAN_DATA', cleanData],
+    ['CLEAN_TXDATA', cleanTxData]
 ]);
 
 export let settingsInit = {

@@ -30,6 +30,10 @@ class Logger {
         Logger.log(source, message, Logger.LogLevel.Info);
     }
 
+    static logInfoObject(source, object) {
+        Logger.log(source, JSON.stringify(object), Logger.LogLevel.Info);
+    }
+
     static logWarn(source, message) {
         Logger.log(source, message, Logger.LogLevel.Warn);
     }
