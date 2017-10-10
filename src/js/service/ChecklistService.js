@@ -10,6 +10,7 @@ import {comp} from "transducers-js"
 import AreaOfConcern from "../models/AreaOfConcern";
 import CheckpointScore from "../models/CheckpointScore";
 import Standard from "../models/Standard";
+import AssessmentTool from "../models/AssessmentTool";
 
 @Service("checklistService")
 class ChecklistService extends BaseService {
@@ -162,6 +163,11 @@ class ChecklistService extends BaseService {
             uuid: uuid,
             submitted: true
         }));
+    }
+
+    get assessmentModes() {
+        let modes = this.db.objects(AssessmentTool.schema.name).map((assessmentTool) => assessmentTool.mode.toUpperCase());
+        return _.uniq(modes);
     }
 }
 

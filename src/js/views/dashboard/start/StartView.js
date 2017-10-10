@@ -17,6 +17,7 @@ import ChecklistSelection from "../../checklistSelection/ChecklistSelection";
 import FacilityText from "./FacilityText";
 import AssessmentSeries from "./AssessmentSeries";
 import Config from 'react-native-config';
+import EnvironmentConfig from "../../common/EnvironmentConfig";
 
 
 const deviceWidth = Dimensions.get('window').width;
@@ -76,7 +77,7 @@ class StartView extends AbstractComponent {
     }
 
     appropriateTextField() {
-        return Config.ASSESSMENT_SERIES_SUPPORT === "true" ? AssessmentSeries : FacilityText;
+        return EnvironmentConfig.isAssessmentSeriesSupported ? AssessmentSeries : FacilityText;
     }
 
     render() {

@@ -1,12 +1,10 @@
-import React, {Component} from 'react';
+import React from "react";
 import AbstractComponent from "../../common/AbstractComponent";
-import {Button} from 'native-base';
-import {StyleSheet} from 'react-native';
-import PrimaryColors from "../../styles/PrimaryColors";
-import _ from 'lodash';
+import {Button} from "native-base";
+import {StyleSheet} from "react-native";
+import _ from "lodash";
 import Actions from "../../../action";
-import Config from 'react-native-config';
-
+import EnvironmentConfig from "../../common/EnvironmentConfig";
 
 class StartNewAssessment extends AbstractComponent {
     static styles = StyleSheet.create({
@@ -16,7 +14,7 @@ class StartNewAssessment extends AbstractComponent {
     });
 
     render() {
-        const seriesNameRequiredAndEntered = Config.ASSESSMENT_SERIES_SUPPORT === 'true' ? _.isEmpty(this.props.data.series) : false;
+        const seriesNameRequiredAndEntered = EnvironmentConfig.isAssessmentSeriesSupported ? _.isEmpty(this.props.data.series) : false;
         const isComplete = !(_.isEmpty(this.props.data.selectedAssessmentTool) || _.isEmpty(this.props.data.selectedAssessmentType) || seriesNameRequiredAndEntered);
         return (
             <Button

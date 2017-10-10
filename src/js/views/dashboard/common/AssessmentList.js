@@ -14,6 +14,7 @@ import Dashboard from '../Dashboard';
 import Typography from '../../styles/Typography';
 import PrimaryColors from '../../styles/PrimaryColors';
 import _ from 'lodash';
+import EnviromentConfig from "../../common/EnvironmentConfig";
 
 
 const deviceWidth = Dimensions.get('window').width;
@@ -92,7 +93,7 @@ class AssessmentList extends AbstractComponent {
             <View key={key} style={AssessmentList.styles.listItem}>
                 <View style={AssessmentList.styles.listItemText}>
                     <Text style={[Typography.paperFontSubhead, {color: "white"}]}>
-                        {`${assessment.seriesName} - ${assessment.facility.name}`}
+                        {this.assessmentDisplayText(assessment)}
                     </Text>
                     <Text style={[Typography.paperFontCaption, {color: "rgba(255,255,255,0.7)", marginTop: 4}]}>
                         {assessment.facility.facilityType.name}
@@ -100,6 +101,10 @@ class AssessmentList extends AbstractComponent {
                 </View>
                 {buttons}
             </View>);
+    }
+
+    assessmentDisplayText(assessment) {
+        return EnviromentConfig.isAssessmentSeriesSupported ? `${assessment.seriesName} - ${assessment.facility.name}` : `${assessment.facility.name}`;
     }
 
     render() {

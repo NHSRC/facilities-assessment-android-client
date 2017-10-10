@@ -1,17 +1,21 @@
 import BaseService from "./BaseService";
 import Service from "../framework/bean/Service";
-import StateService from "./StateService";
 import EntitiesMetaData from "../models/entityMetaData/EntitiesMetaData";
 import Logger from "../framework/Logger";
-import EntitySyncStatus from "../models/sync/EntitySyncStatus";
-import EntityMetaData from "../models/entityMetaData/EntityMetaData";
 import EntitySyncStatusService from "./EntitySyncStatusService";
 import ReferenceDataSyncService from "./ReferenceDataSyncService";
 import LocalReferenceDataSyncService from "./LocalReferenceDataSyncService";
 import PackagedJSON from "./PackagedJSON";
-import Config from "react-native-config";
 import SeedProgress from "../models/SeedProgress";
 import _ from 'lodash';
+import EnvironmentConfig from "../views/common/EnvironmentConfig";
+import FacilityAssessmentService from "./FacilityAssessmentService";
+import AssessmentTool from "../models/AssessmentTool";
+import AssessmentType from "../models/AssessmentType";
+import FacilitiesService from "./FacilitiesService";
+import StateService from "./StateService";
+import EntityService from "./EntityService";
+import ChecklistService from "./ChecklistService";
 
 @Service("seedDataService")
 class SeedDataService extends BaseService {
@@ -33,10 +37,40 @@ class SeedDataService extends BaseService {
      a(72);*/
 
     postInit() {
-        if (this.isNotCompletelySeeded() && Config.USE_PACKAGED_SEED_DATA === "true") {
+        if (this.isNotCompletelySeeded() && EnvironmentConfig.shouldUsePackagedSeedData) {
             let localReferenceDataSyncService = new LocalReferenceDataSyncService(this.db, this.beanStore, this.getService(ReferenceDataSyncService));
             localReferenceDataSyncService.syncMetaDataFromLocal(PackagedJSON.getFiles(), this.finishSeeding.bind(this));
         }
+        if (EnvironmentConfig.shouldSetupTestData) {
+            this.setupTestData();
+        }
+    }
+
+    setupTestData() {
+        const facilityAssessmentService = this.getService(FacilityAssessmentService);
+        const checklistService = this.getService(ChecklistService);
+        const stateService = this.getService(StateService);
+        const facilityService = this.getService(FacilitiesService);
+        const entityService = this.getService(EntityService);
+
+        let state = stateService.findByName('Chhattisgarh');
+        let facility = state.districts[0].facilities[0];
+
+        let assessmentTool = entityService.findByName('Dakshata', AssessmentTool.schema.name);
+        let assessmentType = entityService.findByName('Internal', AssessmentType.schema.name);
+        const facilityAssessment = facilityAssessmentService.startAssessment(facility, assessmentTool, assessmentType, '5');
+
+        let checklists = checklistService.getChecklistsFor(assessmentTool, state);
+        checklists.forEach((checklist) => {
+            checklist.areasOfConcern.forEach((aoc) => {
+                // entityService.findByKey(aoc.);
+            });
+        });
+
+        // facilityAssessmentService.updateStandardProgress(action.standard, action.areaOfConcern, action.checklist, action.facilityAssessment);
+        // let updatedProgress = facilityAssessmentService.updateAreaOfConcernProgress(action.areaOfConcern, action.checklist, action.facilityAssessment);
+        // let updatedProgress = facilityAssessmentService.updateChecklistProgress(action.checklist, action.facilityAssessment);
+        // const savedCheckpoint = facilityAssessmentService.saveCheckpointScore(checkpointToUpdate);
     }
 
     startSeedProgress() {

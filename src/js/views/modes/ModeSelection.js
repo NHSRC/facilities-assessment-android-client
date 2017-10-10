@@ -10,6 +10,7 @@ import Typography from "../styles/Typography";
 import Dashboard from '../dashboard/Dashboard';
 import Settings from "../settings/Settings";
 import Config from 'react-native-config';
+import Logger from "../../framework/Logger";
 
 const nqasIcon = require('../img/nqas.png');
 const kayakalpIcon = require('../img/kayakalp.png');
@@ -18,12 +19,28 @@ const nhsrcbanner = require('../img/nhsrcbanner.png');
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
 
+import Actions from '../../action';
+
 @PathRoot
 @Path("/modeSelection")
 class ModeSelection extends AbstractComponent {
     constructor(props, context) {
         super(props, context);
         this.handleOnPress = this.handleOnPress.bind(this);
+        this.unsubscribe = context.getStore().subscribeTo('modeSelection', this.handleChange.bind(this));
+    }
+
+    handleChange() {
+        const newState = this.context.getStore().getState().modeSelection;
+        this.setState(newState);
+    }
+
+    componentWillMount() {
+        this.dispatchAction(Actions.MODE_SELECTION, {...this.props.params})
+    }
+
+    componentWillUnmount() {
+        this.unsubscribe();
     }
 
     static styles = StyleSheet.create({
@@ -49,13 +66,13 @@ class ModeSelection extends AbstractComponent {
         }
     });
 
-
     handleOnPress(mode) {
         return () => TypedTransition.from(this).with({mode: mode}).to(Dashboard);
     }
 
     render() {
-        let showDakshata = Config.DAKSHATA === 'true';
+        Logger.logDebugObject('ModeSelection', this.state);
+        let showDakshata = _.isNil(this.state) || this.state.modes.indexOf("DAKSHATA") > -1;
         const Dakshata = showDakshata ? (
             <TouchableWithoutFeedback onPress={this.handleOnPress("Dakshata")}>
                 <View>

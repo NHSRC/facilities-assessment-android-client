@@ -2,6 +2,7 @@ import checklistSelectionActions, {checklistSelectionInit} from '../action/check
 import facilitySelectionActions, {facilitySelectionInit} from '../action/facilitySelection';
 import assessmentActions, {assessmentInit} from '../action/assessment';
 import areasOfConcernActions, {areasOfConcernInit} from '../action/areasOfConcern';
+import modeSelectionActions, {modeSelectionInit} from '../action/modeSelection';
 import standardsActions, {standardsInit} from '../action/standards';
 import openAssessmentsActions, {openAssessmentsInit} from '../action/openAssessments';
 import searchActions, {searchInit} from '../action/search';
@@ -32,6 +33,11 @@ export default (beans) => {
             "stateKey": "areasOfConcern",
             "actions": areasOfConcernActions,
             "initState": areasOfConcernInit
+        },
+        {
+            "stateKey": "modeSelection",
+            "actions": modeSelectionActions,
+            "initState": modeSelectionInit
         },
         {
             "stateKey": "standards",

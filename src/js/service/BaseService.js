@@ -50,6 +50,9 @@ export default class BaseService {
         return uuid;
     }
 
+    get schemaName() {
+    }
+
     save(entityClass, transformFN = _.identity) {
         return (entity) => {
             this.db.write(() => this.db.create(entityClass.schema.name, transformFN(entity), true));
@@ -60,6 +63,10 @@ export default class BaseService {
     findByUUID(uuid, schema) {
         if (_.isEmpty(uuid)) throw Error("UUID is empty or null");
         return this.findByKey("uuid", uuid, schema);
+    }
+
+    findByName(name, schemaName = this.schemaName) {
+        return this.findByKey('name', name, schemaName);
     }
 
     findByKey(keyName, value, schemaName) {

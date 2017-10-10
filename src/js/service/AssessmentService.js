@@ -29,7 +29,6 @@ class AssessmentService extends BaseService {
         return Object.assign({}, this.saveCheckpoint(checkpoint));
     }
 
-
     getCheckpointScore(checkpoint, standard, areaOfConcern, checklist, facilityAssessment) {
         return Object.assign({}, this.db.objects(CheckpointScore.schema.name)
             .filtered('checkpoint = $0 AND standard = $1 AND areaOfConcern = $2 ' +

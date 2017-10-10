@@ -18,6 +18,7 @@ import _ from 'lodash';
 import Reports from "../reports/Reports";
 import SearchPage from "../search/SearchPage";
 import Config from "react-native-config";
+import EnvironmentConfig from "../common/EnvironmentConfig";
 
 
 const deviceWidth = Dimensions.get('window').width;
@@ -84,8 +85,7 @@ class ChecklistSelection extends AbstractComponent {
     }
 
     showOtherCompleteButton() {
-        const allowIncompleteSubmit = (Config.ALLOW_INCOMPLETE_SUBMIT === 'true');
-        return allowIncompleteSubmit || this.state.assessmentProgress.completed > 0
+        return EnvironmentConfig.shouldAllowIncompleteChecklistSubmission || this.state.assessmentProgress.completed > 0
     }
 
     showCompleteButton(mode) {

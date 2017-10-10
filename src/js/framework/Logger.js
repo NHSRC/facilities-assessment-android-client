@@ -1,5 +1,3 @@
-import _ from "lodash";
-
 var currentLogLevel;
 
 class Logger {
@@ -23,7 +21,8 @@ class Logger {
     }
 
     static logDebugObject(source, object) {
-        Logger.log(source, JSON.stringify(object), Logger.LogLevel.Debug);
+        if (Logger.canLog(Logger.LogLevel.Debug))
+            Logger.log(source, JSON.stringify(object), Logger.LogLevel.Debug);
     }
 
     static logInfo(source, message) {
@@ -31,7 +30,8 @@ class Logger {
     }
 
     static logInfoObject(source, object) {
-        Logger.log(source, JSON.stringify(object), Logger.LogLevel.Info);
+        if (Logger.canLog(Logger.LogLevel.Info))
+            Logger.log(source, JSON.stringify(object), Logger.LogLevel.Info);
     }
 
     static logWarn(source, message) {

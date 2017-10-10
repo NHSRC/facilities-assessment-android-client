@@ -1,5 +1,5 @@
-import UUID from '../utility/UUID';
-import _ from 'lodash';
+import UUID from "../utility/UUID";
+import _ from "lodash";
 
 class FacilityAssessment {
     static schema = {

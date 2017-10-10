@@ -2,7 +2,7 @@ import BaseService from "./BaseService";
 import Service from "../framework/bean/Service";
 import _ from "lodash";
 import Settings from "../models/Settings";
-import Config from "react-native-config";
+import EnvironmentConfig from "../views/common/EnvironmentConfig";
 
 @Service("settingsService")
 class SettingsService extends BaseService {
@@ -15,7 +15,7 @@ class SettingsService extends BaseService {
 
     postInit() {
         if (!this.hasServerURL()) {
-            this.saveSettings({serverURL: Config.SERVER_URL});
+            this.saveSettings({serverURL: EnvironmentConfig.serverURL});
         }
     }
 

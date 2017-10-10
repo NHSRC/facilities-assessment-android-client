@@ -8,11 +8,14 @@ import District from "../models/District";
 class StateService extends BaseService {
     constructor(db, beanStore) {
         super(db, beanStore);
-        this.saveState = this.save(State);
         this.saveDistrict = this.save(District);
     }
 
     init() {
+    }
+
+    get schemaName() {
+        return State.schema.name;
     }
 
     getAllStates() {
