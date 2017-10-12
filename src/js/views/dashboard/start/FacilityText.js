@@ -23,7 +23,6 @@ class FacilityText extends AbstractComponent {
     }
 
     render() {
-
         return (
             <TextInput style={FacilityText.styles.input}
                        placeholder={"Enter Facility Name"}

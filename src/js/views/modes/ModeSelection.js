@@ -71,7 +71,6 @@ class ModeSelection extends AbstractComponent {
     }
 
     render() {
-        Logger.logDebugObject('ModeSelection', this.state);
         let showDakshata = _.isNil(this.state) || this.state.modes.indexOf("DAKSHATA") > -1;
         const Dakshata = showDakshata ? (
             <TouchableWithoutFeedback onPress={this.handleOnPress("Dakshata")}>

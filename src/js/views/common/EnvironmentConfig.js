@@ -21,6 +21,10 @@ class EnvironmentConfig {
         return EnvironmentConfig._isPropertyTrue("ASSESSMENT_SERIES_SUPPORT");
     }
 
+    static get isFreeTextFacilityNameSupported() {
+        return EnvironmentConfig._isPropertyTrue("FREE_TEXT_FACILITY_NAME_SUPPORT");
+    }
+
     static get shouldSetupTestData() {
         return EnvironmentConfig._isPropertyTrue("SETUP_TEST_DATA");
     }

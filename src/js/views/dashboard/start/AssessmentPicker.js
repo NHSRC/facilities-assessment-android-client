@@ -3,6 +3,7 @@ import {Text, StyleSheet, View} from 'react-native';
 import AbstractComponent from "../../common/AbstractComponent";
 import {Picker} from 'native-base';
 import PrimaryColors from "../../styles/PrimaryColors";
+import Logger from "../../../framework/Logger";
 const Item = Picker.Item;
 
 class AssessmentPicker extends AbstractComponent {
@@ -22,7 +23,8 @@ class AssessmentPicker extends AbstractComponent {
 
     pickerValueChanged(action, stateKey, message, items) {
         return (value, valueIdx) => {
-            if (value === message) return;
+            Logger.logDebug('AssessmentPicker', 'AssessmentPicker.pickerValueChanged');
+            if (!this.props.nullable && value === message) return;
             let actionParams = {};
             actionParams[stateKey] = items[valueIdx - 1];
             this.dispatchAction(action, actionParams);

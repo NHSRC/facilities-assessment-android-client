@@ -17,6 +17,7 @@ class Facility extends AbstractComponent {
         const selectedFacility = this.props.data.selectedFacility;
         return (
             <AssessmentPicker
+                nullable={true}
                 message="Select Facility"
                 items={facilities}
                 action={Actions.SELECT_FACILITY}

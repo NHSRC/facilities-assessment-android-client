@@ -18,11 +18,10 @@ import FacilityText from "./FacilityText";
 import AssessmentSeries from "./AssessmentSeries";
 import Config from 'react-native-config';
 import EnvironmentConfig from "../../common/EnvironmentConfig";
-
+import Logger from "../../../framework/Logger";
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
-
 
 class StartView extends AbstractComponent {
     constructor(props, context) {
@@ -76,13 +75,17 @@ class StartView extends AbstractComponent {
         this.dispatchAction(Actions.ALL_STATES, {...this.props});
     }
 
-    appropriateTextField() {
-        return EnvironmentConfig.isAssessmentSeriesSupported ? AssessmentSeries : FacilityText;
+    assessmentSeriesField() {
+        return EnvironmentConfig.isAssessmentSeriesSupported ? AssessmentSeries : View;
+    }
+
+    facilityNameField() {
+        return EnvironmentConfig.isFreeTextFacilityNameSupported && _.isNil(this.state.selectedFacility) ? FacilityText : View;
     }
 
     render() {
         const FormComponents =
-            [AssessmentTools, StateDistrict, FacilityType, Facility, this.appropriateTextField(), AssessmentType, StartNewAssessment]
+            [AssessmentTools, StateDistrict, FacilityType, Facility, this.facilityNameField(), this.assessmentSeriesField(), AssessmentType, StartNewAssessment]
                 .map((FormComponent, idx) =>
                     <ListItem key={idx} style={StartView.styles.formRow}>
                         <FormComponent data={this.state} {...this.props}/>
