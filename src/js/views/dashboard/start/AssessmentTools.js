@@ -6,6 +6,7 @@ import {Button, Icon} from 'native-base';
 import Typography from '../../styles/Typography';
 import PrimaryColors from "../../styles/PrimaryColors";
 import _ from 'lodash';
+import Logger from "../../../framework/Logger";
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceheight = Dimensions.get('window').height;

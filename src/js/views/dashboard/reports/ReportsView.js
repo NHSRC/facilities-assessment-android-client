@@ -8,6 +8,7 @@ import AssessmentList from '../common/AssessmentList';
 import Reports from '../../reports/Reports';
 import Certification from '../../cert/Certification';
 import TypedTransition from "../../../framework/routing/TypedTransition";
+import Logger from "../../../framework/Logger";
 
 const deviceWidth = Dimensions.get('window').width;
 
@@ -51,6 +52,7 @@ class ReportsView extends AbstractComponent {
     }
 
     render() {
+        Logger.logDebug('ReportsView', 'render');
         const AssessmentLists = [
             {
                 header: "CERTIFIABLE ASSESSMENTS",

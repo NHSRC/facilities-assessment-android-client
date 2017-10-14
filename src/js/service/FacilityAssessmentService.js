@@ -36,12 +36,13 @@ class FacilityAssessmentService extends BaseService {
     startAssessment(facility, assessmentTool, assessmentType, series = null) {
         const existingAssessment = this.getExistingAssessment(facility, assessmentTool, assessmentType, series);
         const optParams = _.isEmpty(series) ? {} : {seriesName: series};
-        return this.saveAssessment(Object.assign(existingAssessment, {
+        let assessment = this.saveAssessment(Object.assign(existingAssessment, {
             assessmentTool: assessmentTool.uuid,
             facility: facility.uuid,
             assessmentType: assessmentType.uuid,
             ...optParams
         }));
+        return this._associateObjects(assessment);
     }
 
     endAssessment(facilityAssessment) {
@@ -61,18 +62,22 @@ class FacilityAssessmentService extends BaseService {
 
     getAssessmentsWithCriteria(mode) {
         return (criteria) => {
-            const facilityService = this.getService(FacilityService);
             return this.db.objects(FacilityAssessment.schema.name)
                 .filtered(criteria)
                 .map((assessment) =>
-                    Object.assign({}, assessment, {
-                        facility: facilityService.getFacility(assessment.facility),
-                        state: facilityService.getStateForFacility(assessment.facility),
-                        assessmentTool: this.getAssessmentTool(assessment.assessmentTool),
-                        assessmentType: this.getAssessmentType(assessment.assessmentType)
-                    }))
+                    this._associateObjects(assessment))
                 .filter((assessment) => assessment.assessmentTool.mode.toLowerCase() === mode.toLowerCase());
         };
+    }
+
+    _associateObjects(assessment) {
+        const facilityService = this.getService(FacilityService);
+        return Object.assign({}, assessment, {
+            facility: facilityService.getFacility(assessment.facility),
+            state: facilityService.getStateForFacility(assessment.facility),
+            assessmentTool: this.getAssessmentTool(assessment.assessmentTool),
+            assessmentType: this.getAssessmentType(assessment.assessmentType)
+        });
     }
 
     getAllOpenAssessments(mode) {
@@ -89,7 +94,7 @@ class FacilityAssessmentService extends BaseService {
             .map(_.identity);
         return _.every(checklistsProgress,
             (checklistProgress) => _.isNumber(checklistProgress.completed) && checklistProgress.completed > 0 &&
-                checklistProgress.total === checklistProgress.completed);
+            checklistProgress.total === checklistProgress.completed);
     }
 
     getAllCertifiableAssessments(mode) {

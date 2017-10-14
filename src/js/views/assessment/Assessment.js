@@ -15,6 +15,7 @@ import _ from 'lodash';
 import Dashboard from '../dashboard/Dashboard';
 import GestureRecognizer from 'react-native-swipe-gestures';
 import Standard from "../../models/Standard";
+import Logger from "../../framework/Logger";
 
 
 const deviceWidth = Dimensions.get('window').width;
@@ -63,6 +64,7 @@ class Assessment extends AbstractComponent {
 
 
     render() {
+        Logger.logDebug('Assessment', 'render');
         const config = {
             velocityThreshold: 0.1,
             directionalOffsetThreshold: 80

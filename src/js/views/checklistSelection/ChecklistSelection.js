@@ -19,6 +19,7 @@ import Reports from "../reports/Reports";
 import SearchPage from "../search/SearchPage";
 import Config from "react-native-config";
 import EnvironmentConfig from "../common/EnvironmentConfig";
+import Logger from "../../framework/Logger";
 
 
 const deviceWidth = Dimensions.get('window').width;
@@ -93,6 +94,7 @@ class ChecklistSelection extends AbstractComponent {
     }
 
     render() {
+        Logger.logDebug('ChecklistSelection', 'render');
         let assessmentComplete = this.state.assessmentProgress.completed === this.state.assessmentProgress.total;
         const showCompleteButton = this.showCompleteButton(this.props.params.mode);
         return (

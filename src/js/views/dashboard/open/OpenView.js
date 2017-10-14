@@ -71,6 +71,7 @@ class OpenView extends AbstractComponent {
     }
 
     render() {
+        Logger.logDebug('OpenView', 'render');
         let completedAssessments = this.state.completedAssessments.map((assessment) => this.state.syncing.indexOf(assessment.uuid) >= 0 ?
             {syncing: true, ...assessment} : assessment);
         const AssessmentLists = [

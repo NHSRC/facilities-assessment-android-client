@@ -14,6 +14,7 @@ import Share from 'react-native-share';
 import _ from 'lodash';
 import {takeSnapshot} from "react-native-view-shot";
 import ExportOptions from './ExportOptions';
+import Logger from "../../framework/Logger";
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
@@ -96,6 +97,8 @@ class Reports extends AbstractComponent {
     }
 
     render() {
+        Logger.logDebug('Reports', 'render');
+        Logger.logTraceObject('Reports', this.props);
         const exportOptions = [{
             title: `Export ${_.startCase(this.state.selectedTab.toLowerCase())} Scorecard`,
             cb: this.exportCurrentTab.bind(this)

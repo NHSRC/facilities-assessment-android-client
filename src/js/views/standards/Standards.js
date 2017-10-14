@@ -14,6 +14,7 @@ import Dashboard from '../dashboard/Dashboard';
 import SearchPage from "../search/SearchPage";
 import _ from 'lodash';
 import Standard from "../../models/Standard";
+import Logger from "../../framework/Logger";
 
 const deviceWidth = Dimensions.get('window').width;
 
@@ -53,6 +54,7 @@ class Standards extends AbstractComponent {
     }
 
     render() {
+        Logger.logDebug('Standards', 'render');
         const standards = this.state.standards.map((standard) =>
             Object.assign(standard,
                 {name: Standard.getDisplayName(standard)}));

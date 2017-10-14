@@ -12,6 +12,7 @@ import _ from 'lodash';
 import ScoreList from "../reports/ScoreList";
 import {takeSnapshot} from "react-native-view-shot";
 import Share from "react-native-share";
+import Logger from "../../framework/Logger";
 
 const deviceWidth = Dimensions.get('window').width;
 
@@ -44,6 +45,7 @@ class DrillDownView extends AbstractComponent {
     }
 
     render() {
+        Logger.logDebug('DrillDownView', 'render');
         return (
             <Container theme={FlatUITheme}>
                 <Header style={DrillDownView.styles.header}>

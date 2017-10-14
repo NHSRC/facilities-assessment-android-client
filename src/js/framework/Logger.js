@@ -5,7 +5,8 @@ class Logger {
         Error: 4,
         Warn: 3,
         Info: 2,
-        Debug: 1
+        Debug: 1,
+        Trace: 0,
     };
 
     static setCurrentLogLevel(level) {
@@ -23,6 +24,15 @@ class Logger {
     static logDebugObject(source, object) {
         if (Logger.canLog(Logger.LogLevel.Debug))
             Logger.log(source, JSON.stringify(object), Logger.LogLevel.Debug);
+    }
+
+    static logTrace(source, message) {
+        Logger.log(source, message, Logger.LogLevel.Trace);
+    }
+
+    static logTraceObject(source, object) {
+        if (Logger.canLog(Logger.LogLevel.Trace))
+            Logger.log(source, JSON.stringify(object), Logger.LogLevel.Trace);
     }
 
     static logInfo(source, message) {

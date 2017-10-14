@@ -1,22 +1,19 @@
-import React, {Component} from 'react';
-import {Text, StyleSheet, View, ScrollView, Dimensions, Alert, TouchableWithoutFeedback} from 'react-native';
+import React from "react";
+import {Dimensions, StyleSheet, View} from "react-native";
 import AbstractComponent from "../../common/AbstractComponent";
-import {List, ListItem, Button, Icon} from 'native-base';
-import Typography from '../../styles/Typography';
-import PrimaryColors from '../../styles/PrimaryColors';
-import Dashboard from '../Dashboard';
-import Actions from '../../../action';
-import StateDistrict from './StateDistrict';
-import FacilityType from './FacilityType';
-import Facility from './Facility';
-import AssessmentType from './AssessmentType';
-import AssessmentTools from './AssessmentTools';
-import StartNewAssessment from './StartNewAssessment';
+import {List, ListItem} from "native-base";
+import Dashboard from "../Dashboard";
+import Actions from "../../../action";
+import StateDistrict from "./StateDistrict";
+import FacilityType from "./FacilityType";
+import Facility from "./Facility";
+import AssessmentType from "./AssessmentType";
+import AssessmentTools from "./AssessmentTools";
+import StartNewAssessment from "./StartNewAssessment";
 import TypedTransition from "../../../framework/routing/TypedTransition";
 import ChecklistSelection from "../../checklistSelection/ChecklistSelection";
 import FacilityText from "./FacilityText";
 import AssessmentSeries from "./AssessmentSeries";
-import Config from 'react-native-config';
 import EnvironmentConfig from "../../common/EnvironmentConfig";
 import Logger from "../../../framework/Logger";
 
@@ -84,6 +81,7 @@ class StartView extends AbstractComponent {
     }
 
     render() {
+        Logger.logDebug('StartView', 'render');
         const FormComponents =
             [AssessmentTools, StateDistrict, FacilityType, Facility, this.facilityNameField(), this.assessmentSeriesField(), AssessmentType, StartNewAssessment]
                 .map((FormComponent, idx) =>

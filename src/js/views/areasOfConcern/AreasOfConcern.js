@@ -12,6 +12,7 @@ import Actions from '../../action';
 import Standards from "../standards/Standards";
 import Dashboard from '../dashboard/Dashboard';
 import SearchPage from "../search/SearchPage";
+import Logger from "../../framework/Logger";
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
@@ -51,6 +52,7 @@ class AreasOfConcern extends AbstractComponent {
     }
 
     render() {
+        Logger.logDebug('AreasOfConcern', 'render');
         return (
             <Container theme={FlatUITheme}>
                 <Header style={Dashboard.styles.header}>

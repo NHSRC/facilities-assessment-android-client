@@ -10,6 +10,7 @@ import ChecklistService from "./ChecklistService";
 import ChecklistProgress from "../models/ChecklistProgress";
 import Checkpoint from "../models/Checkpoint";
 import MeasurableElement from "../models/MeasurableElement";
+import Logger from "../framework/Logger";
 
 @Service("reportService")
 class ReportService extends BaseService {
@@ -89,6 +90,8 @@ class ReportService extends BaseService {
     }
 
     departmentScoreForAreaOfConcern(areaOfConcern, facilityAssessment) {
+        Logger.logDebugObject('ReportService', facilityAssessment.assessmentTool);
+        Logger.logDebugObject('ReportService', this.db.objects(Checklist.schema.name).filtered("assessmentTool = $0", facilityAssessment.assessmentTool.uuid));
         let areasOfConcernUUIDs = this.db.objects(Checklist.schema.name)
             .filtered("assessmentTool = $0", facilityAssessment.assessmentTool.uuid)
             .map((ch) => Object.assign({}, ch))

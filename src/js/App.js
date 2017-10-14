@@ -14,7 +14,7 @@ let routes, beans, appStore, db = undefined;
 export default class App extends Component {
     constructor(props, context) {
         super(props, context);
-        Logger.setCurrentLogLevel(Logger.LogLevel.Debug);
+        Logger.setCurrentLogLevel(Logger.LogLevel.Info);
         this.state = {seeding: true};
         this.seed = this.seed.bind(this);
     }

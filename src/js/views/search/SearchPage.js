@@ -13,6 +13,7 @@ import Standards from "../standards/Standards";
 import Assessment from "../assessment/Assessment";
 import Dashboard from '../dashboard/Dashboard';
 import _ from 'lodash';
+import Logger from "../../framework/Logger";
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
@@ -92,6 +93,7 @@ class SearchPage extends AbstractComponent {
     }
 
     render() {
+        Logger.logDebug('SearchPage', 'render');
         return (
             <Container theme={FlatUITheme}>
                 <View style={SearchPage.styles.header}>

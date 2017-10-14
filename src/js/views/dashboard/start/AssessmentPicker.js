@@ -23,7 +23,6 @@ class AssessmentPicker extends AbstractComponent {
 
     pickerValueChanged(action, stateKey, message, items) {
         return (value, valueIdx) => {
-            Logger.logDebug('AssessmentPicker', 'AssessmentPicker.pickerValueChanged');
             if (!this.props.nullable && value === message) return;
             let actionParams = {};
             actionParams[stateKey] = items[valueIdx - 1];

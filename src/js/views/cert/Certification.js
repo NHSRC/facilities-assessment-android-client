@@ -9,6 +9,7 @@ import Typography from "../styles/Typography";
 import PrimaryColors from "../styles/PrimaryColors";
 import {Button, Container, Content, Header, Icon, Title} from "native-base";
 import FlatUITheme from '../themes/flatUI';
+import Logger from "../../framework/Logger";
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
@@ -68,6 +69,7 @@ class Certification extends AbstractComponent {
     }
 
     render() {
+        Logger.logDebug('Certification', 'render');
         let Criteria = this.state.criteria.map((criteria, idx) =>
             <View key={idx} style={[Certification.styles.criteriaListItem,
                 {backgroundColor: criteria.certified ? "#47A64A" : "#FF8880"}]}>
