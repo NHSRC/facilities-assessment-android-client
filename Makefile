@@ -99,3 +99,6 @@ stop_app:
 
 start_app:
 	adb shell am start -n com.facilitiesassessment/com.facilitiesassessment.MainActivity
+
+openlocation_app:
+	open android/app/build/outputs/apk
