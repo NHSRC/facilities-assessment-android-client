@@ -14,7 +14,7 @@ run_android:
 	ANDROID_HOME=/usr/local/opt/android-sdk ENVFILE=.env.dev react-native run-android
 
 run_ios_nhsrc:
-	ANDROID_HOME=/usr/local/opt/android-sdk ENVFILE=.env react-native run-ios
+	ANDROID_HOME=/usr/local/opt/android-sdk ENVFILE=.env.dev react-native run-ios
 
 run_android_jss:
 	ANDROID_HOME=/usr/local/opt/android-sdk ENVFILE=.env.jss react-native run-android
