@@ -23,7 +23,7 @@ run_android_nhsrc:
 	ANDROID_HOME=/usr/local/opt/android-sdk ENVFILE=.env react-native run-android
 
 run_packager:
-	REACT_EDITOR=subl ./node_modules/react-native/packager/packager.sh start --reset-cache
+	REACT_EDITOR=vi ./node_modules/react-native/packager/packager.sh start --reset-cache
 
 deps:
 	npm install
@@ -102,3 +102,7 @@ start_app:
 
 openlocation_app:
 	open android/app/build/outputs/apk
+
+clean_ios: clear_packager
+	rm -rf ios/build/*
+	rm -rf node_modules

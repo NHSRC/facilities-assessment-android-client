@@ -3,6 +3,7 @@ package com.facilitiesassessment;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import io.realm.react.RealmReactPackage;
 import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
 import fr.greweb.reactnativeviewshot.RNViewShotPackage;
 import com.rnfs.RNFSPackage;
@@ -11,7 +12,6 @@ import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
-import io.realm.react.RealmReactPackage;
 import com.smixx.fabric.FabricPackage;
 import com.crashlytics.android.Crashlytics;
 import io.fabric.sdk.android.Fabric;
@@ -35,6 +35,7 @@ public class MainApplication extends Application implements ReactApplication {
             return Arrays.<ReactPackage>asList(
                     new FabricPackage(),
                     new MainReactPackage(),
+            new RealmReactPackage(),
             new ReactNativeConfigPackage(),
             new RNViewShotPackage(),
             new RNFSPackage(),

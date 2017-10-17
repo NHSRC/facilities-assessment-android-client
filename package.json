@@ -24,11 +24,10 @@
     "react-native-fs": "^2.3.3",
     "react-native-material-design-styles": "^0.2.6",
     "react-native-share": "^1.0.20",
-    "react-native-simple-gauge": "^0.1.2",
     "react-native-swipe-gestures": "^1.0.2",
     "react-native-vector-icons": "^4.0.0",
     "react-native-view-shot": "^1.10.1",
-    "realm": "1.2.0",
+    "realm": "2.0.0",
     "redux": "^3.6.0",
     "transducers-js": "^0.4.174"
   },
