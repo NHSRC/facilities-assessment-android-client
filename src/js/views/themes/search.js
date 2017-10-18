@@ -1,6 +1,7 @@
 import {Platform, Dimensions} from 'react-native';
 import Color from 'color';
 import PrimaryColors from "../styles/PrimaryColors";
+import Fonts from "../styles/Fonts";
 
 const deviceHeight = Dimensions.get('window').height;
 
@@ -12,7 +13,7 @@ export default {
 
 
     // Button
-    btnFontFamily: (Platform.OS === 'ios' ) ? 'HelveticaNeue' : 'Roboto_medium',
+    btnFontFamily: Fonts.HelveticaNeueOrRobotoMedium,
     btnDisabledBg: '#b5b5b5',
     btnDisabledClr: '#f1f1f1',
 

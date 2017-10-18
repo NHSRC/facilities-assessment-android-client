@@ -1,16 +1,11 @@
 'use strict';
 
-import React from 'react';
-import NativeBaseComponent from 'native-base/dist/Components/Base/NativeBaseComponent';
-import {Text} from 'native-base';
+import React from "react";
+import NativeBaseComponent from "native-base/dist/Components/Base/NativeBaseComponent";
+import {Text} from "native-base";
 
-import {
-    Dimensions,
-    StyleSheet,
-    TouchableHighlight,
-    View,
-    Animated,
-} from 'react-native';
+import {Animated, Dimensions, TouchableHighlight, View} from "react-native";
+import Fonts from "../styles/Fonts";
 
 const deviceWidth = Dimensions.get('window').width;
 
@@ -35,7 +30,7 @@ export default class CustomTabBar extends NativeBaseComponent {
         goToPage: React.PropTypes.func,
         activeTab: React.PropTypes.number,
         tabs: React.PropTypes.array
-    }
+    };
 
     renderTabOption(name, page) {
         var isTabActive = this.props.activeTab === page;
@@ -45,7 +40,7 @@ export default class CustomTabBar extends NativeBaseComponent {
                                 key={name} onPress={() => this.props.goToPage(page)}>
                 <View>
                     <Text style={{
-                        fontFamily: 'Roboto-Medium',
+                        fontFamily: Fonts.HelveticaNeueOrRobotoMedium,
                         color: isTabActive ? this.getTheme().tabTextColor : this.getTheme().tabTextColor,
                         fontSize: this.getTheme().tabFontSize
                     }}>{name}</Text>
