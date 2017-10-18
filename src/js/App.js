@@ -14,7 +14,7 @@ let routes, beans, appStore, db = undefined;
 export default class App extends Component {
     constructor(props, context) {
         super(props, context);
-        Logger.setCurrentLogLevel(Logger.LogLevel.Info);
+        Logger.setCurrentLogLevel(Logger.LogLevel.Debug);
         this.state = {seeding: true};
         this.seed = this.seed.bind(this);
     }
@@ -37,7 +37,7 @@ export default class App extends Component {
             beans = BeanRegistry.init(db);
             appStore = AppStoreFactory(beans);
             routes = PathRegistry.routes();
-            Logger.logDebugObject('App', Config);
+            Logger.logInfoObject('App', Config);
         }
         this.setState({seeding: false});
     }

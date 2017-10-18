@@ -10,17 +10,6 @@ endif
 install: ansible_check
 	ansible-playbook setup/dev.yml -i setup/local
 
-run_android:
-	ANDROID_HOME=/usr/local/opt/android-sdk ENVFILE=.env.dev react-native run-android
-
-run_ios_nhsrc:
-	ANDROID_HOME=/usr/local/opt/android-sdk ENVFILE=.env.dev react-native run-ios
-
-run_android_jss:
-	ANDROID_HOME=/usr/local/opt/android-sdk ENVFILE=.env.jss react-native run-android
-
-run_android_nhsrc:
-	ANDROID_HOME=/usr/local/opt/android-sdk ENVFILE=.env react-native run-android
 
 run_packager:
 	REACT_EDITOR=vi ./node_modules/react-native/packager/packager.sh start --reset-cache
@@ -67,11 +56,8 @@ release-offline:
 log:
 	adb logcat *:S ReactNative:V ReactNativeJS:V
 
-uninstall:
-	adb uninstall com.facilitiesassessment
 
-reinstall: uninstall run_android
-reinstall_jss: uninstall run_android_jss
+
 
 ts := $(shell /bin/date "+%Y-%m-%d---%H-%M-%S")
 
@@ -92,13 +78,38 @@ deploy-apk-local:
 install_release_version:
 	adb install android/app/build/outputs/apk/app-release.apk
 
-reinstall_release_version: uninstall install_release_version
+reinstall_android_release_version: uninstall_app_android install_release_version
 
-stop_app:
+
+# <app>
+stop_app_android:
 	adb shell am force-stop com.facilitiesassessment
 
-start_app:
+start_app_android:
 	adb shell am start -n com.facilitiesassessment/com.facilitiesassessment.MainActivity
+
+run_app_jss:
+	ANDROID_HOME=/usr/local/opt/android-sdk ENVFILE=.env.jss react-native run-android
+
+run_android:
+	ANDROID_HOME=/usr/local/opt/android-sdk ENVFILE=.env react-native run-android
+
+run_ios:
+	ANDROID_HOME=/usr/local/opt/android-sdk ENVFILE=.env react-native run-ios
+
+run_android_nhsrc:
+	ANDROID_HOME=/usr/local/opt/android-sdk ENVFILE=.env.nhsrc react-native run-android
+
+uninstall_android:
+	adb uninstall com.facilitiesassessment
+
+uninstall_ios:
+
+
+reinstall_app_android: uninstall_android run_android
+
+reinstall_jss: uninstall_app_android run_app_jss
+# </app>
 
 openlocation_app:
 	open android/app/build/outputs/apk
