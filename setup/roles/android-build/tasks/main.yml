@@ -1,10 +1,9 @@
 ---
-- name: Install android-sdk
-  package: name=android-sdk state=latest
+- name: Install android-sdk (macOS)
+  homebrew_cask: name=android-sdk state=present
   tags:
     - android
     - brew
-    - apt
 
 - name: Install required Android-SDK Libs
   script: install_android_libs.sh

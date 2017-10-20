@@ -83,7 +83,7 @@ open_db: get_db
 
 # <app>
 define run_android
-	ANDROID_HOME=/usr/local/opt/android-sdk ENVFILE=$1 react-native run-android
+	ENVFILE=$1 react-native run-android
 endef
 
 define run_ios

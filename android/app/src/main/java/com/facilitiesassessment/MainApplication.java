@@ -35,7 +35,6 @@ public class MainApplication extends Application implements ReactApplication {
             return Arrays.<ReactPackage>asList(
                     new FabricPackage(),
                     new MainReactPackage(),
-            new RealmReactPackage(),
             new ReactNativeConfigPackage(),
             new RNViewShotPackage(),
             new RNFSPackage(),
