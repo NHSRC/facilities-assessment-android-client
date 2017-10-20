@@ -30,5 +30,5 @@ export default class FacilitiesAssessment extends Component {
         }
     });
 }
-console.disableYellowBox = true;
+// console.disableYellowBox = true;
 AppRegistry.registerComponent('FacilitiesAssessment', () => FacilitiesAssessment);

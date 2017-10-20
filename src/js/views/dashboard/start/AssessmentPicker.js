@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import {Text, StyleSheet, View} from 'react-native';
 import AbstractComponent from "../../common/AbstractComponent";
 import {Picker} from 'native-base';
-import PrimaryColors from "../../styles/PrimaryColors";
 import Logger from "../../../framework/Logger";
 const Item = Picker.Item;
+import _ from 'lodash';
 
 class AssessmentPicker extends AbstractComponent {
     constructor(props, context) {
@@ -22,17 +22,17 @@ class AssessmentPicker extends AbstractComponent {
     });
 
     pickerValueChanged(action, stateKey, message, items) {
-        return (value, valueIdx) => {
+        return (value) => {
             if (!this.props.nullable && value === message) return;
             let actionParams = {};
-            actionParams[stateKey] = items[valueIdx - 1];
+            actionParams[stateKey] = _.find(items, (item) => item.uuid === value);
             this.dispatchAction(action, actionParams);
         };
     }
 
     render() {
         const pickerItems = [<Item key={-1} label={this.props.message}
-                                   value={this.props.message}
+                                   value="key0"
                                    color="rgba(255, 255, 255, 0.7)"/>].concat(this.props.items.map((item, idx) => (
             <Item
                 color={"white"}
@@ -42,8 +42,9 @@ class AssessmentPicker extends AbstractComponent {
         return (
             <View style={[AssessmentPicker.styles.pickerContainer, this.props.optStyles]}>
                 <Picker
+                    iosHeader="Select one"
                     mode="dropdown"
-                    selectedValue={this.props.selectedValue ? this.props.selectedValue.uuid : this.props.selectedValue}
+                    selectedValue={this.props.selectedValue ? this.props.selectedValue.uuid : "key0"}
                     onValueChange={this.pickerValueChanged(this.props.action, this.props.stateKey, this.props.message, this.props.items)}>
                     {pickerItems}
                 </Picker>
