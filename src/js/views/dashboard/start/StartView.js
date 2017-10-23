@@ -1,5 +1,5 @@
 import React from "react";
-import {Dimensions, StyleSheet, View} from "react-native";
+import {StyleSheet, View} from "react-native";
 import AbstractComponent from "../../common/AbstractComponent";
 import {List, ListItem} from "native-base";
 import Dashboard from "../Dashboard";
@@ -16,9 +16,6 @@ import FacilityText from "./FacilityText";
 import AssessmentSeries from "./AssessmentSeries";
 import EnvironmentConfig from "../../common/EnvironmentConfig";
 import Logger from "../../../framework/Logger";
-
-const deviceWidth = Dimensions.get('window').width;
-const deviceHeight = Dimensions.get('window').height;
 
 class StartView extends AbstractComponent {
     constructor(props, context) {
@@ -72,26 +69,23 @@ class StartView extends AbstractComponent {
         this.dispatchAction(Actions.ALL_STATES, {...this.props});
     }
 
-    assessmentSeriesField() {
-        return EnvironmentConfig.isAssessmentSeriesSupported ? AssessmentSeries : View;
-    }
-
-    facilityNameField() {
-        return EnvironmentConfig.isFreeTextFacilityNameSupported && _.isNil(this.state.selectedFacility) ? FacilityText : View;
-    }
-
     render() {
         Logger.logDebug('StartView', 'render');
-        const FormComponents =
-            [AssessmentTools, StateDistrict, FacilityType, Facility, this.facilityNameField(), this.assessmentSeriesField(), AssessmentType, StartNewAssessment]
-                .map((FormComponent, idx) =>
-                    <ListItem key={idx} style={StartView.styles.formRow}>
-                        <FormComponent data={this.state} {...this.props}/>
-                    </ListItem>);
+        const FormComponents = [AssessmentTools, StateDistrict, FacilityType, Facility];
+        if (EnvironmentConfig.isFreeTextFacilityNameSupported && _.isNil(this.state.selectedFacility))
+            FormComponents.push(FacilityText);
+        if (EnvironmentConfig.isAssessmentSeriesSupported)
+            FormComponents.push(AssessmentSeries);
+        FormComponents.push(AssessmentType);
+        FormComponents.push(StartNewAssessment);
+
         return (
             <View style={Dashboard.styles.tab}>
                 <List>
-                    {FormComponents}
+                    {FormComponents.map((FormComponent, idx) =>
+                        <ListItem key={idx} style={StartView.styles.formRow}>
+                            <FormComponent data={this.state} {...this.props}/>
+                        </ListItem>)}
                 </List>
             </View>
         );

@@ -1,9 +1,8 @@
-import React, {Component} from 'react';
-import {Text, StyleSheet, View, TextInput} from 'react-native';
+import React from "react";
+import {StyleSheet, TextInput} from "react-native";
 import AbstractComponent from "../../common/AbstractComponent";
-import AssessmentPicker from './AssessmentPicker';
 import Actions from "../../../action";
-import _ from 'lodash';
+import PrimaryColors from "../../styles/PrimaryColors";
 
 
 class FacilityText extends AbstractComponent {
@@ -14,7 +13,11 @@ class FacilityText extends AbstractComponent {
     static styles = StyleSheet.create({
         input: {
             fontSize: 16,
-            color: 'white'
+            color: 'white',
+            height: 40,
+            paddingLeft: 8,
+            borderColor: 'grey',
+            borderWidth: 0.5
         }
     });
 
@@ -28,7 +31,7 @@ class FacilityText extends AbstractComponent {
                        placeholder={"Enter Facility Name"}
                        placeholderTextColor="rgba(255, 255, 255, 0.7)"
                        value={this.props.data.facilityName}
-                       underlineColorAndroid="rgba(255, 255, 255, 0.12)"
+                       underlineColorAndroid={PrimaryColors["dark_white"]}
                        words="words"
                        onChangeText={this.handleChange.bind(this)}/>
         );

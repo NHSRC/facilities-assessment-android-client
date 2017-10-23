@@ -9,10 +9,7 @@ import {Container, Header, Title, Content, Icon, Button, Tabs} from 'native-base
 import Path, {PathRoot} from "../../framework/routing/Path";
 import Typography from '../styles/Typography';
 import CustomTabBar from '../common/CustomTabBar';
-import PrimaryColors from '../styles/PrimaryColors';
 import TypedTransition from "../../framework/routing/TypedTransition";
-import Settings from "../settings/Settings";
-import Actions from '../../action';
 
 const deviceWidth = Dimensions.get('window').width;
 
