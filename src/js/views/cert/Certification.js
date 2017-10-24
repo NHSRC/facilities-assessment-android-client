@@ -73,7 +73,7 @@ class Certification extends AbstractComponent {
         let Criteria = this.state.criteria.map((criteria, idx) =>
             <View key={idx} style={[Certification.styles.criteriaListItem,
                 {backgroundColor: criteria.certified ? "#47A64A" : "#FF8880"}]}>
-                <Text style={[Typography.paperFontHeadline, {color: "white"}]}>
+                <Text style={[Typography.paperFontTitle, {color: "white"}]}>
                     {criteria.name}
                 </Text>
                 <Icon name={criteria.certified ? "thumb-up" : "thumb-down"}
@@ -105,7 +105,7 @@ class Certification extends AbstractComponent {
                             </Text>
                         </View>
                         <View style={Certification.styles.innerContainer}>
-                            <Icon name={iconName} style={{fontSize: 100, color: "white"}} size={100}/>
+                            <Icon name={iconName} style={{fontSize: 75, color: "white"}} size={100}/>
                             <Text style={[Typography.paperFontHeadline, {color: "white"}]}>
                                 {certificationText}
                             </Text>

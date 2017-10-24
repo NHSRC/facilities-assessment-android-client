@@ -60,7 +60,7 @@ class AssessmentList extends AbstractComponent {
             marginTop: 18,
             borderRadius: 2,
             backgroundColor: PrimaryColors.blue,
-            width: deviceWidth * .175,
+            width: deviceWidth * .19,
             height: deviceheight * .0375,
             justifyContent: 'center',
             alignItems: 'center'
@@ -92,7 +92,7 @@ class AssessmentList extends AbstractComponent {
         return (
             <View key={key} style={AssessmentList.styles.listItem}>
                 <View style={AssessmentList.styles.listItemText}>
-                    <Text style={[Typography.paperFontSubhead, {color: "white"}]}>
+                    <Text style={[Typography.paperFontMenu, {color: "white"}]}>
                         {this.assessmentDisplayText(assessment)}
                     </Text>
                     <Text style={[Typography.paperFontCaption, {color: "rgba(255,255,255,0.7)", marginTop: 4}]}>
