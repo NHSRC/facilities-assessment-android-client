@@ -7,16 +7,32 @@ const allStates = function (state, action, beans) {
     let facilityAssessmentService = beans.get(FacilityAssessmentService);
     const states = facilitiesService.getAllStates();
     const assessmentTools = facilityAssessmentService.getAssessmentTools(action.mode);
-    return Object.assign(state, {
+    let newState = Object.assign(state, {
         "allStates": states,
         "facilitySelected": false,
         "assessmentTools": assessmentTools,
+    });
+    if (assessmentTools.length === 1) {
+        action.selectedAssessmentTool = assessmentTools[0];
+        newState = selectAssessmentTool(newState, action, beans);
+    }
+    if (states.length === 1) {
+        action.selectedState = states[0];
+        newState = selectState(newState, action, beans);
+    }
+    return newState;
+};
+
+const selectAssessmentTool = function (state, action, beans) {
+    return Object.assign(state, {
+        "facilitySelected": false,
+        "selectedAssessmentTool": action.selectedAssessmentTool,
     });
 };
 
 const selectState = function (state, action, beans) {
     const districts = beans.get(FacilitiesService).getAllDistrictsFor(action.selectedState.uuid);
-    return Object.assign(state, {
+    let newState = Object.assign(state, {
         "selectedState": action.selectedState,
         "districtsForState": districts,
         "facilityTypes": [],
@@ -27,12 +43,17 @@ const selectState = function (state, action, beans) {
         "facilitySelected": false,
         "selectedAssessmentType": undefined,
     });
+    if (districts.length === 1) {
+        action.selectedDistrict = districts[0];
+        newState = selectDistrict(newState, action, beans);
+    }
+    return newState;
 };
 
 const selectDistrict = function (state, action, beans) {
     const facilities = beans.get(FacilitiesService).getAllFacilitiesFor(action.selectedDistrict.uuid);
     const facilityTypes = beans.get(FacilitiesService).getFacilityTypes();
-    return Object.assign(state, {
+    let newState = Object.assign(state, {
         "selectedDistrict": action.selectedDistrict,
         "facilities": facilities,
         "selectedFacility": undefined,
@@ -41,18 +62,28 @@ const selectDistrict = function (state, action, beans) {
         "selectedFacilityType": undefined,
         "selectedAssessmentType": undefined,
     });
+    if (facilityTypes.length === 1) {
+        action.selectedFacilityType = facilityTypes[0];
+        newState = selectFacilityType(newState, action, beans);
+    }
+    return newState;
 };
 
 const selectFacilityType = function (state, action, beans) {
     const facilities = beans.get(FacilitiesService).getAllFacilitiesFor(state.selectedDistrict.uuid)
         .filter((facility) => facility.facilityType === action.selectedFacilityType.uuid);
-    return Object.assign(state, {
+    let newState = Object.assign(state, {
         "facilities": facilities,
         "selectedFacility": undefined,
         "facilitySelected": false,
         "selectedFacilityType": action.selectedFacilityType,
         "selectedAssessmentType": undefined,
     });
+    if (facilities.length === 1) {
+        action.selectedFacility = facilities[0];
+        newState = selectFacility(newState, action, beans);
+    }
+    return newState;
 };
 
 const selectFacility = function (state, action, beans) {
@@ -91,13 +122,6 @@ const selectAssessmentType = function (state, action, beans) {
     return Object.assign(state, {
         "facilitySelected": false,
         "selectedAssessmentType": action.selectedAssessmentType,
-    });
-};
-
-const selectAssessmentTool = function (state, action, beans) {
-    return Object.assign(state, {
-        "facilitySelected": false,
-        "selectedAssessmentTool": action.selectedAssessmentTool,
     });
 };
 
