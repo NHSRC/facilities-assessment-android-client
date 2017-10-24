@@ -36,7 +36,7 @@ class AssessmentPicker extends AbstractComponent {
 
     render() {
         const pickerItems = [<Item key={-1} label={this.props.message}
-                                   value="key0"/>].concat(this.props.items.map((item, idx) => (
+                                   value="key0" color={PrimaryColors.medium_white}/>].concat(this.props.items.map((item, idx) => (
             <Item
                 key={idx} label={item.name}
                 value={item.uuid}/>)));
@@ -48,7 +48,7 @@ class AssessmentPicker extends AbstractComponent {
                     mode="dropdown"
                     selectedValue={this.props.selectedValue ? this.props.selectedValue.uuid : "key0"}
                     onValueChange={this.pickerValueChanged(this.props.action, this.props.stateKey, this.props.message, this.props.items)}
-                    textStyle={this.props.selectedValue ? {color: 'white'} : {color: 'rgba(255, 255, 255, 0.7)'}}>
+                    textStyle={this.props.selectedValue ? {color: 'white'} : {color: PrimaryColors.medium_white}}>
                     {pickerItems}
                 </Picker>
             </View>

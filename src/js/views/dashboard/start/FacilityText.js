@@ -1,5 +1,5 @@
 import React from "react";
-import {StyleSheet, TextInput} from "react-native";
+import {StyleSheet, TextInput, Platform} from "react-native";
 import AbstractComponent from "../../common/AbstractComponent";
 import Actions from "../../../action";
 import PrimaryColors from "../../styles/PrimaryColors";
@@ -17,7 +17,7 @@ class FacilityText extends AbstractComponent {
             height: 40,
             paddingLeft: 8,
             borderColor: 'grey',
-            borderWidth: 0.5
+            borderWidth: Platform.OS === 'ios' ? 0.5 : 0
         }
     });
 

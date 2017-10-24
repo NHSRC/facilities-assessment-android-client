@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, StyleSheet, View, TextInput} from 'react-native';
+import {Text, StyleSheet, View, TextInput, Platform} from 'react-native';
 import AbstractComponent from "../../common/AbstractComponent";
 import Actions from "../../../action";
 import _ from 'lodash';
@@ -18,7 +18,7 @@ class AssessmentSeries extends AbstractComponent {
             height: 40,
             paddingLeft: 8,
             borderColor: 'grey',
-            borderWidth: 0.5
+            borderWidth: Platform.OS === 'ios' ? 0.5 : 0
         }
     });
 
