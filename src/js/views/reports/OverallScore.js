@@ -10,7 +10,7 @@ import TypedTransition from "../../framework/routing/TypedTransition";
 import Actions from '../../action';
 import {formatDateOnlyHuman} from '../../utility/DateUtils';
 import _ from 'lodash';
-
+import {AnimatedGaugeProgress} from 'react-native-simple-gauge';
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
@@ -51,16 +51,16 @@ class OverallScore extends AbstractComponent {
                     </Text>
                 </View>
                 <View style={OverallScore.styles.innerContainer}>
-                    {/*<AnimatedGaugeProgress*/}
-                        {/*size={deviceHeight * .23}*/}
-                        {/*width={6}*/}
-                        {/*fill={this.props.score}*/}
-                        {/*rotation={90}*/}
-                        {/*cropDegree={120}*/}
-                        {/*tintColor="#ffc107"*/}
-                        {/*backgroundColor={PrimaryColors.medium_white}*/}
-                        {/*strokeCap="circle">*/}
-                        {/*{() =>*/}
+                    <AnimatedGaugeProgress
+                        size={deviceHeight * .23}
+                        width={6}
+                        fill={this.props.score}
+                        rotation={90}
+                        cropDegree={120}
+                        tintColor="#ffc107"
+                        backgroundColor={PrimaryColors.medium_white}
+                        strokeCap="circle">
+                        {() =>
                             <View style={{
                                 marginTop: -(deviceHeight * .168),
                                 alignSelf: 'center',
@@ -73,7 +73,7 @@ class OverallScore extends AbstractComponent {
                                     {`${_.startCase(this.props.scoreText.toLowerCase())} Score`}
                                 </Text>
                             </View>}
-                    {/*</AnimatedGaugeProgress>*/}
+                    </AnimatedGaugeProgress>
                     <View>
                         <Text style={{color: "white"}}>
                             {`Checklists Assessed: ${this.props.checklistStats.assessed}/${this.props.checklistStats.total}`}

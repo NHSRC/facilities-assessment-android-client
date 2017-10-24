@@ -68,6 +68,9 @@ test_source: setup_source
 
 deps:
 	npm install
+
+link_native_dependencies_source:
+	react-native link
 # </source>
 
 
