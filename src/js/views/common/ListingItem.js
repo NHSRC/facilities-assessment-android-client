@@ -3,6 +3,7 @@ import {Dimensions, View, Text, TouchableWithoutFeedback, StyleSheet} from 'reac
 import AbstractComponent from "../common/AbstractComponent";
 import PrimaryColors from "../styles/PrimaryColors";
 import Typography from "../styles/Typography";
+import Fonts from "../styles/Fonts";
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
@@ -25,7 +26,7 @@ class ListingItem extends AbstractComponent {
         big: {minHeight: deviceHeight * 0.125,},
         small: {minHeight: deviceHeight * 0.06,},
         buttonTextBig: {
-            fontFamily: "Roboto,Noto,sans-serif",
+            fontFamily: Fonts.HelveticaNeueOrRobotoNoto,
             fontSize: 28,
             fontWeight: "400",
             lineHeight: 42

@@ -3,6 +3,7 @@ import {Dimensions, View, Text, TouchableWithoutFeedback, StyleSheet} from 'reac
 import AbstractComponent from "../common/AbstractComponent";
 import Typography from '../styles/Typography';
 import PrimaryColors from '../styles/PrimaryColors';
+import Fonts from "../styles/Fonts";
 
 class CheckpointText extends AbstractComponent {
     constructor(props, context) {
@@ -11,7 +12,7 @@ class CheckpointText extends AbstractComponent {
 
     static styles = StyleSheet.create({
         typo: {
-            fontFamily: "Roboto,Noto,sans-serif",
+            fontFamily: Fonts.HelveticaNeueOrRobotoNoto,
             fontSize: 42,
             fontWeight: "500",
             letterSpacing: -0.018,

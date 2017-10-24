@@ -5,6 +5,7 @@ import AbstractComponent from "../common/AbstractComponent";
 import {Icon} from 'native-base';
 import PrimaryColors from "../styles/PrimaryColors";
 import Typography from "../styles/Typography";
+import Fonts from "../styles/Fonts";
 
 
 const deviceWidth = Dimensions.get('window').width;
@@ -29,7 +30,7 @@ class ProgressListingItem extends AbstractComponent {
             minHeight: deviceHeight * 0.06,
         },
         buttonTextBig: {
-            fontFamily: "Roboto,Noto,sans-serif",
+            fontFamily: Fonts.HelveticaNeueOrRobotoNoto,
             fontSize: 28,
             fontWeight: "400",
             lineHeight: 42
