@@ -38,7 +38,7 @@ class AssessmentPicker extends AbstractComponent {
         const pickerItems = [<Item key={-1} label={this.props.message}
                                    value="key0" color={PrimaryColors.medium_white}/>].concat(this.props.items.map((item, idx) => (
             <Item
-                key={idx} label={item.name}
+                key={idx} label={item.name} color={"white"}
                 value={item.uuid}/>)));
 
         return (
