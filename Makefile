@@ -125,6 +125,9 @@ run_app_ios: setup_source
 run_app_android_nhsrc: setup_source_nhsrc
 	$(call run_android,.env.nhsrc)
 
+run_app_android_jss:
+	$(call run_android,.env.jss)
+
 uninstall_app:
 	$(call uninstall_android)
 # </app>

@@ -25,24 +25,25 @@ class AnswerInfo extends AbstractComponent {
 
 
     render() {
-        const assessmentMethods = Checkpoint.getAssessmentMethods(this.props.checkpoint.checkpoint).join("/");
+        let assessmentMethods = Checkpoint.getAssessmentMethods(this.props.checkpoint.checkpoint);
         return (
             <View style={AnswerInfo.styles.answerInfo}>
                 <Text style={[Typography.paperFontBody1, {color: PrimaryColors.caption_black}]}>
                     CHECKPOINT
                 </Text>
-                <View style={{
-                    borderWidth: 1,
-                    borderStyle: 'solid',
-                    borderColor: "black",
-                    padding: 1
-                }}>
-                    <Text style={[Typography.paperFontTitle, {
-                        color: 'black', fontWeight: '900'
-                    }]}>
-                        {assessmentMethods}
-                    </Text>
-                </View>
+                {assessmentMethods.length === 0 ? <View/> :
+                    <View style={{
+                        borderWidth: 1,
+                        borderStyle: 'solid',
+                        borderColor: "black",
+                        padding: 1
+                    }}>
+                        <Text style={[Typography.paperFontTitle, {
+                            color: 'black', fontWeight: '900'
+                        }]}>
+                            {assessmentMethods.join("/")}
+                        </Text>
+                    </View>}
             </View>
         );
     }

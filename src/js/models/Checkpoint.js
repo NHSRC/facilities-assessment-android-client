@@ -1,4 +1,11 @@
 class Checkpoint {
+    static assessmentMethodNameMap = {
+        "amObservation": "OB",
+        "amStaffInterview": "SI",
+        "amPatientInterview": "PI",
+        "amRecordReview": "RR"
+    };
+
     static schema = {
         name: 'Checkpoint',
         primaryKey: 'uuid',
@@ -21,13 +28,7 @@ class Checkpoint {
     };
 
     static getAssessmentMethods(checkpoint) {
-        const ams = {
-            "amObservation": "OB",
-            "amStaffInterview": "SI",
-            "amPatientInterview": "PI",
-            "amRecordReview": "RR"
-        };
-        return Object.keys(ams).filter((am) => checkpoint[am]).map((am) => ams[am]);
+        return Object.keys(Checkpoint.assessmentMethodNameMap).filter((am) => checkpoint[am]).map((am) => Checkpoint.assessmentMethodNameMap[am]);
     };
 }
 export default Checkpoint;
