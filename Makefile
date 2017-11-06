@@ -39,9 +39,9 @@ release:
 release_apk_jss:
 	cd android && ENVFILE=.env.jss ./gradlew assembleRelease
 
-release_apk_nhsrc:
-	cp $(recorded_response_dir)/PackagedJSON.js $(service_src_dir)/PackagedJSON.js
+release_apk_nhsrc: setup_source_nhsrc
 	cd android && ENVFILE=.env.nhsrc ./gradlew assembleRelease
+	make setup_source
 
 release_apk_offline:
 	cd android; ENVFILE=.env ./gradlew --offline assembleRelease
@@ -62,6 +62,11 @@ log:
 
 setup_source:
 	cp $(recorded_response_dir)/EmptyPackagedJSON.js $(service_src_dir)/PackagedJSON.js
+	rm src/config/*.json
+
+setup_source_nhsrc:
+	cp $(recorded_response_dir)/PackagedJSON.js $(service_src_dir)/PackagedJSON.js
+	cp $(recorded_response_dir)/jsons/*.json src/config/
 
 test_source: setup_source
 	npm test
@@ -117,8 +122,7 @@ run_app_android: setup_source
 run_app_ios: setup_source
 	$(call run_ios,.env)
 
-run_app_android_nhsrc:
-	cp $(recorded_response_dir)/PackagedJSON.js $(service_src_dir)/PackagedJSON.js
+run_app_android_nhsrc: setup_source_nhsrc
 	$(call run_android,.env.nhsrc)
 
 uninstall_app:

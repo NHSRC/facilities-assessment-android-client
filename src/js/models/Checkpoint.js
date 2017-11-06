@@ -15,8 +15,8 @@ class Checkpoint {
             amPatientInterview: {type: 'bool', default: false},
             amRecordReview: {type: 'bool', default: false},
             sortOrder: {type: 'int', default: 0},
-            scoreLevels: 'int',
-            optional: 'bool'
+            scoreLevels: {type: 'int', default: 3},
+            optional: {type: 'bool', default: false}
         }
     };
 
