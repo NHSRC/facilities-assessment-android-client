@@ -90,10 +90,8 @@ class ReportService extends BaseService {
     }
 
     departmentScoreForAreaOfConcern(areaOfConcern, facilityAssessment) {
-        Logger.logDebugObject('ReportService', facilityAssessment.assessmentTool);
-        Logger.logDebugObject('ReportService', this.db.objects(Checklist.schema.name).filtered("assessmentTool = $0", facilityAssessment.assessmentTool.uuid));
         let areasOfConcernUUIDs = this.db.objects(Checklist.schema.name)
-            .filtered("assessmentTool = $0", facilityAssessment.assessmentTool.uuid)
+            .filtered("assessmentTool = $0 and state = $1", facilityAssessment.assessmentTool.uuid, facilityAssessment.state.uuid)
             .map((ch) => Object.assign({}, ch))
             .map(this.fromStringObj("areasOfConcern"))[0]
             .areasOfConcern.map(_.identity);
@@ -106,15 +104,15 @@ class ReportService extends BaseService {
         const allCheckpoints = this.db.objects(CheckpointScore)
             .filtered("facilityAssessment = $0 AND areaOfConcern = $1 and na = false", facilityAssessment.uuid, selectedAreaOfConcern.uuid)
             .map(_.identity);
-        let scorePerDeparment = {};
+        let scorePerDepartment = {};
         const checkpointsPerDepartment = _.groupBy(allCheckpoints, 'checklist');
         _.toPairs(checkpointsPerDepartment).map(([checklist, checkpointScores]) => {
             let completeChecklist = Object.assign({}, this.db.objectForPrimaryKey(Checklist.schema.name, checklist));
             completeChecklist.department = departmentService.getDepartment(completeChecklist.department);
-            scorePerDeparment[completeChecklist.department.name] =
+            scorePerDepartment[completeChecklist.department.name] =
                 (_.sumBy(checkpointScores, "score") / (checkpointScores.length * 2)) * 100;
         });
-        return scorePerDeparment;
+        return scorePerDepartment;
     }
 
     areasOfConcernScoreForDepartment(department, facilityAssessment) {
@@ -134,7 +132,7 @@ class ReportService extends BaseService {
 
     standardScoreForAreaOfConcern(areaOfConcern, facilityAssessment) {
         let areasOfConcernUUIDs = this.db.objects(Checklist.schema.name)
-            .filtered("assessmentTool = $0", facilityAssessment.assessmentTool.uuid)
+            .filtered("assessmentTool = $0 and state = $1", facilityAssessment.assessmentTool.uuid, facilityAssessment.state.uuid)
             .map((ch) => Object.assign({}, ch))
             .map(this.fromStringObj("areasOfConcern"))[0]
             .areasOfConcern.map(_.identity);

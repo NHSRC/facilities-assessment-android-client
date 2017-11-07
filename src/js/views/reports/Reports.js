@@ -98,7 +98,6 @@ class Reports extends AbstractComponent {
 
     render() {
         Logger.logDebug('Reports', 'render');
-        Logger.logTraceObject('Reports', this.props);
         const exportOptions = [{
             title: `Export ${_.startCase(this.state.selectedTab.toLowerCase())} Scorecard`,
             cb: this.exportCurrentTab.bind(this)
