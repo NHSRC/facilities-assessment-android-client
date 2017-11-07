@@ -218,13 +218,15 @@ class ReportService extends BaseService {
     }
 
     totalChecklists(facilityAssessment) {
-        let checklistProgress = this.db.objects(ChecklistProgress.schema.name).filtered("facilityAssessment = $0", facilityAssessment.uuid)[0];
-        return checklistProgress.total;
+        return this.getChecklistProgress(facilityAssessment).total;
+    }
+
+    getChecklistProgress(facilityAssessment) {
+        return this.db.objects(ChecklistProgress.schema.name).filtered("facilityAssessment = $0", facilityAssessment.uuid)[0];
     }
 
     assessedChecklists(facilityAssessment) {
-        let checklistProgress = this.db.objects(ChecklistProgress.schema.name).filtered("facilityAssessment = $0", facilityAssessment.uuid)[0];
-        return checklistProgress.completed;
+        return this.getChecklistProgress(facilityAssessment).completed;
     }
 }
 

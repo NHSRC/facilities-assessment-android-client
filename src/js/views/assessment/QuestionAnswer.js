@@ -100,14 +100,14 @@ class QuestionAnswer extends AbstractComponent {
                 <View style={{
                     flexDirection: 'row',
                     flexWrap: 'nowrap',
-                    justifyContent: 'space-between',
+                    justifyContent: 'flex-end',
                     alignSelf: 'stretch',
                     marginBottom: 10
                 }}>
                     <Text
                         style={[Typography.paperFontBody1,
                             {
-                                color: isNotApplicable ? PrimaryColors.red : PrimaryColors.caption_black,
+                                color: isNotApplicable ? PrimaryColors.red : PrimaryColors.blue,
                                 fontWeight: isNotApplicable ? '900' : '400'
                             }]}>
                         {`${isNotApplicable ? "Not" : ""} Applicable`}

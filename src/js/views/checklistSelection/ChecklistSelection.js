@@ -86,7 +86,11 @@ class ChecklistSelection extends AbstractComponent {
     }
 
     showOtherCompleteButton() {
-        return EnvironmentConfig.shouldAllowIncompleteChecklistSubmission || this.state.assessmentProgress.completed > 0
+        let checklistProgressWithValue = this.state.checklists.find((checklist) => {
+            return !_.isNil(checklist.progress.total);
+        });
+        return EnvironmentConfig.shouldAllowIncompleteChecklistSubmission
+            && (this.state.assessmentProgress.completed > 0 || !_.isNil(checklistProgressWithValue));
     }
 
     showCompleteButton(mode) {
