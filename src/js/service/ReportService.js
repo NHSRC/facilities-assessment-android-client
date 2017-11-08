@@ -91,7 +91,7 @@ class ReportService extends BaseService {
 
     departmentScoreForAreaOfConcern(areaOfConcern, facilityAssessment) {
         let areasOfConcernUUIDs = this.db.objects(Checklist.schema.name)
-            .filtered("assessmentTool = $0 and state = $1", facilityAssessment.assessmentTool.uuid, facilityAssessment.state.uuid)
+            .filtered("assessmentTool = $0 and (state = $1 or state = null)", facilityAssessment.assessmentTool.uuid, facilityAssessment.state.uuid)
             .map((ch) => Object.assign({}, ch))
             .map(this.fromStringObj("areasOfConcern"))[0]
             .areasOfConcern.map(_.identity);
@@ -132,7 +132,7 @@ class ReportService extends BaseService {
 
     standardScoreForAreaOfConcern(areaOfConcern, facilityAssessment) {
         let areasOfConcernUUIDs = this.db.objects(Checklist.schema.name)
-            .filtered("assessmentTool = $0 and state = $1", facilityAssessment.assessmentTool.uuid, facilityAssessment.state.uuid)
+            .filtered("assessmentTool = $0 and (state = $1 or state = null)", facilityAssessment.assessmentTool.uuid, facilityAssessment.state.uuid)
             .map((ch) => Object.assign({}, ch))
             .map(this.fromStringObj("areasOfConcern"))[0]
             .areasOfConcern.map(_.identity);

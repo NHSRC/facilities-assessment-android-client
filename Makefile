@@ -33,10 +33,10 @@ run_packager:
 deploy_apk_local:
 	cp android/app/build/outputs/apk/app-release.apk ../facilities-assessment-server/external/app.apk
 
-release:
+release: setup_source
 	cd android; ENVFILE=.env ./gradlew assembleRelease
 
-release_apk_jss:
+release_apk_jss: setup_source
 	cd android && ENVFILE=.env.jss ./gradlew assembleRelease
 
 release_apk_nhsrc: setup_source_nhsrc

@@ -16,7 +16,6 @@ import AssessmentTool from "../models/AssessmentTool";
 class ChecklistService extends BaseService {
     constructor(db, beanStore) {
         super(db, beanStore);
-        this.saveChecklist = this.save(Checklist, this.toStringObj("areasOfConcern"));
         this.saveCheckpoint = this.save(Checkpoint);
         this.saveCheckpointScore = this.save(CheckpointScore, CheckpointScore.toDB);
         this.cacheAllChecklists = this.cacheAllChecklists.bind(this);
@@ -25,15 +24,14 @@ class ChecklistService extends BaseService {
 
     getChecklistsWithCriteria(assessmentToolUUID, state) {
         return this.db.objects(Checklist.schema.name)
-            .filtered(`assessmentTool = '${assessmentToolUUID}' and state = ${state}`)
+            .filtered(`assessmentTool = '${assessmentToolUUID}' and (state = ${state} or state = null)`)
             .map(_.identity);
     }
 
     getChecklistsFor(assessmentTool, state) {
         const departmentService = this.getService(DepartmentService);
-        let stateSpecificChecklists = this.getChecklistsWithCriteria(assessmentTool.uuid, `'${state.uuid}'`);
-        const atSpecificChecklists = this.getChecklistsWithCriteria(assessmentTool.uuid, 'null');
-        return stateSpecificChecklists.concat(atSpecificChecklists)
+        let checklists = this.getChecklistsWithCriteria(assessmentTool.uuid, `'${state.uuid}'`);
+        return checklists
             .map(this.pickKeys(["department", "assessmentTool", "areasOfConcern"]))
             .map(this.fromStringObj("areasOfConcern"))
             .map((checklist) => {
