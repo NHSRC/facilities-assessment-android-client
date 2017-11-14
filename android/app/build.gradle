@@ -152,6 +152,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-device-info')
     compile project(':realm')
     compile project(':react-native-config')
     compile project(':react-native-view-shot')
