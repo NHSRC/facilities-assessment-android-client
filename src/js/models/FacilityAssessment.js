@@ -15,7 +15,8 @@ class FacilityAssessment {
             endDate: {type: 'date', optional: true},
             dateUpdated: {type: 'date', default: new Date()},
             submitted: {type: 'bool', default: false},
-            seriesName: {type: 'string', optional: true}
+            seriesName: {type: 'string', optional: true},
+            deviceId: {type: 'string', optional: true}
         }
     };
 

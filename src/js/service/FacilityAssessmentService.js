@@ -5,6 +5,7 @@ import AssessmentType from "../models/AssessmentType";
 import FacilityAssessment from "../models/FacilityAssessment";
 import FacilityService from './FacilitiesService';
 import ChecklistProgress from "../models/ChecklistProgress";
+import DeviceInfo from 'react-native-device-info';
 import _ from 'lodash';
 
 @Service("facilityAssessmentService")
@@ -40,6 +41,7 @@ class FacilityAssessmentService extends BaseService {
             assessmentTool: assessmentTool.uuid,
             facility: facility.uuid,
             assessmentType: assessmentType.uuid,
+            deviceId: DeviceInfo.getUniqueID(),
             ...optParams
         }));
         return this._associateObjects(assessment);
