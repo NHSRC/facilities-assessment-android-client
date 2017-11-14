@@ -62,3 +62,4 @@ android/app/src/main/res/values/com_crashlytics_export_strings.xml
 
 src/js/service/PackagedJSON.js
 setup/dev.retry
+android/app/src/main/res/drawable-*

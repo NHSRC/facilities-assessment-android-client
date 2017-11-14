@@ -11,6 +11,12 @@ ts := $(shell /bin/date "+%Y-%m-%d---%H-%M-%S")
 recorded_response_dir := ../reference-data/nhsrc/output/recorded-response
 service_src_dir := src/js/service
 
+define _release_apk
+	react-native bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/
+	cd android && ENVFILE=.env.$1 ./gradlew assembleRelease -x bundleReleaseJsAndAssets
+endef
+
+
 # <platform>
 install_platform: ansible_check
 	ansible-playbook setup/dev.yml -i setup/local
@@ -37,10 +43,10 @@ release: setup_source
 	cd android; ENVFILE=.env ./gradlew assembleRelease
 
 release_apk_jss: setup_source
-	cd android && ENVFILE=.env.jss ./gradlew assembleRelease
+	$(call _release_apk,jss)
 
 release_apk_nhsrc: setup_source_nhsrc
-	cd android && ENVFILE=.env.nhsrc ./gradlew assembleRelease
+	$(call _release_apk,nhsrc)
 	make setup_source
 
 release_apk_offline:
@@ -51,6 +57,9 @@ install_released_apk:
 
 openlocation_apk:
 	open android/app/build/outputs/apk
+
+publish_release_vivek:
+	cp android/app/build/outputs/apk/app-release.apk ~/Dropbox/Public/nhsrc/$(release)/app-$(client).apk
 
 reinstall_released_apk: uninstall_app install_released_apk
 # </apk>
