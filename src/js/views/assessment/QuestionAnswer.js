@@ -11,6 +11,7 @@ import Toolbar from './Toolbar';
 import Actions from '../../action';
 import Typography from '../styles/Typography';
 import _ from 'lodash';
+import Logger from "../../framework/Logger";
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
@@ -46,13 +47,11 @@ class QuestionAnswer extends AbstractComponent {
     });
 
     checkpointSelected(checkpoint, updateObj) {
-        return !_.isNumber(checkpoint.score) && updateObj.hasOwnProperty('score');
+        return _.isNil(updateObj.na) ? !_.isNumber(checkpoint.score) && updateObj.hasOwnProperty('score') : updateObj.na;
     }
 
     checkpointUnselected(checkpoint, updateObj) {
-        return _.isNumber(checkpoint.score) &&
-            updateObj.hasOwnProperty("score") &&
-            updateObj.score === checkpoint.score;
+        return _.isNil(updateObj.na) ? _.isNumber(checkpoint.score) && updateObj.hasOwnProperty("score") && updateObj.score === checkpoint.score : !updateObj.na;
     }
 
     updateCheckpoint(checkpoint, updateObj, fn) {
@@ -73,6 +72,8 @@ class QuestionAnswer extends AbstractComponent {
                 updateObj = {...updateObj, score: null};
                 fn = _.noop;
             }
+            Logger.logDebugObject('QuestionAnswer.updateCheckpoint', updateObj);
+            Logger.logDebugObject('QuestionAnswer.updateCheckpoint', actionList);
             actionList.map((action) => this.dispatchAction(action, {...this.props.params}));
 
             this.dispatchAction(Actions.UPDATE_CHECKPOINT, {

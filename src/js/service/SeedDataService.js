@@ -16,6 +16,9 @@ import FacilitiesService from "./FacilitiesService";
 import StateService from "./StateService";
 import EntityService from "./EntityService";
 import ChecklistService from "./ChecklistService";
+import AreaOfConcernProgress from "../models/AreaOfConcernProgress";
+import StandardProgress from "../models/StandardProgress";
+import ChecklistProgress from "../models/ChecklistProgress";
 
 @Service("seedDataService")
 class SeedDataService extends BaseService {
@@ -107,10 +110,23 @@ class SeedDataService extends BaseService {
 
     deleteAllData() {
         this._deleteData(EntitiesMetaData.allEntityTypes);
+        this.deleteProgressData();
     }
 
     deleteTxData() {
         this._deleteData(EntitiesMetaData.txEntityTypes);
+        this.deleteProgressData();
+    }
+
+    deleteProgressData() {
+        const entityTypesToDelete = [AreaOfConcernProgress, StandardProgress, ChecklistProgress];
+        const db = this.db;
+        db.write(() => {
+            entityTypesToDelete.forEach((entityType) => {
+                let allEntities = db.objects(entityType.schema.name);
+                db.delete(allEntities);
+            });
+        });
     }
 
     _deleteData(entitiesToDelete) {

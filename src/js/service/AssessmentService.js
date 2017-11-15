@@ -1,6 +1,6 @@
 import BaseService from "./BaseService";
 import Service from "../framework/bean/Service";
-import _ from 'lodash';
+import _ from "lodash";
 import AreaOfConcern from "../models/AreaOfConcern";
 import AssessmentTool from "../models/AssessmentTool";
 import CheckpointScore from "../models/CheckpointScore";
@@ -9,7 +9,6 @@ import ChecklistService from "./ChecklistService";
 import ChecklistProgress from "../models/ChecklistProgress";
 import AreaOfConcernProgress from "../models/AreaOfConcernProgress";
 import StandardProgress from "../models/StandardProgress";
-import CacheService from "./CacheService";
 
 @Service("assessmentService")
 class AssessmentService extends BaseService {
