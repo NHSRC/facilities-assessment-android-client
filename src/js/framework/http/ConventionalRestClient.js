@@ -51,7 +51,7 @@ class ConventionalRestClient {
 
             if (ConventionalRestClient.morePagesForThisResource(response)) {
                 Logger.logDebug('ConventionalRestClient', `More pages for resource: ${entityMetaData.resourceName}`);
-                this.loadData(entityMetaData, resourceSearchFilterURL, params, lastUpdatedLocally, pageNumber + 1, allEntityMetaData, executeResourcesWithSameTimestamp, executeNextResource, resourcesWithSameTimestamp, onError);
+                this.loadData(entityMetaData, resourceSearchFilterURL, optionalParams, lastUpdatedLocally, pageNumber + 1, allEntityMetaData, executeResourcesWithSameTimestamp, executeNextResource, resourcesWithSameTimestamp, onError);
             } else if (resourcesWithSameTimestamp.length > 0) {
                 Logger.logDebug('ConventionalRestClient', `No more pages for resource, executing sync action on: ${resourcesWithSameTimestamp.length} items for resource: ${entityMetaData.resourceName}`);
                 this.db.write(() => {

@@ -123,6 +123,7 @@ class SeedDataService extends BaseService {
         const db = this.db;
         db.write(() => {
             entityTypesToDelete.forEach((entityType) => {
+                Logger.logDebug('SeedDataService', `Deleting all data for ${entityType.schema.name}`);
                 let allEntities = db.objects(entityType.schema.name);
                 db.delete(allEntities);
             });
