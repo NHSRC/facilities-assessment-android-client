@@ -1,4 +1,5 @@
 import Config from "react-native-config";
+import DeviceInfo from 'react-native-device-info';
 
 class EnvironmentConfig {
     static _isPropertyTrue(propertyName) {
@@ -27,6 +28,18 @@ class EnvironmentConfig {
 
     static get shouldSetupTestData() {
         return EnvironmentConfig._isPropertyTrue("SETUP_TEST_DATA");
+    }
+
+    static get shouldAllowBulkDownload() {
+        return DeviceInfo.isEmulator() || EnvironmentConfig._isPropertyTrue("ALLOW_BULK_DOWNLOAD");
+    }
+
+    static get shouldAllowCleanData() {
+        return DeviceInfo.isEmulator() || EnvironmentConfig._isPropertyTrue("ALLOW_CLEAN_DATA");
+    }
+
+    static get shouldAllowDownloadMyData() {
+        return DeviceInfo.isEmulator() || EnvironmentConfig._isPropertyTrue("ALLOW_DOWNLOAD_MY_DATA");
     }
 }
 

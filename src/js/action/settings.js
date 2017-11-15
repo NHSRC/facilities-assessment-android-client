@@ -29,6 +29,12 @@ const syncMetaData = function (state, action, beans) {
     return Object.assign(state, {syncing: true})
 };
 
+const downloadMyAssessments = function (state, action, beans) {
+    const referenceDataSyncService = beans.get(ReferenceDataSyncService);
+    referenceDataSyncService.syncMyTxData(action.cb);
+    return Object.assign(state, {syncing: true})
+};
+
 const syncAllData = function (state, action, beans) {
     const referenceDataSyncService = beans.get(ReferenceDataSyncService);
     referenceDataSyncService.syncAllData(action.cb);
@@ -58,6 +64,7 @@ export default new Map([
     ["UPDATE_SETTINGS_VIEW", updateView],
     ["SYNC_META_DATA", syncMetaData],
     ["SYNC_ALL_DATA", syncAllData],
+    ["DOWNLOAD_MY_ASSESSMENTS", downloadMyAssessments],
     ["SYNCED_DATA", syncedData],
     ['CLEAN_DATA', cleanData],
     ['CLEAN_TXDATA', cleanTxData]

@@ -13,6 +13,7 @@ import PrimaryColors from "../styles/PrimaryColors";
 import Typography from "../styles/Typography";
 import Actions from '../../action';
 import {formatDate} from '../../utility/DateUtils';
+import EnvironmentConfig from "../common/EnvironmentConfig";
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
@@ -120,50 +121,68 @@ class Settings extends AbstractComponent {
                             </InputGroup>
                         </View>
 
-                        <SubmitButton
-                            buttonText={this.state.syncing ?
-                                (<ActivityIndicator animating={true} size={"large"} color="white"
-                                                    style={{height: 80}}/>) :
-                                "DOWNLOAD - FACILITIES, CHECKLISTS and ASSESSMENTS"}
-                            onPress={() =>
-                                this.dispatchAction(Actions.SYNC_ALL_DATA,
-                                    {
-                                        cb: () => {
-                                            this.dispatchAction(Actions.SYNCED_DATA);
-                                            this.props.params.cb();
-                                        }
-                                    })
-                            }
-                            showButton={this.state.serverConnected}/>
-                        <View style={{marginTop: 15}}/>
-                        <SubmitButton
-                            buttonText={this.state.syncing ?
-                                (<ActivityIndicator animating={true} size={"large"} color="white"
-                                                    style={{height: 80}}/>) :
-                                "DOWNLOAD - FACILITIES and CHECKLISTS"}
-                            onPress={() =>
-                                this.dispatchAction(Actions.SYNC_META_DATA,
-                                    {
-                                        cb: () => {
-                                            this.dispatchAction(Actions.SYNCED_DATA);
-                                            this.props.params.cb();
-                                        }
-                                    })
-                            }
-                            showButton={this.state.serverConnected}/>
-                        <Text style={{color: "white", marginBottom: 30}}>
-                            Last Synced Date - {formatDate(this.state.lastSyncedDate)}
-                        </Text>
+                        {EnvironmentConfig.shouldAllowBulkDownload ?
+                            <View style={{flexDirection: 'column', flex: 1, alignSelf: 'stretch'}}>
+                                <SubmitButton
+                                    buttonText={this.state.syncing ?
+                                        (<ActivityIndicator animating={true} size={"large"} color="white"
+                                                            style={{height: 80}}/>) :
+                                        "DOWNLOAD - FACILITIES, CHECKLISTS and ASSESSMENTS"}
+                                    onPress={() =>
+                                        this.dispatchAction(Actions.SYNC_ALL_DATA,
+                                            {
+                                                cb: () => {
+                                                    this.dispatchAction(Actions.SYNCED_DATA);
+                                                    this.props.params.cb();
+                                                }
+                                            })
+                                    }
+                                    showButton={this.state.serverConnected}
+                                    buttonStyle={{marginTop: 15}}/>
+                                <SubmitButton
+                                    buttonText={this.state.syncing ?
+                                        (<ActivityIndicator animating={true} size={"large"} color="white"
+                                                            style={{height: 80}}/>) :
+                                        "DOWNLOAD - FACILITIES and CHECKLISTS"}
+                                    onPress={() =>
+                                        this.dispatchAction(Actions.SYNC_META_DATA,
+                                            {
+                                                cb: () => {
+                                                    this.dispatchAction(Actions.SYNCED_DATA);
+                                                    this.props.params.cb();
+                                                }
+                                            })
+                                    }
+                                    showButton={this.state.serverConnected}
+                                    buttonStyle={{marginTop: 15}}/>
+                                <Text style={{color: "white", marginBottom: 30, alignSelf: 'center'}}>
+                                    Last Synced Date - {formatDate(this.state.lastSyncedDate)}
+                                </Text>
+                            </View> : <View/>}
 
-                        <View style={{margin: 15}}/>
-                        <SubmitButton buttonText={"CLEAN ALL DATA"}
-                                      onPress={() => this.cleanData()}
-                                      showButton={this.state.serverConnected}/>
-
-                        <View style={{margin: 15}}/>
-                        <SubmitButton buttonText={"CLEAN TX DATA"}
-                                      onPress={() => this.cleanTxData()}
-                                      showButton={this.state.serverConnected}/>
+                        {EnvironmentConfig.shouldAllowDownloadMyData ?
+                            <SubmitButton buttonText={"Download My Assessments"}
+                                          onPress={() =>
+                                              this.dispatchAction(Actions.DOWNLOAD_MY_ASSESSMENTS,
+                                                  {
+                                                      cb: () => {
+                                                          this.dispatchAction(Actions.SYNCED_DATA);
+                                                          this.props.params.cb();
+                                                      }
+                                                  })
+                                          }
+                                          showButton={this.state.serverConnected}
+                                          buttonStyle={{marginTop: 15}}/> : <View/>}
+                        {EnvironmentConfig.shouldAllowCleanData ?
+                            <SubmitButton buttonText={"CLEAN ALL DATA"}
+                                          onPress={() => this.cleanData()}
+                                          showButton={this.state.serverConnected}
+                                          buttonStyle={{marginTop: 15}}/> : <View/>}
+                        {EnvironmentConfig.shouldAllowCleanData ?
+                            <SubmitButton buttonText={"CLEAN TX DATA"}
+                                          onPress={() => this.cleanTxData()}
+                                          showButton={this.state.serverConnected}
+                                          buttonStyle={{marginTop: 15}}/> : <View/>}
                     </View>
                 </Content>
             </Container>

@@ -1,12 +1,6 @@
 import BaseService from "./BaseService";
 import Service from "../framework/bean/Service";
 import _ from "lodash";
-import {post} from "../framework/http/requests";
-import facilityAssessmentMapper from "../mapper/facilityAssessmentMapper";
-import BatchRequest from "../framework/http/BatchRequest";
-import ChecklistService from "./ChecklistService";
-import checkpointScoreMapper from "../mapper/checkpointScoreMapper";
-import FacilityAssessmentService from "./FacilityAssessmentService";
 import SettingsService from "./SettingsService";
 import EntitySyncStatusService from "./EntitySyncStatusService";
 import EntitySyncStatus from "../models/sync/EntitySyncStatus";
@@ -15,6 +9,7 @@ import Logger from "../framework/Logger";
 import EntitiesMetaData from "../models/entityMetaData/EntitiesMetaData";
 import EntityService from "./EntityService";
 import moment from "moment";
+import DeviceInfo from 'react-native-device-info';
 
 @Service("referenceDataSyncService")
 class ReferenceDataSyncService extends BaseService {
@@ -29,8 +24,18 @@ class ReferenceDataSyncService extends BaseService {
         this.serverURL = this.getService(SettingsService).getServerURL();
     }
 
+    syncMyTxData(cb) {
+        this._syncData(cb, EntitiesMetaData.txEntityTypes, "lastModifiedByDeviceId", {deviceId: DeviceInfo.getUniqueID()});
+    }
+
     syncAllData(cb) {
-        this.pullData(EntitiesMetaData.allEntityTypes, () => {
+        this._syncData(cb, EntitiesMetaData.allEntityTypes);
+    }
+
+    _syncData(cb, entityMetaData, resourceSearchFilterURL, params) {
+        resourceSearchFilterURL = resourceSearchFilterURL || "lastModified";
+        params = params || {};
+        this.pullData(entityMetaData, resourceSearchFilterURL, params, () => {
             Logger.logInfo('ReferenceDataSyncService', 'Sync completed!');
             cb();
         }, (error) => {
@@ -39,19 +44,14 @@ class ReferenceDataSyncService extends BaseService {
     }
 
     syncMetaData(cb) {
-        this.pullData(EntitiesMetaData.referenceEntityTypes, () => {
-            Logger.logInfo('ReferenceDataSyncService', 'Sync completed!');
-            cb();
-        }, (error) => {
-            Logger.logError('ReferenceDataSyncService', error);
-        });
+        this._syncData(cb, EntitiesMetaData.referenceEntityTypes);
     }
 
     updateProgress() {
         this.findByKey('areaOfConcern', );
     }
 
-    pullData(unprocessedEntityMetaData, onComplete, onError) {
+    pullData(unprocessedEntityMetaData, resourceSearchFilterURL, params, onComplete, onError) {
         const entityMetaData = unprocessedEntityMetaData.pop();
         if (_.isNil(entityMetaData)) {
             onComplete();
@@ -60,10 +60,10 @@ class ReferenceDataSyncService extends BaseService {
 
         const entitySyncStatus = this.entitySyncStatusService.get(entityMetaData.entityName);
         Logger.logInfo('ReferenceDataSyncService', `${entitySyncStatus.entityName} was last loaded up to "${entitySyncStatus.loadedSince}"`);
-        this.conventionalRestClient.loadData(entityMetaData, entitySyncStatus.loadedSince, 0,
+        this.conventionalRestClient.loadData(entityMetaData, resourceSearchFilterURL, params, entitySyncStatus.loadedSince, 0,
             unprocessedEntityMetaData,
             (resourcesWithSameTimeStamp, entityModel) => this.persist(resourcesWithSameTimeStamp, entityModel),
-            (workingAllEntitiesMetaData) => this.pullData(workingAllEntitiesMetaData, onComplete, onError),
+            (workingAllEntitiesMetaData) => this.pullData(workingAllEntitiesMetaData, resourceSearchFilterURL, onComplete, onError),
             [], onError);
     }
 
