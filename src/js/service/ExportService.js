@@ -9,15 +9,18 @@ import Checklist from "../models/Checklist";
 import FacilityAssessment from "../models/FacilityAssessment";
 import Facility from "../models/Facility";
 import AssessmentTool from "../models/AssessmentTool";
-import {formatDateHuman} from '../utility/DateUtils';
-import _ from 'lodash';
-import RNFS from 'react-native-fs';
+import {formatDateHuman} from "../utility/DateUtils";
+import _ from "lodash";
+import RNFS from "react-native-fs";
 import ReportService from "./ReportService";
+import {Platform} from "react-native";
+import Logger from "../framework/Logger";
 
 @Service("exportService")
 class ExportService extends BaseService {
     constructor(db, beanStore) {
         super(db, beanStore);
+        this.directoryPath = Platform.OS === "ios" ? RNFS.TemporaryDirectoryPath : RNFS.ExternalDirectoryPath;
     }
 
     init() {
@@ -93,19 +96,23 @@ class ExportService extends BaseService {
     toCSV(filename, headers, collectionOfCollections) {
         const csvCollection = [headers].concat(collectionOfCollections);
         let csvAsString = csvCollection.map((col) => col.map((item) => `"${_.toString(item).replace(/"/g, "'")}"`).join()).join('\n');
-        const filePath = `${RNFS.ExternalDirectoryPath}/${filename}`;
+        const filePath = `${this.directoryPath}/${filename}-${Date.now()}`;
         RNFS.writeFile(filePath, csvAsString, 'utf8')
             .then(_.noop)
-            .catch(_.noop);
+            .catch((error) => {
+                Logger.logError('ExportService', error);
+            });
         return filePath;
     }
 
     copyOverImage(facilityAssessment, suffix, fileURI) {
         const metadata = this.generateMetadata(facilityAssessment, _.kebabCase(suffix), ".jpeg");
-        const filePath = `${RNFS.ExternalDirectoryPath}/${_.snakeCase(metadata.facilityName)}.jpeg`;
+        const filePath = `${this.directoryPath}/${metadata.facilityName}-${Date.now()}.jpeg`;
         RNFS.copyFile(fileURI.replace("file://", ""), filePath, 'utf8')
             .then(_.noop)
-            .catch(_.noop);
+            .catch((error) => {
+                Logger.logError('ExportService', error);
+            });
         return filePath;
     }
 }

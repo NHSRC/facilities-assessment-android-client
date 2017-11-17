@@ -1,19 +1,18 @@
-import React, {Component} from 'react';
-import {Text, StyleSheet, View, ScrollView, Dimensions, Modal} from 'react-native';
+import React from "react";
+import {Dimensions, Modal, StyleSheet, View} from "react-native";
 import AbstractComponent from "../common/AbstractComponent";
-import FlatUITheme from '../themes/flatUI';
-import {Container, Header, Title, Content, Icon, Button, Footer} from 'native-base';
+import FlatUITheme from "../themes/flatUI";
+import {Button, Container, Content, Header, Icon, Title} from "native-base";
 import Path from "../../framework/routing/Path";
-import Typography from '../styles/Typography';
-import PrimaryColors from '../styles/PrimaryColors';
+import Typography from "../styles/Typography";
 import TypedTransition from "../../framework/routing/TypedTransition";
-import Actions from '../../action';
+import Actions from "../../action";
 import OverallScore from "./OverallScore";
 import ScoreTabs from "./ScoreTabs";
-import Share from 'react-native-share';
-import _ from 'lodash';
+import Share from "react-native-share";
+import _ from "lodash";
 import {takeSnapshot} from "react-native-view-shot";
-import ExportOptions from './ExportOptions';
+import ExportOptions from "./ExportOptions";
 import Logger from "../../framework/Logger";
 
 const deviceWidth = Dimensions.get('window').width;
@@ -127,7 +126,7 @@ class Reports extends AbstractComponent {
                     <Button
                         onPress={this.snapshot.bind(this)}
                         transparent>
-                        <Icon style={{fontSize: 22, color: 'white'}} name="share"/>
+                        <Icon style={{color: 'white'}} name="share"/>
                     </Button>
                 </Header>
                 <Content ref="reports">
