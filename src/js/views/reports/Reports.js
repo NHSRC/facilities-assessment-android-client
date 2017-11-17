@@ -111,9 +111,9 @@ class Reports extends AbstractComponent {
                     <Button
                         onPress={this.back.bind(this)}
                         transparent>
-                        <Icon style={{marginTop: 10, color: 'white'}} name="arrow-back"/>
+                        <Icon style={{color: 'white'}} name="arrow-back"/>
                     </Button>
-                    <Title style={[Typography.paperFontHeadline, {
+                    <Title style={[Typography.paperFontTitle, {
                         fontWeight: 'bold',
                         color: 'white'
                     }]}>
@@ -122,12 +122,12 @@ class Reports extends AbstractComponent {
                     <Button
                         onPress={this.exportOptions}
                         transparent>
-                        <Icon style={{marginTop: 10, color: 'white'}} name="get-app"/>
+                        <Icon style={{color: 'white'}} name="get-app"/>
                     </Button>
                     <Button
                         onPress={this.snapshot.bind(this)}
                         transparent>
-                        <Icon style={{fontSize: 22, marginTop: 10, color: 'white'}} name="share"/>
+                        <Icon style={{fontSize: 22, color: 'white'}} name="share"/>
                     </Button>
                 </Header>
                 <Content ref="reports">

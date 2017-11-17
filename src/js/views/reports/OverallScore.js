@@ -20,12 +20,11 @@ class OverallScore extends AbstractComponent {
         super(props, context);
     }
 
-
     static styles = StyleSheet.create({
         container: {
             padding: 10,
             backgroundColor: PrimaryColors.blue,
-            height: deviceHeight * .264,
+            height: deviceHeight * .325,
         },
         innerContainer: {
             flexDirection: 'row',

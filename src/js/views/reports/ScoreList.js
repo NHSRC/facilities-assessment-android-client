@@ -69,9 +69,9 @@ class ScoreList extends AbstractComponent {
                         justifyContent: 'flex-start',
                         alignItems: 'center'
                     }}>
-                        <Text style={[Typography.paperFontTitle, {
+                        <Text style={[Typography.paperFontSubhead, {
                             color: 'white',
-                            fontWeight: '900',
+                            fontWeight: '500',
                             paddingTop: 5,
                             paddingBottom: 5
                         }]}>
