@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Dimensions, View, Text, Navigator, StyleSheet, TouchableWithoutFeedback, Image} from 'react-native';
+import {Dimensions, View, Text, Navigator, StyleSheet, TouchableWithoutFeedback, Image, Alert} from 'react-native';
 import {Container, Content, Title, Button, Header, Icon, Thumbnail, Footer} from 'native-base';
 import AbstractComponent from "../common/AbstractComponent";
 import FlatUITheme from '../themes/flatUI';
@@ -43,6 +43,23 @@ class ModeSelection extends AbstractComponent {
         this.unsubscribe();
     }
 
+    displayMessage(status, data) {
+        Alert.alert(
+            status,
+            data,
+            [
+                {
+                    text: 'Yes', onPress: () => {
+                }
+                },
+                {
+                    text: 'No', onPress: () => {
+                }
+                }
+            ]
+        )
+    }
+
     static styles = StyleSheet.create({
         container: {
             flexDirection: 'column',
@@ -71,6 +88,17 @@ class ModeSelection extends AbstractComponent {
     }
 
     render() {
+        Logger.logDebug('ModeSelection', 'render');
+        // navigator.geolocation.getCurrentPosition((position) => {
+        //         let initialPosition = JSON.stringify(position);
+        //         this.displayMessage('success', initialPosition);
+        //         Logger.logDebugObject('ModeSelection', initialPosition);
+        //     },
+        //     (error) => {
+        //         this.displayMessage('fail', error);
+        //         Logger.logError('ModeSelection', error);
+        //     },
+        //     {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000});
         let showDakshata = _.isNil(this.state) || this.state.modes.indexOf("DAKSHATA") > -1;
         const Dakshata = showDakshata ? (
             <TouchableWithoutFeedback onPress={this.handleOnPress("Dakshata")}>

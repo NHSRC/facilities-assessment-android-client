@@ -73,9 +73,9 @@ class Assessment extends AbstractComponent {
             <Container theme={FlatUITheme}>
                 <Header style={Dashboard.styles.header}>
                     <Button transparent onPress={() => TypedTransition.from(this).goBack()}>
-                        <Icon style={{marginTop: 10, color: "white"}} name='arrow-back'/>
+                        <Icon style={{marginTop: 5, color: "white"}} name='arrow-back'/>
                     </Button>
-                    <Title style={[Typography.paperFontHeadline,
+                    <Title style={[Typography.paperFontTitle,
                         {fontWeight: 'bold', color: "white"}]}>
                         {`${this.state.standard.reference} - ${_.truncate(Standard.getDisplayName(this.state.standard),
                             {length: 25})}`}

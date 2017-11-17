@@ -44,11 +44,11 @@ class AssessmentTools extends AbstractComponent {
         },
         inactiveText: {
             color: PrimaryColors.subheader_black,
-            fontSize: 14
+            fontSize: 13
         },
         activeText: {
             color: "#FFF",
-            fontSize: 14
+            fontSize: 13
         },
         buttonsContainer: {
             flexDirection: 'row',

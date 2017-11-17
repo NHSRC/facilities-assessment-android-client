@@ -1,8 +1,7 @@
-import React, {Component} from 'react';
-import {Text, StyleSheet, View, TextInput, Platform} from 'react-native';
+import React from "react";
+import {Platform, StyleSheet, TextInput} from "react-native";
 import AbstractComponent from "../../common/AbstractComponent";
 import Actions from "../../../action";
-import _ from 'lodash';
 import PrimaryColors from "../../styles/PrimaryColors";
 
 

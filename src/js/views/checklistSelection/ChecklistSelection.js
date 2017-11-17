@@ -105,7 +105,7 @@ class ChecklistSelection extends AbstractComponent {
             <Container theme={FlatUITheme}>
                 <Header style={Dashboard.styles.header}>
                     <Button transparent onPress={() => TypedTransition.from(this).goBack()}>
-                        <Icon style={{marginTop: 10, color: "white"}} name='arrow-back'/>
+                        <Icon style={{color: "white"}} name='arrow-back'/>
                     </Button>
                     <Title style={[Typography.paperFontHeadline,
                         {fontWeight: 'bold', color: "white"}]}>
@@ -113,7 +113,7 @@ class ChecklistSelection extends AbstractComponent {
                     </Title>
                     <Button transparent
                             onPress={() => TypedTransition.from(this).with({...this.props.params}).to(SearchPage)}>
-                        <Icon style={{paddingTop: 10, color: "white"}} name='search'/>
+                        <Icon style={{color: "white"}} name='search'/>
                     </Button>
                 </Header>
                 <Content>

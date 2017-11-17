@@ -1,18 +1,16 @@
-import React, {Component} from 'react';
-import {Dimensions, View, Text, TouchableWithoutFeedback, StyleSheet} from 'react-native';
-import {Container, Content, Title, Button, Header, Icon, InputGroup, Input, List, ListItem} from 'native-base';
+import React from "react";
+import {Dimensions, StyleSheet, Text, TouchableWithoutFeedback, View, Platform, TextInput} from "react-native";
+import {Button, Container, Content, Header, Icon, Input, InputGroup, Title} from "native-base";
 import AbstractComponent from "../common/AbstractComponent";
-import FlatUITheme from '../themes/search';
+import FlatUITheme from "../themes/search";
 import TypedTransition from "../../framework/routing/TypedTransition";
 import Path from "../../framework/routing/Path";
 import PrimaryColors from "../styles/PrimaryColors";
 import Typography from "../styles/Typography";
-import Listing from '../common/Listing';
-import Actions from '../../action';
-import Standards from "../standards/Standards";
+import Actions from "../../action";
 import Assessment from "../assessment/Assessment";
-import Dashboard from '../dashboard/Dashboard';
-import _ from 'lodash';
+import Dashboard from "../dashboard/Dashboard";
+import _ from "lodash";
 import Logger from "../../framework/Logger";
 
 const deviceWidth = Dimensions.get('window').width;
@@ -30,20 +28,20 @@ class SearchPage extends AbstractComponent {
     }
 
     static styles = StyleSheet.create({
-        header: {
-            flexDirection: 'row',
-            flexWrap: 'nowrap',
-            justifyContent: 'flex-start',
-            alignItems: 'center',
-            shadowOffset: {width: 0, height: 0},
-            elevation: 0,
-            backgroundColor: '#212121',
-        },
         resultContainer: {
             flexDirection: 'column',
             justifyContent: 'flex-start',
             alignItems: 'flex-start',
-            flexWrap: 'nowrap'
+            flexWrap: 'nowrap',
+            marginTop: 5
+        },
+        input: {
+            fontSize: 16,
+            color: 'white',
+            height: 40,
+            paddingLeft: 8,
+            borderColor: 'grey',
+            borderWidth: Platform.OS === 'ios' ? 0.5 : 0
         }
     });
 
@@ -89,23 +87,29 @@ class SearchPage extends AbstractComponent {
                 </Text>
                 {resultsRender}
             </View>);
-
     }
 
     render() {
         Logger.logDebug('SearchPage', 'render');
         return (
             <Container theme={FlatUITheme}>
-                <View style={SearchPage.styles.header}>
+                <Header style={Dashboard.styles.header}>
                     <Button transparent onPress={() => TypedTransition.from(this).goBack()}>
                         <Icon style={{color: "white"}} name="arrow-back"/>
                     </Button>
-                    <InputGroup>
-                        <Input onChangeText={this.handleSearch} placeholder="Search"/>
-                    </InputGroup>
-                </View>
+                    <Title style={[Typography.paperFontHeadline, {
+                        fontWeight: 'bold',
+                        color: "white"
+                    }]}>Search</Title>
+                </Header>
                 <Content>
-                    <View style={{margin: deviceWidth * 0.04,}}>
+                    <View style={{margin: deviceWidth * 0.04}}>
+                        <TextInput style={SearchPage.styles.input}
+                                   placeholder={"Search term"}
+                                   placeholderTextColor="rgba(255, 255, 255, 0.7)"
+                                   underlineColorAndroid={PrimaryColors["dark_white"]}
+                                   words="words"
+                                   onChangeText={this.handleSearch}/>
                         {this.renderSearchResults(this.state.results)}
                     </View>
                 </Content>

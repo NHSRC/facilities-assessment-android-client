@@ -73,7 +73,7 @@ class AssessmentList extends AbstractComponent {
 
     renderButtonContent(buttonText) {
         return (
-            <Text style={[Typography.paperFontBody1, {color: "white"}]}>
+            <Text style={[Typography.paperFontCaption, {color: "white"}]}>
                 {buttonText}
             </Text>);
     }

@@ -138,8 +138,8 @@ export default {
 
     // Icon
     iconFamily: 'MaterialIcons',
-    iconFontSize: (Platform.OS === 'ios' ) ? 30 : 28,
-    iconMargin: 7,
+    iconFontSize: 28,
+    iconMargin: 1,
 
 
     // InputGroup
@@ -177,7 +177,7 @@ export default {
     listBorderColor: '#ddd',
     listDividerBg: '#ddd',
     listItemHeight: deviceHeight * 0.05,
-    listItemPadding: (Platform.OS === 'ios' ) ? 12 : deviceHeight * 0.01667,
+    listItemPadding: 0,
     listNoteColor: '#808080',
     listNoteSize: 13,
 
