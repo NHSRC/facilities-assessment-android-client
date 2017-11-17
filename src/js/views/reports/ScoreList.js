@@ -22,13 +22,12 @@ class ScoreList extends AbstractComponent {
         super(props, context);
     }
 
-
     static styles = StyleSheet.create({
         container: {
-            marginRight: deviceWidth * .02,
             marginTop: deviceHeight * .01
         },
         scoreItem: {
+            marginLeft: 0,
             paddingRight: 24,
             paddingLeft: 24,
             paddingTop: 16,
