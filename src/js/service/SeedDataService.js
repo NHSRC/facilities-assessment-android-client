@@ -41,6 +41,7 @@ class SeedDataService extends BaseService {
 
     postInit() {
         if (this.isNotCompletelySeeded() && EnvironmentConfig.shouldUsePackagedSeedData) {
+            this.deleteAllData();
             let localReferenceDataSyncService = new LocalReferenceDataSyncService(this.db, this.beanStore, this.getService(ReferenceDataSyncService));
             localReferenceDataSyncService.syncMetaDataFromLocal(PackagedJSON.getFiles(), this.finishSeeding.bind(this));
         }
