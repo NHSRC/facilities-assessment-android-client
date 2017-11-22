@@ -75,7 +75,7 @@ setup_source:
 
 setup_source_nhsrc:
 	cp $(recorded_response_dir)/PackagedJSON.js $(service_src_dir)/PackagedJSON.js
-	cp $(recorded_response_dir)/jsons/*.json src/config/
+	cp $(recorded_response_dir)/jsons/2/*.json src/config/
 
 test_source: setup_source
 	npm test

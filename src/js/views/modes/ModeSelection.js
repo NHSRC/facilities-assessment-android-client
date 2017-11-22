@@ -11,9 +11,11 @@ import Dashboard from '../dashboard/Dashboard';
 import Settings from "../settings/Settings";
 import Config from 'react-native-config';
 import Logger from "../../framework/Logger";
+import EnvironmentConfig from "../common/EnvironmentConfig";
 
 const nqasIcon = require('../img/nqas.png');
 const kayakalpIcon = require('../img/kayakalp.png');
+const LaqshyaIcon = require('../img/Laqshya.png');
 const nhsrcbanner = require('../img/nhsrcbanner.png');
 
 const deviceWidth = Dimensions.get('window').width;
@@ -87,6 +89,24 @@ class ModeSelection extends AbstractComponent {
         return () => TypedTransition.from(this).with({mode: mode}).to(Dashboard);
     }
 
+    getMode(name, icon) {
+        let showMode = _.isNil(this.state) || this.state.modes.indexOf(name.toUpperCase()) > -1;
+        return showMode ? (
+            <TouchableWithoutFeedback onPress={this.handleOnPress(name)}>
+                <View style={ModeSelection.styles.mode}>
+                    {icon ? <Image resizeMode="contain"
+                                   style={{
+                                       maxHeight: 170,
+                                       width: deviceWidth * .33,
+                                       marginLeft: deviceWidth * .06,
+                                   }}
+                                   source={icon}/> :
+                        <Text style={[Typography.paperFontDisplay2, {color: 'white',}]}>{name}</Text>}
+                </View>
+            </TouchableWithoutFeedback>
+        ) : null;
+    }
+
     render() {
         Logger.logDebug('ModeSelection', 'render');
         // navigator.geolocation.getCurrentPosition((position) => {
@@ -99,35 +119,27 @@ class ModeSelection extends AbstractComponent {
         //         Logger.logError('ModeSelection', error);
         //     },
         //     {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000});
-        let showDakshata = _.isNil(this.state) || this.state.modes.indexOf("DAKSHATA") > -1;
-        const Dakshata = showDakshata ? (
-            <TouchableWithoutFeedback onPress={this.handleOnPress("Dakshata")}>
-                <View>
-                    <Text style={[Typography.paperFontDisplay2, {color: 'white',}]}>Dakshata</Text>
-                </View>
-            </TouchableWithoutFeedback>
-        ) : null;
-        const additionalStyles = showDakshata ? {alignItems: 'center', justifyContent: 'center'} : {};
         return (
             <Container theme={FlatUITheme}>
                 <Header style={ModeSelection.styles.header}>
-                    <Button
-                        onPress={() => TypedTransition.from(this)
-                            .with({
-                                cb: () => {
-                                }
-                            })
-                            .to(Settings, Navigator.SceneConfigs.FloatFromLeft)}
-                        transparent>
-                        <Icon style={{marginTop: 10, color: 'white'}} name="menu"/>
-                    </Button>
+                    {EnvironmentConfig.functionsEnabledInSettings ?
+                        <Button
+                            onPress={() => TypedTransition.from(this)
+                                .with({
+                                    cb: () => {
+                                    }
+                                })
+                                .to(Settings, Navigator.SceneConfigs.FloatFromLeft)}
+                            transparent>
+                            <Icon style={{marginTop: 10, color: 'white'}} name="menu"/>
+                        </Button> : <View/>}
                     <Title style={[Typography.paperFontHeadline, {
                         fontWeight: 'bold',
                         color: 'white'
                     }]}>GUNAK गुणक</Title>
                 </Header>
                 <Content>
-                    <View style={[ModeSelection.styles.container,]}>
+                    <View style={[ModeSelection.styles.container]}>
                         <Text style={[Typography.paperFontHeadline, {
                             color: PrimaryColors.yellow,
                             alignSelf: 'center',
@@ -144,30 +156,11 @@ class ModeSelection extends AbstractComponent {
                         }]}>
                             Choose an Assessment Type
                         </Text>
-                        <View style={[ModeSelection.styles.modeContainer, additionalStyles]}>
-                            <TouchableWithoutFeedback onPress={this.handleOnPress("NQAS")}>
-                                <View style={ModeSelection.styles.mode}>
-                                    <Image resizeMode="contain"
-                                           style={{
-                                               maxHeight: 300,
-                                               width: deviceWidth * .33,
-                                               marginLeft: deviceWidth * .06,
-                                           }}
-                                           source={nqasIcon}/>
-                                </View>
-                            </TouchableWithoutFeedback>
-                            <TouchableWithoutFeedback onPress={this.handleOnPress("Kayakalp")}>
-                                <View style={ModeSelection.styles.mode}>
-                                    <Image resizeMode="contain"
-                                           style={{
-                                               maxHeight: 300,
-                                               width: deviceWidth * .33,
-                                               marginRight: deviceWidth * .06,
-                                           }}
-                                           source={kayakalpIcon}/>
-                                </View>
-                            </TouchableWithoutFeedback>
-                            {Dakshata}
+                        <View style={[ModeSelection.styles.modeContainer, {alignItems: 'center', justifyContent: 'center'}]}>
+                            {this.getMode("NQAS", nqasIcon)}
+                            {this.getMode("Kayakalp", kayakalpIcon)}
+                            {this.getMode("Dakshata")}
+                            {this.getMode("Laqshya", LaqshyaIcon)}
                         </View>
                     </View>
                 </Content>

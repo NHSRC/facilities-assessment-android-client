@@ -1,5 +1,6 @@
 import Config from "react-native-config";
 import DeviceInfo from 'react-native-device-info';
+import Logger from "../../framework/Logger";
 
 class EnvironmentConfig {
     static _isPropertyTrue(propertyName) {
@@ -26,20 +27,28 @@ class EnvironmentConfig {
         return EnvironmentConfig._isPropertyTrue("FREE_TEXT_FACILITY_NAME_SUPPORT");
     }
 
+    static get isEmulator() {
+        return DeviceInfo.isEmulator();
+    }
+
     static get shouldSetupTestData() {
         return EnvironmentConfig._isPropertyTrue("SETUP_TEST_DATA");
     }
 
     static get shouldAllowBulkDownload() {
-        return DeviceInfo.isEmulator() || EnvironmentConfig._isPropertyTrue("ALLOW_BULK_DOWNLOAD");
+        return EnvironmentConfig.isEmulator || EnvironmentConfig._isPropertyTrue("ALLOW_BULK_DOWNLOAD");
     }
 
     static get shouldAllowCleanData() {
-        return DeviceInfo.isEmulator() || EnvironmentConfig._isPropertyTrue("ALLOW_CLEAN_DATA");
+        return EnvironmentConfig.isEmulator || EnvironmentConfig._isPropertyTrue("ALLOW_CLEAN_DATA");
     }
 
     static get shouldAllowDownloadMyData() {
-        return DeviceInfo.isEmulator() || EnvironmentConfig._isPropertyTrue("ALLOW_DOWNLOAD_MY_DATA");
+        return EnvironmentConfig.isEmulator || EnvironmentConfig._isPropertyTrue("ALLOW_DOWNLOAD_MY_DATA");
+    }
+
+    static get functionsEnabledInSettings() {
+        return EnvironmentConfig.isEmulator || EnvironmentConfig.shouldAllowDownloadMyData || EnvironmentConfig.shouldAllowBulkDownload || EnvironmentConfig.shouldAllowCleanData;
     }
 }
 
