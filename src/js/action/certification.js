@@ -1,4 +1,31 @@
 export default {
+    "LAQSHYA": [
+        {
+            name: "Aggregate Score",
+            slug: "agg",
+            params: [70]
+        },
+        {
+            name: "Department Score",
+            slug: "dep",
+            params: [70]
+        },
+        {
+            name: "Area of Concern Wise Score",
+            slug: "aoc",
+            params: [70]
+        },
+        {
+            name: "Critical Standards",
+            slug: "sel-std",
+            params: [["A2", "B5", "D10"], 70]
+        },
+        {
+            name: "Standard Wise Score",
+            slug: "std",
+            params: [50]
+        }
+    ],
     "District Hospital (DH)": [
         {
             name: "Aggregate Score",

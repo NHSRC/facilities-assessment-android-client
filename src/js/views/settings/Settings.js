@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {
     Dimensions, View, Text, TouchableWithoutFeedback, StyleSheet, Image, TextInput,
-    ActivityIndicator, Alert
+    ActivityIndicator, Alert, Navigator
 } from 'react-native';
 import {Container, Content, Title, Button, Header, Icon, InputGroup, Input} from 'native-base';
 import AbstractComponent from "../common/AbstractComponent";
@@ -97,7 +97,10 @@ class Settings extends AbstractComponent {
             <Container theme={FlatUITheme}>
                 <Header style={Settings.styles.header}>
                     <Button
-                        onPress={() => TypedTransition.from(this).goBack()}
+                        onPress={() => {
+                            this.dispatchAction(Actions.MODE_SELECTION);
+                            TypedTransition.from(this).goBack();
+                        }}
                         transparent>
                         <Icon style={{marginTop: 10, color: 'white'}} name="arrow-back"/>
                     </Button>

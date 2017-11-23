@@ -1,14 +1,9 @@
-import React, {Component} from 'react';
-import {Text, StyleSheet, View, ScrollView, Dimensions, TouchableWithoutFeedback} from 'react-native';
+import React from "react";
+import {Text, StyleSheet, View, ScrollView, Dimensions, TouchableOpacity} from 'react-native';
 import AbstractComponent from "../common/AbstractComponent";
-import FlatUITheme from '../themes/flatUI';
-import {Container, Header, Title, Content, Icon, Button} from 'native-base';
-import Path from "../../framework/routing/Path";
-import Typography from '../styles/Typography';
-import PrimaryColors from '../styles/PrimaryColors';
-import TypedTransition from "../../framework/routing/TypedTransition";
-import Actions from '../../action';
-import _ from 'lodash';
+import Typography from "../styles/Typography";
+import PrimaryColors from "../styles/PrimaryColors";
+import Actions from "../../action";
 
 
 const deviceWidth = Dimensions.get('window').width;
@@ -54,7 +49,7 @@ class TabBar extends AbstractComponent {
     render() {
         const Tabs = this.props.tabs.map((tab, idx) => (
             <View key={idx} style={tab.isSelected ? TabBar.styles.selectedTab : TabBar.styles.tab}>
-                <TouchableWithoutFeedback
+                <TouchableOpacity
                     onPress={() => this.dispatchAction(Actions.SELECT_TAB, {selectedTab: tab.title})}>
                     <View>
                         <Text
@@ -63,7 +58,7 @@ class TabBar extends AbstractComponent {
                             {tab.title}
                         </Text>
                     </View>
-                </TouchableWithoutFeedback>
+                </TouchableOpacity>
             </View>
         ));
         return (

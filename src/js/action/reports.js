@@ -62,9 +62,12 @@ const drillDown = function (state, action, beans) {
     let reportService = beans.get(ReportService);
     let prevSelectedTab = getSelectedTab(state.tabs);
     const drilledDownTabs = prevSelectedTab.drillDown;
-    const tabs = drilledDownTabs.map((tab) => Object.assign(tab, {
-            scores: reportService[scoringMap.get(tab.slug)](action.selectionName, action.facilityAssessment)
-        })
+
+    const tabs = drilledDownTabs.map((tab) => {
+            return Object.assign(tab, {
+                scores: reportService[scoringMap.get(tab.slug)](action.selectionName, action.facilityAssessment)
+            });
+        }
     );
     const newSelectedTabTitle = getSelectedTab(tabs).title;
     return {

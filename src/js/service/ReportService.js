@@ -11,6 +11,7 @@ import ChecklistProgress from "../models/ChecklistProgress";
 import Checkpoint from "../models/Checkpoint";
 import MeasurableElement from "../models/MeasurableElement";
 import Logger from "../framework/Logger";
+import FacilitiesService from "./FacilitiesService";
 
 @Service("reportService")
 class ReportService extends BaseService {
@@ -116,7 +117,8 @@ class ReportService extends BaseService {
     }
 
     areasOfConcernScoreForDepartment(department, facilityAssessment) {
-        const checklist = this.db.objects(Checklist.schema.name).filtered("name = $0", department).map(this.nameAndId)[0];
+        let state = this.getService(FacilitiesService).getStateForFacility(facilityAssessment.facility.uuid);
+        let checklist = this.nameAndId(this.getService(ChecklistService).findChecklist(facilityAssessment.assessmentTool.uuid, department, state.uuid));
         const allCheckpoints = this.db.objects(CheckpointScore)
             .filtered("facilityAssessment = $0 AND checklist = $1 and na = false", facilityAssessment.uuid, checklist.uuid)
             .map(_.identity);
@@ -179,8 +181,8 @@ class ReportService extends BaseService {
     }
 
     nonAndPartiallyComplianceCheckpointsForDepartment(department, facilityAssessment) {
-        const checklist = this.db.objects(Checklist.schema.name)
-            .filtered("name = $0", department).map(this.nameAndId)[0];
+        let state = this.getService(FacilitiesService).getStateForFacility(facilityAssessment.facility.uuid);
+        let checklist = this.nameAndId(this.getService(ChecklistService).findChecklist(facilityAssessment.assessmentTool.uuid, department, state.uuid));
         const partialAndNonCompliantCheckpoints = this.db.objects(CheckpointScore.schema.name)
             .filtered("facilityAssessment = $0 and checklist = $1", facilityAssessment.uuid, checklist.uuid)
             .filtered("score = 0 or score = 1")

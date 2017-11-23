@@ -32,11 +32,9 @@ class OverallScore extends AbstractComponent {
             justifyContent: 'space-between',
             alignItems: 'center'
         },
-        scorePercentage: {
-            color: "#ffa000"
-        },
-        scoreText: {
-            color: "#ffa000"
+        scoreTextAndPercentage: {
+            color: "#ffa000",
+            alignSelf: 'center'
         }
     });
 
@@ -45,7 +43,7 @@ class OverallScore extends AbstractComponent {
             <View style={OverallScore.styles.container}>
                 <View style={{marginBottom: 10}}>
                     <Text
-                        style={[Typography.paperFontTitle, {color: "white", alignSelf: 'center'}]}>
+                        style={[Typography.paperFontSubhead, {color: "white", alignSelf: 'center'}]}>
                         {`${this.props.facility.name}'s ${this.props.assessmentType.name} assessment on ${formatDateOnlyHuman(this.props.facilityAssessment.startDate)}`}
                     </Text>
                 </View>
@@ -61,14 +59,14 @@ class OverallScore extends AbstractComponent {
                         strokeCap="circle">
                         {() =>
                             <View style={{
-                                marginTop: -(deviceHeight * .168),
+                                marginTop: -(deviceHeight * .150),
                                 alignSelf: 'center',
                                 flexDirection: 'column'
                             }}>
-                                <Text style={[Typography.paperFontDisplay2, OverallScore.styles.scorePercentage]}>
+                                <Text style={[Typography.paperFontDisplay2, OverallScore.styles.scoreTextAndPercentage]}>
                                     {`${parseInt(this.props.score)}%`}
                                 </Text>
-                                <Text style={[Typography.paperFontBody1, OverallScore.styles.scoreText]}>
+                                <Text style={[Typography.paperFontMenu, OverallScore.styles.scoreTextAndPercentage]}>
                                     {`${_.startCase(this.props.scoreText.toLowerCase())} Score`}
                                 </Text>
                             </View>}

@@ -7,6 +7,7 @@ import FacilityService from './FacilitiesService';
 import ChecklistProgress from "../models/ChecklistProgress";
 import DeviceInfo from 'react-native-device-info';
 import _ from 'lodash';
+import certificationData from '../action/certification';
 
 @Service("facilityAssessmentService")
 class FacilityAssessmentService extends BaseService {
@@ -96,7 +97,7 @@ class FacilityAssessmentService extends BaseService {
             .map(_.identity);
         return _.every(checklistsProgress,
             (checklistProgress) => _.isNumber(checklistProgress.completed) && checklistProgress.completed > 0 &&
-            checklistProgress.total === checklistProgress.completed);
+            checklistProgress.total === checklistProgress.completed) && certificationData.hasOwnProperty(assessment.assessmentTool.name);
     }
 
     getAllCertifiableAssessments(mode) {

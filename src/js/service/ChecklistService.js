@@ -167,6 +167,10 @@ class ChecklistService extends BaseService {
         let modes = this.db.objects(AssessmentTool.schema.name).map((assessmentTool) => assessmentTool.mode.toUpperCase());
         return _.uniq(modes);
     }
+
+    findChecklist(assessmentToolUUID, checklistName, stateUUID) {
+        return this.getReturnValue(this.db.objects(Checklist.schema.name).filtered("assessmentTool = $0 and name = $1 and (state = $2 or state = null)", assessmentToolUUID, checklistName, stateUUID));
+    }
 }
 
 export default ChecklistService;

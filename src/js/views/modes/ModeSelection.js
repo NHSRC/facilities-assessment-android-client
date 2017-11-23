@@ -1,17 +1,17 @@
-import React, {Component} from 'react';
-import {Dimensions, View, Text, Navigator, StyleSheet, TouchableWithoutFeedback, Image, Alert} from 'react-native';
-import {Container, Content, Title, Button, Header, Icon, Thumbnail, Footer} from 'native-base';
+import React from "react";
+import {Alert, Dimensions, Image, Navigator, StyleSheet, Text, TouchableWithoutFeedback, View} from "react-native";
+import {Button, Container, Content, Footer, Header, Icon, Title} from "native-base";
 import AbstractComponent from "../common/AbstractComponent";
-import FlatUITheme from '../themes/flatUI';
+import FlatUITheme from "../themes/flatUI";
 import TypedTransition from "../../framework/routing/TypedTransition";
 import Path, {PathRoot} from "../../framework/routing/Path";
 import PrimaryColors from "../styles/PrimaryColors";
 import Typography from "../styles/Typography";
-import Dashboard from '../dashboard/Dashboard';
+import Dashboard from "../dashboard/Dashboard";
 import Settings from "../settings/Settings";
-import Config from 'react-native-config';
 import Logger from "../../framework/Logger";
 import EnvironmentConfig from "../common/EnvironmentConfig";
+import Actions from "../../action";
 
 const nqasIcon = require('../img/nqas.png');
 const kayakalpIcon = require('../img/kayakalp.png');
@@ -20,8 +20,6 @@ const nhsrcbanner = require('../img/nhsrcbanner.png');
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
-
-import Actions from '../../action';
 
 @PathRoot
 @Path("/modeSelection")
@@ -90,7 +88,7 @@ class ModeSelection extends AbstractComponent {
     }
 
     getMode(name, icon) {
-        let showMode = _.isNil(this.state) || this.state.modes.indexOf(name.toUpperCase()) > -1;
+        let showMode = !_.isNil(this.state) && this.state.modes.indexOf(name.toUpperCase()) > -1;
         return showMode ? (
             <TouchableWithoutFeedback onPress={this.handleOnPress(name)}>
                 <View style={ModeSelection.styles.mode}>
@@ -101,7 +99,7 @@ class ModeSelection extends AbstractComponent {
                                        marginLeft: deviceWidth * .06,
                                    }}
                                    source={icon}/> :
-                        <Text style={[Typography.paperFontDisplay2, {color: 'white',}]}>{name}</Text>}
+                        <Text style={[Typography.paperFontHeadline, {color: 'white', width: deviceWidth * .33, marginLeft: deviceWidth * .06, marginTop: 50}]}>{name}</Text>}
                 </View>
             </TouchableWithoutFeedback>
         ) : null;
@@ -153,10 +151,8 @@ class ModeSelection extends AbstractComponent {
                             color: 'white',
                             alignSelf: 'center',
                             marginTop: 16
-                        }]}>
-                            Choose an Assessment Type
-                        </Text>
-                        <View style={[ModeSelection.styles.modeContainer, {alignItems: 'center', justifyContent: 'center'}]}>
+                        }]}>{this.state ? 'Choose an Assessment Type' : 'Download Checklists & Facilities'}</Text>
+                        <View style={[ModeSelection.styles.modeContainer, {justifyContent: 'center'}]}>
                             {this.getMode("NQAS", nqasIcon)}
                             {this.getMode("Kayakalp", kayakalpIcon)}
                             {this.getMode("Dakshata")}
