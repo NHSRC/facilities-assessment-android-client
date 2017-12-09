@@ -22,8 +22,16 @@ class Logger {
     }
 
     static logDebugObject(source, object) {
-        if (Logger.canLog(Logger.LogLevel.Debug))
-            Logger.log(source, JSON.stringify(object), Logger.LogLevel.Debug);
+        Logger._logObject(source, object, Logger.LogLevel.Debug);
+    }
+
+    static _logObject(source, object, level) {
+        if (Logger.canLog(level))
+            Logger.log(source, JSON.stringify(object), level);
+    }
+
+    static logErrorObject(source, object) {
+        Logger._logObject(source, object, Logger.LogLevel.Error);
     }
 
     static logTrace(source, message) {
@@ -31,8 +39,7 @@ class Logger {
     }
 
     static logTraceObject(source, object) {
-        if (Logger.canLog(Logger.LogLevel.Trace))
-            Logger.log(source, JSON.stringify(object), Logger.LogLevel.Trace);
+        Logger._logObject(source, object, Logger.LogLevel.Trace);
     }
 
     static logInfo(source, message) {
@@ -40,12 +47,15 @@ class Logger {
     }
 
     static logInfoObject(source, object) {
-        if (Logger.canLog(Logger.LogLevel.Info))
-            Logger.log(source, JSON.stringify(object), Logger.LogLevel.Info);
+        Logger._logObject(source, object, Logger.LogLevel.Info);
     }
 
     static logWarn(source, message) {
         Logger.log(source, message, Logger.LogLevel.Warn);
+    }
+
+    static logWarnObject(source, object) {
+        Logger._logObject(source, object, Logger.LogLevel.Warn);
     }
 
     static logError(source, message) {

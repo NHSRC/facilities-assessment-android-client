@@ -1,7 +1,23 @@
 import ChecklistService from "../service/ChecklistService";
 import FacilityAssessmentService from "../service/FacilityAssessmentService";
 import AssessmentService from "../service/AssessmentService";
-import _ from 'lodash';
+import _ from "lodash";
+import AssessmentLocation from "../models/AssessmentLocation";
+import UUID from "../utility/UUID";
+import AssessmentLocationService from "../service/AssessmentLocationService";
+
+const checklistAssessmentLocation = function (state, action, beans) {
+    let assessmentLocation = new AssessmentLocation();
+    assessmentLocation.uuid = UUID.generate();
+    assessmentLocation.facilityAssessment = action.facilityAssessmentUUID;
+    assessmentLocation.checklist = action.checklistUUID;
+    assessmentLocation.accuracy = action.coords.accuracy;
+    assessmentLocation.longitude = action.coords.longitude;
+    assessmentLocation.latitude = action.coords.latitude;
+    assessmentLocation.altitude = action.coords.altitude;
+    beans.get(AssessmentLocationService).saveLocation(assessmentLocation);
+    return Object.assign(state, {});
+};
 
 const allChecklists = function (state, action, beans) {
     const checklistService = beans.get(ChecklistService);
@@ -55,6 +71,7 @@ export default new Map([
     ["COMPLETE_ASSESSMENT", completeAssessment],
     ["UPDATE_CHECKLIST_PROGRESS", updateChecklistProgress],
     ["REDUCE_CHECKLIST_PROGRESS", updateChecklistProgress],
+    ["CHECKLIST_ASSESSMENT_LOCATION", checklistAssessmentLocation]
 ]);
 
 export let checklistSelectionInit = {

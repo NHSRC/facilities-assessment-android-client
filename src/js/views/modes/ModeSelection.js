@@ -43,23 +43,6 @@ class ModeSelection extends AbstractComponent {
         this.unsubscribe();
     }
 
-    displayMessage(status, data) {
-        Alert.alert(
-            status,
-            data,
-            [
-                {
-                    text: 'Yes', onPress: () => {
-                }
-                },
-                {
-                    text: 'No', onPress: () => {
-                }
-                }
-            ]
-        )
-    }
-
     static styles = StyleSheet.create({
         container: {
             flexDirection: 'column',
@@ -68,7 +51,8 @@ class ModeSelection extends AbstractComponent {
         modeContainer: {
             flexDirection: 'row',
             flexWrap: 'wrap',
-            justifyContent: 'space-between',
+            alignItems: 'center',
+            justifyContent: 'center'
         },
         header: {
             shadowOffset: {width: 0, height: 0},
@@ -102,21 +86,11 @@ class ModeSelection extends AbstractComponent {
                         <Text style={[Typography.paperFontHeadline, {color: 'white', width: deviceWidth * .33, marginLeft: deviceWidth * .06, marginTop: 50}]}>{name}</Text>}
                 </View>
             </TouchableWithoutFeedback>
-        ) : null;
+        ) : <View/>;
     }
 
     render() {
         Logger.logDebug('ModeSelection', 'render');
-        // navigator.geolocation.getCurrentPosition((position) => {
-        //         let initialPosition = JSON.stringify(position);
-        //         this.displayMessage('success', initialPosition);
-        //         Logger.logDebugObject('ModeSelection', initialPosition);
-        //     },
-        //     (error) => {
-        //         this.displayMessage('fail', error);
-        //         Logger.logError('ModeSelection', error);
-        //     },
-        //     {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000});
         return (
             <Container theme={FlatUITheme}>
                 <Header style={ModeSelection.styles.header}>
@@ -152,11 +126,11 @@ class ModeSelection extends AbstractComponent {
                             alignSelf: 'center',
                             marginTop: 16
                         }]}>{this.state ? 'Choose an Assessment Type' : 'Download Checklists & Facilities'}</Text>
-                        <View style={[ModeSelection.styles.modeContainer, {justifyContent: 'center'}]}>
+                        <View style={[ModeSelection.styles.modeContainer]}>
                             {this.getMode("NQAS", nqasIcon)}
                             {this.getMode("Kayakalp", kayakalpIcon)}
-                            {this.getMode("Dakshata")}
                             {this.getMode("Laqshya", LaqshyaIcon)}
+                            {this.getMode("Dakshata")}
                         </View>
                     </View>
                 </Content>

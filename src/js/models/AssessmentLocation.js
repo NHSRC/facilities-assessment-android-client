@@ -5,7 +5,11 @@ class AssessmentLocation {
         properties: {
             uuid: 'string',
             facilityAssessment: 'string',
-            checklist: 'string'
+            checklist: 'string',
+            accuracy: 'int',
+            longitude: 'double',
+            latitude: 'double',
+            altitude: 'double'
         }
     };
 }

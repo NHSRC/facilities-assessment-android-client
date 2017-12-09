@@ -47,6 +47,10 @@ class EnvironmentConfig {
         return EnvironmentConfig.isEmulator || EnvironmentConfig._isPropertyTrue("ALLOW_DOWNLOAD_MY_DATA");
     }
 
+    static get shouldTrackLocation() {
+        return EnvironmentConfig._isPropertyTrue("TRACK_LOCATION");
+    }
+
     static get functionsEnabledInSettings() {
         return EnvironmentConfig.isEmulator || EnvironmentConfig.shouldAllowDownloadMyData || EnvironmentConfig.shouldAllowBulkDownload || EnvironmentConfig.shouldAllowCleanData;
     }
