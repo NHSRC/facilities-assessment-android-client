@@ -4,6 +4,10 @@ import {minDate} from '../utility/DateUtils';
 import ReferenceDataSyncService from "../service/ReferenceDataSyncService";
 import SeedDataService from "../service/SeedDataService";
 import Config from "react-native-config";
+import StateService from "../service/StateService";
+import Logger from "../framework/Logger";
+import EntitySyncStatusService from "../service/EntitySyncStatusService";
+import EntitiesMetaData from "../models/entityMetaData/EntitiesMetaData";
 
 const initialSettings = function (state, action, beans) {
     const settingsService = beans.get(SettingsService);
@@ -25,8 +29,14 @@ const updateSettings = function (state, action, beans) {
 
 const syncMetaData = function (state, action, beans) {
     const referenceDataSyncService = beans.get(ReferenceDataSyncService);
-    referenceDataSyncService.syncMetaData(action.cb);
+    referenceDataSyncService.syncAllMetaData(action.cb);
     return Object.assign(state, {syncing: true})
+};
+
+const syncMetaDataInStateMode = function (state, action, beans) {
+    const referenceDataSyncService = beans.get(ReferenceDataSyncService);
+    referenceDataSyncService.syncAllMetaDataInStateMode(action.cb);
+    return Object.assign(state, {syncing: true});
 };
 
 const downloadMyAssessments = function (state, action, beans) {
@@ -63,6 +73,7 @@ export default new Map([
     ["UPDATE_SETTINGS", updateSettings],
     ["UPDATE_SETTINGS_VIEW", updateView],
     ["SYNC_META_DATA", syncMetaData],
+    ["SYNC_META_DATA_IN_STATE_MODE", syncMetaDataInStateMode],
     ["SYNC_ALL_DATA", syncAllData],
     ["DOWNLOAD_MY_ASSESSMENTS", downloadMyAssessments],
     ["SYNCED_DATA", syncedData],

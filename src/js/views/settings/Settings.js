@@ -158,6 +158,22 @@ class Settings extends AbstractComponent {
                                     }
                                     showButton={this.state.serverConnected}
                                     buttonStyle={{marginTop: 15}}/>
+                                {EnvironmentConfig.shouldAllowBulkDownload ? <SubmitButton
+                                    buttonText={this.state.syncing ?
+                                        (<ActivityIndicator animating={true} size={"large"} color="white"
+                                                            style={{height: 80}}/>) :
+                                        "SIMULATE - METADATA DOWNLOAD"}
+                                    onPress={() =>
+                                        this.dispatchAction(Actions.SYNC_META_DATA_IN_STATE_MODE,
+                                            {
+                                                cb: () => {
+                                                    this.dispatchAction(Actions.SYNCED_DATA);
+                                                    this.props.params.cb();
+                                                }
+                                            })
+                                    }
+                                    showButton={this.state.serverConnected}
+                                    buttonStyle={{marginTop: 15}}/> : <View/>}
                                 <Text style={{color: "white", marginBottom: 30, alignSelf: 'center'}}>
                                     Last Synced Date - {formatDate(this.state.lastSyncedDate)}
                                 </Text>

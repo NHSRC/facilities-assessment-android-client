@@ -10,6 +10,7 @@ import EntitiesMetaData from "../models/entityMetaData/EntitiesMetaData";
 import EntityService from "./EntityService";
 import moment from "moment";
 import DeviceInfo from 'react-native-device-info';
+import StateService from "./StateService";
 
 @Service("referenceDataSyncService")
 class ReferenceDataSyncService extends BaseService {
@@ -43,12 +44,29 @@ class ReferenceDataSyncService extends BaseService {
         });
     }
 
-    syncMetaData(cb) {
-        this._syncData(cb, EntitiesMetaData.referenceEntityTypes);
+    syncAllMetaData(cb) {
+        this._syncData(cb, EntitiesMetaData.referenceEntityTypes.concat(EntitiesMetaData.stateSpecificReferenceEntityTypes));
+    }
+
+    syncAllMetaDataInStateMode(cb) {
+        this._syncData(() => {
+            let allStates = this.getService(StateService).getAllStates();
+            this.getService(EntitySyncStatusService).setupStateSpecificStatuses(allStates.slice(), EntitiesMetaData.stateSpecificReferenceEntityTypes);
+            this.syncStateSpecificMetaDataInStateMode(allStates.slice(), cb);
+        }, EntitiesMetaData.referenceEntityTypes);
+    }
+
+    syncStateSpecificMetaDataInStateMode(remainingStates, cb) {
+        this._syncData(() => {
+            if (remainingStates.length > 0)
+                this.syncStateSpecificMetaDataInStateMode(remainingStates, cb);
+            else
+                cb();
+        }, EntitiesMetaData.stateSpecificReferenceEntityTypes, 'lastModifiedByState', {name: remainingStates.pop().name});
     }
 
     updateProgress() {
-        this.findByKey('areaOfConcern', );
+        this.findByKey('areaOfConcern',);
     }
 
     pullData(unprocessedEntityMetaData, resourceSearchFilterURL, params, onComplete, onError) {
@@ -58,16 +76,16 @@ class ReferenceDataSyncService extends BaseService {
             return;
         }
 
-        const entitySyncStatus = this.entitySyncStatusService.get(entityMetaData.entityName);
+        const entitySyncStatus = this.entitySyncStatusService.get(entityMetaData.getSyncStatusEntityName(params.name));
         Logger.logInfo('ReferenceDataSyncService', `${entitySyncStatus.entityName} was last loaded up to "${entitySyncStatus.loadedSince}"`);
         this.conventionalRestClient.loadData(entityMetaData, resourceSearchFilterURL, params, entitySyncStatus.loadedSince, 0,
             unprocessedEntityMetaData,
-            (resourcesWithSameTimeStamp, entityModel) => this.persist(resourcesWithSameTimeStamp, entityModel),
+            (resourcesWithSameTimeStamp, entityMetaData) => this.persist(resourcesWithSameTimeStamp, entityMetaData, params),
             (workingAllEntitiesMetaData) => this.pullData(workingAllEntitiesMetaData, resourceSearchFilterURL, params, onComplete, onError),
             [], onError);
     }
 
-    persist(resourcesWithSameTimeStamp, entityMetaData) {
+    persist(resourcesWithSameTimeStamp, entityMetaData, params) {
         resourcesWithSameTimeStamp.forEach((resource) => {
             const entity = entityMetaData.mapFromResource(resource);
             let service = this.getService(entityMetaData.serviceClass);
@@ -78,9 +96,9 @@ class ReferenceDataSyncService extends BaseService {
             }
         });
 
-        const currentEntitySyncStatus = this.entitySyncStatusService.get(entityMetaData.entityName);
+        const currentEntitySyncStatus = this.entitySyncStatusService.get(entityMetaData.getSyncStatusEntityName(params.name));
         const entitySyncStatus = new EntitySyncStatus();
-        entitySyncStatus.entityName = entityMetaData.entityName;
+        entitySyncStatus.entityName = entityMetaData.getSyncStatusEntityName(params.name);
         entitySyncStatus.uuid = currentEntitySyncStatus.uuid;
         entitySyncStatus.loadedSince = moment(resourcesWithSameTimeStamp[0]["lastModifiedDate"]).toDate();
         this.entitySyncStatusService.saveWithinTx(EntitySyncStatus, entitySyncStatus);

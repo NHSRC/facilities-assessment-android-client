@@ -27,6 +27,10 @@ class EntityMetaData {
         return this.isMappedToDb ? this.entityType.schema.name : this.entityType.entityName;
     }
 
+    getSyncStatusEntityName(state) {
+        return _.isNil(state) ? this.entityName : `${this.entityName} - ${state}`;
+    }
+
     get isMappedToDb() {
         return !_.isNil(this.entityType.schema);
     }

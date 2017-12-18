@@ -54,6 +54,10 @@ class EnvironmentConfig {
     static get functionsEnabledInSettings() {
         return EnvironmentConfig.isEmulator || EnvironmentConfig.shouldAllowDownloadMyData || EnvironmentConfig.shouldAllowBulkDownload || EnvironmentConfig.shouldAllowCleanData;
     }
+
+    static get isEmulated() {
+        return EnvironmentConfig.isEmulator;
+    }
 }
 
 export default EnvironmentConfig;
