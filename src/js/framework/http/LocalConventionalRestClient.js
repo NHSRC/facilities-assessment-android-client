@@ -10,8 +10,9 @@ class LocalConventionalRestClient extends ConventionalRestClient {
 
     getData(endpoint, cb, errorHandler) {
         this.count = this.count + 1;
-        Logger.logDebug('LocalConventionalRestClient', `Getting data from file: ${this.count} of ${this.files.length}`);
-        cb(this.files[this.count]);
+        let common = this.files.get('common');
+        Logger.logDebug('LocalConventionalRestClient', `Getting data from file: ${this.count} of ${common.length} for endpoint: ${endpoint}`);
+        cb(common[this.count]);
     }
 }
 

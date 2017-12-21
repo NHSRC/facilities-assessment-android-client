@@ -27,66 +27,16 @@ class SeedDataService extends BaseService {
         this.SEED_PROGRESS_UUID = SeedProgress.UUID;
     }
 
-    /*var a = function(number) {
-     var i = 0;
-     var message = "[";
-     for (; i <= number; i++) {
-     message += `require('../../config/${i}.json'), `;
-     }
-     message += "];";
-     console.log(message);
-     };
-
-     a(72);*/
-
     postInit() {
         if (this.isNotCompletelySeeded() && EnvironmentConfig.shouldUsePackagedSeedData) {
             this.deleteAllData();
             let localReferenceDataSyncService = new LocalReferenceDataSyncService(this.db, this.beanStore, this.getService(ReferenceDataSyncService));
             localReferenceDataSyncService.syncMetaDataFromLocal(PackagedJSON.getFiles(), this.finishSeeding.bind(this));
         }
-        if (EnvironmentConfig.shouldSetupTestData) {
-            this.setupTestData();
-        }
-    }
-
-    setupTestData() {
-        const facilityAssessmentService = this.getService(FacilityAssessmentService);
-        const checklistService = this.getService(ChecklistService);
-        const stateService = this.getService(StateService);
-        const facilityService = this.getService(FacilitiesService);
-        const entityService = this.getService(EntityService);
-
-        let state = stateService.findByName('Chhattisgarh');
-        let facility = state.districts[0].facilities[0];
-
-        let assessmentTool = entityService.findByName('Dakshata', AssessmentTool.schema.name);
-        let assessmentType = entityService.findByName('Internal', AssessmentType.schema.name);
-        const facilityAssessment = facilityAssessmentService.startAssessment(facility, assessmentTool, assessmentType, '5');
-
-        let checklists = checklistService.getChecklistsFor(assessmentTool, state);
-        checklists.forEach((checklist) => {
-            checklist.areasOfConcern.forEach((aoc) => {
-                // entityService.findByKey(aoc.);
-            });
-        });
-
-        // facilityAssessmentService.updateStandardProgress(action.standard, action.areaOfConcern, action.checklist, action.facilityAssessment);
-        // let updatedProgress = facilityAssessmentService.updateAreaOfConcernProgress(action.areaOfConcern, action.checklist, action.facilityAssessment);
-        // let updatedProgress = facilityAssessmentService.updateChecklistProgress(action.checklist, action.facilityAssessment);
-        // const savedCheckpoint = facilityAssessmentService.saveCheckpointScore(checkpointToUpdate);
     }
 
     startSeedProgress() {
         return this.save(SeedProgress)({uuid: this.SEED_PROGRESS_UUID, started: true});
-    }
-
-    updateSeedProgress(fileNumber) {
-        return this.save(SeedProgress)({
-            uuid: this.SEED_PROGRESS_UUID,
-            started: true,
-            fileNumber: fileNumber
-        });
     }
 
     finishSeeding() {
@@ -112,11 +62,19 @@ class SeedDataService extends BaseService {
     deleteAllData() {
         this._deleteData(EntitiesMetaData.allEntityTypes);
         this.deleteProgressData();
+        this.deleteSeedProgress();
     }
 
     deleteTxData() {
         this._deleteData(EntitiesMetaData.txEntityTypes);
         this.deleteProgressData();
+    }
+
+    deleteSeedProgress() {
+        const db = this.db;
+        db.write(() => {
+            db.delete(db.objects(SeedProgress.schema.name));
+        });
     }
 
     deleteProgressData() {

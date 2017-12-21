@@ -48,7 +48,11 @@ class ReferenceDataSyncService extends BaseService {
         this._syncData(cb, EntitiesMetaData.referenceEntityTypes.concat(EntitiesMetaData.stateSpecificReferenceEntityTypes));
     }
 
-    syncAllMetaDataInStateMode(cb) {
+    syncMetaDataNotSpecificToState(cb) {
+        this._syncData(cb, EntitiesMetaData.referenceEntityTypes);
+    }
+
+    simulateSyncAllMetaData(cb) {
         this._syncData(() => {
             let allStates = this.getService(StateService).getAllStates();
             this.getService(EntitySyncStatusService).setupStateSpecificStatuses(allStates.slice(), EntitiesMetaData.stateSpecificReferenceEntityTypes);

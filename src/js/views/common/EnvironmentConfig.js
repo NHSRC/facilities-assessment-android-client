@@ -31,10 +31,6 @@ class EnvironmentConfig {
         return DeviceInfo.isEmulator();
     }
 
-    static get shouldSetupTestData() {
-        return EnvironmentConfig._isPropertyTrue("SETUP_TEST_DATA");
-    }
-
     static get shouldAllowBulkDownload() {
         return EnvironmentConfig.isEmulator || EnvironmentConfig._isPropertyTrue("ALLOW_BULK_DOWNLOAD");
     }

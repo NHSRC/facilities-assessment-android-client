@@ -14,7 +14,7 @@ class LocalReferenceDataSyncService extends ReferenceDataSyncService {
         this.entitySyncStatusService = this.referenceDataSyncService.getService(EntitySyncStatusService);
         this.conventionalRestClient = new LocalConventionalRestClient(this.referenceDataSyncService.getService(SettingsService), this.db, files);
         this.entityService = this.referenceDataSyncService.getService(EntityService);
-        this.syncNonStateSpecificMetaData(finishCB);
+        this.syncMetaDataNotSpecificToState(finishCB);
     }
 }
 

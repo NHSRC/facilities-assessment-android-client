@@ -10,7 +10,7 @@ endif
 ts := $(shell /bin/date "+%Y-%m-%d---%H-%M-%S")
 recorded_response_dir := ../reference-data/nhsrc/output/recorded-response
 service_src_dir := src/js/service
-rr_version := 3
+rr_version := 4
 
 define _release_apk
 	react-native bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/
@@ -76,7 +76,7 @@ setup_source:
 
 setup_source_nhsrc:
 	cp $(recorded_response_dir)/PackagedJSON.js $(service_src_dir)/PackagedJSON.js
-	cp $(recorded_response_dir)/jsons/$(rr_version)/*.json src/config/
+	cp -R $(recorded_response_dir)/jsons/$(rr_version)/* src/config/
 
 test_source: setup_source
 	npm test

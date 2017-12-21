@@ -35,7 +35,7 @@ const syncMetaData = function (state, action, beans) {
 
 const syncMetaDataInStateMode = function (state, action, beans) {
     const referenceDataSyncService = beans.get(ReferenceDataSyncService);
-    referenceDataSyncService.syncAllMetaDataInStateMode(action.cb);
+    referenceDataSyncService.simulateSyncAllMetaData(action.cb);
     return Object.assign(state, {syncing: true});
 };
 
