@@ -41,11 +41,11 @@ class EntitySyncStatusService extends BaseService {
             .map(this.saveEntitySyncStatus);
     }
 
-    setupStateSpecificStatuses(states, entitiesMetaData) {
+    setupStatesStatuses(states, entitiesMetaData) {
         entitiesMetaData.forEach((entityMetaData) => {
             states.forEach((state) => {
                 let syncStatusEntityName = entityMetaData.getSyncStatusEntityName(state.name);
-                _.isNil(this.findByKey('entityName', syncStatusEntityName, EntitySyncStatus.schema.name))
+                if (_.isNil(this.findByKey('entityName', syncStatusEntityName, EntitySyncStatus.schema.name)))
                     this.saveEntitySyncStatus(EntitySyncStatus.create({entityName: syncStatusEntityName}));
             });
         });

@@ -1,14 +1,19 @@
 class SeedProgress {
     static UUID = "bd223d42-a168-4454-9277-4704db5ab2ad";
 
+    static AppLoadState = {
+        LoadingChecklist: 1,
+        LoadedChecklist: 2,
+        LoadingState: 3,
+        LoadedState: 4,
+    };
+
     static schema = {
         name: 'SeedProgress',
         primaryKey: 'uuid',
         properties: {
             uuid: 'string',
-            started: {type: 'bool', default: true},
-            finished: {type: 'bool', default: false},
-            fileNumber: {type: 'int', default: -1}
+            loadState: 'int'
         }
     };
 }

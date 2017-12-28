@@ -12,7 +12,7 @@ class ConventionalRestClient {
         this.db = db;
     }
 
-    getData(endpoint, cb, errorHandler) {
+    getData(endpoint, entityMetaData, optionalParams, cb, errorHandler) {
         getJSON(endpoint, cb, errorHandler);
     }
 
@@ -32,7 +32,7 @@ class ConventionalRestClient {
         const url = `${urlParts.join("/")}?${params}`;
 
         Logger.logDebug('ConventionalRestClient', `Calling: ${url}`);
-        this.getData(url, (response) => {
+        this.getData(url, entityMetaData, optionalParams, (response) => {
             const resources = _.isNil(response["_embedded"]) ? response : response["_embedded"][`${entityMetaData.resourceName}`];
 
             this.db.write(() => {

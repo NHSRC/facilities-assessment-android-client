@@ -2,19 +2,30 @@ import ReferenceDataSyncService from "./ReferenceDataSyncService";
 import EntitySyncStatusService from "./EntitySyncStatusService";
 import SettingsService from "./SettingsService";
 import LocalConventionalRestClient from "../framework/http/LocalConventionalRestClient";
-import EntityService from "./EntityService";
+import PackagedJSON from "./PackagedJSON";
+import Service from "../framework/bean/Service";
+import EntitiesMetaData from "../models/entityMetaData/EntitiesMetaData";
 
+@Service("localReferenceDataSyncService")
 class LocalReferenceDataSyncService extends ReferenceDataSyncService {
-    constructor(db, beanStore, referenceDataSyncService) {
+    constructor(db, beanStore) {
         super(db, beanStore);
-        this.referenceDataSyncService = referenceDataSyncService;
     }
 
-    syncMetaDataFromLocal(files, finishCB) {
-        this.entitySyncStatusService = this.referenceDataSyncService.getService(EntitySyncStatusService);
-        this.conventionalRestClient = new LocalConventionalRestClient(this.referenceDataSyncService.getService(SettingsService), this.db, files);
-        this.entityService = this.referenceDataSyncService.getService(EntityService);
+    init() {
+        super.init();
+        this.conventionalRestClient = new LocalConventionalRestClient(this.getService(SettingsService), this.db, PackagedJSON.getFiles());
+    }
+
+    syncMetaDataFromLocal(finishCB) {
+        this.entitySyncStatusService = this.getService(EntitySyncStatusService);
         this.syncMetaDataNotSpecificToState(finishCB);
+    }
+
+    syncMetaDataSpecificToStateFromLocal(finishCB, state) {
+        let states = [state];
+        this.getService(EntitySyncStatusService).setupStatesStatuses(states, EntitiesMetaData.stateSpecificReferenceEntityTypes);
+        this.syncStateSpecificMetaDataInStateMode(states, finishCB);
     }
 }
 

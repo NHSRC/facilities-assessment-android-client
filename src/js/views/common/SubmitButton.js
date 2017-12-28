@@ -4,7 +4,6 @@ import {Button} from 'native-base';
 import {StyleSheet} from 'react-native';
 import PrimaryColors from "../styles/PrimaryColors";
 
-
 class SubmitButton extends AbstractComponent {
     static styles = StyleSheet.create({
         blockButton: {

@@ -55,7 +55,7 @@ class ReferenceDataSyncService extends BaseService {
     simulateSyncAllMetaData(cb) {
         this._syncData(() => {
             let allStates = this.getService(StateService).getAllStates();
-            this.getService(EntitySyncStatusService).setupStateSpecificStatuses(allStates.slice(), EntitiesMetaData.stateSpecificReferenceEntityTypes);
+            this.getService(EntitySyncStatusService).setupStatesStatuses(allStates.slice(), EntitiesMetaData.stateSpecificReferenceEntityTypes);
             this.syncStateSpecificMetaDataInStateMode(allStates.slice(), cb);
         }, EntitiesMetaData.referenceEntityTypes);
     }

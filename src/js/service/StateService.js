@@ -25,6 +25,10 @@ class StateService extends BaseService {
     getDistrict(districtUUID) {
         return this.pickKeys(["uuid", "name", "facilities"])(this.db.objectForPrimaryKey(District.schema.name, districtUUID));
     }
+
+    getState(name) {
+        this.findByName(name);
+    }
 }
 
 export default StateService;

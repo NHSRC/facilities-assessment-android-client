@@ -1,10 +1,10 @@
 import React from "react";
-import {Alert, Dimensions, Image, Navigator, StyleSheet, Text, TouchableWithoutFeedback, View} from "react-native";
+import {Dimensions, Image, Navigator, StyleSheet, Text, TouchableWithoutFeedback, View} from "react-native";
 import {Button, Container, Content, Footer, Header, Icon, Title} from "native-base";
 import AbstractComponent from "../common/AbstractComponent";
 import FlatUITheme from "../themes/flatUI";
 import TypedTransition from "../../framework/routing/TypedTransition";
-import Path, {PathRoot} from "../../framework/routing/Path";
+import Path from "../../framework/routing/Path";
 import PrimaryColors from "../styles/PrimaryColors";
 import Typography from "../styles/Typography";
 import Dashboard from "../dashboard/Dashboard";
@@ -21,7 +21,6 @@ const nhsrcbanner = require('../img/nhsrcbanner.png');
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
 
-@PathRoot
 @Path("/modeSelection")
 class ModeSelection extends AbstractComponent {
     constructor(props, context) {

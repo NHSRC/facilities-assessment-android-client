@@ -6,8 +6,8 @@ import Realm from "realm";
 import models from "./models";
 import BeanRegistry from "./framework/bean/BeanRegistry";
 import Logger from "./framework/Logger";
-import {Text, View} from "react-native";
 import Config from "react-native-config";
+import {Text, View} from "react-native";
 
 let routes, beans, appStore, db = undefined;
 
@@ -47,11 +47,11 @@ export default class App extends Component {
     }
 
     render() {
-        return this.state.seeding ? (
-            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', margin: 8}}>
+        return this.state.seeding ? <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', margin: 8}}>
                 <Text style={{color: "white", fontSize: 24}}>
-                    The App is being setup. Do not close the App. It may take upto 5 Minutes.
+                    The App is setting up the checklists. Do not close the App. It may take upto 2 Minutes.
                 </Text>
-            </View>) : routes;
+            </View>
+            : routes;
     }
 }

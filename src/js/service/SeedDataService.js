@@ -3,60 +3,31 @@ import Service from "../framework/bean/Service";
 import EntitiesMetaData from "../models/entityMetaData/EntitiesMetaData";
 import Logger from "../framework/Logger";
 import EntitySyncStatusService from "./EntitySyncStatusService";
-import ReferenceDataSyncService from "./ReferenceDataSyncService";
 import LocalReferenceDataSyncService from "./LocalReferenceDataSyncService";
-import PackagedJSON from "./PackagedJSON";
 import SeedProgress from "../models/SeedProgress";
-import _ from 'lodash';
 import EnvironmentConfig from "../views/common/EnvironmentConfig";
-import FacilityAssessmentService from "./FacilityAssessmentService";
-import AssessmentTool from "../models/AssessmentTool";
-import AssessmentType from "../models/AssessmentType";
-import FacilitiesService from "./FacilitiesService";
-import StateService from "./StateService";
-import EntityService from "./EntityService";
-import ChecklistService from "./ChecklistService";
 import AreaOfConcernProgress from "../models/AreaOfConcernProgress";
 import StandardProgress from "../models/StandardProgress";
 import ChecklistProgress from "../models/ChecklistProgress";
+import SeedProgressService from "./SeedProgressService";
+import _ from 'lodash';
 
 @Service("seedDataService")
 class SeedDataService extends BaseService {
     constructor(db, beanStore) {
         super(db, beanStore);
-        this.SEED_PROGRESS_UUID = SeedProgress.UUID;
     }
 
     postInit() {
-        if (this.isNotCompletelySeeded() && EnvironmentConfig.shouldUsePackagedSeedData) {
-            this.deleteAllData();
-            let localReferenceDataSyncService = new LocalReferenceDataSyncService(this.db, this.beanStore, this.getService(ReferenceDataSyncService));
-            localReferenceDataSyncService.syncMetaDataFromLocal(PackagedJSON.getFiles(), this.finishSeeding.bind(this));
+        if (EnvironmentConfig.shouldUsePackagedSeedData) {
+            let seedProgressService = this.getService(SeedProgressService);
+            let checklistLoaded = seedProgressService.isChecklistLoaded();
+            if (!checklistLoaded) {
+                this.deleteAllData();
+                let localReferenceDataSyncService = this.getService(LocalReferenceDataSyncService);
+                localReferenceDataSyncService.syncMetaDataFromLocal(seedProgressService.finishedLoadingChecklist.bind(seedProgressService));
+            }
         }
-    }
-
-    startSeedProgress() {
-        return this.save(SeedProgress)({uuid: this.SEED_PROGRESS_UUID, started: true});
-    }
-
-    finishSeeding() {
-        return this.save(SeedProgress)({
-            uuid: this.SEED_PROGRESS_UUID,
-            started: true,
-            finished: true
-        });
-    }
-
-    getSeedProgress() {
-        return {...this.db.objectForPrimaryKey(SeedProgress.schema.name, this.SEED_PROGRESS_UUID)};
-    }
-
-    isNotCompletelySeeded() {
-        let seedProgress = this.getSeedProgress();
-        if (_.isEmpty(seedProgress)) {
-            seedProgress = this.startSeedProgress();
-        }
-        return !seedProgress.finished;
     }
 
     deleteAllData() {
