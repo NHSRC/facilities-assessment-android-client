@@ -29,6 +29,14 @@ class StateService extends BaseService {
     getState(name) {
         this.findByName(name);
     }
+
+    deleteStatesExcept(state) {
+        const db = this.db;
+        db.write(() => {
+            let allEntities = db.objects(State.schema.name).filtered('uuid != $0', state.uuid);
+            db.delete(allEntities);
+        });
+    }
 }
 
 export default StateService;

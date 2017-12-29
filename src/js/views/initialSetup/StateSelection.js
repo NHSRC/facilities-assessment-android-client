@@ -47,6 +47,7 @@ class StateSelection extends AbstractComponent {
         let localReferenceDataSyncService = this.context.getService(LocalReferenceDataSyncService);
         localReferenceDataSyncService.syncMetaDataSpecificToStateFromLocal(() => {
             this.context.getService(SeedProgressService).finishedLoadStateSpecificData();
+            this.context.getService(StateService).deleteStatesExcept(this.state.state);
             TypedTransition.from(this).resetTo(ModeSelection);
         }, this.state.state);
     }
