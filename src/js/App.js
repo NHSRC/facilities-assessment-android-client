@@ -8,6 +8,8 @@ import BeanRegistry from "./framework/bean/BeanRegistry";
 import Logger from "./framework/Logger";
 import Config from "react-native-config";
 import {Text, View} from "react-native";
+import SeedProgressService from "./service/SeedProgressService";
+import SeedProgress from "./models/SeedProgress";
 
 let routes, beans, appStore, db = undefined;
 
@@ -15,8 +17,12 @@ export default class App extends Component {
     constructor(props, context) {
         super(props, context);
         Logger.setCurrentLogLevel(Logger.LogLevel.Debug);
-        this.state = {seeding: true};
         this.seed = this.seed.bind(this);
+        let loadState;
+        if (db === undefined) {
+            db = new Realm(models);
+        }
+        this.state = {seeding: true};
     }
 
     static childContextTypes = {
@@ -32,8 +38,7 @@ export default class App extends Component {
     });
 
     seed() {
-        if (db === undefined) {
-            db = new Realm(models);
+        if (beans === undefined) {
             beans = BeanRegistry.init(db);
             appStore = AppStoreFactory(beans);
             routes = PathRegistry.routes();
@@ -49,7 +54,7 @@ export default class App extends Component {
     render() {
         return this.state.seeding ? <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', margin: 8}}>
                 <Text style={{color: "white", fontSize: 24}}>
-                    The App is setting up the checklists. Do not close the App. It may take upto 2 Minutes.
+                    {new SeedProgressService(db).getSeedProgress().loadState >= SeedProgress.AppLoadState.LoadedChecklist ? 'LOADING...' : 'Setting up checklists. It may take up to 2 Minutes, depending on your device. Do not close the App.'}
                 </Text>
             </View>
             : routes;

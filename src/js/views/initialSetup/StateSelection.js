@@ -1,4 +1,4 @@
-import {Dimensions, Image, StyleSheet, Text, TouchableHighlight, View} from 'react-native';
+import {ActivityIndicator, Dimensions, Image, StyleSheet, Text, TouchableHighlight, View} from 'react-native';
 import React from 'react';
 import AbstractComponent from "../common/AbstractComponent";
 import Path, {PathRoot} from "../../framework/routing/Path";
@@ -44,12 +44,15 @@ class StateSelection extends AbstractComponent {
     }
 
     stateSelected() {
-        let localReferenceDataSyncService = this.context.getService(LocalReferenceDataSyncService);
-        localReferenceDataSyncService.syncMetaDataSpecificToStateFromLocal(() => {
-            this.context.getService(SeedProgressService).finishedLoadStateSpecificData();
-            this.context.getService(StateService).deleteStatesExcept(this.state.state);
-            TypedTransition.from(this).resetTo(ModeSelection);
-        }, this.state.state);
+        setTimeout(() => {
+            let localReferenceDataSyncService = this.context.getService(LocalReferenceDataSyncService);
+            localReferenceDataSyncService.syncMetaDataSpecificToStateFromLocal(() => {
+                this.context.getService(SeedProgressService).finishedLoadStateSpecificData();
+                this.context.getService(StateService).deleteStatesExcept(this.state.state);
+                TypedTransition.from(this).resetTo(ModeSelection);
+            }, this.state.state);
+        }, 100);
+        this.setState({state: this.state.state, states: this.state.states, busy: true});
     }
 
     toggleState(state) {
@@ -70,19 +73,28 @@ class StateSelection extends AbstractComponent {
                 </Header>
                 <Content>
                     <View style={{flexDirection: 'column', margin: 8, justifyContent: 'center', alignItems: 'center'}}>
-                        <Text style={[Typography.paperFontTitle, {color: "white"}]}>Select the state of your health facility</Text>
+                        <Text style={[Typography.paperFontTitle, {color: "white", marginBottom: 20}]}>Select the state of your health facility</Text>
+                        <Text style={{height: 0.5, backgroundColor: "white", width: 200}}/>
                         {this.state.states.map((state) =>
-                            <TouchableHighlight key={state.name} onPress={() => this.toggleState(state)}>
-                                <View style={{flexDirection: 'row'}}>
-                                    <Text style={{color: "white"}}>{state.name}</Text>
-                                    {this.state.state.name === state.name ? <Icon name='star' style={{fontSize: 20, color: "white"}} size={100}/> : <View/>}
-                                </View>
-                            </TouchableHighlight>)}
+                            <View style={{marginTop: 5, justifyContent: 'center', alignItems: 'center'}}>
+                                <TouchableHighlight key={state.name} onPress={() => this.toggleState(state)}>
+                                    <View style={{flexDirection: 'row', height: 30}}>
+                                        <Text style={{color: "white"}}>{state.name}</Text>
+                                        {this.state.state.name === state.name ? <Icon name='done' style={{fontSize: 20, color: "white", marginLeft: 10}} size={100}/> :
+                                            <View/>}
+                                    </View>
+                                </TouchableHighlight>
+                                <Text style={{height: 0.5, backgroundColor: "white", width: 200}}/>
+                            </View>)}
                         <Button
                             onPress={() => this.stateSelected()}
-                            style={{backgroundColor: '#ffa000'}}
+                            style={{backgroundColor: '#ffa000', marginTop: 20}}
                             block
-                            disabled={_.isNil(this.state.state.name)}>Save</Button>
+                            disabled={_.isNil(this.state.state.name)}>{this.state.busy ?
+                            (<ActivityIndicator animating={true} size={"large"} color="white"
+                                                style={{height: 80}}/>) :
+                            "SAVE"}
+                        </Button>
                     </View>
                 </Content>
                 <Footer style={{backgroundColor: 'transparent'}}>
