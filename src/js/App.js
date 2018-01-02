@@ -10,6 +10,7 @@ import Config from "react-native-config";
 import {Text, View} from "react-native";
 import SeedProgressService from "./service/SeedProgressService";
 import SeedProgress from "./models/SeedProgress";
+import EnvironmentConfig from "./views/common/EnvironmentConfig";
 
 let routes, beans, appStore, db = undefined;
 
@@ -52,9 +53,10 @@ export default class App extends Component {
     }
 
     render() {
+        let loadState = new SeedProgressService(db).getSeedProgress().loadState;
         return this.state.seeding ? <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', margin: 8}}>
                 <Text style={{color: "white", fontSize: 24}}>
-                    {new SeedProgressService(db).getSeedProgress().loadState >= SeedProgress.AppLoadState.LoadedChecklist ? 'LOADING...' : 'Setting up checklists. It may take up to 2 Minutes, depending on your device. Do not close the App.'}
+                    {(loadState >= SeedProgress.AppLoadState.LoadedChecklist || !EnvironmentConfig.shouldUsePackagedSeedData) ? 'LOADING...' : 'Setting up checklists. It may take up to 2 Minutes, depending on your device. Do not close the App.'}
                 </Text>
             </View>
             : routes;

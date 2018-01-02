@@ -28,11 +28,12 @@ class AssessmentSeries extends AbstractComponent {
     render() {
         return (
             <TextInput style={AssessmentSeries.styles.input}
-                       placeholder={"Enter Assessment Name"}
+                       placeholder={"Assessment Series Number"}
                        placeholderTextColor="rgba(255, 255, 255, 0.7)"
                        value={this.props.data.series}
                        underlineColorAndroid={PrimaryColors["dark_white"]}
                        words="words"
+                       keyboardType='numeric'
                        onChangeText={this.handleChange.bind(this)}/>
         );
     }

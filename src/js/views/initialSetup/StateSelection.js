@@ -13,6 +13,7 @@ import ModeSelection from "../modes/ModeSelection";
 import Logger from "../../framework/Logger";
 import LocalReferenceDataSyncService from "../../service/LocalReferenceDataSyncService";
 import PackagedJSON from "../../service/PackagedJSON";
+import EnvironmentConfig from "../common/EnvironmentConfig";
 
 const nhsrcbanner = require('../img/nhsrcbanner.png');
 
@@ -35,7 +36,7 @@ class StateSelection extends AbstractComponent {
 
     componentWillMount() {
         let seedProgress = this.context.getService(SeedProgressService).getSeedProgress();
-        if (seedProgress.loadState === SeedProgress.AppLoadState.LoadedState) {
+        if (seedProgress.loadState === SeedProgress.AppLoadState.LoadedState || !EnvironmentConfig.shouldUsePackagedSeedData) {
             TypedTransition.from(this).resetTo(ModeSelection);
         } else {
             let states = this.context.getService(StateService).getAllStates();

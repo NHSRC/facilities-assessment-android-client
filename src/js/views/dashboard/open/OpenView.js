@@ -49,7 +49,11 @@ class OpenView extends AbstractComponent {
         return () => this.dispatchAction(Actions.SYNC_ASSESSMENT, {
             "assessment": assessment,
             cb: () => this.dispatchAction(Actions.ASSESSMENT_SYNCED, {assessment: assessment, ...this.props}),
-            errorHandler: () => this.submissionError(assessment)
+            errorHandler: (error) => {
+                Logger.logErrorObject('OpenView', error);
+                Logger.logError('OpenView', error);
+                this.submissionError(assessment);
+            }
         });
     }
 

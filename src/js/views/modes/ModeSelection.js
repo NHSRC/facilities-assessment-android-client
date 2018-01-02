@@ -44,13 +44,11 @@ class ModeSelection extends AbstractComponent {
 
     static styles = StyleSheet.create({
         container: {
-            flexDirection: 'column',
-            justifyContent: 'flex-start',
+            flexDirection: 'column'
         },
         modeContainer: {
             flexDirection: 'row',
             flexWrap: 'wrap',
-            alignItems: 'center',
             justifyContent: 'center'
         },
         header: {
@@ -82,7 +80,7 @@ class ModeSelection extends AbstractComponent {
                                        marginLeft: deviceWidth * .06,
                                    }}
                                    source={icon}/> :
-                        <Text style={[Typography.paperFontHeadline, {color: 'white', width: deviceWidth * .33, marginLeft: deviceWidth * .06, marginTop: 50}]}>{name}</Text>}
+                        <Text style={[Typography.paperFontHeadline, {color: 'white', width: deviceWidth * .33, marginLeft: deviceWidth * .06, marginTop: 60}]}>{name}</Text>}
                 </View>
             </TouchableWithoutFeedback>
         ) : <View/>;
@@ -110,16 +108,16 @@ class ModeSelection extends AbstractComponent {
                     }]}>GUNAK गुणक</Title>
                 </Header>
                 <Content>
-                    <View style={[ModeSelection.styles.container]}>
-                        <Text style={[Typography.paperFontHeadline, {
-                            color: PrimaryColors.yellow,
-                            alignSelf: 'center',
-                            marginTop: 16,
-                        }]}>
-                            <Text style={ModeSelection.styles.highlight}>Gu</Text>
-                            ide for <Text style={ModeSelection.styles.highlight}>N</Text>QAS & <Text
-                            style={ModeSelection.styles.highlight}>K</Text>ayakalp
-                        </Text>
+                    <View style={ModeSelection.styles.container}>
+                        {/*<Text style={[Typography.paperFontHeadline, {*/}
+                            {/*color: PrimaryColors.yellow,*/}
+                            {/*alignSelf: 'center',*/}
+                            {/*marginTop: 16,*/}
+                        {/*}]}>*/}
+                            {/*<Text style={ModeSelection.styles.highlight}>Gu</Text>*/}
+                            {/*ide for <Text style={ModeSelection.styles.highlight}>N</Text>QAS & <Text*/}
+                            {/*style={ModeSelection.styles.highlight}>K</Text>ayakalp*/}
+                        {/*</Text>*/}
                         <Text style={[Typography.paperFontHeadline, {
                             color: 'white',
                             alignSelf: 'center',

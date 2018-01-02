@@ -1,6 +1,7 @@
 import FacilitiesService from "../service/FacilitiesService";
 import FacilityAssessmentService from "../service/FacilityAssessmentService";
 import _ from "lodash";
+import Logger from "../framework/Logger";
 
 const allStates = function (state, action, beans) {
     let facilitiesService = beans.get(FacilitiesService);
@@ -111,10 +112,11 @@ const enterFacilityName = function (state, action, beans) {
 };
 
 const enterSeries = function (state, action, beans) {
+    let series = isNaN(action.series) ? (action.series.length === 0 ? action.series : state.series) : action.series;
     return {
         ...state,
         facilitySelected: false,
-        series: action.series,
+        series: series
     };
 };
 

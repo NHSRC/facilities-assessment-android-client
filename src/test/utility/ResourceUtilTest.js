@@ -1,5 +1,4 @@
 import {expect} from 'chai';
-import _ from "lodash";
 import ResourceUtil from "../../js/utility/ResourceUtil";
 
 describe('ResourceUtilTest', () => {

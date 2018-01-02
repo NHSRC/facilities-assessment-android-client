@@ -3,6 +3,7 @@ import ChecklistService from "../service/ChecklistService";
 import FacilityAssessmentService from "../service/FacilityAssessmentService";
 import AssessmentSyncService from "../service/AssessmentSyncService";
 import SettingsService from "../service/SettingsService";
+import Logger from "../framework/Logger";
 
 const allAssessments = function (state, action, beans) {
     const assessmentService = beans.get(FacilityAssessmentService);

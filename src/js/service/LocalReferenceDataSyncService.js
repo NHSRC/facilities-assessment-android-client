@@ -1,13 +1,13 @@
-import ReferenceDataSyncService from "./ReferenceDataSyncService";
 import EntitySyncStatusService from "./EntitySyncStatusService";
 import SettingsService from "./SettingsService";
 import LocalConventionalRestClient from "../framework/http/LocalConventionalRestClient";
 import PackagedJSON from "./PackagedJSON";
 import Service from "../framework/bean/Service";
 import EntitiesMetaData from "../models/entityMetaData/EntitiesMetaData";
+import AbstractReferenceDataSyncService from "./AbstractReferenceDataSyncService";
 
 @Service("localReferenceDataSyncService")
-class LocalReferenceDataSyncService extends ReferenceDataSyncService {
+class LocalReferenceDataSyncService extends AbstractReferenceDataSyncService {
     constructor(db, beanStore) {
         super(db, beanStore);
     }
@@ -18,7 +18,6 @@ class LocalReferenceDataSyncService extends ReferenceDataSyncService {
     }
 
     syncMetaDataFromLocal(finishCB) {
-        this.entitySyncStatusService = this.getService(EntitySyncStatusService);
         this.syncMetaDataNotSpecificToState(finishCB);
     }
 
@@ -26,6 +25,10 @@ class LocalReferenceDataSyncService extends ReferenceDataSyncService {
         let states = [state];
         this.getService(EntitySyncStatusService).setupStatesStatuses(states, EntitiesMetaData.stateSpecificReferenceEntityTypes);
         this.syncStateSpecificMetaDataInStateMode(states, finishCB);
+    }
+
+    toJSON() {
+        return "LocalReferenceDataSyncService";
     }
 }
 

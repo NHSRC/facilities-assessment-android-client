@@ -47,6 +47,8 @@ const downloadMyAssessments = function (state, action, beans) {
 
 const syncAllData = function (state, action, beans) {
     const referenceDataSyncService = beans.get(ReferenceDataSyncService);
+    Logger.logDebug('settings', referenceDataSyncService);
+    Logger.logDebugObject('settings', referenceDataSyncService);
     referenceDataSyncService.syncAllData(action.cb);
     return Object.assign(state, {syncing: true})
 };
