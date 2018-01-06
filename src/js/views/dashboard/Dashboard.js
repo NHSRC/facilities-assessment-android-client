@@ -38,7 +38,7 @@ class Dashboard extends AbstractComponent {
     render() {
         return (
             <Container theme={FlatUITheme}>
-                <Content>
+                <Content keyboardShouldPersistTaps={'always'}>
                     <Header style={Dashboard.styles.header}>
                         <Button transparent onPress={() => TypedTransition.from(this).goBack()}>
                             <Icon style={{marginTop: 10, color: "white"}} name='arrow-back'/>

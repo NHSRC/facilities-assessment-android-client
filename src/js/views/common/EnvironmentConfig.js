@@ -19,8 +19,8 @@ class EnvironmentConfig {
         return EnvironmentConfig._isPropertyTrue("ALLOW_INCOMPLETE_SUBMIT");
     }
 
-    static get isAssessmentSeriesSupported() {
-        return EnvironmentConfig._isPropertyTrue("ASSESSMENT_SERIES_SUPPORT");
+    static get autoGenerateSeriesNumber() {
+        return EnvironmentConfig._isPropertyTrue("AUTO_GENERATE_SERIES_NUMBER");
     }
 
     static get isFreeTextFacilityNameSupported() {

@@ -14,7 +14,7 @@ class StartNewAssessment extends AbstractComponent {
     });
 
     render() {
-        const seriesNameRequiredAndEntered = EnvironmentConfig.isAssessmentSeriesSupported ? _.isEmpty(this.props.data.series) : false;
+        const seriesNameRequiredAndEntered = _.isEmpty(this.props.data.series);
         const isComplete = !(_.isEmpty(this.props.data.selectedAssessmentTool) || _.isEmpty(this.props.data.selectedAssessmentType) || seriesNameRequiredAndEntered);
         return (
             <Button

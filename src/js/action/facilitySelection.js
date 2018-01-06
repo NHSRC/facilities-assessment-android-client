@@ -2,6 +2,7 @@ import FacilitiesService from "../service/FacilitiesService";
 import FacilityAssessmentService from "../service/FacilityAssessmentService";
 import _ from "lodash";
 import Logger from "../framework/Logger";
+import moment from "moment";
 
 const allStates = function (state, action, beans) {
     let facilitiesService = beans.get(FacilitiesService);
@@ -115,8 +116,14 @@ const enterSeries = function (state, action, beans) {
     let series = isNaN(action.series) ? (action.series.length === 0 ? action.series : state.series) : action.series;
     return {
         ...state,
-        facilitySelected: false,
         series: series
+    };
+};
+
+const generateAssessmentSeries = function (state, action, beans) {
+    return {
+        ...state,
+        series: moment().format('YYYYMMDD')
     };
 };
 
@@ -174,6 +181,7 @@ export default new Map([
     ["SELECT_ASSESSMENT_TOOL", selectAssessmentTool],
     ["ENTER_FACILITY_NAME", enterFacilityName],
     ["ENTER_ASSESSMENT_SERIES", enterSeries],
+    ["GENERATE_ASSESSMENT_SERIES", generateAssessmentSeries],
     ["RESET_FORM", reset_form],
 ]);
 

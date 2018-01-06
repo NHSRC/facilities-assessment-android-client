@@ -104,7 +104,7 @@ class AssessmentList extends AbstractComponent {
     }
 
     assessmentDisplayText(assessment) {
-        return EnviromentConfig.isAssessmentSeriesSupported ? `${assessment.seriesName} - ${assessment.facility.name}` : `${assessment.facility.name}`;
+        return `${assessment.seriesName} - ${assessment.facility.name}`;
     }
 
     render() {
