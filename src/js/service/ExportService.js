@@ -85,7 +85,7 @@ class ExportService extends BaseService {
         return {exportPath: exportPath, ...metadata};
     }
 
-    exportCurrent(current, scores, headers, facilityAssessment) {
+    exportTab(current, scores, headers, facilityAssessment) {
         const metadata = this.generateMetadata(facilityAssessment, `${current}-scores`);
         const reportService = this.getService(ReportService);
         scores["Overall"] = reportService.overallScore(facilityAssessment);

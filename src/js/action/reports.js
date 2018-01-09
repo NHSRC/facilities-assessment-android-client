@@ -97,12 +97,11 @@ const exportOptions = function (state, action, beans) {
     return Object.assign(state, {showExportOptions: !state.showExportOptions});
 };
 
-const exportCurrentTab = function (state, action, beans) {
+const exportTab = function (state, action, beans) {
     const exportService = beans.get(ExportService);
-    const selectedTab = getSelectedTab(state.tabs);
-    let csvMetadata = exportService.exportCurrent(_.startCase(selectedTab.title.toLowerCase()),
-        {...selectedTab.scores},
-        selectedTab.headers,
+    let csvMetadata = exportService.exportTab(_.startCase(action.tab.title.toLowerCase()),
+        {...action.tab.scores},
+        action.tab.headers,
         action.facilityAssessment);
     action.cb({
         url: `file://${csvMetadata.exportPath}`,
@@ -132,7 +131,7 @@ export default new Map([
     ["DRILL_DOWN", drillDown],
     ["SELECT_TAB", selectTab],
     ["EXPORT_ASSESSMENT", exportAllRaw],
-    ["EXPORT_CURRENT_TAB", exportCurrentTab],
+    ["EXPORT_TAB", exportTab],
     ["EXPORT_OPTIONS", exportOptions],
     ["EXPORT_CURRENT_VIEW", exportCurrentView],
     ["INIT_REPORTS", initReports],

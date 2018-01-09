@@ -14,7 +14,6 @@ class ExportOptions extends AbstractComponent {
         super(props, context);
     }
 
-
     static styles = StyleSheet.create({
         header: {
             shadowOffset: {width: 0, height: 0},
@@ -29,7 +28,9 @@ class ExportOptions extends AbstractComponent {
             marginHorizontal: 10
         },
         item: {
-            color: PrimaryColors.subheader_black
+            color: PrimaryColors.subheader_black,
+            height: 40,
+            marginTop: 5
         }
     });
 
@@ -44,13 +45,13 @@ class ExportOptions extends AbstractComponent {
                     <Title style={[Typography.paperFontTitle, {
                         fontWeight: 'bold',
                         color: 'white'
-                    }]}>Export Options</Title>
+                    }]}>{this.props.title}</Title>
                 </Header>
                 <View style={ExportOptions.styles.container}>
                     <List>
                         {Options}
                     </List>
-                    <Button style={{backgroundColor: PrimaryColors.blue, alignSelf: 'stretch', marginTop: 10}} block
+                    <Button style={{backgroundColor: PrimaryColors.blue, alignSelf: 'stretch', margin: 10}} block
                             onPress={this.props.onClose}>
                         Close
                     </Button>

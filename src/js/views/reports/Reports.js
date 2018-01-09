@@ -82,12 +82,15 @@ class Reports extends AbstractComponent {
             }));
     }
 
-    exportCurrentTab() {
-        this.dispatchAction(Actions.EXPORT_CURRENT_TAB, {...this.props.params, cb: this.share.bind(this)})
-    }
-
     exportOptions() {
         this.dispatchAction(Actions.EXPORT_OPTIONS, {...this.props.params});
+    }
+
+    exportTab(tab) {
+        let action = {...this.props.params};
+        action.tab = tab;
+        action.cb = this.share.bind(this);
+        this.dispatchAction(Actions.EXPORT_TAB, action);
     }
 
     back() {
@@ -97,11 +100,8 @@ class Reports extends AbstractComponent {
 
     render() {
         Logger.logDebug('Reports', 'render');
-        const exportOptions = [{
-            title: `Export ${_.startCase(this.state.selectedTab.toLowerCase())} Scorecard`,
-            cb: this.exportCurrentTab.bind(this)
-        },
-            {title: `Export All Checklists`, cb: this.exportAll.bind(this)}];
+        const exportOptions = this.state.tabs.map((tab) => {return {title: `Export ${_.startCase(tab.title.toLowerCase())} Scorecard`, cb: () => this.exportTab(tab)}});
+        exportOptions.push({title: `Export All Checklists`, cb: this.exportAll.bind(this)});
         const title = this.props.params.drilledDown ? _.truncate(this.state.selectionName, {length: 25})
             : `${this.props.params.mode.toUpperCase()} Scorecard`;
         return (
@@ -140,7 +140,7 @@ class Reports extends AbstractComponent {
                                data={this.state}/>
                     <Modal transparent={true} visible={this.state.showExportOptions}
                            onRequestClose={this.exportOptions}>
-                        <ExportOptions onClose={this.exportOptions} options={exportOptions}/>
+                        <ExportOptions onClose={this.exportOptions} options={exportOptions} title={`Export - ${title}`}/>
                     </Modal>
                     <View style={[this.state.showExportOptions ? Reports.styles.overlay : {}]}/>
                 </Content>
