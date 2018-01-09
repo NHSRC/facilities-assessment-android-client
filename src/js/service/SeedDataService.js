@@ -23,7 +23,6 @@ class SeedDataService extends BaseService {
             let seedProgressService = this.getService(SeedProgressService);
             let checklistLoaded = seedProgressService.isChecklistLoaded();
             if (!checklistLoaded) {
-                this.deleteAllData();
                 let localReferenceDataSyncService = this.getService(LocalReferenceDataSyncService);
                 localReferenceDataSyncService.syncMetaDataFromLocal(seedProgressService.finishedLoadingChecklist.bind(seedProgressService));
             }

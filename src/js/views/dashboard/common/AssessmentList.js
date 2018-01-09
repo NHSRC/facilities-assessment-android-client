@@ -1,20 +1,9 @@
 import React, {Component} from 'react';
-import {
-    Text,
-    StyleSheet,
-    View,
-    ScrollView,
-    Dimensions,
-    TouchableOpacity,
-    ActivityIndicator
-} from 'react-native';
+import {ActivityIndicator, Dimensions, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import AbstractComponent from "../../common/AbstractComponent";
-import Actions from '../../../action';
-import Dashboard from '../Dashboard';
 import Typography from '../../styles/Typography';
 import PrimaryColors from '../../styles/PrimaryColors';
 import _ from 'lodash';
-import EnviromentConfig from "../../common/EnvironmentConfig";
 
 
 const deviceWidth = Dimensions.get('window').width;
@@ -104,7 +93,7 @@ class AssessmentList extends AbstractComponent {
     }
 
     assessmentDisplayText(assessment) {
-        return `${assessment.seriesName} - ${assessment.facility.name}`;
+        return _.isNil(assessment.seriesName) ? assessment.facility.name : `${assessment.seriesName} - ${assessment.facility.name}`;
     }
 
     render() {
