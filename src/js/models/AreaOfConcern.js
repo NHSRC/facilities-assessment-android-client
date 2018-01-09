@@ -34,6 +34,10 @@ class AreaOfConcern {
         }
         return areaOfConcern;
     }
+
+    static getDisplayName(areaOfConcern) {
+        return `${areaOfConcern.reference} - ${areaOfConcern.name}`;
+    }
 }
 
 

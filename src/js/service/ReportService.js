@@ -29,20 +29,24 @@ class ReportService extends BaseService {
         return (_.sum(scorePerDepartment) / scorePerDepartment.length) * 100;
     }
 
+    _sort(obj) {
+        return _(obj).toPairs().sortBy(0).fromPairs().value();
+    }
+
     scoreByDepartment(facilityAssessment) {
         let departmentService = this.getService(DepartmentService);
         const allCheckpoints = this.db.objects(CheckpointScore)
             .filtered("facilityAssessment = $0 ", facilityAssessment.uuid)
             .map(_.identity);
-        let scorePerDeparment = {};
+        let scorePerDepartment = {};
         const checkpointsPerDepartment = _.groupBy(allCheckpoints, 'checklist');
         _.toPairs(checkpointsPerDepartment).map(([checklist, checkpointScores]) => {
             let completeChecklist = Object.assign({}, this.db.objectForPrimaryKey(Checklist.schema.name, checklist));
             completeChecklist.department = departmentService.getDepartment(completeChecklist.department);
-            scorePerDeparment[completeChecklist.department.name] =
+            scorePerDepartment[completeChecklist.department.name] =
                 (_.sumBy(checkpointScores, "score") / (checkpointScores.length * 2)) * 100;
         });
-        return scorePerDeparment;
+        return this._sort(scorePerDepartment);
     }
 
     scoreByAreaOfConcern(facilityAssessment) {
@@ -53,10 +57,10 @@ class ReportService extends BaseService {
         const checkpointsPerAreaOfConcern = _.groupBy(allCheckpoints, 'areaOfConcern');
         _.toPairs(checkpointsPerAreaOfConcern).map(([areaOfConcern, checkpointScores]) => {
             let completeAreaOfConcern = Object.assign({}, this.db.objectForPrimaryKey(AreaOfConcern.schema.name, areaOfConcern));
-            scorePerAreaOfConcern[completeAreaOfConcern.name] =
+            scorePerAreaOfConcern[AreaOfConcern.getDisplayName(completeAreaOfConcern)] =
                 (_.sumBy(checkpointScores, "score") / (checkpointScores.length * 2)) * 100;
         });
-        return scorePerAreaOfConcern;
+        return this._sort(scorePerAreaOfConcern);
     }
 
 
@@ -71,7 +75,7 @@ class ReportService extends BaseService {
             scorePerStandard[Standard.getDisplayName(completeStandard)] =
                 (_.sumBy(checkpointScores, "score") / (checkpointScores.length * 2)) * 100;
         });
-        return scorePerStandard;
+        return this._sort(scorePerStandard);
     }
 
     scoreForStandards(facilityAssessment, standardRefs = []) {
@@ -87,7 +91,7 @@ class ReportService extends BaseService {
                     (_.sumBy(checkpointScores, "score") / (checkpointScores.length * 2)) * 100;
             }
         });
-        return scorePerStandard;
+        return this._sort(scorePerStandard);
     }
 
     departmentScoreForAreaOfConcern(areaOfConcern, facilityAssessment) {
@@ -113,7 +117,7 @@ class ReportService extends BaseService {
             scorePerDepartment[completeChecklist.department.name] =
                 (_.sumBy(checkpointScores, "score") / (checkpointScores.length * 2)) * 100;
         });
-        return scorePerDepartment;
+        return this._sort(scorePerDepartment);
     }
 
     areasOfConcernScoreForDepartment(department, facilityAssessment) {
@@ -126,10 +130,10 @@ class ReportService extends BaseService {
         const checkpointsPerAreaOfConcern = _.groupBy(allCheckpoints, 'areaOfConcern');
         _.toPairs(checkpointsPerAreaOfConcern).map(([areaOfConcern, checkpointScores]) => {
             let completeAreaOfConcern = Object.assign({}, this.db.objectForPrimaryKey(AreaOfConcern.schema.name, areaOfConcern));
-            scorePerAreaOfConcern[completeAreaOfConcern.name] =
+            scorePerAreaOfConcern[AreaOfConcern.getDisplayName(completeAreaOfConcern)] =
                 (_.sumBy(checkpointScores, "score") / (checkpointScores.length * 2)) * 100;
         });
-        return scorePerAreaOfConcern;
+        return this._sort(scorePerAreaOfConcern);
     }
 
     standardScoreForAreaOfConcern(areaOfConcern, facilityAssessment) {
@@ -150,15 +154,15 @@ class ReportService extends BaseService {
         const checkpointsPerStandard = _.groupBy(allCheckpoints, 'standard');
         _.toPairs(checkpointsPerStandard).map(([standard, checkpointScores]) => {
             let completeStandard = Object.assign({}, this.db.objectForPrimaryKey(Standard.schema.name, standard));
-            scorePerStandard[completeStandard.name] =
+            scorePerStandard[Standard.getDisplayName(completeStandard)] =
                 (_.sumBy(checkpointScores, "score") / (checkpointScores.length * 2)) * 100;
         });
-        return scorePerStandard;
+        return this._sort(scorePerStandard);
     }
 
-    measurableElementForCheckpoint(checkpointUUID) {
+    _measurableElementForCheckpoint(checkpointUUID) {
         const measurableElementUUID = this.db.objectForPrimaryKey(Checkpoint.schema.name, checkpointUUID).measurableElement;
-        return this.db.objectForPrimaryKey(MeasurableElement.schema.name, measurableElementUUID).name;
+        return MeasurableElement.getDisplayName(this.db.objectForPrimaryKey(MeasurableElement.schema.name, measurableElementUUID));
     }
 
     measurableElementScoreForStandard(standard, facilityAssessment) {
@@ -170,14 +174,14 @@ class ReportService extends BaseService {
                 facilityAssessment.uuid,
                 standardUUID)
             .map((cs) => Object.assign(cs,
-                {measurableElement: this.measurableElementForCheckpoint(cs.checkpoint)}
+                {measurableElement: this._measurableElementForCheckpoint(cs.checkpoint)}
             ));
         let scorePerMeasurableElement = {};
         let checkpointsPerMeasurableElements = _.groupBy(allCheckpoints, 'measurableElement');
         _.toPairs(checkpointsPerMeasurableElements)
             .map(([me, checkpointScores]) => scorePerMeasurableElement[me] =
                 (((_.sumBy(checkpointScores, "score") / (checkpointScores.length * 2)) * 100)));
-        return scorePerMeasurableElement;
+        return this._sort(scorePerMeasurableElement);
     }
 
     nonAndPartiallyComplianceCheckpointsForDepartment(department, facilityAssessment) {

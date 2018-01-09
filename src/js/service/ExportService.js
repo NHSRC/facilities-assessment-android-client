@@ -96,7 +96,7 @@ class ExportService extends BaseService {
     toCSV(filename, headers, collectionOfCollections) {
         const csvCollection = [headers].concat(collectionOfCollections);
         let csvAsString = csvCollection.map((col) => col.map((item) => `"${_.toString(item).replace(/"/g, "'")}"`).join()).join('\n');
-        const filePath = `${this.directoryPath}/${filename}-${Date.now()}`;
+        const filePath = `${this.directoryPath}/${Date.now()}-${filename}`;
         RNFS.writeFile(filePath, csvAsString, 'utf8')
             .then(_.noop)
             .catch((error) => {

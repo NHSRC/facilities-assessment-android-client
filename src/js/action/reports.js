@@ -97,18 +97,6 @@ const exportOptions = function (state, action, beans) {
     return Object.assign(state, {showExportOptions: !state.showExportOptions});
 };
 
-const exportAOC = function (exportService, facilityAssessment) {
-    return exportService.exportAOC(facilityAssessment);
-};
-
-const exportDepartments = function (exportService, facilityAssessment) {
-    return exportService.exportDepartment(facilityAssessment);
-};
-
-const exportStandards = function (exportService, facilityAssessment) {
-    return exportService.exportStandard(facilityAssessment);
-};
-
 const exportCurrentTab = function (state, action, beans) {
     const exportService = beans.get(ExportService);
     const selectedTab = getSelectedTab(state.tabs);

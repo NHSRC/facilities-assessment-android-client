@@ -92,7 +92,7 @@ class AssessmentList extends AbstractComponent {
         return (
             <View key={key} style={AssessmentList.styles.listItem}>
                 <View style={AssessmentList.styles.listItemText}>
-                    <Text style={[Typography.paperFontMenu, {color: "white"}]}>
+                    <Text style={[Typography.paperFontCaption, {color: "white"}]}>
                         {this.assessmentDisplayText(assessment)}
                     </Text>
                     <Text style={[Typography.paperFontCaption, {color: "rgba(255,255,255,0.7)", marginTop: 4}]}>

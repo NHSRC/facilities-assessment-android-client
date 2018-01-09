@@ -12,6 +12,10 @@ class MeasurableElement {
     static fromDB(realmObj) {
         return realmObj;
     }
+
+    static getDisplayName(measurableElement) {
+        return `${measurableElement.reference} - ${measurableElement.name}`;
+    }
 }
 
 export default MeasurableElement;

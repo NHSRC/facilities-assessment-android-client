@@ -1,7 +1,6 @@
 import FacilitiesService from "../service/FacilitiesService";
 import FacilityAssessmentService from "../service/FacilityAssessmentService";
 import _ from "lodash";
-import Logger from "../framework/Logger";
 import moment from "moment";
 
 const allStates = function (state, action, beans) {

@@ -26,7 +26,7 @@ class Standard {
     }
 
     static getDisplayName(standard) {
-        return _.isEmpty(standard.shortName) ? standard.name : standard.shortName;
+        return _.isEmpty(standard.shortName) ? `${standard.reference} - ${standard.name}` : `${standard.reference} - ${standard.shortName}`;
     }
 
     static associateChild(childEntity, childEntityClass, childResource, entityService) {
