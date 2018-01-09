@@ -72,16 +72,14 @@ class ModeSelection extends AbstractComponent {
         let showMode = !_.isNil(this.state) && this.state.modes.indexOf(name.toUpperCase()) > -1;
         return showMode ? (
             <TouchableWithoutFeedback onPress={this.handleOnPress(name)}>
-                <View style={ModeSelection.styles.mode}>
-                    {icon ? <Image resizeMode="contain"
-                                   style={{
-                                       maxHeight: 170,
-                                       width: deviceWidth * .33,
-                                       marginLeft: deviceWidth * .06,
-                                   }}
-                                   source={icon}/> :
-                        <Text style={[Typography.paperFontHeadline, {color: 'white', width: deviceWidth * .33, marginLeft: deviceWidth * .06, marginTop: 60}]}>{name}</Text>}
-                </View>
+                {icon ? <Image resizeMode="contain"
+                               style={{
+                                   maxHeight: 170,
+                                   width: deviceWidth * .33,
+                                   marginLeft: deviceWidth * .06,
+                               }}
+                               source={icon}/> :
+                    <Text style={[Typography.paperFontHeadline, {color: 'white', width: deviceWidth * .33, marginLeft: deviceWidth * .06, marginTop: 60}]}>{name}</Text>}
             </TouchableWithoutFeedback>
         ) : <View/>;
     }
@@ -110,13 +108,13 @@ class ModeSelection extends AbstractComponent {
                 <Content>
                     <View style={ModeSelection.styles.container}>
                         {/*<Text style={[Typography.paperFontHeadline, {*/}
-                            {/*color: PrimaryColors.yellow,*/}
-                            {/*alignSelf: 'center',*/}
-                            {/*marginTop: 16,*/}
+                        {/*color: PrimaryColors.yellow,*/}
+                        {/*alignSelf: 'center',*/}
+                        {/*marginTop: 16,*/}
                         {/*}]}>*/}
-                            {/*<Text style={ModeSelection.styles.highlight}>Gu</Text>*/}
-                            {/*ide for <Text style={ModeSelection.styles.highlight}>N</Text>QAS & <Text*/}
-                            {/*style={ModeSelection.styles.highlight}>K</Text>ayakalp*/}
+                        {/*<Text style={ModeSelection.styles.highlight}>Gu</Text>*/}
+                        {/*ide for <Text style={ModeSelection.styles.highlight}>N</Text>QAS & <Text*/}
+                        {/*style={ModeSelection.styles.highlight}>K</Text>ayakalp*/}
                         {/*</Text>*/}
                         <Text style={[Typography.paperFontHeadline, {
                             color: 'white',
