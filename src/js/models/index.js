@@ -21,10 +21,11 @@ import Tag from './Tag';
 import EntitySyncStatus from "./sync/EntitySyncStatus";
 import SeedProgress from "./SeedProgress";
 import AssessmentLocation from "./AssessmentLocation";
+import Logger from "../framework/Logger";
 
 export default {
     schema: [StringObj, ChecklistProgress, StandardProgress, AreaOfConcernProgress, Checkpoint, MeasurableElement, Standard, AreaOfConcern, Department, FacilityType, AssessmentTool, Facility, District, State, Checklist, FacilityAssessment, CheckpointScore, AssessmentType, Settings, EntitySyncStatus, SeedProgress, AssessmentLocation],
-    schemaVersion: 14,
+    schemaVersion: 41,
     migration: (oldRealm, newRealm) => {
         const version = (version) => (db) => db.schemaVersion < version;
 
@@ -92,6 +93,7 @@ export default {
             [version(6), addingSeedProgress],
         ];
 
+        Logger.logDebug('model.index', `Old Database Version:${oldRealm.schemaVersion}, New Database Version:${newRealm.schemaVersion}`);
         migrationMap.filter(([matcher, ign]) => matcher(oldRealm))
             .forEach(([ign, execFn]) => migrationExecutor(execFn)(oldRealm, newRealm));
     }

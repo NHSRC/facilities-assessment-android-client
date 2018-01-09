@@ -17,6 +17,10 @@ define _release_apk
 	cd android && ENVFILE=.env.$1 ./gradlew assembleRelease -x bundleReleaseJsAndAssets
 endef
 
+define _install_apk
+	adb install -r $1
+endef
+
 
 # <platform>
 install_platform: ansible_check
@@ -54,7 +58,10 @@ release_apk_offline:
 	cd android; ENVFILE=.env ./gradlew --offline assembleRelease
 
 install_released_apk:
-	adb install android/app/build/outputs/apk/app-release.apk
+	$(call _install_apk,android/app/build/outputs/apk/app-release.apk)
+
+install_old_apk:
+	$(call _install_apk,android/app/old-build/app-release.apk)
 
 openlocation_apk:
 	open android/app/build/outputs/apk
