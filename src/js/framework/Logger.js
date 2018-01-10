@@ -1,3 +1,5 @@
+import General from "../utility/General";
+
 var currentLogLevel;
 
 class Logger {
@@ -59,7 +61,7 @@ class Logger {
     }
 
     static logError(source, message) {
-        Logger.log(source, message, Logger.LogLevel.Error);
+        Logger.log(source, General.getMessage(message), Logger.LogLevel.Error);
     }
 
     static log(source, message, level) {

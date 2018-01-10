@@ -1,9 +1,15 @@
 import Logger from "../Logger";
+import _ from 'lodash';
 
 const fetchFactory = (endpoint, method = "GET", params, responseModifier, cb, errorHandler) =>
     fetch(endpoint, {"method": method, ...params})
         .then(responseModifier)
-        .then(cb)
+        .then((responseModifier) => {
+            if (_.isNil(responseModifier.error))
+                cb(responseModifier);
+            else
+                errorHandler(responseModifier);
+        })
         .catch(errorHandler);
 
 const makeHeader = (type) => new Map([['json', {

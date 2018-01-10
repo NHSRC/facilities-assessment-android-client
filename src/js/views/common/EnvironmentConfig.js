@@ -1,6 +1,5 @@
 import Config from "react-native-config";
 import DeviceInfo from 'react-native-device-info';
-import Logger from "../../framework/Logger";
 
 class EnvironmentConfig {
     static _isPropertyTrue(propertyName) {
@@ -12,11 +11,11 @@ class EnvironmentConfig {
     }
 
     static get serverURL() {
-        return Config["SERVER_URL"];
+        return EnvironmentConfig.isEmulated ? 'http://dev.gunak.org:6001' : Config["SERVER_URL"];
     }
 
     static get shouldAllowIncompleteChecklistSubmission() {
-        return EnvironmentConfig._isPropertyTrue("ALLOW_INCOMPLETE_SUBMIT");
+        return EnvironmentConfig.isEmulated || EnvironmentConfig._isPropertyTrue("ALLOW_INCOMPLETE_SUBMIT");
     }
 
     static get autoGenerateSeriesNumber() {
@@ -27,20 +26,16 @@ class EnvironmentConfig {
         return EnvironmentConfig._isPropertyTrue("FREE_TEXT_FACILITY_NAME_SUPPORT");
     }
 
-    static get isEmulator() {
-        return DeviceInfo.isEmulator();
-    }
-
     static get shouldAllowBulkDownload() {
-        return EnvironmentConfig.isEmulator || EnvironmentConfig._isPropertyTrue("ALLOW_BULK_DOWNLOAD");
+        return EnvironmentConfig.isEmulated || EnvironmentConfig._isPropertyTrue("ALLOW_BULK_DOWNLOAD");
     }
 
     static get shouldAllowCleanData() {
-        return EnvironmentConfig.isEmulator || EnvironmentConfig._isPropertyTrue("ALLOW_CLEAN_DATA");
+        return EnvironmentConfig.isEmulated || EnvironmentConfig._isPropertyTrue("ALLOW_CLEAN_DATA");
     }
 
     static get shouldAllowDownloadMyData() {
-        return EnvironmentConfig.isEmulator || EnvironmentConfig._isPropertyTrue("ALLOW_DOWNLOAD_MY_DATA");
+        return EnvironmentConfig.isEmulated || EnvironmentConfig._isPropertyTrue("ALLOW_DOWNLOAD_MY_DATA");
     }
 
     static get shouldTrackLocation() {
@@ -48,11 +43,11 @@ class EnvironmentConfig {
     }
 
     static get functionsEnabledInSettings() {
-        return EnvironmentConfig.isEmulator || EnvironmentConfig.shouldAllowDownloadMyData || EnvironmentConfig.shouldAllowBulkDownload || EnvironmentConfig.shouldAllowCleanData;
+        return EnvironmentConfig.isEmulated || EnvironmentConfig.shouldAllowDownloadMyData || EnvironmentConfig.shouldAllowBulkDownload || EnvironmentConfig.shouldAllowCleanData;
     }
 
     static get isEmulated() {
-        return EnvironmentConfig.isEmulator;
+        return DeviceInfo.isEmulator();
     }
 }
 

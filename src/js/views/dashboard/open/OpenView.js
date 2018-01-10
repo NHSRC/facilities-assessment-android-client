@@ -8,6 +8,7 @@ import _ from 'lodash';
 import TypedTransition from "../../../framework/routing/TypedTransition";
 import ChecklistSelection from "../../checklistSelection/ChecklistSelection";
 import Logger from "../../../framework/Logger";
+import General from "../../../utility/General";
 
 
 class OpenView extends AbstractComponent {
@@ -50,17 +51,16 @@ class OpenView extends AbstractComponent {
             "assessment": assessment,
             cb: () => this.dispatchAction(Actions.ASSESSMENT_SYNCED, {assessment: assessment, ...this.props}),
             errorHandler: (error) => {
-                Logger.logErrorObject('OpenView', error);
                 Logger.logError('OpenView', error);
-                this.submissionError(assessment);
+                this.submissionError(assessment, General.getMessage(error));
             }
         });
     }
 
-    submissionError(assessment) {
+    submissionError(assessment, error) {
         Alert.alert(
             'Submission Error',
-            "An error occured submitting the assessment. Please check connectivity to the server.",
+            `An error occured submitting the assessment. Please check connectivity to the server or report the following to error message.\n${error}`,
             [
                 {
                     text: 'Ok',

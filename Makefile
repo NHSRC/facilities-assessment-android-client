@@ -30,6 +30,13 @@ reset_platform:
 	rm -rf ios/build/*
 	rm -rf android/build/*
 	rm -rf node_modules
+
+setuphosts_platform:
+	adb root
+	adb remount
+	cat /etc/hosts|sed 's/127.0.0.1/'$(ip)'/' > /tmp/hosts-adb
+	echo '$(ip)	dev.gunak.org' >> /tmp/hosts-adb
+	adb push /tmp/hosts-adb /system/etc/hosts
 # </platform>
 
 
@@ -130,19 +137,19 @@ stop_app_android:
 start_app_android:
 	adb shell am start -n com.facilitiesassessment/com.facilitiesassessment.MainActivity
 
-run_app_jss: setup_source
+run_app_jss: setup_source setuphosts_platform
 	$(call run_android,.env.jss)
 
-run_app_android: setup_source
+run_app_android: setup_source setuphosts_platform
 	$(call run_android,.env)
 
 run_app_ios: setup_source
 	$(call run_ios,.env)
 
-run_app_android_nhsrc: setup_source_nhsrc
+run_app_android_nhsrc: setup_source_nhsrc setuphosts_platform
 	$(call run_android,.env.nhsrc)
 
-run_app_android_jss:
+run_app_android_jss: setuphosts_platform
 	$(call run_android,.env.jss)
 
 uninstall_app:

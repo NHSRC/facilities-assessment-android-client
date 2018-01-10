@@ -19,6 +19,10 @@ class General {
         }
         return picked;
     }
+
+    static getMessage(obj) {
+        return typeof obj === 'object' ? JSON.stringify(obj) : obj;
+    }
 }
 
 export default General;
