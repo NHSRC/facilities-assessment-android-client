@@ -16,6 +16,7 @@ import EntitiesMetaData from "../models/entityMetaData/EntitiesMetaData";
 import EntityService from "./EntityService";
 import moment from "moment";
 import FacilitiesService from "./FacilitiesService";
+import EnvironmentConfig from "../views/common/EnvironmentConfig";
 
 @Service("assessmentSyncService")
 class AssessmentSyncService extends BaseService {
@@ -25,7 +26,7 @@ class AssessmentSyncService extends BaseService {
     }
 
     init() {
-        this.serverURL = this.getService(SettingsService).getServerURL();
+        this.serverURL = EnvironmentConfig.serverURL;
     }
 
     syncChecklists(originalAssessment, cb, errorHandler) {

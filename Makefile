@@ -86,7 +86,7 @@ log:
 
 setup_source:
 	cp $(recorded_response_dir)/EmptyPackagedJSON.js $(service_src_dir)/PackagedJSON.js
-	-rm src/config/*.json
+	-rm -rf src/config/*
 
 setup_source_nhsrc:
 	cp $(recorded_response_dir)/PackagedJSON.js $(service_src_dir)/PackagedJSON.js

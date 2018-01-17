@@ -11,7 +11,7 @@ class EnvironmentConfig {
     }
 
     static get serverURL() {
-        return EnvironmentConfig.isEmulated ? 'http://dev.gunak.org:6001' : Config["SERVER_URL"];
+        return Config["SERVER_URL"];
     }
 
     static get shouldAllowIncompleteChecklistSubmission() {

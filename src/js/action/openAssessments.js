@@ -9,7 +9,6 @@ const allAssessments = function (state, action, beans) {
     const assessmentService = beans.get(FacilityAssessmentService);
     const settingsService = beans.get(SettingsService);
     const assessmentMode = action.mode;
-    const serverConnected = settingsService.hasServerURL();
     const openAssessments = assessmentService.getAllOpenAssessments(assessmentMode);
     const completedAssessments = assessmentService.getAllCompletedAssessments(assessmentMode);
     const certifiableAssessments = assessmentService.getAllCertifiableAssessments(assessmentMode);
@@ -18,8 +17,7 @@ const allAssessments = function (state, action, beans) {
         certifiableAssessments: certifiableAssessments,
         openAssessments: openAssessments,
         completedAssessments: completedAssessments,
-        submittedAssessments: submittedAssessments,
-        serverConnected: serverConnected
+        submittedAssessments: submittedAssessments
     });
 };
 
@@ -64,6 +62,5 @@ export let openAssessmentsInit = {
     syncing: [],
     openAssessments: [],
     completedAssessments: [],
-    submittedAssessments: [],
-    serverConnected: false
+    submittedAssessments: []
 };

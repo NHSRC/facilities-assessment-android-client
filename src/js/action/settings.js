@@ -1,30 +1,12 @@
-import _ from 'lodash';
 import SettingsService from "../service/SettingsService";
 import {minDate} from '../utility/DateUtils';
 import ReferenceDataSyncService from "../service/ReferenceDataSyncService";
 import SeedDataService from "../service/SeedDataService";
-import Config from "react-native-config";
-import StateService from "../service/StateService";
 import Logger from "../framework/Logger";
-import EntitySyncStatusService from "../service/EntitySyncStatusService";
-import EntitiesMetaData from "../models/entityMetaData/EntitiesMetaData";
 
 const initialSettings = function (state, action, beans) {
     const settingsService = beans.get(SettingsService);
-    return Object.assign(state, settingsService.get(), {serverConnected: settingsService.hasServerURL()});
-};
-
-const updateView = function (state, action, beans) {
-    const settingsService = beans.get(SettingsService);
-    const serverURL = _.isEmpty(action.serverURL) ? "http://" : action.serverURL;
-    return Object.assign(state, settingsService.saveSettings({serverURL: serverURL}));
-};
-
-const updateSettings = function (state, action, beans) {
-    const settingsService = beans.get(SettingsService);
-    let newState = Object.assign(state, settingsService.saveSettings({serverURL: state.serverURL}));
-    action.cb();
-    return newState;
+    return Object.assign(state, settingsService.get(), {serverURL: settingsService.getServerURL()});
 };
 
 const syncMetaData = function (state, action, beans) {
@@ -72,8 +54,6 @@ const cleanTxData = function (state, action, beans) {
 
 export default new Map([
     ["INITIAL_SETTINGS", initialSettings],
-    ["UPDATE_SETTINGS", updateSettings],
-    ["UPDATE_SETTINGS_VIEW", updateView],
     ["SYNC_META_DATA", syncMetaData],
     ["SYNC_META_DATA_IN_STATE_MODE", syncMetaDataInStateMode],
     ["SYNC_ALL_DATA", syncAllData],
@@ -86,6 +66,5 @@ export default new Map([
 export let settingsInit = {
     serverURL: "",
     lastSyncedDate: minDate,
-    syncing: false,
-    serverConnected: false
+    syncing: false
 };

@@ -8,8 +8,7 @@ class Settings {
         primaryKey: 'uuid',
         properties: {
             uuid: {type: 'string', default: this.defaultPrimaryKey},
-            serverURL: {type: 'string'},
-            lastSyncedDate: {type: 'date', default: minDate},
+            lastSyncedDate: {type: 'date', default: minDate}
         }
     };
 }

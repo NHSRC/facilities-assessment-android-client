@@ -118,9 +118,7 @@ class Settings extends AbstractComponent {
                             <InputGroup borderType='underline'>
                                 <Input
                                     style={{color: "white"}}
-                                    value={this.state.serverURL}
-                                    onChangeText={(text) => this.dispatchAction(Actions.UPDATE_SETTINGS_VIEW, {serverURL: text})}
-                                    placeholder='http://enter-your-server-url.com'/>
+                                    value={this.state.serverURL}/>
                             </InputGroup>
                         </View>
 
@@ -140,7 +138,6 @@ class Settings extends AbstractComponent {
                                                 }
                                             })
                                     }
-                                    showButton={this.state.serverConnected}
                                     buttonStyle={{marginTop: 15}}/>
                                 <SubmitButton
                                     buttonText={this.state.syncing ?
@@ -156,7 +153,6 @@ class Settings extends AbstractComponent {
                                                 }
                                             })
                                     }
-                                    showButton={this.state.serverConnected}
                                     buttonStyle={{marginTop: 15}}/>
                                 {EnvironmentConfig.shouldAllowBulkDownload ? <SubmitButton
                                     buttonText={this.state.syncing ?
@@ -172,7 +168,6 @@ class Settings extends AbstractComponent {
                                                 }
                                             })
                                     }
-                                    showButton={this.state.serverConnected}
                                     buttonStyle={{marginTop: 15}}/> : <View/>}
                                 <Text style={{color: "white", marginBottom: 30, alignSelf: 'center'}}>
                                     Last Synced Date - {formatDate(this.state.lastSyncedDate)}
@@ -190,17 +185,14 @@ class Settings extends AbstractComponent {
                                                       }
                                                   })
                                           }
-                                          showButton={this.state.serverConnected}
                                           buttonStyle={{marginTop: 15}}/> : <View/>}
                         {EnvironmentConfig.shouldAllowCleanData ?
                             <SubmitButton buttonText={"CLEAN ALL DATA"}
                                           onPress={() => this.cleanData()}
-                                          showButton={this.state.serverConnected}
                                           buttonStyle={{marginTop: 15}}/> : <View/>}
                         {EnvironmentConfig.shouldAllowCleanData ?
                             <SubmitButton buttonText={"CLEAN TX DATA"}
                                           onPress={() => this.cleanTxData()}
-                                          showButton={this.state.serverConnected}
                                           buttonStyle={{marginTop: 15}}/> : <View/>}
                     </View>
                 </Content>

@@ -13,23 +13,12 @@ class SettingsService extends BaseService {
         this.saveSettings = this.save(Settings, (entity) => Object.assign(entity, {uuid: Settings.defaultPrimaryKey}));
     }
 
-    postInit() {
-        if (!this.hasServerURL()) {
-            this.saveSettings({serverURL: EnvironmentConfig.serverURL});
-        }
-    }
-
     get() {
         return Object.assign({}, this.db.objectForPrimaryKey(Settings.schema.name, Settings.defaultPrimaryKey));
     }
 
     getServerURL() {
-        return this.get().serverURL;
-    }
-
-    hasServerURL() {
-        const serverURL = this.getServerURL();
-        return !_.isEmpty(serverURL) && serverURL !== "http://";
+        return EnvironmentConfig.serverURL;
     }
 }
 
