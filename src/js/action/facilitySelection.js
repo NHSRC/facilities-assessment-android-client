@@ -2,11 +2,12 @@ import FacilitiesService from "../service/FacilitiesService";
 import FacilityAssessmentService from "../service/FacilityAssessmentService";
 import _ from "lodash";
 import moment from "moment";
+import SettingsService from "../service/SettingsService";
 
 const allStates = function (state, action, beans) {
     let facilitiesService = beans.get(FacilitiesService);
     let facilityAssessmentService = beans.get(FacilityAssessmentService);
-    const states = facilitiesService.getAllStates();
+    const states = facilitiesService.getStates(beans.get(SettingsService).get().states);
     const assessmentTools = facilityAssessmentService.getAssessmentTools(action.mode);
     let newState = Object.assign(state, {
         "allStates": states,

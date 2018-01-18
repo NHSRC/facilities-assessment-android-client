@@ -5,13 +5,14 @@ import AbstractComponent from "../common/AbstractComponent";
 import FlatUITheme from "../themes/flatUI";
 import TypedTransition from "../../framework/routing/TypedTransition";
 import Path from "../../framework/routing/Path";
-import PrimaryColors from "../styles/PrimaryColors";
 import Typography from "../styles/Typography";
 import Dashboard from "../dashboard/Dashboard";
 import Settings from "../settings/Settings";
 import Logger from "../../framework/Logger";
 import EnvironmentConfig from "../common/EnvironmentConfig";
 import Actions from "../../action";
+import StateSelection from "../initialSetup/StateSelection";
+import _ from 'lodash';
 
 const nqasIcon = require('../img/nqas.png');
 const kayakalpIcon = require('../img/kayakalp.png');
@@ -84,6 +85,10 @@ class ModeSelection extends AbstractComponent {
         ) : <View/>;
     }
 
+    addNewState() {
+        TypedTransition.from(this).with({chooseAdditional: true}).to(StateSelection);
+    }
+
     render() {
         Logger.logDebug('ModeSelection', 'render');
         return (
@@ -104,6 +109,12 @@ class ModeSelection extends AbstractComponent {
                         fontWeight: 'bold',
                         color: 'white'
                     }]}>GUNAK गुणक</Title>
+                    {EnvironmentConfig.shouldUsePackagedSeedData ? <Button
+                        style={{flex: 0.1}}
+                        iconLeft={true}
+                        onPress={() => this.addNewState()}>
+                        <Icon style={{color: "white"}} name="control-point"/>
+                    </Button> : null}
                 </Header>
                 <Content>
                     <View style={ModeSelection.styles.container}>

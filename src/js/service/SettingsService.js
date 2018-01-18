@@ -14,11 +14,21 @@ class SettingsService extends BaseService {
     }
 
     get() {
-        return Object.assign({}, this.db.objectForPrimaryKey(Settings.schema.name, Settings.defaultPrimaryKey));
+        let settings = this.findByUUID(Settings.defaultPrimaryKey, Settings.schema.name);
+        return _.isNil(settings) ? this.saveSettings({}) : settings;
     }
 
     getServerURL() {
         return EnvironmentConfig.serverURL;
+    }
+
+    addState(state) {
+        const db = this.db;
+        db.write(() => {
+            let settings = this.get();
+            settings.addState(state);
+            this.db.create(Settings.schema.name, settings, true);
+        });
     }
 }
 

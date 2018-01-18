@@ -34,7 +34,6 @@ class StartView extends AbstractComponent {
         },
     });
 
-
     handleChange() {
         const newState = this.context.getStore().getState().facilitySelection;
         (newState.facilitySelected ? this.changeView.bind(this) : this.setState.bind(this))(newState);

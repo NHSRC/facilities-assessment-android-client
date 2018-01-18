@@ -7,7 +7,6 @@ import Facility from "../models/Facility";
 import FacilityType from "../models/FacilityType";
 import UUID from "../utility/UUID";
 import StateService from "./StateService";
-import BaseEntity from "../models/BaseEntity";
 
 @Service("facilitiesService")
 class FacilitiesService extends BaseService {
@@ -30,6 +29,10 @@ class FacilitiesService extends BaseService {
 
     getAllStates() {
         return this.db.objects(State.schema.name).sorted('name').map(this.nameAndId);
+    }
+
+    getStates(stateUUIDs) {
+        return stateUUIDs.map((stateUUID) => this.findByUUID(stateUUID, State.schema.name)).map(this.nameAndId);
     }
 
     getAllDistrictsFor(stateUUID) {

@@ -7,20 +7,23 @@ import Typography from "../styles/Typography";
 import FlatUITheme from "../themes/flatUI";
 import SeedProgressService from "../../service/SeedProgressService";
 import StateService from "../../service/StateService";
-import SeedProgress from "../../models/SeedProgress";
 import TypedTransition from "../../framework/routing/TypedTransition";
 import ModeSelection from "../modes/ModeSelection";
 import Logger from "../../framework/Logger";
 import LocalReferenceDataSyncService from "../../service/LocalReferenceDataSyncService";
-import PackagedJSON from "../../service/PackagedJSON";
 import EnvironmentConfig from "../common/EnvironmentConfig";
+import SettingsService from "../../service/SettingsService";
+import _ from 'lodash';
+import Actions from "../../action";
 
 const nhsrcbanner = require('../img/nhsrcbanner.png');
 
 @PathRoot
 @Path('/StateSelection')
 class StateSelection extends AbstractComponent {
-    static propTypes = {};
+    static propTypes = {
+        chooseAdditional: React.PropTypes.bool
+    };
 
     constructor(props, context) {
         super(props, context);
@@ -34,13 +37,23 @@ class StateSelection extends AbstractComponent {
         }
     });
 
+    get doChooseAdditionalState() {
+        return _.isNil(this.props.params) ? false : this.props.params.chooseAdditional;
+    }
+
     componentWillMount() {
-        let seedProgress = this.context.getService(SeedProgressService).getSeedProgress();
-        if (seedProgress.loadState === SeedProgress.AppLoadState.LoadedState || !EnvironmentConfig.shouldUsePackagedSeedData) {
-            TypedTransition.from(this).resetTo(ModeSelection);
+        if (EnvironmentConfig.shouldUsePackagedSeedData) {
+            let settings = this.context.getService(SettingsService).get();
+            let seedProgress = this.context.getService(SeedProgressService).getSeedProgress();
+            let noStateLoaded = settings.numberOfStates === 0;
+            if (noStateLoaded || this.doChooseAdditionalState) {
+                let states = settings.removeStatesAlreadySetup(this.context.getService(StateService).getAllStates());
+                this.setState(new StateSelectionState(null, states));
+            } else {
+                TypedTransition.from(this).to(ModeSelection);
+            }
         } else {
-            let states = this.context.getService(StateService).getAllStates();
-            this.setState({state: {}, states: states});
+            TypedTransition.from(this).to(ModeSelection);
         }
     }
 
@@ -49,21 +62,23 @@ class StateSelection extends AbstractComponent {
             let localReferenceDataSyncService = this.context.getService(LocalReferenceDataSyncService);
             localReferenceDataSyncService.syncMetaDataSpecificToStateFromLocal(() => {
                 this.context.getService(SeedProgressService).finishedLoadStateSpecificData();
-                this.context.getService(StateService).deleteStatesExcept(this.state.state);
-                TypedTransition.from(this).resetTo(ModeSelection);
-            }, this.state.state);
+                this.context.getService(SettingsService).addState(this.state.selectedState);
+                this.dispatchAction(Actions.MODE_SELECTION);
+                TypedTransition.from(this).goBack();
+            }, this.state.selectedState);
         }, 100);
-        this.setState({state: this.state.state, states: this.state.states, busy: true});
+        this.setState(StateSelectionState.countryStateSelected(this.state));
     }
 
-    toggleState(state) {
-        if (state.name === this.state.state.name) this.setState({state: {}, dataSource: this.state.states});
-        else this.setState({state: state, dataSource: this.state.states});
+    toggleState(countryState) {
+        this.setState(StateSelectionState.toggleState(this.state, countryState));
     }
 
     render() {
+        Logger.logDebug('StateSelection', 'renderEmpty');
         if (_.isNil(this.state)) return <View/>;
-        Logger.logDebugObject('StateSelection', this.state.state);
+
+        Logger.logDebug('StateSelection', 'render');
         return (
             <Container theme={FlatUITheme}>
                 <Header style={StateSelection.styles.header}>
@@ -76,12 +91,12 @@ class StateSelection extends AbstractComponent {
                     <View style={{flexDirection: 'column', margin: 8, justifyContent: 'center', alignItems: 'center'}}>
                         <Text style={[Typography.paperFontTitle, {color: "white", marginBottom: 20}]}>Select the state of your health facility</Text>
                         <Text style={{height: 0.5, backgroundColor: "white", width: 200}}/>
-                        {this.state.states.map((state) =>
-                            <View style={{marginTop: 5, justifyContent: 'center', alignItems: 'center'}}>
-                                <TouchableHighlight key={state.name} onPress={() => this.toggleState(state)}>
-                                    <View style={{flexDirection: 'row', height: 30}}>
-                                        <Text style={{color: "white"}}>{state.name}</Text>
-                                        {this.state.state.name === state.name ? <Icon name='done' style={{fontSize: 20, color: "white", marginLeft: 10}} size={100}/> :
+                        {this.state.allStates.map((countryState) =>
+                            <View style={{marginTop: 5, justifyContent: 'center', alignItems: 'center'}} key={countryState.name}>
+                                <TouchableHighlight key={countryState.name} onPress={() => this.toggleState(countryState)}>
+                                    <View style={{flexDirection: 'row', height: 32}}>
+                                        <Text style={{color: "white"}}>{countryState.name}</Text>
+                                        {StateSelectionState.isSelectedState(this.state, countryState) ? <Icon name='done' style={{fontSize: 20, color: "white", marginLeft: 10}} size={100}/> :
                                             <View/>}
                                     </View>
                                 </TouchableHighlight>
@@ -91,7 +106,7 @@ class StateSelection extends AbstractComponent {
                             onPress={() => this.stateSelected()}
                             style={{backgroundColor: '#ffa000', marginTop: 20}}
                             block
-                            disabled={_.isNil(this.state.state.name)}>{this.state.busy ?
+                            disabled={!StateSelectionState.anyStateSelected(this.state)}>{this.state.busy ?
                             (<ActivityIndicator animating={true} size={"large"} color="white"
                                                 style={{height: 80}}/>) :
                             "SAVE"}
@@ -107,6 +122,39 @@ class StateSelection extends AbstractComponent {
                 </Footer>
             </Container>
         );
+    }
+}
+
+class StateSelectionState {
+    constructor(selectedState, allStates) {
+        this.selectedState = selectedState;
+        this.allStates = allStates;
+    }
+
+    static clone(stateSelectionState) {
+        let newStateSelectionState = new StateSelectionState(stateSelectionState.selectedState, stateSelectionState.allStates);
+        newStateSelectionState.isBusy = stateSelectionState.isBusy;
+        return newStateSelectionState;
+    }
+
+    static countryStateSelected(stateSelectionState) {
+        let newState = StateSelectionState.clone(stateSelectionState);
+        newState.busy = true;
+        return newState;
+    }
+
+    static toggleState(stateSelectionState, state) {
+        let newState = StateSelectionState.clone(stateSelectionState);
+        newState.selectedState = StateSelectionState.isSelectedState(stateSelectionState, state) ? null : state;
+        return newState;
+    }
+
+    static isSelectedState(stateSelectionState, state) {
+        return StateSelectionState.anyStateSelected(stateSelectionState) && stateSelectionState.selectedState.uuid === state.uuid;
+    }
+
+    static anyStateSelected(stateSelectionState) {
+        return !_.isNil(stateSelectionState.selectedState);
     }
 }
 

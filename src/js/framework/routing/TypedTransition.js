@@ -15,7 +15,7 @@ export default class TypedTransition {
         invariant(viewClass.path, 'Parameter `viewClass` should have a function called `path`');
 
         const path = viewClass.path();
-        var route = {path, queryParams: this.queryParams || {}};
+        let route = {path, queryParams: this.queryParams || {}};
         if (sceneConfig !== undefined) {
             route.sceneConfig = sceneConfig;
         }
@@ -45,7 +45,7 @@ export default class TypedTransition {
         require("dismissKeyboard")();
         invariant(viewClass.path, 'Parameter `viewClass` should have a function called `path`');
         const path = viewClass.path();
-        var route = {path, queryParams: this.queryParams || {}};
+        let route = {path, queryParams: this.queryParams || {}};
         this.view.context.navigator().replace(route);
         return this;
     }

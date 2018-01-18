@@ -63,12 +63,12 @@ class Settings extends AbstractComponent {
             [
                 {
                     text: 'Yes', onPress: () => {
-                    this.dispatchAction(Actions.CLEAN_DATA);
-                }
+                        this.dispatchAction(Actions.CLEAN_DATA);
+                    }
                 },
                 {
                     text: 'No', onPress: () => {
-                }
+                    }
                 }
             ]
         )
@@ -81,12 +81,12 @@ class Settings extends AbstractComponent {
             [
                 {
                     text: 'Yes', onPress: () => {
-                    this.dispatchAction(Actions.CLEAN_TXDATA);
-                }
+                        this.dispatchAction(Actions.CLEAN_TXDATA);
+                    }
                 },
                 {
                     text: 'No', onPress: () => {
-                }
+                    }
                 }
             ]
         )

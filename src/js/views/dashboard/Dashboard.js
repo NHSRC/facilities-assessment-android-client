@@ -6,7 +6,7 @@ import FlatUITheme from '../themes/flatUI';
 import OpenView from './open/OpenView';
 import ReportsView from './reports/ReportsView';
 import {Container, Header, Title, Content, Icon, Button, Tabs} from 'native-base';
-import Path, {PathRoot} from "../../framework/routing/Path";
+import Path from "../../framework/routing/Path";
 import Typography from '../styles/Typography';
 import CustomTabBar from '../common/CustomTabBar';
 import TypedTransition from "../../framework/routing/TypedTransition";
