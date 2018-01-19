@@ -110,10 +110,10 @@ class ModeSelection extends AbstractComponent {
                         color: 'white'
                     }]}>GUNAK गुणक</Title>
                     {EnvironmentConfig.shouldUsePackagedSeedData ? <Button
-                        style={{flex: 0.1}}
+                        style={{flex: 0.05}}
                         iconLeft={true}
                         onPress={() => this.addNewState()}>
-                        <Icon style={{color: "white"}} name="control-point"/>
+                        <Icon style={{color: "white"}} name="edit-location"/>
                     </Button> : null}
                 </Header>
                 <Content>

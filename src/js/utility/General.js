@@ -1,5 +1,7 @@
 import _ from 'lodash';
 
+const spaces = new RegExp('\\s', 'g');
+
 class General {
     static formatDate(date) {
         return `${General.toTwoChars(date.getDate())}-${General.toTwoChars(date.getMonth() + 1)}-${date.getFullYear()}`;
@@ -22,6 +24,10 @@ class General {
 
     static getMessage(obj) {
         return typeof obj === 'object' ? JSON.stringify(obj) : obj;
+    }
+
+    static removeSpaces(str) {
+        return str.replace(spaces, '');
     }
 }
 

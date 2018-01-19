@@ -2,6 +2,7 @@ import ConventionalRestClient from "./ConventionalRestClient";
 import Logger from "../Logger";
 import District from "../../models/District";
 import Facility from "../../models/Facility";
+import General from "../../utility/General";
 
 class LocalConventionalRestClient extends ConventionalRestClient {
     constructor(settingsService, db, files) {
@@ -12,7 +13,7 @@ class LocalConventionalRestClient extends ConventionalRestClient {
 
     getData(endpoint, entityMetaData, optionalParams, cb, errorHandler) {
         if (entityMetaData.entityClass === Facility || entityMetaData.entityClass === District) {
-            this._getData(optionalParams.name.replace(' ', ''), endpoint, cb);
+            this._getData(General.removeSpaces(optionalParams.name), endpoint, cb);
         } else {
             this._getData('common', endpoint, cb);
         }
@@ -23,6 +24,7 @@ class LocalConventionalRestClient extends ConventionalRestClient {
         this.counts.set(group, _.isNil(count) ? 0 : count + 1);
         let withinGroupCount = this.counts.get(group);
 
+        Logger.logDebug('LocalConventionalRestClient', `${withinGroupCount}, ${group}`);
         let jsonFileGroup = this.files.get(group);
         let file = jsonFileGroup[withinGroupCount];
         Logger.logDebug('LocalConventionalRestClient', `Getting data from file number: ${withinGroupCount} for endpoint: ${endpoint}`);
