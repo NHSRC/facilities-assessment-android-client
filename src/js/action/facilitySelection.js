@@ -7,7 +7,7 @@ import SettingsService from "../service/SettingsService";
 const allStates = function (state, action, beans) {
     let facilitiesService = beans.get(FacilitiesService);
     let facilityAssessmentService = beans.get(FacilityAssessmentService);
-    const states = facilitiesService.getStates(beans.get(SettingsService).get().states);
+    const states = facilitiesService.getStates();
     const assessmentTools = facilityAssessmentService.getAssessmentTools(action.mode);
     let newState = Object.assign(state, {
         "allStates": states,
