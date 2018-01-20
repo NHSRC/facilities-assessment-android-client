@@ -17,14 +17,18 @@ import FacilityAssessment from "../FacilityAssessment";
 import CheckpointScore from "../CheckpointScore";
 import moment from "moment";
 import FacilityAssessmentProgressService from "../../service/FacilityAssessmentProgressService";
+import IndicatorDefinition from "../IndicatorDefinition";
+import Indicator from "../Indicator";
 
 class EntitiesMetaData {
     //order is important. last entity with be executed first. parent and referred entity (in case of many to one) should be synced before the child.
     static get allEntityTypes() {
         return [
             new EntityMetaData(FacilityAssessmentProgress, undefined, undefined, FacilityAssessmentProgressService),
+            new EntityMetaData(Indicator, undefined, new IndicatorMapper()),
             new EntityMetaData(CheckpointScore, undefined, new CheckpointScoreMapper()),
             new EntityMetaData(FacilityAssessment, undefined, new FacilityAssessmentMapper()),
+            new EntityMetaData(IndicatorDefinition),
             new EntityMetaData(Checkpoint, undefined, new CheckpointMapper()),
             new EntityMetaData(Checklist, undefined, new ChecklistMapper()),
             new EntityMetaData(MeasurableElement, Standard),
@@ -51,6 +55,7 @@ class EntitiesMetaData {
 
     static get referenceEntityTypes() {
         return [
+            new EntityMetaData(IndicatorDefinition),
             new EntityMetaData(Checkpoint, undefined, new CheckpointMapper()),
             new EntityMetaData(Checklist, undefined, new ChecklistMapper()),
             new EntityMetaData(MeasurableElement, Standard),
@@ -69,6 +74,7 @@ class EntitiesMetaData {
     static get txEntityTypes() {
         return [
             new EntityMetaData(FacilityAssessmentProgress, undefined, undefined, FacilityAssessmentProgressService),
+            new EntityMetaData(Indicator, undefined, new IndicatorMapper()),
             new EntityMetaData(CheckpointScore, undefined, new CheckpointScoreMapper()),
             new EntityMetaData(FacilityAssessment, undefined, new FacilityAssessmentMapper())
         ].map(_.identity);
@@ -130,6 +136,13 @@ class CheckpointScoreMapper {
         resource.submitted = true;
         resource.dateUpdated = moment(resource.lastModifiedDate).toDate();
         return resource;
+    }
+}
+
+class IndicatorMapper {
+    fromResource(resource) {
+        resource.indicatorDefinition = ResourceUtil.getUUIDFor(resource, "indicatorDefinitionUUID");
+        resource.facilityAssessment = ResourceUtil.getUUIDFor(resource, "facilityAssessmentUUID");
     }
 }
 
