@@ -13,7 +13,7 @@ service_src_dir := src/js/service
 rr_version := 4
 
 define _release_apk
-	react-native bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/
+	react-native bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/ --sourcemap-output android/app/build/generated/sourcemap.js
 	cd android && ENVFILE=.env.$1 ./gradlew assembleRelease -x bundleReleaseJsAndAssets
 endef
 
