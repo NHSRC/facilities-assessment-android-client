@@ -8,6 +8,7 @@ import FacilityType from "../models/FacilityType";
 import UUID from "../utility/UUID";
 import StateService from "./StateService";
 import SettingsService from "./SettingsService";
+import EnvironmentConfig from '../views/common/EnvironmentConfig';
 
 @Service("facilitiesService")
 class FacilitiesService extends BaseService {
@@ -32,8 +33,12 @@ class FacilitiesService extends BaseService {
     }
 
     getStates() {
-        let settings = this.getService(SettingsService).get();
-        return settings.states.map((configuredState) => this.findByUUID(configuredState.value, State.schema.name)).map(this.nameAndId);
+        if (EnvironmentConfig.shouldUsePackagedSeedData) {
+            let settings = this.getService(SettingsService).get();
+            return settings.states.map((configuredState) => this.findByUUID(configuredState.value, State.schema.name)).map(this.nameAndId);
+        } else {
+            return this.getAllStates();
+        }
     }
 
     getAllDistrictsFor(stateUUID) {

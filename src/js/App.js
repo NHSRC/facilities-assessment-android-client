@@ -44,7 +44,7 @@ export default class App extends Component {
             beans = BeanRegistry.init(db);
             appStore = AppStoreFactory(beans);
             routes = PathRegistry.routes();
-            Logger.logInfoObject('App', Config);
+            Logger.logInfo('App', Config);
         }
         this.setState({seeding: false});
     }

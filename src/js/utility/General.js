@@ -23,7 +23,12 @@ class General {
     }
 
     static getMessage(obj) {
-        return typeof obj === 'object' ? JSON.stringify(obj) : obj;
+        if (typeof obj === 'object') {
+            let s = JSON.stringify(obj);
+            if (s === '{}') return obj;
+            return s;
+        }
+        return obj;
     }
 
     static removeSpaces(str) {

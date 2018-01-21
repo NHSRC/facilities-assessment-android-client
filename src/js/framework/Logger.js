@@ -1,4 +1,5 @@
 import General from "../utility/General";
+import _ from 'lodash';
 
 var currentLogLevel;
 
@@ -23,54 +24,22 @@ class Logger {
         Logger.log(source, message, Logger.LogLevel.Debug);
     }
 
-    static logDebugObject(source, object) {
-        Logger._logObject(source, object, Logger.LogLevel.Debug);
-    }
-
-    static _logObject(source, object, level) {
-        if (Logger.canLog(level))
-            Logger.log(source, JSON.stringify(object), level);
-    }
-
-    static logErrorObject(source, object) {
-        Logger._logObject(source, object, Logger.LogLevel.Error);
-    }
-
-    static logTrace(source, message) {
-        Logger.log(source, message, Logger.LogLevel.Trace);
-    }
-
-    static logTraceObject(source, object) {
-        Logger._logObject(source, object, Logger.LogLevel.Trace);
-    }
-
     static logInfo(source, message) {
         Logger.log(source, message, Logger.LogLevel.Info);
-    }
-
-    static logInfoObject(source, object) {
-        Logger._logObject(source, object, Logger.LogLevel.Info);
     }
 
     static logWarn(source, message) {
         Logger.log(source, message, Logger.LogLevel.Warn);
     }
 
-    static logWarnObject(source, object) {
-        Logger._logObject(source, object, Logger.LogLevel.Warn);
-    }
-
     static logError(source, message) {
-        Logger.log(source, General.getMessage(message), Logger.LogLevel.Error);
+        Logger.log(source, message, Logger.LogLevel.Error);
     }
 
     static log(source, message, level) {
-        if (level >= Logger.getCurrentLogLevel())
-            console.log(`[${source}] ${message}`);
-    }
-
-    static canLog(level) {
-        return Logger.getCurrentLogLevel() <= level;
+        if (level >= Logger.getCurrentLogLevel()) {
+            console.log(`[${source}][${_.findKey(Logger.LogLevel, (value) => value === level)}] ${General.getMessage(message)}`);
+        }
     }
 }
 

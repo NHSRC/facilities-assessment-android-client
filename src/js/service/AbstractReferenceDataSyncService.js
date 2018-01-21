@@ -32,10 +32,10 @@ class AbstractReferenceDataSyncService extends BaseService {
         resourceSearchFilterURL = resourceSearchFilterURL || "lastModified";
         params = params || {};
         this.pullData(entityMetaData, resourceSearchFilterURL, params, () => {
-            Logger.logInfo('ReferenceDataSyncService', 'Sync completed!');
+            Logger.logInfo('AbstractReferenceDataSyncService', 'Sync completed!');
             cb();
         }, (error) => {
-            Logger.logError('ReferenceDataSyncService', error);
+            Logger.logError('AbstractReferenceDataSyncService', error);
         });
     }
 
@@ -76,7 +76,7 @@ class AbstractReferenceDataSyncService extends BaseService {
         }
 
         const entitySyncStatus = this.entitySyncStatusService.get(entityMetaData.getSyncStatusEntityName(params.name));
-        Logger.logInfo('ReferenceDataSyncService', `${entitySyncStatus.entityName} was last loaded up to "${entitySyncStatus.loadedSince}"`);
+        Logger.logInfo('AbstractReferenceDataSyncService', `${entitySyncStatus.entityName} was last loaded up to "${entitySyncStatus.loadedSince}"`);
         this.conventionalRestClient.loadData(entityMetaData, resourceSearchFilterURL, params, entitySyncStatus.loadedSince, 0,
             unprocessedEntityMetaData,
             (resourcesWithSameTimeStamp, entityMetaData) => this.persist(resourcesWithSameTimeStamp, entityMetaData, params),

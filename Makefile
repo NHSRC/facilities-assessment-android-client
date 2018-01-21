@@ -11,6 +11,7 @@ ts := $(shell /bin/date "+%Y-%m-%d---%H-%M-%S")
 recorded_response_dir := ../reference-data/nhsrc/output/recorded-response
 service_src_dir := src/js/service
 rr_version := 4
+ip:=$(shell ifconfig | grep -A 2 'vboxnet' | tail -1 | cut -d ' ' -f 2 | cut -d ' ' -f 1)
 
 define _release_apk
 	react-native bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/ --sourcemap-output android/app/build/generated/sourcemap.js
@@ -30,13 +31,6 @@ reset_platform:
 	rm -rf ios/build/*
 	rm -rf android/build/*
 	rm -rf node_modules
-
-setuphosts_platform:
-	adb root
-	adb remount
-	cat /etc/hosts|sed 's/127.0.0.1/'$(ip)'/' > /tmp/hosts-adb
-	echo '$(ip)	dev.gunak.org' >> /tmp/hosts-adb
-	adb push /tmp/hosts-adb /system/etc/hosts
 # </platform>
 
 
@@ -114,7 +108,12 @@ open_db: get_db
 
 
 # <app>
-define run_android
+define _run_android
+	adb root
+	adb remount
+	cat /etc/hosts|sed 's/127.0.0.1/'$(ip)'/' > /tmp/hosts-adb
+	echo '$(ip)	dev.gunak.org' >> /tmp/hosts-adb
+	adb push /tmp/hosts-adb /system/etc/hosts
 	ENVFILE=$1 react-native run-android
 endef
 
@@ -137,20 +136,20 @@ stop_app_android:
 start_app_android:
 	adb shell am start -n com.facilitiesassessment/com.facilitiesassessment.MainActivity
 
-run_app_jss: setup_source setuphosts_platform
-	$(call run_android,.env.jss)
+run_app_jss: setup_source
+	$(call _run_android,.env.jss)
 
-run_app_android: setup_source setuphosts_platform
-	$(call run_android,.env)
+run_app_android: setup_source
+	$(call _run_android,.env)
 
 run_app_ios: setup_source
 	$(call run_ios,.env)
 
-run_app_android_nhsrc: setup_source_nhsrc setuphosts_platform
-	$(call run_android,.env.nhsrc)
+run_app_android_nhsrc: setup_source_nhsrc
+	$(call _run_android,.env.nhsrc)
 
-run_app_android_jss: setuphosts_platform
-	$(call run_android,.env.jss)
+run_app_android_jss:
+	$(call _run_android,.env.jss)
 
 uninstall_app:
 	$(call uninstall_android)

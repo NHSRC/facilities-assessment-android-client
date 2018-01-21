@@ -12,13 +12,14 @@ class SubmitButton extends AbstractComponent {
     });
 
     render() {
+        let showButton = this.props.showButton ? this.props.showButton : true;
         return (
             <Button
                 onPress={this.props.onPress}
-                style={[SubmitButton.styles.blockButton, this.props.buttonStyle, this.props.showButton ?
+                style={[SubmitButton.styles.blockButton, this.props.buttonStyle, showButton ?
                     {} : {backgroundColor: "rgba(0, 0, 0, 0.38)",}]}
                 block
-                disabled={!this.props.showButton}>
+                disabled={!showButton}>
                 {this.props.buttonText}
             </Button>
         );

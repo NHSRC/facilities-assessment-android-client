@@ -59,7 +59,7 @@ class ChecklistSelection extends AbstractComponent {
     handleOnPress(checklist) {
         if (EnvironmentConfig.shouldTrackLocation) {
             navigator.geolocation.getCurrentPosition((position) => {
-                    Logger.logDebugObject('ChecklistSelection', position);
+                    Logger.logDebug('ChecklistSelection', position);
                     this.dispatchAction(Actions.CHECKLIST_ASSESSMENT_LOCATION, {
                         checklistUUID: checklist.uuid,
                         facilityAssessmentUUID: this.props.params.facilityAssessment.uuid,
@@ -68,7 +68,7 @@ class ChecklistSelection extends AbstractComponent {
                 },
                 (error) => {
                     Logger.logWarn('ChecklistSelection', 'Could not get location');
-                    Logger.logWarnObject('ChecklistSelection', error);
+                    Logger.logWarn('ChecklistSelection', error);
                 },
                 {enableHighAccuracy: true, timeout: 10000, maximumAge: 20000});
         }
