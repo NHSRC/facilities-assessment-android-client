@@ -72,8 +72,6 @@ class QuestionAnswer extends AbstractComponent {
                 updateObj = {...updateObj, score: null};
                 fn = _.noop;
             }
-            Logger.logDebug('QuestionAnswer.updateCheckpoint', updateObj);
-            Logger.logDebug('QuestionAnswer.updateCheckpoint', actionList);
             actionList.map((action) => this.dispatchAction(action, {...this.props.params}));
 
             this.dispatchAction(Actions.UPDATE_CHECKPOINT, {

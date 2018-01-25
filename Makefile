@@ -61,8 +61,11 @@ release_apk_offline:
 install_released_apk:
 	$(call _install_apk,android/app/build/outputs/apk/app-release.apk)
 
-install_old_apk:
-	$(call _install_apk,android/app/old-build/app-release.apk)
+install_old_nhsrc_apk:
+	$(call _install_apk,android/app/old-build/nhsrc/app-released.apk)
+
+install_old_jss_apk:
+	$(call _install_apk,android/app/old-build/jss/app.apk)
 
 openlocation_apk:
 	open android/app/build/outputs/apk

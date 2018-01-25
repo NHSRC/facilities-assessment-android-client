@@ -28,7 +28,8 @@ const getCheckpoints = function (state, actions, beans) {
     return Object.assign(state, {
         checkpoints: checkpointScores,
         currentCheckpoint: currentCheckpoint,
-        standard: standard
+        standard: standard,
+        pageChanged: false
     });
 };
 
@@ -43,11 +44,11 @@ const updateCheckpoint = function (state, actionParams, beans) {
         .map((checkpoint) =>
             checkpoint.uuid === actionParams.checkpoint.uuid ?
                 Object.assign({}, savedCheckpoint, {checkpoint: metaCheckpoint}) : checkpoint);
-    return Object.assign({}, state, {checkpoints: checkpoints});
+    return Object.assign({}, state, {checkpoints: checkpoints, pageChanged: false});
 };
 
 const changePage = function (state, actionParams, beans) {
-    return Object.assign(state, {currentCheckpoint: actionParams.currentCheckpoint});
+    return Object.assign(state, {currentCheckpoint: actionParams.currentCheckpoint, pageChanged: true});
 };
 
 export default new Map([

@@ -62,9 +62,17 @@ class Assessment extends AbstractComponent {
         this.dispatchAction(Actions.CHANGE_PAGE, {currentCheckpoint: prevCheckpoint});
     }
 
+    scrollToTop() {
+        // Mihir: Trust me this is required.
+        this.refs.scroll._scrollview.scrollToPosition(0, 10, true);
+        this.refs.scroll._scrollview.scrollToPosition(0, 1, true);
+    }
 
     render() {
         Logger.logDebug('Assessment', 'render');
+        if (this.state.pageChanged) {
+            this.scrollToTop();
+        }
         const config = {
             velocityThreshold: 0.1,
             directionalOffsetThreshold: 80
@@ -81,7 +89,7 @@ class Assessment extends AbstractComponent {
                             {length: 25})}`}
                     </Title>
                 </Header>
-                <Content>
+                <Content ref="scroll">
                     <GestureRecognizer
                         onSwipeLeft={this.onNext.bind(this)}
                         onSwipeRight={this.onPrev.bind(this)}
