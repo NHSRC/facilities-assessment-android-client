@@ -52,18 +52,18 @@ class OpenView extends AbstractComponent {
             cb: () => this.dispatchAction(Actions.ASSESSMENT_SYNCED, {assessment: assessment, ...this.props}),
             errorHandler: (error) => {
                 Logger.logError('OpenView', error);
-                this.submissionError(assessment, General.getMessage(error));
+                this.submissionError(assessment);
             }
         });
     }
 
-    submissionError(assessment, error) {
+    submissionError(assessment) {
         Alert.alert(
             'Submission Error',
-            `An error occured submitting the assessment. Please check connectivity to the server or report the following to error message.\n${error}`,
+            `An error occurred while submitting the assessment. Please check connectivity to the server or report the error with the time at which it happened.`,
             [
                 {
-                    text: 'Ok',
+                    text: 'OK',
                     onPress: () => this.dispatchAction(Actions.ASSESSMENT_SYNCED, {assessment: assessment, ...this.props})
                 }
             ]

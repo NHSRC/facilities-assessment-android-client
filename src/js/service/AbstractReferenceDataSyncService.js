@@ -25,13 +25,14 @@ class AbstractReferenceDataSyncService extends BaseService {
     }
 
     syncAllData(cb) {
+        Logger.logDebug('AbstractReferenceDataSyncService', 'syncAllData');
         this._syncData(cb, EntitiesMetaData.allEntityTypes);
     }
 
     _syncData(cb, entityMetaData, resourceSearchFilterURL, params) {
         resourceSearchFilterURL = resourceSearchFilterURL || "lastModified";
         params = params || {};
-        this.pullData(entityMetaData, resourceSearchFilterURL, params, () => {
+        this._pullData(entityMetaData, resourceSearchFilterURL, params, () => {
             Logger.logInfo('AbstractReferenceDataSyncService', 'Sync completed!');
             cb();
         }, (error) => {
@@ -40,11 +41,13 @@ class AbstractReferenceDataSyncService extends BaseService {
     }
 
     syncAllMetaData(cb) {
-        this._syncData(cb, EntitiesMetaData.referenceEntityTypes.concat(EntitiesMetaData.stateSpecificReferenceEntityTypes));
+        Logger.logDebug('AbstractReferenceDataSyncService', 'syncAllMetaData');
+        this._syncData(cb, EntitiesMetaData.referenceEntityTypes);
     }
 
     syncMetaDataNotSpecificToState(cb) {
-        this._syncData(cb, EntitiesMetaData.referenceEntityTypes);
+        Logger.logDebug('AbstractReferenceDataSyncService', 'syncMetaDataNotSpecificToState');
+        this._syncData(cb, EntitiesMetaData.referenceEntityTypesNotSpecificToState);
     }
 
     simulateSyncAllMetaData(cb) {
@@ -56,6 +59,7 @@ class AbstractReferenceDataSyncService extends BaseService {
     }
 
     syncStateSpecificMetaDataInStateMode(remainingStates, cb) {
+        Logger.logDebug('AbstractReferenceDataSyncService', 'syncStateSpecificMetaDataInStateMode');
         this._syncData(() => {
             if (remainingStates.length > 0)
                 this.syncStateSpecificMetaDataInStateMode(remainingStates, cb);
@@ -64,11 +68,7 @@ class AbstractReferenceDataSyncService extends BaseService {
         }, EntitiesMetaData.stateSpecificReferenceEntityTypes, 'lastModifiedByState', {name: remainingStates.pop().name});
     }
 
-    updateProgress() {
-        this.findByKey('areaOfConcern',);
-    }
-
-    pullData(unprocessedEntityMetaData, resourceSearchFilterURL, params, onComplete, onError) {
+    _pullData(unprocessedEntityMetaData, resourceSearchFilterURL, params, onComplete, onError) {
         const entityMetaData = unprocessedEntityMetaData.pop();
         if (_.isNil(entityMetaData)) {
             onComplete();
@@ -79,12 +79,12 @@ class AbstractReferenceDataSyncService extends BaseService {
         Logger.logInfo('AbstractReferenceDataSyncService', `${entitySyncStatus.entityName} was last loaded up to "${entitySyncStatus.loadedSince}"`);
         this.conventionalRestClient.loadData(entityMetaData, resourceSearchFilterURL, params, entitySyncStatus.loadedSince, 0,
             unprocessedEntityMetaData,
-            (resourcesWithSameTimeStamp, entityMetaData) => this.persist(resourcesWithSameTimeStamp, entityMetaData, params),
-            (workingAllEntitiesMetaData) => this.pullData(workingAllEntitiesMetaData, resourceSearchFilterURL, params, onComplete, onError),
+            (resourcesWithSameTimeStamp, entityMetaData) => this._persist(resourcesWithSameTimeStamp, entityMetaData, params),
+            (workingAllEntitiesMetaData) => this._pullData(workingAllEntitiesMetaData, resourceSearchFilterURL, params, onComplete, onError),
             [], onError);
     }
 
-    persist(resourcesWithSameTimeStamp, entityMetaData, params) {
+    _persist(resourcesWithSameTimeStamp, entityMetaData, params) {
         resourcesWithSameTimeStamp.forEach((resource) => {
             const entity = entityMetaData.mapFromResource(resource);
             let service = this.getService(entityMetaData.serviceClass);

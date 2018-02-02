@@ -38,7 +38,8 @@ class Logger {
 
     static log(source, message, level) {
         if (level >= Logger.getCurrentLogLevel()) {
-            console.log(`[${source}][${_.findKey(Logger.LogLevel, (value) => value === level)}] ${General.getMessage(message)}`);
+            message = level === Logger.LogLevel.Error ? `${General.getMessage(message)}; ${message}` : General.getMessage(message);
+            console.log(`[${source}][${_.findKey(Logger.LogLevel, (value) => value === level)}] ${message}`);
         }
     }
 }

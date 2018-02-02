@@ -12,12 +12,18 @@ const fetchFactory = (endpoint, method = "GET", params, responseModifier, cb, er
         })
         .catch(errorHandler);
 
-const makeHeader = (type) => new Map([['json', {
-    headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-    }
-}], ['text', {headers: {'Accept': 'text/plain', 'Content-Type': 'text/plain'}}]]).get(type);
+const makeHeader = (type) => new Map(
+    [['json', {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+        timeout: 1 * 1000
+    }],
+        ['text', {
+            headers: {'Accept': 'text/plain', 'Content-Type': 'text/plain'},
+            timeout: 1 * 1000
+        }]]).get(type);
 
 
 let _get = (endpoint, cb, errorHandler) =>

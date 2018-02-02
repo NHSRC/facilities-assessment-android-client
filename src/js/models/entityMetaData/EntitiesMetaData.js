@@ -53,6 +53,24 @@ class EntitiesMetaData {
         ];
     }
 
+    static get referenceEntityTypesNotSpecificToState() {
+        return [
+            // new EntityMetaData(IndicatorDefinition),
+            new EntityMetaData(Checkpoint, undefined, new CheckpointMapper()),
+            new EntityMetaData(Checklist, undefined, new ChecklistMapper()),
+            new EntityMetaData(MeasurableElement, Standard),
+            new EntityMetaData(Standard, AreaOfConcern),
+            new EntityMetaData(AreaOfConcern),
+            new EntityMetaData(AssessmentType),
+
+            new EntityMetaData(Department),
+            new EntityMetaData(AssessmentTool),
+            new EntityMetaData(State),
+            new EntityMetaData(FacilityType),
+            new EntityMetaData(AssessmentType)
+        ].map(_.identity);
+    }
+
     static get referenceEntityTypes() {
         return [
             // new EntityMetaData(IndicatorDefinition),
@@ -65,6 +83,8 @@ class EntitiesMetaData {
 
             new EntityMetaData(Department),
             new EntityMetaData(AssessmentTool),
+            new EntityMetaData(Facility, District, new FacilityMapper()),
+            new EntityMetaData(District, State),
             new EntityMetaData(State),
             new EntityMetaData(FacilityType),
             new EntityMetaData(AssessmentType)
