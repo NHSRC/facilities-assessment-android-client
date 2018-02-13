@@ -1,5 +1,6 @@
 import UUID from "../utility/UUID";
 import _ from "lodash";
+import moment from "moment";
 
 class FacilityAssessment {
     static schema = {
@@ -24,6 +25,10 @@ class FacilityAssessment {
         obj.uuid = _.isEmpty(obj.uuid) ? UUID.generate() : obj.uuid;
         obj.dateUpdated = new Date();
         return obj;
+    }
+
+    static generateSeries() {
+        return moment().format('YYYYMMDD');
     }
 }
 

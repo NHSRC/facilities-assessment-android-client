@@ -65,16 +65,30 @@ const updateChecklistProgress = function (state, action, beans) {
     });
 };
 
+const editAssessmentStarted = function (state) {
+    return Object.assign(state, {
+        showEditAssessment: true
+    });
+};
+
+const editAssessmentCompleted = function (state) {
+    return Object.assign(state, {
+        showEditAssessment: false
+    });
+};
 
 export default new Map([
     ["ALL_CHECKLISTS", allChecklists],
     ["COMPLETE_ASSESSMENT", completeAssessment],
     ["UPDATE_CHECKLIST_PROGRESS", updateChecklistProgress],
     ["REDUCE_CHECKLIST_PROGRESS", updateChecklistProgress],
-    ["CHECKLIST_ASSESSMENT_LOCATION", checklistAssessmentLocation]
+    ["CHECKLIST_ASSESSMENT_LOCATION", checklistAssessmentLocation],
+    ["EDIT_ASSESSMENT_STARTED", editAssessmentStarted],
+    ["EDIT_ASSESSMENT_COMPLETED", editAssessmentCompleted]
 ]);
 
 export let checklistSelectionInit = {
     checklists: [],
-    assessmentProgress: {total: 0, completed: 0}
+    assessmentProgress: {total: 0, completed: 0},
+    showEditAssessment: false
 };

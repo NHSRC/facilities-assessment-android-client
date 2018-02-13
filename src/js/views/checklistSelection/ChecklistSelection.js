@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-import {Text, StyleSheet, View, ScrollView, Dimensions, Alert} from 'react-native';
+import {Alert, Dimensions, Modal, ScrollView, StyleSheet, Text, View} from 'react-native';
 import AbstractComponent from "../common/AbstractComponent";
-import {Container, Header, Title, Content, Icon, Button} from 'native-base';
-import PrimaryColors from '../styles/PrimaryColors';
+import {Button, Container, Content, Header, Icon, Title} from 'native-base';
 import Typography from '../styles/Typography';
 import Actions from "../../action";
 import TypedTransition from "../../framework/routing/TypedTransition";
@@ -17,9 +16,9 @@ import {formatDateHuman} from '../../utility/DateUtils';
 import _ from 'lodash';
 import Reports from "../reports/Reports";
 import SearchPage from "../search/SearchPage";
-import Config from "react-native-config";
 import EnvironmentConfig from "../common/EnvironmentConfig";
 import Logger from "../../framework/Logger";
+import EditAssessment from "../dashboard/start/EditAssessment";
 
 
 const deviceWidth = Dimensions.get('window').width;
@@ -132,16 +131,31 @@ class ChecklistSelection extends AbstractComponent {
                     </Button>
                 </Header>
                 <Content>
-                    <View style={{margin: deviceWidth * 0.04,}}>
-                        <Text style={[Typography.paperFontHeadline, ChecklistSelection.styles.subheader]}>
-                            {this.props.params.facility.name}
-                        </Text>
-                        <Text style={[Typography.paperFontCaption, ChecklistSelection.styles.caption]}>
-                            {this.props.params.assessmentTool.name}
-                        </Text>
-                        <Text style={[Typography.paperFontCaption, ChecklistSelection.styles.caption]}>
-                            {`Assessment Start Date - ${formatDateHuman(this.props.params.facilityAssessment.startDate)}`}
-                        </Text>
+                    <Modal transparent={false} visible={this.state.showEditAssessment}
+                           onRequestClose={() => this.dispatchAction(Actions.EDIT_ASSESSMENT_COMPLETED)}>
+                        <EditAssessment assessmentUUID={this.props.params.facilityAssessment.uuid}/>
+                    </Modal>
+                    <View style={{margin: deviceWidth * 0.04, flexDirection: 'column'}}>
+                        <View style={{flexDirection: 'row'}}>
+                            <View>
+                                <Text style={[Typography.paperFontHeadline, ChecklistSelection.styles.subheader]}>
+                                    {this.props.params.facility.name}
+                                </Text>
+                                <Text style={[Typography.paperFontCaption, ChecklistSelection.styles.caption]}>
+                                    {this.props.params.assessmentTool.name}
+                                </Text>
+                                <Text style={[Typography.paperFontCaption, ChecklistSelection.styles.caption]}>
+                                    {`Assessment Start Date - ${formatDateHuman(this.props.params.facilityAssessment.startDate)}`}
+                                </Text>
+                            </View>
+                            {/*<Button*/}
+                                {/*onPress={() => {*/}
+                                    {/*this.dispatchAction(Actions.EDIT_ASSESSMENT_STARTED);*/}
+                                {/*}}*/}
+                                {/*transparent>*/}
+                                {/*<Icon name={"edit"} style={{color: "white", marginTop: deviceWidth * 0.04, marginLeft: deviceWidth * 0.04}}/>*/}
+                            {/*</Button>*/}
+                        </View>
                         <AssessmentStatus
                             assessmentProgress={this.state.assessmentProgress}/>
                         <Checklists

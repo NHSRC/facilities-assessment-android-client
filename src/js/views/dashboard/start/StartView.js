@@ -82,7 +82,7 @@ class StartView extends AbstractComponent {
                 <List>
                     {FormComponents.map((FormComponent, idx) =>
                         <ListItem key={idx} style={StartView.styles.formRow}>
-                            <FormComponent data={this.state} {...this.props}/>
+                            <FormComponent data={this.state} {...this.props} actionSuffix=''/>
                         </ListItem>)}
                 </List>
             </View>

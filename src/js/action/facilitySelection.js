@@ -2,7 +2,7 @@ import FacilitiesService from "../service/FacilitiesService";
 import FacilityAssessmentService from "../service/FacilityAssessmentService";
 import _ from "lodash";
 import moment from "moment";
-import SettingsService from "../service/SettingsService";
+import FacilityAssessment from "../models/FacilityAssessment";
 
 const allStates = function (state, action, beans) {
     let facilitiesService = beans.get(FacilitiesService);
@@ -123,7 +123,7 @@ const enterSeries = function (state, action, beans) {
 const generateAssessmentSeries = function (state, action, beans) {
     return {
         ...state,
-        series: moment().format('YYYYMMDD')
+        series: FacilityAssessment.generateSeries()
     };
 };
 

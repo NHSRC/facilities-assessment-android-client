@@ -21,8 +21,12 @@ class FacilityText extends AbstractComponent {
         }
     });
 
+    static propTypes = {
+        data: React.PropTypes.object.isRequired
+    };
+
     handleChange(facilityName) {
-        this.dispatchAction(Actions.ENTER_FACILITY_NAME, {facilityName: facilityName});
+        this.dispatchAction(`${Actions.ENTER_FACILITY_NAME}`, {facilityName: facilityName});
     }
 
     render() {

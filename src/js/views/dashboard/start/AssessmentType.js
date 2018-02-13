@@ -12,6 +12,11 @@ class AssessmentType extends AbstractComponent {
     static styles = StyleSheet.create({
     });
 
+    static propTypes = {
+        data: React.PropTypes.object.isRequired,
+        actionSuffix: React.PropTypes.string
+    };
+
     render() {
         const assessmentTypes = this.props.data.assessmentTypes;
         const selectedAssessmentType = this.props.data.selectedAssessmentType;
@@ -19,7 +24,7 @@ class AssessmentType extends AbstractComponent {
             <AssessmentPicker
                 message="Select Assessment Type"
                 items={assessmentTypes}
-                action={Actions.SELECT_ASSESSMENT_TYPE}
+                action={`${Actions.SELECT_ASSESSMENT_TYPE}${this.props.actionSuffix}`}
                 stateKey={"selectedAssessmentType"}
                 selectedValue={selectedAssessmentType}
             />

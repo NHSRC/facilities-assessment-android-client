@@ -12,6 +12,11 @@ class AssessmentSeries extends AbstractComponent {
         super(props, context);
     }
 
+    static propTypes = {
+        data: React.PropTypes.object.isRequired,
+        actionSuffix: React.PropTypes.string
+    };
+
     static styles = StyleSheet.create({
         input: {
             fontSize: 16,
@@ -25,11 +30,11 @@ class AssessmentSeries extends AbstractComponent {
     });
 
     handleChange(series) {
-        this.dispatchAction(Actions.ENTER_ASSESSMENT_SERIES, {series: series});
+        this.dispatchAction(`${Actions.ENTER_ASSESSMENT_SERIES}${this.props.actionSuffix}`, {series: series});
     }
 
     generateAssessmentSeriesNumber() {
-        this.dispatchAction(Actions.GENERATE_ASSESSMENT_SERIES, {});
+        this.dispatchAction(`${Actions.GENERATE_ASSESSMENT_SERIES}${this.props.actionSuffix}`, {});
     }
 
     render() {

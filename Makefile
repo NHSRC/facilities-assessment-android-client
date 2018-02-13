@@ -51,6 +51,9 @@ release: setup_source
 release_apk_jss: setup_source
 	$(call _release_apk,jss)
 
+publish_apk_jss:
+	cp android/app/build/outputs/apk/app-release.apk ~/Dropbox/Public/Gunak/dev/jss
+
 release_apk_nhsrc: setup_source_nhsrc
 	$(call _release_apk,nhsrc)
 	make setup_source
