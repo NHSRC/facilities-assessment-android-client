@@ -19,12 +19,9 @@ const deviceHeight = Dimensions.get('window').height;
 @Path("/searchPage")
 class SearchPage extends AbstractComponent {
     constructor(props, context) {
-        super(props, context);
-        const store = context.getStore();
-        this.state = store.getState().search;
+        super(props, context, 'search');
         this.handleSearch = this.handleSearch.bind(this);
         this.goto = this.goto.bind(this);
-        this.unsubscribe = store.subscribeTo('search', this.handleChange.bind(this));
     }
 
     static styles = StyleSheet.create({
@@ -45,19 +42,6 @@ class SearchPage extends AbstractComponent {
         }
     });
 
-    handleChange() {
-        const newState = this.context.getStore().getState().search;
-        this.setState(newState);
-    }
-
-    componentWillMount() {
-
-    }
-
-    componentWillUnmount() {
-        this.unsubscribe();
-    }
-
     handleSearch(searchText) {
         this.dispatchAction(Actions.SEARCH_FOR, {searchText: searchText, ...this.props.params});
     }
@@ -65,7 +49,6 @@ class SearchPage extends AbstractComponent {
     goto(checkpoint) {
         TypedTransition.from(this).with({...this.props.params, toCheckpoint: checkpoint, ...checkpoint}).to(Assessment)
     }
-
 
     renderSearchResults(results) {
         let resultsRender = results.map((result, idx) =>

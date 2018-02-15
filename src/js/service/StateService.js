@@ -37,6 +37,10 @@ class StateService extends BaseService {
             db.delete(allEntities);
         });
     }
+
+    getStateName(stateUUID) {
+        return this.findByUUID(stateUUID).name;
+    }
 }
 
 export default StateService;

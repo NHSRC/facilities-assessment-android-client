@@ -11,8 +11,9 @@ import settings from './settings';
 import reports from './reports';
 import certificationCriteria from './certificationCriteria';
 import modeSelection from './modeSelection';
+import stateSelection from './stateSelection';
 
 export default _.fromPairs(_.flatten(
-    [assessmentActions, checklistSelection, facilitySelection, areasOfConcern, standards, openAssessments, search, settings, reports, certificationCriteria, modeSelection, editAssessment]
+    [assessmentActions, checklistSelection, facilitySelection, areasOfConcern, standards, openAssessments, search, settings, reports, certificationCriteria, modeSelection, editAssessment, stateSelection]
         .map((a) => Array.from(a.keys()))
         .map((actions) => actions.map((action) => [action, action]))));

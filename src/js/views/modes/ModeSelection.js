@@ -25,22 +25,12 @@ const deviceHeight = Dimensions.get('window').height;
 @Path("/modeSelection")
 class ModeSelection extends AbstractComponent {
     constructor(props, context) {
-        super(props, context);
+        super(props, context, 'modeSelection');
         this.handleOnPress = this.handleOnPress.bind(this);
-        this.unsubscribe = context.getStore().subscribeTo('modeSelection', this.handleChange.bind(this));
-    }
-
-    handleChange() {
-        const newState = this.context.getStore().getState().modeSelection;
-        this.setState(newState);
     }
 
     componentWillMount() {
         this.dispatchAction(Actions.MODE_SELECTION, {...this.props.params})
-    }
-
-    componentWillUnmount() {
-        this.unsubscribe();
     }
 
     static styles = StyleSheet.create({

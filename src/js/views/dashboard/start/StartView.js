@@ -19,10 +19,7 @@ import Logger from "../../../framework/Logger";
 
 class StartView extends AbstractComponent {
     constructor(props, context) {
-        super(props, context);
-        const store = context.getStore();
-        this.state = store.getState().facilitySelection;
-        this.unsubscribe = store.subscribeTo('facilitySelection', this.handleChange.bind(this));
+        super(props, context, 'facilitySelection');
         this.changeView = this.changeView.bind(this);
         this.resetForm = this.resetForm.bind(this);
     }
@@ -58,10 +55,6 @@ class StartView extends AbstractComponent {
             cb: () => {
             }
         });
-    }
-
-    componentWillUnmount() {
-        this.unsubscribe();
     }
 
     componentWillMount() {

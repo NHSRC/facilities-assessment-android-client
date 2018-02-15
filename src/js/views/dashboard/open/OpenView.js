@@ -13,24 +13,11 @@ import General from "../../../utility/General";
 
 class OpenView extends AbstractComponent {
     constructor(props, context) {
-        super(props, context);
-        const store = context.getStore();
-        this.state = store.getState().openAssessments;
-        this.unsubscribe = store.subscribeTo('openAssessments', this.handleChange.bind(this));
-    }
-
-
-    handleChange() {
-        const newState = this.context.getStore().getState().openAssessments;
-        this.setState(newState);
+        super(props, context, 'openAssessments');
     }
 
     componentWillMount() {
         this.dispatchAction(Actions.ALL_ASSESSMENTS, {...this.props});
-    }
-
-    componentWillUnmount() {
-        this.unsubscribe();
     }
 
     handleContinue(assessment) {

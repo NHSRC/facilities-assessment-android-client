@@ -1,4 +1,5 @@
 import invariant from 'invariant';
+import Logger from "../Logger";
 
 export default class TypedTransition {
     constructor(view) {
@@ -19,13 +20,24 @@ export default class TypedTransition {
         if (sceneConfig !== undefined) {
             route.sceneConfig = sceneConfig;
         }
-        this.view.context.navigator().push(route);
+        this.logRouteInfo(route);
+        this.navigator.push(route);
+
         return this;
+    }
+
+    logRouteInfo(route) {
+        let currentRoutes = this.navigator.getCurrentRoutes();
+        Logger.logDebug('TypedTransition', `Route size: ${currentRoutes.length}; Current Routes: ${JSON.stringify(currentRoutes)}; New Route: ${JSON.stringify(route)}`);
+    }
+
+    get navigator() {
+        return this.view.context.navigator();
     }
 
     goBack() {
         require("dismissKeyboard")();
-        this.view.context.navigator().pop();
+        this.navigator.pop();
     }
 
     static from(view) {
@@ -37,7 +49,7 @@ export default class TypedTransition {
 
     toBeginning() {
         require("dismissKeyboard")();
-        this.view.context.navigator().popToTop();
+        this.navigator.popToTop();
         return this;
     }
 
@@ -46,7 +58,7 @@ export default class TypedTransition {
         invariant(viewClass.path, 'Parameter `viewClass` should have a function called `path`');
         const path = viewClass.path();
         let route = {path, queryParams: this.queryParams || {}};
-        this.view.context.navigator().replace(route);
+        this.navigator.replace(route);
         return this;
     }
 }

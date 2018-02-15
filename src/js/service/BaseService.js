@@ -59,7 +59,7 @@ export default class BaseService {
         }
     }
 
-    findByUUID(uuid, schema) {
+    findByUUID(uuid, schema = this.schemaName) {
         if (_.isEmpty(uuid)) throw Error("UUID is empty or null");
         return this.findByKey("uuid", uuid, schema);
     }

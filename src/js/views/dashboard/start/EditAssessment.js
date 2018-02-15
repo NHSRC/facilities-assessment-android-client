@@ -16,10 +16,7 @@ class EditAssessment extends AbstractComponent {
     };
 
     constructor(props, context) {
-        super(props, context);
-        const store = context.getStore();
-        this.state = store.getState().editAssessment;
-        this.unsubscribe = store.subscribeTo('editAssessment', this.handleChange.bind(this));
+        super(props, context, 'editAssessment');
     }
 
     static styles = StyleSheet.create({
@@ -39,15 +36,6 @@ class EditAssessment extends AbstractComponent {
             backgroundColor: '#212121'
         },
     });
-
-    handleChange() {
-        const newState = this.context.getStore().getState().editAssessment;
-        this.setState(newState);
-    }
-
-    componentWillUnmount() {
-        this.unsubscribe();
-    }
 
     componentWillMount() {
         this.dispatchAction(Actions.GET_ASSESSMENT, {facilityAssessmentUUID: this.props.assessmentUUID});

@@ -20,25 +20,13 @@ const deviceHeight = Dimensions.get('window').height;
 @Path("/areasOfConcern")
 class AreasOfConcern extends AbstractComponent {
     constructor(props, context) {
-        super(props, context);
-        const store = context.getStore();
-        this.state = store.getState().areasOfConcern;
-        this.unsubscribe = store.subscribeTo('areasOfConcern', this.handleChange.bind(this));
+        super(props, context, 'areasOfConcern');
     }
 
     static styles = StyleSheet.create({});
 
-    handleChange() {
-        const newState = this.context.getStore().getState().areasOfConcern;
-        this.setState(newState);
-    }
-
     componentWillMount() {
         this.dispatchAction(Actions.ALL_AREAS_OF_CONCERN, {...this.props.params})
-    }
-
-    componentWillUnmount() {
-        this.unsubscribe();
     }
 
     handleOnPress(aoc) {

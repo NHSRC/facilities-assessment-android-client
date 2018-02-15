@@ -27,10 +27,7 @@ const deviceHeight = Dimensions.get('window').height;
 @Path("/checklistSelection")
 class ChecklistSelection extends AbstractComponent {
     constructor(props, context) {
-        super(props, context);
-        const store = context.getStore();
-        this.state = store.getState().checklistSelection;
-        this.unsubscribe = store.subscribeTo('checklistSelection', this.handleChange.bind(this));
+        super(props, context, 'checklistSelection');
         this.showCompleteButton = this.showCompleteButton.bind(this);
         this.showKayakalpCompleteButton = this.showKayakalpCompleteButton.bind(this);
         this.showOtherCompleteButton = this.showOtherCompleteButton.bind(this);
@@ -45,11 +42,6 @@ class ChecklistSelection extends AbstractComponent {
             color: "rgba(255,255,255,0.7)"
         },
     });
-
-    handleChange() {
-        const newState = this.context.getStore().getState().checklistSelection;
-        this.setState(newState);
-    }
 
     componentWillMount() {
         this.dispatchAction(Actions.ALL_CHECKLISTS, {...this.props.params});
@@ -75,10 +67,6 @@ class ChecklistSelection extends AbstractComponent {
             checklist: checklist,
             ...this.props.params
         }).to(AreasOfConcern);
-    }
-
-    componentWillUnmount() {
-        this.unsubscribe();
     }
 
     completeAssessment() {

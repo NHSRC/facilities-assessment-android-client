@@ -14,22 +14,10 @@ const deviceWidth = Dimensions.get('window').width;
 
 class ReportsView extends AbstractComponent {
     constructor(props, context) {
-        super(props, context);
-        const store = context.getStore();
-        this.state = store.getState().openAssessments;
-        this.unsubscribe = store.subscribeTo('openAssessments', this.handleChange.bind(this));
+        super(props, context, 'openAssessments');
     }
 
     static styles = StyleSheet.create({});
-
-    handleChange() {
-        const newState = this.context.getStore().getState().openAssessments;
-        this.setState(newState);
-    }
-
-    componentWillUnmount() {
-        this.unsubscribe();
-    }
 
     showReports(assessment) {
         return () => TypedTransition.from(this).with({

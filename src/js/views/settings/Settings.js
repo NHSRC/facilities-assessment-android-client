@@ -21,10 +21,7 @@ const deviceHeight = Dimensions.get('window').height;
 @Path("/settings")
 class Settings extends AbstractComponent {
     constructor(props, context) {
-        super(props, context);
-        const store = context.getStore();
-        this.state = store.getState().settings;
-        this.unsubscribe = store.subscribeTo('settings', this.handleChange.bind(this));
+        super(props, context, 'settings');
     }
 
     static styles = StyleSheet.create({
@@ -46,11 +43,6 @@ class Settings extends AbstractComponent {
             marginBottom: 20
         },
     });
-
-    handleChange() {
-        const newState = this.context.getStore().getState().settings;
-        this.setState(newState);
-    }
 
     componentWillMount() {
         this.dispatchAction(Actions.INITIAL_SETTINGS);

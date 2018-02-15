@@ -9,6 +9,7 @@ import PrimaryColors from "../styles/PrimaryColors";
 import {Button, Container, Content, Header, Icon, Title} from "native-base";
 import FlatUITheme from '../themes/flatUI';
 import Logger from "../../framework/Logger";
+import certification from "../../action/certification";
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
@@ -16,10 +17,7 @@ const deviceHeight = Dimensions.get('window').height;
 @Path("/certification")
 class Certification extends AbstractComponent {
     constructor(props, context) {
-        super(props, context);
-        const store = context.getStore();
-        this.state = store.getState().certification;
-        this.unsubscribe = store.subscribeTo('certification', this.handleChange.bind(this));
+        super(props, context, 'certification');
     }
 
     static styles = StyleSheet.create({
@@ -53,15 +51,6 @@ class Certification extends AbstractComponent {
             borderColor: PrimaryColors.medium_white
         }
     });
-
-    handleChange() {
-        const newState = this.context.getStore().getState().certification;
-        this.setState(newState);
-    }
-
-    componentWillUnmount() {
-        this.unsubscribe();
-    }
 
     componentWillMount() {
         this.dispatchAction(Actions.RUN_CERTIFICATION_CRITERIA, {...this.props.params});

@@ -21,16 +21,8 @@ const deviceHeight = Dimensions.get('window').height;
 @Path("/reports")
 class Reports extends AbstractComponent {
     constructor(props, context) {
-        super(props, context);
-        const store = context.getStore();
-        this.state = store.getState().reports;
-        this.unsubscribe = this.unsubscribe = store.subscribeTo('reports', this.handleChange.bind(this));
+        super(props, context, 'reports');
         this.exportOptions = this.exportOptions.bind(this);
-    }
-
-    handleChange() {
-        const newState = this.context.getStore().getState().reports;
-        this.setState(newState);
     }
 
     static styles = StyleSheet.create({
@@ -53,10 +45,6 @@ class Reports extends AbstractComponent {
             height: deviceHeight
         }
     });
-
-    componentWillUnmount() {
-        this.unsubscribe();
-    }
 
     componentWillMount() {
         this.props.params.drilledDown ? _.noop() : this.dispatchAction(Actions.GET_ALL_SCORES, {...this.props.params});

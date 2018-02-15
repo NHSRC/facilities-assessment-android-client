@@ -21,18 +21,10 @@ const deviceWidth = Dimensions.get('window').width;
 @Path("/standards")
 class Standards extends AbstractComponent {
     constructor(props, context) {
-        super(props, context);
-        const store = context.getStore();
-        this.state = store.getState().standards;
-        this.unsubscribe = store.subscribeTo('standards', this.handleChange.bind(this));
+        super(props, context, 'standards');
     }
 
     static styles = StyleSheet.create({});
-
-    handleChange() {
-        const newState = this.context.getStore().getState().standards;
-        this.setState(newState);
-    }
 
     componentWillMount() {
         this.dispatchAction(Actions.ALL_STANDARDS, {
@@ -40,10 +32,6 @@ class Standards extends AbstractComponent {
             areaOfConcern: this.props.params.areaOfConcern,
             facilityAssessment: this.props.params.facilityAssessment
         })
-    }
-
-    componentWillUnmount() {
-        this.unsubscribe();
     }
 
     handleOnPress(standard) {

@@ -1,14 +1,12 @@
 import React, {Component} from 'react';
-import {Dimensions, View, Text, TouchableWithoutFeedback, StyleSheet} from 'react-native';
-import {Container, Content, Title, Button, Header, Icon} from 'native-base';
+import {Dimensions, StyleSheet, Text, TouchableWithoutFeedback, View} from 'react-native';
+import {Button, Container, Content, Header, Icon, Title} from 'native-base';
 import AbstractComponent from "../common/AbstractComponent";
 import FlatUITheme from '../themes/flatUI';
 import TypedTransition from "../../framework/routing/TypedTransition";
 import Path from "../../framework/routing/Path";
-import PrimaryColors from "../styles/PrimaryColors";
 import Typography from "../styles/Typography";
 import Actions from '../../action';
-import ListingItem from '../common/ListingItem';
 import QuestionAnswer from './QuestionAnswer';
 import Pagination from './Pagination';
 import _ from 'lodash';
@@ -24,25 +22,13 @@ const deviceHeight = Dimensions.get('window').height;
 @Path("/assessment")
 class Assessment extends AbstractComponent {
     constructor(props, context) {
-        super(props, context);
-        const store = context.getStore();
-        this.state = store.getState().checklistAssessment;
-        this.unsubscribe = store.subscribeTo('assessment', this.handleChange.bind(this));
+        super(props, context, 'assessment');
     }
 
     static styles = StyleSheet.create({});
 
-    handleChange() {
-        const newState = this.context.getStore().getState().assessment;
-        this.setState(newState);
-    }
-
     componentWillMount() {
         this.dispatchAction(Actions.GET_CHECKPOINTS, {...this.props.params});
-    }
-
-    componentWillUnmount() {
-        this.unsubscribe();
     }
 
     getCurrentIndex() {
