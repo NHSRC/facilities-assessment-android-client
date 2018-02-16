@@ -1,5 +1,5 @@
 import React from "react";
-import {Dimensions, Image, Navigator, StyleSheet, Text, TouchableWithoutFeedback, View} from "react-native";
+import {Dimensions, Image, Navigator, StyleSheet, Text, TouchableWithoutFeedback,TouchableNativeFeedback, View} from "react-native";
 import {Button, Container, Content, Footer, Header, Icon, Title} from "native-base";
 import AbstractComponent from "../common/AbstractComponent";
 import FlatUITheme from "../themes/flatUI";
@@ -100,8 +100,7 @@ class ModeSelection extends AbstractComponent {
                         color: 'white'
                     }]}>GUNAK गुणक</Title>
                     {EnvironmentConfig.shouldUsePackagedSeedData ? <Button
-                        style={{flex: 0.05}}
-                        iconLeft={true}
+                        transparent
                         onPress={() => this.addNewState()}>
                         <Icon style={{color: "white"}} name="edit-location"/>
                     </Button> : null}

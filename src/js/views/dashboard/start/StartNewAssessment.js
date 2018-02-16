@@ -22,8 +22,7 @@ class StartNewAssessment extends AbstractComponent {
                     this.dispatchAction(Actions.FACILITY_SELECT);
                     this.dispatchAction(Actions.ALL_ASSESSMENTS, {mode: this.props.mode});
                 }}
-                style={[StartNewAssessment.styles.blockButton, isComplete ?
-                    {} : {backgroundColor: "rgba(0, 0, 0, 0.38)",}]}
+                style={isComplete? StartNewAssessment.styles.blockButton : {backgroundColor: "rgba(0, 0, 0, 0.38)"}}
                 block
                 disabled={!isComplete}>
                 START NEW ASSESSMENT

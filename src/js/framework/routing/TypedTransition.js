@@ -28,7 +28,7 @@ export default class TypedTransition {
 
     logRouteInfo(route) {
         let currentRoutes = this.navigator.getCurrentRoutes();
-        Logger.logDebug('TypedTransition', `Route size: ${currentRoutes.length}; Current Routes: ${JSON.stringify(currentRoutes)}; New Route: ${JSON.stringify(route)}`);
+        Logger.logDebug('TypedTransition', `Route size: ${currentRoutes.length}; Current Routes: ${JSON.stringify(currentRoutes.map((route) => {path: route.path}))}; New Route: ${JSON.stringify({path: route.path})}`);
     }
 
     get navigator() {
