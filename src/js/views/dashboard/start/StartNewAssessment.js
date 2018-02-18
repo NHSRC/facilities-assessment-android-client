@@ -4,7 +4,6 @@ import {Button} from "native-base";
 import {StyleSheet} from "react-native";
 import _ from "lodash";
 import Actions from "../../../action";
-import EnvironmentConfig from "../../common/EnvironmentConfig";
 
 class StartNewAssessment extends AbstractComponent {
     static styles = StyleSheet.create({

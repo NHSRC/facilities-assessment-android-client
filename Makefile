@@ -54,6 +54,9 @@ release_apk_jss: setup_source
 publish_apk_jss:
 	cp android/app/build/outputs/apk/app-release.apk ~/Dropbox/Public/Gunak/dev/jss
 
+publish_apk_nhsrc:
+	cp android/app/build/outputs/apk/app-release.apk ~/Dropbox/Public/Gunak/dev/nhsrc
+
 release_apk_nhsrc: setup_source_nhsrc
 	$(call _release_apk,nhsrc)
 	make setup_source
@@ -73,8 +76,8 @@ install_old_jss_apk:
 openlocation_apk:
 	open android/app/build/outputs/apk
 
-publish_release_vivek:
-	cp android/app/build/outputs/apk/app-release.apk ~/Dropbox/Public/nhsrc/$(release)/app-$(client).apk
+openlocation_publish:
+	open ~/Dropbox/Public/Gunak
 
 reinstall_released_apk: uninstall_app install_released_apk
 # </apk>

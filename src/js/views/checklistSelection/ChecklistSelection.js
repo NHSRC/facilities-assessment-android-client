@@ -19,6 +19,7 @@ import SearchPage from "../search/SearchPage";
 import EnvironmentConfig from "../common/EnvironmentConfig";
 import Logger from "../../framework/Logger";
 import EditAssessment from "../dashboard/start/EditAssessment";
+import AssessmentTitle from "../assessment/AssessmentTitle";
 
 
 const deviceWidth = Dimensions.get('window').width;
@@ -32,16 +33,6 @@ class ChecklistSelection extends AbstractComponent {
         this.showKayakalpCompleteButton = this.showKayakalpCompleteButton.bind(this);
         this.showOtherCompleteButton = this.showOtherCompleteButton.bind(this);
     }
-
-    static styles = StyleSheet.create({
-        subheader: {
-            color: "white",
-            marginTop: deviceHeight * 0.0125
-        },
-        caption: {
-            color: "rgba(255,255,255,0.7)"
-        },
-    });
 
     componentWillMount() {
         this.dispatchAction(Actions.ALL_CHECKLISTS, {...this.props.params});
@@ -125,23 +116,14 @@ class ChecklistSelection extends AbstractComponent {
                     </Modal>
                     <View style={{margin: deviceWidth * 0.04, flexDirection: 'column'}}>
                         <View style={{flexDirection: 'row'}}>
-                            <View>
-                                <Text style={[Typography.paperFontHeadline, ChecklistSelection.styles.subheader]}>
-                                    {this.props.params.facility.name}
-                                </Text>
-                                <Text style={[Typography.paperFontCaption, ChecklistSelection.styles.caption]}>
-                                    {this.props.params.assessmentTool.name}
-                                </Text>
-                                <Text style={[Typography.paperFontCaption, ChecklistSelection.styles.caption]}>
-                                    {`Assessment Start Date - ${formatDateHuman(this.props.params.facilityAssessment.startDate)}`}
-                                </Text>
-                            </View>
+                            <AssessmentTitle facilityName={this.props.params.facility.name} assessmentStartDate={this.props.params.facilityAssessment.startDate}
+                                             assessmentToolName={this.props.params.assessmentTool.name}/>
                             {/*<Button*/}
-                                {/*onPress={() => {*/}
-                                    {/*this.dispatchAction(Actions.EDIT_ASSESSMENT_STARTED);*/}
-                                {/*}}*/}
-                                {/*transparent>*/}
-                                {/*<Icon name={"edit"} style={{color: "white", marginTop: deviceWidth * 0.04, marginLeft: deviceWidth * 0.04}}/>*/}
+                            {/*onPress={() => {*/}
+                            {/*this.dispatchAction(Actions.EDIT_ASSESSMENT_STARTED);*/}
+                            {/*}}*/}
+                            {/*transparent>*/}
+                            {/*<Icon name={"edit"} style={{color: "white", marginTop: deviceWidth * 0.04, marginLeft: deviceWidth * 0.04}}/>*/}
                             {/*</Button>*/}
                         </View>
                         <AssessmentStatus

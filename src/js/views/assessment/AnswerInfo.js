@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
-import {Dimensions, View, Text, StyleSheet, Alert} from 'react-native';
+import {Alert, Dimensions, StyleSheet, Text, View} from 'react-native';
 import AbstractComponent from "../common/AbstractComponent";
 import PrimaryColors from "../styles/PrimaryColors";
 import Typography from '../styles/Typography';
 import Checkpoint from '../../models/Checkpoint';
-import _ from 'lodash';
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
