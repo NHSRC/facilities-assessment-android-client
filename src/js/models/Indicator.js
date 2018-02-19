@@ -5,9 +5,9 @@ export default class Indicator {
         properties: {
             name: "string",
             uuid: "string",
-            numeratorValue: "int",
-            denominatorValue: "int",
-            indicatorValue: "int",
+            numericValue: {type: "int", optional: true},
+            dateValue: {type: "date", optional: true},
+            boolValue: {type: "bool", optional: true},
             facilityAssessment: "string",
             indicatorDefinition: "string"
         }

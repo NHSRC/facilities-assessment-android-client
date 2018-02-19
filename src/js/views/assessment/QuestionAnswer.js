@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-import {Dimensions, View, Text, TouchableWithoutFeedback, StyleSheet, Switch} from 'react-native';
+import {Dimensions, StyleSheet, Switch, Text, TouchableWithoutFeedback, View} from 'react-native';
 import AbstractComponent from "../common/AbstractComponent";
 import PrimaryColors from "../styles/PrimaryColors";
-import CheckpointText from './CheckpointText';
 import ListingItem from '../common/ListingItem';
 import Compliance from './Compliance';
 import Remarks from './Remarks';
@@ -11,7 +10,7 @@ import Toolbar from './Toolbar';
 import Actions from '../../action';
 import Typography from '../styles/Typography';
 import _ from 'lodash';
-import Logger from "../../framework/Logger";
+import FieldLabel from "../common/FieldLabel";
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
@@ -137,7 +136,7 @@ class QuestionAnswer extends AbstractComponent {
                     <View style={QuestionAnswer.styles.answer}>
                         {NA}
                         <AnswerInfo checkpoint={this.props.currentCheckpoint}/>
-                        <CheckpointText checkpoint={this.props.currentCheckpoint}/>
+                        <FieldLabel text={this.props.currentCheckpoint.checkpoint.name}/>
                         {ShowCompliance}
                     </View>
                 </View>

@@ -5,9 +5,11 @@ export default class IndicatorDefinition {
         properties: {
             name: "string",
             uuid: "string",
-            numerator: "string",
-            denominator: "string",
-            formula: "string"
+            dataType: "string"
         }
     };
+
+    static Numeric = 'Numeric';
+    static Boolean = 'Boolean';
+    static Date = 'Date';
 }
