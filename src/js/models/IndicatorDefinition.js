@@ -5,7 +5,8 @@ export default class IndicatorDefinition {
         properties: {
             name: "string",
             uuid: "string",
-            dataType: "string"
+            dataType: "string",
+            assessmentTool: "string"
         }
     };
 
