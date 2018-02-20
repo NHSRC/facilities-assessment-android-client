@@ -24,12 +24,12 @@ import SubmitButton from "../common/SubmitButton";
 class AssessmentIndicators extends AbstractComponent {
     static propTypes = {};
 
-    viewName() {
-        return AssessmentIndicators.name;
-    }
-
     constructor(props, context) {
         super(props, context, 'assessmentIndicators');
+    }
+
+    componentWillMount() {
+        this.dispatchAction(Actions.ALL_DEFINITIONS, {...this.props.params});
     }
 
     render() {

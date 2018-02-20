@@ -12,6 +12,7 @@ import certificationCriteriaActions, {certificationCriteriaInit} from "../action
 import editAssessmentActions, {editAssessmentInit} from "../action/editAssessment";
 import Reducer from './Reducer';
 import stateSelectionActions, {stateSelectionInit} from "../action/stateSelection";
+import assessmentIndicatorsActions, {assessmentIndicatorsInit} from "../action/assessmentIndicators";
 
 export default (beans) => {
     let reducerMap = {};
@@ -80,6 +81,11 @@ export default (beans) => {
             "stateKey": "stateSelection",
             "actions": stateSelectionActions,
             "initState": stateSelectionInit
+        },
+        {
+            "stateKey": "assessmentIndicators",
+            "actions": assessmentIndicatorsActions,
+            "initState": assessmentIndicatorsInit
         }
     ].forEach(({stateKey, actions, initState}) => {
         reducerMap[stateKey] = Reducer.factory(actions, initState, beans);

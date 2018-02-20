@@ -9,6 +9,7 @@ import TypedTransition from "../../../framework/routing/TypedTransition";
 import ChecklistSelection from "../../checklistSelection/ChecklistSelection";
 import Logger from "../../../framework/Logger";
 import General from "../../../utility/General";
+import AssessmentIndicators from "../../indicator/AssessmentIndicators";
 
 
 class OpenView extends AbstractComponent {
@@ -29,7 +30,7 @@ class OpenView extends AbstractComponent {
                 facilityAssessment: assessment,
                 state: assessment.state,
                 ...this.props
-            }).to(ChecklistSelection);
+            }).to(assessment.assessmentTool.assessmentToolType === 'COMPLIANCE' ? ChecklistSelection : AssessmentIndicators);
         }
     }
 

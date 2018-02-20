@@ -5,9 +5,12 @@ class AssessmentTool {
         properties: {
             name: 'string',
             mode: 'string',
-            uuid: 'string'
+            uuid: 'string',
+            assessmentToolType: 'string'
         }
-    }
+    };
+
+    static COMPLIANCE = "COMPLIANCE";
 }
 
 
