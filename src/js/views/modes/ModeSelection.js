@@ -1,5 +1,5 @@
 import React from "react";
-import {Dimensions, Image, Navigator, StyleSheet, Text, TouchableWithoutFeedback,TouchableNativeFeedback, View} from "react-native";
+import {Dimensions, Image, Navigator, StyleSheet, Text, TouchableWithoutFeedback, TouchableNativeFeedback, View} from "react-native";
 import {Button, Container, Content, Footer, Header, Icon, Title} from "native-base";
 import AbstractComponent from "../common/AbstractComponent";
 import FlatUITheme from "../themes/flatUI";
@@ -45,7 +45,7 @@ class ModeSelection extends AbstractComponent {
         header: {
             shadowOffset: {width: 0, height: 0},
             elevation: 0,
-            backgroundColor: '#212121',
+            backgroundColor: '#212121'
         },
         mode: {
             backgroundColor: 'transparent',
@@ -93,17 +93,16 @@ class ModeSelection extends AbstractComponent {
                                 })
                                 .to(Settings, Navigator.SceneConfigs.FloatFromLeft)}
                             transparent>
-                            <Icon style={{marginTop: 10, color: 'white'}} name="menu"/>
+                            <Icon style={{marginTop: 8, color: 'white'}} name="menu"/>
                         </Button> : <View/>}
-                    <Title style={[Typography.paperFontHeadline, {
+                    <Title style={[Typography.paperFontTitle, {
                         fontWeight: 'bold',
                         color: 'white'
                     }]}>GUNAK गुणक</Title>
-                    {EnvironmentConfig.shouldUsePackagedSeedData ? <Button
-                        transparent
-                        onPress={() => this.addNewState()}>
-                        <Icon style={{color: "white"}} name="edit-location"/>
-                    </Button> : null}
+                    {EnvironmentConfig.shouldUsePackagedSeedData && this.state.statesAvailableToBeLoaded ? <Button
+                        style={{borderWidth: 1}}
+                        bordered transparent
+                        onPress={() => this.addNewState()}><Text style={[Typography.paperFontSubhead, {color: 'white'}]}>Add State</Text></Button> : null}
                 </Header>
                 <Content>
                     <View style={ModeSelection.styles.container}>

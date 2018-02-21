@@ -17,6 +17,7 @@ const stateSelectionLoaded = function (state, action, beans) {
         newState.allStates = settings.removeStatesAlreadySetup(stateService.getAllStates());
         if (atleastOneCountryStateIsLoaded) {
             newState.loadedCountryStates = _.join(settings.states.map((countryStateObject) => stateService.getStateName(countryStateObject.value)));
+            newState.numberOfStatesLoaded = settings.states.length;
         }
         newState.displayStateSelection = settings.numberOfStates === 0 || (!_.isNil(action.params) && action.params.chooseAdditional);
     } else {
@@ -32,6 +33,7 @@ const clone = function (state) {
         allStates: state.allStates,
         busy: state.busy,
         loadedCountryStates: state.loadedCountryStates,
+        numberOfStatesLoaded: state.numberOfStatesLoaded,
         displayStateSelection: state.displayStateSelection
     };
 };
@@ -48,9 +50,11 @@ const stateSelectionConfirmed = function (state, action, beans) {
         let localReferenceDataSyncService = beans.get(LocalReferenceDataSyncService);
         localReferenceDataSyncService.syncMetaDataSpecificToStateFromLocal(() => {
             beans.get(SeedProgressService).finishedLoadStateSpecificData();
-            beans.get(SettingsService).addState(state.selectedState);
-            let settings = beans.get(SettingsService).get();
+            let settingsService = beans.get(SettingsService);
+            settingsService.addState(state.selectedState);
+            let settings = settingsService.get();
             Logger.logDebug('StateSelection', `NumberOfStates?=${settings.numberOfStates}`);
+            newState.busy = false;
         }, newState.selectedState);
     } else {
         newState.busy = true;
@@ -64,4 +68,4 @@ export default new Map([
     ["TOGGLE_STATE", toggleState]
 ]);
 
-export let stateSelectionInit = {selectedState: undefined, allStates: [], busy: false, loadedCountryStates: '', displayStateSelection: undefined};
+export let stateSelectionInit = {selectedState: undefined, allStates: [], busy: false, loadedCountryStates: '', displayStateSelection: undefined, numberOfStatesLoaded: undefined};

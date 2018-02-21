@@ -11,8 +11,6 @@ import Logger from "../../framework/Logger";
 import _ from 'lodash';
 import Actions from "../../action";
 
-const nhsrcbanner = require('../img/nhsrcbanner.png');
-
 @PathRoot
 @Path('/StateSelection')
 class StateSelection extends AbstractComponent {
@@ -71,10 +69,9 @@ class StateSelection extends AbstractComponent {
                     <Button transparent onPress={() => TypedTransition.from(this).goBack()}>
                         <Icon style={{marginTop: 5, color: "white"}} name='arrow-back'/>
                     </Button>
-                    <Title style={[Typography.paperFontHeadline, {
-                        fontWeight: 'bold',
+                    <Title style={[Typography.paperFontSubhead, {
                         color: 'white'
-                    }]}>Select the state of your health facilities</Title>
+                    }]}>Select state of health facilities</Title>
                 </Header>
                 <Content>
                     <View style={{flexDirection: 'column', margin: 8, justifyContent: 'center', alignItems: 'center'}}>
@@ -104,17 +101,10 @@ class StateSelection extends AbstractComponent {
                             style={[Typography.paperFontSubhead, {
                                 color: "white",
                                 marginTop: 30
-                            }]}>{`States already loaded - ${this.state.loadedCountryStates}`}</Text>
+                            }]}>{`States already loaded - ${this.state.numberOfStatesLoaded > 10 ? this.state.numberOfStatesLoaded : this.state.loadedCountryStates}`}</Text>
                         }
                     </View>
                 </Content>
-                <Footer style={{backgroundColor: 'transparent'}}>
-                    <Image resizeMode="contain"
-                           style={{
-                               width: Dimensions.get('window').width,
-                           }}
-                           source={nhsrcbanner}/>
-                </Footer>
             </Container>
         );
     }
