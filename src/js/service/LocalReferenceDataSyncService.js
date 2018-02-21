@@ -18,6 +18,7 @@ class LocalReferenceDataSyncService extends AbstractReferenceDataSyncService {
     }
 
     syncMetaDataFromLocal(finishCB) {
+        this.getService(SettingsService).setupStatesAlreadyLoaded();
         this.syncMetaDataNotSpecificToState(finishCB);
     }
 

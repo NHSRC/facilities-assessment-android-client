@@ -12,6 +12,7 @@ recorded_response_dir := ../reference-data/nhsrc/output/recorded-response
 service_src_dir := src/js/service
 rr_version := 5
 ip:=$(shell ifconfig | grep -A 2 'vboxnet' | tail -1 | cut -d ' ' -f 2 | cut -d ' ' -f 1)
+apk_folder=~/Dropbox/Public/Gunak
 
 define _release_apk
 	react-native bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/ --sourcemap-output android/app/build/generated/sourcemap.js
@@ -19,7 +20,11 @@ define _release_apk
 endef
 
 define _install_apk
-	adb install -r $1
+	adb install $1
+endef
+
+define _publish_release
+	cp android/app/build/outputs/apk/app-release.apk $(apk_folder)/$1/$2/
 endef
 
 
@@ -51,8 +56,11 @@ release: setup_source
 release_apk_jss: setup_source
 	$(call _release_apk,jss)
 
-publish_apk_jss:
-	cp android/app/build/outputs/apk/app-release.apk ~/Dropbox/Public/Gunak/dev/jss
+publish_apk_dev_jss:
+	$(call _publish_release,dev,jss)
+
+publish_apk_dev_nhsrc:
+	$(call _publish_release,dev,nhsrc)
 
 release_apk_nhsrc: setup_source_nhsrc
 	$(call _release_apk,nhsrc)
@@ -64,17 +72,11 @@ release_apk_offline:
 install_released_apk:
 	$(call _install_apk,android/app/build/outputs/apk/app-release.apk)
 
-install_old_nhsrc_apk:
-	$(call _install_apk,android/app/old-build/nhsrc/app-released.apk)
-
-install_old_jss_apk:
-	$(call _install_apk,android/app/old-build/jss/app.apk)
+install_released_nhsrc_apk:
+	$(call _install_apk,$(apk_folder)/released/nhsrc/app-release.apk)
 
 openlocation_apk:
 	open android/app/build/outputs/apk
-
-publish_release_vivek:
-	cp android/app/build/outputs/apk/app-release.apk ~/Dropbox/Public/nhsrc/$(release)/app-$(client).apk
 
 reinstall_released_apk: uninstall_app install_released_apk
 # </apk>
