@@ -29,11 +29,11 @@ class AssessmentSyncService extends BaseService {
         this.serverURL = EnvironmentConfig.serverURL;
     }
 
-    syncChecklists(originalAssessment, cb, errorHandler) {
+    syncChecklists(originalAssessment, facilityUUID, cb, errorHandler) {
         return (facilityAssessment) => {
             const checklistService = this.getService(ChecklistService);
             const facilitiesService = this.getService(FacilitiesService);
-            const state = facilitiesService.getStateForFacility(facilityAssessment.facility.uuid);
+            const state = facilitiesService.getStateForFacility(facilityUUID);
             const facilityAssessmentService = this.getService(FacilityAssessmentService);
             facilityAssessmentService.addSyncedUuid({
                 uuid: originalAssessment.uuid,
@@ -70,7 +70,7 @@ class AssessmentSyncService extends BaseService {
         this.serverURL = this.getService(SettingsService).getServerURL();
         let facilityAssessmentDTO = facilityAssessmentMapper(assessment);
         post(`${this.serverURL}/api/facility-assessment`, facilityAssessmentDTO,
-            this.syncChecklists(assessment, cb, errorHandler), errorHandler);
+            this.syncChecklists(assessment, facilityAssessmentDTO.facility, cb, errorHandler), errorHandler);
     }
 }
 

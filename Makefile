@@ -162,6 +162,9 @@ run_app_ios: setup_source
 run_app_android_nhsrc: setup_source_nhsrc
 	$(call _run_android,.env.nhsrc)
 
+run_app_android_nhsrc_dev: setup_source_nhsrc
+	$(call _run_android,.env.nhsrc.dev)
+
 run_app_android_jss:
 	$(call _run_android,.env.jss)
 
