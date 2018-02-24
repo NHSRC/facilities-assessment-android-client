@@ -3,6 +3,7 @@ import Logger from "../Logger";
 import District from "../../models/District";
 import Facility from "../../models/Facility";
 import General from "../../utility/General";
+import _ from 'lodash';
 
 class LocalConventionalRestClient extends ConventionalRestClient {
     constructor(settingsService, db, files) {

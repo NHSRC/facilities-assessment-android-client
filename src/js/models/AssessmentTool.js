@@ -1,4 +1,6 @@
 class AssessmentTool {
+    static COMPLIANCE = "COMPLIANCE";
+
     static schema = {
         name: 'AssessmentTool',
         primaryKey: 'uuid',
@@ -6,11 +8,9 @@ class AssessmentTool {
             name: 'string',
             mode: 'string',
             uuid: 'string',
-            assessmentToolType: 'string'
+            assessmentToolType: {type: 'string', default: "COMPLIANCE"}
         }
     };
-
-    static COMPLIANCE = "COMPLIANCE";
 }
 
 

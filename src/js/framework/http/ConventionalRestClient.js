@@ -4,8 +4,6 @@ import {makeParams} from './httpUtils';
 import moment from "moment";
 import Logger from "../Logger";
 
-const tzOffset = new Date().getTimezoneOffset();
-
 class ConventionalRestClient {
     constructor(settingsService, db) {
         this.settingsService = settingsService;
