@@ -11,6 +11,8 @@ export default class IndicatorDefinition {
     };
 
     static Numeric = 'Numeric';
+    static Month = 'Month';
+    static Percentage = 'Percentage';
     static Boolean = 'Boolean';
     static Date = 'Date';
 }

@@ -20,15 +20,15 @@ class Indicators extends AbstractComponent {
         indicatorDefinitions: React.PropTypes.array.isRequired
     };
 
-    static styles = StyleSheet.create({
-    });
-
     render() {
-        return <View>{this.props.indicatorDefinitions.map((indicatorDefinition) => {
-            if (indicatorDefinition.dataType === IndicatorDefinition.Numeric) return <NumericIndicator definition={indicatorDefinition}/>;
-            else if (indicatorDefinition.dataType === IndicatorDefinition.Boolean) return <BoolIndicator definition={indicatorDefinition}/>;
-            else if (indicatorDefinition.dataType === IndicatorDefinition.Date) return <DateIndicator definition={indicatorDefinition}/>;
-        })}</View>;
+        let map = new Map();
+        map.set(IndicatorDefinition.Numeric, (indicatorDefinition) => <NumericIndicator definition={indicatorDefinition}/>);
+        map.set(IndicatorDefinition.Month, (indicatorDefinition) => <NumericIndicator definition={indicatorDefinition}/>);
+        map.set(IndicatorDefinition.Percentage, (indicatorDefinition) => <NumericIndicator definition={indicatorDefinition}/>);
+        map.set(IndicatorDefinition.Boolean, (indicatorDefinition) => <BoolIndicator definition={indicatorDefinition}/>);
+        map.set(IndicatorDefinition.Date, (indicatorDefinition) => <DateIndicator definition={indicatorDefinition}/>);
+
+        return <View>{this.props.indicatorDefinitions.map((indicatorDefinition) => <View style={{marginTop: deviceHeight*0.025}}>{map.get(indicatorDefinition.dataType)(indicatorDefinition)}</View>)}</View>;
     }
 }
 

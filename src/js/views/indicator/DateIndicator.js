@@ -5,6 +5,7 @@ import _ from "lodash";
 import ValidationErrorMessage from "./ValidationErrorMessage";
 import General from "../../utility/General";
 import Actions from '../../action';
+import FieldLabel from "../common/FieldLabel";
 
 class DateIndicator extends AbstractComponent {
     constructor(props, context) {
@@ -31,6 +32,7 @@ class DateIndicator extends AbstractComponent {
         const date = _.isNil(this.props.dateValue) ? new Date() : this.props.dateValue;
         return (
             <View>
+                <FieldLabel text={this.props.definition.name}/>
                 <Text onPress={this.showPicker.bind(this, {date: date})}
                       style={{
                           flex: 1,

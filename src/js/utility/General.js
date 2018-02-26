@@ -7,16 +7,8 @@ class General {
         return `${General.toTwoChars(date.getDate())}-${General.toTwoChars(date.getMonth() + 1)}-${date.getFullYear()}`;
     }
 
-    static isoFormat(date) {
-        return `${date.getFullYear()}-${General.toTwoChars(date.getMonth() + 1)}-${General.toTwoChars(date.getDate())}`;
-    }
-
     static toTwoChars(number) {
         return `${number}`.length === 1 ? `0${number}` : `${number}`;
-    }
-
-    static formatRange(question) {
-        return `[${question.lowAbsolute} - ${question.hiAbsolute}]`;
     }
 
     static pick(from, attributes, listAttributes) {

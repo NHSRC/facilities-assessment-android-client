@@ -1,8 +1,7 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React, {Component} from 'react';
 import AbstractComponent from './AbstractComponent';
-import PrimaryColors from "../styles/PrimaryColors";
-import Fonts from "../styles/Fonts";
+import Typography from "../styles/Typography";
 
 class FieldLabel extends AbstractComponent {
     static propTypes = {
@@ -13,19 +12,9 @@ class FieldLabel extends AbstractComponent {
         super(props, context);
     }
 
-    static styles = StyleSheet.create({
-        typo: {
-            fontFamily: Fonts.HelveticaNeueOrRobotoNoto,
-            fontSize: 42,
-            fontWeight: "500",
-            letterSpacing: -0.018,
-            lineHeight: 56
-        }
-    });
-
     render() {
         return (
-            <Text style={[FieldLabel.styles.typo, {color: PrimaryColors.subheader_black}]}>
+            <Text style={[Typography.paperFontTitle, {color: 'white'}]}>
                 {this.props.text}
             </Text>
         );

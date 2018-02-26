@@ -33,7 +33,7 @@ class AbstractReferenceDataSyncService extends BaseService {
         resourceSearchFilterURL = resourceSearchFilterURL || "lastModified";
         params = params || {};
         this._pullData(entityMetaData, resourceSearchFilterURL, params, () => {
-            Logger.logInfo('AbstractReferenceDataSyncService', 'Sync completed!');
+            Logger.logInfo('AbstractReferenceDataSyncService', `Sync completed at ${new Date()}`);
             cb();
         }, (error) => {
             Logger.logError('AbstractReferenceDataSyncService', error);

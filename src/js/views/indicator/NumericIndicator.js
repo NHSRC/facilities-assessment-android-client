@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, TextInput, Platform} from 'react-native';
 import React, {Component} from 'react';
 import AbstractComponent from '../common/AbstractComponent';
 import FieldLabel from "../common/FieldLabel";
@@ -11,10 +11,13 @@ class NumericIndicator extends AbstractComponent {
     }
 
     static styles = StyleSheet.create({
-        formBodyText: {
+        input: {
             fontSize: 16,
-            fontStyle: 'normal',
-            color: '#000000'
+            color: 'white',
+            height: 40,
+            paddingLeft: 8,
+            borderColor: 'grey',
+            borderWidth: Platform.OS === 'ios' ? 0.5 : 0
         }
     });
 
@@ -31,7 +34,7 @@ class NumericIndicator extends AbstractComponent {
         return (
             <View>
                 <FieldLabel text={this.props.definition.name}/>
-                <TextInput style={[{flex: 1, marginVertical: 0, paddingVertical: 5}, NumericIndicator.styles.formBodyText]}
+                <TextInput style={[{flex: 1, marginVertical: 0, paddingVertical: 5}, NumericIndicator.styles.input]}
                            underlineColorAndroid={this.borderColor} keyboardType='numeric'
                            value={this.props.value}
                            onChangeText={(text) => this.onInputChange(text)}

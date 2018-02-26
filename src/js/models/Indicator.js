@@ -3,7 +3,6 @@ export default class Indicator {
         name: 'Indicator',
         primaryKey: 'uuid',
         properties: {
-            name: "string",
             uuid: "string",
             numericValue: {type: "int", optional: true},
             dateValue: {type: "date", optional: true},
