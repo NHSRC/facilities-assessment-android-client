@@ -27,7 +27,7 @@ class NumericIndicator extends AbstractComponent {
     };
 
     onInputChange(text) {
-        this.dispatchAction(Actions.NUMERIC_INDICATOR_CHANGED, {definition: this.props.definition, value: text});
+        this.dispatchAction(Actions.NUMERIC_INDICATOR_CHANGED, {indicatorDefinitionUUID: this.props.definition.uuid, value: text});
     }
 
     render() {

@@ -24,7 +24,7 @@ class DateIndicator extends AbstractComponent {
         const {action, year, month, day} = await DatePickerAndroid.open(options);
         if (action !== DatePickerAndroid.dismissedAction) {
             this.props.dateValue = new Date(year, month, day);
-            this.dispatchAction(Actions.DATE_INDICATOR_CHANGED, {definition: this.props.definition, value: this.props.dateValue});
+            this.dispatchAction(Actions.DATE_INDICATOR_CHANGED, {indicatorDefinitionUUID: this.props.definition.uuid, value: this.props.dateValue});
         }
     }
 

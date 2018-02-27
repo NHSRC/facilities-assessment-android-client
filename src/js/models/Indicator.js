@@ -11,4 +11,11 @@ export default class Indicator {
             indicatorDefinition: "string"
         }
     };
+
+    static newIndicator(indicatorDefinitionUUID, assessmentUUID) {
+        let indicator = new Indicator();
+        indicator.indicatorDefinition = indicatorDefinitionUUID;
+        indicator.facilityAssessment = assessmentUUID;
+        return indicator;
+    }
 }

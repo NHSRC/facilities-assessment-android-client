@@ -93,10 +93,11 @@ log:
 	adb logcat *:S ReactNative:V ReactNativeJS:V
 
 setup_source:
-	cp $(recorded_response_dir)/EmptyPackagedJSON.js $(service_src_dir)/PackagedJSON.js
+	cp packagedJSON/EmptyPackagedJSON.js $(service_src_dir)/PackagedJSON.js
 	-rm -rf src/config/*
 
 setup_source_nhsrc:
+	node packagedJSON/generatePackagedJSON.js
 	cp $(recorded_response_dir)/PackagedJSON.js $(service_src_dir)/PackagedJSON.js
 	cp -R $(recorded_response_dir)/jsons/$(rr_version)/* src/config/
 

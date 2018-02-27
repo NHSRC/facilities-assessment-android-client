@@ -12,6 +12,7 @@ import AssessmentTitle from "../assessment/AssessmentTitle";
 import Indicators from "../assessment/Indicators";
 import SubmitButton from "../common/SubmitButton";
 import Logger from "../../framework/Logger";
+import UUID from "../../utility/UUID";
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
@@ -30,7 +31,7 @@ class AssessmentIndicators extends AbstractComponent {
                 assessmentTool: {uuid: '10d44155-acdc-4d2f-8353-f90547c09c2c'},
                 facility: {name: 'TEST-Facility'},
                 assessmentType: {name: 'TEST-AssessmentType'},
-                facilityAssessment: {startDate: new Date()},
+                facilityAssessment: {startDate: new Date(), uuid: UUID.generate()},
                 state: {name: 'TEST-State'}
             }
         };
@@ -42,7 +43,7 @@ class AssessmentIndicators extends AbstractComponent {
 
     componentWillMount() {
         this.setDefaultPropValues();
-        this.dispatchAction(Actions.ALL_DEFINITIONS, {assessmentToolUUID: this.props.params.assessmentTool.uuid});
+        this.dispatchAction(Actions.ALL_DEFINITIONS, {assessmentToolUUID: this.props.params.assessmentTool.uuid, });
     }
 
     render() {
