@@ -84,14 +84,13 @@ class QuestionAnswer extends AbstractComponent {
 
 
     render() {
+        let measurableElementListItem = <ListingItem labelColor={PrimaryColors.lighBlue}
+                                                     item={this.props.currentCheckpoint.checkpoint.measurableElement}/>;
         const MeasurableElement = new Map([
             ["kayakalp", (<View/>)],
-            ["nqas", (
-                <ListingItem labelColor={PrimaryColors.lighBlue}
-                             item={this.props.currentCheckpoint.checkpoint.measurableElement}/>)],
-            ["dakshata", (
-                <ListingItem labelColor={PrimaryColors.lighBlue}
-                             item={this.props.currentCheckpoint.checkpoint.measurableElement}/>)]
+            ["nqas", measurableElementListItem],
+            ["dakshata", measurableElementListItem],
+            ["laqshya", measurableElementListItem]
         ]).get(this.props.params.mode.toLowerCase());
 
         const isNotApplicable = _.isBoolean(this.props.currentCheckpoint.na) && this.props.currentCheckpoint.na;

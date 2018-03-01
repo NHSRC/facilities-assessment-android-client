@@ -46,7 +46,7 @@ class AssessmentList extends AbstractComponent {
             alignSelf: 'center',
         },
         listItemButtonContainer: {
-            marginTop: 18,
+            marginTop: 5,
             borderRadius: 2,
             backgroundColor: PrimaryColors.blue,
             width: deviceWidth * .19,
@@ -88,7 +88,9 @@ class AssessmentList extends AbstractComponent {
                         {assessment.facility.facilityType.name}
                     </Text>
                 </View>
-                {buttons}
+                <View style={{flexDirection: 'column'}}>
+                    {buttons}
+                </View>
             </View>);
     }
 

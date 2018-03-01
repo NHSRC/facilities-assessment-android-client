@@ -65,7 +65,7 @@ const drillDown = function (state, action, beans) {
 
     const tabs = drilledDownTabs.map((tab) => {
             return Object.assign(tab, {
-                scores: reportService[scoringMap.get(tab.slug)](action.selectionName, action.facilityAssessment)
+                scores: reportService[scoringMap.get(tab.slug)](action.selectionUUID, action.facilityAssessment)
             });
         }
     );
@@ -76,7 +76,8 @@ const drillDown = function (state, action, beans) {
         selectedTab: newSelectedTabTitle,
         overallScore: action.overallScore,
         overallScoreText: prevSelectedTab.title,
-        selectionName: action.selectionName
+        selectionName: action.selectionName,
+        selectionUUID: action.selectionUUID
     };
 };
 
@@ -100,7 +101,7 @@ const exportOptions = function (state, action, beans) {
 const exportTab = function (state, action, beans) {
     const exportService = beans.get(ExportService);
     let csvMetadata = exportService.exportTab(_.startCase(action.tab.title.toLowerCase()),
-        {...action.tab.scores},
+        action.tab.scores,
         action.tab.headers,
         action.facilityAssessment);
     action.cb({
@@ -144,6 +145,7 @@ export let reportsInit = {
     showExportOptions: false,
     selectedTab: "AREA OF CONCERN",
     selectionName: '',
+    selectionUUID: '',
     checkpointStats: {
         assessedCheckpoints: 0,
         partiallyCompliantCheckpoints: 0,

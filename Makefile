@@ -153,6 +153,9 @@ run_app_android: setup_source
 run_app_ios: setup_source
 	$(call run_ios,.env)
 
+run_app_ios_nhsrc: setup_source_nhsrc
+	$(call run_ios,.env.nhsrc)
+
 run_app_android_nhsrc: setup_source_nhsrc
 	$(call _run_android,.env.nhsrc)
 
@@ -166,6 +169,9 @@ uninstall_app:
 	$(call uninstall_android)
 # </app>
 
+# <device>
+#clean_ios_simulator_devices:
+# </device>
 
 #deploy:
 #	make deps

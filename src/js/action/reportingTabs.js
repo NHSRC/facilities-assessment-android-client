@@ -4,6 +4,7 @@ export default [
         "slug": "aoc",
         "scores": {},
         "headers": [
+            "Reference",
             "Area of Concern",
             "Score"
         ],
@@ -14,6 +15,7 @@ export default [
                 "slug": "aoc-dep",
                 "scores": {},
                 "headers": [
+                    "",
                     "Department",
                     "Score"
                 ],
@@ -24,6 +26,7 @@ export default [
                 "slug": "aoc-std",
                 "scores": {},
                 "headers": [
+                    "Reference",
                     "Standard",
                     "Score"
                 ],
@@ -46,6 +49,7 @@ export default [
                 "slug": "dep-aoc",
                 "scores": {},
                 "headers": [
+                    "Reference",
                     "Area of Concern",
                     "Score"
                 ],
@@ -69,6 +73,7 @@ export default [
         "slug": "std",
         "scores": {},
         "headers": [
+            "Reference",
             "Standard",
             "Score"
         ],
@@ -79,6 +84,7 @@ export default [
                 "slug": "std-me",
                 "scores": {},
                 "headers": [
+                    "Reference",
                     "Measurable Element",
                     "Score"
                 ],
