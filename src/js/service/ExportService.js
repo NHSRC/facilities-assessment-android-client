@@ -15,6 +15,7 @@ import RNFS from "react-native-fs";
 import ReportService from "./ReportService";
 import {Platform} from "react-native";
 import Logger from "../framework/Logger";
+import ReportScoreItem from "../models/ReportScoreItem";
 
 @Service("exportService")
 class ExportService extends BaseService {
@@ -73,23 +74,25 @@ class ExportService extends BaseService {
             "Measurable Element Reference", "Measurable Element",
             "Checkpoint", "Score", "Remarks"];
         const metadata = this.generateMetadata(facilityAssessment, "full-assessment");
-        const allCheckpoints = this.db.objects(CheckpointScore.schema.name)
+        const allCheckpointScores = this.db.objects(CheckpointScore.schema.name)
             .filtered("facilityAssessment = $0", facilityAssessment.uuid)
             .map(this.backfillCheckpointAndMeasurableElement.bind(this))
             .map(this.backfillStandard.bind(this))
             .map(this.backfillAreaOfConcern.bind(this))
             .map(this.backfillChecklist.bind(this))
-            .map((assessment) => _.pick(assessment, exportKeys))
-            .map(Object.values);
-        let exportPath = this.toCSV(metadata.filename, exportKeyHeaders, allCheckpoints);
+            .map((assessment) => _.pick(assessment, exportKeys));
+        let sortedCheckpointScores = _.sortBy(allCheckpointScores, ['areaOfConcernReference', 'standardReference', 'measurableElementReference']);
+        let exportPath = this.toCSV(metadata.filename, exportKeyHeaders, sortedCheckpointScores.map(Object.values));
         return {exportPath: exportPath, ...metadata};
     }
 
-    exportTab(current, scores, headers, facilityAssessment) {
+    exportTab(current, reportScoreItems, headers, facilityAssessment) {
         const metadata = this.generateMetadata(facilityAssessment, `${current}-scores`);
         const reportService = this.getService(ReportService);
-        scores["Overall"] = reportService.overallScore(facilityAssessment);
-        const exportPath = this.toCSV(metadata.filename, headers, _.toPairs(scores));
+        reportScoreItems.push(new ReportScoreItem('', '', 'Overall', reportService.overallScore(facilityAssessment)));
+        const exportPath = this.toCSV(metadata.filename, headers, reportScoreItems.map((reportScoreItem) => {
+            return headers.length === 2 ? [reportScoreItem.name, reportScoreItem.score.toFixed(1)] : [reportScoreItem.reference, reportScoreItem.name, reportScoreItem.score.toFixed(1)];
+        }));
         return {exportPath: exportPath, ...metadata};
     }
 

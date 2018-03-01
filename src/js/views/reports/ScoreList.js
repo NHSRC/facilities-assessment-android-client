@@ -12,6 +12,7 @@ import TabBar from "./TabBar";
 import _ from 'lodash';
 import DrillDownView from '../drillDown/DrillDownView';
 import Reports from "./Reports";
+import Logger from "../../framework/Logger";
 
 
 const deviceWidth = Dimensions.get('window').width;
@@ -42,10 +43,11 @@ class ScoreList extends AbstractComponent {
         }
     });
 
-    handlePress(selectionName, score) {
+    handlePress(selectionUUID, selectionName, score) {
         this.dispatchAction(Actions.DRILL_DOWN, {
             facilityAssessment: this.props.facilityAssessment,
             selectionName: selectionName,
+            selectionUUID: selectionUUID,
             overallScore: score
         });
         TypedTransition
@@ -57,10 +59,11 @@ class ScoreList extends AbstractComponent {
     render() {
         const getScore = (score) => this.props.percentageScore ? `${parseInt(score)}%` : `${parseInt(score)}`;
         const onPressHandler = this.props.drillable ? this.handlePress.bind(this) : _.noop;
-        let Items = _.toPairs(this.props.scores).map(([item, score], idx) => (
-            <ListItem key={idx} onPress={() => onPressHandler(item, score)} style={ScoreList.styles.scoreItem}>
+        Logger.logDebug('ScoreList', this.props.scores);
+        let Items = this.props.scores.map((scoreEntry, idx) => (
+            <ListItem key={idx} onPress={() => onPressHandler(scoreEntry.uuid, scoreEntry.name, scoreEntry.score)} style={ScoreList.styles.scoreItem}>
                 <View style={ScoreList.styles.scoreItemContainer}>
-                    <Text style={[Typography.paperFontSubhead, {color: "black", flex: .80}]}>{item}</Text>
+                    <Text style={[Typography.paperFontSubhead, {color: "black", flex: .80}]}>{scoreEntry.name}</Text>
                     <Text style={{flex: .05}}/>
                     <View style={{
                         backgroundColor: PrimaryColors.yellow,
@@ -74,7 +77,7 @@ class ScoreList extends AbstractComponent {
                             paddingTop: 5,
                             paddingBottom: 5
                         }]}>
-                            {getScore(score)}
+                            {getScore(scoreEntry.score)}
                         </Text>
                     </View>
                 </View>
