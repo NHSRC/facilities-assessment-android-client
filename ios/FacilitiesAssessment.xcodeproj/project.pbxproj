@@ -1467,6 +1467,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.nhsrc.FacilitiesAssessment;
 				PRODUCT_NAME = FacilitiesAssessment;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1494,6 +1495,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.nhsrc.FacilitiesAssessment;
 				PRODUCT_NAME = FacilitiesAssessment;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
