@@ -87,6 +87,8 @@ openlocation_publish:
 reinstall_released_apk: uninstall_app install_released_apk
 # </apk>
 
+release_ios_nhsrc: setup_source_nhsrc
+	ENVFILE=.env react-native run-ios --configuration Release
 
 # <source>
 log:
@@ -155,19 +157,16 @@ run_app_jss: setup_source
 	$(call _run_android,.env.jss)
 
 run_app_android: setup_source
-	$(call _run_android,.env)
+	$(call _run_android,.env.dev)
 
 run_app_ios: setup_source
 	$(call run_ios,.env)
 
 run_app_ios_nhsrc: setup_source_nhsrc
-	$(call run_ios,.env.nhsrc)
+	$(call run_ios,.env)
 
 run_app_android_nhsrc: setup_source_nhsrc
-	$(call _run_android,.env.nhsrc)
-
-run_app_android_nhsrc_dev: setup_source_nhsrc
-	$(call _run_android,.env.nhsrc.dev)
+	$(call _run_android,.env)
 
 run_app_android_jss:
 	$(call _run_android,.env.jss)

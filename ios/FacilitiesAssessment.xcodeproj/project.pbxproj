@@ -1474,6 +1474,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.nhsrc.FacilitiesAssessment;
 				PRODUCT_NAME = FacilitiesAssessment;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1505,6 +1506,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.nhsrc.FacilitiesAssessment;
 				PRODUCT_NAME = FacilitiesAssessment;
 				PROVISIONING_PROFILE = "600fd2bf-8893-4959-a798-aa2c6a2bda88";
 				PROVISIONING_PROFILE_SPECIFIER = "NHSRC-Gunak";
