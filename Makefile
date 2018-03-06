@@ -15,8 +15,9 @@ ip:=$(shell ifconfig | grep -A 2 'vboxnet' | tail -1 | cut -d ' ' -f 2 | cut -d 
 apk_folder=~/Dropbox/Public/Gunak
 
 define _release_apk
+	$(call _set_env,$1)
 	react-native bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/ --sourcemap-output android/app/build/generated/sourcemap.js
-	cd android && ENVFILE=.env.$1 ./gradlew assembleRelease -x bundleReleaseJsAndAssets
+	cd android && ENVFILE=.env ./gradlew assembleRelease -x bundleReleaseJsAndAssets
 endef
 
 define _install_apk
@@ -50,9 +51,6 @@ run_packager:
 deploy_apk_local:
 	cp android/app/build/outputs/apk/app-release.apk ../facilities-assessment-server/external/app.apk
 
-release: setup_source
-	cd android; ENVFILE=.env ./gradlew assembleRelease
-
 release_apk_jss: setup_source
 	$(call _release_apk,jss)
 
@@ -82,6 +80,7 @@ reinstall_released_apk: uninstall_app install_released_apk
 # </apk>
 
 release_ios_nhsrc: setup_source_nhsrc
+	$(call _set_env,nhsrc)
 	ENVFILE=.env react-native run-ios --configuration Release
 
 # <source>
@@ -116,7 +115,6 @@ open_db: get_db
 # </db>
 
 
-
 # <app>
 define _run_android
 	adb root
@@ -124,11 +122,22 @@ define _run_android
 	cat /etc/hosts|sed 's/127.0.0.1/'$(ip)'/' > /tmp/hosts-adb
 	echo '$(ip)	dev.gunak.org' >> /tmp/hosts-adb
 	adb push /tmp/hosts-adb /system/etc/hosts
-	ENVFILE=$1 react-native run-android
+	$(call _set_env,$1)
+	ENVFILE=.env react-native run-android
 endef
 
-define run_ios
-	ENVFILE=$1 react-native run-ios
+define _set_env
+	cp .env.$1 .env
+endef
+
+define _run_ios
+	$(call _set_env,$1)
+	ENVFILE=.env react-native run-ios
+endef
+
+define _switch_ios_to_mode
+	cat ios/FacilitiesAssessment/Info.plist.template|sed 's/NSExceptionAllowsInsecureHTTPLoads_VALUE/$1/' > ios/FacilitiesAssessment/Info.plist
+    cat ios/FacilitiesAssessment/AppDelegate.m.template|sed 's/JS_CODE_LOCATION/$2/' > ios/FacilitiesAssessment/AppDelegate.m
 endef
 
 define uninstall_android
@@ -147,22 +156,35 @@ start_app_android:
 	adb shell am start -n com.facilitiesassessment/com.facilitiesassessment.MainActivity
 
 run_app_jss: setup_source
-	$(call _run_android,.env.jss)
+	$(call _run_android,jss)
 
 run_app_android: setup_source
-	$(call _run_android,.env.dev)
+	$(call _run_android,dev)
 
-run_app_ios: setup_source
-	$(call run_ios,.env)
+run_app_ios: switch_ios_to_debug_mode setup_source
+	$(call _run_ios,dev)
 
-run_app_ios_nhsrc: setup_source_nhsrc
-	$(call run_ios,.env)
+run_app_ios_nhsrc: switch_ios_to_debug_mode setup_source_nhsrc
+	$(call _run_ios,nhsrc)
+
+run_app_ios_nhsrc_dev: switch_ios_to_debug_mode setup_source_nhsrc
+	$(call _run_ios,nhsrc.dev)
 
 run_app_android_nhsrc: setup_source_nhsrc
-	$(call _run_android,.env)
+	$(call _run_android,)
 
 run_app_android_jss:
-	$(call _run_android,.env.jss)
+	$(call _run_android,jss)
+
+clean_ios:
+	rm -rf ios/build/
+	-kill $(lsof -t -i:8081)
+
+switch_ios_to_release_mode:
+	$(call _switch_ios_to_mode,false,[[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];)
+
+switch_ios_to_debug_mode:
+	$(call _switch_ios_to_mode,true,[[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];)
 
 uninstall_app:
 	$(call uninstall_android)
