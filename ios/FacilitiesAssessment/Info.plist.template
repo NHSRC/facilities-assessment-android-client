@@ -51,7 +51,7 @@
 			<key>localhost</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
+				<NSExceptionAllowsInsecureHTTPLoads_VALUE/>
 			</dict>
 		</dict>
 	</dict>
