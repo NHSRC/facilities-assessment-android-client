@@ -15,7 +15,7 @@ ip:=$(shell ifconfig | grep -A 2 'vboxnet' | tail -1 | cut -d ' ' -f 2 | cut -d 
 apk_folder=~/Dropbox/Public/Gunak
 
 define _release_apk
-	$(call _set_env,$1)
+	$(call _set_env,.env.$1)
 	react-native bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/ --sourcemap-output android/app/build/generated/sourcemap.js
 	cd android && ENVFILE=.env ./gradlew assembleRelease -x bundleReleaseJsAndAssets
 endef
@@ -86,7 +86,7 @@ reinstall_released_apk: uninstall_app install_released_apk
 # </apk>
 
 release_ios_nhsrc: setup_source_nhsrc
-	$(call _set_env,nhsrc)
+	$(call _set_env,.env.nhsrc)
 	ENVFILE=.env react-native run-ios --configuration Release
 
 # <source>
@@ -141,7 +141,7 @@ define _start_app
 endef
 
 define _set_env
-	cp .env.$1 .env
+	cp $1 .env
 endef
 
 define _run_ios
@@ -171,10 +171,10 @@ start_app_android:
 	adb shell am start -n com.facilitiesassessment/com.facilitiesassessment.MainActivity
 
 run_app_jss: setup_source
-	$(call _run_android,jss)
+	$(call _run_android,.env.jss)
 
 run_app_android: setup_source
-	$(call _run_android,dev)
+	$(call _run_android,.env.dev)
 
 run_app_ios: switch_ios_to_debug_mode setup_source
 	$(call _run_ios,dev)
@@ -183,10 +183,10 @@ run_app_ios_nhsrc: switch_ios_to_debug_mode setup_source_nhsrc
 	$(call _run_ios,nhsrc)
 
 run_app_ios_nhsrc_dev: switch_ios_to_debug_mode setup_source_nhsrc
-	$(call _run_ios,nhsrc.dev)
+	$(call _run_ios,.env.nhsrc.dev)
 
 run_app_android_nhsrc: setup_source_nhsrc
-	$(call _run_android,)
+	$(call _run_android,.env.nhsrc)
 
 run_app_android_jss:
 	$(call _run_android,jss)
