@@ -132,6 +132,12 @@ define _run_android
 	echo '$(ip)	dev.gunak.org' >> /tmp/hosts-adb
 	adb push /tmp/hosts-adb /system/etc/hosts
 	ENVFILE=$1 react-native run-android
+#	cd android && ENVFILE=$1 ./gradlew installDebug --offline
+	$(call _start_app)
+endef
+
+define _start_app
+	adb shell am start -n com.facilitiesassessment/com.facilitiesassessment.MainActivity
 endef
 
 define run_ios

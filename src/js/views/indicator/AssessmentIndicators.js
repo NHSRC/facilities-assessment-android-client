@@ -17,7 +17,6 @@ import UUID from "../../utility/UUID";
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
 
-@PathRoot
 @Path('/assessmentIndicators')
 class AssessmentIndicators extends AbstractComponent {
     //assessmentTool, facility, assessmentType, facilityAssessment, state
@@ -26,15 +25,15 @@ class AssessmentIndicators extends AbstractComponent {
     };
 
     setDefaultPropValues() {
-        this.props = {
-            params: {
-                assessmentTool: {uuid: '10d44155-acdc-4d2f-8353-f90547c09c2c'},
-                facility: {name: 'TEST-Facility'},
-                assessmentType: {name: 'TEST-AssessmentType'},
-                facilityAssessment: {startDate: new Date(), uuid: UUID.generate()},
-                state: {name: 'TEST-State'}
-            }
-        };
+        // this.props = {
+        //     params: {
+        //         assessmentTool: {uuid: '10d44155-acdc-4d2f-8353-f90547c09c2c', name: 'Test-AssessmentTool'},
+        //         facility: {name: 'TEST-Facility'},
+        //         assessmentType: {name: 'TEST-AssessmentType'},
+        //         facilityAssessment: {startDate: new Date(), uuid: UUID.generate()},
+        //         state: {name: 'TEST-State'}
+        //     }
+        // };
     }
 
     constructor(props, context) {
@@ -43,10 +42,16 @@ class AssessmentIndicators extends AbstractComponent {
 
     componentWillMount() {
         this.setDefaultPropValues();
-        this.dispatchAction(Actions.ALL_DEFINITIONS, {assessmentToolUUID: this.props.params.assessmentTool.uuid, });
+        this.dispatchAction(Actions.ALL_DEFINITIONS, {assessmentToolUUID: this.props.params.assessmentTool.uuid, assessmentUUID: this.props.params.facilityAssessment.uuid});
+    }
+
+    completedAssessment() {
+        this.dispatchAction(Actions.COMPLETED_INDICATOR_ASSESSMENT, {facilityAssessment: this.props.params.facilityAssessment});
+        TypedTransition.from(this).goBack();
     }
 
     render() {
+        this.setDefaultPropValues();
         Logger.logDebug('AssessmentIndicators', 'render');
         return (
             <Container theme={FlatUITheme}>
@@ -65,9 +70,9 @@ class AssessmentIndicators extends AbstractComponent {
                             <AssessmentTitle facilityName={this.props.params.facility.name} assessmentStartDate={this.props.params.facilityAssessment.startDate}
                                              assessmentToolName={this.props.params.assessmentTool.name}/>
                         </View>
-                        <Indicators indicatorDefinitions={this.state.indicatorDefinitions}/>
+                        <Indicators indicatorDefinitions={this.state.indicatorDefinitions} indicators={this.state.indicators}/>
                         <SubmitButton buttonStyle={{marginTop: 30, backgroundColor: '#ffa000'}}
-                                      onPress={() => TypedTransition.from(this).goBack()}
+                                      onPress={() => this.completedAssessment()}
                                       buttonText={"OK"}
                                       showButton={true}
                         />

@@ -1,10 +1,11 @@
-import {View, StyleSheet, Text} from 'react-native';
+import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import React, {Component} from 'react';
 import {Radio, Right, ListItem} from 'native-base';
 import AbstractComponent from '../common/AbstractComponent';
 import ValidationErrorMessage from "./ValidationErrorMessage";
 import FieldLabel from "../common/FieldLabel";
 import Actions from "../../action";
+import Typography from "../styles/Typography";
 
 class BoolIndicator extends AbstractComponent {
     constructor(props, context) {
@@ -13,12 +14,19 @@ class BoolIndicator extends AbstractComponent {
 
     static propTypes = {
         definition: React.PropTypes.object.isRequired,
-        value: React.PropTypes.bool
+        indicator: React.PropTypes.object
     };
 
     static styles = StyleSheet.create({
         radioText: {
-            color: 'white'
+            color: 'white',
+            marginLeft: 10,
+            marginTop: 2
+        },
+        listItem: {
+            flexDirection: 'row',
+            justifyContent: 'flex-start',
+            marginLeft: 15
         }
     });
 
@@ -27,6 +35,7 @@ class BoolIndicator extends AbstractComponent {
     }
 
     render() {
+        let value = _.isNil(this.props.indicator) ? null : this.props.indicator.boolValue;
         return (
             <View style={{flexDirection: 'column'}}>
                 <FieldLabel text={this.props.definition.name}/>
@@ -34,14 +43,14 @@ class BoolIndicator extends AbstractComponent {
                     <ValidationErrorMessage validationResult={this.props.validationResult}/>
                 </View>
                 <View>
-                    <ListItem>
-                        <Text style={BoolIndicator.styles.radioText}>Yes</Text>
-                        <Radio selected={_.isNil(this.props.value) ? false : this.props.value} onPress={() => this.toggle(true)}/>
-                    </ListItem>
-                    <ListItem>
-                        <Text style={BoolIndicator.styles.radioText}>No</Text>
-                        <Radio selected={_.isNil(this.props.value) ? false : !this.props.value} onPress={() => this.toggle(false)}/>
-                    </ListItem>
+                    <TouchableOpacity style={BoolIndicator.styles.listItem} onPress={() => this.toggle(true)}>
+                        <Radio selected={_.isNil(value) ? false : value} onPress={() => this.toggle(true)}/>
+                        <Text style={[BoolIndicator.styles.radioText, Typography.paperFontCode1]}>Yes</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={BoolIndicator.styles.listItem} onPress={() => this.toggle(false)}>
+                        <Radio selected={_.isNil(value) ? false : !value} onPress={() => this.toggle(false)}/>
+                        <Text style={[BoolIndicator.styles.radioText, Typography.paperFontCode1]}>No</Text>
+                    </TouchableOpacity>
                 </View>
             </View>);
     }

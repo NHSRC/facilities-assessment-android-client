@@ -14,7 +14,7 @@ class FieldLabel extends AbstractComponent {
 
     render() {
         return (
-            <Text style={[Typography.paperFontTitle, {color: 'white'}]}>
+            <Text style={[Typography.paperFontSubhead, {color: 'white'}]}>
                 {this.props.text}
             </Text>
         );

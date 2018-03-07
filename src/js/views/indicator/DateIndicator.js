@@ -13,7 +13,8 @@ class DateIndicator extends AbstractComponent {
     }
 
     static propTypes = {
-        definition: React.PropTypes.object.isRequired
+        definition: React.PropTypes.object.isRequired,
+        indicator: React.PropTypes.object
     };
 
     static dateDisplay(date) {
@@ -23,22 +24,21 @@ class DateIndicator extends AbstractComponent {
     async showPicker(options) {
         const {action, year, month, day} = await DatePickerAndroid.open(options);
         if (action !== DatePickerAndroid.dismissedAction) {
-            this.props.dateValue = new Date(year, month, day);
-            this.dispatchAction(Actions.DATE_INDICATOR_CHANGED, {indicatorDefinitionUUID: this.props.definition.uuid, value: this.props.dateValue});
+            let value = new Date(year, month, day);
+            this.dispatchAction(Actions.DATE_INDICATOR_CHANGED, {indicatorDefinitionUUID: this.props.definition.uuid, value: value});
         }
     }
 
     render() {
-        const date = _.isNil(this.props.dateValue) ? new Date() : this.props.dateValue;
         return (
             <View>
                 <FieldLabel text={this.props.definition.name}/>
-                <Text onPress={this.showPicker.bind(this, {date: date})}
+                <Text onPress={this.showPicker.bind(this, {date: _.isNil(this.props.indicator) ? new Date() : this.props.indicator.dateValue})}
                       style={{
                           flex: 1,
                           fontSize: 17,
                           color: _.isNil(this.props.validationResult) ? '#009688' : '#d0011b'
-                      }}>{DateIndicator.dateDisplay(this.props.dateValue)}</Text>
+                      }}>{DateIndicator.dateDisplay(_.isNil(this.props.indicator) ? null : this.props.indicator.dateValue)}</Text>
                 <ValidationErrorMessage validationResult={this.props.validationResult}/>
             </View>
         );

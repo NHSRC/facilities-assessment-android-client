@@ -17,18 +17,22 @@ class Indicators extends AbstractComponent {
     }
 
     static propTypes = {
-        indicatorDefinitions: React.PropTypes.array.isRequired
+        indicatorDefinitions: React.PropTypes.any.isRequired,
+        indicators: React.PropTypes.any.isRequired
     };
 
     render() {
         let map = new Map();
-        map.set(IndicatorDefinition.Numeric, (indicatorDefinition) => <NumericIndicator definition={indicatorDefinition}/>);
-        map.set(IndicatorDefinition.Month, (indicatorDefinition) => <NumericIndicator definition={indicatorDefinition}/>);
-        map.set(IndicatorDefinition.Percentage, (indicatorDefinition) => <NumericIndicator definition={indicatorDefinition}/>);
-        map.set(IndicatorDefinition.Boolean, (indicatorDefinition) => <BoolIndicator definition={indicatorDefinition}/>);
-        map.set(IndicatorDefinition.Date, (indicatorDefinition) => <DateIndicator definition={indicatorDefinition}/>);
+        map.set(IndicatorDefinition.Numeric, (indicatorDefinition, indicator) => <NumericIndicator definition={indicatorDefinition} indicator={indicator}/>);
+        map.set(IndicatorDefinition.Month, (indicatorDefinition, indicator) => <NumericIndicator definition={indicatorDefinition} indicator={indicator}/>);
+        map.set(IndicatorDefinition.Percentage, (indicatorDefinition, indicator) => <NumericIndicator definition={indicatorDefinition} indicator={indicator}/>);
+        map.set(IndicatorDefinition.Boolean, (indicatorDefinition, indicator) => <BoolIndicator definition={indicatorDefinition} indicator={indicator}/>);
+        map.set(IndicatorDefinition.Date, (indicatorDefinition, indicator) => <DateIndicator definition={indicatorDefinition} indicator={indicator}/>);
 
-        return <View>{this.props.indicatorDefinitions.map((indicatorDefinition) => <View style={{marginTop: deviceHeight*0.025}}>{map.get(indicatorDefinition.dataType)(indicatorDefinition)}</View>)}</View>;
+        return <View>{this.props.indicatorDefinitions.map((indicatorDefinition) => {
+            let indicator = _.find(this.props.indicators, (indicator) => indicator.indicatorDefinition === indicatorDefinition.uuid);
+            return <View style={{marginTop: deviceHeight * 0.025}} key={indicatorDefinition.uuid}>{map.get(indicatorDefinition.dataType)(indicatorDefinition, indicator)}</View>;
+        })}</View>;
     }
 }
 

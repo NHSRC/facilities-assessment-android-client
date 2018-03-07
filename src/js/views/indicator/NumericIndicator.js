@@ -1,9 +1,10 @@
-import {StyleSheet, Text, View, TextInput, Platform} from 'react-native';
+import {Platform, StyleSheet, Text, TextInput, View} from 'react-native';
 import React, {Component} from 'react';
 import AbstractComponent from '../common/AbstractComponent';
 import FieldLabel from "../common/FieldLabel";
 import ValidationErrorMessage from "./ValidationErrorMessage";
 import Actions from '../../action';
+import _ from 'lodash';
 
 class NumericIndicator extends AbstractComponent {
     constructor(props, context) {
@@ -23,7 +24,7 @@ class NumericIndicator extends AbstractComponent {
 
     static propTypes = {
         definition: React.PropTypes.object.isRequired,
-        value: React.PropTypes.string
+        indicator: React.PropTypes.object
     };
 
     onInputChange(text) {
@@ -35,8 +36,9 @@ class NumericIndicator extends AbstractComponent {
             <View>
                 <FieldLabel text={this.props.definition.name}/>
                 <TextInput style={[{flex: 1, marginVertical: 0, paddingVertical: 5}, NumericIndicator.styles.input]}
-                           underlineColorAndroid={this.borderColor} keyboardType='numeric'
-                           value={this.props.value}
+                           underlineColorAndroid='white'
+                           keyboardType='numeric'
+                           value={_.isNil(this.props.indicator) ? '' : _.toString(this.props.indicator.numericValue)}
                            onChangeText={(text) => this.onInputChange(text)}
                            onEndEditing={(text) => this.onInputChange(text)}/>
                 <ValidationErrorMessage validationResult={this.props.validationResult}/>

@@ -11,7 +11,7 @@ import Logger from "../../framework/Logger";
 import _ from 'lodash';
 import Actions from "../../action";
 
-// @PathRoot
+@PathRoot
 @Path('/StateSelection')
 class StateSelection extends AbstractComponent {
     constructor(props, context) {

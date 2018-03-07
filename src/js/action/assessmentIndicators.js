@@ -1,14 +1,22 @@
 import IndicatorService from "../service/IndicatorService";
 import _ from 'lodash';
+import Logger from "../framework/Logger";
+import Indicator from "../models/Indicator";
+import FacilityAssessmentService from "../service/FacilityAssessmentService";
 
 const clone = function (state) {
-    return Object.assign(state, {});
+    let cloned = {};
+    cloned.assessmentUUID = state.assessmentUUID;
+    cloned.indicatorDefinitions = state.indicatorDefinitions;
+    cloned.indicators = [];
+    state.indicators.forEach((indicator) => cloned.indicators.push(Object.assign(new Indicator(), indicator)));
+    return cloned;
 };
 
 const allDefinitions = function (state, action, beans) {
     let newState = clone(state);
     newState.indicatorDefinitions = beans.get(IndicatorService).getIndicatorDefinitions(action.assessmentToolUUID);
-    newState.assessmentUUID = action;
+    newState.assessmentUUID = action.assessmentUUID;
     return newState;
 };
 
@@ -47,11 +55,18 @@ const dateIndicatorChanged = function (state, action, beans) {
     });
 };
 
+const completedIndicatorChanged = function (state, action, beans) {
+    const facilityAssessmentService = beans.get(FacilityAssessmentService);
+    const endAssessment = facilityAssessmentService.endAssessment(action.facilityAssessment);
+    return state;
+};
+
 export default new Map([
     ["ALL_DEFINITIONS", allDefinitions],
     ["BOOL_INDICATOR_TOGGLED", boolIndicatorToggled],
     ["NUMERIC_INDICATOR_CHANGED", numericIndicatorChanged],
-    ["DATE_INDICATOR_CHANGED", dateIndicatorChanged]
+    ["DATE_INDICATOR_CHANGED", dateIndicatorChanged],
+    ["COMPLETED_INDICATOR_ASSESSMENT", completedIndicatorChanged]
 ]);
 
 export let assessmentIndicatorsInit = {

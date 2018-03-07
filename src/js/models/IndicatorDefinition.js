@@ -6,7 +6,9 @@ export default class IndicatorDefinition {
             name: "string",
             uuid: "string",
             dataType: "string",
-            assessmentTool: "string"
+            assessmentTool: "string",
+            calculated: 'bool',
+            formula: {type: 'string', optional: true}
         }
     };
 
