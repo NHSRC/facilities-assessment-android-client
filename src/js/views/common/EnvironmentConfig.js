@@ -11,17 +11,21 @@ class EnvironmentConfig {
         return this.config[propertyName] === "true";
     }
 
+    _getPropertyValue(propertyName) {
+        this.initConfig();
+        return this.config[propertyName];
+    }
+
     get shouldUsePackagedSeedData() {
         return this._isPropertyTrue("USE_PACKAGED_SEED_DATA");
     }
 
     get serverURL() {
-        this.initConfig();
-        return this.config["SERVER_URL"];
+        this._getPropertyValue("SERVER_URL");
     }
 
     get shouldAllowIncompleteChecklistSubmission() {
-        return this.isEmulated || this._isPropertyTrue("ALLOW_INCOMPLETE_SUBMIT");
+        return this.inDeveloperMode || this._isPropertyTrue("ALLOW_INCOMPLETE_SUBMIT");
     }
 
     get autoGenerateSeriesNumber() {
@@ -33,15 +37,15 @@ class EnvironmentConfig {
     }
 
     get shouldAllowBulkDownload() {
-        return this.isEmulated || this._isPropertyTrue("ALLOW_BULK_DOWNLOAD");
+        return this.inDeveloperMode || this._isPropertyTrue("ALLOW_BULK_DOWNLOAD");
     }
 
     get shouldAllowCleanData() {
-        return this.isEmulated || this._isPropertyTrue("ALLOW_CLEAN_DATA");
+        return this.inDeveloperMode || this._isPropertyTrue("ALLOW_CLEAN_DATA");
     }
 
     get shouldAllowDownloadMyData() {
-        return this.isEmulated || this._isPropertyTrue("ALLOW_DOWNLOAD_MY_DATA");
+        return this.inDeveloperMode || this._isPropertyTrue("ALLOW_DOWNLOAD_MY_DATA");
     }
 
     get shouldTrackLocation() {
@@ -49,11 +53,11 @@ class EnvironmentConfig {
     }
 
     get functionsEnabledInSettings() {
-        return this.isEmulated || this.shouldAllowDownloadMyData || this.shouldAllowBulkDownload || this.shouldAllowCleanData;
+        return this.inDeveloperMode || this.shouldAllowDownloadMyData || this.shouldAllowBulkDownload || this.shouldAllowCleanData;
     }
 
-    get isEmulated() {
-        return DeviceInfo.isEmulator();
+    get inDeveloperMode() {
+        return DeviceInfo.isEmulator() && this._getPropertyValue('BUILD_TYPE') !== 'release';
     }
 }
 
