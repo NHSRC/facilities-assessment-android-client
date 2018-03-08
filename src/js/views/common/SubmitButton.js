@@ -12,7 +12,7 @@ class SubmitButton extends AbstractComponent {
     });
 
     render() {
-        let showButton = this.props.showButton ? this.props.showButton : true;
+        let showButton = _.isNil(this.props.showButton) ? true : this.props.showButton;
         return (
             <Button
                 onPress={this.props.onPress}

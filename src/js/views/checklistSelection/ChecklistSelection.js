@@ -82,11 +82,11 @@ class ChecklistSelection extends AbstractComponent {
         let checklistProgressWithValue = this.state.checklists.find((checklist) => {
             return !_.isNil(checklist.progress.total);
         });
-        return EnvironmentConfig.shouldAllowIncompleteChecklistSubmission
-            && (this.state.assessmentProgress.completed > 0 || !_.isNil(checklistProgressWithValue));
+        return this.state.assessmentProgress.completed > 0 || !_.isNil(checklistProgressWithValue);
     }
 
     showCompleteButton(mode) {
+        if (EnvironmentConfig.shouldAllowIncompleteChecklistSubmission) return true;
         return mode.toLowerCase() === "kayakalp" ? this.showKayakalpCompleteButton() : this.showOtherCompleteButton();
     }
 

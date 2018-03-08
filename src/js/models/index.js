@@ -24,6 +24,7 @@ import AssessmentLocation from "./AssessmentLocation";
 import Logger from "../framework/Logger";
 import IndicatorDefinition from "./IndicatorDefinition";
 import Indicator from "./Indicator";
+import EntityService from "../service/EntityService";
 
 export default {
     schema: [StringObj, ChecklistProgress, StandardProgress, AreaOfConcernProgress, Checkpoint, MeasurableElement, Standard, AreaOfConcern, Department, FacilityType, AssessmentTool, Facility, District, State, Checklist, FacilityAssessment, CheckpointScore, AssessmentType, Settings, EntitySyncStatus, SeedProgress, AssessmentLocation, IndicatorDefinition, Indicator],
@@ -82,6 +83,15 @@ export default {
             }, true);
         };
 
+        const fixMEReferences = (oldRealm, newRealm) => {
+            console.log(`[model.index] fixMEReferences`);
+            let entityService = new EntityService(newRealm, null);
+            let me = entityService.findByUUID('1ec38c9e-0bf1-4575-a922-c6a38c9bf4c6', MeasurableElement.schema.name);
+            me.reference = 'C2.3';
+            me = entityService.findByUUID('3f9aa04e-62cd-4561-8d3b-8ea562765deb', MeasurableElement.schema.name);
+            me.reference = 'C2.4';
+        };
+
         const migrationExecutor = (fn) => (oldRealm, newRealm) => {
             fn.apply(null, [oldRealm, newRealm]);
             newRealm = oldRealm;
@@ -93,6 +103,7 @@ export default {
             [version(3), deleteAllTags],
             [version(4), aAllCheckpoints],
             [version(6), addingSeedProgress],
+            [version(45), fixMEReferences]
         ];
 
         Logger.logDebug('model.index', `Old Database Version:${oldRealm.schemaVersion}, New Database Version:${newRealm.schemaVersion}`);
