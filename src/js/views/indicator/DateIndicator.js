@@ -8,17 +8,24 @@ import Actions from '../../action';
 import FieldLabel from "../common/FieldLabel";
 
 class DateIndicator extends AbstractComponent {
+    static MODE_MONTH = 1;
+    static MODE_DATE = 2;
+
     constructor(props, context) {
         super(props, context);
     }
 
     static propTypes = {
         definition: React.PropTypes.object.isRequired,
-        indicator: React.PropTypes.object
+        indicator: React.PropTypes.object,
+        mode: React.PropTypes.number.isRequired
     };
 
     static dateDisplay(date) {
-        return _.isNil(date) ? "Choose a date" : General.formatDate(date);
+        return _.isNil(date) ?
+            this.props.mode === DateIndicator.MODE_DATE ? "CHOOSE DATE" : "CHOOSE (any day in) MONTH"
+            :
+            this.props.mode === DateIndicator.MODE_DATE ? General.formatDate(date) : General.getDisplayMonth(date);
     }
 
     async showPicker(options) {

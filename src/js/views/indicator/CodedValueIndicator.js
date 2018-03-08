@@ -7,7 +7,7 @@ import FieldLabel from "../common/FieldLabel";
 import Actions from "../../action";
 import Typography from "../styles/Typography";
 
-class BoolIndicator extends AbstractComponent {
+class CodedValueIndicator extends AbstractComponent {
     constructor(props, context) {
         super(props, context);
     }
@@ -30,12 +30,12 @@ class BoolIndicator extends AbstractComponent {
         }
     });
 
-    toggle(assumedValue) {
-        this.dispatchAction(Actions.BOOL_INDICATOR_TOGGLED, {indicatorDefinitionUUID: this.props.definition.uuid, assumedValue: assumedValue});
+    codedIndicatorUpdated(assumedValue) {
+        this.dispatchAction(Actions.CODED_INDICATOR_UPDATED, {indicatorDefinitionUUID: this.props.definition.uuid, assumedValue: assumedValue});
     }
 
     render() {
-        let value = _.isNil(this.props.indicator) ? null : this.props.indicator.boolValue;
+        let indicatorValue = _.isNil(this.props.indicator) ? null : this.props.indicator.codedValue;
         return (
             <View style={{flexDirection: 'column'}}>
                 <FieldLabel text={this.props.definition.name}/>
@@ -43,17 +43,15 @@ class BoolIndicator extends AbstractComponent {
                     <ValidationErrorMessage validationResult={this.props.validationResult}/>
                 </View>
                 <View>
-                    <TouchableOpacity style={BoolIndicator.styles.listItem} onPress={() => this.toggle(true)}>
-                        <Radio selected={_.isNil(value) ? false : value} onPress={() => this.toggle(true)}/>
-                        <Text style={[BoolIndicator.styles.radioText, Typography.paperFontCode1]}>Yes</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={BoolIndicator.styles.listItem} onPress={() => this.toggle(false)}>
-                        <Radio selected={_.isNil(value) ? false : !value} onPress={() => this.toggle(false)}/>
-                        <Text style={[BoolIndicator.styles.radioText, Typography.paperFontCode1]}>No</Text>
-                    </TouchableOpacity>
+                    {this.props.definition.codedValues.map((codedValue) => {
+                        return <TouchableOpacity style={CodedValueIndicator.styles.listItem} onPress={() => this.codedIndicatorUpdated(codedValue)}>
+                            <Radio selected={_.isNil(indicatorValue) ? false : indicatorValue === codedValue} onPress={() => this.codedIndicatorUpdated(codedValue)}/>
+                            <Text style={[CodedValueIndicator.styles.radioText, Typography.paperFontCode1]}>{codedValue}</Text>
+                        </TouchableOpacity>
+                    })}
                 </View>
             </View>);
     }
 }
 
-export default BoolIndicator;
+export default CodedValueIndicator;

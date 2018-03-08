@@ -42,7 +42,7 @@ class AssessmentIndicators extends AbstractComponent {
 
     componentWillMount() {
         this.setDefaultPropValues();
-        this.dispatchAction(Actions.ALL_DEFINITIONS, {assessmentToolUUID: this.props.params.assessmentTool.uuid, assessmentUUID: this.props.params.facilityAssessment.uuid});
+        this.dispatchAction(Actions.ALL_INDICATORS, {assessmentToolUUID: this.props.params.assessmentTool.uuid, assessmentUUID: this.props.params.facilityAssessment.uuid});
     }
 
     completedAssessment() {

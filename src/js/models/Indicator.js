@@ -6,7 +6,7 @@ export default class Indicator {
             uuid: "string",
             numericValue: {type: "int", optional: true},
             dateValue: {type: "date", optional: true},
-            boolValue: {type: "bool", optional: true},
+            codedValue: {type: "string", optional: true},
             facilityAssessment: "string",
             indicatorDefinition: "string"
         }

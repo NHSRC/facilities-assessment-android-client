@@ -1,11 +1,9 @@
 import React, {Component} from 'react';
 import {Alert, Dimensions, StyleSheet, Text, View} from 'react-native';
 import AbstractComponent from "../common/AbstractComponent";
-import Typography from '../styles/Typography';
-import {formatDateHuman} from "../../utility/DateUtils";
 import IndicatorDefinition from "../../models/IndicatorDefinition";
 import NumericIndicator from "../indicator/NumericIndicator";
-import BoolIndicator from "../indicator/BoolIndicator";
+import CodedValueIndicator from "../indicator/CodedValueIndicator";
 import DateIndicator from "../indicator/DateIndicator";
 
 const deviceWidth = Dimensions.get('window').width;
@@ -23,11 +21,11 @@ class Indicators extends AbstractComponent {
 
     render() {
         let map = new Map();
-        map.set(IndicatorDefinition.Numeric, (indicatorDefinition, indicator) => <NumericIndicator definition={indicatorDefinition} indicator={indicator}/>);
-        map.set(IndicatorDefinition.Month, (indicatorDefinition, indicator) => <NumericIndicator definition={indicatorDefinition} indicator={indicator}/>);
-        map.set(IndicatorDefinition.Percentage, (indicatorDefinition, indicator) => <NumericIndicator definition={indicatorDefinition} indicator={indicator}/>);
-        map.set(IndicatorDefinition.Boolean, (indicatorDefinition, indicator) => <BoolIndicator definition={indicatorDefinition} indicator={indicator}/>);
-        map.set(IndicatorDefinition.Date, (indicatorDefinition, indicator) => <DateIndicator definition={indicatorDefinition} indicator={indicator}/>);
+        map.set(IndicatorDefinition.DataType_Numeric, (indicatorDefinition, indicator) => <NumericIndicator definition={indicatorDefinition} indicator={indicator}/>);
+        map.set(IndicatorDefinition.DataType_Month, (indicatorDefinition, indicator) => <DateIndicator definition={indicatorDefinition} indicator={indicator} mode={DateIndicator.MODE_MONTH}/>);
+        map.set(IndicatorDefinition.DataType_Percentage, (indicatorDefinition, indicator) => <NumericIndicator definition={indicatorDefinition} indicator={indicator}/>);
+        map.set(IndicatorDefinition.DataType_Coded, (indicatorDefinition, indicator) => <CodedValueIndicator definition={indicatorDefinition} indicator={indicator}/>);
+        map.set(IndicatorDefinition.DataType_Date, (indicatorDefinition, indicator) => <DateIndicator definition={indicatorDefinition} indicator={indicator} mode={DateIndicator.MODE_DATE}/>);
 
         return <View>{this.props.indicatorDefinitions.map((indicatorDefinition) => {
             let indicator = _.find(this.props.indicators, (indicator) => indicator.indicatorDefinition === indicatorDefinition.uuid);

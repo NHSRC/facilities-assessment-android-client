@@ -1,10 +1,15 @@
 import _ from 'lodash';
+import moment from 'moment';
 
 const spaces = new RegExp('\\s', 'g');
 
 class General {
     static formatDate(date) {
         return `${General.toTwoChars(date.getDate())}-${General.toTwoChars(date.getMonth() + 1)}-${date.getFullYear()}`;
+    }
+
+    static getDisplayMonth(date) {
+        return moment(date).format('MMMM YYYY');
     }
 
     static toTwoChars(number) {

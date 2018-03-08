@@ -5,6 +5,7 @@ import FieldLabel from "../common/FieldLabel";
 import ValidationErrorMessage from "./ValidationErrorMessage";
 import Actions from '../../action';
 import _ from 'lodash';
+import IndicatorDefinition from "../../models/IndicatorDefinition";
 
 class NumericIndicator extends AbstractComponent {
     constructor(props, context) {
@@ -35,13 +36,15 @@ class NumericIndicator extends AbstractComponent {
         return (
             <View>
                 <FieldLabel text={this.props.definition.name}/>
-                <TextInput style={[{flex: 1, marginVertical: 0, paddingVertical: 5}, NumericIndicator.styles.input]}
-                           underlineColorAndroid='white'
-                           keyboardType='numeric'
-                           value={_.isNil(this.props.indicator) ? '' : _.toString(this.props.indicator.numericValue)}
-                           onChangeText={(text) => this.onInputChange(text)}
-                           onEndEditing={(text) => this.onInputChange(text)}/>
-                <ValidationErrorMessage validationResult={this.props.validationResult}/>
+                {IndicatorDefinition.isCalculatedInput(this.props.definition) ? <FieldLabel text={this.props.indicator.numericValue}/> :
+                    <View>
+                        <TextInput style={[{flex: 1, marginVertical: 0, paddingVertical: 5}, NumericIndicator.styles.input]}
+                                   underlineColorAndroid='white'
+                                   keyboardType='numeric'
+                                   value={_.isNil(this.props.indicator) ? '' : _.toString(this.props.indicator.numericValue)}
+                                   onChangeText={(text) => this.onInputChange(text)}
+                                   onEndEditing={(text) => this.onInputChange(text)}/>
+                        <ValidationErrorMessage validationResult={this.props.validationResult}/></View>}
             </View>
         );
     }

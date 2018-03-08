@@ -3,6 +3,8 @@ import _ from 'lodash';
 import Logger from "../framework/Logger";
 import Indicator from "../models/Indicator";
 import FacilityAssessmentService from "../service/FacilityAssessmentService";
+import Indicators from "../models/collections/Indicators";
+import IndicatorDefinitions from "../models/collections/IndicatorDefinitions";
 
 const clone = function (state) {
     let cloned = {};
@@ -13,10 +15,12 @@ const clone = function (state) {
     return cloned;
 };
 
-const allDefinitions = function (state, action, beans) {
+const allIndicators = function (state, action, beans) {
     let newState = clone(state);
     newState.indicatorDefinitions = beans.get(IndicatorService).getIndicatorDefinitions(action.assessmentToolUUID);
     newState.assessmentUUID = action.assessmentUUID;
+    newState.indicators = beans.get(IndicatorService).getIndicators(action.assessmentUUID);
+    newState.resultsEvalCode = IndicatorDefinitions.resultsEvalCode(newState.indicatorDefinitions);
     return newState;
 };
 
@@ -32,20 +36,26 @@ const _modifyIndicator = function (state, action, beans, modifier) {
     return newState;
 };
 
-const boolIndicatorToggled = function (state, action, beans) {
+const codedIndicatorUpdated = function (state, action, beans) {
     return _modifyIndicator(state, action, beans, (indicator, action) => {
-        indicator.boolValue = _.isNil(indicator.boolValue) ? action.assumedValue : indicator.boolValue === action.assumedValue ? null : action.assumedValue;
+        indicator.codedValue = _.isNil(indicator.codedValue) ?
+            action.assumedValue
+            :
+            indicator.codedValue === action.assumedValue ? null : action.assumedValue;
         return true;
     });
 };
 
 const numericIndicatorChanged = function (state, action, beans) {
-    return _modifyIndicator(state, action, beans, (indicator, action) => {
+    let newState = _modifyIndicator(state, action, beans, (indicator, action) => {
         let number = _.toNumber(action.value);
         if (!_.isNaN(number))
             indicator.numericValue = number;
         return !_.isNaN(number);
     });
+
+    Indicators.evalCalculatedIndicatorValues(newState.indicatorDefinitions, newState.indicators, newState.resultsEvalCode);
+    return newState;
 };
 
 const dateIndicatorChanged = function (state, action, beans) {
@@ -62,8 +72,8 @@ const completedIndicatorChanged = function (state, action, beans) {
 };
 
 export default new Map([
-    ["ALL_DEFINITIONS", allDefinitions],
-    ["BOOL_INDICATOR_TOGGLED", boolIndicatorToggled],
+    ["ALL_INDICATORS", allIndicators],
+    ["CODED_INDICATOR_UPDATED", codedIndicatorUpdated],
     ["NUMERIC_INDICATOR_CHANGED", numericIndicatorChanged],
     ["DATE_INDICATOR_CHANGED", dateIndicatorChanged],
     ["COMPLETED_INDICATOR_ASSESSMENT", completedIndicatorChanged]
