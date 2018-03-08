@@ -17,8 +17,8 @@ let routes, beans, appStore, db = undefined;
 export default class App extends Component {
     constructor(props, context) {
         super(props, context);
-        console.log(`IsEmulated: ${EnvironmentConfig.isEmulated}`);
-        Logger.setCurrentLogLevel(EnvironmentConfig.isEmulated ? Logger.LogLevel.Debug : Logger.LogLevel.Error);
+        console.log(`IsEmulated: ${EnvironmentConfig.inDeveloperMode}`);
+        Logger.setCurrentLogLevel(EnvironmentConfig.inDeveloperMode ? Logger.LogLevel.Debug : Logger.LogLevel.Error);
         this.seed = this.seed.bind(this);
         let loadState;
         if (db === undefined) {

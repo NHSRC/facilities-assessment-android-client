@@ -60,8 +60,8 @@ publish_apk_dev_jss:
 publish_apk_dev_nhsrc:
 	$(call _publish_release,dev,nhsrc)
 
-publish_apk_nhsrc:
-	cp android/app/build/outputs/apk/app-release.apk ~/Dropbox/Public/Gunak/dev/nhsrc
+publish_apk_release_nhsrc:
+	$(call _publish_release,released,nhsrc)
 
 release_apk_nhsrc: setup_source_nhsrc
 	$(call _release_apk,nhsrc)
