@@ -98,7 +98,7 @@ setup_source:
 	-rm -rf src/config/*
 
 setup_source_nhsrc:
-	node packagedJSON/generatePackagedJSON.js
+
 	cp $(recorded_response_dir)/PackagedJSON.js $(service_src_dir)/PackagedJSON.js
 	cp -R $(recorded_response_dir)/jsons/$(rr_version)/* src/config/
 
@@ -129,13 +129,6 @@ define _run_android
 	cat /etc/hosts|sed 's/127.0.0.1/'$(ip)'/' > /tmp/hosts-adb
 	echo '$(ip)	dev.gunak.org' >> /tmp/hosts-adb
 	adb push /tmp/hosts-adb /system/etc/hosts
-	ENVFILE=$1 react-native run-android
-#	cd android && ENVFILE=$1 ./gradlew installDebug --offline
-	$(call _start_app)
-endef
-
-define _start_app
-	adb shell am start -n com.facilitiesassessment/com.facilitiesassessment.MainActivity
 	$(call _set_env,$1)
 	ENVFILE=.env react-native run-android
 endef
@@ -147,7 +140,6 @@ endef
 define _run_ios
 	$(call _set_env,$1)
 	ENVFILE=.env react-native run-ios
->>>>>>> 32980ff... changed approach for managing .env
 endef
 
 define _switch_ios_to_mode
@@ -187,6 +179,9 @@ run_app_ios_nhsrc_dev: switch_ios_to_debug_mode setup_source_nhsrc
 
 run_app_android_nhsrc: setup_source_nhsrc
 	$(call _run_android,.env.nhsrc)
+
+run_app_android_nhsrc_dev:
+	$(call _run_android,.env.nhsrc.dev)
 
 run_app_android_jss:
 	$(call _run_android,jss)

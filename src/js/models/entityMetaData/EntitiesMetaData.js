@@ -19,6 +19,7 @@ import moment from "moment";
 import FacilityAssessmentProgressService from "../../service/FacilityAssessmentProgressService";
 import IndicatorDefinition from "../IndicatorDefinition";
 import Indicator from "../Indicator";
+import Logger from "../../framework/Logger";
 
 class EntitiesMetaData {
     //order is important. last entity with be executed first. parent and referred entity (in case of many to one) should be synced before the child.
@@ -158,7 +159,7 @@ class CheckpointScoreMapper {
 
 class IndicatorDefinitionMapper {
     fromResource(resource) {
-        resource.assessmentTool = ResourceUtil.getUUIDFor(resource, "assessmentToolUUID");
+        Logger.logDebug('IndicatorDefinitionMapper', resource);
         return resource;
     }
 }

@@ -21,7 +21,8 @@ class DateIndicator extends AbstractComponent {
         mode: React.PropTypes.number.isRequired
     };
 
-    static dateDisplay(date) {
+    dateDisplay() {
+        let date = _.isNil(this.props.indicator) ? null : this.props.indicator.dateValue;
         return _.isNil(date) ?
             this.props.mode === DateIndicator.MODE_DATE ? "CHOOSE DATE" : "CHOOSE (any day in) MONTH"
             :
@@ -45,7 +46,7 @@ class DateIndicator extends AbstractComponent {
                           flex: 1,
                           fontSize: 17,
                           color: _.isNil(this.props.validationResult) ? '#009688' : '#d0011b'
-                      }}>{DateIndicator.dateDisplay(_.isNil(this.props.indicator) ? null : this.props.indicator.dateValue)}</Text>
+                      }}>{this.dateDisplay()}</Text>
                 <ValidationErrorMessage validationResult={this.props.validationResult}/>
             </View>
         );

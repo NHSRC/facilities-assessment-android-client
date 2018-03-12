@@ -59,7 +59,6 @@ class ScoreList extends AbstractComponent {
     render() {
         const getScore = (score) => this.props.percentageScore ? `${parseInt(score)}%` : `${parseInt(score)}`;
         const onPressHandler = this.props.drillable ? this.handlePress.bind(this) : _.noop;
-        Logger.logDebug('ScoreList', this.props.scores);
         let Items = this.props.scores.map((scoreEntry, idx) => (
             <ListItem key={idx} onPress={() => onPressHandler(scoreEntry.uuid, scoreEntry.name, scoreEntry.score)} style={ScoreList.styles.scoreItem}>
                 <View style={ScoreList.styles.scoreItemContainer}>

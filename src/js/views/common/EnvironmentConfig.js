@@ -21,7 +21,7 @@ class EnvironmentConfig {
     }
 
     get serverURL() {
-        this._getPropertyValue("SERVER_URL");
+        return this._getPropertyValue("SERVER_URL");
     }
 
     get shouldAllowIncompleteChecklistSubmission() {

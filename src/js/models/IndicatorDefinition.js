@@ -11,7 +11,8 @@ export default class IndicatorDefinition {
             calculated: 'bool',
             output: 'bool',
             symbol: {type: "string", optional: true},
-            formula: {type: 'string', optional: true}
+            formula: {type: 'string', optional: true},
+            sortOrder: 'int'
         }
     };
 
@@ -23,5 +24,9 @@ export default class IndicatorDefinition {
 
     static isCalculatedInput(indicatorDefinition) {
         return indicatorDefinition.calculated && !indicatorDefinition.output;
+    }
+
+    static getCodedValues(codedValues) {
+        return JSON.parse(codedValues);
     }
 }
