@@ -33,15 +33,16 @@ class NumericIndicator extends AbstractComponent {
     }
 
     render() {
+        let indicatorValue = _.isNil(this.props.indicator) ? '' : _.toString(this.props.indicator.numericValue);
         return (
             <View>
                 <FieldLabel text={this.props.definition.name}/>
-                {IndicatorDefinition.isCalculatedInput(this.props.definition) ? <FieldLabel text={this.props.indicator.numericValue}/> :
+                {IndicatorDefinition.isCalculatedInput(this.props.definition) ? <FieldLabel text={indicatorValue}/> :
                     <View>
                         <TextInput style={[{flex: 1, marginVertical: 0, paddingVertical: 5}, NumericIndicator.styles.input]}
                                    underlineColorAndroid='white'
                                    keyboardType='numeric'
-                                   value={_.isNil(this.props.indicator) ? '' : _.toString(this.props.indicator.numericValue)}
+                                   value={indicatorValue}
                                    onChangeText={(text) => this.onInputChange(text)}
                                    onEndEditing={(text) => this.onInputChange(text)}/>
                         <ValidationErrorMessage validationResult={this.props.validationResult}/></View>}

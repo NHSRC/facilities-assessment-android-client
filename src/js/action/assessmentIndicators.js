@@ -11,6 +11,7 @@ const clone = function (state) {
     cloned.assessmentUUID = state.assessmentUUID;
     cloned.indicatorDefinitions = state.indicatorDefinitions;
     cloned.indicators = [];
+    cloned.resultsEvalCode = state.resultsEvalCode;
     state.indicators.forEach((indicator) => cloned.indicators.push(Object.assign(new Indicator(), indicator)));
     return cloned;
 };
@@ -29,11 +30,15 @@ const _modifyIndicator = function (state, action, beans, modifier) {
     let indicatorService = beans.get(IndicatorService);
     let indicator = indicatorService.getIndicator(action.indicatorDefinitionUUID, newState.assessmentUUID);
     if (modifier(indicator, action)) {
-        let savedIndicator = indicatorService.saveIndicator(indicator);
-        _.remove(newState.indicators, (indicator) => indicator.indicatorDefinition === savedIndicator.indicatorDefinition);
-        newState.indicators.push(savedIndicator);
+        _saveIndicator(indicatorService, indicator, newState.indicators);
     }
     return newState;
+};
+
+const _saveIndicator = function (indicatorService, indicator, indicators) {
+    let savedIndicator = indicatorService.saveIndicator(indicator);
+    _.remove(indicators, (indicator) => indicator.indicatorDefinition === savedIndicator.indicatorDefinition);
+    indicators.push(savedIndicator);
 };
 
 const codedIndicatorUpdated = function (state, action, beans) {
@@ -54,7 +59,9 @@ const numericIndicatorChanged = function (state, action, beans) {
         return !_.isNaN(number);
     });
 
-    Indicators.evalCalculatedIndicatorValues(newState.indicatorDefinitions, newState.indicators, newState.resultsEvalCode);
+    let indicatorService = beans.get(IndicatorService);
+    let calculatedIndicators = Indicators.evalCalculatedIndicatorValues(newState.indicatorDefinitions, newState.indicators, newState.resultsEvalCode, newState.assessmentUUID);
+    calculatedIndicators.forEach((calculatedIndicator) => _saveIndicator(indicatorService, calculatedIndicator, newState.indicators));
     return newState;
 };
 
@@ -82,5 +89,6 @@ export default new Map([
 export let assessmentIndicatorsInit = {
     assessmentUUID: undefined,
     indicatorDefinitions: [],
-    indicators: []
+    indicators: [],
+    resultsEvalCode: ''
 };

@@ -2,7 +2,7 @@ import IndicatorDefinition from "../IndicatorDefinition";
 
 class IndicatorDefinitions {
     static resultsEvalCode(indicatorDefinitions) {
-        let evalString = 'let results = {};';
+        let evalString = 'var results = {};';
         let calculatedIndicatorDefinitions = this.calculatedIndicatorDefinitions(indicatorDefinitions);
         calculatedIndicatorDefinitions.forEach(calculatedIndicatorDefinition => {
             evalString += `results['${calculatedIndicatorDefinition.uuid}'] = ${calculatedIndicatorDefinition.formula};`;
