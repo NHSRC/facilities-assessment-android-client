@@ -4,6 +4,7 @@ import {Button} from "native-base";
 import {StyleSheet} from "react-native";
 import _ from "lodash";
 import Actions from "../../../action";
+import PrimaryColors from "../../styles/PrimaryColors";
 
 class StartNewAssessment extends AbstractComponent {
     static styles = StyleSheet.create({
@@ -21,7 +22,7 @@ class StartNewAssessment extends AbstractComponent {
                     this.dispatchAction(Actions.FACILITY_SELECT);
                     this.dispatchAction(Actions.ALL_ASSESSMENTS, {mode: this.props.mode});
                 }}
-                style={isComplete? StartNewAssessment.styles.blockButton : {backgroundColor: "rgba(0, 0, 0, 0.38)"}}
+                style={isComplete? StartNewAssessment.styles.blockButton : {backgroundColor: PrimaryColors.medium_black}}
                 block
                 disabled={!isComplete}>
                 START NEW ASSESSMENT

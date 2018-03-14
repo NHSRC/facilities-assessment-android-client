@@ -18,6 +18,14 @@ class FacilityAssessmentService extends BaseService {
         this.getAssessmentType = this.getAssessmentType.bind(this);
     }
 
+    saveSubmissionDetails(facilityAssessment) {
+        const existingAssessment = Object.assign({}, this.db.objectForPrimaryKey(FacilityAssessment.schema.name, facilityAssessment.uuid));
+        return this.saveAssessment(Object.assign(existingAssessment, {
+            assessorName: facilityAssessment.assessorName,
+            seriesName: facilityAssessment.seriesName
+        }));
+    }
+
     getAssessmentTools(mode) {
         return this.db.objects(AssessmentTool.schema.name)
             .filtered('mode =[c] $0', mode.toLowerCase())

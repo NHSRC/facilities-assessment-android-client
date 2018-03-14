@@ -67,7 +67,6 @@ class StartView extends AbstractComponent {
         const FormComponents = [AssessmentTools, StateDistrict, FacilityType, Facility];
         if (EnvironmentConfig.isFreeTextFacilityNameSupported && _.isNil(this.state.selectedFacility))
             FormComponents.push(FacilityText);
-        FormComponents.push(AssessmentSeries);
         FormComponents.push(AssessmentType);
         FormComponents.push(StartNewAssessment);
 

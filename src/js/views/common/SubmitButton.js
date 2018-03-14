@@ -17,7 +17,7 @@ class SubmitButton extends AbstractComponent {
             <Button
                 onPress={this.props.onPress}
                 style={[SubmitButton.styles.blockButton, this.props.buttonStyle, showButton ?
-                    {} : {backgroundColor: "rgba(0, 0, 0, 0.38)",}]}
+                    {} : {backgroundColor: PrimaryColors.medium_black}]}
                 block
                 disabled={!showButton}>
                 {this.props.buttonText}

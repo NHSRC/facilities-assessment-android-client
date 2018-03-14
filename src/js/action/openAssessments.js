@@ -1,8 +1,9 @@
 import _ from 'lodash';
-import ChecklistService from "../service/ChecklistService";
 import FacilityAssessmentService from "../service/FacilityAssessmentService";
 import AssessmentSyncService from "../service/AssessmentSyncService";
 import SettingsService from "../service/SettingsService";
+import FacilityAssessment from "../models/FacilityAssessment";
+import EntityService from "../service/EntityService";
 import Logger from "../framework/Logger";
 
 const allAssessments = function (state, action, beans) {
@@ -21,10 +22,21 @@ const allAssessments = function (state, action, beans) {
     });
 };
 
+const startSubmitAssessment = function (state, action, beans) {
+    return Object.assign(state, {submittingAssessment: action.facilityAssessment});
+};
+
+const submissionCancelled = function (state, action, beans) {
+    return Object.assign(state, {submittingAssessment: undefined});
+};
+
 const syncAssessment = function (state, action, beans) {
+    const facilityAssessmentService = beans.get(FacilityAssessmentService);
+    facilityAssessmentService.saveSubmissionDetails(state.submittingAssessment);
+
     const assessmentSyncService = beans.get(AssessmentSyncService);
-    assessmentSyncService.syncFacilityAssessment(action.assessment, action.cb, action.errorHandler);
-    return Object.assign(state, {syncing: [action.assessment.uuid].concat(state.syncing)});
+    assessmentSyncService.syncFacilityAssessment(action.facilityAssessment, action.cb, action.errorHandler);
+    return Object.assign(state, {syncing: [action.facilityAssessment.uuid].concat(state.syncing), submittingAssessment: undefined});
 };
 
 const assessmentSynced = function (state, action, beans) {
@@ -33,7 +45,7 @@ const assessmentSynced = function (state, action, beans) {
     const completedAssessments = assessmentService.getAllCompletedAssessments(assessmentMode);
     const submittedAssessments = assessmentService.getAllSubmittedAssessments(assessmentMode);
     return Object.assign(state, {
-        syncing: state.syncing.filter((uuid) => uuid !== action.assessment.uuid),
+        syncing: state.syncing.filter((uuid) => uuid !== action.facilityAssessment.uuid),
         completedAssessments: completedAssessments,
         submittedAssessments: submittedAssessments
     });
@@ -49,18 +61,41 @@ const markAssessmentUnsubmitted = function (state, action, beans) {
     return Object.assign(state, {openAssessments: openAssessments, submittedAssessments: submittedAssessments});
 };
 
+const _updateSubmittingAssessment = function (state, updateObject) {
+    let newSubmittingAssessment = {submittingAssessment: Object.assign({}, state.submittingAssessment, updateObject)};
+    return Object.assign({}, state, newSubmittingAssessment);
+};
+
+const enterAssessorName = function (state, action, beans) {
+    return _updateSubmittingAssessment(state, {assessorName: action.assessorName});
+};
+
+const enterSeries = function (state, action, beans) {
+    if (isNaN(action.series)) return state;
+    return _updateSubmittingAssessment(state, {seriesName: action.series});
+};
+
+const generateAssessmentSeries = function (state, action, beans) {
+    return _updateSubmittingAssessment(state, {seriesName: FacilityAssessment.generateSeries()});
+};
 
 export default new Map([
     ["ALL_ASSESSMENTS", allAssessments],
     ["SYNC_ASSESSMENT", syncAssessment],
+    ["START_SUBMIT_ASSESSMENT", startSubmitAssessment],
     ["COMPLETE_ASSESSMENT", allAssessments],
     ["UPDATE_CHECKPOINT", markAssessmentUnsubmitted],
     ["ASSESSMENT_SYNCED", assessmentSynced],
+    ["ENTER_ASSESSOR_NAME", enterAssessorName],
+    ["ENTER_ASSESSMENT_SERIES", enterSeries],
+    ["GENERATE_ASSESSMENT_SERIES", generateAssessmentSeries],
+    ["SUBMISSION_CANCELLED", submissionCancelled]
 ]);
 
 export let openAssessmentsInit = {
     syncing: [],
     openAssessments: [],
     completedAssessments: [],
-    submittedAssessments: []
+    submittedAssessments: [],
+    submittingAssessment: undefined
 };

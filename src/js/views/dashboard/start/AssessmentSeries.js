@@ -1,10 +1,11 @@
 import React from "react";
-import {Platform, StyleSheet, TextInput, View} from "react-native";
+import {Platform, StyleSheet, TextInput, View, Text} from "react-native";
 import AbstractComponent from "../../common/AbstractComponent";
 import Actions from "../../../action";
 import PrimaryColors from "../../styles/PrimaryColors";
 import {Button, Icon} from "native-base";
 import EnvironmentConfig from "../../common/EnvironmentConfig";
+import Typography from "../../styles/Typography";
 
 
 class AssessmentSeries extends AbstractComponent {
@@ -13,14 +14,12 @@ class AssessmentSeries extends AbstractComponent {
     }
 
     static propTypes = {
-        data: React.PropTypes.object.isRequired,
-        actionSuffix: React.PropTypes.string
+        series: React.PropTypes.string
     };
 
     static styles = StyleSheet.create({
         input: {
             fontSize: 16,
-            color: 'white',
             height: 40,
             paddingLeft: 8,
             borderColor: 'grey',
@@ -29,33 +28,34 @@ class AssessmentSeries extends AbstractComponent {
         }
     });
 
-    handleChange(series) {
-        this.dispatchAction(`${Actions.ENTER_ASSESSMENT_SERIES}${this.props.actionSuffix}`, {series: series});
+    handleTextChange(series) {
+        this.dispatchAction(Actions.ENTER_ASSESSMENT_SERIES, {series: series});
     }
 
     generateAssessmentSeriesNumber() {
-        this.dispatchAction(`${Actions.GENERATE_ASSESSMENT_SERIES}${this.props.actionSuffix}`, {});
+        this.dispatchAction(Actions.GENERATE_ASSESSMENT_SERIES, {});
     }
 
     render() {
-        let displayGenerateButton = EnvironmentConfig.autoGenerateSeriesNumber && (_.isNil(this.props.data.series) || this.props.data.series.length === 0);
+        let displayGenerateButton = EnvironmentConfig.autoGenerateSeriesNumber && (_.isNil(this.props.series) || this.props.series.length === 0);
         return (
-            <View style={{flex: 1, flexDirection: 'row'}}>
-                <TextInput style={AssessmentSeries.styles.input}
-                           placeholder={"Assessment Number"}
-                           placeholderTextColor="rgba(255, 255, 255, 0.7)"
-                           value={this.props.data.series}
-                           underlineColorAndroid={PrimaryColors["dark_white"]}
-                           words="words"
-                           keyboardType='numeric'
-                           onChangeText={this.handleChange.bind(this)}/>
-                {displayGenerateButton ?
-                    <Button
-                        style={{flex: 0.2}}
-                        iconLeft={true}
-                        onPress={() => this.generateAssessmentSeriesNumber()}>
-                        <Icon style={{color: "white"}} name="control-point"/>
-                    </Button> : <View/>}
+            <View style={{margin: 10, flexDirection: 'column'}}>
+                <Text style={[Typography.paperFontSubhead]}>Assessment Number</Text>
+                <View style={{flexDirection: 'row'}}>
+                    <TextInput style={AssessmentSeries.styles.input}
+                               value={this.props.series}
+                               underlineColorAndroid={PrimaryColors["grey"]}
+                               words="words"
+                               keyboardType='numeric'
+                               onChangeText={(text) => this.handleTextChange(text)}/>
+                    {displayGenerateButton ?
+                        <Button
+                            style={{flex: 0.2}}
+                            iconLeft={true}
+                            onPress={() => this.generateAssessmentSeriesNumber()}>
+                            <Icon name="control-point"/>
+                        </Button> : <View/>}
+                </View>
             </View>
         );
     }

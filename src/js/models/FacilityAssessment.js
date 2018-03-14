@@ -17,7 +17,8 @@ class FacilityAssessment {
             dateUpdated: {type: 'date', default: new Date()},
             submitted: {type: 'bool', default: false},
             seriesName: {type: 'string', optional: true},
-            deviceId: {type: 'string', optional: true}
+            deviceId: {type: 'string', optional: true},
+            assessorName: {type: 'string', optional: true},
         }
     };
 
@@ -29,6 +30,10 @@ class FacilityAssessment {
 
     static generateSeries() {
         return moment().format('YYYYMMDD');
+    }
+
+    static submissionDetailsAvailable(facilityAssessment) {
+        return !(_.isEmpty(facilityAssessment.assessorName) || _.isEmpty(facilityAssessment.seriesName));
     }
 }
 

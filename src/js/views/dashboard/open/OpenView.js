@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Alert} from 'react-native';
+import {Alert, Modal, View} from 'react-native';
 import AbstractComponent from "../../common/AbstractComponent";
 import Actions from '../../../action';
 import Dashboard from '../Dashboard';
@@ -8,8 +8,8 @@ import _ from 'lodash';
 import TypedTransition from "../../../framework/routing/TypedTransition";
 import ChecklistSelection from "../../checklistSelection/ChecklistSelection";
 import Logger from "../../../framework/Logger";
-import General from "../../../utility/General";
 import AssessmentIndicators from "../../indicator/AssessmentIndicators";
+import SubmitAssessment from "./SubmitAssessment";
 
 
 class OpenView extends AbstractComponent {
@@ -21,47 +21,51 @@ class OpenView extends AbstractComponent {
         this.dispatchAction(Actions.ALL_ASSESSMENTS, {...this.props});
     }
 
-    handleContinue(assessment) {
+    handleContinue(facilityAssessment) {
         return () => {
             TypedTransition.from(this).with({
-                assessmentTool: assessment.assessmentTool,
-                facility: assessment.facility,
-                assessmentType: assessment.assessmentType,
-                facilityAssessment: assessment,
-                state: assessment.state,
+                assessmentTool: facilityAssessment.assessmentTool,
+                facility: facilityAssessment.facility,
+                assessmentType: facilityAssessment.assessmentType,
+                facilityAssessment: facilityAssessment,
+                state: facilityAssessment.state,
                 ...this.props
-            }).to(assessment.assessmentTool.assessmentToolType === 'COMPLIANCE' ? ChecklistSelection : AssessmentIndicators);
+            }).to(facilityAssessment.assessmentTool.assessmentToolType === 'COMPLIANCE' ? ChecklistSelection : AssessmentIndicators);
         }
     }
 
-    handleSubmit(assessment) {
-        return () => this.dispatchAction(Actions.SYNC_ASSESSMENT, {
-            "assessment": assessment,
-            cb: () => this.dispatchAction(Actions.ASSESSMENT_SYNCED, {assessment: assessment, ...this.props}),
+    handleSubmit() {
+        this.dispatchAction(Actions.SYNC_ASSESSMENT, {
+            facilityAssessment: this.state.submittingAssessment,
+            cb: () => this.dispatchAction(Actions.ASSESSMENT_SYNCED, {facilityAssessment: this.state.submittingAssessment, ...this.props}),
             errorHandler: (error) => {
                 Logger.logError('OpenView', error);
-                this.submissionError(assessment);
+                this.submissionError(this.state.submittingAssessment);
             }
         });
     }
 
-    submissionError(assessment) {
+    submissionError(facilityAssessment) {
         Alert.alert(
             'Submission Error',
             `An error occurred while submitting the assessment. Please check connectivity to the server or report the error with the time at which it happened.`,
             [
                 {
                     text: 'OK',
-                    onPress: () => this.dispatchAction(Actions.ASSESSMENT_SYNCED, {assessment: assessment, ...this.props})
+                    onPress: () => this.dispatchAction(Actions.ASSESSMENT_SYNCED, {facilityAssessment: facilityAssessment, ...this.props})
                 }
             ]
         )
     }
 
+    handleStartSubmit(facilityAssessment) {
+        return () => this.dispatchAction(Actions.START_SUBMIT_ASSESSMENT, {facilityAssessment: facilityAssessment});
+    }
+
     render() {
         Logger.logDebug('OpenView', 'render');
-        let completedAssessments = this.state.completedAssessments.map((assessment) => this.state.syncing.indexOf(assessment.uuid) >= 0 ?
-            {syncing: true, ...assessment} : assessment);
+        let completedAssessments = this.state.completedAssessments.map((facilityAssessment) => this.state.syncing.indexOf(facilityAssessment.uuid) >= 0 ?
+            {syncing: true, ...facilityAssessment} : facilityAssessment);
         const AssessmentLists = [
             {
                 header: "SUBMIT ASSESSMENTS",
@@ -70,7 +74,7 @@ class OpenView extends AbstractComponent {
                     {
                         text: "SUBMIT",
                         shouldRender: true,
-                        onPress: this.handleSubmit.bind(this)
+                        onPress: this.handleStartSubmit.bind(this)
                     },
                     {
                         text: "EDIT",
@@ -103,6 +107,9 @@ class OpenView extends AbstractComponent {
                 <AssessmentList key={key} {...assessmentList}/>);
         return (
             <View style={Dashboard.styles.tab}>
+                <Modal transparent={true} visible={!_.isNil(this.state.submittingAssessment)}>
+                    <SubmitAssessment facilityAssessment={this.state.submittingAssessment} onSubmit={() => this.handleSubmit()}/>
+                </Modal>
                 {AssessmentLists}
             </View>
         );

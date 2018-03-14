@@ -1,16 +1,28 @@
 import {expect} from 'chai';
-import facilitySelection from "../../js/action/facilitySelection";
+import openAssessments from "../../js/action/openAssessments";
 
 describe('FacilitySelectionTest', () => {
+    let state = function (series) {
+        return {submittingAssessment: {seriesName: series}};
+    };
+
+    let action = function (series) {
+        return {series: series};
+    };
+
+    let series = function (state) {
+        return state.submittingAssessment.seriesName;
+    };
+
     it('enterSeries', () => {
-        let enterAssessmentSeries = facilitySelection.get('ENTER_ASSESSMENT_SERIES');
-        let newState = enterAssessmentSeries({series: '1'}, {series: '1a'});
-        expect(newState.series).is.equal('1');
+        let enterAssessmentSeries = openAssessments.get('ENTER_ASSESSMENT_SERIES');
+        let newState = enterAssessmentSeries(state('1'), action('1a'));
+        expect(series(newState)).is.equal('1');
 
-        newState = enterAssessmentSeries({series: ''}, {series: '1'});
-        expect(newState.series).is.equal('1');
+        newState = enterAssessmentSeries(state(''), action('1'));
+        expect(series(newState)).is.equal('1');
 
-        newState = enterAssessmentSeries({series: '1'}, {series: ''});
-        expect(newState.series).is.equal('');
+        newState = enterAssessmentSeries(state('1'), action(''));
+        expect(series(newState)).is.equal('');
     });
 });

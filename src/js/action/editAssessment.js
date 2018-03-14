@@ -44,7 +44,6 @@ export default new Map([
     ["GET_ASSESSMENT", getAssessment],
     ["ENTER_FACILITY_NAME_EDIT", editFacilityName],
     ["ENTER_ASSESSMENT_SERIES_EDIT", editSeriesName],
-    ["GENERATE_ASSESSMENT_SERIES_EDIT", generateAssessmentSeries],
     ["SELECT_ASSESSMENT_TYPE_EDIT", editAssessmentType]
 ]);
 

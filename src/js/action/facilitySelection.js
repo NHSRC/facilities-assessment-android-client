@@ -112,21 +112,6 @@ const enterFacilityName = function (state, action, beans) {
     });
 };
 
-const enterSeries = function (state, action, beans) {
-    let series = isNaN(action.series) ? (action.series.length === 0 ? action.series : state.series) : action.series;
-    return {
-        ...state,
-        series: series
-    };
-};
-
-const generateAssessmentSeries = function (state, action, beans) {
-    return {
-        ...state,
-        series: FacilityAssessment.generateSeries()
-    };
-};
-
 const selectAssessmentType = function (state, action, beans) {
     return Object.assign(state, {
         "facilitySelected": false,
@@ -180,8 +165,6 @@ export default new Map([
     ["FACILITY_SELECT", facilitySelected],
     ["SELECT_ASSESSMENT_TOOL", selectAssessmentTool],
     ["ENTER_FACILITY_NAME", enterFacilityName],
-    ["ENTER_ASSESSMENT_SERIES", enterSeries],
-    ["GENERATE_ASSESSMENT_SERIES", generateAssessmentSeries],
     ["RESET_FORM", reset_form],
 ]);
 
