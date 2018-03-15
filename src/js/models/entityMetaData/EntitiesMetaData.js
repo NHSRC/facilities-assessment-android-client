@@ -159,7 +159,7 @@ class CheckpointScoreMapper {
 
 class IndicatorDefinitionMapper {
     fromResource(resource) {
-        Logger.logDebug('IndicatorDefinitionMapper', resource);
+        resource.assessmentTool = ResourceUtil.getUUIDFor(resource, "assessmentToolUUID");
         return resource;
     }
 }

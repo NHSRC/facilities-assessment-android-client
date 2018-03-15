@@ -14,8 +14,7 @@ class StartNewAssessment extends AbstractComponent {
     });
 
     render() {
-        const seriesNameRequiredAndEntered = _.isEmpty(this.props.data.series);
-        const isComplete = !(_.isEmpty(this.props.data.selectedAssessmentTool) || _.isEmpty(this.props.data.selectedAssessmentType) || seriesNameRequiredAndEntered);
+        const isComplete = !(_.isEmpty(this.props.data.selectedAssessmentTool) || _.isEmpty(this.props.data.selectedAssessmentType));
         return (
             <Button
                 onPress={() => {

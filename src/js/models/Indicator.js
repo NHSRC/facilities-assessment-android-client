@@ -18,4 +18,14 @@ export default class Indicator {
         indicator.facilityAssessment = assessmentUUID;
         return indicator;
     }
+
+    static createDTO(indicator) {
+        return {
+            uuid: indicator.uuid,
+            indicatorDefinition: indicator.indicatorDefinition,
+            numericValue: indicator.numericValue,
+            dateValue: indicator.dateValue,
+            codedValue: indicator.codedValue
+        };
+    }
 }

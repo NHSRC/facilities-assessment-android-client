@@ -47,6 +47,7 @@ class AssessmentIndicators extends AbstractComponent {
 
     completedAssessment() {
         this.dispatchAction(Actions.COMPLETED_INDICATOR_ASSESSMENT, {facilityAssessment: this.props.params.facilityAssessment});
+        this.dispatchAction(Actions.ALL_ASSESSMENTS, {mode: this.props.params.mode});
         TypedTransition.from(this).goBack();
     }
 
@@ -73,7 +74,7 @@ class AssessmentIndicators extends AbstractComponent {
                         <Indicators indicatorDefinitions={this.state.indicatorDefinitions} indicators={this.state.indicators}/>
                         <SubmitButton buttonStyle={{marginTop: 30, backgroundColor: '#ffa000'}}
                                       onPress={() => this.completedAssessment()}
-                                      buttonText={"OK"}
+                                      buttonText={"COMPLETED"}
                                       showButton={true}
                         />
                     </View>

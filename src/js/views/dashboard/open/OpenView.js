@@ -107,7 +107,7 @@ class OpenView extends AbstractComponent {
                 <AssessmentList key={key} {...assessmentList}/>);
         return (
             <View style={Dashboard.styles.tab}>
-                <Modal transparent={true} visible={!_.isNil(this.state.submittingAssessment)}>
+                <Modal transparent={true} visible={!_.isNil(this.state.submittingAssessment)} onRequestClose={() => {}}>
                     <SubmitAssessment facilityAssessment={this.state.submittingAssessment} onSubmit={() => this.handleSubmit()}/>
                 </Modal>
                 {AssessmentLists}

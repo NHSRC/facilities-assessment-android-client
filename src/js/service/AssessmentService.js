@@ -14,9 +14,6 @@ import StandardProgress from "../models/StandardProgress";
 class AssessmentService extends BaseService {
     constructor(db, beanStore) {
         super(db, beanStore);
-        this.saveAssessmentTool = this.save(AssessmentTool);
-        this.saveAssessmentType = this.save(AssessmentType);
-        this.saveAreaOfConcern = this.save(AreaOfConcern);
         this.saveAreaOfConcernProgress = this.save(AreaOfConcernProgress, AreaOfConcernProgress.toDB);
         this.saveStandardProgress = this.save(StandardProgress, StandardProgress.toDB);
         this.saveCheckpoint = this.save(CheckpointScore, CheckpointScore.toDB);

@@ -8,6 +8,7 @@ import ChecklistProgress from "../models/ChecklistProgress";
 import DeviceInfo from 'react-native-device-info';
 import _ from 'lodash';
 import certificationData from '../action/certification';
+import Logger from "../framework/Logger";
 
 @Service("facilityAssessmentService")
 class FacilityAssessmentService extends BaseService {
@@ -36,16 +37,15 @@ class FacilityAssessmentService extends BaseService {
         return this.db.objects(AssessmentType.schema.name).map(this.nameAndId);
     }
 
-    getExistingAssessment(facility, assessmentTool, assessmentType, series = null) {
-        const optCriteria = _.isEmpty(series) ? "AND endDate = null" : ` AND seriesName = '${series}'`;
+    getExistingAssessment(facility, assessmentTool, assessmentType) {
         return Object.assign({}, this.db.objects(FacilityAssessment.schema.name)
-            .filtered(`facility = $0 AND assessmentTool = $1 AND assessmentType = $2 ${optCriteria}`,
+            .filtered(`facility = $0 AND assessmentTool = $1 AND assessmentType = $2 AND endDate = null`,
                 facility.uuid, assessmentTool.uuid, assessmentType.uuid)[0]);
     }
 
-    startAssessment(facility, assessmentTool, assessmentType, series = null) {
-        const existingAssessment = this.getExistingAssessment(facility, assessmentTool, assessmentType, series);
-        const optParams = _.isEmpty(series) ? {} : {seriesName: series};
+    startAssessment(facility, assessmentTool, assessmentType) {
+        const existingAssessment = this.getExistingAssessment(facility, assessmentTool, assessmentType);
+        const optParams = {};
         let assessment = this.saveAssessment(Object.assign(existingAssessment, {
             assessmentTool: assessmentTool.uuid,
             facility: facility.uuid,

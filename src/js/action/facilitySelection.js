@@ -127,7 +127,7 @@ const facilitySelected = function (state, action, beans) {
         selectedFacility = facilitiesService.saveFacility(state.facilityName, state.selectedDistrict);
     }
     const hasActiveFacilityAssessment = !_.isEmpty(facilityAssessmentService.getExistingAssessment(selectedFacility, state.selectedAssessmentTool, state.selectedAssessmentType));
-    const facilityAssessment = facilityAssessmentService.startAssessment(selectedFacility, state.selectedAssessmentTool, state.selectedAssessmentType, state.series);
+    const facilityAssessment = facilityAssessmentService.startAssessment(selectedFacility, state.selectedAssessmentTool, state.selectedAssessmentType);
     return Object.assign(state, {
         "selectedFacility": selectedFacility,
         "facilitySelected": true,
@@ -143,7 +143,6 @@ const reset_form = function (state, action, bean) {
         districtsForState: [],
         facilities: [],
         facilityName: "",
-        series: "",
         assessmentTypes: [],
         facilityTypes: [],
         selectedState: undefined,
@@ -179,7 +178,6 @@ export let facilitySelectionInit = {
     facilityAssessment: undefined,
     assessmentTools: [],
     facilityName: "",
-    series: "",
     assessmentTypes: [],
     allStates: [],
     districtsForState: [],

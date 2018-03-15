@@ -72,9 +72,10 @@ const dateIndicatorChanged = function (state, action, beans) {
     });
 };
 
-const completedIndicatorChanged = function (state, action, beans) {
+const completedIndicatorAssessment = function (state, action, beans) {
     const facilityAssessmentService = beans.get(FacilityAssessmentService);
-    const endAssessment = facilityAssessmentService.endAssessment(action.facilityAssessment);
+    facilityAssessmentService.markUnSubmitted(action.facilityAssessment);
+    facilityAssessmentService.endAssessment(action.facilityAssessment);
     return state;
 };
 
@@ -83,7 +84,7 @@ export default new Map([
     ["CODED_INDICATOR_UPDATED", codedIndicatorUpdated],
     ["NUMERIC_INDICATOR_CHANGED", numericIndicatorChanged],
     ["DATE_INDICATOR_CHANGED", dateIndicatorChanged],
-    ["COMPLETED_INDICATOR_ASSESSMENT", completedIndicatorChanged]
+    ["COMPLETED_INDICATOR_ASSESSMENT", completedIndicatorAssessment]
 ]);
 
 export let assessmentIndicatorsInit = {

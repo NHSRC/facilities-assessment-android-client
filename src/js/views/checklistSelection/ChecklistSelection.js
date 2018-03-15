@@ -135,7 +135,7 @@ class ChecklistSelection extends AbstractComponent {
                             allChecklists={this.state.checklists}
                         />
                         <SubmitButton buttonStyle={{marginTop: 30, backgroundColor: '#ffa000'}}
-                                      onPress={this.completeAssessment.bind(this)}
+                                      onPress={() => this.completeAssessment()}
                                       buttonText={assessmentComplete ? "COMPLETE ASSESSMENT" : "GENERATE SCORECARD"}
                                       showButton={showCompleteButton}
                         />
