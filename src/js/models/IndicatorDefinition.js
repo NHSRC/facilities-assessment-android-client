@@ -17,6 +17,7 @@ export default class IndicatorDefinition {
         }
     };
 
+    static DataType_Percentage = 'Percentage';
     static DataType_Numeric = 'Numeric';
     static DataType_Month = 'Month';
     static DataType_Coded = 'Coded';
