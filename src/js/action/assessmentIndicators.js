@@ -1,16 +1,19 @@
 import IndicatorService from "../service/IndicatorService";
 import _ from 'lodash';
-import Logger from "../framework/Logger";
 import Indicator from "../models/Indicator";
 import FacilityAssessmentService from "../service/FacilityAssessmentService";
 import Indicators from "../models/collections/Indicators";
 import IndicatorDefinitions from "../models/collections/IndicatorDefinitions";
+import EntityService from "../service/EntityService";
+import FacilityAssessment from "../models/FacilityAssessment";
 
 const clone = function (state) {
     let cloned = {};
     cloned.assessmentUUID = state.assessmentUUID;
     cloned.indicatorDefinitions = state.indicatorDefinitions;
     cloned.indicators = [];
+    cloned.outputIndicatorDefinitions = [];
+    cloned.outputIndicators = [];
     cloned.resultsEvalCode = state.resultsEvalCode;
     state.indicators.forEach((indicator) => cloned.indicators.push(Object.assign(new Indicator(), indicator)));
     return cloned;
@@ -18,7 +21,8 @@ const clone = function (state) {
 
 const allIndicators = function (state, action, beans) {
     let newState = clone(state);
-    newState.indicatorDefinitions = beans.get(IndicatorService).getIndicatorDefinitions(action.assessmentToolUUID);
+    newState.indicatorDefinitions = beans.get(IndicatorService).getIndicatorDefinitions(action.assessmentToolUUID, false);
+    newState.outputIndicatorDefinitions = beans.get(IndicatorService).getIndicatorDefinitions(action.assessmentToolUUID, false);
     newState.assessmentUUID = action.assessmentUUID;
     newState.indicators = beans.get(IndicatorService).getIndicators(action.assessmentUUID);
     newState.resultsEvalCode = IndicatorDefinitions.resultsEvalCode(newState.indicatorDefinitions);
@@ -72,10 +76,22 @@ const dateIndicatorChanged = function (state, action, beans) {
     });
 };
 
+const calculateIndicators = function (state, action, beans) {
+    let newState = clone(state);
+    let facilityAssessment = beans.get(EntityService).findByUUID(newState.assessmentUUID, FacilityAssessment.schema.name);
+    newState.outputIndicatorDefinitions = beans.get(IndicatorService).getIndicatorDefinitions(facilityAssessment.assessmentTool, true);
+    let resultsEvalCode = IndicatorDefinitions.resultsEvalCode(newState.outputIndicatorDefinitions);
+    newState.outputIndicators = Indicators.evalCalculatedIndicatorValues(newState.outputIndicatorDefinitions, newState.indicators, resultsEvalCode, newState.assessmentUUID);
+    return newState;
+};
+
 const completedIndicatorAssessment = function (state, action, beans) {
     const facilityAssessmentService = beans.get(FacilityAssessmentService);
     facilityAssessmentService.markUnSubmitted(action.facilityAssessment);
     facilityAssessmentService.endAssessment(action.facilityAssessment);
+
+    let indicatorService = beans.get(IndicatorService);
+    indicatorService.saveAllOutputIndicators(state.outputIndicators);
     return state;
 };
 
@@ -84,6 +100,7 @@ export default new Map([
     ["CODED_INDICATOR_UPDATED", codedIndicatorUpdated],
     ["NUMERIC_INDICATOR_CHANGED", numericIndicatorChanged],
     ["DATE_INDICATOR_CHANGED", dateIndicatorChanged],
+    ["CALCULATE_INDICATORS", calculateIndicators],
     ["COMPLETED_INDICATOR_ASSESSMENT", completedIndicatorAssessment]
 ]);
 
@@ -91,5 +108,7 @@ export let assessmentIndicatorsInit = {
     assessmentUUID: undefined,
     indicatorDefinitions: [],
     indicators: [],
+    outputIndicatorDefinitions: [],
+    outputIndicators: [],
     resultsEvalCode: ''
 };

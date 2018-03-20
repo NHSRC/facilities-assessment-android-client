@@ -42,10 +42,17 @@ class AssessmentIndicators extends AbstractComponent {
 
     componentWillMount() {
         this.setDefaultPropValues();
-        this.dispatchAction(Actions.ALL_INDICATORS, {assessmentToolUUID: this.props.params.assessmentTool.uuid, assessmentUUID: this.props.params.facilityAssessment.uuid});
+        this.dispatchAction(Actions.ALL_INDICATORS, {
+            assessmentToolUUID: this.props.params.assessmentTool.uuid,
+            assessmentUUID: this.props.params.facilityAssessment.uuid
+        });
     }
 
-    completedAssessment() {
+    calculateIndicators() {
+        this.dispatchAction(Actions.CALCULATE_INDICATORS, {facilityAssessment: this.props.params.facilityAssessment});
+    }
+
+    completeAssessment() {
         this.dispatchAction(Actions.COMPLETED_INDICATOR_ASSESSMENT, {facilityAssessment: this.props.params.facilityAssessment});
         this.dispatchAction(Actions.ALL_ASSESSMENTS, {mode: this.props.params.mode});
         TypedTransition.from(this).goBack();
@@ -65,18 +72,26 @@ class AssessmentIndicators extends AbstractComponent {
                         Indicators
                     </Title>
                 </Header>
-                <Content>
+                <Content keyboardShouldPersistTaps={'always'}>
                     <View style={{margin: deviceWidth * 0.04, flexDirection: 'column'}}>
-                        <View style={{flexDirection: 'row', marginBottom: deviceHeight*0.02}}>
+                        <View style={{flexDirection: 'row', marginBottom: deviceHeight * 0.02}}>
                             <AssessmentTitle facilityName={this.props.params.facility.name} assessmentStartDate={this.props.params.facilityAssessment.startDate}
                                              assessmentToolName={this.props.params.assessmentTool.name}/>
                         </View>
                         <Indicators indicatorDefinitions={this.state.indicatorDefinitions} indicators={this.state.indicators}/>
-                        <SubmitButton buttonStyle={{marginTop: 30, backgroundColor: '#ffa000'}}
-                                      onPress={() => this.completedAssessment()}
-                                      buttonText={"COMPLETED"}
-                                      showButton={true}
-                        />
+                        {_.isEmpty(this.state.outputIndicators) ?
+                            <SubmitButton buttonStyle={{marginTop: 30, backgroundColor: '#ffa000'}}
+                                          onPress={() => this.calculateIndicators()}
+                                          buttonText={"CALCULATE INDICATORS"}
+                                          showButton={true}/> :
+                            <View>
+                                <Indicators indicatorDefinitions={this.state.outputIndicatorDefinitions} indicators={this.state.outputIndicators}/>
+                                <SubmitButton buttonStyle={{marginTop: 30, backgroundColor: '#ffa000'}}
+                                              onPress={() => this.completeAssessment()}
+                                              buttonText={"COMPLETE ASSESSMENT"}
+                                              showButton={true}
+                                />
+                            </View>}
                     </View>
                 </Content>
             </Container>

@@ -11,8 +11,8 @@ class IndicatorService extends BaseService {
         super(db, beanStore);
     }
 
-    getIndicatorDefinitions(assessmentToolUUID) {
-        return this.findAllByKey('assessmentTool', assessmentToolUUID, IndicatorDefinition.schema.name);
+    getIndicatorDefinitions(assessmentToolUUID, isOutput) {
+        return this.findAllByCriteria(`assessmentTool = "${assessmentToolUUID}" AND output = ${isOutput}`, IndicatorDefinition.schema.name);
     }
 
     getIndicator(indicatorDefinitionUUID, assessmentUUID) {
@@ -29,6 +29,14 @@ class IndicatorService extends BaseService {
     saveIndicator(indicator) {
         if (_.isNil(indicator.uuid)) indicator.uuid = UUID.generate();
         return this.save(Indicator)(indicator);
+    }
+
+    saveAllOutputIndicators(indicators, facilityAssessment) {
+        this.db.write(() => {
+            let savedOutputIndicators = this.findAllByCriteria(`facilityAssessment = "${facilityAssessment}" AND output = true`);
+            this.db.delete(savedOutputIndicators);
+            indicators.forEach(indicator => this.db.create(Indicator.schema.name, false));
+        });
     }
 }
 

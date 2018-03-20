@@ -11,6 +11,7 @@ import StandardProgress from "../models/StandardProgress";
 import ChecklistProgress from "../models/ChecklistProgress";
 import SeedProgressService from "./SeedProgressService";
 import _ from 'lodash';
+import StringObj from "../models/StringObj";
 
 @Service("seedDataService")
 class SeedDataService extends BaseService {
@@ -33,6 +34,7 @@ class SeedDataService extends BaseService {
         this._deleteData(EntitiesMetaData.allEntityTypes);
         this.deleteProgressData();
         this.deleteSeedProgress();
+        this.deleteStringObjects();
     }
 
     deleteTxData() {
@@ -44,6 +46,13 @@ class SeedDataService extends BaseService {
         const db = this.db;
         db.write(() => {
             db.delete(db.objects(SeedProgress.schema.name));
+        });
+    }
+
+    deleteStringObjects() {
+        const db = this.db;
+        db.write(() => {
+            db.delete(db.objects(StringObj.schema.name));
         });
     }
 

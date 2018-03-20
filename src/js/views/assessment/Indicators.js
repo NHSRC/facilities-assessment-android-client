@@ -21,7 +21,9 @@ class Indicators extends AbstractComponent {
 
     render() {
         let map = new Map();
-        map.set(IndicatorDefinition.DataType_Numeric, (indicatorDefinition, indicator) => <NumericIndicator definition={indicatorDefinition} indicator={indicator}/>);
+        let numericIndicatorFn = (indicatorDefinition, indicator) => <NumericIndicator definition={indicatorDefinition} indicator={indicator}/>;
+        map.set(IndicatorDefinition.DataType_Numeric, numericIndicatorFn);
+        map.set(IndicatorDefinition.DataType_Percentage, numericIndicatorFn);
         map.set(IndicatorDefinition.DataType_Month, (indicatorDefinition, indicator) => <DateIndicator definition={indicatorDefinition} indicator={indicator} mode={DateIndicator.MODE_MONTH}/>);
         map.set(IndicatorDefinition.DataType_Coded, (indicatorDefinition, indicator) => <CodedValueIndicator definition={indicatorDefinition} indicator={indicator}/>);
         map.set(IndicatorDefinition.DataType_Date, (indicatorDefinition, indicator) => <DateIndicator definition={indicatorDefinition} indicator={indicator} mode={DateIndicator.MODE_DATE}/>);
