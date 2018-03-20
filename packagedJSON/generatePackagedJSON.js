@@ -44,4 +44,4 @@ var generate = function (inputBaseDir, outputDir) {
     console.log(`Written output file: ${outputFilePath}`);
 };
 
-generate('../reference-data/nhsrc/output/recorded-response/jsons/6', '../reference-data/nhsrc/output/recorded-response');
+generate('../reference-data/nhsrc/output/recorded-response/jsons/6', 'src/js/service');

@@ -25,7 +25,6 @@ class Indicators {
                 evalCode += `var ${indicatorDefinition.symbol} = ${_.isNil(indicator) ? false : indicator.codedValue === 'Yes'};`;
         });
         evalCode += resultsEvalCode;
-        Logger.logDebug('Indicators.evalCalculatedIndicatorValues', evalCode);
         let results = eval(evalCode);
 
         let calculatedIndicatorDefinitions = IndicatorDefinitions.calculatedIndicatorDefinitions(indicatorDefinitions, isOutput);

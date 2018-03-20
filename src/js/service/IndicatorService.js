@@ -4,6 +4,7 @@ import IndicatorDefinition from "../models/IndicatorDefinition";
 import Indicator from "../models/Indicator";
 import _ from 'lodash';
 import UUID from "../utility/UUID";
+import Logger from "../framework/Logger";
 
 @Service("indicatorService")
 class IndicatorService extends BaseService {
@@ -33,9 +34,15 @@ class IndicatorService extends BaseService {
 
     saveAllOutputIndicators(indicators, facilityAssessment) {
         this.db.write(() => {
-            let savedOutputIndicators = this.findAllByCriteria(`facilityAssessment = "${facilityAssessment}" AND output = true`, Indicator.schema.name);
-            this.db.delete(savedOutputIndicators);
-            indicators.forEach(indicator => this.db.create(Indicator.schema.name, false));
+            let savedIndicators = [...this.findAllByCriteria(`facilityAssessment = "${facilityAssessment.uuid}"`, Indicator.schema.name)];
+            _.forEach(savedIndicator => {
+                let indicatorDefinition = this.findByUUID(savedIndicator.indicatorDefinition, IndicatorDefinition.schema.name);
+                if (indicatorDefinition.output)
+                    this.db.delete(savedIndicator);
+            });
+            indicators.forEach(indicator => {
+                this.db.create(Indicator.schema.name, indicator);
+            });
         });
     }
 }

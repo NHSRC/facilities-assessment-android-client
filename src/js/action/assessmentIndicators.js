@@ -94,7 +94,7 @@ const calculateIndicators = function (state, action, beans) {
 
 const completedIndicatorAssessment = function (state, action, beans) {
     let indicatorService = beans.get(IndicatorService);
-    indicatorService.saveAllOutputIndicators(state.outputIndicators);
+    indicatorService.saveAllOutputIndicators(state.outputIndicators, action.facilityAssessment);
 
     const facilityAssessmentService = beans.get(FacilityAssessmentService);
     facilityAssessmentService.markUnSubmitted(action.facilityAssessment);

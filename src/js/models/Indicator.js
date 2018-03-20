@@ -1,3 +1,5 @@
+import UUID from "../utility/UUID";
+
 export default class Indicator {
     static schema = {
         name: 'Indicator',
@@ -14,6 +16,7 @@ export default class Indicator {
 
     static newIndicator(indicatorDefinitionUUID, assessmentUUID) {
         let indicator = new Indicator();
+        indicator.uuid = UUID.generate();
         indicator.indicatorDefinition = indicatorDefinitionUUID;
         indicator.facilityAssessment = assessmentUUID;
         return indicator;
