@@ -18,7 +18,8 @@ class DateIndicator extends AbstractComponent {
     static propTypes = {
         definition: React.PropTypes.object.isRequired,
         indicator: React.PropTypes.object,
-        mode: React.PropTypes.number.isRequired
+        mode: React.PropTypes.number.isRequired,
+        validationError: React.PropTypes.string
     };
 
     dateDisplay() {
@@ -47,7 +48,7 @@ class DateIndicator extends AbstractComponent {
                           fontSize: 17,
                           color: _.isNil(this.props.validationResult) ? '#009688' : '#d0011b'
                       }}>{this.dateDisplay()}</Text>
-                <ValidationErrorMessage validationResult={this.props.validationResult}/>
+                <ValidationErrorMessage validationResult={this.props.validationError}/>
             </View>
         );
     }

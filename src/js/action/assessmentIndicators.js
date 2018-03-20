@@ -6,12 +6,14 @@ import Indicators from "../models/collections/Indicators";
 import IndicatorDefinitions from "../models/collections/IndicatorDefinitions";
 import EntityService from "../service/EntityService";
 import FacilityAssessment from "../models/FacilityAssessment";
+import Logger from "../framework/Logger";
 
 const clone = function (state) {
     let cloned = {};
     cloned.assessmentUUID = state.assessmentUUID;
     cloned.indicatorDefinitions = state.indicatorDefinitions;
     cloned.indicators = [];
+    cloned.indicatorDefinitionsInError = state.indicatorDefinitionsInError;
     cloned.outputIndicatorDefinitions = [];
     cloned.outputIndicators = [];
     cloned.resultsEvalCode = state.resultsEvalCode;
@@ -25,7 +27,7 @@ const allIndicators = function (state, action, beans) {
     newState.outputIndicatorDefinitions = beans.get(IndicatorService).getIndicatorDefinitions(action.assessmentToolUUID, false);
     newState.assessmentUUID = action.assessmentUUID;
     newState.indicators = beans.get(IndicatorService).getIndicators(action.assessmentUUID);
-    newState.resultsEvalCode = IndicatorDefinitions.resultsEvalCode(newState.indicatorDefinitions);
+    newState.resultsEvalCode = IndicatorDefinitions.resultsEvalCode(newState.indicatorDefinitions, false);
     return newState;
 };
 
@@ -64,7 +66,7 @@ const numericIndicatorChanged = function (state, action, beans) {
     });
 
     let indicatorService = beans.get(IndicatorService);
-    let calculatedIndicators = Indicators.evalCalculatedIndicatorValues(newState.indicatorDefinitions, newState.indicators, newState.resultsEvalCode, newState.assessmentUUID);
+    let calculatedIndicators = Indicators.evalCalculatedIndicatorValues(newState.indicatorDefinitions, newState.indicators, false, newState.resultsEvalCode, newState.assessmentUUID);
     calculatedIndicators.forEach((calculatedIndicator) => _saveIndicator(indicatorService, calculatedIndicator, newState.indicators));
     return newState;
 };
@@ -78,20 +80,25 @@ const dateIndicatorChanged = function (state, action, beans) {
 
 const calculateIndicators = function (state, action, beans) {
     let newState = clone(state);
-    let facilityAssessment = beans.get(EntityService).findByUUID(newState.assessmentUUID, FacilityAssessment.schema.name);
-    newState.outputIndicatorDefinitions = beans.get(IndicatorService).getIndicatorDefinitions(facilityAssessment.assessmentTool, true);
-    let resultsEvalCode = IndicatorDefinitions.resultsEvalCode(newState.outputIndicatorDefinitions);
-    newState.outputIndicators = Indicators.evalCalculatedIndicatorValues(newState.outputIndicatorDefinitions, newState.indicators, resultsEvalCode, newState.assessmentUUID);
+    let unfilledIndicatorDefinitions = Indicators.unfilledIndicatorDefinitions(newState.indicators, newState.indicatorDefinitions);
+    if (_.isEmpty(unfilledIndicatorDefinitions)) {
+        let facilityAssessment = beans.get(EntityService).findByUUID(newState.assessmentUUID, FacilityAssessment.schema.name);
+        newState.outputIndicatorDefinitions = beans.get(IndicatorService).getIndicatorDefinitions(facilityAssessment.assessmentTool, true);
+        let resultsEvalCode = IndicatorDefinitions.resultsEvalCode(newState.outputIndicatorDefinitions, true);
+        newState.outputIndicators = Indicators.evalCalculatedIndicatorValues(newState.indicatorDefinitions.concat(newState.outputIndicatorDefinitions), newState.indicators, true, resultsEvalCode, newState.assessmentUUID);
+    } else {
+        newState.indicatorDefinitionsInError = unfilledIndicatorDefinitions;
+    }
     return newState;
 };
 
 const completedIndicatorAssessment = function (state, action, beans) {
+    let indicatorService = beans.get(IndicatorService);
+    indicatorService.saveAllOutputIndicators(state.outputIndicators);
+
     const facilityAssessmentService = beans.get(FacilityAssessmentService);
     facilityAssessmentService.markUnSubmitted(action.facilityAssessment);
     facilityAssessmentService.endAssessment(action.facilityAssessment);
-
-    let indicatorService = beans.get(IndicatorService);
-    indicatorService.saveAllOutputIndicators(state.outputIndicators);
     return state;
 };
 
@@ -110,5 +117,6 @@ export let assessmentIndicatorsInit = {
     indicators: [],
     outputIndicatorDefinitions: [],
     outputIndicators: [],
-    resultsEvalCode: ''
+    resultsEvalCode: '',
+    indicatorDefinitionsInError: []
 };

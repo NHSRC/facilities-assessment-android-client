@@ -4,7 +4,7 @@ export default class Indicator {
         primaryKey: 'uuid',
         properties: {
             uuid: "string",
-            numericValue: {type: "int", optional: true},
+            numericValue: {type: "double", optional: true},
             dateValue: {type: "date", optional: true},
             codedValue: {type: "string", optional: true},
             facilityAssessment: "string",

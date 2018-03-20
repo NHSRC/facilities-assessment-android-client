@@ -6,6 +6,7 @@ import ValidationErrorMessage from "./ValidationErrorMessage";
 import Actions from '../../action';
 import _ from 'lodash';
 import IndicatorDefinition from "../../models/IndicatorDefinition";
+import FieldValue from "../common/FieldValue";
 
 class NumericIndicator extends AbstractComponent {
     constructor(props, context) {
@@ -25,7 +26,8 @@ class NumericIndicator extends AbstractComponent {
 
     static propTypes = {
         definition: React.PropTypes.object.isRequired,
-        indicator: React.PropTypes.object
+        indicator: React.PropTypes.object,
+        validationError: React.PropTypes.string
     };
 
     onInputChange(text) {
@@ -37,7 +39,7 @@ class NumericIndicator extends AbstractComponent {
         return (
             <View>
                 <FieldLabel text={this.props.definition.name}/>
-                {IndicatorDefinition.isCalculatedInput(this.props.definition) ? <FieldLabel text={indicatorValue}/> :
+                {IndicatorDefinition.isCalculated(this.props.definition) ? <FieldValue text={indicatorValue}/> :
                     <View>
                         <TextInput style={[{flex: 1, marginVertical: 0, paddingVertical: 5}, NumericIndicator.styles.input]}
                                    underlineColorAndroid='white'
@@ -45,7 +47,7 @@ class NumericIndicator extends AbstractComponent {
                                    value={indicatorValue}
                                    onChangeText={(text) => this.onInputChange(text)}
                                    onEndEditing={(text) => this.onInputChange(text)}/>
-                        <ValidationErrorMessage validationResult={this.props.validationResult}/></View>}
+                        <ValidationErrorMessage validationResult={this.props.validationError}/></View>}
             </View>
         );
     }

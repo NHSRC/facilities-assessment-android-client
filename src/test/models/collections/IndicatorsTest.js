@@ -13,7 +13,7 @@ describe('IndicatorsTest', () => {
             numericDefinition('4')];
 
         let indicators = [numericIndicator('1', 4), numericIndicator('2', 6), numericIndicator('3'), numericIndicator('4', 654)];
-        let calculatedIndicators = Indicators.evalCalculatedIndicatorValues(definitions, indicators, IndicatorDefinitions.resultsEvalCode(definitions));
+        let calculatedIndicators = Indicators.evalCalculatedIndicatorValues(definitions, indicators, false, IndicatorDefinitions.resultsEvalCode(definitions, false));
         expect(get(indicators, '3').numericValue).is.equal(5);
         expect(get(indicators, '4').numericValue).is.equal(654);
         expect(calculatedIndicators.length).is.equal(1);
@@ -25,7 +25,7 @@ describe('IndicatorsTest', () => {
             numericDefinition('3', 'total', '(causeA + causeB)/2'),
             numericDefinition('4')];
         let indicators = [numericIndicator('1', 4), numericIndicator('3'), numericIndicator('4', 654)];
-        let calculatedIndicators = Indicators.evalCalculatedIndicatorValues(definitions, indicators, IndicatorDefinitions.resultsEvalCode(definitions));
+        let calculatedIndicators = Indicators.evalCalculatedIndicatorValues(definitions, indicators, false, IndicatorDefinitions.resultsEvalCode(definitions, false));
         expect(get(indicators, '3').numericValue).is.equal(2);
         expect(calculatedIndicators.length).is.equal(1);
     });
@@ -36,9 +36,19 @@ describe('IndicatorsTest', () => {
             numericDefinition('3', 'total', '(causeA + causeB)/2'),
             numericDefinition('4')];
         let indicators = [numericIndicator('1', 4), numericIndicator('4', 654)];
-        let calculatedIndicators = Indicators.evalCalculatedIndicatorValues(definitions, indicators, IndicatorDefinitions.resultsEvalCode(definitions));
+        let calculatedIndicators = Indicators.evalCalculatedIndicatorValues(definitions, indicators, false, IndicatorDefinitions.resultsEvalCode(definitions, false));
         expect(calculatedIndicators.length).is.equal(1);
         expect(get(calculatedIndicators, '3').numericValue).is.equal(2);
+    });
+
+    it('round off numeric calculated fields', function () {
+        let definitions = [numericDefinition('1', 'causeA'),
+            numericDefinition('2', 'causeB'),
+            numericDefinition('3', 'total', '(causeA * 100)/causeB')];
+        let indicators = [numericIndicator('1', 13), numericIndicator('2', 18)];
+        let calculatedIndicators = Indicators.evalCalculatedIndicatorValues(definitions, indicators, false, IndicatorDefinitions.resultsEvalCode(definitions, false));
+        expect(calculatedIndicators.length).is.equal(1);
+        expect(get(calculatedIndicators, '3').numericValue).is.equal(72.2);
     });
 
     it('handle divide by zero scenario', function () {
@@ -47,8 +57,8 @@ describe('IndicatorsTest', () => {
             numericDefinition('3', 'total', '(causeA * 100 / causeB)')];
 
         let indicators = [numericIndicator('1', 8)];
-        let calculatedIndicators = Indicators.evalCalculatedIndicatorValues(definitions, indicators, IndicatorDefinitions.resultsEvalCode(definitions));
-        expect(get(calculatedIndicators, '3').numericValue).is.equal(Infinity);
+        let calculatedIndicators = Indicators.evalCalculatedIndicatorValues(definitions, indicators, false, IndicatorDefinitions.resultsEvalCode(definitions, false));
+        expect(get(calculatedIndicators, '3').numericValue).is.NaN;
         expect(calculatedIndicators.length).is.equal(1);
     });
 
@@ -57,13 +67,25 @@ describe('IndicatorsTest', () => {
             codedDefinition('2', 'causeB'),
             codedDefinition('3', 'causeAAndB', '(causeA && causeB)')];
         let indicators = [codedIndicator('1', 'Yes'), codedIndicator('2', 'No')];
-        let calculatedIndicators = Indicators.evalCalculatedIndicatorValues(definitions, indicators, IndicatorDefinitions.resultsEvalCode(definitions));
+        let calculatedIndicators = Indicators.evalCalculatedIndicatorValues(definitions, indicators, false, IndicatorDefinitions.resultsEvalCode(definitions, false));
         expect(calculatedIndicators.length).is.equal(1);
         expect(get(calculatedIndicators, '3').codedValue).is.equal('No');
     });
 
+    it('should find unfilled indicator definitions', function () {
+        let indicatorDefinitions = [numericDefinition('1'), numericDefinition('2'), numericDefinition('3'), outputDefinition('4')];
+        let indicators = [numericIndicator('1'), numericIndicator('2')];
+        let unfilledIndicatorDefinitions = Indicators.unfilledIndicatorDefinitions(indicators, indicatorDefinitions);
+        expect(unfilledIndicatorDefinitions.length).is.equal(1);
+        expect(unfilledIndicatorDefinitions[0].uuid).is.equal('3');
+    });
+
     const get = function (indicators, indicatorDefinitionUUUID) {
         return Indicators.findIndicator(indicators, indicatorDefinitionUUUID);
+    };
+
+    const outputDefinition = function (uuid) {
+        return definition(uuid, undefined, IndicatorDefinition.DataType_Numeric, undefined, true);
     };
 
     const numericDefinition = function (uuid, symbol, formula) {
@@ -78,13 +100,13 @@ describe('IndicatorsTest', () => {
         return definition(uuid, symbol, IndicatorDefinition.DataType_Coded, formula);
     };
 
-    const definition = function (uuid, symbol, dataType, formula) {
+    const definition = function (uuid, symbol, dataType, formula, isOutput = false) {
         let indicatorDefinition = new IndicatorDefinition();
         indicatorDefinition.dataType = dataType;
         indicatorDefinition.symbol = symbol;
         indicatorDefinition.uuid = uuid;
         indicatorDefinition.formula = formula;
-        indicatorDefinition.output = false;
+        indicatorDefinition.output = isOutput;
         return indicatorDefinition;
     };
 

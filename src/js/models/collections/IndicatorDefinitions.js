@@ -1,9 +1,9 @@
 import IndicatorDefinition from "../IndicatorDefinition";
 
 class IndicatorDefinitions {
-    static resultsEvalCode(indicatorDefinitions) {
+    static resultsEvalCode(indicatorDefinitions, isOutput) {
         let evalString = 'var results = {};';
-        let calculatedIndicatorDefinitions = this.calculatedIndicatorDefinitions(indicatorDefinitions);
+        let calculatedIndicatorDefinitions = this.calculatedIndicatorDefinitions(indicatorDefinitions, isOutput);
         calculatedIndicatorDefinitions.forEach(calculatedIndicatorDefinition => {
             evalString += `results['${calculatedIndicatorDefinition.uuid}'] = ${calculatedIndicatorDefinition.formula};`;
         });
@@ -11,8 +11,8 @@ class IndicatorDefinitions {
         return evalString;
     }
 
-    static calculatedIndicatorDefinitions(indicatorDefinitions) {
-        return indicatorDefinitions.filter(indicatorDefinition => IndicatorDefinition.isCalculatedInput(indicatorDefinition));
+    static calculatedIndicatorDefinitions(indicatorDefinitions, isOutput) {
+        return indicatorDefinitions.filter(indicatorDefinition => IndicatorDefinition.isCalculated(indicatorDefinition, isOutput));
     }
 }
 

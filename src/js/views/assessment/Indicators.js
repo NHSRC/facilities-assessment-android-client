@@ -9,6 +9,23 @@ import DateIndicator from "../indicator/DateIndicator";
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
 
+const uiComponentMap = new Map();
+let numericIndicatorFn = (indicatorDefinition, indicator, errorMessage) => <NumericIndicator definition={indicatorDefinition} indicator={indicator}
+                                                                                             validationError={errorMessage}/>;
+uiComponentMap.set(IndicatorDefinition.DataType_Numeric, numericIndicatorFn);
+uiComponentMap.set(IndicatorDefinition.DataType_Percentage, numericIndicatorFn);
+uiComponentMap.set(IndicatorDefinition.DataType_Month, (indicatorDefinition, indicator, errorMessage) => <DateIndicator definition={indicatorDefinition}
+                                                                                                                        indicator={indicator}
+                                                                                                                        mode={DateIndicator.MODE_MONTH}
+                                                                                                                        validationError={errorMessage}/>);
+uiComponentMap.set(IndicatorDefinition.DataType_Coded, (indicatorDefinition, indicator, errorMessage) => <CodedValueIndicator definition={indicatorDefinition}
+                                                                                                                              indicator={indicator}
+                                                                                                                              validationError={errorMessage}/>);
+uiComponentMap.set(IndicatorDefinition.DataType_Date, (indicatorDefinition, indicator, errorMessage) => <DateIndicator definition={indicatorDefinition}
+                                                                                                                       indicator={indicator}
+                                                                                                                       mode={DateIndicator.MODE_DATE}
+                                                                                                                       validationError={errorMessage}/>);
+
 class Indicators extends AbstractComponent {
     constructor(props, context) {
         super(props, context);
@@ -16,21 +33,16 @@ class Indicators extends AbstractComponent {
 
     static propTypes = {
         indicatorDefinitions: React.PropTypes.any.isRequired,
-        indicators: React.PropTypes.any.isRequired
+        indicators: React.PropTypes.any.isRequired,
+        indicatorDefinitionsInError: React.PropTypes.array
     };
 
     render() {
-        let map = new Map();
-        let numericIndicatorFn = (indicatorDefinition, indicator) => <NumericIndicator definition={indicatorDefinition} indicator={indicator}/>;
-        map.set(IndicatorDefinition.DataType_Numeric, numericIndicatorFn);
-        map.set(IndicatorDefinition.DataType_Percentage, numericIndicatorFn);
-        map.set(IndicatorDefinition.DataType_Month, (indicatorDefinition, indicator) => <DateIndicator definition={indicatorDefinition} indicator={indicator} mode={DateIndicator.MODE_MONTH}/>);
-        map.set(IndicatorDefinition.DataType_Coded, (indicatorDefinition, indicator) => <CodedValueIndicator definition={indicatorDefinition} indicator={indicator}/>);
-        map.set(IndicatorDefinition.DataType_Date, (indicatorDefinition, indicator) => <DateIndicator definition={indicatorDefinition} indicator={indicator} mode={DateIndicator.MODE_DATE}/>);
-
         return <View>{this.props.indicatorDefinitions.map((indicatorDefinition) => {
             let indicator = _.find(this.props.indicators, (indicator) => indicator.indicatorDefinition === indicatorDefinition.uuid);
-            return <View style={{marginTop: deviceHeight * 0.025}} key={indicatorDefinition.uuid}>{map.get(indicatorDefinition.dataType)(indicatorDefinition, indicator)}</View>;
+            let errorMessage = _.some(this.props.indicatorDefinitionsInError, (unfilledDef) => unfilledDef.uuid === indicatorDefinition.uuid) ? IndicatorDefinition.errorMessageFor(indicatorDefinition.dataType) : undefined;
+            return <View style={{marginTop: deviceHeight * 0.025}}
+                         key={indicatorDefinition.uuid}>{uiComponentMap.get(indicatorDefinition.dataType)(indicatorDefinition, indicator, errorMessage)}</View>;
         })}</View>;
     }
 }

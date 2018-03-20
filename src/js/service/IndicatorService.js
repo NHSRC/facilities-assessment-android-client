@@ -12,7 +12,7 @@ class IndicatorService extends BaseService {
     }
 
     getIndicatorDefinitions(assessmentToolUUID, isOutput) {
-        return this.findAllByCriteria(`assessmentTool = "${assessmentToolUUID}" AND output = ${isOutput}`, IndicatorDefinition.schema.name);
+        return [...this.findAllByCriteria(`assessmentTool = "${assessmentToolUUID}" AND output = ${isOutput}`, IndicatorDefinition.schema.name)];
     }
 
     getIndicator(indicatorDefinitionUUID, assessmentUUID) {
@@ -33,7 +33,7 @@ class IndicatorService extends BaseService {
 
     saveAllOutputIndicators(indicators, facilityAssessment) {
         this.db.write(() => {
-            let savedOutputIndicators = this.findAllByCriteria(`facilityAssessment = "${facilityAssessment}" AND output = true`);
+            let savedOutputIndicators = this.findAllByCriteria(`facilityAssessment = "${facilityAssessment}" AND output = true`, Indicator.schema.name);
             this.db.delete(savedOutputIndicators);
             indicators.forEach(indicator => this.db.create(Indicator.schema.name, false));
         });

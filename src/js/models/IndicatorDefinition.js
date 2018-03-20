@@ -23,11 +23,24 @@ export default class IndicatorDefinition {
     static DataType_Coded = 'Coded';
     static DataType_Date = 'Date';
 
-    static isCalculatedInput(indicatorDefinition) {
-        return !_.isNil(indicatorDefinition.formula) && !indicatorDefinition.output;
+    static isCalculated(indicatorDefinition, isOutput) {
+        return !_.isNil(indicatorDefinition.formula) && (isOutput === undefined || indicatorDefinition.output === isOutput);
     }
 
     static getCodedValues(codedValues) {
         return JSON.parse(codedValues);
+    }
+
+    static errorMessageFor(dataType) {
+        switch (dataType) {
+            case IndicatorDefinition.DataType_Percentage:
+                return `MANDATORY. Between 1 and 100.`;
+            default:
+                return `MANDATORY`;
+        }
+    }
+
+    static hasNumericValue(indicatorDefinition) {
+        return indicatorDefinition.dataType === IndicatorDefinition.DataType_Numeric || indicatorDefinition.dataType === IndicatorDefinition.DataType_Percentage;
     }
 }

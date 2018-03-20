@@ -14,7 +14,7 @@ class ValidationErrorMessage extends AbstractComponent {
     }
 
     render() {
-        return _.isNil(this.props.validationResult) || this.props.validationResult.success ? <View/> : <Text style={{color: '#d0011b', flex: 0.3}}>{this.props.validationResult.message}</Text>;
+        return _.isNil(this.props.validationResult) ? <View/> : <Text style={{color: '#d0011b', flex: 0.3}}>{this.props.validationResult}</Text>;
     }
 }
 

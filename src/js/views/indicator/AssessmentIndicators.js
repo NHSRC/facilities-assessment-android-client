@@ -13,6 +13,7 @@ import Indicators from "../assessment/Indicators";
 import SubmitButton from "../common/SubmitButton";
 import Logger from "../../framework/Logger";
 import UUID from "../../utility/UUID";
+import ValidationErrorMessage from "./ValidationErrorMessage";
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
@@ -61,6 +62,8 @@ class AssessmentIndicators extends AbstractComponent {
     render() {
         this.setDefaultPropValues();
         Logger.logDebug('AssessmentIndicators', 'render');
+        let validationMessage = `FOLLOWING DATA ELEMENTS HAVE NOT BEEN FILLED\n`;
+        validationMessage += this.state.indicatorDefinitionsInError.map(def => `${def.name}\n`);
         return (
             <Container theme={FlatUITheme}>
                 <Header style={Dashboard.styles.header}>
@@ -78,13 +81,16 @@ class AssessmentIndicators extends AbstractComponent {
                             <AssessmentTitle facilityName={this.props.params.facility.name} assessmentStartDate={this.props.params.facilityAssessment.startDate}
                                              assessmentToolName={this.props.params.assessmentTool.name}/>
                         </View>
-                        <Indicators indicatorDefinitions={this.state.indicatorDefinitions} indicators={this.state.indicators}/>
+                        <Indicators indicatorDefinitions={this.state.indicatorDefinitions} indicators={this.state.indicators} indicatorDefinitionsInError={this.state.indicatorDefinitionsInError}/>
                         {_.isEmpty(this.state.outputIndicators) ?
-                            <SubmitButton buttonStyle={{marginTop: 30, backgroundColor: '#ffa000'}}
-                                          onPress={() => this.calculateIndicators()}
-                                          buttonText={"CALCULATE INDICATORS"}
-                                          showButton={true}/> :
                             <View>
+                                {this.state.indicatorDefinitionsInError.length === 0 ? null : <ValidationErrorMessage validationResult={validationMessage}/>}
+                                <SubmitButton buttonStyle={{marginTop: 30, backgroundColor: '#ffa000'}}
+                                              onPress={() => this.calculateIndicators()}
+                                              buttonText={"CALCULATE INDICATORS"}
+                                              showButton={true}/></View> :
+                            <View style={{marginTop: 40}}>
+                                <Text style={[Typography.paperFontTitle, {color: 'white'}]}>INDICATORS</Text>
                                 <Indicators indicatorDefinitions={this.state.outputIndicatorDefinitions} indicators={this.state.outputIndicators}/>
                                 <SubmitButton buttonStyle={{marginTop: 30, backgroundColor: '#ffa000'}}
                                               onPress={() => this.completeAssessment()}
