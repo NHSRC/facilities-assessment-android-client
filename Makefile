@@ -191,6 +191,9 @@ switch_ios_to_debug_mode:
 
 uninstall_app:
 	$(call uninstall_android)
+
+analyse_app_crash:
+	cd unminifiy && npm start ../android/app/build/generated/sourcemap.js $(line) $(column)
 # </app>
 
 # <device>
