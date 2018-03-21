@@ -37,6 +37,8 @@ class AssessmentIndicators extends AbstractComponent {
         // };
     }
 
+    static visibleScrollView;
+
     constructor(props, context) {
         super(props, context, 'assessmentIndicators');
     }
@@ -47,6 +49,11 @@ class AssessmentIndicators extends AbstractComponent {
             assessmentToolUUID: this.props.params.assessmentTool.uuid,
             assessmentUUID: this.props.params.facilityAssessment.uuid
         });
+    }
+
+    componentWillUnmount() {
+        super.componentWillUnmount();
+        AssessmentIndicators.visibleScrollView = undefined;
     }
 
     calculateIndicators() {
@@ -75,7 +82,7 @@ class AssessmentIndicators extends AbstractComponent {
                         Indicators
                     </Title>
                 </Header>
-                <Content keyboardShouldPersistTaps={'always'}>
+                <Content keyboardShouldPersistTaps={'always'} ref={input => AssessmentIndicators.visibleScrollView = input}>
                     <View style={{margin: deviceWidth * 0.04, flexDirection: 'column'}}>
                         <View style={{flexDirection: 'row', marginBottom: deviceHeight * 0.02}}>
                             <AssessmentTitle facilityName={this.props.params.facility.name} assessmentStartDate={this.props.params.facilityAssessment.startDate}

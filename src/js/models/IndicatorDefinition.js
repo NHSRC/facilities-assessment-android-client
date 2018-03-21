@@ -43,4 +43,8 @@ export default class IndicatorDefinition {
     static hasNumericValue(indicatorDefinition) {
         return indicatorDefinition.dataType === IndicatorDefinition.DataType_Numeric || indicatorDefinition.dataType === IndicatorDefinition.DataType_Percentage;
     }
+
+    static isInputNumeric(indicatorDefinition) {
+        return _.isNil(indicatorDefinition.formula) && IndicatorDefinition.hasNumericValue(indicatorDefinition);
+    }
 }

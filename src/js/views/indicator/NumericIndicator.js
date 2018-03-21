@@ -7,6 +7,8 @@ import Actions from '../../action';
 import _ from 'lodash';
 import IndicatorDefinition from "../../models/IndicatorDefinition";
 import FieldValue from "../common/FieldValue";
+import Indicators from '../assessment/Indicators';
+import Logger from "../../framework/Logger";
 
 class NumericIndicator extends AbstractComponent {
     constructor(props, context) {
@@ -27,7 +29,9 @@ class NumericIndicator extends AbstractComponent {
     static propTypes = {
         definition: React.PropTypes.object.isRequired,
         indicator: React.PropTypes.object,
-        validationError: React.PropTypes.string
+        validationError: React.PropTypes.string,
+        tabIndex: React.PropTypes.number,
+        isLast: React.PropTypes.bool
     };
 
     onInputChange(text) {
@@ -42,11 +46,16 @@ class NumericIndicator extends AbstractComponent {
                 {IndicatorDefinition.isCalculated(this.props.definition) ? <FieldValue text={indicatorValue}/> :
                     <View>
                         <TextInput style={[{flex: 1, marginVertical: 0, paddingVertical: 5}, NumericIndicator.styles.input]}
+                                   blurOnSubmit={ false }
+                                   returnKeyType={this.props.isLast ? "done" : "next" }
                                    underlineColorAndroid='white'
                                    keyboardType='numeric'
                                    value={indicatorValue}
                                    onChangeText={(text) => this.onInputChange(text)}
-                                   onEndEditing={(text) => this.onInputChange(text)}/>
+                                   ref={input => Indicators.userNumericInputs[this.props.tabIndex] = input}
+                                   onSubmitEditing={() => Indicators.focusOnNextInput(this.props.tabIndex)}
+                                   selectTextOnFocus={true}
+                        />
                         <ValidationErrorMessage validationResult={this.props.validationError}/></View>}
             </View>
         );

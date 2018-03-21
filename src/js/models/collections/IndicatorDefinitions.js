@@ -14,6 +14,10 @@ class IndicatorDefinitions {
     static calculatedIndicatorDefinitions(indicatorDefinitions, isOutput) {
         return indicatorDefinitions.filter(indicatorDefinition => IndicatorDefinition.isCalculated(indicatorDefinition, isOutput));
     }
+
+    static numberOfInputNumericFields(indicatorDefinitions) {
+        return _.filter(indicatorDefinitions, (indicatorDefinition) => IndicatorDefinition.isInputNumeric(indicatorDefinition)).length;
+    }
 }
 
 export default IndicatorDefinitions;
