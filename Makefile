@@ -98,8 +98,8 @@ setup_source:
 	-rm -rf src/config/*
 
 setup_source_nhsrc:
-	node packagedJSON/generatePackagedJSON.js
 	cp -R $(recorded_response_dir)/jsons/$(rr_version)/* src/config/
+	node packagedJSON/generatePackagedJSON.js
 
 test_source: setup_source
 	npm test
