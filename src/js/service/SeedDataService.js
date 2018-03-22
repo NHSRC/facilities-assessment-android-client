@@ -12,6 +12,7 @@ import ChecklistProgress from "../models/ChecklistProgress";
 import SeedProgressService from "./SeedProgressService";
 import _ from 'lodash';
 import StringObj from "../models/StringObj";
+import SettingsService from "./SettingsService";
 
 @Service("seedDataService")
 class SeedDataService extends BaseService {
@@ -23,8 +24,10 @@ class SeedDataService extends BaseService {
         if (EnvironmentConfig.shouldUsePackagedSeedData) {
             let seedProgressService = this.getService(SeedProgressService);
             let checklistLoaded = seedProgressService.isChecklistLoaded();
-            if (!checklistLoaded) {
+            if (!checklistLoaded || seedProgressService.versionChanged()) {
                 let localReferenceDataSyncService = this.getService(LocalReferenceDataSyncService);
+                if (SeedProgress.isDefaultVersion(seedProgressService.getSeedProgress()))
+                    this.getService(SettingsService).setupStatesAlreadyLoaded();
                 localReferenceDataSyncService.syncMetaDataFromLocal(seedProgressService.finishedLoadingChecklist.bind(seedProgressService));
             }
         }

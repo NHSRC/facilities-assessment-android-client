@@ -2,6 +2,7 @@ import BaseService from "./BaseService";
 import Service from "../framework/bean/Service";
 import SeedProgress from '../models/SeedProgress';
 import Logger from "../framework/Logger";
+import EnvironmentConfig from "../views/common/EnvironmentConfig";
 
 @Service("seedProgressService")
 class SeedProgressService extends BaseService {
@@ -25,7 +26,8 @@ class SeedProgressService extends BaseService {
     finishedLoadingChecklist() {
         return this.save(SeedProgress)({
             uuid: SeedProgress.UUID,
-            loadState: SeedProgress.AppLoadState.LoadedChecklist
+            loadState: SeedProgress.AppLoadState.LoadedChecklist,
+            metaDataVersion: EnvironmentConfig.metaDataVersion
         });
     }
 
@@ -35,6 +37,10 @@ class SeedProgressService extends BaseService {
 
     getSeedProgress() {
         return {...this.db.objectForPrimaryKey(SeedProgress.schema.name, SeedProgress.UUID)};
+    }
+
+    versionChanged() {
+        return EnvironmentConfig.metaDataVersion !== this.getSeedProgress().metaDataVersion;
     }
 }
 

@@ -59,6 +59,10 @@ class EnvironmentConfig {
     get inDeveloperMode() {
         return DeviceInfo.isEmulator() && this._getPropertyValue('BUILD_TYPE') !== 'release';
     }
+
+    get metaDataVersion() {
+        return _.toNumber(this._getPropertyValue('METADATA_VERSION_NUMBER'));
+    }
 }
 
 export default new EnvironmentConfig();
