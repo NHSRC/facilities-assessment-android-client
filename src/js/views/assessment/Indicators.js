@@ -12,8 +12,8 @@ const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
 
 const uiComponentMap = new Map();
-let numericIndicatorFn = (indicatorDefinition, indicator, errorMessage, tabIndex, isLast) => <NumericIndicator definition={indicatorDefinition} indicator={indicator}
-                                                                                                       validationError={errorMessage} tabIndex={tabIndex} isLast={isLast}/>;
+let numericIndicatorFn = (indicatorDefinition, indicator, errorMessage, tabIndex, overallIndex, isLast) => <NumericIndicator definition={indicatorDefinition} indicator={indicator}
+                                                                                                       validationError={errorMessage} tabIndex={tabIndex} overallIndex={overallIndex} isLast={isLast}/>;
 uiComponentMap.set(IndicatorDefinition.DataType_Numeric, numericIndicatorFn);
 uiComponentMap.set(IndicatorDefinition.DataType_Percentage, numericIndicatorFn);
 uiComponentMap.set(IndicatorDefinition.DataType_Month, (indicatorDefinition, indicator, errorMessage) => <DateIndicator definition={indicatorDefinition}
@@ -32,10 +32,18 @@ class Indicators extends AbstractComponent {
     static userNumericInputs = {};
 
     static focusOnNextInput(currentIndex) {
-        let userNumericInput = Indicators.userNumericInputs[currentIndex + 1];
-        if (_.isNil(userNumericInput)) return;
+        let currentInput = Indicators.userNumericInputs[currentIndex];
+        let nextInput = Indicators.userNumericInputs[currentIndex + 1];
+        if (_.isNil(nextInput)) {
+            require("dismissKeyboard")();
+            return;
+        }
 
-        userNumericInput.focus();
+        if ((currentInput.overallIndex + 1) === nextInput.overallIndex) {
+            nextInput.element.focus();
+        } else {
+            require("dismissKeyboard")();
+        }
     }
 
     constructor(props, context) {
@@ -57,12 +65,14 @@ class Indicators extends AbstractComponent {
         Indicators.userNumericInputs = {};
         let numberOfInputNumericFields = IndicatorDefinitions.numberOfInputNumericFields(this.props.indicatorDefinitions);
         let tabIndex = 0;
+        let overallIndex = 0;
         return <View>{this.props.indicatorDefinitions.map((indicatorDefinition) => {
             let indicator = _.find(this.props.indicators, (indicator) => indicator.indicatorDefinition === indicatorDefinition.uuid);
             let errorMessage = _.some(this.props.indicatorDefinitionsInError, (unfilledDef) => unfilledDef.uuid === indicatorDefinition.uuid) ? IndicatorDefinition.errorMessageFor(indicatorDefinition.dataType) : undefined;
+            overallIndex++;
             if (IndicatorDefinition.isInputNumeric(indicatorDefinition)) tabIndex++;
             return <View style={{marginTop: deviceHeight * 0.025}}
-                         key={indicatorDefinition.uuid}>{uiComponentMap.get(indicatorDefinition.dataType)(indicatorDefinition, indicator, errorMessage, tabIndex, tabIndex === numberOfInputNumericFields)}</View>;
+                         key={indicatorDefinition.uuid}>{uiComponentMap.get(indicatorDefinition.dataType)(indicatorDefinition, indicator, errorMessage, tabIndex, overallIndex, tabIndex === numberOfInputNumericFields)}</View>;
         })}</View>;
     }
 }

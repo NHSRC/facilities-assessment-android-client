@@ -31,6 +31,7 @@ class NumericIndicator extends AbstractComponent {
         indicator: React.PropTypes.object,
         validationError: React.PropTypes.string,
         tabIndex: React.PropTypes.number,
+        overallIndex: React.PropTypes.number,
         isLast: React.PropTypes.bool
     };
 
@@ -52,7 +53,7 @@ class NumericIndicator extends AbstractComponent {
                                    keyboardType='numeric'
                                    value={indicatorValue}
                                    onChangeText={(text) => this.onInputChange(text)}
-                                   ref={input => Indicators.userNumericInputs[this.props.tabIndex] = input}
+                                   ref={input => Indicators.userNumericInputs[this.props.tabIndex] = {element: input, overallIndex: this.props.overallIndex}}
                                    onSubmitEditing={() => Indicators.focusOnNextInput(this.props.tabIndex)}
                                    selectTextOnFocus={true}
                         />
