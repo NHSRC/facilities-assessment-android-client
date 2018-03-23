@@ -35,7 +35,7 @@ class IndicatorService extends BaseService {
     saveAllOutputIndicators(indicators, facilityAssessment) {
         this.db.write(() => {
             let savedIndicators = [...this.findAllByCriteria(`facilityAssessment = "${facilityAssessment.uuid}"`, Indicator.schema.name)];
-            _.forEach(savedIndicator => {
+            _.forEach(savedIndicators, savedIndicator => {
                 let indicatorDefinition = this.findByUUID(savedIndicator.indicatorDefinition, IndicatorDefinition.schema.name);
                 if (indicatorDefinition.output)
                     this.db.delete(savedIndicator);

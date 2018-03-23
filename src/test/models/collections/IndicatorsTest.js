@@ -80,6 +80,14 @@ describe('IndicatorsTest', () => {
         expect(unfilledIndicatorDefinitions[0].uuid).is.equal('3');
     });
 
+    it('indicatorDefinitionsWithPercentageError', function () {
+        let indicatorDefinitions = [percentageDefinition('1'), percentageDefinition('2')];
+        let indicators = [numericIndicator('1', 101), numericIndicator('2', 90)];
+        let indicatorDefinitionsWithPercentageError = Indicators.indicatorDefinitionsWithPercentageError(indicators, indicatorDefinitions);
+        expect(indicatorDefinitionsWithPercentageError.length).is.equal(1);
+        expect(indicatorDefinitionsWithPercentageError[0].uuid).is.equal('1');
+    });
+
     const get = function (indicators, indicatorDefinitionUUUID) {
         return Indicators.findIndicator(indicators, indicatorDefinitionUUUID);
     };

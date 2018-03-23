@@ -3,6 +3,7 @@ import AbstractComponent from "../common/AbstractComponent";
 import {Button} from 'native-base';
 import {StyleSheet} from 'react-native';
 import PrimaryColors from "../styles/PrimaryColors";
+import Logger from "../../framework/Logger";
 
 class SubmitButton extends AbstractComponent {
     static styles = StyleSheet.create({
@@ -11,8 +12,13 @@ class SubmitButton extends AbstractComponent {
         },
     });
 
+    static propTypes = {
+        showButton: React.PropTypes.bool
+    };
+
     render() {
         let showButton = _.isNil(this.props.showButton) ? true : this.props.showButton;
+        Logger.logDebug('SubmitButton.render', `${!showButton}`);
         return (
             <Button
                 onPress={this.props.onPress}

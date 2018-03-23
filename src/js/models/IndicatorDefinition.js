@@ -31,20 +31,22 @@ export default class IndicatorDefinition {
         return JSON.parse(codedValues);
     }
 
-    static errorMessageFor(dataType) {
-        switch (dataType) {
-            case IndicatorDefinition.DataType_Percentage:
-                return `MANDATORY. Between 1 and 100.`;
-            default:
-                return `MANDATORY`;
-        }
+    static errorMessageFor(indicatorDefinition) {
+        let errorMessage = '';
+        if (!indicatorDefinition.output) errorMessage += 'MANDATORY. ';
+        if (indicatorDefinition.dataType === IndicatorDefinition.DataType_Percentage) errorMessage += '% cannot be > 100';
+        return errorMessage;
     }
 
     static hasNumericValue(indicatorDefinition) {
         return indicatorDefinition.dataType === IndicatorDefinition.DataType_Numeric || indicatorDefinition.dataType === IndicatorDefinition.DataType_Percentage;
     }
 
+    static isFormulaNumeric(indicatorDefinition) {
+        return !_.isNil(indicatorDefinition.formula);
+    }
+
     static isInputNumeric(indicatorDefinition) {
-        return _.isNil(indicatorDefinition.formula) && IndicatorDefinition.hasNumericValue(indicatorDefinition);
+        return !IndicatorDefinition.isFormulaNumeric(indicatorDefinition) && IndicatorDefinition.hasNumericValue(indicatorDefinition);
     }
 }

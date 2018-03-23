@@ -5,8 +5,20 @@ import IndicatorDefinition from "../IndicatorDefinition";
 import Logger from "../../framework/Logger";
 
 class Indicators {
+    static indicatorDefinitionsWithErrors(indicators, indicatorDefinitions) {
+        let unfilledIndicatorDefinitions = Indicators.unfilledIndicatorDefinitions(indicators, indicatorDefinitions);
+        return unfilledIndicatorDefinitions.concat(Indicators.indicatorDefinitionsWithPercentageError(indicators, indicatorDefinitions));
+    }
+
     static unfilledIndicatorDefinitions(indicators, indicatorDefinitions) {
         return _.filter(indicatorDefinitions, (indicatorDefinition) => !indicatorDefinition.output && _.isNil(Indicators.findIndicator(indicators, indicatorDefinition.uuid)));
+    }
+
+    static indicatorDefinitionsWithPercentageError(indicators, indicatorDefinitions) {
+        return _.filter(indicatorDefinitions, (indicatorDefinition) => {
+            let indicator = Indicators.findIndicator(indicators, indicatorDefinition.uuid);
+            return indicatorDefinition.dataType === IndicatorDefinition.DataType_Percentage && !_.isNil(indicator) && indicator.numericValue > 100;
+        });
     }
 
     static findIndicator(indicators, indicatorDefinitionUUID) {

@@ -53,7 +53,7 @@ class Indicators extends AbstractComponent {
     static propTypes = {
         indicatorDefinitions: React.PropTypes.any.isRequired,
         indicators: React.PropTypes.any.isRequired,
-        indicatorDefinitionsInError: React.PropTypes.array
+        indicatorDefinitionsWithError: React.PropTypes.array
     };
 
     componentWillUnmount() {
@@ -62,14 +62,15 @@ class Indicators extends AbstractComponent {
     }
 
     render() {
+        Logger.logDebug('Indicators', this.props.indicatorDefinitionsWithError);
         Indicators.userNumericInputs = {};
         let numberOfInputNumericFields = IndicatorDefinitions.numberOfInputNumericFields(this.props.indicatorDefinitions);
         let tabIndex = 0;
         let overallIndex = 0;
         return <View>{this.props.indicatorDefinitions.map((indicatorDefinition) => {
             let indicator = _.find(this.props.indicators, (indicator) => indicator.indicatorDefinition === indicatorDefinition.uuid);
-            let errorMessage = _.some(this.props.indicatorDefinitionsInError, (unfilledDef) => unfilledDef.uuid === indicatorDefinition.uuid) ? IndicatorDefinition.errorMessageFor(indicatorDefinition.dataType) : undefined;
-            overallIndex++;
+            let errorMessage = _.some(this.props.indicatorDefinitionsWithError, (unfilledDef) => unfilledDef.uuid === indicatorDefinition.uuid) ? IndicatorDefinition.errorMessageFor(indicatorDefinition) : undefined;
+            if (!IndicatorDefinition.isFormulaNumeric(indicatorDefinition)) overallIndex++;
             if (IndicatorDefinition.isInputNumeric(indicatorDefinition)) tabIndex++;
             return <View style={{marginTop: deviceHeight * 0.025}}
                          key={indicatorDefinition.uuid}>{uiComponentMap.get(indicatorDefinition.dataType)(indicatorDefinition, indicator, errorMessage, tabIndex, overallIndex, tabIndex === numberOfInputNumericFields)}</View>;

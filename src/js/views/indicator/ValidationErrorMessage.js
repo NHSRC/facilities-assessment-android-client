@@ -6,7 +6,8 @@ import _ from "lodash";
 
 class ValidationErrorMessage extends AbstractComponent {
     static propTypes = {
-        validationResult: React.PropTypes.object
+        validationResult: React.PropTypes.string,
+        customStyle: React.PropTypes.object
     };
 
     constructor(props, context) {
@@ -14,7 +15,7 @@ class ValidationErrorMessage extends AbstractComponent {
     }
 
     render() {
-        return _.isNil(this.props.validationResult) ? <View/> : <Text style={{color: '#d0011b', flex: 0.3}}>{this.props.validationResult}</Text>;
+        return _.isNil(this.props.validationResult) ? null : <Text style={[{color: '#d0011b', flex: 0.3}, this.props.customStyle]}>{this.props.validationResult}</Text>;
     }
 }
 

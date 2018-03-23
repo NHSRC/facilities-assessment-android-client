@@ -69,8 +69,14 @@ class AssessmentIndicators extends AbstractComponent {
     render() {
         this.setDefaultPropValues();
         Logger.logDebug('AssessmentIndicators', 'render');
-        let validationMessage = `FOLLOWING DATA ELEMENTS HAVE NOT BEEN FILLED\n`;
-        validationMessage += this.state.indicatorDefinitionsInError.map(def => `${def.name}\n`);
+
+        let hasError = this.state.indicatorDefinitionsWithError.length !== 0;
+        let validationMessage;
+        if (hasError) {
+            validationMessage = `FOLLOWING DATA ELEMENTS HAVE ERROR\n`;
+            validationMessage += this.state.indicatorDefinitionsWithError.map(def => `${def.name}\n`);
+        }
+
         return (
             <Container theme={FlatUITheme}>
                 <Header style={Dashboard.styles.header}>
@@ -78,9 +84,7 @@ class AssessmentIndicators extends AbstractComponent {
                         <Icon style={{color: "white"}} name='arrow-back'/>
                     </Button>
                     <Title style={[Typography.paperFontHeadline,
-                        {fontWeight: 'bold', color: "white"}]}>
-                        Indicators
-                    </Title>
+                        {color: "white"}]}>{this.props.params.assessmentTool.name}</Title>
                 </Header>
                 <Content keyboardShouldPersistTaps={'always'} ref={input => AssessmentIndicators.visibleScrollView = input}>
                     <View style={{margin: deviceWidth * 0.04, flexDirection: 'column'}}>
@@ -88,21 +92,24 @@ class AssessmentIndicators extends AbstractComponent {
                             <AssessmentTitle facilityName={this.props.params.facility.name} assessmentStartDate={this.props.params.facilityAssessment.startDate}
                                              assessmentToolName={this.props.params.assessmentTool.name}/>
                         </View>
-                        <Indicators indicatorDefinitions={this.state.indicatorDefinitions} indicators={this.state.indicators} indicatorDefinitionsInError={this.state.indicatorDefinitionsInError}/>
+                        <Indicators indicatorDefinitions={this.state.indicatorDefinitions} indicators={this.state.indicators}
+                                    indicatorDefinitionsWithError={this.state.indicatorDefinitionsWithError}/>
                         {_.isEmpty(this.state.outputIndicators) ?
                             <View>
-                                {this.state.indicatorDefinitionsInError.length === 0 ? null : <ValidationErrorMessage validationResult={validationMessage}/>}
+                                <ValidationErrorMessage validationResult={validationMessage} customStyle={{marginTop: 20}}/>
                                 <SubmitButton buttonStyle={{marginTop: 30, backgroundColor: '#ffa000'}}
                                               onPress={() => this.calculateIndicators()}
                                               buttonText={"CALCULATE INDICATORS"}
                                               showButton={true}/></View> :
                             <View style={{marginTop: 40}}>
                                 <Text style={[Typography.paperFontTitle, {color: 'white'}]}>INDICATORS</Text>
-                                <Indicators indicatorDefinitions={this.state.outputIndicatorDefinitions} indicators={this.state.outputIndicators}/>
+                                <Indicators indicatorDefinitions={this.state.outputIndicatorDefinitions} indicators={this.state.outputIndicators}
+                                            indicatorDefinitionsWithError={this.state.indicatorDefinitionsWithError}/>
+                                <ValidationErrorMessage validationResult={validationMessage}/>
                                 <SubmitButton buttonStyle={{marginTop: 30, backgroundColor: '#ffa000'}}
                                               onPress={() => this.completeAssessment()}
                                               buttonText={"COMPLETE ASSESSMENT"}
-                                              showButton={true}
+                                              showButton={!hasError}
                                 />
                             </View>}
                     </View>

@@ -13,7 +13,7 @@ const clone = function (state) {
     cloned.assessmentUUID = state.assessmentUUID;
     cloned.indicatorDefinitions = state.indicatorDefinitions;
     cloned.indicators = [];
-    cloned.indicatorDefinitionsInError = state.indicatorDefinitionsInError;
+    cloned.indicatorDefinitionsWithError = state.indicatorDefinitionsWithError;
     cloned.outputIndicatorDefinitions = [];
     cloned.outputIndicators = [];
     cloned.resultsEvalCode = state.resultsEvalCode;
@@ -33,6 +33,7 @@ const allIndicators = function (state, action, beans) {
 
 const _modifyIndicator = function (state, action, beans, modifier) {
     let newState = clone(state);
+    newState.indicatorDefinitionsWithError = [];
     let indicatorService = beans.get(IndicatorService);
     let indicator = indicatorService.getIndicator(action.indicatorDefinitionUUID, newState.assessmentUUID);
     if (modifier(indicator, action)) {
@@ -80,14 +81,15 @@ const dateIndicatorChanged = function (state, action, beans) {
 
 const calculateIndicators = function (state, action, beans) {
     let newState = clone(state);
-    let unfilledIndicatorDefinitions = Indicators.unfilledIndicatorDefinitions(newState.indicators, newState.indicatorDefinitions);
-    if (_.isEmpty(unfilledIndicatorDefinitions)) {
+    let indicatorDefinitionsWithError = Indicators.indicatorDefinitionsWithErrors(newState.indicators, newState.indicatorDefinitions);
+    if (_.isEmpty(indicatorDefinitionsWithError)) {
         let facilityAssessment = beans.get(EntityService).findByUUID(newState.assessmentUUID, FacilityAssessment.schema.name);
         newState.outputIndicatorDefinitions = beans.get(IndicatorService).getIndicatorDefinitions(facilityAssessment.assessmentTool, true);
         let resultsEvalCode = IndicatorDefinitions.resultsEvalCode(newState.outputIndicatorDefinitions, true);
         newState.outputIndicators = Indicators.evalCalculatedIndicatorValues(newState.indicatorDefinitions.concat(newState.outputIndicatorDefinitions), newState.indicators, true, resultsEvalCode, newState.assessmentUUID);
+        newState.indicatorDefinitionsWithError = Indicators.indicatorDefinitionsWithPercentageError(newState.outputIndicators, newState.outputIndicatorDefinitions);
     } else {
-        newState.indicatorDefinitionsInError = unfilledIndicatorDefinitions;
+        newState.indicatorDefinitionsWithError = indicatorDefinitionsWithError;
     }
     return newState;
 };
@@ -118,5 +120,5 @@ export let assessmentIndicatorsInit = {
     outputIndicatorDefinitions: [],
     outputIndicators: [],
     resultsEvalCode: '',
-    indicatorDefinitionsInError: []
+    indicatorDefinitionsWithError: []
 };
