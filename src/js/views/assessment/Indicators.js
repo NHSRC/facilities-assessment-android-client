@@ -62,7 +62,6 @@ class Indicators extends AbstractComponent {
     }
 
     render() {
-        Logger.logDebug('Indicators', this.props.indicatorDefinitionsWithError);
         Indicators.userNumericInputs = {};
         let numberOfInputNumericFields = IndicatorDefinitions.numberOfInputNumericFields(this.props.indicatorDefinitions);
         let tabIndex = 0;

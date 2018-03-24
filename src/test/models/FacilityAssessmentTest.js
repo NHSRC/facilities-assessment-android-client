@@ -1,6 +1,7 @@
 import {expect} from 'chai';
 import _ from "lodash";
 import FacilityAssessment from "../../js/models/FacilityAssessment";
+import AssessmentTool from "../../js/models/AssessmentTool";
 
 describe('FacilityAssessmentTest', () => {
     let assessment = function (assessor, series) {
@@ -10,10 +11,19 @@ describe('FacilityAssessmentTest', () => {
         return facilityAssessment;
     };
 
+    let assessmentTool = function (type) {
+        let assessmentTool = new AssessmentTool();
+        assessmentTool.assessmentToolType = type;
+        return assessmentTool;
+    };
+
     it('submissionDetailsAvailable', () => {
-        expect(FacilityAssessment.submissionDetailsAvailable(assessment('', ''))).is.equal(false);
-        expect(FacilityAssessment.submissionDetailsAvailable(assessment('', 'a'))).is.equal(false);
-        expect(FacilityAssessment.submissionDetailsAvailable(assessment('b', ''))).is.equal(false);
-        expect(FacilityAssessment.submissionDetailsAvailable(assessment('b', 'x'))).is.equal(true);
+        expect(FacilityAssessment.submissionDetailsAvailable(assessment('', ''), assessmentTool(AssessmentTool.COMPLIANCE))).is.equal(false);
+        expect(FacilityAssessment.submissionDetailsAvailable(assessment('', 'a'), assessmentTool(AssessmentTool.COMPLIANCE))).is.equal(false);
+        expect(FacilityAssessment.submissionDetailsAvailable(assessment('b', ''), assessmentTool(AssessmentTool.COMPLIANCE))).is.equal(false);
+        expect(FacilityAssessment.submissionDetailsAvailable(assessment('b', 'x'), assessmentTool(AssessmentTool.COMPLIANCE))).is.equal(true);
+
+        expect(FacilityAssessment.submissionDetailsAvailable(assessment(''), assessmentTool(AssessmentTool.INDICATOR))).is.equal(false);
+        expect(FacilityAssessment.submissionDetailsAvailable(assessment('b'), assessmentTool(AssessmentTool.INDICATOR))).is.equal(true);
     });
 });

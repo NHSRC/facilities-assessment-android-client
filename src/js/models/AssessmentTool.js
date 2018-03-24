@@ -1,5 +1,6 @@
 class AssessmentTool {
     static COMPLIANCE = "COMPLIANCE";
+    static INDICATOR = "INDICATOR";
 
     static schema = {
         name: 'AssessmentTool',

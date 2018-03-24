@@ -22,8 +22,13 @@ const allAssessments = function (state, action, beans) {
     });
 };
 
-const startSubmitAssessment = function (state, action, beans) {
-    return Object.assign(state, {submittingAssessment: action.facilityAssessment});
+const startSubmitAssessment = function (state, action) {
+    let submissionDetailAvailable = FacilityAssessment.submissionDetailsAvailable(action.facilityAssessment, action.facilityAssessment.assessmentTool);
+    return Object.assign(state, {
+        submittingAssessment: action.facilityAssessment,
+        submissionDetailAvailable: submissionDetailAvailable,
+        assessmentToolType: action.facilityAssessment.assessmentTool.assessmentToolType
+    });
 };
 
 const submissionCancelled = function (state, action, beans) {
@@ -31,15 +36,17 @@ const submissionCancelled = function (state, action, beans) {
 };
 
 const syncAssessment = function (state, action, beans) {
+    Logger.logInfo('openAssessments', 'syncAssessment');
     const facilityAssessmentService = beans.get(FacilityAssessmentService);
     facilityAssessmentService.saveSubmissionDetails(state.submittingAssessment);
 
     const assessmentSyncService = beans.get(AssessmentSyncService);
     assessmentSyncService.syncFacilityAssessment(action.facilityAssessment, action.cb, action.errorHandler);
-    return Object.assign(state, {syncing: [action.facilityAssessment.uuid].concat(state.syncing), submittingAssessment: undefined});
+    return Object.assign(state, {syncing: [action.facilityAssessment.uuid].concat(state.syncing)});
 };
 
 const assessmentSynced = function (state, action, beans) {
+    Logger.logInfo('openAssessments', 'assessmentSynced');
     const assessmentService = beans.get(FacilityAssessmentService);
     const assessmentMode = action.mode;
     const completedAssessments = assessmentService.getAllCompletedAssessments(assessmentMode);
@@ -47,7 +54,8 @@ const assessmentSynced = function (state, action, beans) {
     return Object.assign(state, {
         syncing: state.syncing.filter((uuid) => uuid !== action.facilityAssessment.uuid),
         completedAssessments: completedAssessments,
-        submittedAssessments: submittedAssessments
+        submittedAssessments: submittedAssessments,
+        submittingAssessment: undefined
     });
 };
 
@@ -62,8 +70,9 @@ const markAssessmentUnsubmitted = function (state, action, beans) {
 };
 
 const _updateSubmittingAssessment = function (state, updateObject) {
-    let newSubmittingAssessment = {submittingAssessment: Object.assign({}, state.submittingAssessment, updateObject)};
-    return Object.assign({}, state, newSubmittingAssessment);
+    let newState = {submittingAssessment: Object.assign({}, state.submittingAssessment, updateObject)};
+    newState.submissionDetailAvailable = FacilityAssessment.submissionDetailsAvailable(newState.submittingAssessment, newState.submittingAssessment.assessmentTool);
+    return Object.assign({}, state, newState);
 };
 
 const enterAssessorName = function (state, action, beans) {

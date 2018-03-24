@@ -10,6 +10,7 @@ import ChecklistSelection from "../../checklistSelection/ChecklistSelection";
 import Logger from "../../../framework/Logger";
 import AssessmentIndicators from "../../indicator/AssessmentIndicators";
 import SubmitAssessment from "./SubmitAssessment";
+import FacilityAssessment from "../../../models/FacilityAssessment";
 
 
 class OpenView extends AbstractComponent {
@@ -107,8 +108,10 @@ class OpenView extends AbstractComponent {
                 <AssessmentList key={key} {...assessmentList}/>);
         return (
             <View style={Dashboard.styles.tab}>
-                <Modal transparent={true} visible={!_.isNil(this.state.submittingAssessment)} onRequestClose={() => {}}>
-                    <SubmitAssessment facilityAssessment={this.state.submittingAssessment} onSubmit={() => this.handleSubmit()}/>
+                <Modal transparent={true} visible={!_.isNil(this.state.submittingAssessment)} onRequestClose={() => {
+                }}>
+                    <SubmitAssessment facilityAssessment={this.state.submittingAssessment} onSubmit={() => this.handleSubmit()}
+                                      submissionDetailAvailable={this.state.submissionDetailAvailable} assessmentToolType={this.state.assessmentToolType}/>
                 </Modal>
                 {AssessmentLists}
             </View>

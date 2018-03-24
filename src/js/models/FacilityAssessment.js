@@ -1,6 +1,7 @@
 import UUID from "../utility/UUID";
 import _ from "lodash";
 import moment from "moment";
+import AssessmentTool from "./AssessmentTool";
 
 class FacilityAssessment {
     static schema = {
@@ -32,8 +33,11 @@ class FacilityAssessment {
         return moment().format('YYYYMMDD');
     }
 
-    static submissionDetailsAvailable(facilityAssessment) {
-        return !(_.isEmpty(facilityAssessment.assessorName) || _.isEmpty(facilityAssessment.seriesName));
+    static submissionDetailsAvailable(facilityAssessment, assessmentTool) {
+        if (assessmentTool.assessmentToolType === AssessmentTool.COMPLIANCE)
+            return !(_.isEmpty(facilityAssessment.assessorName) || _.isEmpty(facilityAssessment.seriesName));
+        else
+            return !(_.isEmpty(facilityAssessment.assessorName));
     }
 }
 

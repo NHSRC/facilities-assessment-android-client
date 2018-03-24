@@ -8,11 +8,14 @@ import PrimaryColors from "../../styles/PrimaryColors";
 import AssessmentSeries from "../start/AssessmentSeries";
 import Actions from "../../../action";
 import FacilityAssessment from "../../../models/FacilityAssessment";
+import AssessmentTool from "../../../models/AssessmentTool";
 
 class SubmitAssessment extends AbstractComponent {
     static propTypes = {
         facilityAssessment: React.PropTypes.object,
-        onSubmit: React.PropTypes.func.isRequired
+        onSubmit: React.PropTypes.func.isRequired,
+        submissionDetailAvailable: React.PropTypes.bool,
+        assessmentToolType: React.PropTypes.string
     };
 
     static styles = StyleSheet.create({
@@ -49,7 +52,6 @@ class SubmitAssessment extends AbstractComponent {
     }
 
     render() {
-        let submissionDetailsAvailable = FacilityAssessment.submissionDetailsAvailable(this.props.facilityAssessment);
         return (
             <Container theme={FlatUITheme}>
                 <Header style={SubmitAssessment.styles.header}>
@@ -59,7 +61,7 @@ class SubmitAssessment extends AbstractComponent {
                     }]}>Submit Assessment</Title>
                 </Header>
                 <View style={SubmitAssessment.styles.container}>
-                    <AssessmentSeries series={this.props.facilityAssessment.seriesName}/>
+                    {this.props.assessmentToolType === AssessmentTool.COMPLIANCE ? <AssessmentSeries series={this.props.facilityAssessment.seriesName}/> : null}
                     <View style={{margin: 10, flexDirection: 'column'}}>
                         <Text style={[Typography.paperFontSubhead]}>Assessor's Name</Text>
                         <TextInput style={SubmitAssessment.styles.input}
@@ -71,8 +73,12 @@ class SubmitAssessment extends AbstractComponent {
                         <View style={{flexDirection: 'row', marginBottom: 10}}>
                             <Button style={{backgroundColor: PrimaryColors.blue, alignSelf: 'stretch', marginHorizontal: 10, flex: 0.5}}
                                     onPress={() => this.close()}>CLOSE</Button>
-                            <Button style={{backgroundColor: submissionDetailsAvailable ? PrimaryColors.blue : PrimaryColors.medium_black, alignSelf: 'stretch', marginHorizontal: 10, flex: 0.5}}
-                                    onPress={this.props.onSubmit} disabled={!submissionDetailsAvailable}>SUBMIT</Button>
+                            <Button style={{
+                                backgroundColor: this.props.submissionDetailAvailable ? PrimaryColors.blue : PrimaryColors.medium_black,
+                                alignSelf: 'stretch',
+                                marginHorizontal: 10,
+                                flex: 0.5
+                            }} onPress={this.props.onSubmit} disabled={!this.props.submissionDetailAvailable}>SUBMIT</Button>
                         </View>
                     </View>
                 </View>
