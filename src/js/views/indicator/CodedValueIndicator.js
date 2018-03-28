@@ -42,7 +42,7 @@ class CodedValueIndicator extends AbstractComponent {
         let indicatorValue = _.isNil(this.props.indicator) ? null : this.props.indicator.codedValue;
         return (
             <View style={{flexDirection: 'column'}}>
-                <FieldLabel text={this.props.definition.name}/>
+                <FieldLabel text={this.props.definition.name} style={{color: 'white'}}/>
                 {IndicatorDefinition.isCalculated(this.props.definition) ? <FieldValue text={indicatorValue}/> :
                     <View>
                         {IndicatorDefinition.getCodedValues(this.props.definition.codedValues).map((codedValue) => {

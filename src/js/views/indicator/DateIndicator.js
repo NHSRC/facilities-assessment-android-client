@@ -74,7 +74,7 @@ class DateIndicator extends AbstractComponent {
         let date = _.isNil(this.props.indicator) ? new Date() : this.props.indicator.dateValue;
         return (
             <View>
-                <FieldLabel text={this.props.definition.name}/>
+                <FieldLabel text={this.props.definition.name} style={{color: 'white'}}/>
                 {(Platform.OS === 'ios' && this.props.editing) ? this.renderIOSDatePicker(date) :
                     <Text onPress={this.dateTextClicked.bind(this, {date: date})}
                           style={{
