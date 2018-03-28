@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Dimensions, View, Text, TouchableWithoutFeedback, StyleSheet, ToastAndroid} from 'react-native';
+import {Dimensions, View, Text, TouchableWithoutFeedback, StyleSheet, ToastAndroid, Platform} from 'react-native';
 import AbstractComponent from "../common/AbstractComponent";
 import Actions from '../../action';
 import _ from 'lodash';
@@ -35,7 +35,8 @@ class Compliance extends AbstractComponent {
 
 
     remarkNotif() {
-        ToastAndroid.showWithGravity("Please enter a remark", ToastAndroid.SHORT, ToastAndroid.CENTER);
+        if (Platform.OS !== 'ios')
+            ToastAndroid.showWithGravity("Please enter a remark", ToastAndroid.SHORT, ToastAndroid.CENTER);
     }
 
     render() {

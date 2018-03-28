@@ -93,7 +93,7 @@ class AssessmentIndicators extends AbstractComponent {
                                              assessmentToolName={this.props.params.assessmentTool.name}/>
                         </View>
                         <Indicators indicatorDefinitions={this.state.indicatorDefinitions} indicators={this.state.indicators}
-                                    indicatorDefinitionsWithError={this.state.indicatorDefinitionsWithError}/>
+                                    indicatorDefinitionsWithError={this.state.indicatorDefinitionsWithError} dateFieldInEdit={this.state.dateFieldInEdit}/>
                         {_.isEmpty(this.state.outputIndicators) ?
                             <View>
                                 <ValidationErrorMessage validationResult={validationMessage} customStyle={{marginTop: 20}}/>

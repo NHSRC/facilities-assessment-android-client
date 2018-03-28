@@ -17,6 +17,7 @@ const clone = function (state) {
     cloned.outputIndicatorDefinitions = [];
     cloned.outputIndicators = [];
     cloned.resultsEvalCode = state.resultsEvalCode;
+    cloned.dateFieldInEdit = state.dateFieldInEdit;
     state.indicators.forEach((indicator) => cloned.indicators.push(Object.assign(new Indicator(), indicator)));
     return cloned;
 };
@@ -36,7 +37,7 @@ const _modifyIndicator = function (state, action, beans, modifier) {
     newState.indicatorDefinitionsWithError = [];
     let indicatorService = beans.get(IndicatorService);
     let indicator = indicatorService.getIndicator(action.indicatorDefinitionUUID, newState.assessmentUUID);
-    if (modifier(indicator, action)) {
+    if (modifier(indicator, action, newState)) {
         _saveIndicator(indicatorService, indicator, newState.indicators);
     }
     return newState;
@@ -73,10 +74,22 @@ const numericIndicatorChanged = function (state, action, beans) {
 };
 
 const dateIndicatorChanged = function (state, action, beans) {
-    return _modifyIndicator(state, action, beans, (indicator, action) => {
+    return _modifyIndicator(state, action, beans, (indicator, action, newState) => {
         indicator.dateValue = action.value;
         return true;
     });
+};
+
+const dateIndicatorEditing = function (state, action, beans) {
+    let newState = clone(state);
+    newState.dateFieldInEdit = action.indicatorDefinitionUUID;
+    return newState;
+};
+
+const dateIndicatorEditingDone = function (state, action, beans) {
+    let newState = clone(state);
+    newState.dateFieldInEdit = undefined;
+    return newState;
 };
 
 const calculateIndicators = function (state, action, beans) {
@@ -109,6 +122,8 @@ export default new Map([
     ["CODED_INDICATOR_UPDATED", codedIndicatorUpdated],
     ["NUMERIC_INDICATOR_CHANGED", numericIndicatorChanged],
     ["DATE_INDICATOR_CHANGED", dateIndicatorChanged],
+    ["DATE_INDICATOR_EDITING", dateIndicatorEditing],
+    ["DATE_INDICATOR_EDITING_DONE", dateIndicatorEditingDone],
     ["CALCULATE_INDICATORS", calculateIndicators],
     ["COMPLETED_INDICATOR_ASSESSMENT", completedIndicatorAssessment]
 ]);
@@ -120,5 +135,6 @@ export let assessmentIndicatorsInit = {
     outputIndicatorDefinitions: [],
     outputIndicators: [],
     resultsEvalCode: '',
-    indicatorDefinitionsWithError: []
+    indicatorDefinitionsWithError: [],
+    dateFieldInEdit: undefined
 };

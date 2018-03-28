@@ -1,4 +1,5 @@
 import DeviceInfo from 'react-native-device-info';
+import {Platform} from "react-native";
 
 class EnvironmentConfig {
     initConfig() {
@@ -21,7 +22,7 @@ class EnvironmentConfig {
     }
 
     get serverURL() {
-        return this._getPropertyValue("SERVER_URL");
+        return Platform.OS === 'ios' ? this._getPropertyValue("SERVER_URL_IOS") : this._getPropertyValue("SERVER_URL");
     }
 
     get shouldAllowIncompleteChecklistSubmission() {
