@@ -4,7 +4,6 @@ import IndicatorDefinition from "../models/IndicatorDefinition";
 import Indicator from "../models/Indicator";
 import _ from 'lodash';
 import UUID from "../utility/UUID";
-import Logger from "../framework/Logger";
 
 @Service("indicatorService")
 class IndicatorService extends BaseService {
@@ -13,7 +12,8 @@ class IndicatorService extends BaseService {
     }
 
     getIndicatorDefinitions(assessmentToolUUID, isOutput) {
-        return [...this.findAllByCriteria(`assessmentTool = "${assessmentToolUUID}" AND output = ${isOutput}`, IndicatorDefinition.schema.name)];
+        let indicatorDefinitions = [...this.findAllByCriteria(`assessmentTool = "${assessmentToolUUID}" AND output = ${isOutput}`, IndicatorDefinition.schema.name)];
+        return _.sortBy(indicatorDefinitions, (indicatorDefinition) => indicatorDefinition.sortOrder);
     }
 
     getIndicator(indicatorDefinitionUUID, assessmentUUID) {
