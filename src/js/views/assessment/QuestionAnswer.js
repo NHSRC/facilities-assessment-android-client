@@ -135,7 +135,7 @@ class QuestionAnswer extends AbstractComponent {
                     <View style={QuestionAnswer.styles.answer}>
                         {NA}
                         <AnswerInfo checkpoint={this.props.currentCheckpoint}/>
-                        <FieldLabel text={this.props.currentCheckpoint.checkpoint.name}/>
+                        <FieldLabel text={this.props.currentCheckpoint.checkpoint.name} style={{color: PrimaryColors.subheader_black}}/>
                         {ShowCompliance}
                     </View>
                 </View>

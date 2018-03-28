@@ -43,7 +43,7 @@ class NumericIndicator extends AbstractComponent {
         let indicatorValue = _.isNil(this.props.indicator) ? ' ' : _.toString(this.props.indicator.numericValue);
         return (
             <View>
-                <FieldLabel text={this.props.definition.name}/>
+                <FieldLabel text={this.props.definition.name} style={{color: 'white'}}/>
                 {IndicatorDefinition.isCalculated(this.props.definition) ?
                     <View><FieldValue text={indicatorValue}/><ValidationErrorMessage validationResult={this.props.validationError}/></View> :
                     <View>

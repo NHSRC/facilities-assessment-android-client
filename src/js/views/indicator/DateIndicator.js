@@ -41,7 +41,7 @@ class DateIndicator extends AbstractComponent {
     render() {
         return (
             <View>
-                <FieldLabel text={this.props.definition.name}/>
+                <FieldLabel text={this.props.definition.name} style={{color: 'white'}}/>
                 <Text onPress={this.showPicker.bind(this, {date: _.isNil(this.props.indicator) ? new Date() : this.props.indicator.dateValue})}
                       style={{
                           flex: 1,
