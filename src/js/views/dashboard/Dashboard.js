@@ -10,6 +10,7 @@ import Path from "../../framework/routing/Path";
 import Typography from '../styles/Typography';
 import CustomTabBar from '../common/CustomTabBar';
 import TypedTransition from "../../framework/routing/TypedTransition";
+import Actions from "../../action";
 
 const deviceWidth = Dimensions.get('window').width;
 
@@ -40,7 +41,12 @@ class Dashboard extends AbstractComponent {
             <Container theme={FlatUITheme}>
                 <Content keyboardShouldPersistTaps={'always'}>
                     <Header style={Dashboard.styles.header}>
-                        <Button transparent onPress={() => TypedTransition.from(this).goBack()}>
+                        <Button transparent onPress={() => {
+                            this.dispatchAction(Actions.RESET_FORM, {
+                                cb: () => {}
+                            });
+                            TypedTransition.from(this).goBack();
+                        }}>
                             <Icon style={{marginTop: 10, color: "white"}} name='arrow-back'/>
                         </Button>
                         <Title style={[Typography.paperFontHeadline, {
