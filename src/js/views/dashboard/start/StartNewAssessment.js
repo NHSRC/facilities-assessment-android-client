@@ -5,6 +5,7 @@ import {StyleSheet} from "react-native";
 import _ from "lodash";
 import Actions from "../../../action";
 import PrimaryColors from "../../styles/PrimaryColors";
+import {FacilitySelectionState} from "../../../action/facilitySelection";
 
 class StartNewAssessment extends AbstractComponent {
     static styles = StyleSheet.create({
@@ -13,8 +14,13 @@ class StartNewAssessment extends AbstractComponent {
         },
     });
 
+    static propTypes = {
+        data: React.PropTypes.object,
+        mode: React.PropTypes.string.isRequired
+    };
+
     render() {
-        const isComplete = !(_.isEmpty(this.props.data.selectedAssessmentTool) || _.isEmpty(this.props.data.selectedAssessmentType));
+        const isComplete = FacilitySelectionState.isFacilityChosen(this.props.data);
         return (
             <Button
                 onPress={() => {

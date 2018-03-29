@@ -22,7 +22,6 @@ class StartView extends AbstractComponent {
     constructor(props, context) {
         super(props, context, 'facilitySelection');
         this.changeView = this.changeView.bind(this);
-        this.resetForm = this.resetForm.bind(this);
     }
 
     static styles = StyleSheet.create({
@@ -49,13 +48,6 @@ class StartView extends AbstractComponent {
                     ...this.props
                 }).to(this.state.selectedAssessmentTool.assessmentToolType === 'COMPLIANCE' ? ChecklistSelection : AssessmentIndicators)
         })
-    }
-
-    resetForm() {
-        this.dispatchAction(Actions.RESET_FORM, {
-            cb: () => {
-            }
-        });
     }
 
     componentWillMount() {

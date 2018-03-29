@@ -33,7 +33,8 @@
     "realm": "2.0.0-rc22",
     "redux": "^3.6.0",
     "transducers-js": "^0.4.174",
-    "url-parse": "^1.2.0"
+    "url-parse": "^1.2.0",
+    "stacktrace-js": "2.0.0"
   },
   "devDependencies": {
     "babel-polyfill": "6.13.0",

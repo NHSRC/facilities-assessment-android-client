@@ -1,8 +1,12 @@
 import FacilitiesService from "../service/FacilitiesService";
 import FacilityAssessmentService from "../service/FacilityAssessmentService";
 import _ from "lodash";
-import moment from "moment";
-import FacilityAssessment from "../models/FacilityAssessment";
+
+export class FacilitySelectionState {
+    static isFacilityChosen(state) {
+        return !(_.isNil(state.selectedAssessmentTool) || _.isNil(state.selectedAssessmentType) || _.isNil(state.selectedFacilityType)) && (!_.isEmpty(state.facilityName) || !_.isNil(state.selectedFacility));
+    }
+}
 
 const allStates = function (state, action, beans) {
     let facilitiesService = beans.get(FacilitiesService);
