@@ -171,7 +171,7 @@ run_app_ios: switch_ios_to_debug_mode setup_source
 	$(call _run_ios,dev)
 
 run_app_ios_nhsrc: switch_ios_to_debug_mode setup_source_nhsrc
-	$(call _run_ios,nhsrc)
+	$(call _run_ios,.env.nhsrc)
 
 run_app_ios_nhsrc_dev: switch_ios_to_debug_mode setup_source_nhsrc
 	$(call _run_ios,.env.nhsrc.dev)

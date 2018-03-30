@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import {Text, StyleSheet, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import AbstractComponent from "../../common/AbstractComponent";
 import {Picker} from 'native-base';
-import Logger from "../../../framework/Logger";
-const Item = Picker.Item;
 import _ from 'lodash';
 import PrimaryColors from "../../styles/PrimaryColors";
+
+const Item = Picker.Item;
 
 class AssessmentPicker extends AbstractComponent {
     constructor(props, context) {
