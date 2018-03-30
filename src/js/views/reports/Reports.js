@@ -26,11 +26,6 @@ class Reports extends AbstractComponent {
     }
 
     static styles = StyleSheet.create({
-        header: {
-            shadowOffset: {width: 0, height: 0},
-            elevation: 0,
-            backgroundColor: '#212121',
-        },
         container: {
             margin: deviceWidth * 0.04,
         },
@@ -94,7 +89,7 @@ class Reports extends AbstractComponent {
             : `${this.props.params.mode.toUpperCase()} Scorecard`;
         return (
             <Container theme={FlatUITheme}>
-                <Header style={Reports.styles.header}>
+                <Header style={FlatUITheme.header}>
                     <Button
                         onPress={this.back.bind(this)}
                         transparent>

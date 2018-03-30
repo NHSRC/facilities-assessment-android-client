@@ -21,11 +21,6 @@ class Dashboard extends AbstractComponent {
     }
 
     static styles = StyleSheet.create({
-        header: {
-            shadowOffset: {width: 0, height: 0},
-            elevation: 0,
-            backgroundColor: '#212121',
-        },
         tabs: {
             flex: 3,
             margin: 0
@@ -40,7 +35,7 @@ class Dashboard extends AbstractComponent {
         return (
             <Container theme={FlatUITheme}>
                 <Content keyboardShouldPersistTaps={'always'}>
-                    <Header style={Dashboard.styles.header}>
+                    <Header style={FlatUITheme.header}>
                         <Button transparent onPress={() => {
                             this.dispatchAction(Actions.RESET_FORM, {
                                 cb: () => {}

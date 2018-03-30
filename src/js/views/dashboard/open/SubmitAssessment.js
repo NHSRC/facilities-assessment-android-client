@@ -19,11 +19,6 @@ class SubmitAssessment extends AbstractComponent {
     };
 
     static styles = StyleSheet.create({
-        header: {
-            shadowOffset: {width: 0, height: 0},
-            elevation: 0,
-            backgroundColor: '#212121',
-        },
         container: {
             backgroundColor: 'white',
             alignSelf: 'stretch',
@@ -54,7 +49,7 @@ class SubmitAssessment extends AbstractComponent {
     render() {
         return (
             <Container theme={FlatUITheme}>
-                <Header style={SubmitAssessment.styles.header}>
+                <Header style={FlatUITheme.header}>
                     <Title style={[Typography.paperFontTitle, {
                         fontWeight: 'bold',
                         color: 'white'
@@ -70,7 +65,7 @@ class SubmitAssessment extends AbstractComponent {
                                    words="words"
                                    keyboardType='numeric'
                                    onChangeText={(text) => this.handleAssessorNameChange(text)}/>
-                        <View style={{flexDirection: 'row', marginBottom: 10}}>
+                        <View style={{flexDirection: 'row', marginBottom: 10, marginTop: 10}}>
                             <Button style={{backgroundColor: PrimaryColors.blue, alignSelf: 'stretch', marginHorizontal: 10, flex: 0.5}}
                                     onPress={() => this.close()}>CLOSE</Button>
                             <Button style={{

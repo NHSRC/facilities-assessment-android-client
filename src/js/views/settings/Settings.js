@@ -32,11 +32,6 @@ class Settings extends AbstractComponent {
             justifyContent: 'space-between',
             alignItems: 'center'
         },
-        header: {
-            shadowOffset: {width: 0, height: 0},
-            elevation: 0,
-            backgroundColor: '#212121',
-        },
         textBox: {
             alignSelf: 'stretch',
             marginTop: 8,
@@ -87,7 +82,7 @@ class Settings extends AbstractComponent {
     render() {
         return (
             <Container theme={FlatUITheme}>
-                <Header style={Settings.styles.header}>
+                <Header style={FlatUITheme.header}>
                     <Button
                         onPress={() => {
                             this.dispatchAction(Actions.MODE_SELECTION);

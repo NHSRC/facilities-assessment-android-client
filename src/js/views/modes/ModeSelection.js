@@ -42,11 +42,6 @@ class ModeSelection extends AbstractComponent {
             flexWrap: 'wrap',
             justifyContent: 'center'
         },
-        header: {
-            shadowOffset: {width: 0, height: 0},
-            elevation: 0,
-            backgroundColor: '#212121'
-        },
         mode: {
             backgroundColor: 'transparent',
         },
@@ -83,7 +78,7 @@ class ModeSelection extends AbstractComponent {
         Logger.logDebug('ModeSelection', 'render');
         return (
             <Container theme={FlatUITheme}>
-                <Header style={ModeSelection.styles.header}>
+                <Header style={FlatUITheme.header}>
                     {EnvironmentConfig.functionsEnabledInSettings ?
                         <Button
                             onPress={() => TypedTransition.from(this)

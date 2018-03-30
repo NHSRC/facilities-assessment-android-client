@@ -76,6 +76,9 @@ const numericIndicatorChanged = function (state, action, beans) {
 const dateIndicatorChanged = function (state, action, beans) {
     return _modifyIndicator(state, action, beans, (indicator, action, newState) => {
         indicator.dateValue = action.value;
+        if (!action.editing) {
+            newState.dateFieldInEdit = undefined;
+        }
         return true;
     });
 };
@@ -83,12 +86,6 @@ const dateIndicatorChanged = function (state, action, beans) {
 const dateIndicatorEditing = function (state, action, beans) {
     let newState = clone(state);
     newState.dateFieldInEdit = action.indicatorDefinitionUUID;
-    return newState;
-};
-
-const dateIndicatorEditingDone = function (state, action, beans) {
-    let newState = clone(state);
-    newState.dateFieldInEdit = undefined;
     return newState;
 };
 
@@ -123,7 +120,6 @@ export default new Map([
     ["NUMERIC_INDICATOR_CHANGED", numericIndicatorChanged],
     ["DATE_INDICATOR_CHANGED", dateIndicatorChanged],
     ["DATE_INDICATOR_EDITING", dateIndicatorEditing],
-    ["DATE_INDICATOR_EDITING_DONE", dateIndicatorEditingDone],
     ["CALCULATE_INDICATORS", calculateIndicators],
     ["COMPLETED_INDICATOR_ASSESSMENT", completedIndicatorAssessment]
 ]);

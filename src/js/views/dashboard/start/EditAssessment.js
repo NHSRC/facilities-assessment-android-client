@@ -24,11 +24,6 @@ class EditAssessment extends AbstractComponent {
             borderBottomWidth: 0,
             marginLeft: 0,
         },
-        header: {
-            shadowOffset: {width: 0, height: 0},
-            elevation: 0,
-            backgroundColor: '#212121',
-        },
         container: {
             justifyContent: 'center',
             marginTop: 30,
@@ -54,7 +49,7 @@ class EditAssessment extends AbstractComponent {
 
         return (
             <Container theme={FlatUITheme}>
-                <Header style={EditAssessment.styles.header}>
+                <Header style={FlatUITheme.header}>
                     <Title style={[Typography.paperFontTitle, {
                         fontWeight: 'bold',
                         color: 'white'

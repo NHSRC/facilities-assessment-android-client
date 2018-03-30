@@ -7,7 +7,6 @@ import ValidationErrorMessage from "./ValidationErrorMessage";
 import General from "../../utility/General";
 import Actions from '../../action';
 import FieldLabel from "../common/FieldLabel";
-import Logger from "../../framework/Logger";
 import PrimaryColors from "../styles/PrimaryColors";
 
 class DateIndicator extends AbstractComponent {
@@ -50,22 +49,21 @@ class DateIndicator extends AbstractComponent {
         const {action, year, month, day} = DatePickerAndroid.open(options);
         if (action !== await DatePickerAndroid.dismissedAction) {
             let value = new Date(year, month, day);
-            this.dispatchDateChange(value);
+            this.dispatchDateChange(value, false);
         }
     }
 
-    dispatchDateChange(value) {
-        this.dispatchAction(Actions.DATE_INDICATOR_CHANGED, {indicatorDefinitionUUID: this.props.definition.uuid, value: value});
+    dispatchDateChange(value, editing) {
+        this.dispatchAction(Actions.DATE_INDICATOR_CHANGED, {indicatorDefinitionUUID: this.props.definition.uuid, value: value, editing: editing});
     }
 
     renderIOSDatePicker(date) {
-        return <Modal transparent={true} visible={true}
-                      onRequestClose={() => this.dispatchAction(Actions.DATE_INDICATOR_EDITING_DONE)}>
-            <View style={{marginTop: 100, paddingTop: 30, backgroundColor: PrimaryColors.light_black}}>
-                <FieldLabel text={this.getTitle()} style={{backgroundColor: PrimaryColors.blue, paddingLeft: 10, height: 40, padding: 10}}/>
-                <DatePickerIOS date={date} onDateChange={(date) => this.dispatchDateChange(date)} mode="date" style={{backgroundColor: 'white'}}/>
+        return <Modal transparent={true} visible={true}>
+            <View style={{marginTop: 100, backgroundColor: PrimaryColors.header}}>
+                <FieldLabel text={this.getTitle()} style={{color: 'white', backgroundColor: PrimaryColors.header, paddingLeft: 10, height: 40, padding: 10}}/>
+                <DatePickerIOS date={date} onDateChange={(date) => this.dispatchDateChange(date, true)} mode="date" style={{backgroundColor: 'white'}}/>
                 <Button style={{backgroundColor: PrimaryColors.blue, alignSelf: 'stretch'}} block
-                        onPress={() => this.dispatchAction(Actions.DATE_INDICATOR_EDITING_DONE)}>Done</Button>
+                        onPress={() => this.dispatchDateChange(date, false)}>Done</Button>
             </View>
         </Modal>;
     }

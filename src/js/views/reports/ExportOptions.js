@@ -15,11 +15,6 @@ class ExportOptions extends AbstractComponent {
     }
 
     static styles = StyleSheet.create({
-        header: {
-            shadowOffset: {width: 0, height: 0},
-            elevation: 0,
-            backgroundColor: '#212121',
-        },
         container: {
             backgroundColor: 'white',
             alignSelf: 'stretch',
@@ -41,7 +36,7 @@ class ExportOptions extends AbstractComponent {
             </ListItem>);
         return (
             <Container theme={FlatUITheme}>
-                <Header style={ExportOptions.styles.header}>
+                <Header style={FlatUITheme.header}>
                     <Title style={[Typography.paperFontTitle, {
                         fontWeight: 'bold',
                         color: 'white'

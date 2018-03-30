@@ -6,6 +6,12 @@ import Fonts from "../styles/Fonts";
 const deviceHeight = Dimensions.get('window').height;
 
 export default {
+    header: {
+        shadowOffset: {width: 0, height: 0},
+        elevation: 0,
+        backgroundColor: PrimaryColors.header,
+    },
+
 
     // Badge
     badgeBg: '#ED1727',

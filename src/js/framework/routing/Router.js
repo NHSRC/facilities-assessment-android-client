@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Navigator, BackAndroid} from 'react-native';
+import {View, Navigator, BackAndroid, Platform} from 'react-native';
 
 export default class Router extends Component {
 
@@ -32,17 +32,20 @@ export default class Router extends Component {
     });
 
     componentDidMount = () => {
-        BackAndroid.addEventListener('hardwareBackPress', () => {
-            if (!this.onInitialScreen) {
-                this.navigator.pop();
-                return true;
-            }
-            return false;
-        });
+        if (Platform.OS === 'android') {
+            BackAndroid.addEventListener('hardwareBackPress', () => {
+                if (!this.onInitialScreen) {
+                    this.navigator.pop();
+                    return true;
+                }
+                return false;
+            });
+        }
     };
 
     componentWillUnmount = () => {
-        BackAndroid.removeEventListener('hardwareBackPress');
+        if (Platform.OS === 'android')
+            BackAndroid.removeEventListener('hardwareBackPress');
     };
 
     configureScene(route) {

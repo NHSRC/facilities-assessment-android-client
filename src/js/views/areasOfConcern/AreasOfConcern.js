@@ -43,7 +43,7 @@ class AreasOfConcern extends AbstractComponent {
         Logger.logDebug('AreasOfConcern', 'render');
         return (
             <Container theme={FlatUITheme}>
-                <Header style={Dashboard.styles.header}>
+                <Header style={FlatUITheme.header}>
                     <Button transparent onPress={() => TypedTransition.from(this).goBack()}>
                         <Icon style={{marginTop: 10, color: "white"}} name='arrow-back'/>
                     </Button>

@@ -23,11 +23,6 @@ class DrillDownView extends AbstractComponent {
     }
 
     static styles = StyleSheet.create({
-        header: {
-            shadowOffset: {width: 0, height: 0},
-            elevation: 0,
-            backgroundColor: '#212121',
-        },
         container: {
             margin: deviceWidth * 0.04,
         }
@@ -48,7 +43,7 @@ class DrillDownView extends AbstractComponent {
         Logger.logDebug('DrillDownView', 'render');
         return (
             <Container theme={FlatUITheme}>
-                <Header style={DrillDownView.styles.header}>
+                <Header style={FlatUITheme.header}>
                     <Button
                         onPress={() => TypedTransition.from(this)
                             .goBack()}

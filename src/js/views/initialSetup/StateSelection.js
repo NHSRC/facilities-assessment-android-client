@@ -19,11 +19,6 @@ class StateSelection extends AbstractComponent {
     }
 
     static styles = StyleSheet.create({
-        header: {
-            shadowOffset: {width: 0, height: 0},
-            elevation: 0,
-            backgroundColor: '#212121',
-        }
     });
 
     componentWillMount() {
@@ -65,7 +60,7 @@ class StateSelection extends AbstractComponent {
 
         return (
             <Container theme={FlatUITheme}>
-                <Header style={StateSelection.styles.header}>
+                <Header style={FlatUITheme.header}>
                     <Button transparent onPress={() => TypedTransition.from(this).goBack()}>
                         <Icon style={{marginTop: 5, color: "white"}} name='arrow-back'/>
                     </Button>

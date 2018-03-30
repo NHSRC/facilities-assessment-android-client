@@ -76,7 +76,7 @@ class SearchPage extends AbstractComponent {
         Logger.logDebug('SearchPage', 'render');
         return (
             <Container theme={FlatUITheme}>
-                <Header style={Dashboard.styles.header}>
+                <Header style={FlatUITheme.header}>
                     <Button transparent onPress={() => TypedTransition.from(this).goBack()}>
                         <Icon style={{color: "white"}} name="arrow-back"/>
                     </Button>

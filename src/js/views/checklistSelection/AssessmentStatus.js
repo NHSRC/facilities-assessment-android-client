@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Text, StyleSheet, View, ScrollView, ProgressBarAndroid as ProgressBar, Dimensions} from "react-native";
+import {Text, StyleSheet, View, ScrollView, ProgressBarAndroid, Dimensions, Platform, ProgressViewIOS} from "react-native";
 import AbstractComponent from "../common/AbstractComponent";
 import PrimaryColors from "../styles/PrimaryColors";
 import Typography from "../styles/Typography";
@@ -28,6 +28,7 @@ class AssessmentStatus extends AbstractComponent {
 
     render() {
         const progressRatio = this.props.assessmentProgress.completed / this.props.assessmentProgress.total;
+        let progressBarColor = progressRatio < 1 ? PrimaryColors.complete : PrimaryColors.incomplete;
         return (
             <View style={AssessmentStatus.styles.statusContainer}>
                 <View style={AssessmentStatus.styles.textContainer}>
@@ -38,10 +39,13 @@ class AssessmentStatus extends AbstractComponent {
                         {_.ceil(progressRatio * 100, 2)}% Complete
                     </Text>
                 </View>
-                <ProgressBar
-                    color={progressRatio < 1 ? PrimaryColors.complete : PrimaryColors.incomplete}
-                    styleAttr="Horizontal" indeterminate={false}
-                    progress={progressRatio}/>
+                {Platform.OS === 'android' ?
+                    <ProgressBarAndroid
+                        color={progressBarColor}
+                        styleAttr="Horizontal" indeterminate={false}
+                        progress={progressRatio}/> :
+                    <ProgressViewIOS progressTintColor={progressBarColor} progress={progressRatio}/>
+                }
             </View>
         );
     }

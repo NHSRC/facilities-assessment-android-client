@@ -96,7 +96,7 @@ class ChecklistSelection extends AbstractComponent {
         const showCompleteButton = this.showCompleteButton(this.props.params.mode);
         return (
             <Container theme={FlatUITheme}>
-                <Header style={Dashboard.styles.header}>
+                <Header style={FlatUITheme.header}>
                     <Button transparent onPress={() => TypedTransition.from(this).goBack()}>
                         <Icon style={{color: "white"}} name='arrow-back'/>
                     </Button>

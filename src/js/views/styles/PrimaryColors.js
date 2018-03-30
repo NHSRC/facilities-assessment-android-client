@@ -20,5 +20,6 @@ export default {
     "lighBlue": "#1976d2",
     "complete": "#ffa000",
     "incomplete": "#ffc107",
-    "darkGrey": "rgba(42, 42, 66, 0.87)"
+    "darkGrey": "rgba(42, 42, 66, 0.87)",
+    "header": '#212121'
 };

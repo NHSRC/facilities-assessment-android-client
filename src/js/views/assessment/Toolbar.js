@@ -116,7 +116,7 @@ class Toolbar extends AbstractComponent {
             .map((button, key) => this.renderButton(button, key));
         let meansOfVerificationLink = _.isEmpty(this.props.checkpoint.checkpoint.meansOfVerification) ?
             (<View/>) :
-            (<View style={{flex: .4, marginRight: 10}}>
+            (<View>
                 <Text
                     style={[Typography.paperFontBody1, {
                         fontWeight: '500',
@@ -131,7 +131,9 @@ class Toolbar extends AbstractComponent {
             </View>);
         return (
             <View style={Toolbar.styles.container}>
-                {meansOfVerificationLink}
+                <View style={{flex: 0.4, marginRight: 10}}>
+                    {meansOfVerificationLink}
+                </View>
                 <View style={Toolbar.styles.actionButtons}>
                     {ButtonsToRender}
                 </View>
