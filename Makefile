@@ -142,8 +142,7 @@ define _run_ios
 endef
 
 define _switch_ios_to_mode
-	cat ios/FacilitiesAssessment/Info.plist.template|sed 's/NSExceptionAllowsInsecureHTTPLoads_VALUE/$1/' > ios/FacilitiesAssessment/Info.plist
-    cat ios/FacilitiesAssessment/AppDelegate.m.template|sed 's/JS_CODE_LOCATION/$2/' > ios/FacilitiesAssessment/AppDelegate.m
+	cat ios/FacilitiesAssessment/AppDelegate.m.template|sed 's/JS_CODE_LOCATION/$2/' > ios/FacilitiesAssessment/AppDelegate.m
 endef
 
 define uninstall_android
@@ -171,6 +170,9 @@ run_app_ios: switch_ios_to_debug_mode setup_source
 	$(call _run_ios,dev)
 
 run_app_ios_nhsrc: switch_ios_to_debug_mode setup_source_nhsrc
+	$(call _run_ios,.env.nhsrc)
+
+run_app_ios_nhsrc_release: switch_ios_to_release_mode setup_source_nhsrc
 	$(call _run_ios,.env.nhsrc)
 
 run_app_ios_nhsrc_dev: switch_ios_to_debug_mode setup_source_nhsrc
@@ -201,6 +203,15 @@ uninstall_app:
 analyse_app_crash:
 	cd unminifiy && npm start ../android/app/build/generated/sourcemap.js $(line) $(column)
 # </app>
+
+# <ipa>
+prepare_ipa_nhsrc: switch_ios_to_release_mode setup_source_nhsrc
+	$(call _set_env,.env.nhsrc)
+	react-native bundle --entry-file index.ios.js --platform ios --dev false --bundle-output ios/main.jsbundle --assets-dest ios
+
+prepare_ipa_nhsrc_fail: switch_ios_to_release_mode setup_source
+	$(call _set_env,.env.nhsrc)
+# </ipa>
 
 # <device>
 #clean_ios_simulator_devices:

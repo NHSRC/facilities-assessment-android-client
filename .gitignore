@@ -65,3 +65,5 @@ android/app/src/main/res/drawable-*
 android/app/old-build
 src/config/**
 .env
+
+ios/main.jsbundle*

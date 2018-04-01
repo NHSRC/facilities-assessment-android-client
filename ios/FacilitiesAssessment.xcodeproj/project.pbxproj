@@ -1476,7 +1476,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.nhsrc.FacilitiesAssessment;
 				PRODUCT_NAME = FacilitiesAssessment;
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "NHSRC-Gunak";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
