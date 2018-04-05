@@ -46,8 +46,8 @@ class DateIndicator extends AbstractComponent {
     }
 
     async showPicker(options) {
-        const {action, year, month, day} = DatePickerAndroid.open(options);
-        if (action !== await DatePickerAndroid.dismissedAction) {
+        const {action, year, month, day} = await DatePickerAndroid.open(options);
+        if (action !== DatePickerAndroid.dismissedAction) {
             let value = new Date(year, month, day);
             this.dispatchDateChange(value, false);
         }
