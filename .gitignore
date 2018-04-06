@@ -67,3 +67,4 @@ src/config/**
 .env
 
 ios/main.jsbundle*
+ios/FacilitiesAssessment/AppDelegate.m

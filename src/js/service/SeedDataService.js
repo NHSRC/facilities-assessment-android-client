@@ -24,6 +24,7 @@ class SeedDataService extends BaseService {
         if (EnvironmentConfig.shouldUsePackagedSeedData) {
             let seedProgressService = this.getService(SeedProgressService);
             let checklistLoaded = seedProgressService.isChecklistLoaded();
+            Logger.logInfo('SeedDataService.postInit', `checklistLoaded: ${checklistLoaded}; newMetadataVersion: ${EnvironmentConfig.metaDataVersion}; existingMetadataVersion: ${seedProgressService.getSeedProgress().metaDataVersion}`);
             if (!checklistLoaded || seedProgressService.versionChanged()) {
                 let localReferenceDataSyncService = this.getService(LocalReferenceDataSyncService);
                 if (SeedProgress.isDefaultVersion(seedProgressService.getSeedProgress()))

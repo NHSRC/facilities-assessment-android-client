@@ -10,7 +10,7 @@ endif
 ts := $(shell /bin/date "+%Y-%m-%d---%H-%M-%S")
 recorded_response_dir := ../reference-data/nhsrc/output/recorded-response
 service_src_dir := src/js/service
-rr_version := 6
+rr_version := 7
 ip:=$(shell ifconfig | grep -A 2 'vboxnet' | tail -1 | cut -d ' ' -f 2 | cut -d ' ' -f 1)
 apk_folder=~/Dropbox/Public/Gunak
 
@@ -98,6 +98,7 @@ setup_source:
 	-rm -rf src/config/*
 
 setup_source_nhsrc:
+	rm -rf src/config/*
 	cp -R $(recorded_response_dir)/jsons/$(rr_version)/* src/config/
 	node packagedJSON/generatePackagedJSON.js
 

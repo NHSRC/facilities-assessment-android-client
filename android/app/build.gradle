@@ -104,8 +104,8 @@ android {
         applicationId "com.facilitiesassessment"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 22
-        versionName "Laqshya. Start Assessment Bug Fix. Exception Catch."
+        versionCode 23
+        versionName "23 - Fixed measurable-elements with two dots"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
