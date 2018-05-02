@@ -43,6 +43,7 @@ class Reports extends AbstractComponent {
 
     componentWillMount() {
         this.props.params.drilledDown ? _.noop() : this.dispatchAction(Actions.GET_ALL_SCORES, {...this.props.params});
+        // this.props.backListeners.addListener(Reports.path(), this.back.bind(this));
     }
 
     share(shareOpts) {
@@ -78,6 +79,7 @@ class Reports extends AbstractComponent {
 
     back() {
         this.props.params.drilledDown ? this.dispatchAction(Actions.INIT_REPORTS, {...this.props.params}) : _.noop();
+        // this.props.backListeners.removeListener();
         TypedTransition.from(this).goBack();
     }
 

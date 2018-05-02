@@ -63,7 +63,6 @@ class SubmitAssessment extends AbstractComponent {
                                    value={this.props.facilityAssessment.assessorName}
                                    underlineColorAndroid={PrimaryColors["grey"]}
                                    words="words"
-                                   keyboardType='numeric'
                                    onChangeText={(text) => this.handleAssessorNameChange(text)}/>
                         <View style={{flexDirection: 'row', marginBottom: 10, marginTop: 10}}>
                             <Button style={{backgroundColor: PrimaryColors.blue, alignSelf: 'stretch', marginHorizontal: 10, flex: 0.5}}

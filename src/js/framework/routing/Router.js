@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {View, Navigator, BackAndroid, Platform} from 'react-native';
+import AndroidBackListeners from "../view/AndroidBackListeners";
+import iOSBackListeners from "../view/iOSBackListeners";
 
 export default class Router extends Component {
 
@@ -32,20 +34,24 @@ export default class Router extends Component {
     });
 
     componentDidMount = () => {
-        if (Platform.OS === 'android') {
-            BackAndroid.addEventListener('hardwareBackPress', () => {
-                if (!this.onInitialScreen) {
-                    this.navigator.pop();
-                    return true;
-                }
-                return false;
-            });
-        }
+        this.backListeners = Platform.OS === 'android' ? new AndroidBackListeners(this) : new iOSBackListeners();
     };
 
+    onBack() {
+        if (!this.onInitialScreen) {
+            this.navigator.pop();
+            return true;
+        }
+        return false;
+    }
+
+    get currentPath() {
+        let currentRoutes = this.navigator.getCurrentRoutes();
+        return currentRoutes[currentRoutes.length - 1].path;
+    }
+
     componentWillUnmount = () => {
-        if (Platform.OS === 'android')
-            BackAndroid.removeEventListener('hardwareBackPress');
+        this.backListeners.remove();
     };
 
     configureScene(route) {
@@ -61,7 +67,7 @@ export default class Router extends Component {
         this.onInitialScreen = this.props.initialRoute.path === route.path;
         const Element = this.state.routes[route.path];
         return (
-            <Element params={route.queryParams}/>
+            <Element params={route.queryParams} backListeners={this.backListeners}/>
         );
     }
 
