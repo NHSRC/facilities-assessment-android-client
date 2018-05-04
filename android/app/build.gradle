@@ -104,8 +104,8 @@ android {
         applicationId "com.facilitiesassessment"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 23
-        versionName "23 - Fixed measurable-elements with two dots"
+        versionCode 24
+        versionName "24 - Assessor name was showing numeric keyboard"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }

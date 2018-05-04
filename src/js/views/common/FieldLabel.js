@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, Platform} from 'react-native';
 import React, {Component} from 'react';
 import AbstractComponent from './AbstractComponent';
 import Typography from "../styles/Typography";
@@ -15,7 +15,7 @@ class FieldLabel extends AbstractComponent {
 
     render() {
         return (
-            <Text style={[Typography.paperFontSubhead, this.props.style]}>
+            <Text style={[Platform.OS === 'ios' ? Typography.paperFontSubhead : Typography.paperFontTitle, this.props.style]}>
                 {this.props.text}
             </Text>
         );

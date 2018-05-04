@@ -59,6 +59,9 @@ class FacilitiesService extends BaseService {
     }
 
     getFacilityType(facilityTypeUUID) {
+        if (_.isNil(facilityTypeUUID) && EnvironmentConfig.inDeveloperMode) {
+            return this.getFacilityTypes()[0];
+        }
         return Object.assign({}, this.db.objectForPrimaryKey(FacilityType.schema.name, facilityTypeUUID));
     }
 
