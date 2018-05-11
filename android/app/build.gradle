@@ -104,8 +104,8 @@ android {
         applicationId "com.facilitiesassessment"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 24
-        versionName "24 - Assessor name was showing numeric keyboard"
+        versionCode 25
+        versionName "25 - LAQSHYA Checkpoints order and prominence of text"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }

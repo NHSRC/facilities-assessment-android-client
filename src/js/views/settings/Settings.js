@@ -14,6 +14,7 @@ import Typography from "../styles/Typography";
 import Actions from '../../action';
 import {formatDate} from '../../utility/DateUtils';
 import EnvironmentConfig from "../common/EnvironmentConfig";
+import SubmitAssessment from "../dashboard/open/SubmitAssessment";
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
@@ -174,13 +175,25 @@ class Settings extends AbstractComponent {
                                           }
                                           buttonStyle={{marginTop: 15}}/> : <View/>}
                         {EnvironmentConfig.shouldAllowCleanData ?
-                            <SubmitButton buttonText={"CLEAN ALL DATA"}
-                                          onPress={() => this.cleanData()}
-                                          buttonStyle={{marginTop: 15}}/> : <View/>}
-                        {EnvironmentConfig.shouldAllowCleanData ?
-                            <SubmitButton buttonText={"CLEAN TX DATA"}
-                                          onPress={() => this.cleanTxData()}
-                                          buttonStyle={{marginTop: 15}}/> : <View/>}
+                            <View>
+                                <View>
+                                    <Text
+                                        style={[Typography.paperFontSubheader, {marginLeft: 8, color: PrimaryColors.medium_white}]}>Assessment ID</Text>
+                                    <TextInput value={this.state.assessmentId}
+                                               underlineColorAndroid={PrimaryColors["white"]}
+                                               words="words"
+                                               onChangeText={(text) => this.dispatchAction(Actions.SET_ASSESSMENT_ID, {assessmentId: text})}/>
+                                </View>
+                                <SubmitButton buttonText={"DOWNLOAD ABOVE ASSESSMENT"}
+                                              onPress={() => this.dispatchAction(Actions.DOWNLOAD_ASSESSMENT)}
+                                              buttonStyle={{marginTop: 15}}/>
+                                <SubmitButton buttonText={"CLEAN ALL DATA"}
+                                              onPress={() => this.cleanData()}
+                                              buttonStyle={{marginTop: 15}}/>
+                                <SubmitButton buttonText={"CLEAN TX DATA"}
+                                              onPress={() => this.cleanTxData()}
+                                              buttonStyle={{marginTop: 15}}/>
+                            </View> : null}
                     </View>
                 </Content>
             </Container>

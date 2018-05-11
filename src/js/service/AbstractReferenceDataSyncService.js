@@ -24,6 +24,10 @@ class AbstractReferenceDataSyncService extends BaseService {
         this._syncData(cb, EntitiesMetaData.txEntityTypes, "lastModifiedByDeviceId", {deviceId: DeviceInfo.getUniqueID()});
     }
 
+    syncAssessment(assessmentId, cb) {
+        this._syncData(cb, EntitiesMetaData.txEntityTypes, "byAssessmentId", {assessmentId: assessmentId});
+    }
+
     syncAllData(cb) {
         Logger.logDebug('AbstractReferenceDataSyncService', 'syncAllData');
         this._syncData(cb, EntitiesMetaData.allEntityTypes);
