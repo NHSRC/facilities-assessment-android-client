@@ -55,7 +55,6 @@ assets/
 coverage/
 **/secret-keys.xml
 android/app/src/main/res/values/secrets.xml
-*.realm*
 android/app/src/main/res/values/com_crashlytics_export_strings.xml
 .java-version
 

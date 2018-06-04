@@ -40,7 +40,7 @@ class AbstractReferenceDataSyncService extends BaseService {
     }
 
     syncAllMetaData(cb) {
-        this._syncData(cb, EntitiesMetaData.referenceEntityTypes.concat(EntitiesMetaData.stateSpecificReferenceEntityTypes));
+        this._syncData(cb, EntitiesMetaData.referenceEntityTypes);
     }
 
     syncMetaDataNotSpecificToState(cb) {

@@ -82,7 +82,7 @@ class ModeSelection extends AbstractComponent {
                                source={icon}/> :
                     <Text style={[Typography.paperFontHeadline, {color: 'white', width: deviceWidth * .33, marginLeft: deviceWidth * .06, marginTop: 60}]}>{name}</Text>}
             </TouchableWithoutFeedback>
-        ) : <View/>;
+        ) : null;
     }
 
     addNewState() {
@@ -137,6 +137,9 @@ class ModeSelection extends AbstractComponent {
                             {this.getMode("Kayakalp", kayakalpIcon)}
                             {this.getMode("Laqshya", LaqshyaIcon)}
                             {this.getMode("Dakshata")}
+                        </View>
+                        <View style={[ModeSelection.styles.modeContainer]}>
+                            {this.getMode("Maternity Services")}
                         </View>
                     </View>
                 </Content>
