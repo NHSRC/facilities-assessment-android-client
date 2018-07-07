@@ -3,6 +3,8 @@ import LocalConventionalRestClient from "../../../js/framework/http/LocalConvent
 import TestContext from "../../TestContext";
 import SettingsService from "../../../js/service/SettingsService";
 import EntitiesMetaData from "../../../js/models/entityMetaData/EntitiesMetaData";
+import District from "../../../js/models/District";
+import _ from 'lodash';
 
 describe('Local Conventional Rest Client', () => {
     const defaultDateTime = '2017-01-01T00:00:00.001Z';
@@ -57,8 +59,7 @@ describe('Local Conventional Rest Client', () => {
 
     it("get state specific data", () => {
         let cbFile;
-        let referenceEntityTypes = EntitiesMetaData.referenceEntityTypes;
-        let districtEntityMetadata = referenceEntityTypes[referenceEntityTypes.length - 3];
+        let districtEntityMetadata = _.find(EntitiesMetaData.referenceEntityTypes, (entityMetaData) => entityMetaData.entityClass === District);
         let optionalParams = {name: 'Bihar'};
         localConventionalRestClient.getData(getURL('district'), districtEntityMetadata, optionalParams, (file) => {
             cbFile = file

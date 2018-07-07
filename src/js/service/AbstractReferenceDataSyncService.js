@@ -51,7 +51,7 @@ class AbstractReferenceDataSyncService extends BaseService {
 
     syncMetaDataNotSpecificToState(cb) {
         Logger.logDebug('AbstractReferenceDataSyncService', 'syncMetaDataNotSpecificToState');
-        this._syncData(cb, EntitiesMetaData.referenceEntityTypesNotSpecificToState);
+        this._syncData(cb, EntitiesMetaData.stateUnspecificReferenceTypes);
     }
 
     simulateSyncAllMetaData(cb) {
@@ -59,7 +59,7 @@ class AbstractReferenceDataSyncService extends BaseService {
             let allStates = this.getService(StateService).getAllStates();
             this.getService(EntitySyncStatusService).setupStatesStatuses(allStates.slice(), EntitiesMetaData.stateSpecificReferenceEntityTypes);
             this.syncStateSpecificMetaDataInStateMode(allStates.slice(), cb);
-        }, EntitiesMetaData.referenceEntityTypesNotSpecificToState);
+        }, EntitiesMetaData.stateUnspecificReferenceTypes);
     }
 
     syncStateSpecificMetaDataInStateMode(remainingStates, cb) {

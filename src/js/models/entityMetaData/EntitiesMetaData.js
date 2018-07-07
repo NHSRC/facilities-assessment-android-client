@@ -23,37 +23,14 @@ import Logger from "../../framework/Logger";
 
 class EntitiesMetaData {
     //order is important. last entity with be executed first. parent and referred entity (in case of many to one) should be synced before the child.
-    static get allEntityTypes() {
-        return [
-            new EntityMetaData(FacilityAssessmentProgress, undefined, undefined, FacilityAssessmentProgressService),
-            new EntityMetaData(Indicator, undefined, new IndicatorMapper()),
-            new EntityMetaData(CheckpointScore, undefined, new CheckpointScoreMapper()),
-            new EntityMetaData(FacilityAssessment, undefined, new FacilityAssessmentMapper()),
-            new EntityMetaData(IndicatorDefinition, undefined, new IndicatorDefinitionMapper()),
-            new EntityMetaData(Checkpoint, undefined, new CheckpointMapper()),
-            new EntityMetaData(Checklist, undefined, new ChecklistMapper()),
-            new EntityMetaData(MeasurableElement, Standard),
-            new EntityMetaData(Standard, AreaOfConcern),
-            new EntityMetaData(AreaOfConcern),
-            new EntityMetaData(AssessmentType),
-
-            new EntityMetaData(Department),
-            new EntityMetaData(AssessmentTool),
-            new EntityMetaData(Facility, District, new FacilityMapper()),
-            new EntityMetaData(District, State),
-            new EntityMetaData(State),
-            new EntityMetaData(FacilityType)
-        ].map(_.identity);
-    }
-
-    static get stateSpecificReferenceEntityTypes() {
+    static get _stateSpecificReferenceEntityTypes() {
         return [
             new EntityMetaData(Facility, District, new FacilityMapper()),
             new EntityMetaData(District, State)
         ];
     }
 
-    static get referenceEntityTypesNotSpecificToState() {
+    static get _referenceEntityTypes() {
         return [
             new EntityMetaData(IndicatorDefinition, undefined, new IndicatorDefinitionMapper()),
             new EntityMetaData(Checkpoint, undefined, new CheckpointMapper()),
@@ -61,41 +38,42 @@ class EntitiesMetaData {
             new EntityMetaData(MeasurableElement, Standard),
             new EntityMetaData(Standard, AreaOfConcern),
             new EntityMetaData(AreaOfConcern),
-            new EntityMetaData(AssessmentType),
-
             new EntityMetaData(Department),
+
+            new EntityMetaData(AssessmentType),
             new EntityMetaData(AssessmentTool),
             new EntityMetaData(State),
-            new EntityMetaData(FacilityType),
-        ].map(_.identity);
+            new EntityMetaData(FacilityType)
+        ];
     }
 
-    static get referenceEntityTypes() {
-        return [
-            new EntityMetaData(IndicatorDefinition, undefined, new IndicatorDefinitionMapper()),
-            new EntityMetaData(Checkpoint, undefined, new CheckpointMapper()),
-            new EntityMetaData(Checklist, undefined, new ChecklistMapper()),
-            new EntityMetaData(MeasurableElement, Standard),
-            new EntityMetaData(Standard, AreaOfConcern),
-            new EntityMetaData(AreaOfConcern),
-            new EntityMetaData(AssessmentType),
-
-            new EntityMetaData(Department),
-            new EntityMetaData(AssessmentTool),
-            new EntityMetaData(Facility, District, new FacilityMapper()),
-            new EntityMetaData(District, State),
-            new EntityMetaData(State),
-            new EntityMetaData(FacilityType),
-        ].map(_.identity);
-    }
-
-    static get txEntityTypes() {
+    static get _txEntityTypes() {
         return [
             new EntityMetaData(FacilityAssessmentProgress, undefined, undefined, FacilityAssessmentProgressService),
             new EntityMetaData(Indicator, undefined, new IndicatorMapper()),
             new EntityMetaData(CheckpointScore, undefined, new CheckpointScoreMapper()),
             new EntityMetaData(FacilityAssessment, undefined, new FacilityAssessmentMapper())
-        ].map(_.identity);
+        ];
+    }
+
+    static get stateSpecificReferenceEntityTypes() {
+        return this._stateSpecificReferenceEntityTypes.map(_.identity);
+    }
+
+    static get referenceEntityTypes() {
+        return this._stateSpecificReferenceEntityTypes.concat(this._referenceEntityTypes).map(_.identity);
+    }
+
+    static get stateUnspecificReferenceTypes() {
+        return this._referenceEntityTypes.map(_.identity);
+    }
+
+    static get txEntityTypes() {
+        return this._txEntityTypes.map(_.identity);
+    }
+
+    static get allEntityTypes() {
+        return this._txEntityTypes.concat(this._stateSpecificReferenceEntityTypes).concat(this._referenceEntityTypes).map(_.identity);
     }
 }
 
@@ -171,7 +149,7 @@ class IndicatorMapper {
     }
 }
 
-class FacilityAssessmentProgress {
+export class FacilityAssessmentProgress {
     static get entityName() {
         return 'FacilityAssessmentProgress';
     }

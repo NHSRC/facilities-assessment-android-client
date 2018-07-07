@@ -1,9 +1,10 @@
-var fs = require('fs');
+const fs = require('fs');
 
-var generate = function (inputBaseDir, outputDir) {
-    var files = fs.readdirSync(inputBaseDir);
-    var i = 0;
-    var message = "class PackagedJSON {\n" +
+const generate = function (inputBaseDir, outputDir) {
+    console.log(`Reading recorded responses from ${inputBaseDir}`);
+    const files = fs.readdirSync(inputBaseDir);
+    let i = 0;
+    let message = "class PackagedJSON {\n" +
         "    static getFiles() {\n" +
         "        return new Map([['common', [";
     files.forEach(function (file) {
@@ -16,13 +17,15 @@ var generate = function (inputBaseDir, outputDir) {
 
     files.forEach(function (file) {
         if (file.indexOf(".json") < 0 && file !== '.' && file !== '..') {
-            var stateFiles = fs.readdirSync(inputBaseDir + "/" + file);
-            var stateFileNumbers = stateFiles.map(function(stateFileName) {
+            const stateFiles = fs.readdirSync(inputBaseDir + "/" + file);
+            const stateFileNumbers = stateFiles.map(function (stateFileName) {
                 return Number(stateFileName.replace('.json', ''));
             });
 
             message += "['" + file + "', [";
-            stateFileNumbers.sort(function(a, b) {return a - b;}).forEach(function (stateFileNumber) {
+            stateFileNumbers.sort(function (a, b) {
+                return a - b;
+            }).forEach(function (stateFileNumber) {
                 message += "require('../../config/" + file + "/" + stateFileNumber + ".json'),";
             });
             message += "]],";
@@ -39,9 +42,9 @@ var generate = function (inputBaseDir, outputDir) {
 
     message = message.replace(")]],]);}", ")]]]);}");
 
-    let outputFilePath = outputDir + '/PackagedJSON.js';
-    fs.writeFileSync(outputFilePath, message);
-    console.log(`Written output file: ${outputFilePath}`);
+    let outputFile = outputDir + '/PackagedJSON.js';
+    console.log(`Creating ${outputFile}`);
+    fs.writeFileSync(outputFile, message);
 };
 
-generate('../reference-data/nhsrc/output/recorded-response/jsons/6', 'src/js/service');
+generate(`src/config`, 'src/js/service');

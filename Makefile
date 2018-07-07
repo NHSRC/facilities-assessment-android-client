@@ -10,7 +10,7 @@ endif
 ts := $(shell /bin/date "+%Y-%m-%d---%H-%M-%S")
 recorded_response_dir := ../reference-data/nhsrc/output/recorded-response
 service_src_dir := src/js/service
-rr_version := 8
+rr_version := 9
 ip:=$(shell ifconfig | grep -A 2 'vboxnet' | tail -1 | cut -d ' ' -f 2 | cut -d ' ' -f 1)
 apk_folder=~/Dropbox/Public/Gunak
 
@@ -94,13 +94,13 @@ log:
 	adb logcat *:S ReactNative:V ReactNativeJS:V
 
 setup_source:
-	cp packagedJSON/EmptyPackagedJSON.js $(service_src_dir)/PackagedJSON.js
+	cp packagedData/EmptyPackagedJSON.js $(service_src_dir)/PackagedJSON.js
 	-rm -rf src/config/*
 
 setup_source_nhsrc:
-	rm -rf src/config/*
+	-rm -rf src/config/*
 	cp -R $(recorded_response_dir)/jsons/$(rr_version)/* src/config/
-	node packagedJSON/generatePackagedJSON.js
+	node packagedData/generatePackagedJSON.js
 
 test_source: setup_source
 	npm test
@@ -203,6 +203,10 @@ uninstall_app:
 
 analyse_app_crash:
 	cd unminifiy && npm start ../android/app/build/generated/sourcemap.js $(line) $(column)
+
+open_app_bundle:
+	curl "http://localhost:8081/index.android.bundle?platform=android&dev=true&hot=false&minify=false" -o ../temp/output.txt
+	vi ../temp/output.txt
 # </app>
 
 # <ipa>
