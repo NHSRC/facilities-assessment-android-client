@@ -14,6 +14,7 @@ import EnvironmentConfig from "../views/common/EnvironmentConfig";
 import IndicatorService from "./IndicatorService";
 import Indicator from "../models/Indicator";
 import AssessmentTool from "../models/AssessmentTool";
+import Facility from '../models/Facility';
 
 @Service("assessmentSyncService")
 class AssessmentSyncService extends BaseService {
@@ -91,6 +92,7 @@ class AssessmentSyncService extends BaseService {
 
     syncFacilityAssessment(assessment, cb, errorHandler) {
         let facilityAssessmentDTO = facilityAssessmentMapper(assessment);
+        facilityAssessmentDTO.facilityName = this.getService(EntityService).findByUUID(facilityAssessmentDTO.facility, Facility.schema.name).name;
         let assessmentTool = this.getService(EntityService).findByUUID(assessment.assessmentTool.uuid, AssessmentTool.schema.name);
         let syncChecklist = this.syncChecklists(assessment, facilityAssessmentDTO.facility, cb, errorHandler);
         let syncIndicator = this.syncIndicators(assessment, cb, errorHandler);
