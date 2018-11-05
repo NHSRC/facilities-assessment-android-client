@@ -17,6 +17,7 @@ import EntityService from "./EntityService";
 import moment from "moment";
 import FacilitiesService from "./FacilitiesService";
 import EnvironmentConfig from "../views/common/EnvironmentConfig";
+import Facility from '../models/Facility';
 
 @Service("assessmentSyncService")
 class AssessmentSyncService extends BaseService {
@@ -69,6 +70,7 @@ class AssessmentSyncService extends BaseService {
     syncFacilityAssessment(assessment, cb, errorHandler) {
         this.serverURL = this.getService(SettingsService).getServerURL();
         let facilityAssessmentDTO = facilityAssessmentMapper(assessment);
+        facilityAssessmentDTO.facilityName = this.getService(EntityService).findByUUID(facilityAssessmentDTO.facility, Facility.schema.name).name;
         post(`${this.serverURL}/api/facility-assessment`, facilityAssessmentDTO,
             this.syncChecklists(assessment, cb, errorHandler), errorHandler);
     }
