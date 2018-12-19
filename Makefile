@@ -218,9 +218,6 @@ prepare_ipa_nhsrc_fail: switch_ios_to_release_mode setup_source
 	$(call _set_env,.env.nhsrc)
 # </ipa>
 
-# <device>
-#clean_ios_simulator_devices:
-# </device>
 
 #deploy:
 #	make deps
