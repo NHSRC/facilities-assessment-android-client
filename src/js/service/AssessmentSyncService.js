@@ -96,7 +96,7 @@ class AssessmentSyncService extends BaseService {
         let syncIndicator = this.syncIndicators(assessment, cb, errorHandler);
 
         Logger.logDebug('AssessmentSyncService.syncFacilityAssessment', assessmentTool.assessmentToolType);
-        let sync = assessmentTool.assessmentToolType === AssessmentTool.COMPLIANCE ? syncChecklist : syncIndicator;
+        let sync = assessmentTool.assessmentToolType === AssessmentTool.INDICATOR ? syncIndicator : syncChecklist;
 
         this.serverURL = this.getService(SettingsService).getServerURL();
         post(`${this.serverURL}/api/facility-assessment`, facilityAssessmentDTO, sync, errorHandler);

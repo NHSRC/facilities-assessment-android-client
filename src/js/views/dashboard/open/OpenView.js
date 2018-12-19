@@ -11,6 +11,7 @@ import Logger from "../../../framework/Logger";
 import AssessmentIndicators from "../../indicator/AssessmentIndicators";
 import SubmitAssessment from "./SubmitAssessment";
 import FacilityAssessment from "../../../models/FacilityAssessment";
+import AssessmentTool from "../../../models/AssessmentTool";
 
 
 class OpenView extends AbstractComponent {
@@ -31,7 +32,7 @@ class OpenView extends AbstractComponent {
                 facilityAssessment: facilityAssessment,
                 state: facilityAssessment.state,
                 ...this.props
-            }).to(facilityAssessment.assessmentTool.assessmentToolType === 'COMPLIANCE' ? ChecklistSelection : AssessmentIndicators);
+            }).to(facilityAssessment.assessmentTool.assessmentToolType === AssessmentTool.INDICATOR ? AssessmentIndicators : ChecklistSelection);
         }
     }
 

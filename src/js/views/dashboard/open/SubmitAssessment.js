@@ -56,7 +56,7 @@ class SubmitAssessment extends AbstractComponent {
                     }]}>Submit Assessment</Title>
                 </Header>
                 <View style={SubmitAssessment.styles.container}>
-                    {this.props.assessmentToolType === AssessmentTool.COMPLIANCE ? <AssessmentSeries series={this.props.facilityAssessment.seriesName}/> : null}
+                    {this.props.assessmentToolType === AssessmentTool.INDICATOR ? null : <AssessmentSeries series={this.props.facilityAssessment.seriesName}/>}
                     <View style={{margin: 10, flexDirection: 'column'}}>
                         <Text style={[Typography.paperFontSubhead]}>Assessor's Name</Text>
                         <TextInput style={SubmitAssessment.styles.input}

@@ -101,15 +101,6 @@ class ModeSelection extends AbstractComponent {
                 </Header>
                 <Content>
                     <View style={ModeSelection.styles.container}>
-                        {/*<Text style={[Typography.paperFontHeadline, {*/}
-                        {/*color: PrimaryColors.yellow,*/}
-                        {/*alignSelf: 'center',*/}
-                        {/*marginTop: 16,*/}
-                        {/*}]}>*/}
-                        {/*<Text style={ModeSelection.styles.highlight}>Gu</Text>*/}
-                        {/*ide for <Text style={ModeSelection.styles.highlight}>N</Text>QAS & <Text*/}
-                        {/*style={ModeSelection.styles.highlight}>K</Text>ayakalp*/}
-                        {/*</Text>*/}
                         <Text style={[Typography.paperFontHeadline, {
                             color: 'white',
                             alignSelf: 'center',
@@ -120,6 +111,9 @@ class ModeSelection extends AbstractComponent {
                             {this.getMode("Kayakalp", kayakalpIcon)}
                             {this.getMode("Laqshya", LaqshyaIcon)}
                             {this.getMode("Dakshata")}
+                        </View>
+                        <View style={[ModeSelection.styles.modeContainer]}>
+                            {this.getMode("Maternity Services")}
                         </View>
                     </View>
                 </Content>

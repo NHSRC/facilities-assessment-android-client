@@ -17,6 +17,7 @@ import AssessmentSeries from "./AssessmentSeries";
 import EnvironmentConfig from "../../common/EnvironmentConfig";
 import Logger from "../../../framework/Logger";
 import AssessmentIndicators from "../../indicator/AssessmentIndicators";
+import AssessmentTool from "../../../models/AssessmentTool";
 
 class StartView extends AbstractComponent {
     constructor(props, context) {
@@ -46,7 +47,7 @@ class StartView extends AbstractComponent {
                     facilityAssessment: newState.facilityAssessment,
                     state: this.state.selectedState,
                     ...this.props
-                }).to(this.state.selectedAssessmentTool.assessmentToolType === 'COMPLIANCE' ? ChecklistSelection : AssessmentIndicators)
+                }).to(this.state.selectedAssessmentTool.assessmentToolType === AssessmentTool.INDICATOR ? AssessmentIndicators : ChecklistSelection)
         })
     }
 
