@@ -23,7 +23,7 @@ class ConventionalRestClient {
         urlParts.push(resourceSearchFilterURL);
 
         let params = makeParams(_.merge({
-            lastModifiedDate: moment(lastUpdatedLocally).add(1, "ms").toISOString(),
+            lastModifiedDate: moment(lastUpdatedLocally).toISOString(),
             size: 200,
             page: pageNumber
         }, optionalParams));
