@@ -87,9 +87,11 @@ export default {
             console.log(`[model.index] fixMEReferences`);
             let entityService = new EntityService(newRealm, null);
             let me = entityService.findByUUID('1ec38c9e-0bf1-4575-a922-c6a38c9bf4c6', MeasurableElement.schema.name);
-            me.reference = 'C2.3';
+            if (me)
+                me.reference = 'C2.3';
             me = entityService.findByUUID('3f9aa04e-62cd-4561-8d3b-8ea562765deb', MeasurableElement.schema.name);
-            me.reference = 'C2.4';
+            if (me)
+                me.reference = 'C2.4';
         };
 
         const migrationExecutor = (fn) => (oldRealm, newRealm) => {
