@@ -1,0 +1,32 @@
+version: 2
+jobs:
+  test:
+    docker:
+      - image: circleci/node:8.5.0
+
+    working_directory: ~/facilities-assessment-android-client
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+
+      - run: sudo apt-get install make
+
+      - run: make deps
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      - run: make test_source
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test
