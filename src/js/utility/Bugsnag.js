@@ -10,6 +10,12 @@ const configuration = new Configuration();
 configuration.autoNotify = false;
 configuration.releaseStage = EnvironmentConfig.getENV;
 configuration.notifyReleaseStages = ['qa', 'prod'];
+configuration.registerBeforeSendCallback((report) => {
+    report.metadata = {
+        ...report.metadata,
+        implementation: { 'name': EnvironmentConfig.getImplementationName }
+    }
+});
 console.log("Creating new instance of Bugsnag");
 const client = new Client(configuration);
 

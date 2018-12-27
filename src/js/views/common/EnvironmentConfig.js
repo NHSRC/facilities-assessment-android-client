@@ -68,6 +68,10 @@ class EnvironmentConfig {
     get getENV() {
         return this._getPropertyValue("ENV") || 'dev';
     }
+
+    get getImplementationName() {
+        return this._getPropertyValue("IMPLEMENTATION_NAME") || 'unset';
+    }
 }
 
 export default new EnvironmentConfig();
