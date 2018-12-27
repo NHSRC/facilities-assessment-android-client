@@ -41,6 +41,7 @@ define _upload_release_sourcemap ## Uploads release sourcemap to Bugsnag
 		--source-map android/app/build/generated/sourcemap.js \
 		--overwrite \
 		--minified-url "index.android.bundle" \
+		--dev false \
 		--upload-sources
 endef
 

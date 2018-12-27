@@ -7,7 +7,6 @@ export default class ErrorHandler {
     static set(errorCallback) {
         if (!EnvironmentConfig.inDeveloperMode) {
             console.log('[ErrorHandler] Setting Global ErrorHandler!!');
-            console.log('>>>>>>>>>', bugsnag.config);
             ErrorUtils.setGlobalHandler((error, isFatal) => {
                 ErrorHandler.postError(error, isFatal, errorCallback);
             });
