@@ -1,22 +1,5 @@
 apply plugin: "com.android.application"
 
-buildscript {
-    repositories {
-        maven {
-            url 'https://maven.fabric.io/public'
-        }
-    }
-    dependencies {
-        classpath 'io.fabric.tools:gradle:1.+'
-    }
-}
-apply plugin: 'io.fabric'
-
-
-repositories {
-    maven { url 'https://maven.fabric.io/public' }
-}
-
 import com.android.build.OutputFile
 
 /**
@@ -109,7 +92,9 @@ android {
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
-        manifestPlaceholders = [crashlyticsAPIKey: System.getenv("CRASHLYTICS_API_KEY")]
+        manifestPlaceholders = [
+                bugsnagAPIKey: System.getenv("FA_CLIENT_BUGSNAG_API_KEY")?: "dummy"
+        ]
     }
     splits {
         abi {
@@ -152,19 +137,16 @@ android {
 }
 
 dependencies {
+    compile project(':bugsnag-react-native')
     compile project(':react-native-device-info')
     compile project(':realm')
     compile project(':react-native-config')
     compile project(':react-native-view-shot')
     compile project(':react-native-fs')
     compile project(':react-native-share')
-    compile project(':react-native-fabric')
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile "com.android.support:appcompat-v7:23.0.1"
     compile "com.facebook.react:react-native:+"  // From node_modules
-    compile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') {
-        transitive = true;
-    }
     compile project(':react-native-vector-icons')
 }
 

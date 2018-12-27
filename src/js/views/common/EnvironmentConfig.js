@@ -64,6 +64,10 @@ class EnvironmentConfig {
     get metaDataVersion() {
         return _.toNumber(this._getPropertyValue('METADATA_VERSION_NUMBER'));
     }
+
+    get getENV() {
+        return this._getPropertyValue("ENV") || 'dev';
+    }
 }
 
 export default new EnvironmentConfig();

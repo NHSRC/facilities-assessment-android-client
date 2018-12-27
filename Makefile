@@ -16,7 +16,11 @@ apk_folder=~/Dropbox/Public/Gunak
 
 define _release_apk
 	$(call _set_env,.env.$1)
-	react-native bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/ --sourcemap-output android/app/build/generated/sourcemap.js
+	react-native bundle --platform android --dev false \
+		--entry-file index.android.js \
+		--bundle-output android/app/src/main/assets/index.android.bundle \
+		--assets-dest android/app/src/main/res/ \
+		--sourcemap-output android/app/build/generated/sourcemap.js
 	cd android && ENVFILE=.env ./gradlew assembleRelease -x bundleReleaseJsAndAssets
 endef
 
@@ -27,6 +31,22 @@ endef
 define _publish_release
 	cp android/app/build/outputs/apk/app-release.apk $(apk_folder)/$1/$2/
 endef
+
+# <bugsnag>
+define _upload_release_sourcemap ## Uploads release sourcemap to Bugsnag
+	npx bugsnag-sourcemaps upload \
+		--api-key ${FA_CLIENT_BUGSNAG_API_KEY} \
+		--app-version $(shell cat android/app/build.gradle | sed -n  's/versionName \"\(.*\)\"/\1/p' | xargs echo | sed -e "s/\(.*\)/\"\1\"/") \
+		--minified-file android/app/src/main/assets/index.android.bundle \
+		--source-map android/app/build/generated/sourcemap.js \
+		--overwrite \
+		--minified-url "index.android.bundle" \
+		--upload-sources
+endef
+
+upload-release-sourcemap: ##Uploads release sourcemap to Bugsnag
+	$(call _upload_release_sourcemap)
+# </bugsnag>
 
 
 # <platform>
@@ -53,6 +73,7 @@ deploy_apk_local:
 
 release_apk_jss: setup_source
 	$(call _release_apk,jss)
+	$(call _upload_release_sourcemap)
 
 publish_apk_dev_jss:
 	$(call _publish_release,dev,jss)
@@ -66,6 +87,7 @@ publish_apk_release_nhsrc:
 release_apk_nhsrc: setup_source_nhsrc
 	$(call _release_apk,nhsrc)
 	make setup_source
+	$(call _upload_release_sourcemap)
 
 release_apk_offline:
 	cd android; ENVFILE=.env ./gradlew --offline assembleRelease
@@ -163,6 +185,9 @@ start_app_android:
 
 run_app_jss: setup_source
 	$(call _run_android,.env.jss)
+
+run_app_jss_qa: setup_source
+	$(call _run_android,.env.jss.qa)
 
 run_app_android: setup_source
 	$(call _run_android,.env.dev)
