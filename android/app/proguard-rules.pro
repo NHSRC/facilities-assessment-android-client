@@ -67,3 +67,10 @@
 -dontwarn com.facebook.**
 
 -keep class com.facilitiesassessment.BuildConfig { *; }
+
+-dontnote android.net.http.*
+-dontnote org.apache.commons.codec.**
+-dontnote org.apache.http.**
+
+-keep public class com.google.android.gms.* { public *; }
+-dontwarn com.google.android.gms.**
