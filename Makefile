@@ -79,7 +79,8 @@ release_apk_jss: setup_source
 release_apk_jss_qa: setup_source
 	$(call _release_apk,jss.qa)
 	$(call _upload_release_sourcemap)
-	cp android/app/build/outputs/apk/app-release.apk sam@139.59.19.108:/home/app/qa-server/facilities-assessment-host/app-servers/ext/app.apk
+	scp android/app/build/outputs/apk/app-release.apk sam@139.59.19.108:/tmp/app.apk
+	ssh sam@139.59.19.108 "sudo su app -c 'cp /tmp/app.apk home/app/qa-server/facilities-assessment-host/app-servers/ext/.'"
 
 publish_apk_dev_jss:
 	$(call _publish_release,dev,jss)
