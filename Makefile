@@ -76,6 +76,11 @@ release_apk_jss: setup_source
 	$(call _release_apk,jss)
 	$(call _upload_release_sourcemap)
 
+release_apk_jss_qa: setup_source
+	$(call _release_apk,jss.qa)
+	$(call _upload_release_sourcemap)
+	cp android/app/build/outputs/apk/app-release.apk sam@139.59.19.108:/home/app/qa-server/facilities-assessment-host/app-servers/ext/app.apk
+
 publish_apk_dev_jss:
 	$(call _publish_release,dev,jss)
 
