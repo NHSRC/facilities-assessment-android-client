@@ -3,16 +3,13 @@ import Service from "../framework/bean/Service";
 import EntitiesMetaData from "../models/entityMetaData/EntitiesMetaData";
 import Logger from "../framework/Logger";
 import EntitySyncStatusService from "./EntitySyncStatusService";
-import LocalReferenceDataSyncService from "./LocalReferenceDataSyncService";
 import SeedProgress from "../models/SeedProgress";
-import EnvironmentConfig from "../views/common/EnvironmentConfig";
 import AreaOfConcernProgress from "../models/AreaOfConcernProgress";
 import StandardProgress from "../models/StandardProgress";
 import ChecklistProgress from "../models/ChecklistProgress";
 import SeedProgressService from "./SeedProgressService";
-import _ from 'lodash';
 import StringObj from "../models/StringObj";
-import SettingsService from "./SettingsService";
+import ReferenceDataSyncService from "./ReferenceDataSyncService";
 
 @Service("seedDataService")
 class SeedDataService extends BaseService {
@@ -21,16 +18,14 @@ class SeedDataService extends BaseService {
     }
 
     postInit() {
-        if (EnvironmentConfig.shouldUsePackagedSeedData) {
-            let seedProgressService = this.getService(SeedProgressService);
-            let checklistLoaded = seedProgressService.isChecklistLoaded();
-            Logger.logInfo('SeedDataService.postInit', `checklistLoaded: ${checklistLoaded}; newMetadataVersion: ${EnvironmentConfig.metaDataVersion}; existingMetadataVersion: ${seedProgressService.getSeedProgress().metaDataVersion}`);
-            if (!checklistLoaded || seedProgressService.versionChanged()) {
-                let localReferenceDataSyncService = this.getService(LocalReferenceDataSyncService);
-                if (SeedProgress.isDefaultVersion(seedProgressService.getSeedProgress()))
-                    this.getService(SettingsService).setupStatesAlreadyLoaded();
-                localReferenceDataSyncService.syncMetaDataFromLocal(seedProgressService.finishedLoadingChecklist.bind(seedProgressService));
-            }
+        let seedProgressService = this.getService(SeedProgressService);
+        let seedProgress = seedProgressService.getSeedProgress();
+        Logger.logInfo('SeedDataService.postInit', `${JSON.stringify(seedProgress)}`);
+        if (!seedProgress.hasChecklistLoaded()) {
+            let referenceDataSyncService = this.getService(ReferenceDataSyncService);
+            referenceDataSyncService.syncMetaDataNotSpecificToState(seedProgressService.finishedLoadingChecklist.bind(seedProgressService), (error) => {
+                seedProgressService.errorWhileLoadingChecklist(error.toString());
+            });
         }
     }
 

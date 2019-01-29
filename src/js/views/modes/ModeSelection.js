@@ -94,7 +94,7 @@ class ModeSelection extends AbstractComponent {
                         fontWeight: 'bold',
                         color: 'white'
                     }]}>GUNAK गुणक</Title>
-                    {EnvironmentConfig.shouldUsePackagedSeedData && this.state.statesAvailableToBeLoaded ? <Button
+                    {this.state.statesAvailableToBeLoaded ? <Button
                         style={{borderWidth: 1}}
                         bordered transparent
                         onPress={() => this.addNewState()}><Text style={[Typography.paperFontSubhead, {color: 'white'}]}>Add State</Text></Button> : null}

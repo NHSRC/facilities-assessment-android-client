@@ -33,12 +33,8 @@ class FacilitiesService extends BaseService {
     }
 
     getStates() {
-        if (EnvironmentConfig.shouldUsePackagedSeedData) {
-            let settings = this.getService(SettingsService).get();
-            return settings.states.map((configuredState) => this.findByUUID(configuredState.value, State.schema.name)).map(this.nameAndId);
-        } else {
-            return this.getAllStates();
-        }
+        let settings = this.getService(SettingsService).get();
+        return settings.states.map((configuredState) => this.findByUUID(configuredState.value, State.schema.name)).map(this.nameAndId);
     }
 
     getAllDistrictsFor(stateUUID) {

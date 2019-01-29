@@ -33,13 +33,14 @@ class AbstractReferenceDataSyncService extends BaseService {
         this._syncData(cb, EntitiesMetaData.allEntityTypes);
     }
 
-    _syncData(cb, entityMetaData, resourceSearchFilterURL, params) {
+    _syncData(onSuccess, entityMetaData, resourceSearchFilterURL, params, onError = () => {}) {
         resourceSearchFilterURL = resourceSearchFilterURL || "lastModified";
         params = params || {};
         this._pullData(entityMetaData, resourceSearchFilterURL, params, () => {
             Logger.logInfo('AbstractReferenceDataSyncService', `Sync completed at ${new Date()}`);
-            cb();
+            onSuccess();
         }, (error) => {
+            onError(error);
             Logger.logError('AbstractReferenceDataSyncService', error);
         });
     }
@@ -49,17 +50,9 @@ class AbstractReferenceDataSyncService extends BaseService {
         this._syncData(cb, EntitiesMetaData.referenceEntityTypes);
     }
 
-    syncMetaDataNotSpecificToState(cb) {
+    syncMetaDataNotSpecificToState(onSuccess, onError) {
         Logger.logDebug('AbstractReferenceDataSyncService', 'syncMetaDataNotSpecificToState');
-        this._syncData(cb, EntitiesMetaData.stateUnspecificReferenceTypes);
-    }
-
-    simulateSyncAllMetaData(cb) {
-        this._syncData(() => {
-            let allStates = this.getService(StateService).getAllStates();
-            this.getService(EntitySyncStatusService).setupStatesStatuses(allStates.slice(), EntitiesMetaData.stateSpecificReferenceEntityTypes);
-            this.syncStateSpecificMetaDataInStateMode(allStates.slice(), cb);
-        }, EntitiesMetaData.stateUnspecificReferenceTypes);
+        this._syncData(onSuccess, EntitiesMetaData.stateUnspecificReferenceTypes);
     }
 
     syncStateSpecificMetaDataInStateMode(remainingStates, cb) {

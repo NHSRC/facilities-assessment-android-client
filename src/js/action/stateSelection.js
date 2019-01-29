@@ -1,29 +1,24 @@
 import SeedProgressService from "../service/SeedProgressService";
 import Logger from "../framework/Logger";
-import EnvironmentConfig from "../views/common/EnvironmentConfig";
 import SettingsService from "../service/SettingsService";
 import StateService from "../service/StateService";
-import LocalReferenceDataSyncService from "../service/LocalReferenceDataSyncService";
+import ReferenceDataSyncService from "../service/ReferenceDataSyncService";
 
 const stateSelectionLoaded = function (state, action, beans) {
     let newState = clone(state);
-    if (EnvironmentConfig.shouldUsePackagedSeedData) {
-        let settings = beans.get(SettingsService).get();
-        let seedProgress = beans.get(SeedProgressService).getSeedProgress();
-        let atleastOneCountryStateIsLoaded = settings.numberOfStates >= 1;
-        let stateService = beans.get(StateService);
+    let settings = beans.get(SettingsService).get();
+    let seedProgress = beans.get(SeedProgressService).getSeedProgress();
+    let atleastOneCountryStateIsLoaded = settings.numberOfStates >= 1;
+    let stateService = beans.get(StateService);
 
-        Logger.logDebug('stateSelection', `atleastOneCountryStateIsLoaded?=${atleastOneCountryStateIsLoaded}, params=${action.params}`);
-        newState.allStates = settings.removeStatesAlreadySetup(stateService.getAllStates());
-        if (atleastOneCountryStateIsLoaded) {
-            newState.loadedCountryStates = _.join(settings.states.map((countryStateObject) => stateService.getStateName(countryStateObject.value)));
-            newState.numberOfStatesLoaded = settings.states.length;
-        }
-        newState.displayStateSelection = settings.numberOfStates === 0 || (!_.isNil(action.params) && action.params.chooseAdditional);
-    } else {
-        Logger.logDebug('stateSelection', 'Not using packaged seed data moving on.');
-        newState.displayStateSelection = false;
+    Logger.logDebug('stateSelection', `atleastOneCountryStateIsLoaded?=${atleastOneCountryStateIsLoaded}, params=${action.params}`);
+    newState.allStates = settings.removeStatesAlreadySetup(stateService.getAllStates());
+    if (atleastOneCountryStateIsLoaded) {
+        newState.loadedCountryStates = _.join(settings.states.map((countryStateObject) => stateService.getStateName(countryStateObject.value)));
+        newState.numberOfStatesLoaded = settings.states.length;
     }
+    newState.displayStateSelection = settings.numberOfStates === 0 || (!_.isNil(action.params) && action.params.chooseAdditional);
+
     return newState;
 };
 
@@ -47,8 +42,8 @@ const toggleState = function (state, action) {
 const stateSelectionConfirmed = function (state, action, beans) {
     let newState = clone(state);
     if (action.start) {
-        let localReferenceDataSyncService = beans.get(LocalReferenceDataSyncService);
-        localReferenceDataSyncService.syncMetaDataSpecificToStateFromLocal(() => {
+        let referenceDataSyncService = beans.get(ReferenceDataSyncService);
+        referenceDataSyncService.syncMetaDataSpecificToState(() => {
             beans.get(SeedProgressService).finishedLoadStateSpecificData();
             let settingsService = beans.get(SettingsService);
             settingsService.addState(state.selectedState);
@@ -68,4 +63,11 @@ export default new Map([
     ["TOGGLE_STATE", toggleState]
 ]);
 
-export let stateSelectionInit = {selectedState: undefined, allStates: [], busy: false, loadedCountryStates: '', displayStateSelection: undefined, numberOfStatesLoaded: undefined};
+export let stateSelectionInit = {
+    selectedState: undefined,
+    allStates: [],
+    busy: false,
+    loadedCountryStates: '',
+    displayStateSelection: undefined,
+    numberOfStatesLoaded: undefined
+};

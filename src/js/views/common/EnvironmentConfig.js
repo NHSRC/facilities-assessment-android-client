@@ -17,10 +17,6 @@ class EnvironmentConfig {
         return this.config[propertyName];
     }
 
-    get shouldUsePackagedSeedData() {
-        return this._isPropertyTrue("USE_PACKAGED_SEED_DATA");
-    }
-
     get serverURL() {
         return Platform.OS === 'ios' ? this._getPropertyValue("SERVER_URL_IOS") : this._getPropertyValue("SERVER_URL");
     }
@@ -59,10 +55,6 @@ class EnvironmentConfig {
 
     get inDeveloperMode() {
         return DeviceInfo.isEmulator() && this._getPropertyValue('BUILD_TYPE') !== 'release';
-    }
-
-    get metaDataVersion() {
-        return _.toNumber(this._getPropertyValue('METADATA_VERSION_NUMBER'));
     }
 
     get getENV() {

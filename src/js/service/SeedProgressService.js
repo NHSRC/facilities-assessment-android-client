@@ -3,6 +3,7 @@ import Service from "../framework/bean/Service";
 import SeedProgress from '../models/SeedProgress';
 import Logger from "../framework/Logger";
 import EnvironmentConfig from "../views/common/EnvironmentConfig";
+import SettingsService from "./SettingsService";
 
 @Service("seedProgressService")
 class SeedProgressService extends BaseService {
@@ -10,24 +11,22 @@ class SeedProgressService extends BaseService {
         super(db, beanStore);
     }
 
-    isChecklistLoaded() {
-        let seedProgress = this.getSeedProgress();
-        if (_.isEmpty(seedProgress)) {
-            seedProgress = this.startLoadingChecklist();
-            return false;
-        }
-        return seedProgress.loadState >= SeedProgress.AppLoadState.LoadedChecklist;
-    }
-
     startLoadingChecklist() {
         return this.save(SeedProgress)({uuid: SeedProgress.UUID, loadState: SeedProgress.AppLoadState.LoadingChecklist});
     }
 
-    finishedLoadingChecklist() {
+    errorWhileLoadingChecklist(error) {
         return this.save(SeedProgress)({
             uuid: SeedProgress.UUID,
-            loadState: SeedProgress.AppLoadState.LoadedChecklist,
-            metaDataVersion: EnvironmentConfig.metaDataVersion
+            loadState: SeedProgress.AppLoadState.ErrorLoadingChecklist,
+            error: error
+        });
+    }
+
+    finishedLoadingChecklist() {
+        this.save(SeedProgress)({
+            uuid: SeedProgress.UUID,
+            loadState: SeedProgress.AppLoadState.LoadedChecklist
         });
     }
 
@@ -36,11 +35,11 @@ class SeedProgressService extends BaseService {
     }
 
     getSeedProgress() {
-        return {...this.db.objectForPrimaryKey(SeedProgress.schema.name, SeedProgress.UUID)};
-    }
-
-    versionChanged() {
-        return EnvironmentConfig.metaDataVersion !== this.getSeedProgress().metaDataVersion;
+        let seedProgress = this.db.objectForPrimaryKey(SeedProgress.schema.name, SeedProgress.UUID);
+        if (_.isEmpty(seedProgress)) {
+            seedProgress = this.startLoadingChecklist();
+        }
+        return seedProgress;
     }
 }
 
