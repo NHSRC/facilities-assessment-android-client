@@ -9,6 +9,7 @@ import UUID from "../utility/UUID";
 import StateService from "./StateService";
 import SettingsService from "./SettingsService";
 import EnvironmentConfig from '../views/common/EnvironmentConfig';
+import SeedProgressService from "./SeedProgressService";
 
 @Service("facilitiesService")
 class FacilitiesService extends BaseService {
@@ -33,8 +34,8 @@ class FacilitiesService extends BaseService {
     }
 
     getStates() {
-        let settings = this.getService(SettingsService).get();
-        return settings.states.map((configuredState) => this.findByUUID(configuredState.value, State.schema.name)).map(this.nameAndId);
+        let seedProgress = this.getService(SeedProgressService).getSeedProgress();
+        return seedProgress.loadedStates.map((configuredState) => this.findByUUID(configuredState.value, State.schema.name)).map(this.nameAndId);
     }
 
     getAllDistrictsFor(stateUUID) {

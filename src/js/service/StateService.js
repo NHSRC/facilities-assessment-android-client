@@ -27,7 +27,7 @@ class StateService extends BaseService {
     }
 
     getState(name) {
-        this.findByName(name);
+        return this.findByName(name);
     }
 
     deleteStatesExcept(state) {
@@ -40,6 +40,10 @@ class StateService extends BaseService {
 
     getStateName(stateUUID) {
         return this.findByUUID(stateUUID).name;
+    }
+
+    find(stateUUID) {
+        return this.nameAndId(this.findByUUID(stateUUID));
     }
 }
 

@@ -20,7 +20,6 @@ class SeedDataService extends BaseService {
     postInit() {
         let seedProgressService = this.getService(SeedProgressService);
         let seedProgress = seedProgressService.getSeedProgress();
-        Logger.logInfo('SeedDataService.postInit', `${JSON.stringify(seedProgress)}`);
         if (!seedProgress.hasChecklistLoaded()) {
             let referenceDataSyncService = this.getService(ReferenceDataSyncService);
             referenceDataSyncService.syncMetaDataNotSpecificToState(seedProgressService.finishedLoadingChecklist.bind(seedProgressService), (error) => {

@@ -10,6 +10,8 @@ import ModeSelection from "../modes/ModeSelection";
 import Logger from "../../framework/Logger";
 import _ from 'lodash';
 import Actions from "../../action";
+import SeedProgressService from "../../service/SeedProgressService";
+import StateSelectionUserState from "../../action/userState/StateSelectionUserState";
 
 @PathRoot
 @Path('/StateSelection')
@@ -26,11 +28,17 @@ class StateSelection extends AbstractComponent {
     }
 
     stateSelectionConfirmed() {
-        this.dispatchAction(Actions.STATE_SELECTION_CONFIRMED, {start: false});
-        setTimeout(() => {
-            this.dispatchAction(Actions.STATE_SELECTION_CONFIRMED, {start: true});
-            TypedTransition.from(this).resetTo(ModeSelection);
+        let timeoutID = setTimeout(() => {
+            this.dispatchAction(Actions.STATE_SELECTION_CONFIRMED);
+            clearTimeout(timeoutID);
         }, 100);
+        let intervalID = setInterval(() => {
+            let seedProgress = this.getService(SeedProgressService).getSeedProgress();
+            if (seedProgress.hasAllStatesLoaded()) {
+                TypedTransition.from(this).resetTo(ModeSelection);
+                clearInterval(intervalID);
+            }
+        }, 1000);
     }
 
     toggleState(countryState) {
@@ -38,18 +46,18 @@ class StateSelection extends AbstractComponent {
     }
 
     isItTheSelectedState(countryState) {
-        return this.isAnyStateSelected() && this.state.selectedState.uuid === countryState.uuid;
+        return _.some(this.state.userState.selectedStates, (x) => x.uuid === countryState.uuid);
     };
 
     isAnyStateSelected() {
-        return !_.isNil(this.state.selectedState);
+        return this.state.userState.selectedStates.length !== 0;
     };
 
     render() {
         if (_.isNil(this.state)) {
             Logger.logDebug('StateSelection', 'renderEmpty');
             return <View/>;
-        } else if (!this.state.displayStateSelection) {
+        } else if (!this.state.userState.displayStateSelection) {
             Logger.logDebug('StateSelection', 'Transitioning');
             this.dispatchAction(Actions.MODE_SELECTION);
             TypedTransition.from(this).resetTo(ModeSelection);
@@ -87,16 +95,16 @@ class StateSelection extends AbstractComponent {
                             onPress={() => this.stateSelectionConfirmed()}
                             style={{backgroundColor: '#ffa000', marginTop: 20}}
                             block
-                            disabled={!this.isAnyStateSelected()}>{this.state.busy ?
+                                disabled={!this.isAnyStateSelected()}>{this.state.userState.workflowState === StateSelectionUserState.WorkflowStates.StatesConfirmed ?
                             (<ActivityIndicator animating={true} size={"large"} color="white"
                                                 style={{height: 80}}/>) :
                             "SAVE"}
                         </Button>
-                        {_.isEmpty(this.state.loadedCountryStates) ? null : <Text
+                        {this.state.seedProgress.numberOfStates === 0 ? null : <Text
                             style={[Typography.paperFontSubhead, {
                                 color: "white",
                                 marginTop: 30
-                            }]}>{`States already loaded - ${this.state.numberOfStatesLoaded > 10 ? this.state.numberOfStatesLoaded : this.state.loadedCountryStates}`}</Text>
+                            }]}>{`States already loaded - ${this.state.seedProgress.numberOfStates > 10 ? this.state.seedProgress.numberOfStates : this.state.loadedCountryStates}`}</Text>
                         }
                     </View>
                 </Content>

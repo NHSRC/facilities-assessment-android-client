@@ -30,25 +30,6 @@ class SettingsService extends BaseService {
     getServerURL() {
         return EnvironmentConfig.serverURL;
     }
-
-    addState(state) {
-        const db = this.db;
-        db.write(() => {
-            let settings = this.get();
-            settings.addState(state);
-        });
-    }
-
-    setupStatesAlreadyLoaded() {
-        let allStates = this.getService(StateService).getAllStates();
-        const db = this.db;
-        Logger.logDebug('SettingsService', 'Setting up states already loaded in settings');
-        db.write(() => {
-            let settings = this.get();
-            allStates.forEach((state) => settings.addState(state));
-        });
-        Logger.logDebug('SettingsService', 'Done setting up states in settings');
-    }
 }
 
 export default SettingsService;

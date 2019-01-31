@@ -11,29 +11,9 @@ class Settings {
         primaryKey: 'uuid',
         properties: {
             uuid: {type: 'string', default: this.defaultPrimaryKey},
-            lastSyncedDate: {type: 'date', default: minDate},
-            states: {type: 'list', objectType: 'StringObj'}
+            lastSyncedDate: {type: 'date', default: minDate}
         }
     };
-
-    hasState(state) {
-        return _.some(this.states, (setupState) => setupState.value === state.uuid);
-    }
-
-    addState(state) {
-        if (!this.hasState(state))
-            this.states.push(StringObj.create(state.uuid));
-    }
-
-    get numberOfStates() {
-        return _.isNil(this.states) ? 0 : this.states.length;
-    }
-
-    removeStatesAlreadySetup(states) {
-        return _.differenceWith(states, this.states, (state, existingState) => {
-            return state.uuid === existingState.value;
-        });
-    }
 }
 
 

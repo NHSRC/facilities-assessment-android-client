@@ -33,6 +33,10 @@ class AbstractComponent extends Component {
             this.setState(newState);
         }
     }
+
+    getService(service) {
+        return this.context.getService(service);
+    }
 }
 
 export default AbstractComponent;

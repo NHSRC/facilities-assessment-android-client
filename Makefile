@@ -72,11 +72,11 @@ run_packager:
 deploy_apk_local:
 	cp android/app/build/outputs/apk/app-release.apk ../facilities-assessment-server/external/app.apk
 
-release_apk_jss: setup_source
+release_apk_jss:
 	$(call _release_apk,jss)
 	$(call _upload_release_sourcemap)
 
-release_apk_jss_qa: setup_source
+release_apk_jss_qa:
 	$(call _release_apk,jss.qa)
 	$(call _upload_release_sourcemap)
 	scp android/app/build/outputs/apk/app-release.apk sam@139.59.19.108:/tmp/app.apk
@@ -91,9 +91,8 @@ publish_apk_dev_nhsrc:
 publish_apk_release_nhsrc:
 	$(call _publish_release,released,nhsrc)
 
-release_apk_nhsrc: setup_source_nhsrc
+release_apk_nhsrc:
 	$(call _release_apk,nhsrc)
-	make setup_source
 	$(call _upload_release_sourcemap)
 
 release_apk_offline:
@@ -114,7 +113,7 @@ openlocation_publish:
 reinstall_released_apk: uninstall_app install_released_apk
 # </apk>
 
-release_ios_nhsrc: setup_source_nhsrc
+release_ios_nhsrc:
 	$(call _set_env,.env.nhsrc)
 	ENVFILE=.env react-native run-ios --configuration Release
 
@@ -122,16 +121,7 @@ release_ios_nhsrc: setup_source_nhsrc
 log:
 	adb logcat *:S ReactNative:V ReactNativeJS:V
 
-setup_source:
-	cp packagedData/EmptyPackagedJSON.js $(service_src_dir)/PackagedJSON.js
-	-rm -rf src/config/*
-
-setup_source_nhsrc:
-	-rm -rf src/config/*
-	cp -R $(recorded_response_dir)/jsons/$(rr_version)/* src/config/
-	node packagedData/generatePackagedJSON.js
-
-test_source: setup_source
+test_source:
 	npm test
 
 deps:
@@ -190,31 +180,31 @@ stop_app_android:
 start_app_android:
 	adb shell am start -n com.facilitiesassessment/com.facilitiesassessment.MainActivity
 
-run_app_jss: setup_source
+run_app_jss:
 	$(call _run_android,.env.jss)
 
-run_app_jss_qa: setup_source
+run_app_jss_qa:
 	$(call _run_android,.env.jss.qa)
 
-run_app_android: setup_source
+run_app_android:
 	$(call _run_android,.env.dev)
 
-run_app_ios: switch_ios_to_debug_mode setup_source
+run_app_ios: switch_ios_to_debug_mode
 	$(call _run_ios,dev)
 
-run_app_ios_nhsrc: switch_ios_to_debug_mode setup_source_nhsrc
+run_app_ios_nhsrc: switch_ios_to_debug_mode
 	$(call _run_ios,.env.nhsrc)
 
-run_app_ios_nhsrc_release: switch_ios_to_release_mode setup_source_nhsrc
+run_app_ios_nhsrc_release: switch_ios_to_release_mode
 	$(call _run_ios,.env.nhsrc)
 
-run_app_ios_nhsrc_dev: switch_ios_to_debug_mode setup_source_nhsrc
+run_app_ios_nhsrc_dev: switch_ios_to_debug_mode
 	$(call _run_ios,.env.nhsrc.dev)
 
-run_app_android_nhsrc: setup_source
+run_app_android_nhsrc:
 	$(call _run_android,.env.nhsrc)
 
-run_app_android_nhsrc_dev: setup_source
+run_app_android_nhsrc_dev:
 	$(call _run_android,.env.nhsrc.dev)
 
 run_app_android_jss:
@@ -242,11 +232,11 @@ open_app_bundle:
 # </app>
 
 # <ipa>
-prepare_ipa_nhsrc: switch_ios_to_release_mode setup_source_nhsrc
+prepare_ipa_nhsrc: switch_ios_to_release_mode
 	$(call _set_env,.env.nhsrc)
 	react-native bundle --entry-file index.ios.js --platform ios --dev false --bundle-output ios/main.jsbundle --assets-dest ios
 
-prepare_ipa_nhsrc_fail: switch_ios_to_release_mode setup_source
+prepare_ipa_nhsrc_fail: switch_ios_to_release_mode
 	$(call _set_env,.env.nhsrc)
 # </ipa>
 
