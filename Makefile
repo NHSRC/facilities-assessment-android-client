@@ -182,7 +182,7 @@ run_app_ios_nhsrc_dev: switch_ios_to_debug_mode setup_source_nhsrc
 run_app_android_nhsrc: setup_source_nhsrc
 	$(call _run_android,.env.nhsrc)
 
-run_app_android_nhsrc_dev:
+run_app_android_nhsrc_dev: setup_source_nhsrc
 	$(call _run_android,.env.nhsrc.dev)
 
 run_app_android_jss:
