@@ -25,9 +25,13 @@ class StateService extends BaseService {
     getDistrict(districtUUID) {
         return this.pickKeys(["uuid", "name", "facilities"])(this.db.objectForPrimaryKey(District.schema.name, districtUUID));
     }
-
-    getState(name) {
-        return this.findByName(name);
+    
+    deleteStatesExcept(state) {
+        const db = this.db;
+        db.write(() => {
+            let allEntities = db.objects(State.schema.name).filtered('uuid != $0', state.uuid);
+            db.delete(allEntities);
+        });
     }
 
     getStateName(stateUUID) {
