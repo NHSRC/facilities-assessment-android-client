@@ -12,6 +12,8 @@ recorded_response_dir := ../reference-data/nhsrc/output/recorded-response
 service_src_dir := src/js/service
 rr_version := 4
 ip:=$(shell ifconfig | grep -A 2 'vboxnet' | tail -1 | cut -d ' ' -f 2 | cut -d ' ' -f 1)
+release_apk_path := android/app/build/outputs/apk/app-release.apk
+prod_apk_path := /home/app/facilities-assessment-host/app-servers/external/app.apk
 
 define _release_apk
 	react-native bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/ --sourcemap-output android/app/build/generated/sourcemap.js
@@ -43,7 +45,7 @@ run_packager:
 
 # <apk>
 deploy_apk_local:
-	cp android/app/build/outputs/apk/app-release.apk ../facilities-assessment-server/external/app.apk
+	cp $(release_apk_path) ../facilities-assessment-server/external/app.apk
 
 release: setup_source
 	cd android; ENVFILE=.env ./gradlew assembleRelease
@@ -59,7 +61,7 @@ release_apk_offline:
 	cd android; ENVFILE=.env ./gradlew --offline assembleRelease
 
 install_released_apk:
-	$(call _install_apk,android/app/build/outputs/apk/app-release.apk)
+	$(call _install_apk,$(release_apk_path))
 
 install_old_apk:
 	$(call _install_apk,android/app/old-build/app-release.apk)
@@ -68,7 +70,7 @@ openlocation_apk:
 	open android/app/build/outputs/apk
 
 publish_release_vivek:
-	cp android/app/build/outputs/apk/app-release.apk ~/Dropbox/Public/nhsrc/$(release)/app-$(client).apk
+	cp $(release_apk_path) ~/Dropbox/Public/nhsrc/$(release)/app-$(client).apk
 
 reinstall_released_apk: uninstall_app install_released_apk
 # </apk>
@@ -163,3 +165,7 @@ uninstall_app:
 #	make deps
 #	make release
 #	@curl -T android/app/build/outputs/apk/app-release.apk -umihirk:$(BINTRAY_API_KEY) https://api.bintray.com/content/nhsrc/generic/facilities-assessment-android-client/latest/facilitiesassessment-$(ts).apk?publish=1
+
+deploy_apk_jss_prod:
+	ssh igunatmac "cp $(prod_apk_path) /tmp/app.apk"
+	scp $(release_apk_path) igunatmac:$(prod_apk_path)
