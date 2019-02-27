@@ -1,5 +1,5 @@
 import React from "react";
-import {Dimensions, Modal, StyleSheet, View} from "react-native";
+import {Dimensions, Modal, StyleSheet, View, BackAndroid} from "react-native";
 import AbstractComponent from "../common/AbstractComponent";
 import FlatUITheme from "../themes/flatUI";
 import {Button, Container, Content, Header, Icon, Title} from "native-base";
@@ -77,10 +77,19 @@ class Reports extends AbstractComponent {
         this.dispatchAction(Actions.EXPORT_TAB, action);
     }
 
+    componentDidMount() {
+        BackAndroid.addEventListener('hardwareBackPress', () => {
+            this._onBack();
+        });
+    }
+
     back() {
-        this.props.params.drilledDown ? this.dispatchAction(Actions.INIT_REPORTS, {...this.props.params}) : _.noop();
-        // this.props.backListeners.removeListener();
+        this._onBack();
         TypedTransition.from(this).goBack();
+    }
+
+    _onBack() {
+        this.props.params.drilledDown ? this.dispatchAction(Actions.INIT_REPORTS, {...this.props.params}) : _.noop();
     }
 
     render() {

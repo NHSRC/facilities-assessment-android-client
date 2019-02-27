@@ -80,13 +80,17 @@ class Settings extends AbstractComponent {
         )
     }
 
+    _onBack() {
+        this.dispatchAction(Actions.MODE_SELECTION);
+    }
+
     render() {
         return (
             <Container theme={FlatUITheme}>
                 <Header style={FlatUITheme.header}>
                     <Button
                         onPress={() => {
-                            this.dispatchAction(Actions.MODE_SELECTION);
+                            this._onBack();
                             TypedTransition.from(this).goBack();
                         }}
                         transparent>
