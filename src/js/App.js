@@ -7,7 +7,7 @@ import models from "./models";
 import BeanRegistry from "./framework/bean/BeanRegistry";
 import Logger from "./framework/Logger";
 import Config from "react-native-config";
-import {Text, View} from "react-native";
+import {Text, View, Platform} from "react-native";
 import SeedProgressService from "./service/SeedProgressService";
 import SeedProgress from "./models/SeedProgress";
 import EnvironmentConfig from "./views/common/EnvironmentConfig";
@@ -18,6 +18,7 @@ export default class App extends Component {
     constructor(props, context) {
         super(props, context);
         console.log(`IsEmulated: ${EnvironmentConfig.inDeveloperMode}`);
+        console.log(`PlatformVersion: ${Platform.Version}`);
         Logger.setCurrentLogLevel(EnvironmentConfig.inDeveloperMode ? Logger.LogLevel.Debug : Logger.LogLevel.Error);
         this.seed = this.seed.bind(this);
         let loadState;

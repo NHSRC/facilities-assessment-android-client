@@ -64,6 +64,10 @@ class EnvironmentConfig {
     get metaDataVersion() {
         return _.toNumber(this._getPropertyValue('METADATA_VERSION_NUMBER'));
     }
+
+    get filePrefix() {
+        return Platform.Version >= 26 ? "content" : "file";
+    }
 }
 
 export default new EnvironmentConfig();

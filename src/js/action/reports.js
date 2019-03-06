@@ -2,7 +2,8 @@ import _ from 'lodash';
 import ReportService from '../service/ReportService';
 import ExportService from "../service/ExportService";
 import defaultTabs from './reportingTabs';
-
+import {Platform} from "react-native";
+import EnvironmentConfig from "../views/common/EnvironmentConfig";
 
 const getSelectedTab = (tabs) => tabs.find((tab) => tab.isSelected);
 
@@ -81,11 +82,15 @@ const drillDown = function (state, action, beans) {
     };
 };
 
+const constructShareUrl = function (filePath) {
+    return `${EnvironmentConfig.filePrefix}://${filePath}`;
+};
+
 const exportAllRaw = function (state, action, beans) {
     const exportService = beans.get(ExportService);
     let exportedCSVMetadata = exportService.exportAllRaw(action.facilityAssessment);
     action.cb({
-        url: `file://${exportedCSVMetadata.exportPath}`,
+        url: constructShareUrl(exportedCSVMetadata.exportPath),
         title: `${exportedCSVMetadata.facilityName}'s Assessment on ${exportedCSVMetadata.assessmentDate}`,
         message: `${exportedCSVMetadata.facilityName}'s ${exportedCSVMetadata.assessmentTool} Assessment on ${exportedCSVMetadata.assessmentDate} `,
         subject: `${exportedCSVMetadata.facilityName}'s Assessment on ${exportedCSVMetadata.assessmentDate}`,
@@ -105,7 +110,7 @@ const exportTab = function (state, action, beans) {
         action.tab.headers,
         action.facilityAssessment);
     action.cb({
-        url: `file://${csvMetadata.exportPath}`,
+        url: constructShareUrl(csvMetadata.exportPath),
         title: `${csvMetadata.facilityName}'s Assessment on ${csvMetadata.assessmentDate}`,
         message: `${csvMetadata.facilityName}'s ${csvMetadata.assessmentTool} Assessment on ${csvMetadata.assessmentDate} `,
         subject: `${csvMetadata.facilityName}'s Assessment on ${csvMetadata.assessmentDate}`,
@@ -118,7 +123,7 @@ const exportCurrentView = function (state, action, beans) {
     const exportService = beans.get(ExportService);
     const newImageDest = exportService.copyOverImage(action.facilityAssessment, state.selectedTab, action.uri);
     action.cb({
-        url: `file://${newImageDest}`
+        url: `${constructShareUrl(newImageDest)}`
     });
     return Object.assign(state, {});
 };
