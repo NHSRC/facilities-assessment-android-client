@@ -47,7 +47,8 @@ class Reports extends AbstractComponent {
     }
 
     share(shareOpts) {
-        Share.open(shareOpts);
+        Share.open(shareOpts).then((res) => { console.log(res) })
+            .catch((err) => { err && console.log(err); });
     }
 
     exportAll() {

@@ -102,9 +102,6 @@ release_apk_offline:
 install_released_apk:
 	$(call _install_apk,$(release_apk_path))
 
-install_released_nhsrc_apk:
-	$(call _install_apk,$(apk_folder)/released/nhsrc/app-release.apk)
-
 openlocation_apk:
 	open android/app/build/outputs/apk
 
@@ -164,7 +161,7 @@ define _switch_ios_to_mode
 endef
 
 define uninstall_android
-	adb uninstall com.facilitiesassessment
+	-adb uninstall com.facilitiesassessment
 endef
 
 define reinstall_android

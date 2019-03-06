@@ -16,6 +16,7 @@ import ReportService from "./ReportService";
 import {Platform} from "react-native";
 import Logger from "../framework/Logger";
 import ReportScoreItem from "../models/ReportScoreItem";
+import EnvironmentConfig from "../views/common/EnvironmentConfig";
 
 @Service("exportService")
 class ExportService extends BaseService {
@@ -111,7 +112,7 @@ class ExportService extends BaseService {
     copyOverImage(facilityAssessment, suffix, fileURI) {
         const metadata = this.generateMetadata(facilityAssessment, _.kebabCase(suffix), ".jpeg");
         const filePath = `${this.directoryPath}/${metadata.facilityName}-${Date.now()}.jpeg`;
-        RNFS.copyFile(fileURI.replace("file://", ""), filePath, 'utf8')
+        RNFS.copyFile(fileURI.replace(`${EnvironmentConfig.filePrefix}://`, ""), filePath, 'utf8')
             .then(_.noop)
             .catch((error) => {
                 Logger.logError('ExportService', error);

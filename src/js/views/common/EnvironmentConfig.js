@@ -64,6 +64,10 @@ class EnvironmentConfig {
     get getImplementationName() {
         return this._getPropertyValue("IMPLEMENTATION_NAME") || 'unset';
     }
+
+    get filePrefix() {
+        return Platform.Version >= 26 ? "content" : "file";
+    }
 }
 
 export default new EnvironmentConfig();

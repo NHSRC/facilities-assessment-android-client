@@ -7,7 +7,7 @@ import models from "./models";
 import BeanRegistry from "./framework/bean/BeanRegistry";
 import Logger from "./framework/Logger";
 import Config from "react-native-config";
-import {Text, View, Alert, Clipboard, NativeModules} from "react-native";
+import {Text, View, Alert, Clipboard, NativeModules, Platform} from "react-native";
 import SeedProgressService from "./service/SeedProgressService";
 import SeedProgress from "./models/SeedProgress";
 import EnvironmentConfig from "./views/common/EnvironmentConfig";
@@ -22,6 +22,7 @@ export default class App extends Component {
         this.handleError = this.handleError.bind(this);
         ErrorHandler.set(this.handleError);
         console.log(`IsEmulated: ${EnvironmentConfig.inDeveloperMode}`);
+        console.log(`PlatformVersion: ${Platform.Version}`);
         Logger.setCurrentLogLevel(EnvironmentConfig.inDeveloperMode ? Logger.LogLevel.Debug : Logger.LogLevel.Error);
         if (db === undefined) {
             db = new Realm(models);
