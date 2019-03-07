@@ -20,9 +20,9 @@ class ReferenceDataSyncService extends AbstractReferenceDataSyncService {
         return "ReferenceDataSyncService";
     }
 
-    syncMetaDataSpecificToState(states, finishCB) {
+    syncMetaDataSpecificToState(states, finishCB, onError) {
         this.getService(EntitySyncStatusService).setupStatesStatuses(states, EntitiesMetaData.stateSpecificReferenceEntityTypes);
-        this.syncStateSpecificMetaDataInStateMode(_.clone(states), finishCB);
+        this.syncStateSpecificMetaDataInStateMode(_.clone(states), finishCB, onError);
     }
 }
 

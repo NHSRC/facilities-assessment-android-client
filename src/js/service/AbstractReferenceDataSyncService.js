@@ -52,17 +52,17 @@ class AbstractReferenceDataSyncService extends BaseService {
 
     syncMetaDataNotSpecificToState(onSuccess, onError) {
         Logger.logDebug('AbstractReferenceDataSyncService', 'syncMetaDataNotSpecificToState');
-        this._syncData(onSuccess, EntitiesMetaData.stateUnspecificReferenceTypes);
+        this._syncData(onSuccess, EntitiesMetaData.stateUnspecificReferenceTypes, null, onError);
     }
 
-    syncStateSpecificMetaDataInStateMode(remainingStates, cb) {
+    syncStateSpecificMetaDataInStateMode(states, cb, onError) {
         Logger.logDebug('AbstractReferenceDataSyncService', 'syncStateSpecificMetaDataInStateMode');
         this._syncData(() => {
-            if (remainingStates.length > 0)
-                this.syncStateSpecificMetaDataInStateMode(remainingStates, cb);
+            if (states.length > 0)
+                this.syncStateSpecificMetaDataInStateMode(states, cb, onError);
             else
                 cb();
-        }, EntitiesMetaData.stateSpecificReferenceEntityTypes, 'lastModifiedByState', {name: remainingStates.pop().name});
+        }, EntitiesMetaData.stateSpecificReferenceEntityTypes, 'lastModifiedByState', {name: states.pop().name});
     }
 
     _pullData(unprocessedEntityMetaData, resourceSearchFilterURL, params, onComplete, onError) {

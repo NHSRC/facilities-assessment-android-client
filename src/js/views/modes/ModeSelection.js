@@ -1,5 +1,5 @@
 import React from "react";
-import {Dimensions, Image, Navigator, StyleSheet, Text, TouchableWithoutFeedback, TouchableNativeFeedback, View} from "react-native";
+import {Dimensions, ActivityIndicator, Image, Navigator, StyleSheet, Text, TouchableWithoutFeedback, TouchableNativeFeedback, View} from "react-native";
 import {Button, Container, Content, Footer, Header, Icon, Title} from "native-base";
 import AbstractComponent from "../common/AbstractComponent";
 import FlatUITheme from "../themes/flatUI";
@@ -74,8 +74,23 @@ class ModeSelection extends AbstractComponent {
         TypedTransition.from(this).with({chooseAdditional: true}).to(StateSelection);
     }
 
+    downloadChecklistMetadata() {
+        this.dispatchAction(Actions.DOWNLOAD_REFERENCE_DATA, {
+            cb: () => {
+                this.dispatchAction(Actions.DOWNLOAD_COMPLETED, {success: true});
+            },
+            onError: () => {
+                this.dispatchAction(Actions.DOWNLOAD_COMPLETED, {success: false});
+            }
+        });
+    }
+
     render() {
         Logger.logDebug('ModeSelection', 'render');
+        let buttonContent = this.state.downloading ?
+            <ActivityIndicator
+                animating={true} size="large" color="white" style={{height: 80}}/> :
+            <Text style={[Typography.paperFontSubhead, {color: 'white'}]}>Update Checklists/Facilities</Text>;
         return (
             <Container theme={FlatUITheme}>
                 <Header style={FlatUITheme.header}>
@@ -93,11 +108,7 @@ class ModeSelection extends AbstractComponent {
                     <Title style={[Typography.paperFontTitle, {
                         fontWeight: 'bold',
                         color: 'white'
-                    }]}>GUNAK गुणक</Title>
-                    {this.state.statesAvailableToBeLoaded ? <Button
-                        style={{borderWidth: 1}}
-                        bordered transparent
-                        onPress={() => this.addNewState()}><Text style={[Typography.paperFontSubhead, {color: 'white'}]}>Add State</Text></Button> : null}
+                    }]}>GUNAK (गुणक)</Title>
                 </Header>
                 <Content>
                     <View style={ModeSelection.styles.container}>
@@ -114,6 +125,15 @@ class ModeSelection extends AbstractComponent {
                         </View>
                         <View style={[ModeSelection.styles.modeContainer]}>
                             {this.getMode("ANC Program")}
+                        </View>
+                        <View style={{flexDirection: 'row', justifyContent: 'center', marginTop: 20}}>
+                            <Button
+                                style={{borderWidth: 1, marginRight: 10}} bordered transparent
+                                onPress={() => this.downloadChecklistMetadata()}>{buttonContent}</Button>
+                            {this.state.statesAvailableToBeLoaded ? <Button
+                                style={{borderWidth: 1}}
+                                bordered transparent
+                                onPress={() => this.addNewState()}><Text style={[Typography.paperFontSubhead, {color: 'white'}]}>Add State</Text></Button> : null}
                         </View>
                     </View>
                 </Content>
