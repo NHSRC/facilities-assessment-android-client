@@ -31,6 +31,14 @@ const downloadReferenceData = function (state, action, beans) {
     return newState;
 };
 
+const downloadMyAssessments = function (state, action, beans) {
+    const referenceDataSyncService = beans.get(ReferenceDataSyncService);
+    referenceDataSyncService.syncMyTxData(action.cb, action.onError);
+    let newState = clone(state);
+    newState.downloading = true;
+    return newState;
+};
+
 const downloadCompleted = function (state, action, beans) {
     let newState = clone(state);
     newState.downloading = false;
@@ -40,7 +48,8 @@ const downloadCompleted = function (state, action, beans) {
 export default new Map([
     ["MODE_SELECTION", modeSelection],
     ["DOWNLOAD_REFERENCE_DATA", downloadReferenceData],
-    ["DOWNLOAD_COMPLETED", downloadCompleted]
+    ["DOWNLOAD_COMPLETED", downloadCompleted],
+    ["DOWNLOAD_MY_ASSESSMENTS", downloadMyAssessments]
 ]);
 
 export let modeSelectionInit = {

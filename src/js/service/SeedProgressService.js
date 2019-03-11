@@ -28,10 +28,10 @@ class SeedProgressService extends BaseService {
         });
     }
 
-    errorWhileLoadingChecklist(error) {
+    errorWhileInitialChecklistLoad(error) {
         this.db.write(() => {
             let seedProgress = SeedProgressService._get(this.db);
-            seedProgress.loadState = SeedProgress.AppLoadState.ErrorLoadingChecklist;
+            seedProgress.loadState = SeedProgress.AppLoadState.ErrorInFirstLoadOfChecklist;
             seedProgress.error = error;
         });
     }
@@ -43,10 +43,10 @@ class SeedProgressService extends BaseService {
         });
     }
 
-    finishedLoadStateSpecificData() {
+    finishedLoadStateSpecificData(selectedStates) {
         this.db.write(() => {
             let seedProgress = SeedProgressService._get(this.db);
-            seedProgress.confirmStatesLoaded();
+            seedProgress.confirmStatesLoaded(selectedStates);
         });
     }
 

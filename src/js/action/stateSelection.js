@@ -4,6 +4,7 @@ import ReferenceDataSyncService from "../service/ReferenceDataSyncService";
 import StateSelectionUserState from "./userState/StateSelectionUserState";
 import _ from 'lodash';
 import SeedProgress from "../models/SeedProgress";
+import Actions from "./index";
 
 const stateSelectionLoaded = function (state, action, beans) {
     let newState = clone(state);
@@ -43,16 +44,23 @@ const stateSelectionConfirmed = function (state, action, beans) {
     newState.userState.workflowState = StateSelectionUserState.WorkflowStates.StatesConfirmed;
     let referenceDataSyncService = beans.get(ReferenceDataSyncService);
     referenceDataSyncService.syncMetaDataSpecificToState(newState.userState.selectedStates, () => {
-        seedProgressService.finishedLoadStateSpecificData();
+        seedProgressService.finishedLoadStateSpecificData(newState.userState.selectedStates);
         newState.userState.workflowState = StateSelectionUserState.WorkflowStates.StatesLoaded;
-    });
+    }, action.onError);
+    return newState;
+};
+
+const stateDownloadFailed = function (state) {
+    let newState = clone(state);
+    newState.userState.workflowState = StateSelectionUserState.WorkflowStates.StatesDownloadFailed;
     return newState;
 };
 
 export default new Map([
     ["STATE_SELECTION_LOADED", stateSelectionLoaded],
     ["STATE_SELECTION_CONFIRMED", stateSelectionConfirmed],
-    ["TOGGLE_STATE", toggleState]
+    ["TOGGLE_STATE", toggleState],
+    ["STATE_DOWNLOAD_FAILED", stateDownloadFailed]
 ]);
 
 export let stateSelectionInit = {

@@ -1,10 +1,12 @@
 import _ from 'lodash';
+import Logger from "../../framework/Logger";
 
 class StateSelectionUserState {
     static WorkflowStates = {
         StatesNotConfirmed: 1,
         StatesConfirmed: 2,
-        StatesLoaded: 3
+        StatesLoaded: 3,
+        StatesDownloadFailed: 4
     };
 
     constructor() {
@@ -14,9 +16,9 @@ class StateSelectionUserState {
     }
 
     toggleState(countryState) {
-        if (_.some(this.selectedStates, (state) => state.uuid === countryState.uuid))
+        if (_.some(this.selectedStates, (state) => state.uuid === countryState.uuid)) {
             _.remove(this.selectedStates, (state) => state.uuid === countryState.uuid);
-        else
+        } else
             this.selectedStates.push(countryState);
     }
 

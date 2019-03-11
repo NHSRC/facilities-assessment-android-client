@@ -1,4 +1,4 @@
-import {ActivityIndicator, Dimensions, Image, StyleSheet, Text, TouchableHighlight, View} from 'react-native';
+import {Alert, ActivityIndicator, Dimensions, Image, StyleSheet, Text, TouchableHighlight, View} from 'react-native';
 import React from 'react';
 import AbstractComponent from "../common/AbstractComponent";
 import Path, {PathRoot} from "../../framework/routing/Path";
@@ -28,8 +28,19 @@ class StateSelection extends AbstractComponent {
 
     stateSelectionConfirmed() {
         let timeoutID = setTimeout(() => {
-            this.dispatchAction(Actions.STATE_SELECTION_CONFIRMED);
-            clearTimeout(timeoutID);
+            this.dispatchAction(Actions.STATE_SELECTION_CONFIRMED, {onError: (error) => {
+                    Alert.alert("Download failed", error.message,
+                        [
+                            {text: "OK",
+                                onPress: () => {
+                                    clearTimeout(timeoutID);
+                                    this.dispatchAction(Actions.STATE_DOWNLOAD_FAILED);
+                                }
+                            }
+                        ],
+                        {cancelable: false}
+                    );
+                }});
         }, 100);
         let intervalID = setInterval(() => {
             let seedProgress = this.getService(SeedProgressService).getSeedProgress();

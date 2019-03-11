@@ -49,7 +49,7 @@ class EntitiesMetaData {
 
     static get _txEntityTypes() {
         return [
-            new EntityMetaData(FacilityAssessmentProgress, undefined, undefined, FacilityAssessmentProgressService),
+            new EntityMetaData(FacilityAssessmentProgress, undefined, undefined, FacilityAssessmentProgressService, 2),
             new EntityMetaData(Indicator, undefined, new IndicatorMapper()),
             new EntityMetaData(CheckpointScore, undefined, new CheckpointScoreMapper()),
             new EntityMetaData(FacilityAssessment, undefined, new FacilityAssessmentMapper())
@@ -144,8 +144,10 @@ class IndicatorDefinitionMapper {
 
 class IndicatorMapper {
     fromResource(resource) {
+        resource.dateValue = resource.dateValue && moment(resource.dateValue).toDate();
         resource.indicatorDefinition = ResourceUtil.getUUIDFor(resource, "indicatorDefinitionUUID");
         resource.facilityAssessment = ResourceUtil.getUUIDFor(resource, "facilityAssessmentUUID");
+        return resource;
     }
 }
 

@@ -15,12 +15,6 @@ const syncMetaData = function (state, action, beans) {
     return Object.assign(state, {syncing: true})
 };
 
-const syncMetaDataInStateMode = function (state, action, beans) {
-    const referenceDataSyncService = beans.get(ReferenceDataSyncService);
-    referenceDataSyncService.simulateSyncAllMetaData(action.cb);
-    return Object.assign(state, {syncing: true});
-};
-
 const downloadMyAssessments = function (state, action, beans) {
     const referenceDataSyncService = beans.get(ReferenceDataSyncService);
     referenceDataSyncService.syncMyTxData(action.cb);
@@ -65,7 +59,6 @@ const setAssessmentId = function (state, action) {
 export default new Map([
     ["INITIAL_SETTINGS", initialSettings],
     ["SYNC_META_DATA", syncMetaData],
-    ["SYNC_META_DATA_IN_STATE_MODE", syncMetaDataInStateMode],
     ["SYNC_ALL_DATA", syncAllData],
     ["DOWNLOAD_MY_ASSESSMENTS", downloadMyAssessments],
     ["DOWNLOAD_ASSESSMENT", downloadAssessment],

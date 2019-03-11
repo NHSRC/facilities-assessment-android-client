@@ -24,14 +24,17 @@ class ConventionalRestClient {
 
         let params = makeParams(_.merge({
             lastModifiedDate: moment(lastUpdatedLocally).toISOString(),
-            size: 200,
+            size: entityMetaData.pageSize ? entityMetaData.pageSize : 200,
             page: pageNumber
         }, optionalParams));
         const url = `${urlParts.join("/")}?${params}`;
 
         Logger.logDebug('ConventionalRestClient', `Calling: ${url}`);
         this.getData(url, entityMetaData, optionalParams, (response) => {
-            const resources = _.isNil(response["_embedded"]) ? response : response["_embedded"][`${entityMetaData.resourceName}`];
+            const resources = _.isNil(response["_embedded"]) ?
+                                    (_.isNil(response["content"]) ?
+                                            response : response["content"]) :
+                                    response["_embedded"][`${entityMetaData.resourceName}`];
 
             this.db.write(() => {
                 _.forEach(resources, (resource) => {

@@ -1,5 +1,5 @@
 import React from "react";
-import {Dimensions, ActivityIndicator, Image, Navigator, StyleSheet, Text, TouchableWithoutFeedback, TouchableNativeFeedback, View} from "react-native";
+import {ActivityIndicator, Alert, Dimensions, Image, Navigator, StyleSheet, Text, TouchableNativeFeedback, TouchableWithoutFeedback, View} from "react-native";
 import {Button, Container, Content, Footer, Header, Icon, Title} from "native-base";
 import AbstractComponent from "../common/AbstractComponent";
 import FlatUITheme from "../themes/flatUI";
@@ -65,7 +65,7 @@ class ModeSelection extends AbstractComponent {
                                    marginLeft: deviceWidth * .06,
                                }}
                                source={icon}/> :
-                    <Text style={[Typography.paperFontHeadline, {color: 'white', width: deviceWidth * .33, marginLeft: deviceWidth * .06, marginTop: 60}]}>{name}</Text>}
+                    <Text style={[Typography.paperFontHeadline, {color: 'white', width: deviceWidth * .33, marginLeft: deviceWidth * .06}]}>{name}</Text>}
             </TouchableWithoutFeedback>
         ) : <View/>;
     }
@@ -76,21 +76,35 @@ class ModeSelection extends AbstractComponent {
 
     downloadChecklistMetadata() {
         this.dispatchAction(Actions.DOWNLOAD_REFERENCE_DATA, {
-            cb: () => {
-                this.dispatchAction(Actions.DOWNLOAD_COMPLETED, {success: true});
-            },
-            onError: () => {
-                this.dispatchAction(Actions.DOWNLOAD_COMPLETED, {success: false});
-            }
+            cb: () => this.downloadCompleted(),
+            onError: (error) => this.downloadFailed(error)
         });
+    }
+
+    downloadCompleted() {
+        this.dispatchAction(Actions.DOWNLOAD_COMPLETED, {success: true});
+    }
+
+    downloadFailed(error) {
+        Alert.alert("Download failed", error.message,
+            [
+                {
+                    text: "OK",
+                    onPress: () => {
+                        this.dispatchAction(Actions.DOWNLOAD_COMPLETED, {success: false});
+                    }
+                }
+            ],
+            {cancelable: false}
+        );
+    }
+
+    downloadMyAssessments() {
+        this.dispatchAction(Actions.DOWNLOAD_MY_ASSESSMENTS, {cb: () => this.downloadCompleted(), onError: (error) => this.downloadFailed(error)});
     }
 
     render() {
         Logger.logDebug('ModeSelection', 'render');
-        let buttonContent = this.state.downloading ?
-            <ActivityIndicator
-                animating={true} size="large" color="white" style={{height: 80}}/> :
-            <Text style={[Typography.paperFontSubhead, {color: 'white'}]}>Update Checklists/Facilities</Text>;
         return (
             <Container theme={FlatUITheme}>
                 <Header style={FlatUITheme.header}>
@@ -116,7 +130,7 @@ class ModeSelection extends AbstractComponent {
                             color: 'white',
                             alignSelf: 'center',
                             marginTop: 16
-                        }]}>{this.state ? 'Choose an Assessment Type' : 'Download Checklists & Facilities'}</Text>
+                        }]}>{this.state ? 'Choose a Program' : 'Download Checklists & Facilities'}</Text>
                         <View style={[ModeSelection.styles.modeContainer]}>
                             {this.getMode("NQAS", nqasIcon)}
                             {this.getMode("Kayakalp", kayakalpIcon)}
@@ -126,26 +140,30 @@ class ModeSelection extends AbstractComponent {
                         <View style={[ModeSelection.styles.modeContainer]}>
                             {this.getMode("ANC Program")}
                         </View>
-                        <View style={{flexDirection: 'row', justifyContent: 'center', marginTop: 20}}>
+                        <View style={{flexDirection: 'row', justifyContent: 'center', marginVertical: 20, flexWrap: 'wrap'}}>
                             <Button
-                                style={{borderWidth: 1, marginRight: 10}} bordered transparent
-                                onPress={() => this.downloadChecklistMetadata()}>{buttonContent}</Button>
+                                style={{borderWidth: 1, marginRight: 10, marginBottom: 10}} bordered transparent
+                                onPress={() => this.downloadChecklistMetadata()}>{this.downloadButtonContent("Update Checklists/Facilities")}</Button>
+                            <Button
+                                style={{borderWidth: 1, marginRight: 10, marginBottom: 10}} bordered transparent
+                                onPress={() => this.downloadMyAssessments()}>{this.downloadButtonContent("Download My Assessments")}</Button>
                             {this.state.statesAvailableToBeLoaded ? <Button
-                                style={{borderWidth: 1}}
+                                style={{borderWidth: 1, marginBottom: 10}}
                                 bordered transparent
-                                onPress={() => this.addNewState()}><Text style={[Typography.paperFontSubhead, {color: 'white'}]}>Add State</Text></Button> : null}
+                                onPress={() => this.addNewState()}>{this.downloadButtonContent("Add State")}</Button> : null}
                         </View>
                     </View>
+                    <Image resizeMode="contain" style={{width: deviceWidth}} source={nhsrcbanner}/>
                 </Content>
-                <Footer style={{backgroundColor: 'transparent'}}>
-                    <Image resizeMode="contain"
-                           style={{
-                               width: deviceWidth,
-                           }}
-                           source={nhsrcbanner}/>
-                </Footer>
             </Container>
         );
+    }
+
+    downloadButtonContent(normalText) {
+        return this.state.downloading ?
+            <ActivityIndicator
+                animating={true} size="large" color="white" style={{height: 80}}/> :
+            <Text style={[Typography.paperFontSubhead, {color: 'white'}]}>{normalText}</Text>;
     }
 }
 

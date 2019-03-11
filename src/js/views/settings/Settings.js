@@ -146,13 +146,12 @@ class Settings extends AbstractComponent {
                                             })
                                     }
                                     buttonStyle={{marginTop: 15}}/>
-                                <Text style={{color: "white", marginBottom: 30, alignSelf: 'center'}}>
-                                    Last Synced Date - {formatDate(this.state.lastSyncedDate)}
-                                </Text>
                             </View> : <View/>}
 
                         {EnvironmentConfig.shouldAllowDownloadMyData ?
-                            <SubmitButton buttonText={"Download My Assessments"}
+                            <SubmitButton buttonText={this.state.syncing ?
+                                (<ActivityIndicator animating={true} size={"large"} color="white"
+                                                    style={{height: 80}}/>) : "Download My Assessments"}
                                           onPress={() =>
                                               this.dispatchAction(Actions.DOWNLOAD_MY_ASSESSMENTS,
                                                   {
@@ -163,6 +162,7 @@ class Settings extends AbstractComponent {
                                                   })
                                           }
                                           buttonStyle={{marginTop: 15}}/> : <View/>}
+
                         {EnvironmentConfig.shouldAllowCleanData ?
                             <View>
                                 <View>

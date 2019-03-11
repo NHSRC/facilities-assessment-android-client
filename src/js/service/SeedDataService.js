@@ -21,9 +21,10 @@ class SeedDataService extends BaseService {
         let seedProgressService = this.getService(SeedProgressService);
         let seedProgress = seedProgressService.getSeedProgress();
         if (!seedProgress.hasChecklistLoaded()) {
+            seedProgressService.startLoadingChecklist();
             let referenceDataSyncService = this.getService(ReferenceDataSyncService);
             referenceDataSyncService.syncMetaDataNotSpecificToState(seedProgressService.finishedLoadingChecklist.bind(seedProgressService), (error) => {
-                seedProgressService.errorWhileLoadingChecklist(error.toString());
+                seedProgressService.errorWhileInitialChecklistLoad(error.message);
             });
         }
     }

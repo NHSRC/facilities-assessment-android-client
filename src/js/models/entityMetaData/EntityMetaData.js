@@ -4,11 +4,12 @@ import EntityService from "../../service/EntityService";
 import Logger from "../../framework/Logger";
 
 class EntityMetaData {
-    constructor(entityType, parentClass, mapper, serviceClass) {
+    constructor(entityType, parentClass, mapper, serviceClass, pageSize) {
         this.entityType = entityType;
         this.mapper = _.isNil(mapper) ? new DefaultEntityResourceMapper() : mapper;
         this.parentClass = parentClass;
         this.serviceClass = _.isNil(serviceClass) ? EntityService : serviceClass;
+        this.pageSize = pageSize;
     }
 
     get entityClass() {

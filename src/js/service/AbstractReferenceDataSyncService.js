@@ -20,8 +20,8 @@ class AbstractReferenceDataSyncService extends BaseService {
         this.serverURL = this.getService(SettingsService).getServerURL();
     }
 
-    syncMyTxData(cb) {
-        this._syncData(cb, EntitiesMetaData.txEntityTypes, "lastModifiedByDeviceId", {deviceId: DeviceInfo.getUniqueID()});
+    syncMyTxData(cb, onError) {
+        this._syncData(cb, EntitiesMetaData.txEntityTypes, "lastModifiedByDeviceId", {deviceId: DeviceInfo.getUniqueID()}, onError);
     }
 
     syncAssessment(assessmentId, cb) {
@@ -52,7 +52,7 @@ class AbstractReferenceDataSyncService extends BaseService {
 
     syncMetaDataNotSpecificToState(onSuccess, onError) {
         Logger.logDebug('AbstractReferenceDataSyncService', 'syncMetaDataNotSpecificToState');
-        this._syncData(onSuccess, EntitiesMetaData.stateUnspecificReferenceTypes, null, onError);
+        this._syncData(onSuccess, EntitiesMetaData.stateUnspecificReferenceTypes, undefined, null, onError);
     }
 
     syncStateSpecificMetaDataInStateMode(states, cb, onError) {
@@ -62,7 +62,7 @@ class AbstractReferenceDataSyncService extends BaseService {
                 this.syncStateSpecificMetaDataInStateMode(states, cb, onError);
             else
                 cb();
-        }, EntitiesMetaData.stateSpecificReferenceEntityTypes, 'lastModifiedByState', {name: states.pop().name});
+        }, EntitiesMetaData.stateSpecificReferenceEntityTypes, 'lastModifiedByState', {name: states.pop().name}, onError);
     }
 
     _pullData(unprocessedEntityMetaData, resourceSearchFilterURL, params, onComplete, onError) {
@@ -72,7 +72,9 @@ class AbstractReferenceDataSyncService extends BaseService {
             return;
         }
 
-        const entitySyncStatus = this.entitySyncStatusService.get(entityMetaData.getSyncStatusEntityName(params.name));
+        let syncStatusEntityName = entityMetaData.getSyncStatusEntityName(params.name);
+        Logger.logDebug('AbstractReferenceDataSyncService._pullData', `Finding sync status for ${syncStatusEntityName}`);
+        const entitySyncStatus = this.entitySyncStatusService.get(syncStatusEntityName);
         Logger.logInfo('AbstractReferenceDataSyncService', `${entitySyncStatus.entityName} was last loaded up to "${entitySyncStatus.loadedSince}"`);
         this.conventionalRestClient.loadData(entityMetaData, resourceSearchFilterURL, params, entitySyncStatus.loadedSince, 0,
             unprocessedEntityMetaData,

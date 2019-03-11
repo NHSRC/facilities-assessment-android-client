@@ -34,11 +34,11 @@ class EnvironmentConfig {
     }
 
     get shouldAllowBulkDownload() {
-        return this.inDeveloperMode || this._isPropertyTrue("ALLOW_BULK_DOWNLOAD");
+        return this.inDeveloperMode;
     }
 
     get shouldAllowCleanData() {
-        return this.inDeveloperMode || this._isPropertyTrue("ALLOW_CLEAN_DATA");
+        return this.inDeveloperMode;
     }
 
     get shouldAllowDownloadMyData() {

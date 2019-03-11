@@ -18,11 +18,11 @@ const makeHeader = (type) => new Map(
             'Accept': 'application/json',
             'Content-Type': 'application/json',
         },
-        timeout: 1 * 1000
+        timeout: 20000
     }],
         ['text', {
             headers: {'Accept': 'text/plain', 'Content-Type': 'text/plain'},
-            timeout: 1 * 1000
+            timeout: 20000
         }]]).get(type);
 
 

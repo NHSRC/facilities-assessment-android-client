@@ -6,11 +6,13 @@ class SeedProgress {
 
     static AppLoadState = {
         LoadingChecklist: 1,
-        LoadedChecklist: 2,
-        LoadingState: 3,
-        LoadedState: 4,
-        ErrorLoadingChecklist: 5,
-        ErrorLoadingState: 6
+        ErrorInFirstLoadOfChecklist: 2,
+        LoadedChecklist: 3,
+        LoadingState: 4,
+        ErrorFirstLoadOfState: 5,
+        LoadedState: 6,
+        ErrorLoadingChecklist: 7,
+        ErrorLoadingState: 8
     };
 
     static schema = {
@@ -62,18 +64,16 @@ class SeedProgress {
             case SeedProgress.AppLoadState.LoadedState:
                 return "Facilities setup complete for the state chosen by you";
             case SeedProgress.AppLoadState.ErrorLoadingChecklist:
-                return this.errorMessage('checklists');
+            case SeedProgress.AppLoadState.ErrorInFirstLoadOfChecklist:
+                return this.errorMessage('checklist');
             case SeedProgress.AppLoadState.ErrorLoadingState:
+            case SeedProgress.AppLoadState.ErrorFirstLoadOfState:
                 return this.errorMessage('facilities');
         }
     }
 
     static setupMessage(entityName) {
         return `Setting up ${entityName}. It may take up to 2 Minutes, depending on your device and Internet speed`;
-    }
-
-    hasState(state) {
-        return _.some(this.loadedStates, (loadedState) => loadedState.value === state.uuid);
     }
 
     errorMessage(entityName) {
@@ -84,10 +84,10 @@ class SeedProgress {
         return _.isNil(this.loadedStates) ? 0 : this.loadedStates.length;
     }
 
-    confirmStatesLoaded() {
-        this.loadingStates.forEach((stateStringObj) => {
-            if (!this.hasState(stateStringObj))
-                this.loadedStates.push(StringObj.create(stateStringObj.value));
+    confirmStatesLoaded(selectedCountryStates) {
+        selectedCountryStates.forEach((countryState) => {
+            if (!_.some(this.loadedStates, (loadedState) => loadedState.value === countryState.uuid))
+                this.loadedStates.push(StringObj.create(countryState.uuid));
         });
         this.loadingStates = [];
     }
@@ -104,7 +104,8 @@ class SeedProgress {
 
     addLoadingStates(states) {
         states.forEach((state) => {
-            this.loadingStates.push(StringObj.create(state.uuid));
+            if (!_.some(this.loadingStates, (x) => x.value === state.uuid))
+                this.loadingStates.push(StringObj.create(state.uuid));
         });
     }
 }
