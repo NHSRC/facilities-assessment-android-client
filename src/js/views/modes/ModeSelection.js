@@ -139,7 +139,7 @@ class ModeSelection extends AbstractComponent {
                             {this.getMode("Dakshata")}
                         </View>
                         <View style={[ModeSelection.styles.modeContainer]}>
-                            {this.getMode("Maternity Services")}
+                            {this.getMode("ANC Program")}
                         </View>
                     </View>
                 </Content>
