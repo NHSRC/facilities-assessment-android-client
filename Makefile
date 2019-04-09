@@ -233,6 +233,10 @@ prepare_ipa_nhsrc: switch_ios_to_release_mode
 
 prepare_ipa_nhsrc_fail: switch_ios_to_release_mode
 	$(call _set_env,.env.nhsrc)
+
+disable_debug_apk_checks:
+	adb shell settings put global verifier_verify_adb_installs 0
+	adb shell settings put global package_verifier_enable 0
 # </ipa>
 
 
