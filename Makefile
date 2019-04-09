@@ -169,3 +169,7 @@ uninstall_app:
 deploy_apk_jss_prod:
 	ssh igunatmac "cp $(prod_apk_path) /tmp/app.apk"
 	scp $(release_apk_path) igunatmac:$(prod_apk_path)
+
+open_app_bundle:
+	curl "http://localhost:8081/index.android.bundle?platform=android&dev=true&hot=false&minify=false" -o ../temp/output.txt
+	vi ../temp/output.txt
