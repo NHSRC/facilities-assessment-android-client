@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {
     Dimensions, View, Text, TouchableWithoutFeedback, StyleSheet, Image, TextInput,
-    ActivityIndicator, Alert, Navigator
+    ActivityIndicator, Alert, Navigator, NativeModules
 } from 'react-native';
 import {Container, Content, Title, Button, Header, Icon, InputGroup, Input} from 'native-base';
 import AbstractComponent from "../common/AbstractComponent";
@@ -15,6 +15,8 @@ import Actions from '../../action';
 import {formatDate} from '../../utility/DateUtils';
 import EnvironmentConfig from "../common/EnvironmentConfig";
 import SubmitAssessment from "../dashboard/open/SubmitAssessment";
+
+const {Restart} = NativeModules;
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
@@ -116,6 +118,15 @@ class Settings extends AbstractComponent {
                             <Text
                                 style={[Typography.paperFontBody, {marginLeft: 8, color: PrimaryColors.medium_white}]}>{EnvironmentConfig.versionCode}</Text>
                         </View>
+                        {EnvironmentConfig.inDeveloperMode &&
+                        <View style={Settings.styles.textBox}>
+                            <Text
+                                style={[Typography.paperFontTitle, {marginLeft: 8, color: PrimaryColors.medium_white}]}>Force Native Crash</Text>
+                            <Button
+                                onPress={() => Restart.crashForTesting()} transparent>
+                                <Icon style={{marginTop: 10, color: 'white'}} name="alarm"/>
+                            </Button>
+                        </View>}
                     </View>
                 </Content>
             </Container>

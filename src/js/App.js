@@ -14,6 +14,7 @@ import EnvironmentConfig from "./views/common/EnvironmentConfig";
 import ErrorHandler from "./utility/ErrorHandler";
 
 let routes, beans, appStore, db = undefined;
+const {Restart} = NativeModules;
 
 export default class App extends Component {
     constructor(props, context) {

@@ -47,6 +47,11 @@ public class Restart extends ReactContextBaseJavaModule {
         loadBundle();
     }
 
+    @ReactMethod
+    public void crashForTesting() {
+        throw new RuntimeException("Checking Crashanalytics");
+    }
+
     @Override
     public String getName() {
         return "Restart";
