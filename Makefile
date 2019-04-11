@@ -205,6 +205,9 @@ run_app_android_nhsrc_dev:
 run_app_android_jss:
 	$(call _run_android,jss)
 
+run_app_android_jss_dev:
+	$(call _run_android,.env.jss.dev)
+
 clean_ios:
 	rm -rf ios/build/
 	-kill $(lsof -t -i:8081)
