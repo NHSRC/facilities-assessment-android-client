@@ -4,13 +4,22 @@ import bugsnag from './Bugsnag';
 import EnvironmentConfig from "../views/common/EnvironmentConfig";
 
 export default class ErrorHandler {
+    static isSet;
+
     static set(errorCallback) {
         if (!EnvironmentConfig.inDeveloperMode) {
-            console.log('[ErrorHandler] Setting Global ErrorHandler');
-            ErrorUtils.setGlobalHandler((error, isFatal) => {
-                ErrorHandler.postError(error, isFatal, errorCallback);
-            });
+            this.forceSet(errorCallback);
         }
+    }
+
+    static forceSet(errorCallback) {
+        if (ErrorHandler.isSet) return;
+
+        console.log('[ErrorHandler] Setting Global ErrorHandler');
+        ErrorUtils.setGlobalHandler((error, isFatal) => {
+            ErrorHandler.postError(error, isFatal, errorCallback);
+        });
+        ErrorHandler.isSet = true;
     }
 
     static postError(error, isFatal, errorCallback) {
@@ -26,12 +35,22 @@ export default class ErrorHandler {
                         }));
                         console.log(`[ErrorHandler] Notifying Bugsnag : ${error}`);
                         bugsnag.notify(error, (report) => report.metadata.frameArray = frameArray);
-                        console.log(`[ErrorHandler] Restarting app.`);
-                        errorCallback(error, JSON.stringify(frameArray));
+                        errorCallback && errorCallback(error, JSON.stringify(frameArray));
                     });
             } else {
                 bugsnag.notify(error);
             }
         }
+    }
+
+    static simulateJSError() {
+        throw new Error("Test error for BugSnag testing");
+    }
+
+    static simulateJSCallbackError() {
+        let timeoutId = setTimeout(() => {
+            clearTimeout(timeoutId);
+            throw new Error("Test callback error for BugSnag testing");
+        }, 10);
     }
 }

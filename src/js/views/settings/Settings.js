@@ -15,6 +15,7 @@ import Actions from '../../action';
 import {formatDate} from '../../utility/DateUtils';
 import EnvironmentConfig from "../common/EnvironmentConfig";
 import SubmitAssessment from "../dashboard/open/SubmitAssessment";
+import ErrorHandler from "../../utility/ErrorHandler";
 
 const {Restart} = NativeModules;
 
@@ -39,6 +40,12 @@ class Settings extends AbstractComponent {
             alignSelf: 'stretch',
             marginTop: 8,
             marginBottom: 20
+        },
+        buttons: {
+            flex: 1,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            marginTop: 30
         },
     });
 
@@ -119,14 +126,21 @@ class Settings extends AbstractComponent {
                                 style={[Typography.paperFontBody, {marginLeft: 8, color: PrimaryColors.medium_white}]}>{EnvironmentConfig.versionCode}</Text>
                         </View>
                         {EnvironmentConfig.inDeveloperMode &&
-                        <View style={Settings.styles.textBox}>
-                            <Text
-                                style={[Typography.paperFontTitle, {marginLeft: 8, color: PrimaryColors.medium_white}]}>Force Native Crash</Text>
-                            <Button
-                                onPress={() => Restart.crashForTesting()} transparent>
-                                <Icon style={{marginTop: 10, color: 'white'}} name="alarm"/>
-                            </Button>
+                        <View style={Settings.styles.buttons}>
+                            <Button style={{marginRight: 10}} onPress={() => {
+                                ErrorHandler.forceSet();
+                                Restart.crashForTesting();
+                            }}>Native Crash</Button>
+                            <Button style={{marginRight: 10}} onPress={() => {
+                                ErrorHandler.forceSet();
+                                ErrorHandler.simulateJSError();
+                            }}>JS Exception</Button>
+                            <Button onPress={() => {
+                                ErrorHandler.forceSet();
+                                ErrorHandler.simulateJSCallbackError();
+                            }}>Callback Exception</Button>
                         </View>}
+
                     </View>
                 </Content>
             </Container>

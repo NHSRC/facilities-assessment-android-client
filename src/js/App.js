@@ -22,8 +22,6 @@ export default class App extends Component {
         this.seed = this.seed.bind(this);
         this.handleError = this.handleError.bind(this);
         ErrorHandler.set(this.handleError);
-        console.log(`IsEmulated: ${EnvironmentConfig.inDeveloperMode}`);
-        console.log(`PlatformVersion: ${Platform.Version}`);
         Logger.setCurrentLogLevel(EnvironmentConfig.inDeveloperMode ? Logger.LogLevel.Debug : Logger.LogLevel.Error);
         if (db === undefined) {
             db = new Realm(models);
@@ -71,6 +69,7 @@ export default class App extends Component {
                 {text: "Copy error and Restart",
                     onPress: () => {
                         Clipboard.setString(`${this.state.error.message}\nStacktrace:\n${this.state.stacktrace}`);
+                        console.log(`[App.renderError] Restarting app.`);
                         Restart.restart();
                     }
                 }
