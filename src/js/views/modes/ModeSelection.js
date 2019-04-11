@@ -114,7 +114,7 @@ class ModeSelection extends AbstractComponent {
         return (
             <Container theme={FlatUITheme}>
                 <Header style={FlatUITheme.header}>
-                    {EnvironmentConfig.functionsEnabledInSettings ?
+                    {EnvironmentConfig.isEmulated ?
                         <Button
                             onPress={() => TypedTransition.from(this)
                                 .with({

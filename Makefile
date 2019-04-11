@@ -77,6 +77,9 @@ release_apk_jss:
 	$(call _release_apk,jss)
 	$(call _upload_release_sourcemap)
 
+release_apk_jss_dev:
+	$(call _release_apk,jss.dev)
+
 release_apk_jss_qa:
 	$(call _release_apk,jss.qa)
 	$(call _upload_release_sourcemap)

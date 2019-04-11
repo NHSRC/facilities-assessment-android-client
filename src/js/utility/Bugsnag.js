@@ -7,7 +7,7 @@ import { Client, Configuration } from 'bugsnag-react-native';
 import EnvironmentConfig from '../views/common/EnvironmentConfig';
 
 const configuration = new Configuration();
-configuration.autoNotify = false;
+configuration.autoNotify = true;
 configuration.releaseStage = EnvironmentConfig.getENV;
 configuration.notifyReleaseStages = ['qa', 'prod'];
 configuration.registerBeforeSendCallback((report) => {

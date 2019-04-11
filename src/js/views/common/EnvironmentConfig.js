@@ -41,20 +41,16 @@ class EnvironmentConfig {
         return this.inDeveloperMode;
     }
 
-    get shouldAllowDownloadMyData() {
-        return this.inDeveloperMode || this._isPropertyTrue("ALLOW_DOWNLOAD_MY_DATA");
-    }
-
     get shouldTrackLocation() {
         return this._isPropertyTrue("TRACK_LOCATION");
     }
 
-    get functionsEnabledInSettings() {
-        return this.inDeveloperMode || this.shouldAllowDownloadMyData || this.shouldAllowBulkDownload || this.shouldAllowCleanData;
-    }
-
     get inDeveloperMode() {
         return DeviceInfo.isEmulator() && this._getPropertyValue('BUILD_TYPE') !== 'release';
+    }
+
+    get isEmulated() {
+        return DeviceInfo.isEmulator();
     }
 
     get getENV() {

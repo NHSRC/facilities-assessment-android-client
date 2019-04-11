@@ -6,15 +6,12 @@ import {
 import {Container, Content, Title, Button, Header, Icon, InputGroup, Input} from 'native-base';
 import AbstractComponent from "../common/AbstractComponent";
 import FlatUITheme from '../themes/flatUI';
-import SubmitButton from '../common/SubmitButton';
 import TypedTransition from "../../framework/routing/TypedTransition";
 import Path from "../../framework/routing/Path";
 import PrimaryColors from "../styles/PrimaryColors";
 import Typography from "../styles/Typography";
 import Actions from '../../action';
-import {formatDate} from '../../utility/DateUtils';
 import EnvironmentConfig from "../common/EnvironmentConfig";
-import SubmitAssessment from "../dashboard/open/SubmitAssessment";
 import ErrorHandler from "../../utility/ErrorHandler";
 
 const {Restart} = NativeModules;
@@ -125,7 +122,7 @@ class Settings extends AbstractComponent {
                             <Text
                                 style={[Typography.paperFontBody, {marginLeft: 8, color: PrimaryColors.medium_white}]}>{EnvironmentConfig.versionCode}</Text>
                         </View>
-                        {EnvironmentConfig.inDeveloperMode &&
+                        {EnvironmentConfig.isEmulated &&
                         <View style={Settings.styles.buttons}>
                             <Button style={{marginRight: 10}} onPress={() => {
                                 ErrorHandler.forceSet();
@@ -140,7 +137,6 @@ class Settings extends AbstractComponent {
                                 ErrorHandler.simulateJSCallbackError();
                             }}>Callback Exception</Button>
                         </View>}
-
                     </View>
                 </Content>
             </Container>
