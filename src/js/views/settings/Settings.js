@@ -107,82 +107,15 @@ class Settings extends AbstractComponent {
                             <Text
                                 style={[Typography.paperFontTitle, {marginLeft: 8, color: PrimaryColors.medium_white}]}>
                                 Server URL</Text>
-                            <InputGroup borderType='underline'>
-                                <Input
-                                    style={{color: "white"}}
-                                    value={this.state.serverURL}/>
-                            </InputGroup>
+                            <Text
+                                style={[Typography.paperFontBody, {marginLeft: 8, color: PrimaryColors.medium_white}]}>{this.state.serverURL}</Text>
                         </View>
-
-                        {EnvironmentConfig.shouldAllowBulkDownload ?
-                            <View style={{flexDirection: 'column', flex: 1, alignSelf: 'stretch'}}>
-                                <SubmitButton
-                                    buttonText={this.state.syncing ?
-                                        (<ActivityIndicator animating={true} size={"large"} color="white"
-                                                            style={{height: 80}}/>) :
-                                        "DOWNLOAD - FACILITIES, CHECKLISTS and ASSESSMENTS"}
-                                    onPress={() =>
-                                        this.dispatchAction(Actions.SYNC_ALL_DATA,
-                                            {
-                                                cb: () => {
-                                                    this.dispatchAction(Actions.SYNCED_DATA);
-                                                    this.props.params.cb();
-                                                }
-                                            })
-                                    }
-                                    buttonStyle={{marginTop: 15}}/>
-                                <SubmitButton
-                                    buttonText={this.state.syncing ?
-                                        (<ActivityIndicator animating={true} size={"large"} color="white"
-                                                            style={{height: 80}}/>) :
-                                        "DOWNLOAD - FACILITIES and CHECKLISTS"}
-                                    onPress={() =>
-                                        this.dispatchAction(Actions.SYNC_META_DATA,
-                                            {
-                                                cb: () => {
-                                                    this.dispatchAction(Actions.SYNCED_DATA);
-                                                    this.props.params.cb();
-                                                }
-                                            })
-                                    }
-                                    buttonStyle={{marginTop: 15}}/>
-                            </View> : <View/>}
-
-                        {EnvironmentConfig.shouldAllowDownloadMyData ?
-                            <SubmitButton buttonText={this.state.syncing ?
-                                (<ActivityIndicator animating={true} size={"large"} color="white"
-                                                    style={{height: 80}}/>) : "Download My Assessments"}
-                                          onPress={() =>
-                                              this.dispatchAction(Actions.DOWNLOAD_MY_ASSESSMENTS,
-                                                  {
-                                                      cb: () => {
-                                                          this.dispatchAction(Actions.SYNCED_DATA);
-                                                          this.props.params.cb();
-                                                      }
-                                                  })
-                                          }
-                                          buttonStyle={{marginTop: 15}}/> : <View/>}
-
-                        {EnvironmentConfig.shouldAllowCleanData ?
-                            <View>
-                                <View>
-                                    <Text
-                                        style={[Typography.paperFontSubheader, {marginLeft: 8, color: PrimaryColors.medium_white}]}>Assessment ID</Text>
-                                    <TextInput value={this.state.assessmentId}
-                                               underlineColorAndroid={PrimaryColors["white"]}
-                                               words="words"
-                                               onChangeText={(text) => this.dispatchAction(Actions.SET_ASSESSMENT_ID, {assessmentId: text})}/>
-                                </View>
-                                <SubmitButton buttonText={"DOWNLOAD ABOVE ASSESSMENT"}
-                                              onPress={() => this.dispatchAction(Actions.DOWNLOAD_ASSESSMENT)}
-                                              buttonStyle={{marginTop: 15}}/>
-                                <SubmitButton buttonText={"CLEAN ALL DATA"}
-                                              onPress={() => this.cleanData()}
-                                              buttonStyle={{marginTop: 15}}/>
-                                <SubmitButton buttonText={"CLEAN TX DATA"}
-                                              onPress={() => this.cleanTxData()}
-                                              buttonStyle={{marginTop: 15}}/>
-                            </View> : null}
+                        <View style={Settings.styles.textBox}>
+                            <Text
+                                style={[Typography.paperFontTitle, {marginLeft: 8, color: PrimaryColors.medium_white}]}>VERSION NUMBER</Text>
+                            <Text
+                                style={[Typography.paperFontBody, {marginLeft: 8, color: PrimaryColors.medium_white}]}>{EnvironmentConfig.versionCode}</Text>
+                        </View>
                     </View>
                 </Content>
             </Container>

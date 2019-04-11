@@ -61,8 +61,12 @@ class EnvironmentConfig {
         return this._getPropertyValue("ENV") || 'dev';
     }
 
-    get getImplementationName() {
+    get implementationName() {
         return this._getPropertyValue("IMPLEMENTATION_NAME") || 'unset';
+    }
+
+    get versionCode() {
+        return this._getPropertyValue("VERSION_CODE");
     }
 
     get filePrefix() {

@@ -13,7 +13,7 @@ configuration.notifyReleaseStages = ['qa', 'prod'];
 configuration.registerBeforeSendCallback((report) => {
     report.metadata = {
         ...report.metadata,
-        implementation: { 'name': EnvironmentConfig.getImplementationName }
+        implementation: { 'name': EnvironmentConfig.implementationName }
     }
 });
 console.log("Creating new instance of Bugsnag");

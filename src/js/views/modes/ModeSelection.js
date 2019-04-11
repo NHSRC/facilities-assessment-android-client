@@ -54,8 +54,9 @@ class ModeSelection extends AbstractComponent {
         return () => TypedTransition.from(this).with({mode: mode}).to(Dashboard);
     }
 
-    getMode(name, icon) {
+    getMode(name, icon, padText = true) {
         let showMode = !_.isNil(this.state) && this.state.modes.indexOf(name.toUpperCase()) > -1;
+        let paddingTop = padText ? deviceHeight * 0.1 : 0;
         return showMode ? (
             <TouchableWithoutFeedback onPress={this.handleOnPress(name)}>
                 {icon ? <Image resizeMode="contain"
@@ -65,7 +66,12 @@ class ModeSelection extends AbstractComponent {
                                    marginLeft: deviceWidth * .06,
                                }}
                                source={icon}/> :
-                    <Text style={[Typography.paperFontHeadline, {color: 'white', width: deviceWidth * .33, marginLeft: deviceWidth * .06}]}>{name}</Text>}
+                    <Text style={[Typography.paperFontHeadline, {
+                        color: 'white',
+                        width: deviceWidth * .4,
+                        marginLeft: deviceWidth * .06,
+                        paddingTop: paddingTop
+                    }]}>{name}</Text>}
             </TouchableWithoutFeedback>
         ) : <View/>;
     }
@@ -126,11 +132,6 @@ class ModeSelection extends AbstractComponent {
                 </Header>
                 <Content>
                     <View style={ModeSelection.styles.container}>
-                        <Text style={[Typography.paperFontHeadline, {
-                            color: 'white',
-                            alignSelf: 'center',
-                            marginTop: 16
-                        }]}>{this.state ? 'Choose a Program' : 'Download Checklists & Facilities'}</Text>
                         <View style={[ModeSelection.styles.modeContainer]}>
                             {this.getMode("NQAS", nqasIcon)}
                             {this.getMode("Kayakalp", kayakalpIcon)}
@@ -138,9 +139,9 @@ class ModeSelection extends AbstractComponent {
                             {this.getMode("Dakshata")}
                         </View>
                         <View style={[ModeSelection.styles.modeContainer]}>
-                            {this.getMode("ANC Program")}
+                            {this.getMode("ANC Program", null, false)}
                         </View>
-                        <View style={{flexDirection: 'row', justifyContent: 'center', marginVertical: 20, flexWrap: 'wrap'}}>
+                        <View style={{flexDirection: 'row', justifyContent: 'center', marginVertical: 60, flexWrap: 'wrap'}}>
                             <Button
                                 style={{borderWidth: 1, marginRight: 10, marginBottom: 10}} bordered transparent
                                 onPress={() => this.downloadChecklistMetadata()}>{this.downloadButtonContent("Update Checklists/Facilities")}</Button>
@@ -153,8 +154,8 @@ class ModeSelection extends AbstractComponent {
                                 onPress={() => this.addNewState()}>{this.downloadButtonContent("Add State")}</Button> : null}
                         </View>
                     </View>
-                    <Image resizeMode="contain" style={{width: deviceWidth}} source={nhsrcbanner}/>
                 </Content>
+                <Image resizeMode="contain" style={{width: deviceWidth}} source={nhsrcbanner}/>
             </Container>
         );
     }
