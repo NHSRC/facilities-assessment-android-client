@@ -142,7 +142,7 @@ run_app_jss: setup_source
 	$(call _run_android,.env.jss)
 
 run_app_jss_dev: setup_source
-	$(call _run_android,.env.jss)
+	$(call _run_android,.env.jss.dev)
 
 run_app_android: setup_source
 	$(call _run_android,.env)
