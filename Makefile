@@ -29,10 +29,6 @@ define _install_apk
 	adb install $1
 endef
 
-define _publish_release
-	cp android/app/build/outputs/apk/app-release.apk $(apk_folder)/$1/$2/
-endef
-
 # <bugsnag>
 define _upload_release_sourcemap ## Uploads release sourcemap to Bugsnag
 	npx bugsnag-sourcemaps upload \
@@ -86,14 +82,9 @@ release_apk_jss_qa:
 	scp android/app/build/outputs/apk/app-release.apk sam@139.59.19.108:/tmp/app.apk
 	ssh sam@139.59.19.108 "sudo su app -c 'cp /tmp/app.apk home/app/qa-server/facilities-assessment-host/app-servers/ext/.'"
 
-publish_apk_dev_jss:
-	$(call _publish_release,dev,jss)
-
-publish_apk_dev_nhsrc:
-	$(call _publish_release,dev,nhsrc)
-
-publish_apk_release_nhsrc:
-	$(call _publish_release,released,nhsrc)
+deploy_apk_jss_prod: release_apk_jss
+	ssh igunatmac "sudo mv $(prod_apk_path) /tmp/app.apk"
+	scp $(release_apk_path) igunatmac:$(prod_apk_path)
 
 release_apk_nhsrc:
 	$(call _release_apk,nhsrc)
@@ -104,6 +95,10 @@ release_apk_offline:
 
 install_released_apk:
 	$(call _install_apk,$(release_apk_path))
+
+install_apk_jss_prod:
+	scp igunatmac:$(prod_apk_path) ../temp/app.apk
+	$(call _install_apk,../temp/app.apk)
 
 openlocation_apk:
 	open android/app/build/outputs/apk
@@ -178,12 +173,6 @@ stop_app_android:
 start_app_android:
 	adb shell am start -n com.facilitiesassessment/com.facilitiesassessment.MainActivity
 
-run_app_jss:
-	$(call _run_android,.env.jss)
-
-run_app_jss_qa:
-	$(call _run_android,.env.jss.qa)
-
 run_app_android:
 	$(call _run_android,.env.dev)
 
@@ -206,7 +195,10 @@ run_app_android_nhsrc_dev:
 	$(call _run_android,.env.nhsrc.dev)
 
 run_app_android_jss:
-	$(call _run_android,jss)
+	$(call _run_android,.env.jss)
+
+run_app_android_jss_qa:
+	$(call _run_android,.env.jss.qa)
 
 run_app_android_jss_dev:
 	$(call _run_android,.env.jss.dev)
@@ -250,7 +242,3 @@ disable_debug_apk_checks:
 #	make deps
 #	make release
 #	@curl -T android/app/build/outputs/apk/app-release.apk -umihirk:$(BINTRAY_API_KEY) https://api.bintray.com/content/nhsrc/generic/facilities-assessment-android-client/latest/facilitiesassessment-$(ts).apk?publish=1
-
-deploy_apk_jss_prod:
-	ssh igunatmac "cp $(prod_apk_path) /tmp/app.apk"
-	scp $(release_apk_path) igunatmac:$(prod_apk_path)

@@ -1,5 +1,6 @@
 import StringObj from "./StringObj";
 import _ from 'lodash';
+import EnvironmentConfig from "../views/common/EnvironmentConfig";
 
 class SeedProgress {
     static UUID = "bd223d42-a168-4454-9277-4704db5ab2ad";
@@ -56,11 +57,11 @@ class SeedProgress {
     getMessage() {
         switch (this.loadState) {
             case SeedProgress.AppLoadState.LoadingChecklist:
-                return SeedProgress.setupMessage("checklists");
+                return SeedProgress.setupMessage("checklists", EnvironmentConfig.implementationName === 'JSS' ? 5 : 2);
             case SeedProgress.AppLoadState.LoadedChecklist:
                 return 'Checklist setup complete';
             case SeedProgress.AppLoadState.LoadingState:
-                return SeedProgress.setupMessage("facilities");
+                return SeedProgress.setupMessage("facilities", EnvironmentConfig.implementationName === 'JSS' ? 1 : 2);
             case SeedProgress.AppLoadState.LoadedState:
                 return "Facilities setup complete for the state chosen by you";
             case SeedProgress.AppLoadState.ErrorLoadingChecklist:
@@ -72,8 +73,8 @@ class SeedProgress {
         }
     }
 
-    static setupMessage(entityName) {
-        return `Setting up ${entityName}. It may take up to 2 Minutes, depending on your device and Internet speed`;
+    static setupMessage(entityName, durationInMinutes) {
+        return `Setting up ${entityName}. It may take up to ${durationInMinutes} Minutes, depending on your device and Internet speed`;
     }
 
     errorMessage(entityName) {

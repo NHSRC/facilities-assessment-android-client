@@ -87,8 +87,8 @@ android {
         applicationId "com.facilitiesassessment"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 29
-        versionName "29 - Fixed share crashing issue in Android 8"
+        versionCode 30
+        versionName "30 - Single data sync approach for all deployments (JSS Only APK)"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
