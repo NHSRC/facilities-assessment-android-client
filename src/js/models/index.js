@@ -99,6 +99,10 @@ export default {
             console.log(`[model.index] setupAlreadyLoadedStatesIfFacilitiesExist`);
             if (EnvironmentConfig.implementationName === 'JSS') {
                 let seedProgress = newRealm.objectForPrimaryKey(SeedProgress.schema.name, SeedProgress.UUID);
+                if (_.isNil(seedProgress)) {
+                    newRealm.create(SeedProgress.schema.name, SeedProgress.createInitialInstance(), false);
+                    seedProgress = newRealm.objectForPrimaryKey(SeedProgress.schema.name, SeedProgress.UUID);
+                }
                 let states = newRealm.objects(State.schema.name);
                 states.forEach((state) => seedProgress.loadedStates.push(StringObj.create(state.uuid)));
                 seedProgress.loadState = SeedProgress.AppLoadState.LoadedState;

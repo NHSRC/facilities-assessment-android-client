@@ -24,7 +24,10 @@ export default class App extends Component {
         ErrorHandler.set(this.handleError);
         Logger.setCurrentLogLevel(EnvironmentConfig.isEmulated ? Logger.LogLevel.Debug : Logger.LogLevel.Error);
         if (db === undefined) {
+            Logger.logDebug('App.Constructor', "Database not defined");
             db = new Realm(models);
+        } else {
+            Logger.logDebug('App.Constructor', "Database already defined");
         }
         this.state = {initialised: false};
     }
