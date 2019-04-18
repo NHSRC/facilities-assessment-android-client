@@ -9,12 +9,17 @@ class SeedProgressService extends BaseService {
     }
 
     postInit() {
+        this.initialise();
+    }
+
+    initialise() {
         this.db.write(() => {
             let seedProgress = this.db.objectForPrimaryKey(SeedProgress.schema.name, SeedProgress.UUID);
             if (_.isNil(seedProgress)) {
                 this.db.create(SeedProgress.schema.name, SeedProgress.createInitialInstance(), false);
             }
         });
+        return this;
     }
 
     static _get(db) {
@@ -33,6 +38,7 @@ class SeedProgressService extends BaseService {
             let seedProgress = SeedProgressService._get(this.db);
             seedProgress.loadState = SeedProgress.AppLoadState.ErrorInFirstLoadOfChecklist;
             seedProgress.error = error;
+            seedProgress.syncMessage = error;
         });
     }
 
@@ -40,6 +46,7 @@ class SeedProgressService extends BaseService {
         this.db.write(() => {
             let seedProgress = SeedProgressService._get(this.db);
             seedProgress.loadState = SeedProgress.AppLoadState.LoadedChecklist;
+            seedProgress.syncMessage = 'SYNC COMPLETED';
         });
     }
 
@@ -58,6 +65,13 @@ class SeedProgressService extends BaseService {
         this.db.write(() => {
             let seedProgress = SeedProgressService._get(this.db);
             seedProgress.addLoadingStates(states);
+        });
+    }
+
+    resetSync() {
+        this.db.write(() => {
+            let seedProgress = SeedProgressService._get(this.db);
+            seedProgress.resetSync();
         });
     }
 }

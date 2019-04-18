@@ -19,49 +19,44 @@ import moment from "moment";
 import FacilityAssessmentProgressService from "../../service/FacilityAssessmentProgressService";
 import IndicatorDefinition from "../IndicatorDefinition";
 import Indicator from "../Indicator";
-import Logger from "../../framework/Logger";
 
 class EntitiesMetaData {
     //order is important. last entity with be executed first. parent and referred entity (in case of many to one) should be synced before the child.
     static get _stateSpecificReferenceEntityTypes() {
         return [
-            new EntityMetaData(Facility, District, new FacilityMapper()),
-            new EntityMetaData(District, State)
+            new EntityMetaData({entityType: Facility, parentClass: District, mapper: new FacilityMapper(), syncWeight: 80}),
+            new EntityMetaData({entityType: District, parentClass: State, syncWeight: 20})
         ];
     }
 
     static get _referenceEntityTypes() {
         return [
-            new EntityMetaData(IndicatorDefinition, undefined, new IndicatorDefinitionMapper()),
-            new EntityMetaData(Checkpoint, undefined, new CheckpointMapper()),
-            new EntityMetaData(Checklist, undefined, new ChecklistMapper()),
-            new EntityMetaData(MeasurableElement, Standard),
-            new EntityMetaData(Standard, AreaOfConcern),
-            new EntityMetaData(AreaOfConcern),
-            new EntityMetaData(Department),
+            new EntityMetaData({entityType: IndicatorDefinition, mapper: new IndicatorDefinitionMapper(), syncWeight: 4}),
+            new EntityMetaData({entityType: Checkpoint, mapper: new CheckpointMapper(), syncWeight: 50}),
+            new EntityMetaData({entityType: Checklist, mapper: new ChecklistMapper(), syncWeight: 3}),
+            new EntityMetaData({entityType: MeasurableElement, parentClass: Standard, syncWeight: 20}),
+            new EntityMetaData({entityType: Standard, parentClass: AreaOfConcern, syncWeight: 11}),
+            new EntityMetaData({entityType: AreaOfConcern, syncWeight: 6}),
+            new EntityMetaData({entityType: Department, syncWeight: 1}),
 
-            new EntityMetaData(AssessmentType),
-            new EntityMetaData(AssessmentTool),
-            new EntityMetaData(State),
-            new EntityMetaData(FacilityType)
+            new EntityMetaData({entityType: AssessmentType, syncWeight: 1}),
+            new EntityMetaData({entityType: AssessmentTool, syncWeight: 1}),
+            new EntityMetaData({entityType: State, syncWeight: 2}),
+            new EntityMetaData({entityType: FacilityType, syncWeight: 1})
         ];
     }
 
     static get _txEntityTypes() {
         return [
-            new EntityMetaData(FacilityAssessmentProgress, undefined, undefined, FacilityAssessmentProgressService, 2),
-            new EntityMetaData(Indicator, undefined, new IndicatorMapper()),
-            new EntityMetaData(CheckpointScore, undefined, new CheckpointScoreMapper()),
-            new EntityMetaData(FacilityAssessment, undefined, new FacilityAssessmentMapper())
+            new EntityMetaData({entityType: FacilityAssessmentProgress, serviceClass: FacilityAssessmentProgressService, pageSize: 2, syncWeight: 20}),
+            new EntityMetaData({entityType: Indicator, mapper: new IndicatorMapper(), syncWeight: 20}),
+            new EntityMetaData({entityType: CheckpointScore, mapper: new CheckpointScoreMapper(), syncWeight: 50}),
+            new EntityMetaData({entityType: FacilityAssessment, mapper: new FacilityAssessmentMapper(), syncWeight: 10})
         ];
     }
 
     static get stateSpecificReferenceEntityTypes() {
         return this._stateSpecificReferenceEntityTypes.map(_.identity);
-    }
-
-    static get referenceEntityTypes() {
-        return this._stateSpecificReferenceEntityTypes.concat(this._referenceEntityTypes).map(_.identity);
     }
 
     static get stateUnspecificReferenceTypes() {

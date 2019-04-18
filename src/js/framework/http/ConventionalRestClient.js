@@ -3,6 +3,8 @@ import _ from "lodash";
 import {makeParams} from './httpUtils';
 import moment from "moment";
 import Logger from "../Logger";
+import SeedProgressService from "../../service/SeedProgressService";
+import SpringResponse from "./SpringResponse";
 
 class ConventionalRestClient {
     constructor(settingsService, db) {
@@ -24,7 +26,7 @@ class ConventionalRestClient {
 
         let params = makeParams(_.merge({
             lastModifiedDate: moment(lastUpdatedLocally).toISOString(),
-            size: entityMetaData.pageSize ? entityMetaData.pageSize : 200,
+            size: entityMetaData.pageSize,
             page: pageNumber
         }, optionalParams));
         const url = `${urlParts.join("/")}?${params}`;
@@ -32,9 +34,9 @@ class ConventionalRestClient {
         Logger.logDebug('ConventionalRestClient', `Calling: ${url}`);
         this.getData(url, entityMetaData, optionalParams, (response) => {
             const resources = _.isNil(response["_embedded"]) ?
-                                    (_.isNil(response["content"]) ?
-                                            response : response["content"]) :
-                                    response["_embedded"][`${entityMetaData.resourceName}`];
+                (_.isNil(response["content"]) ?
+                    response : response["content"]) :
+                response["_embedded"][`${entityMetaData.resourceName}`];
 
             this.db.write(() => {
                 _.forEach(resources, (resource) => {
@@ -48,9 +50,13 @@ class ConventionalRestClient {
                         resourcesWithSameTimestamp = [resource];
                     }
                 });
+                let seedProgress = SeedProgressService._get(this.db);
+                seedProgress.syncProgress += (entityMetaData.syncWeight / ((SpringResponse.numberOfPages(response) === 0 ? 1 : SpringResponse.numberOfPages(response)) * 100));
+                seedProgress.syncMessage = `Downloading ${entityMetaData.displayName}s`;
+                Logger.logDebug('ConventionalRestClient', seedProgress);
             });
 
-            if (ConventionalRestClient.morePagesForThisResource(response)) {
+            if (SpringResponse.morePagesForThisResource(response)) {
                 Logger.logDebug('ConventionalRestClient', `More pages for resource: ${entityMetaData.resourceName}`);
                 this.loadData(entityMetaData, resourceSearchFilterURL, optionalParams, lastUpdatedLocally, pageNumber + 1, allEntityMetaData, executeResourcesWithSameTimestamp, executeNextResource, resourcesWithSameTimestamp, onError);
             } else if (resourcesWithSameTimestamp.length > 0) {
@@ -65,11 +71,6 @@ class ConventionalRestClient {
             }
 
         }, onError);
-    }
-
-    static morePagesForThisResource(response) {
-        let notAPagedResource = _.isNil(response["page"]);
-        return notAPagedResource ? false : response["page"]["number"] < (response["page"]["totalPages"] - 1);
     }
 
     postEntity(getNextItem, onCompleteCurrentItem, onComplete, onError) {

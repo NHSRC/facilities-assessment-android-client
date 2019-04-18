@@ -1,8 +1,3 @@
-//-------------------------------------------------------------------------------------------------
-// Purpose of this file is to create a singleton instance of the bugsnag client
-// so we don't have to duplicate our configuration anywhere.
-//-------------------------------------------------------------------------------------------------
-
 import { Client, Configuration } from 'bugsnag-react-native';
 import EnvironmentConfig from '../views/common/EnvironmentConfig';
 
@@ -17,6 +12,5 @@ configuration.registerBeforeSendCallback((report) => {
     }
 });
 console.log("Creating new instance of Bugsnag");
-const client = new Client(configuration);
 
-export default client;
+export default new Client(configuration);

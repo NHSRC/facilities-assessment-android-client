@@ -13,6 +13,7 @@ class Logger {
     };
 
     static setCurrentLogLevel(level) {
+        console.log(`Setting log level to: ${level}`);
         currentLogLevel = level;
     }
 

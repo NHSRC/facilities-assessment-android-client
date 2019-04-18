@@ -75,6 +75,7 @@ class StateSelection extends AbstractComponent {
         }
 
         Logger.logDebug('StateSelection', 'render');
+        Logger.logDebug('StateSelection', this.state.seedProgress);
 
         return (
             <Container theme={FlatUITheme}>

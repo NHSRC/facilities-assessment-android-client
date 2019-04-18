@@ -9,12 +9,6 @@ const initialSettings = function (state, action, beans) {
     return Object.assign(state, settingsService.get(), {serverURL: settingsService.getServerURL()});
 };
 
-const syncMetaData = function (state, action, beans) {
-    const referenceDataSyncService = beans.get(ReferenceDataSyncService);
-    referenceDataSyncService.syncAllMetaData(action.cb);
-    return Object.assign(state, {syncing: true})
-};
-
 const downloadMyAssessments = function (state, action, beans) {
     const referenceDataSyncService = beans.get(ReferenceDataSyncService);
     referenceDataSyncService.syncMyTxData(action.cb);
@@ -24,12 +18,6 @@ const downloadMyAssessments = function (state, action, beans) {
 const downloadAssessment = function (state, action, beans) {
     const referenceDataSyncService = beans.get(ReferenceDataSyncService);
     referenceDataSyncService.syncAssessment(state.assessmentId, () => {});
-    return Object.assign(state, {syncing: true})
-};
-
-const syncAllData = function (state, action, beans) {
-    const referenceDataSyncService = beans.get(ReferenceDataSyncService);
-    referenceDataSyncService.syncAllData(action.cb);
     return Object.assign(state, {syncing: true})
 };
 
@@ -58,8 +46,6 @@ const setAssessmentId = function (state, action) {
 
 export default new Map([
     ["INITIAL_SETTINGS", initialSettings],
-    ["SYNC_META_DATA", syncMetaData],
-    ["SYNC_ALL_DATA", syncAllData],
     ["DOWNLOAD_MY_ASSESSMENTS", downloadMyAssessments],
     ["DOWNLOAD_ASSESSMENT", downloadAssessment],
     ["SET_ASSESSMENT_ID", setAssessmentId],

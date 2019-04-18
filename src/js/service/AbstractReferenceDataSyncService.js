@@ -28,11 +28,6 @@ class AbstractReferenceDataSyncService extends BaseService {
         this._syncData(cb, EntitiesMetaData.txEntityTypes, "byAssessmentId", {assessmentId: assessmentId});
     }
 
-    syncAllData(cb) {
-        Logger.logDebug('AbstractReferenceDataSyncService', 'syncAllData');
-        this._syncData(cb, EntitiesMetaData.allEntityTypes);
-    }
-
     _syncData(onSuccess, entityMetaData, resourceSearchFilterURL, params, onError = () => {}) {
         resourceSearchFilterURL = resourceSearchFilterURL || "lastModified";
         params = params || {};
@@ -43,11 +38,6 @@ class AbstractReferenceDataSyncService extends BaseService {
             onError(error);
             Logger.logError('AbstractReferenceDataSyncService', error);
         });
-    }
-
-    syncAllMetaData(cb) {
-        Logger.logDebug('AbstractReferenceDataSyncService', 'syncAllMetaData');
-        this._syncData(cb, EntitiesMetaData.referenceEntityTypes);
     }
 
     syncMetaDataNotSpecificToState(onSuccess, onError) {

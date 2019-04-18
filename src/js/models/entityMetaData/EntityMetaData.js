@@ -4,12 +4,13 @@ import EntityService from "../../service/EntityService";
 import Logger from "../../framework/Logger";
 
 class EntityMetaData {
-    constructor(entityType, parentClass, mapper, serviceClass, pageSize) {
+    constructor({entityType, parentClass, mapper = new DefaultEntityResourceMapper(), pageSize = 200, syncWeight, serviceClass = EntityService}) {
         this.entityType = entityType;
-        this.mapper = _.isNil(mapper) ? new DefaultEntityResourceMapper() : mapper;
+        this.mapper = mapper;
         this.parentClass = parentClass;
-        this.serviceClass = _.isNil(serviceClass) ? EntityService : serviceClass;
+        this.serviceClass = serviceClass;
         this.pageSize = pageSize;
+        this.syncWeight = syncWeight;
     }
 
     get entityClass() {
@@ -24,6 +25,10 @@ class EntityMetaData {
         return `${_.camelCase(this.entityName)}`;
     }
 
+    get displayName() {
+        return _.join(_.words(this.resourceName), ' ').toLowerCase();
+    }
+
     get entityName() {
         return this.isMappedToDb ? this.entityType.schema.name : this.entityType.entityName;
     }
@@ -35,6 +40,7 @@ class EntityMetaData {
     get isMappedToDb() {
         return !_.isNil(this.entityType.schema);
     }
+
     static getSchemaName(entityClass){
         return _.isEmpty(entityClass.schema) ? entityClass.entityName : entityClass.schema.name;
     }

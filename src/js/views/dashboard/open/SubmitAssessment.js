@@ -7,7 +7,6 @@ import FlatUITheme from "../../themes/flatUI";
 import PrimaryColors from "../../styles/PrimaryColors";
 import AssessmentSeries from "../start/AssessmentSeries";
 import Actions from "../../../action";
-import FacilityAssessment from "../../../models/FacilityAssessment";
 import AssessmentTool from "../../../models/AssessmentTool";
 
 class SubmitAssessment extends AbstractComponent {

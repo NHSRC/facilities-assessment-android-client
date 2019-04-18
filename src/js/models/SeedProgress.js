@@ -24,7 +24,9 @@ class SeedProgress {
             loadState: 'int',
             error: {type: 'string', optional: true},
             loadingStates: {type: 'list', objectType: 'StringObj'},
-            loadedStates: {type: 'list', objectType: 'StringObj'}
+            loadedStates: {type: 'list', objectType: 'StringObj'},
+            syncProgress: 'double',
+            syncMessage: 'string'
         }
     };
 
@@ -35,6 +37,8 @@ class SeedProgress {
         seedProgress.loadState = this.AppLoadState.LoadingChecklist;
         seedProgress.loadedStates = [];
         seedProgress.loadingStates = [];
+        seedProgress.syncMessage = 'Loading...';
+        seedProgress.syncProgress = 0.0;
         return seedProgress;
     }
 
@@ -47,6 +51,8 @@ class SeedProgress {
         clone.loadState = toClone.loadState;
         clone.loadedStates = _.clone(toClone.loadedStates);
         clone.loadingStates = _.clone(toClone.loadingStates);
+        clone.syncProgress = toClone.syncProgress;
+        clone.syncMessage = toClone.syncMessage;
         return clone;
     }
 
@@ -82,7 +88,7 @@ class SeedProgress {
     }
 
     get numberOfStates() {
-        return _.isNil(this.loadedStates) ? 0 : this.loadedStates.length;
+        return (_.isNil(this.loadedStates) || !this.loadedStates.length) ? 0 : this.loadedStates.length;
     }
 
     confirmStatesLoaded(selectedCountryStates) {
@@ -108,6 +114,12 @@ class SeedProgress {
             if (!_.some(this.loadingStates, (x) => x.value === state.uuid))
                 this.loadingStates.push(StringObj.create(state.uuid));
         });
+    }
+
+    resetSync() {
+        this.syncMessage = '';
+        this.syncProgress = 0;
+        this.error = null;
     }
 }
 
