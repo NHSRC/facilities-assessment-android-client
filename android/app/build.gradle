@@ -78,6 +78,11 @@ def enableSeparateBuildPerCPUArchitecture = false
  */
 def enableProguardInReleaseBuilds = true
 
+//Release related properties
+def sdkVersion = 26
+def releaseVersionCode = 32
+def releaseVersionName = "32 - Download checklists and facilities from the server, instead of being packaged in the app"
+
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
@@ -86,9 +91,9 @@ android {
     defaultConfig {
         applicationId "com.facilitiesassessment"
         minSdkVersion 16
-        targetSdkVersion 26
-        versionCode 31
-        versionName "31 - Data migration fix. [Single data sync approach for all deployments (JSS Only APK)]"
+        targetSdkVersion sdkVersion
+        versionCode releaseVersionCode
+        versionName releaseVersionName
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
