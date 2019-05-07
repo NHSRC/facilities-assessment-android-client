@@ -81,7 +81,6 @@ def enableProguardInReleaseBuilds = true
 //Release related properties
 def sdkVersion = 26
 def releaseVersionCode = 32
-def releaseVersionName = "32 - Download checklists and facilities from the server, instead of being packaged in the app"
 
 android {
     compileSdkVersion 23
@@ -93,7 +92,8 @@ android {
         minSdkVersion 16
         targetSdkVersion sdkVersion
         versionCode releaseVersionCode
-        versionName releaseVersionName
+        // Do not extract the following to a variable as is used in uploading source maps. Check Makefile.
+        versionName "32 - Checklists, facilities loaded from the server"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }

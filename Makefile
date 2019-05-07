@@ -17,11 +17,6 @@ prod_apk_path := /home/app/facilities-assessment-host/app-servers/external/app.a
 
 define _release_apk
 	$(call _set_env,.env.$1)
-	react-native bundle --platform android --dev false \
-		--entry-file index.android.js \
-		--bundle-output android/app/src/main/assets/index.android.bundle \
-		--assets-dest android/app/src/main/res/ \
-		--sourcemap-output android/app/build/generated/sourcemap.js
 	cd android && ENVFILE=.env ./gradlew assembleRelease -x bundleReleaseJsAndAssets
 endef
 
@@ -31,6 +26,11 @@ endef
 
 # <bugsnag>
 define _upload_release_sourcemap ## Uploads release sourcemap to Bugsnag
+	react-native bundle --platform android --dev false \
+    		--entry-file index.android.js \
+    		--bundle-output android/app/src/main/assets/index.android.bundle \
+    		--assets-dest android/app/src/main/res/ \
+    		--sourcemap-output android/app/build/generated/sourcemap.js
 	npx bugsnag-sourcemaps upload \
 		--api-key ${FA_CLIENT_BUGSNAG_API_KEY} \
 		--app-version $(shell cat android/app/build.gradle | sed -n  's/versionName \"\(.*\)\"/\1/p' | xargs echo | sed -e "s/\(.*\)/\"\1\"/") \
@@ -40,9 +40,10 @@ define _upload_release_sourcemap ## Uploads release sourcemap to Bugsnag
 		--minified-url "index.android.bundle" \
 		--dev false \
 		--upload-sources
+	open https://app.bugsnag.com/settings/samanvay-1/projects/mobile-app/source-maps
 endef
 
-upload-release-sourcemap: ##Uploads release sourcemap to Bugsnag
+upload_release_sourcemap: ##Uploads release sourcemap to Bugsnag
 	$(call _upload_release_sourcemap)
 # </bugsnag>
 
