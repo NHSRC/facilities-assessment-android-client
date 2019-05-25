@@ -82,20 +82,7 @@ const drillDown = function (state, action, beans) {
     };
 };
 
-const constructShareUrl = function (filePath) {
-    return `${EnvironmentConfig.filePrefix}://${filePath}`;
-};
-
 const exportAllRaw = function (state, action, beans) {
-    const exportService = beans.get(ExportService);
-    let exportedCSVMetadata = exportService.exportAllRaw(action.facilityAssessment);
-    action.cb({
-        url: constructShareUrl(exportedCSVMetadata.exportPath),
-        title: `${exportedCSVMetadata.facilityName}'s Assessment on ${exportedCSVMetadata.assessmentDate}`,
-        message: `${exportedCSVMetadata.facilityName}'s ${exportedCSVMetadata.assessmentTool} Assessment on ${exportedCSVMetadata.assessmentDate} `,
-        subject: `${exportedCSVMetadata.facilityName}'s Assessment on ${exportedCSVMetadata.assessmentDate}`,
-        type: 'text/csv'
-    });
     return Object.assign(state, {showExportOptions: !state.showExportOptions});
 };
 
@@ -104,27 +91,10 @@ const exportOptions = function (state, action, beans) {
 };
 
 const exportTab = function (state, action, beans) {
-    const exportService = beans.get(ExportService);
-    let csvMetadata = exportService.exportTab(_.startCase(action.tab.title.toLowerCase()),
-        action.tab.scores,
-        action.tab.headers,
-        action.facilityAssessment);
-    action.cb({
-        url: constructShareUrl(csvMetadata.exportPath),
-        title: `${csvMetadata.facilityName}'s Assessment on ${csvMetadata.assessmentDate}`,
-        message: `${csvMetadata.facilityName}'s ${csvMetadata.assessmentTool} Assessment on ${csvMetadata.assessmentDate} `,
-        subject: `${csvMetadata.facilityName}'s Assessment on ${csvMetadata.assessmentDate}`,
-        type: 'text/csv'
-    });
     return Object.assign(state, {showExportOptions: !state.showExportOptions});
 };
 
 const exportCurrentView = function (state, action, beans) {
-    const exportService = beans.get(ExportService);
-    const newImageDest = exportService.copyOverImage(action.facilityAssessment, state.selectedTab, action.uri);
-    action.cb({
-        url: `${constructShareUrl(newImageDest)}`
-    });
     return Object.assign(state, {});
 };
 

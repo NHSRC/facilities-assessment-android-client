@@ -81,5 +81,10 @@
 	<string>app-store</string>
 	<key>teamID</key>
 	<string>{TEAM_ID}</string>
+	<key>LSApplicationQueriesSchemes</key>
+    <array>
+      <string>whatsapp</string>
+      <string>email</string>
+    </array>
 </dict>
 </plist>

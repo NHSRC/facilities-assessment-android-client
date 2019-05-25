@@ -1,12 +1,3 @@
-ansible_exists := $(shell ansible-playbook --version)
-ansible_check:
-ifndef ansible_exists
-		@echo "Ansible is not installed. Installing Ansible"
-		brew install ansible
-else
-		@echo "Ansible is installed"
-endif
-
 ts := $(shell /bin/date "+%Y-%m-%d---%H-%M-%S")
 recorded_response_dir := ../reference-data/nhsrc/output/recorded-response
 service_src_dir := src/js/service

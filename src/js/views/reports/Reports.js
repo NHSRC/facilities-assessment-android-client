@@ -1,5 +1,5 @@
 import React from "react";
-import {Dimensions, Modal, StyleSheet, View, BackAndroid} from "react-native";
+import {Dimensions, Modal, StyleSheet, View, BackAndroid, ActionSheetIOS} from "react-native";
 import AbstractComponent from "../common/AbstractComponent";
 import FlatUITheme from "../themes/flatUI";
 import {Button, Container, Content, Header, Icon, Title} from "native-base";
@@ -14,6 +14,8 @@ import _ from "lodash";
 import {takeSnapshot} from "react-native-view-shot";
 import ExportOptions from "./ExportOptions";
 import Logger from "../../framework/Logger";
+import ExportService from "../../service/ExportService";
+import ShareUtil from "../../action/ShareUtil";
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
@@ -46,25 +48,24 @@ class Reports extends AbstractComponent {
         // this.props.backListeners.addListener(Reports.path(), this.back.bind(this));
     }
 
-    share(shareOpts) {
-        Share.open(shareOpts).then((res) => { Logger.logDebug('Reports', res) })
-            .catch((err) => { err && Logger.logDebug('Reports', err); });
+    share(shareOpts, actionName) {
+        Share.open(shareOpts).then((res) => {
+            this.dispatchAction(actionName);
+        }).catch((err) => {
+        });
     }
 
     exportAll() {
-        this.dispatchAction(Actions.EXPORT_ASSESSMENT, {...this.props.params, cb: this.share.bind(this)});
+        this.share(ShareUtil.getShareAllOptions(this.context, this.props.params.facilityAssessment), Actions.EXPORT_ASSESSMENT);
     }
 
     snapshot() {
         takeSnapshot(this.refs["reports"], {
             format: "jpeg",
             result: "file"
-        }).then(uri =>
-            this.dispatchAction(Actions.EXPORT_CURRENT_VIEW, {
-                ...this.props.params,
-                uri: uri,
-                cb: this.share.bind(this)
-            }));
+        }).then(uri => {
+            this.share(ShareUtil.getCurrentViewOptions(this.context, this.props.params.facilityAssessment, this.state.selectedTab, uri), Actions.EXPORT_CURRENT_VIEW);
+        });
     }
 
     exportOptions() {
@@ -74,8 +75,7 @@ class Reports extends AbstractComponent {
     exportTab(tab) {
         let action = {...this.props.params};
         action.tab = tab;
-        action.cb = this.share.bind(this);
-        this.dispatchAction(Actions.EXPORT_TAB, action);
+        this.share(ShareUtil.getExportTabOptions(this.context, action), Actions.EXPORT_TAB);
     }
 
     componentDidMount() {
@@ -95,7 +95,9 @@ class Reports extends AbstractComponent {
 
     render() {
         Logger.logDebug('Reports', 'render');
-        const exportOptions = this.state.tabs.map((tab) => {return {title: `Export ${_.startCase(tab.title.toLowerCase())} Scorecard`, cb: () => this.exportTab(tab)}});
+        const exportOptions = this.state.tabs.map((tab) => {
+            return {title: `Export ${_.startCase(tab.title.toLowerCase())} Scorecard`, cb: () => this.exportTab(tab)}
+        });
         exportOptions.push({title: `Export All Checklists`, cb: this.exportAll.bind(this)});
         const title = this.props.params.drilledDown ? _.truncate(this.state.selectionName, {length: 25})
             : `${this.props.params.mode.toUpperCase()} Scorecard`;
