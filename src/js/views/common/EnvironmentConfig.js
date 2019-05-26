@@ -65,7 +65,7 @@ class EnvironmentConfig {
         return this._getPropertyValue("VERSION_CODE");
     }
 
-    static get filePrefix() {
+    get filePrefix() {
         return Platform.Version >= 26 ? "content" : "file";
     }
 }

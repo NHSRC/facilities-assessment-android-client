@@ -49,9 +49,11 @@ class Reports extends AbstractComponent {
     }
 
     share(shareOpts, actionName) {
+        Logger.logDebug('Reports', shareOpts);
         Share.open(shareOpts).then((res) => {
             this.dispatchAction(actionName);
         }).catch((err) => {
+            Logger.logError('Reports', err);
         });
     }
 

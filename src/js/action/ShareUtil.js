@@ -38,7 +38,8 @@ class ShareUtil {
         const exportService = context.getService(ExportService);
         const newImageDest = exportService.copyOverImage(facilityAssessment, selectedTab, uri);
         return {
-            url: `${ShareUtil.constructShareUrl(newImageDest)}`
+            url: `${ShareUtil.constructShareUrl(newImageDest)}`,
+            type: 'image/jpeg'
         };
     }
 }
