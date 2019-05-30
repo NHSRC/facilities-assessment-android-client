@@ -71,7 +71,7 @@ apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.grad
  * Upload all the APKs to the Play Store and people will download
  * the correct one based on the CPU architecture of their device.
  */
-def enableSeparateBuildPerCPUArchitecture = false
+def enableSeparateBuildPerCPUArchitecture = System.getenv("separateBuildPerCPUArch") ? System.getenv("separateBuildPerCPUArch").toBoolean() : true
 
 /**
  * Run Proguard to shrink the Java bytecode in release builds.
@@ -80,7 +80,11 @@ def enableProguardInReleaseBuilds = true
 
 //Release related properties
 def sdkVersion = 26
-def releaseVersionCode = 32
+def abiMultiplier = 100000000
+def majorVersion = 1
+def minorVersion = 1
+
+def majorMinorVersionOffset = (minorVersion * 10) + (majorVersion * 1000)
 
 android {
     compileSdkVersion 23
@@ -91,11 +95,15 @@ android {
         applicationId "com.facilitiesassessment"
         minSdkVersion 16
         targetSdkVersion sdkVersion
-        versionCode releaseVersionCode
-        // Do not extract the following to a variable as is used in uploading source maps. Check Makefile.
-        versionName "32 - Checklists, facilities loaded from the server"
+        // ABI(1).SupportedSDK(3).VersionName(5). So, ABI=x*100000000. Max Allowed(10): 2100000000.
+        versionCode System.getenv("patchVersion") ? System.getenv("patchVersion").toInteger() + majorMinorVersionOffset + (sdkVersion * 100000) : 1
+        // Major(2).Minor(2).Patch(1)
+        versionName System.getenv("patchVersion") ? (majorMinorVersionOffset + System.getenv("patchVersion").toInteger()).toString() : "1"
         ndk {
             abiFilters "armeabi-v7a", "x86"
+            if (enableSeparateBuildPerCPUArchitecture) {
+                abiFilters.clear()
+            }
         }
         manifestPlaceholders = [
                 bugsnagAPIKey: System.getenv("FA_CLIENT_BUGSNAG_API_KEY")?: "dummy"
@@ -105,14 +113,12 @@ android {
         abi {
             reset()
             enable enableSeparateBuildPerCPUArchitecture
-            universalApk false  // If true, also generate a universal APK
-            include "armeabi-v7a", "x86"
+            universalApk false  // If true, also generate a universal APK. This does not affect generation of separate apk per cpu architecture. This is an add on apk that is generated for upload to other markets, such as APKFiles, which do not support multiple APKs for a single app.
+            include "armeabi-v7a", "x86", "arm64-v8a", "x86_64"
         }
     }
     signingConfigs {
-
         release {
-
             storeFile file('facilitiesassessment-release-key.keystore')
             storePassword System.getenv("KEYSTORE_PASSWORD")
             keyAlias "facilitiesassessment-release-key"
@@ -128,14 +134,19 @@ android {
     }
     // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->
+        println('[Gunak] Base version code:' + defaultConfig.versionCode)
         variant.outputs.each { output ->
             // For each separate APK per architecture, set a unique version code as described here:
             // http://tools.android.com/tech-docs/new-build-system/user-guide/apk-splits
-            def versionCodes = ["armeabi-v7a": 1, "x86": 2]
+            def versionCodes = ["armeabi-v7a": 1, "x86": 2, "arm64-v8a": 3, "x86_64": 4]
             def abi = output.getFilter(OutputFile.ABI)
             if (abi != null) {  // null for the universal-debug, universal-release variants
                 output.versionCodeOverride =
-                        versionCodes.get(abi) * 1048576 + defaultConfig.versionCode
+                        versionCodes.get(abi) * abiMultiplier + defaultConfig.versionCode
+                println('[Gunak] APK version name:' + defaultConfig.versionName)
+                println('[Gunak] APK version code:' + output.versionCodeOverride + ' for variant: ' + versionCodes.get(abi))
+            } else {
+                println('[Gunak] Using universal release variant')
             }
         }
     }

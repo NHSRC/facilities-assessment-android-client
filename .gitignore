@@ -63,6 +63,7 @@ src/js/service/PackagedJSON.js
 setup/dev.retry
 android/app/src/main/res/drawable-*
 android/app/old-build
+android/hosts-adb
 src/config/**
 .env
 
