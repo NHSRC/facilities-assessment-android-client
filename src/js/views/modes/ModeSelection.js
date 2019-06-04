@@ -1,7 +1,7 @@
 import React from "react";
-import {ActivityIndicator, Alert, Dimensions, Image, Navigator, StyleSheet, Text, TouchableNativeFeedback, TouchableWithoutFeedback, View} from "react-native";
-import {Button, Container, Content, Footer, Header, Icon, Title} from "native-base";
-import AbstractComponent from "../common/AbstractComponent";
+import {ActivityIndicator, Alert, Dimensions, Image, Navigator, StyleSheet, Text, TouchableWithoutFeedback, View} from "react-native";
+import {Button, Container, Content, Header, Icon, Title} from "native-base";
+import ViewComponent from "../common/ViewComponent";
 import FlatUITheme from "../themes/flatUI";
 import TypedTransition from "../../framework/routing/TypedTransition";
 import Path from "../../framework/routing/Path";
@@ -23,7 +23,7 @@ const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
 
 @Path("/modeSelection")
-class ModeSelection extends AbstractComponent {
+class ModeSelection extends ViewComponent {
     constructor(props, context) {
         super(props, context, 'modeSelection');
         this.handleOnPress = this.handleOnPress.bind(this);

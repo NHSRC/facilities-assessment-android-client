@@ -1,6 +1,6 @@
 import React from 'react';
 import {Dimensions, StyleSheet, Text, View} from 'react-native';
-import AbstractComponent from "../common/AbstractComponent";
+import ViewComponent from "../common/ViewComponent";
 import Actions from '../../action';
 import TypedTransition from "../../framework/routing/TypedTransition";
 import Path from "../../framework/routing/Path";
@@ -15,7 +15,7 @@ const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
 
 @Path("/certification")
-class Certification extends AbstractComponent {
+class Certification extends ViewComponent {
     constructor(props, context) {
         super(props, context, 'certification');
     }

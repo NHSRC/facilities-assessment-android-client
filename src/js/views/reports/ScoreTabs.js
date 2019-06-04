@@ -4,7 +4,7 @@ import AbstractComponent from "../common/AbstractComponent";
 import TabBar from "./TabBar";
 import ScoreList from './ScoreList';
 import _ from "lodash";
-
+import bugsnag from "../../utility/Bugsnag";
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
@@ -30,6 +30,7 @@ class ScoreTabs extends AbstractComponent {
         const scoresToShow = selectedTab.scores;
         const drillable = !_.isEmpty(selectedTab.drillDown);
         const percentageScore = !_.isBoolean(selectedTab.rawScore);
+        bugsnag.leaveBreadcrumb(`${selectedTab.title}: ${drillable}`, {type: 'navigation'});
         return (
             <View style={ScoreTabs.styles.container}>
                 <TabBar mode={this.props.mode} tabs={this.props.data.tabs}/>

@@ -11,6 +11,7 @@ import Typography from '../styles/Typography';
 import CustomTabBar from '../common/CustomTabBar';
 import TypedTransition from "../../framework/routing/TypedTransition";
 import Actions from "../../action";
+import bugsnag from "../../utility/Bugsnag";
 
 const deviceWidth = Dimensions.get('window').width;
 
@@ -30,6 +31,10 @@ class Dashboard extends AbstractComponent {
             margin: deviceWidth * 0.04,
         }
     });
+
+    componentDidMount() {
+        bugsnag.leaveBreadcrumb("dashboard", {type: 'navigation'});
+    }
 
     render() {
         return (

@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {
-    Dimensions, View, Text, TouchableWithoutFeedback, StyleSheet, Image, TextInput,
-    ActivityIndicator, Alert, Navigator, NativeModules
+    Dimensions, View, Text, StyleSheet,
+    Alert, NativeModules
 } from 'react-native';
-import {Container, Content, Title, Button, Header, Icon, InputGroup, Input} from 'native-base';
-import AbstractComponent from "../common/AbstractComponent";
+import {Container, Content, Title, Button, Header, Icon} from 'native-base';
+import ViewComponent from "../common/ViewComponent";
 import FlatUITheme from '../themes/flatUI';
 import TypedTransition from "../../framework/routing/TypedTransition";
 import Path from "../../framework/routing/Path";
@@ -20,7 +20,7 @@ const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
 
 @Path("/settings")
-class Settings extends AbstractComponent {
+class Settings extends ViewComponent {
     constructor(props, context) {
         super(props, context, 'settings');
     }
@@ -125,14 +125,17 @@ class Settings extends AbstractComponent {
                         {EnvironmentConfig.isEmulated &&
                         <View style={Settings.styles.buttons}>
                             <Button style={{marginRight: 10}} onPress={() => {
+                                console.log("ENV property value should be qa or prod");
                                 ErrorHandler.forceSet();
                                 Restart.crashForTesting();
                             }}>Native Crash</Button>
                             <Button style={{marginRight: 10}} onPress={() => {
+                                console.log("ENV property value should be qa or prod");
                                 ErrorHandler.forceSet();
                                 ErrorHandler.simulateJSError();
                             }}>JS Exception</Button>
                             <Button onPress={() => {
+                                console.log("ENV property value should be qa or prod");
                                 ErrorHandler.forceSet();
                                 ErrorHandler.simulateJSCallbackError();
                             }}>Callback Exception</Button>

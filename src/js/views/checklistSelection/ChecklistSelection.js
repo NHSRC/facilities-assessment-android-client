@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Alert, Dimensions, Modal, ScrollView, StyleSheet, Text, View} from 'react-native';
-import AbstractComponent from "../common/AbstractComponent";
+import ViewComponent from "../common/ViewComponent";
 import {Button, Container, Content, Header, Icon, Title} from 'native-base';
 import Typography from '../styles/Typography';
 import Actions from "../../action";
@@ -11,8 +11,6 @@ import AssessmentStatus from './AssessmentStatus';
 import Checklists from './Checklists';
 import AreasOfConcern from "../areasOfConcern/AreasOfConcern";
 import SubmitButton from '../common/SubmitButton';
-import Dashboard from '../dashboard/Dashboard';
-import {formatDateHuman} from '../../utility/DateUtils';
 import _ from 'lodash';
 import Reports from "../reports/Reports";
 import SearchPage from "../search/SearchPage";
@@ -21,12 +19,11 @@ import Logger from "../../framework/Logger";
 import EditAssessment from "../dashboard/start/EditAssessment";
 import AssessmentTitle from "../assessment/AssessmentTitle";
 
-
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
 
 @Path("/checklistSelection")
-class ChecklistSelection extends AbstractComponent {
+class ChecklistSelection extends ViewComponent {
     constructor(props, context) {
         super(props, context, 'checklistSelection');
         this.showCompleteButton = this.showCompleteButton.bind(this);

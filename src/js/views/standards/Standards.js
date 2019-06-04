@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import {Dimensions, View, Text, TouchableWithoutFeedback, StyleSheet} from 'react-native';
+import React from 'react';
+import {Dimensions, View, StyleSheet} from 'react-native';
 import {Container, Content, Title, Button, Header, Icon} from 'native-base';
-import AbstractComponent from "../common/AbstractComponent";
+import ViewComponent from "../common/ViewComponent";
 import FlatUITheme from '../themes/flatUI';
 import TypedTransition from "../../framework/routing/TypedTransition";
 import Path from "../../framework/routing/Path";
@@ -10,16 +10,14 @@ import Actions from '../../action';
 import PrimaryColors from "../styles/PrimaryColors";
 import Typography from "../styles/Typography";
 import Assessment from '../assessment/Assessment';
-import Dashboard from '../dashboard/Dashboard';
 import SearchPage from "../search/SearchPage";
-import _ from 'lodash';
 import Standard from "../../models/Standard";
 import Logger from "../../framework/Logger";
 
 const deviceWidth = Dimensions.get('window').width;
 
 @Path("/standards")
-class Standards extends AbstractComponent {
+class Standards extends ViewComponent {
     constructor(props, context) {
         super(props, context, 'standards');
     }

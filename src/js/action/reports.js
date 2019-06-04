@@ -1,9 +1,5 @@
-import _ from 'lodash';
 import ReportService from '../service/ReportService';
-import ExportService from "../service/ExportService";
 import defaultTabs from './reportingTabs';
-import {Platform} from "react-native";
-import EnvironmentConfig from "../views/common/EnvironmentConfig";
 
 const getSelectedTab = (tabs) => tabs.find((tab) => tab.isSelected);
 

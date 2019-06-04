@@ -1,6 +1,6 @@
 import React from "react";
-import {Dimensions, Modal, StyleSheet, View, BackAndroid, ActionSheetIOS} from "react-native";
-import AbstractComponent from "../common/AbstractComponent";
+import {Dimensions, Modal, StyleSheet, View, BackAndroid} from "react-native";
+import ViewComponent from "../common/ViewComponent";
 import FlatUITheme from "../themes/flatUI";
 import {Button, Container, Content, Header, Icon, Title} from "native-base";
 import Path from "../../framework/routing/Path";
@@ -14,14 +14,13 @@ import _ from "lodash";
 import {takeSnapshot} from "react-native-view-shot";
 import ExportOptions from "./ExportOptions";
 import Logger from "../../framework/Logger";
-import ExportService from "../../service/ExportService";
 import ShareUtil from "../../action/ShareUtil";
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
 
 @Path("/reports")
-class Reports extends AbstractComponent {
+class Reports extends ViewComponent {
     constructor(props, context) {
         super(props, context, 'reports');
         this.exportOptions = this.exportOptions.bind(this);
@@ -81,6 +80,7 @@ class Reports extends AbstractComponent {
     }
 
     componentDidMount() {
+        super.componentDidMount();
         BackAndroid.addEventListener('hardwareBackPress', () => {
             this._onBack();
         });

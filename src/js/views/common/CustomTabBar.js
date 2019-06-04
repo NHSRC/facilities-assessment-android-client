@@ -6,6 +6,7 @@ import {Text} from "native-base";
 
 import {Animated, Dimensions, TouchableHighlight, View} from "react-native";
 import Fonts from "../styles/Fonts";
+import bugsnag from "../../utility/Bugsnag";
 
 const deviceWidth = Dimensions.get('window').width;
 
@@ -33,7 +34,7 @@ export default class CustomTabBar extends NativeBaseComponent {
     };
 
     renderTabOption(name, page) {
-        var isTabActive = this.props.activeTab === page;
+        let isTabActive = this.props.activeTab === page;
 
         return (
             <TouchableHighlight underlayColor={this.getTheme().darkenHeader} style={[this.getInitialStyle().tab]}
@@ -62,6 +63,8 @@ export default class CustomTabBar extends NativeBaseComponent {
         const left = this.props.scrollValue.interpolate({
             inputRange: [0, 1], outputRange: [0, deviceWidth / numberOfTabs]
         });
+
+        bugsnag.leaveBreadcrumb(`DASHBOARD_TAB: ${this.props.activeTab}`, {type: 'navigation'});
 
         return (
             <View style={this.getInitialStyle().tabs}>

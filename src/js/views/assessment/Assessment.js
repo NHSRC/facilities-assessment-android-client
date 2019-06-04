@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Dimensions, StyleSheet, Text, TouchableWithoutFeedback, View} from 'react-native';
 import {Button, Container, Content, Header, Icon, Title} from 'native-base';
-import AbstractComponent from "../common/AbstractComponent";
+import ViewComponent from "../common/ViewComponent";
 import FlatUITheme from '../themes/flatUI';
 import TypedTransition from "../../framework/routing/TypedTransition";
 import Path from "../../framework/routing/Path";
@@ -10,7 +10,6 @@ import Actions from '../../action';
 import QuestionAnswer from './QuestionAnswer';
 import Pagination from './Pagination';
 import _ from 'lodash';
-import Dashboard from '../dashboard/Dashboard';
 import GestureRecognizer from 'react-native-swipe-gestures';
 import Standard from "../../models/Standard";
 import Logger from "../../framework/Logger";
@@ -20,7 +19,7 @@ const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
 
 @Path("/assessment")
-class Assessment extends AbstractComponent {
+class Assessment extends ViewComponent {
     constructor(props, context) {
         super(props, context, 'assessment');
     }

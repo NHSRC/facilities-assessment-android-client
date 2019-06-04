@@ -5,14 +5,13 @@ import FlatUITheme from '../themes/flatUI';
 import {Container, Header, Title, Content, Icon, Button} from 'native-base';
 import Path from "../../framework/routing/Path";
 import Typography from '../styles/Typography';
-import PrimaryColors from '../styles/PrimaryColors';
 import TypedTransition from "../../framework/routing/TypedTransition";
-import Actions from '../../action';
 import _ from 'lodash';
 import ScoreList from "../reports/ScoreList";
 import {takeSnapshot} from "react-native-view-shot";
 import Share from "react-native-share";
 import Logger from "../../framework/Logger";
+import bugsnag from '../../utility/Bugsnag';
 
 const deviceWidth = Dimensions.get('window').width;
 
@@ -37,6 +36,10 @@ class DrillDownView extends AbstractComponent {
             format: "jpeg",
             result: "data-uri"
         }).then(uri => this.share({url: uri}));
+    }
+
+    componentDidMount() {
+        bugsnag.leaveBreadcrumb("drillDown", {type: 'navigation'});
     }
 
     render() {

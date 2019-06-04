@@ -1,7 +1,7 @@
 import React from "react";
 import {Dimensions, StyleSheet, Text, TouchableWithoutFeedback, View, Platform, TextInput} from "react-native";
-import {Button, Container, Content, Header, Icon, Input, InputGroup, Title} from "native-base";
-import AbstractComponent from "../common/AbstractComponent";
+import {Button, Container, Content, Header, Icon, Title} from "native-base";
+import ViewComponent from "../common/ViewComponent";
 import FlatUITheme from "../themes/search";
 import TypedTransition from "../../framework/routing/TypedTransition";
 import Path from "../../framework/routing/Path";
@@ -9,7 +9,6 @@ import PrimaryColors from "../styles/PrimaryColors";
 import Typography from "../styles/Typography";
 import Actions from "../../action";
 import Assessment from "../assessment/Assessment";
-import Dashboard from "../dashboard/Dashboard";
 import _ from "lodash";
 import Logger from "../../framework/Logger";
 
@@ -17,7 +16,7 @@ const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
 
 @Path("/searchPage")
-class SearchPage extends AbstractComponent {
+class SearchPage extends ViewComponent {
     constructor(props, context) {
         super(props, context, 'search');
         this.handleSearch = this.handleSearch.bind(this);
