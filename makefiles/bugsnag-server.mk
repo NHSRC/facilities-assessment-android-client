@@ -1,4 +1,4 @@
-upload-release-sourcemap: ##Uploads release sourcemap to Bugsnag
+upload-release-sourcemap: ##Uploads release sourcemap to Bugsnag. ENV_VAR = versionName
 	npx bugsnag-sourcemaps upload \
     		--api-key ${FA_CLIENT_BUGSNAG_API_KEY} \
 			--app-version $(versionName) \

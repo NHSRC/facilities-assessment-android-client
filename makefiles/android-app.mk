@@ -4,13 +4,13 @@ define _release_apk
 	rm $(arm_64_apk_path)
 endef
 
-release-apk-jss:
+release-apk-jss: clean-android-build
 	$(call _release_apk,jss,false)
 
 release-apk-jss-dev:
 	$(call _release_apk,jss.dev,false)
 
-release-apk-nhsrc:
+release-apk-nhsrc: clean-android-build ## ARG - patchVersion. For changing major and minor versions change the build.gradle file
 	$(call _release_apk,nhsrc,true)
 
 release-apk-nhsrc-dev:
