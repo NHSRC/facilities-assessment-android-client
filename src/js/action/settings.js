@@ -3,6 +3,8 @@ import {minDate} from '../utility/DateUtils';
 import ReferenceDataSyncService from "../service/ReferenceDataSyncService";
 import SeedDataService from "../service/SeedDataService";
 import Logger from "../framework/Logger";
+import BatchRequest from "../framework/http/BatchRequest";
+import EnvironmentConfig from "../views/common/EnvironmentConfig";
 
 const initialSettings = function (state, action, beans) {
     const settingsService = beans.get(SettingsService);
@@ -17,7 +19,8 @@ const downloadMyAssessments = function (state, action, beans) {
 
 const downloadAssessment = function (state, action, beans) {
     const referenceDataSyncService = beans.get(ReferenceDataSyncService);
-    referenceDataSyncService.syncAssessment(state.assessmentId, () => {});
+    referenceDataSyncService.syncAssessment(state.assessmentId, () => {
+    });
     return Object.assign(state, {syncing: true})
 };
 
@@ -26,22 +29,25 @@ const syncedData = function (state, action, beans) {
     return Object.assign(state, settingsService.saveSettings({lastSyncedDate: new Date()}), {syncing: false});
 };
 
-const cleanData = function (state, action, beans) {
-    const seedDataService = beans.get(SeedDataService);
-    seedDataService.deleteAllData();
-    return Object.assign(state, {});
-};
-
-const cleanTxData = function (state, action, beans) {
-    const seedDataService = beans.get(SeedDataService);
-    seedDataService.deleteTxData();
-    return Object.assign(state, {});
-};
-
 const setAssessmentId = function (state, action) {
     let newState = Object.assign(state, {});
     newState.assessmentId = action.assessmentId;
     return newState;
+};
+
+const simulateServerError = function (state, action) {
+    const batchRequest = new BatchRequest();
+    batchRequest.post(`${EnvironmentConfig.serverURL}/api/error/throw`, {}, (response) => {
+            Logger.logDebug('settings', "No error");
+            Logger.logDebug('settings', response);
+            action.noError();
+        },
+        (error) => {
+            Logger.logError('settings', JSON.stringify(error));
+            action.error(error);
+        });
+    batchRequest.fire(() => {}, () => {});
+    return state;
 };
 
 export default new Map([
@@ -50,8 +56,7 @@ export default new Map([
     ["DOWNLOAD_ASSESSMENT", downloadAssessment],
     ["SET_ASSESSMENT_ID", setAssessmentId],
     ["SYNCED_DATA", syncedData],
-    ['CLEAN_DATA', cleanData],
-    ['CLEAN_TXDATA', cleanTxData]
+    ["SIMULATE_SERVER_ERROR", simulateServerError]
 ]);
 
 export let settingsInit = {

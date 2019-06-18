@@ -39,7 +39,6 @@ class Settings extends ViewComponent {
             marginBottom: 20
         },
         buttons: {
-            flex: 1,
             flexDirection: 'row',
             justifyContent: 'space-between',
             marginTop: 30
@@ -50,44 +49,21 @@ class Settings extends ViewComponent {
         this.dispatchAction(Actions.INITIAL_SETTINGS);
     }
 
-    cleanData() {
-        Alert.alert(
-            'Do you want delete data',
-            "This will remove the reference, configuration and transaction data.",
-            [
-                {
-                    text: 'Yes', onPress: () => {
-                        this.dispatchAction(Actions.CLEAN_DATA);
-                    }
-                },
-                {
-                    text: 'No', onPress: () => {
-                    }
-                }
-            ]
-        )
-    }
-
-    cleanTxData() {
-        Alert.alert(
-            'Do you want delete data',
-            "This will remove the Tx data.",
-            [
-                {
-                    text: 'Yes', onPress: () => {
-                        this.dispatchAction(Actions.CLEAN_TXDATA);
-                    }
-                },
-                {
-                    text: 'No', onPress: () => {
-                    }
-                }
-            ]
-        )
-    }
-
     _onBack() {
         this.dispatchAction(Actions.MODE_SELECTION);
+    }
+
+    alert(message) {
+        Alert.alert(
+            'Server Request Status',
+            message,
+            [
+                {
+                    text: 'OK', onPress: () => {
+                    }
+                }
+            ]
+        )
     }
 
     render() {
@@ -123,22 +99,30 @@ class Settings extends ViewComponent {
                                 style={[Typography.paperFontBody, {marginLeft: 8, color: PrimaryColors.medium_white}]}>{EnvironmentConfig.versionCode}</Text>
                         </View>
                         {EnvironmentConfig.isEmulated &&
-                        <View style={Settings.styles.buttons}>
-                            <Button style={{marginRight: 10}} onPress={() => {
-                                console.log("ENV property value should be qa or prod");
-                                ErrorHandler.forceSet();
-                                Restart.crashForTesting();
-                            }}>Native Crash</Button>
-                            <Button style={{marginRight: 10}} onPress={() => {
-                                console.log("ENV property value should be qa or prod");
-                                ErrorHandler.forceSet();
-                                ErrorHandler.simulateJSError();
-                            }}>JS Exception</Button>
-                            <Button onPress={() => {
-                                console.log("ENV property value should be qa or prod");
-                                ErrorHandler.forceSet();
-                                ErrorHandler.simulateJSCallbackError();
-                            }}>Callback Exception</Button>
+                        <View>
+                            <View style={Settings.styles.buttons}>
+                                <Button style={{marginRight: 10}} onPress={() => {
+                                    console.log("ENV property value should be qa or prod");
+                                    ErrorHandler.forceSet();
+                                    Restart.crashForTesting();
+                                }}>Native Crash</Button>
+                                <Button style={{marginRight: 10}} onPress={() => {
+                                    console.log("ENV property value should be qa or prod");
+                                    ErrorHandler.forceSet();
+                                    ErrorHandler.simulateJSError();
+                                }}>JS Exception</Button>
+                                <Button onPress={() => {
+                                    console.log("ENV property value should be qa or prod");
+                                    ErrorHandler.forceSet();
+                                    ErrorHandler.simulateJSCallbackError();
+                                }}>Callback Exception</Button>
+                            </View>
+                            <View style={Settings.styles.buttons}>
+                                <Button onPress={() => {
+                                    console.log("ENV property value should be qa or prod");
+                                    this.dispatchAction(Actions.SIMULATE_SERVER_ERROR, {noError: () => this.alert("No Error"), error: (error) => this.alert(JSON.stringify(error))});
+                                }}>Server Request Error</Button>
+                            </View>
                         </View>}
                     </View>
                 </Content>

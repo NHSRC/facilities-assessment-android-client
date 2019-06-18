@@ -5,10 +5,10 @@ const fetchFactory = (endpoint, method = "GET", params, responseModifier, cb, er
     fetch(endpoint, {"method": method, ...params})
         .then(responseModifier)
         .then((responseModifier) => {
-            if (_.isNil(responseModifier.error))
-                cb(responseModifier);
-            else
+            if (!_.isNil(responseModifier.error) || (!_.isNil(responseModifier.httpStatusCode) && responseModifier.httpStatusCode > 400))
                 errorHandler(responseModifier);
+            else
+                cb(responseModifier);
         })
         .catch(errorHandler);
 

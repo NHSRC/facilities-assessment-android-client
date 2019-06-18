@@ -16,13 +16,13 @@ switch-ios-to-release-mode:
 run-app-ios: switch-ios-to-debug-mode
 	$(call _run_ios,dev)
 
-run_app_ios_nhsrc: switch-ios-to-debug-mode
+run-app-ios-nhsrc: switch-ios-to-debug-mode
 	$(call _run_ios,.env.nhsrc)
 
-run_app_ios_nhsrc_release: switch-ios-to-release-mode
+run-app-ios-nhsrc-release: switch-ios-to-release-mode
 	$(call _run_ios,.env.nhsrc)
 
-run_app_ios_nhsrc_dev: switch-ios-to-debug-mode
+run-app-ios-nhsrc-dev: switch-ios-to-debug-mode
 	$(call _run_ios,.env.nhsrc.dev)
 
 prepare-ipa-nhsrc: switch-ios-to-release-mode
