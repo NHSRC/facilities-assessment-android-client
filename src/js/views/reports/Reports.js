@@ -49,8 +49,13 @@ class Reports extends ViewComponent {
 
     share(shareOpts, actionName) {
         Logger.logDebug('Reports', shareOpts);
+        // shareOpts.url = _.replace(shareOpts.url, 'data/user/0/', '');
+        // shareOpts.url = _.replace(shareOpts.url, 'cache/', '');
+        Logger.logDebug('Reports', shareOpts);
         Share.open(shareOpts).then((res) => {
             this.dispatchAction(actionName);
+        }).then((res) => {
+            console.log(res)
         }).catch((err) => {
             Logger.logError('Reports', err);
         });

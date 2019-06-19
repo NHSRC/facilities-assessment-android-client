@@ -25,7 +25,7 @@ define _run_android
 	ENVFILE=.env react-native run-android
 endef
 
-run-app-android:
+run-app-android: ## ARG - devCompatible=true/false (use true if the app is crashing immediately after giving overlay permission)
 	$(call _run_android,.env.dev)
 
 run-app-android-nhsrc:

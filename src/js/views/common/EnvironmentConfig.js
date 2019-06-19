@@ -1,4 +1,3 @@
-import DeviceInfo from 'react-native-device-info';
 import {Platform} from "react-native";
 
 class EnvironmentConfig {
@@ -46,11 +45,11 @@ class EnvironmentConfig {
     }
 
     get inDeveloperMode() {
-        return DeviceInfo.isEmulator() && this._getPropertyValue('BUILD_TYPE') !== 'release';
+        return this.isEmulated && this._getPropertyValue('BUILD_TYPE') !== 'release';
     }
 
     get isEmulated() {
-        return DeviceInfo.isEmulator();
+        return this._isPropertyTrue("EMULATOR");
     }
 
     get getENV() {

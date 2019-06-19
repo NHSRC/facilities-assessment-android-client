@@ -1,13 +1,14 @@
 import Logger from "../framework/Logger";
 import EntityService from "./EntityService";
 import SettingsService from "./SettingsService";
-import StateService from "./StateService";
 import EntitiesMetaData from "../models/entityMetaData/EntitiesMetaData";
 import EntitySyncStatus from "../models/sync/EntitySyncStatus";
 import EntitySyncStatusService from "./EntitySyncStatusService";
 import BaseService from "./BaseService";
-import DeviceInfo from 'react-native-device-info';
 import moment from "moment";
+import {NativeModules} from "react-native";
+
+const {Restart} = NativeModules;
 
 class AbstractReferenceDataSyncService extends BaseService {
     constructor(db, beanStore) {
@@ -21,7 +22,7 @@ class AbstractReferenceDataSyncService extends BaseService {
     }
 
     syncMyTxData(cb, onError) {
-        this._syncData(cb, EntitiesMetaData.txEntityTypes, "lastModifiedByDeviceId", {deviceId: DeviceInfo.getUniqueID()}, onError);
+        this._syncData(cb, EntitiesMetaData.txEntityTypes, "lastModifiedByDeviceId", {deviceId: Restart.UNIQUE_DEVICE_ID}, onError);
     }
 
     syncAssessment(assessmentId, cb) {

@@ -4,7 +4,6 @@ import android.app.Application;
 
 import com.facebook.react.ReactApplication;
 import com.bugsnag.BugsnagReactNative;
-import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import io.realm.react.RealmReactPackage;
 import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
 import fr.greweb.reactnativeviewshot.RNViewShotPackage;
@@ -34,7 +33,6 @@ public class MainApplication extends Application implements ReactApplication {
             return Arrays.<ReactPackage>asList(
                 new MainReactPackage(),
                 BugsnagReactNative.getPackage(),
-                new RNDeviceInfo(),
                 new ReactNativeConfigPackage(),
                 new RNViewShotPackage(),
                 new RNFSPackage(),
