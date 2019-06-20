@@ -1,7 +1,7 @@
 define _release_apk
 	$(call _set_env,.env.$1)
 	cd android && ENVFILE=.env separateBuildPerCPUArch=$2 ./gradlew assembleRelease --stacktrace
-	rm $(arm_64_apk_path)
+	-rm $(arm_64_apk_path)
 endef
 
 release-apk-jss: clean-android-build
