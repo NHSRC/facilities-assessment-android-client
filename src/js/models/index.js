@@ -29,7 +29,7 @@ import EnvironmentConfig from "../views/common/EnvironmentConfig";
 
 export default {
     schema: [StringObj, ChecklistProgress, StandardProgress, AreaOfConcernProgress, Checkpoint, MeasurableElement, Standard, AreaOfConcern, Department, FacilityType, AssessmentTool, Facility, District, State, Checklist, FacilityAssessment, CheckpointScore, AssessmentType, Settings, EntitySyncStatus, SeedProgress, AssessmentLocation, IndicatorDefinition, Indicator],
-    schemaVersion: 51,
+    schemaVersion: 52,
     migration: (oldRealm, newRealm) => {
         const version = (version) => (db) => db.schemaVersion < version;
 
@@ -109,6 +109,21 @@ export default {
             }
         };
 
+        const setupMissingFieldsInSeedProgress = (oldRealm, newRealm) => {
+            let seedProgresses = oldRealm.objects(SeedProgress.schema.name);
+            if (!_.isNil(seedProgresses) && seedProgresses.length === 1) {
+                console.log("setupMissingFieldsInSeedProgress");
+                let newSeedProgresses = newRealm.objects(SeedProgress.schema.name);
+                console.log("setupMissingFieldsInSeedProgress", newSeedProgresses.length);
+                if (_.isNil(seedProgresses[0].syncProgress)) {
+                    newSeedProgresses[0].syncProgress = 0.0;
+                }
+                if (_.isNil(seedProgresses[0].syncMessage)) {
+                    newSeedProgresses[0].syncMessage = 'Loading...';
+                }
+            }
+        };
+
         const migrationExecutor = (fn) => (oldRealm, newRealm) => {
             fn.apply(null, [oldRealm, newRealm]);
             newRealm = oldRealm;
@@ -121,7 +136,8 @@ export default {
             [version(4), aAllCheckpoints],
             [version(6), addingSeedProgress],
             [version(45), fixMEReferences],
-            [version(51), setupAlreadyLoadedStatesIfFacilitiesExist]
+            [version(51), setupAlreadyLoadedStatesIfFacilitiesExist],
+            [version(52), setupMissingFieldsInSeedProgress]
         ];
 
         Logger.logDebug('model.index', `Old Database Version:${oldRealm.schemaVersion}, New Database Version:${newRealm.schemaVersion}`);
