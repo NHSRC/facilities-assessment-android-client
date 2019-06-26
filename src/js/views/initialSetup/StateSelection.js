@@ -11,8 +11,7 @@ import _ from 'lodash';
 import Actions from "../../action";
 import SeedProgressService from "../../service/SeedProgressService";
 import StateSelectionUserState from "../../action/userState/StateSelectionUserState";
-import getTheme from '../../../../native-base-theme/components';
-import platformTheme from '../../../../native-base-theme/variables/platform';
+import GunakContainer from "../common/GunakContainer";
 
 @PathRoot
 @Path('/StateSelection')
@@ -82,51 +81,36 @@ class StateSelection extends AbstractComponent {
         Logger.logDebug('StateSelection', this.state.seedProgress);
 
         return (
-            <StyleProvider style={getTheme(platformTheme)}>
-                <Container>
-                    <Header>
-                        <Left>
-                            <Button transparent onPress={() => TypedTransition.from(this).goBack()}>
-                                <Icon style={{marginTop: 5, color: "white"}} name='arrow-back'/>
-                            </Button>
-                        </Left>
-                        <Body>
-                            <Title style={[Typography.paperFontSubhead, {
-                                color: 'white'
-                            }]}>Select state of health facilities</Title>
-                        </Body>
-                    </Header>
-                    <Content contentContainerStyle={{flexDirection: 'column', margin: 8, justifyContent: 'center', alignItems: 'center'}}>
-                        <Text style={{height: 0.5, backgroundColor: "white", width: 200}}/>
-                        {this.state.allStates.map((countryState) =>
-                            <View style={{marginTop: 5, justifyContent: 'center', alignItems: 'center'}} key={countryState.name}>
-                                <TouchableHighlight key={countryState.name} onPress={() => this.toggleState(countryState)}>
-                                    <View style={{flexDirection: 'row', height: 32}}>
-                                        <Text style={{color: "white"}}>{countryState.name}</Text>
-                                        {this.isItTheSelectedState(countryState) ?
-                                            <Icon name='done-all' style={{fontSize: 20, color: "white", marginLeft: 10}} size={100}/> :
-                                            <View/>}
-                                    </View>
-                                </TouchableHighlight>
-                                <Text style={{height: 0.5, backgroundColor: "white", width: 200}}/>
-                            </View>)}
-                        <Button
-                            onPress={() => this.stateSelectionConfirmed()}
-                            style={{backgroundColor: '#ffa000', marginTop: 20}}
-                            block
-                            disabled={!this.isAnyStateSelected()}>{this.state.userState.workflowState === StateSelectionUserState.WorkflowStates.StatesConfirmed ?
-                            (<ActivityIndicator animating={true} size={"large"} color="white" style={{height: 80}}/>) : <Text>"SAVE"</Text>}
-                        </Button>
-                        {this.state.seedProgress.numberOfStates === 0 ? null : <Text
-                            style={[Typography.paperFontSubhead, {
-                                color: "white",
-                                marginTop: 30
-                            }]}>{`States already loaded - ${this.state.seedProgress.numberOfStates > 10 ? this.state.seedProgress.numberOfStates : this.state.loadedCountryStates}`}</Text>
-                        }
-
-                    </Content>
-                </Container>
-            </StyleProvider>
+            <GunakContainer title="Select state of health facilities">
+                <View>
+                    <Text style={{height: 0.5, backgroundColor: "white", width: 200}}/>
+                    {this.state.allStates.map((countryState) =>
+                        <View style={{marginTop: 5, justifyContent: 'center', alignItems: 'center'}} key={countryState.name}>
+                            <TouchableHighlight key={countryState.name} onPress={() => this.toggleState(countryState)}>
+                                <View style={{flexDirection: 'row', height: 32}}>
+                                    <Text style={{color: "white"}}>{countryState.name}</Text>
+                                    {this.isItTheSelectedState(countryState) ?
+                                        <Icon name='done-all' style={{fontSize: 20, color: "white", marginLeft: 10}} size={100}/> :
+                                        <View/>}
+                                </View>
+                            </TouchableHighlight>
+                            <Text style={{height: 0.5, backgroundColor: "white", width: 200}}/>
+                        </View>)}
+                    <Button
+                        onPress={() => this.stateSelectionConfirmed()}
+                        style={{backgroundColor: '#ffa000', marginTop: 20}}
+                        block
+                        disabled={!this.isAnyStateSelected()}>{this.state.userState.workflowState === StateSelectionUserState.WorkflowStates.StatesConfirmed ?
+                        (<ActivityIndicator animating={true} size={"large"} color="white" style={{height: 80}}/>) : <Text>SAVE</Text>}
+                    </Button>
+                    {this.state.seedProgress.numberOfStates === 0 ? null : <Text
+                        style={[Typography.paperFontSubhead, {
+                            color: "white",
+                            marginTop: 30
+                        }]}>{`States already loaded - ${this.state.seedProgress.numberOfStates > 10 ? this.state.seedProgress.numberOfStates : this.state.loadedCountryStates}`}</Text>
+                    }
+                </View>
+            </GunakContainer>
         );
     }
 }
