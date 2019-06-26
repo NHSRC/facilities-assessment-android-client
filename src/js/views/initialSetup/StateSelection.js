@@ -1,10 +1,9 @@
-import {Alert, ActivityIndicator, Dimensions, Image, StyleSheet, Text, TouchableHighlight, View} from 'react-native';
+import {Alert, ActivityIndicator, StyleSheet, Text, TouchableHighlight, View} from 'react-native';
 import React from 'react';
 import AbstractComponent from "../common/AbstractComponent";
 import Path, {PathRoot} from "../../framework/routing/Path";
-import {Button, Container, Content, Footer, Header, Icon, Title} from "native-base";
+import {Button, Container, Content, Header, Icon, Title, Left, Body, StyleProvider} from "native-base";
 import Typography from "../styles/Typography";
-import FlatUITheme from "../themes/flatUI";
 import TypedTransition from "../../framework/routing/TypedTransition";
 import ModeSelection from "../modes/ModeSelection";
 import Logger from "../../framework/Logger";
@@ -12,6 +11,8 @@ import _ from 'lodash';
 import Actions from "../../action";
 import SeedProgressService from "../../service/SeedProgressService";
 import StateSelectionUserState from "../../action/userState/StateSelectionUserState";
+import getTheme from '../../../../native-base-theme/components';
+import platformTheme from '../../../../native-base-theme/variables/platform';
 
 @PathRoot
 @Path('/StateSelection')
@@ -28,10 +29,12 @@ class StateSelection extends AbstractComponent {
 
     stateSelectionConfirmed() {
         let timeoutID = setTimeout(() => {
-            this.dispatchAction(Actions.STATE_SELECTION_CONFIRMED, {onError: (error) => {
+            this.dispatchAction(Actions.STATE_SELECTION_CONFIRMED, {
+                onError: (error) => {
                     Alert.alert("Download failed", error.message,
                         [
-                            {text: "OK",
+                            {
+                                text: "OK",
                                 onPress: () => {
                                     clearTimeout(timeoutID);
                                     this.dispatchAction(Actions.STATE_DOWNLOAD_FAILED);
@@ -40,7 +43,8 @@ class StateSelection extends AbstractComponent {
                         ],
                         {cancelable: false}
                     );
-                }});
+                }
+            });
         }, 100);
         let intervalID = setInterval(() => {
             let seedProgress = this.getService(SeedProgressService).getSeedProgress();
@@ -78,17 +82,21 @@ class StateSelection extends AbstractComponent {
         Logger.logDebug('StateSelection', this.state.seedProgress);
 
         return (
-            <Container theme={FlatUITheme}>
-                <Header style={FlatUITheme.header}>
-                    <Button transparent onPress={() => TypedTransition.from(this).goBack()}>
-                        <Icon style={{marginTop: 5, color: "white"}} name='arrow-back'/>
-                    </Button>
-                    <Title style={[Typography.paperFontSubhead, {
-                        color: 'white'
-                    }]}>Select state of health facilities</Title>
-                </Header>
-                <Content>
-                    <View style={{flexDirection: 'column', margin: 8, justifyContent: 'center', alignItems: 'center'}}>
+            <StyleProvider style={getTheme(platformTheme)}>
+                <Container>
+                    <Header>
+                        <Left>
+                            <Button transparent onPress={() => TypedTransition.from(this).goBack()}>
+                                <Icon style={{marginTop: 5, color: "white"}} name='arrow-back'/>
+                            </Button>
+                        </Left>
+                        <Body>
+                            <Title style={[Typography.paperFontSubhead, {
+                                color: 'white'
+                            }]}>Select state of health facilities</Title>
+                        </Body>
+                    </Header>
+                    <Content contentContainerStyle={{flexDirection: 'column', margin: 8, justifyContent: 'center', alignItems: 'center'}}>
                         <Text style={{height: 0.5, backgroundColor: "white", width: 200}}/>
                         {this.state.allStates.map((countryState) =>
                             <View style={{marginTop: 5, justifyContent: 'center', alignItems: 'center'}} key={countryState.name}>
@@ -96,7 +104,7 @@ class StateSelection extends AbstractComponent {
                                     <View style={{flexDirection: 'row', height: 32}}>
                                         <Text style={{color: "white"}}>{countryState.name}</Text>
                                         {this.isItTheSelectedState(countryState) ?
-                                            <Icon name='done' style={{fontSize: 20, color: "white", marginLeft: 10}} size={100}/> :
+                                            <Icon name='done-all' style={{fontSize: 20, color: "white", marginLeft: 10}} size={100}/> :
                                             <View/>}
                                     </View>
                                 </TouchableHighlight>
@@ -106,8 +114,8 @@ class StateSelection extends AbstractComponent {
                             onPress={() => this.stateSelectionConfirmed()}
                             style={{backgroundColor: '#ffa000', marginTop: 20}}
                             block
-                            disabled={!this.isAnyStateSelected()}><Text>{this.state.userState.workflowState === StateSelectionUserState.WorkflowStates.StatesConfirmed ?
-                            (<ActivityIndicator animating={true} size={"large"} color="white" style={{height: 80}}/>) : "SAVE"}</Text>
+                            disabled={!this.isAnyStateSelected()}>{this.state.userState.workflowState === StateSelectionUserState.WorkflowStates.StatesConfirmed ?
+                            (<ActivityIndicator animating={true} size={"large"} color="white" style={{height: 80}}/>) : <Text>"SAVE"</Text>}
                         </Button>
                         {this.state.seedProgress.numberOfStates === 0 ? null : <Text
                             style={[Typography.paperFontSubhead, {
@@ -115,9 +123,10 @@ class StateSelection extends AbstractComponent {
                                 marginTop: 30
                             }]}>{`States already loaded - ${this.state.seedProgress.numberOfStates > 10 ? this.state.seedProgress.numberOfStates : this.state.loadedCountryStates}`}</Text>
                         }
-                    </View>
-                </Content>
-            </Container>
+
+                    </Content>
+                </Container>
+            </StyleProvider>
         );
     }
 }
