@@ -144,14 +144,14 @@ class ModeSelection extends ViewComponent {
                         <View style={{flexDirection: 'row', justifyContent: 'center', marginVertical: 60, flexWrap: 'wrap'}}>
                             <Button
                                 style={{borderWidth: 1, marginRight: 10, marginBottom: 10}} bordered transparent
-                                onPress={() => this.downloadChecklistMetadata()}>{this.downloadButtonContent("Update Checklists/Facilities")}</Button>
+                                onPress={() => this.downloadChecklistMetadata()}><Text>{this.downloadButtonContent("Update Checklists/Facilities")}</Text></Button>
                             <Button
                                 style={{borderWidth: 1, marginRight: 10, marginBottom: 10}} bordered transparent
-                                onPress={() => this.downloadMyAssessments()}>{this.downloadButtonContent("Download My Assessments")}</Button>
+                                onPress={() => this.downloadMyAssessments()}><Text>{this.downloadButtonContent("Download My Assessments")}</Text></Button>
                             {this.state.statesAvailableToBeLoaded ? <Button
                                 style={{borderWidth: 1, marginBottom: 10}}
                                 bordered transparent
-                                onPress={() => this.addNewState()}>{this.downloadButtonContent("Add State")}</Button> : null}
+                                onPress={() => this.addNewState()}><Text>{this.downloadButtonContent("Add State")}</Text></Button> : null}
                         </View>
                     </View>
                 </Content>

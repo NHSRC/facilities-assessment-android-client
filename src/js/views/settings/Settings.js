@@ -13,6 +13,7 @@ import Typography from "../styles/Typography";
 import Actions from '../../action';
 import EnvironmentConfig from "../common/EnvironmentConfig";
 import ErrorHandler from "../../utility/ErrorHandler";
+import _ from "lodash";
 
 const {Restart} = NativeModules;
 
@@ -105,23 +106,23 @@ class Settings extends ViewComponent {
                                     console.log("ENV property value should be qa or prod");
                                     ErrorHandler.forceSet();
                                     Restart.crashForTesting();
-                                }}>Native Crash</Button>
+                                }}><Text>Native Crash</Text></Button>
                                 <Button style={{marginRight: 10}} onPress={() => {
                                     console.log("ENV property value should be qa or prod");
                                     ErrorHandler.forceSet();
                                     ErrorHandler.simulateJSError();
-                                }}>JS Exception</Button>
+                                }}><Text>JS Exception</Text></Button>
                                 <Button onPress={() => {
                                     console.log("ENV property value should be qa or prod");
                                     ErrorHandler.forceSet();
                                     ErrorHandler.simulateJSCallbackError();
-                                }}>Callback Exception</Button>
+                                }}><Text>Callback Exception</Text></Button>
                             </View>
                             <View style={Settings.styles.buttons}>
                                 <Button onPress={() => {
                                     console.log("ENV property value should be qa or prod");
                                     this.dispatchAction(Actions.SIMULATE_SERVER_ERROR, {noError: () => this.alert("No Error"), error: (error) => this.alert(JSON.stringify(error))});
-                                }}>Server Request Error</Button>
+                                }}><Text>Server Request Error</Text></Button>
                             </View>
                         </View>}
                     </View>

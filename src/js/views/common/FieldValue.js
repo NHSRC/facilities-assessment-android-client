@@ -1,12 +1,13 @@
-import {StyleSheet, Text, View} from 'react-native';
-import React, {Component} from 'react';
+import {Text} from 'react-native';
+import React from 'react';
 import AbstractComponent from './AbstractComponent';
 import Typography from "../styles/Typography";
 import PrimaryColors from "../styles/PrimaryColors";
+import PropTypes from 'prop-types';
 
 class FieldValue extends AbstractComponent {
     static propTypes = {
-        text: React.PropTypes.string.isRequired
+        text: PropTypes.string.isRequired
     };
 
     constructor(props, context) {

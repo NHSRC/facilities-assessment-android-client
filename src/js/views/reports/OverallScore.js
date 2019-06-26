@@ -1,13 +1,8 @@
 import React, {Component} from 'react';
 import {Text, StyleSheet, View, ScrollView, Dimensions} from 'react-native';
 import AbstractComponent from "../common/AbstractComponent";
-import FlatUITheme from '../themes/flatUI';
-import {Container, Header, Title, Content, Icon, Button} from 'native-base';
-import Path from "../../framework/routing/Path";
 import Typography from '../styles/Typography';
 import PrimaryColors from '../styles/PrimaryColors';
-import TypedTransition from "../../framework/routing/TypedTransition";
-import Actions from '../../action';
 import {formatDateOnlyHuman} from '../../utility/DateUtils';
 import _ from 'lodash';
 import {AnimatedGaugeProgress} from 'react-native-simple-gauge';

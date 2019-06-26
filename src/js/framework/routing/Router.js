@@ -1,16 +1,17 @@
 import React, {Component} from 'react';
-import {View, Navigator, BackAndroid, Platform} from 'react-native';
+import {View, Navigator, Platform} from 'react-native';
 import AndroidBackListeners from "../view/AndroidBackListeners";
 import iOSBackListeners from "../view/iOSBackListeners";
+import PropTypes from 'prop-types';
 
 export default class Router extends Component {
 
     static propTypes = {
-        initialRoute: React.PropTypes.object.isRequired,
+        initialRoute: PropTypes.object.isRequired,
     };
 
     static childContextTypes = {
-        navigator: React.PropTypes.func.isRequired,
+        navigator: PropTypes.func.isRequired,
     };
 
     onInitialScreen = true;

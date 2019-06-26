@@ -59,7 +59,7 @@ android/app/src/main/res/values/secrets.xml
 android/app/src/main/res/values/com_crashlytics_export_strings.xml
 .java-version
 
-src/js/service/PackagedJSON.js
+src/js/framework/Config.js
 setup/dev.retry
 android/app/src/main/res/drawable-*
 android/app/old-build

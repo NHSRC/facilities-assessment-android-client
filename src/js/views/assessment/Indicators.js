@@ -1,12 +1,13 @@
-import React, {Component} from 'react';
-import {Alert, Dimensions, StyleSheet, Text, View} from 'react-native';
+import React from 'react';
+import {Alert, Dimensions, View} from 'react-native';
 import AbstractComponent from "../common/AbstractComponent";
 import IndicatorDefinition from "../../models/IndicatorDefinition";
 import NumericIndicator from "../indicator/NumericIndicator";
 import CodedValueIndicator from "../indicator/CodedValueIndicator";
 import DateIndicator from "../indicator/DateIndicator";
 import IndicatorDefinitions from "../../models/collections/IndicatorDefinitions";
-import Logger from "../../framework/Logger";
+import PropTypes from 'prop-types';
+import _ from "lodash";
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
@@ -57,10 +58,10 @@ class Indicators extends AbstractComponent {
     }
 
     static propTypes = {
-        indicatorDefinitions: React.PropTypes.any.isRequired,
-        indicators: React.PropTypes.any.isRequired,
-        indicatorDefinitionsWithError: React.PropTypes.array,
-        dateFieldInEdit: React.PropTypes.string
+        indicatorDefinitions: PropTypes.any.isRequired,
+        indicators: PropTypes.any.isRequired,
+        indicatorDefinitionsWithError: PropTypes.array,
+        dateFieldInEdit: PropTypes.string
     };
 
     componentWillUnmount() {

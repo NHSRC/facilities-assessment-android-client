@@ -1,8 +1,9 @@
-import React, {Component} from 'react';
-import {Text, StyleSheet, View} from 'react-native';
+import React from 'react';
+import {StyleSheet} from 'react-native';
 import AbstractComponent from "../../common/AbstractComponent";
 import AssessmentPicker from './AssessmentPicker';
 import Actions from "../../../action";
+import PropTypes from 'prop-types';
 
 class AssessmentType extends AbstractComponent {
     constructor(props, context) {
@@ -13,8 +14,8 @@ class AssessmentType extends AbstractComponent {
     });
 
     static propTypes = {
-        data: React.PropTypes.object.isRequired,
-        actionSuffix: React.PropTypes.string
+        data: PropTypes.object.isRequired,
+        actionSuffix: PropTypes.string
     };
 
     render() {

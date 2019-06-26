@@ -1,5 +1,5 @@
 define _release_apk
-	$(call _set_env,.env.$1)
+	$(call _create_config,$1)
 	cd android && ENVFILE=.env separateBuildPerCPUArch=$2 ./gradlew assembleRelease --stacktrace
 	-rm $(arm_64_apk_path)
 endef
@@ -20,25 +20,24 @@ release-apk-offline:
 	cd android; ENVFILE=.env ./gradlew --offline assembleRelease
 
 define _run_android
-	$(call _setup_hosts)
-	$(call _set_env,$1)
+	$(call _create_config,$1)
 	ENVFILE=.env react-native run-android
 endef
 
 run-app-android: ## ARG - devCompatible=true/false (use true if the app is crashing immediately after giving overlay permission)
-	$(call _run_android,.env.dev)
+	$(call _run_android,dev)
 
 run-app-android-nhsrc:
-	$(call _run_android,.env.nhsrc)
+	$(call _run_android,nhsrc)
 
 run-app-android-nhsrc-dev:
-	$(call _run_android,.env.nhsrc.dev)
+	$(call _run_android,nhsrc.dev)
 
 run-app-android-jss:
-	$(call _run_android,.env.jss)
+	$(call _run_android,jss)
 
 run-app-android-jss-qa:
-	$(call _run_android,.env.jss.qa)
+	$(call _run_android,jss.qa)
 
 run-app-android-jss-dev:
-	$(call _run_android,.env.jss.dev)
+	$(call _run_android,jss.dev)

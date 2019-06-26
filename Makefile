@@ -20,7 +20,7 @@ help:
 	    printf "%-30s %s\n" $$help_command $$help_info ; \
 	done
 
-install-apk-jss-prod:
+install-android-app-jss-prod:
 	scp igunatmac:$(prod_apk_path) ../temp/app.apk
 	$(call _install_apk,../temp/app.apk)
 
@@ -32,11 +32,6 @@ deps:
 
 link-native-dependencies-source:
 	react-native link
-
-
-define _set_env
-	cp $1 .env
-endef
 
 analyse-app-crash:
 	cd unminifiy && npm start ../android/app/build/generated/sourcemap.js $(line) $(column)

@@ -3,7 +3,7 @@ import {StyleSheet, TextInput, Platform} from "react-native";
 import AbstractComponent from "../../common/AbstractComponent";
 import Actions from "../../../action";
 import PrimaryColors from "../../styles/PrimaryColors";
-
+import PropTypes from 'prop-types';
 
 class FacilityText extends AbstractComponent {
     constructor(props, context) {
@@ -22,7 +22,7 @@ class FacilityText extends AbstractComponent {
     });
 
     static propTypes = {
-        data: React.PropTypes.object.isRequired
+        data: PropTypes.object.isRequired
     };
 
     handleChange(facilityName) {

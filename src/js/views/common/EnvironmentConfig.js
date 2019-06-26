@@ -1,35 +1,21 @@
 import {Platform} from "react-native";
+import Config from '../../framework/Config';
 
 class EnvironmentConfig {
-    initConfig() {
-        if (!this.config)
-            this.config = require('react-native-config').default;
-    }
-
-    _isPropertyTrue(propertyName) {
-        this.initConfig();
-        return this.config[propertyName] === "true";
-    }
-
-    _getPropertyValue(propertyName) {
-        this.initConfig();
-        return this.config[propertyName];
-    }
-
     get serverURL() {
-        return Platform.OS === 'ios' ? this._getPropertyValue("SERVER_URL_IOS") : this._getPropertyValue("SERVER_URL");
+        return Platform.OS === 'ios' ? Config["SERVER_URL_IOS"] : Config["SERVER_URL"];
     }
 
     get shouldAllowIncompleteChecklistSubmission() {
-        return this.inDeveloperMode || this._isPropertyTrue("ALLOW_INCOMPLETE_SUBMIT");
+        return this.inDeveloperMode || Config["ALLOW_INCOMPLETE_SUBMIT"];
     }
 
     get autoGenerateSeriesNumber() {
-        return this._isPropertyTrue("AUTO_GENERATE_SERIES_NUMBER");
+        return Config["AUTO_GENERATE_SERIES_NUMBER"];
     }
 
     get isFreeTextFacilityNameSupported() {
-        return this._isPropertyTrue("FREE_TEXT_FACILITY_NAME_SUPPORT");
+        return Config["FREE_TEXT_FACILITY_NAME_SUPPORT"];
     }
 
     get shouldAllowBulkDownload() {
@@ -41,27 +27,27 @@ class EnvironmentConfig {
     }
 
     get shouldTrackLocation() {
-        return this._isPropertyTrue("TRACK_LOCATION");
+        return Config["TRACK_LOCATION"];
     }
 
     get inDeveloperMode() {
-        return this.isEmulated && this._getPropertyValue('BUILD_TYPE') !== 'release';
+        return this.isEmulated && Config['BUILD_TYPE'] !== 'release';
     }
 
     get isEmulated() {
-        return this._isPropertyTrue("EMULATOR");
+        return Config["EMULATOR"];
     }
 
     get getENV() {
-        return this._getPropertyValue("ENV") || 'dev';
+        return Config["ENV"] || 'dev';
     }
 
     get implementationName() {
-        return this._getPropertyValue("IMPLEMENTATION_NAME") || 'unset';
+        return Config["IMPLEMENTATION_NAME"] || 'unset';
     }
 
     get versionCode() {
-        return this._getPropertyValue("VERSION_CODE");
+        return Config["VERSION_CODE"];
     }
 
     get filePrefix() {

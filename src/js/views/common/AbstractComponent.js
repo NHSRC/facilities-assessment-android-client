@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 class AbstractComponent extends Component {
     constructor(props, context, stateKey) {
@@ -13,9 +14,9 @@ class AbstractComponent extends Component {
     }
 
     static contextTypes = {
-        navigator: React.PropTypes.func.isRequired,
-        getStore: React.PropTypes.func,
-        getService: React.PropTypes.func.isRequired,
+        navigator: PropTypes.func.isRequired,
+        getStore: PropTypes.func,
+        getService: PropTypes.func.isRequired,
     };
 
     dispatchAction(actionName, params) {

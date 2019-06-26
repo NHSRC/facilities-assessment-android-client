@@ -1,5 +1,5 @@
 import {StyleSheet, Text, View, Platform, TextInput} from 'react-native';
-import React, {Component} from 'react';
+import React from 'react';
 import AbstractComponent from '../../common/AbstractComponent';
 import {Container, Header, Title, Button} from "native-base";
 import Typography from "../../styles/Typography";
@@ -8,13 +8,14 @@ import PrimaryColors from "../../styles/PrimaryColors";
 import AssessmentSeries from "../start/AssessmentSeries";
 import Actions from "../../../action";
 import AssessmentTool from "../../../models/AssessmentTool";
+import PropTypes from 'prop-types';
 
 class SubmitAssessment extends AbstractComponent {
     static propTypes = {
-        facilityAssessment: React.PropTypes.object,
-        onSubmit: React.PropTypes.func.isRequired,
-        submissionDetailAvailable: React.PropTypes.bool,
-        assessmentToolType: React.PropTypes.string
+        facilityAssessment: PropTypes.object,
+        onSubmit: PropTypes.func.isRequired,
+        submissionDetailAvailable: PropTypes.bool,
+        assessmentToolType: PropTypes.string
     };
 
     static styles = StyleSheet.create({
@@ -65,13 +66,13 @@ class SubmitAssessment extends AbstractComponent {
                                    onChangeText={(text) => this.handleAssessorNameChange(text)}/>
                         <View style={{flexDirection: 'row', marginBottom: 10, marginTop: 10}}>
                             <Button style={{backgroundColor: PrimaryColors.blue, alignSelf: 'stretch', marginHorizontal: 10, flex: 0.5}}
-                                    onPress={() => this.close()}>CLOSE</Button>
+                                    onPress={() => this.close()}><Text>CLOSE</Text></Button>
                             <Button style={{
                                 backgroundColor: this.props.submissionDetailAvailable ? PrimaryColors.blue : PrimaryColors.medium_black,
                                 alignSelf: 'stretch',
                                 marginHorizontal: 10,
                                 flex: 0.5
-                            }} onPress={this.props.onSubmit} disabled={!this.props.submissionDetailAvailable}>SUBMIT</Button>
+                            }} onPress={this.props.onSubmit} disabled={!this.props.submissionDetailAvailable}><Text>SUBMIT</Text></Button>
                         </View>
                     </View>
                 </View>

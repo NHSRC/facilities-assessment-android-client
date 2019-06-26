@@ -5,16 +5,18 @@ import Colors from "../styles/PrimaryColors";
 import Typography from "../styles/Typography";
 import {Button, Icon} from "native-base";
 import EnvironmentConfig from "../common/EnvironmentConfig";
+import PropTypes from 'prop-types';
+import _ from "lodash";
 
 const {width, height} = Dimensions.get('window');
 
 class ProgressBarModal extends AbstractComponent {
     static propTypes = {
-        value: React.PropTypes.number.isRequired,
-        message: React.PropTypes.string.isRequired,
-        failed: React.PropTypes.bool.isRequired,
-        onRetry: React.PropTypes.func.isRequired,
-        onExit: React.PropTypes.func.isRequired,
+        value: PropTypes.number.isRequired,
+        message: PropTypes.string.isRequired,
+        failed: PropTypes.bool.isRequired,
+        onRetry: PropTypes.func.isRequired,
+        onExit: PropTypes.func.isRequired,
     };
 
     constructor(props, context) {
@@ -84,13 +86,13 @@ class ProgressBarModal extends AbstractComponent {
                     </Text>
                     {this.props.failed && <View style={{flexDirection: 'row', marginBottom: 10, marginTop: 10}}>
                         <Button style={{backgroundColor: Colors.blue, alignSelf: 'stretch', marginHorizontal: 10, flex: 0.5}}
-                                onPress={() => this.props.onRetry()}>RETRY</Button>
+                                onPress={() => this.props.onRetry()}><Text>RETRY</Text></Button>
                         <Button style={{
                             backgroundColor: Colors.blue,
                             alignSelf: 'stretch',
                             marginHorizontal: 10,
                             flex: 0.5
-                        }} onPress={() => this.props.onExit()}>EXIT</Button>
+                        }} onPress={() => this.props.onExit()}><Text>EXIT</Text></Button>
                     </View>}
                 </View>)
                 :
@@ -102,9 +104,8 @@ class ProgressBarModal extends AbstractComponent {
                     </View>
                     <View style={{paddingTop: 20}}>
                         <Button
-                            title="OK"
                             color={Colors.darkGrey}
-                            onPress={() => this.props.onPress()}/>
+                            onPress={() => this.props.onPress()}><Text>OK</Text></Button>
                     </View>
                 </View>)}
         </View>;

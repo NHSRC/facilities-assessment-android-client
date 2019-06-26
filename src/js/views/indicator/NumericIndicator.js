@@ -8,7 +8,7 @@ import _ from 'lodash';
 import IndicatorDefinition from "../../models/IndicatorDefinition";
 import FieldValue from "../common/FieldValue";
 import Indicators from '../assessment/Indicators';
-import Logger from "../../framework/Logger";
+import PropTypes from 'prop-types';
 
 class NumericIndicator extends AbstractComponent {
     constructor(props, context) {
@@ -27,12 +27,12 @@ class NumericIndicator extends AbstractComponent {
     });
 
     static propTypes = {
-        definition: React.PropTypes.object.isRequired,
-        indicator: React.PropTypes.object,
-        validationError: React.PropTypes.string,
-        tabIndex: React.PropTypes.number,
-        overallIndex: React.PropTypes.number,
-        isLast: React.PropTypes.bool
+        definition: PropTypes.object.isRequired,
+        indicator: PropTypes.object,
+        validationError: PropTypes.string,
+        tabIndex: PropTypes.number,
+        overallIndex: PropTypes.number,
+        isLast: PropTypes.bool
     };
 
     onInputChange(text) {

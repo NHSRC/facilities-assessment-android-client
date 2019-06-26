@@ -106,8 +106,8 @@ class StateSelection extends AbstractComponent {
                             onPress={() => this.stateSelectionConfirmed()}
                             style={{backgroundColor: '#ffa000', marginTop: 20}}
                             block
-                            disabled={!this.isAnyStateSelected()}>{this.state.userState.workflowState === StateSelectionUserState.WorkflowStates.StatesConfirmed ?
-                            (<ActivityIndicator animating={true} size={"large"} color="white" style={{height: 80}}/>) : "SAVE"}
+                            disabled={!this.isAnyStateSelected()}><Text>{this.state.userState.workflowState === StateSelectionUserState.WorkflowStates.StatesConfirmed ?
+                            (<ActivityIndicator animating={true} size={"large"} color="white" style={{height: 80}}/>) : "SAVE"}</Text>
                         </Button>
                         {this.state.seedProgress.numberOfStates === 0 ? null : <Text
                             style={[Typography.paperFontSubhead, {

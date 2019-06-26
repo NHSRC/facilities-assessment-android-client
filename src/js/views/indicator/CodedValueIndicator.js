@@ -1,14 +1,15 @@
 import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
-import React, {Component} from 'react';
-import {Radio, Right, ListItem} from 'native-base';
+import React from 'react';
+import {Radio} from 'native-base';
 import AbstractComponent from '../common/AbstractComponent';
 import ValidationErrorMessage from "./ValidationErrorMessage";
 import FieldLabel from "../common/FieldLabel";
 import Actions from "../../action";
 import Typography from "../styles/Typography";
 import IndicatorDefinition from "../../models/IndicatorDefinition";
-import PrimaryColors from "../styles/PrimaryColors";
 import FieldValue from "../common/FieldValue";
+import PropTypes from 'prop-types';
+import _ from "lodash";
 
 class CodedValueIndicator extends AbstractComponent {
     constructor(props, context) {
@@ -16,9 +17,9 @@ class CodedValueIndicator extends AbstractComponent {
     }
 
     static propTypes = {
-        definition: React.PropTypes.object.isRequired,
-        indicator: React.PropTypes.object,
-        validationError: React.PropTypes.string
+        definition: PropTypes.object.isRequired,
+        indicator: PropTypes.object,
+        validationError: PropTypes.string
     };
 
     static styles = StyleSheet.create({

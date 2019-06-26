@@ -1,19 +1,19 @@
-import {StyleSheet, Text, View, Dimensions} from 'react-native';
-import React, {Component} from 'react';
+import {Text, View, Dimensions} from 'react-native';
+import React from 'react';
 import AbstractComponent from '../common/AbstractComponent';
 import Path, {PathRoot} from "../../framework/routing/Path";
-import {Button, CheckBox, Col, Container, Content, Grid, Header, Icon, Input, InputGroup, List, ListItem, Radio, Row, Title} from "native-base";
+import {Button, Container, Content, Header, Icon, Title} from "native-base";
 import FlatUITheme from "../themes/flatUI";
 import Typography from "../styles/Typography";
 import TypedTransition from "../../framework/routing/TypedTransition";
 import Actions from "../../action";
-import Dashboard from "../dashboard/Dashboard";
 import AssessmentTitle from "../assessment/AssessmentTitle";
 import Indicators from "../assessment/Indicators";
 import SubmitButton from "../common/SubmitButton";
 import Logger from "../../framework/Logger";
-import UUID from "../../utility/UUID";
 import ValidationErrorMessage from "./ValidationErrorMessage";
+import PropTypes from 'prop-types';
+import _ from "lodash";
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
@@ -22,7 +22,7 @@ const deviceHeight = Dimensions.get('window').height;
 class AssessmentIndicators extends AbstractComponent {
     //assessmentTool, facility, assessmentType, facilityAssessment, state
     static propTypes = {
-        params: React.PropTypes.object.isRequired
+        params: PropTypes.object.isRequired
     };
 
     setDefaultPropValues() {

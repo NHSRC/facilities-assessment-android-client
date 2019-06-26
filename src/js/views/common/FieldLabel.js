@@ -1,12 +1,13 @@
-import {StyleSheet, Text, View, Platform} from 'react-native';
-import React, {Component} from 'react';
+import {Text, Platform} from 'react-native';
+import React from 'react';
 import AbstractComponent from './AbstractComponent';
 import Typography from "../styles/Typography";
+import PropTypes from 'prop-types';
 
 class FieldLabel extends AbstractComponent {
     static propTypes = {
-        text: React.PropTypes.string.isRequired,
-        style: React.PropTypes.object
+        text: PropTypes.string.isRequired,
+        style: PropTypes.object
     };
 
     constructor(props, context) {

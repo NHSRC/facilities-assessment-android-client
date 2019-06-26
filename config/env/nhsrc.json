@@ -1,0 +1,10 @@
+{
+  "FREE_TEXT_FACILITY_NAME_SUPPORT": true,
+  "ALLOW_INCOMPLETE_SUBMIT": false,
+  "SERVER_URL": "https: //gunak.nhsrcindia.org",
+  "SERVER_URL_IOS": "https://gunak.nhsrcindia.org",
+  "TRACK_LOCATION": false,
+  "AUTO_GENERATE_SERIES_NUMBER": true,
+  "ENV": "prod",
+  "IMPLEMENTATION_NAME": "NHSRC"
+}

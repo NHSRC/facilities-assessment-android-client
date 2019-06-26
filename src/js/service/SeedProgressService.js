@@ -1,6 +1,7 @@
 import BaseService from "./BaseService";
 import Service from "../framework/bean/Service";
 import SeedProgress from '../models/SeedProgress';
+import _ from "lodash";
 
 @Service("seedProgressService")
 class SeedProgressService extends BaseService {

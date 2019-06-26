@@ -75,8 +75,7 @@ class AssessmentTools extends AbstractComponent {
                         iconLeft={true}
                         onPress={this.onSelect(assessmentTool)}>
                         <Icon style={{fontSize: 20, color: isSelected ? "white" : PrimaryColors.subheader_black}}
-                              name='assessment'/>
-                        {assessmentTool.name}
+                              name='assessment'/><Text>{assessmentTool.name}</Text>
                     </Button>)
             }
         );

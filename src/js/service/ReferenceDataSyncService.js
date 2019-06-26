@@ -4,6 +4,7 @@ import ConventionalRestClient from "../framework/http/ConventionalRestClient";
 import AbstractReferenceDataSyncService from "./AbstractReferenceDataSyncService";
 import EntitySyncStatusService from "./EntitySyncStatusService";
 import EntitiesMetaData from "../models/entityMetaData/EntitiesMetaData";
+import _ from "lodash";
 
 @Service("referenceDataSyncService")
 class ReferenceDataSyncService extends AbstractReferenceDataSyncService {

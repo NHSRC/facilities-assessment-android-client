@@ -1,8 +1,9 @@
-import React, {Component} from 'react';
-import {Alert, Dimensions, StyleSheet, Text, View} from 'react-native';
+import React from 'react';
+import {Dimensions, StyleSheet, Text, View} from 'react-native';
 import AbstractComponent from "../common/AbstractComponent";
 import Typography from '../styles/Typography';
 import {formatDateHuman} from "../../utility/DateUtils";
+import PropTypes from 'prop-types';
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
@@ -13,9 +14,9 @@ class AssessmentTitle extends AbstractComponent {
     }
 
     static propTypes = {
-        facilityName: React.PropTypes.string.isRequired,
-        assessmentToolName: React.PropTypes.string.isRequired,
-        assessmentStartDate: React.PropTypes.object.isRequired
+        facilityName: PropTypes.string.isRequired,
+        assessmentToolName: PropTypes.string.isRequired,
+        assessmentStartDate: PropTypes.object.isRequired
     };
 
     static styles = StyleSheet.create({

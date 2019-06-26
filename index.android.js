@@ -2,7 +2,6 @@
 import {AppRegistry, StyleSheet, View, StatusBar} from 'react-native';
 import React, {Component} from 'react';
 import App from './src/js/App';
-import PrimaryColors from './src/js/views/styles/PrimaryColors';
 
 class FacilitiesAssessment extends Component {
 

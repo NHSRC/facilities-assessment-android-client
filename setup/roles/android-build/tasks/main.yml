@@ -1,9 +1,0 @@
----
-- name: Install android-sdk (macOS)
-  homebrew_cask: name=android-sdk state=present
-  tags:
-    - android
-    - brew
-
-- name: Install required Android-SDK Libs
-  script: install_android_libs.sh

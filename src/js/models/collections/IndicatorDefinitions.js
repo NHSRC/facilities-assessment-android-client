@@ -1,4 +1,5 @@
 import IndicatorDefinition from "../IndicatorDefinition";
+import _ from "lodash";
 
 class IndicatorDefinitions {
     static resultsEvalCode(indicatorDefinitions, isOutput) {

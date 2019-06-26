@@ -1,13 +1,13 @@
-import {View} from 'react-native';
 import React from 'react';
 import AbstractComponent from '../common/AbstractComponent';
 import {Text} from "native-base";
+import PropTypes from 'prop-types';
 import _ from "lodash";
 
 class ValidationErrorMessage extends AbstractComponent {
     static propTypes = {
-        validationResult: React.PropTypes.string,
-        customStyle: React.PropTypes.object
+        validationResult: PropTypes.string,
+        customStyle: PropTypes.object
     };
 
     constructor(props, context) {

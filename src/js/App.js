@@ -6,7 +6,7 @@ import Realm from "realm";
 import models from "./models";
 import BeanRegistry from "./framework/bean/BeanRegistry";
 import Logger from "./framework/Logger";
-import Config from "react-native-config";
+import Config from "./framework/Config";
 import {Image, Text, View, Alert, BackAndroid, Clipboard, NativeModules, Platform, Dimensions} from "react-native";
 import SeedProgressService from "./service/SeedProgressService";
 import SeedProgress from "./models/SeedProgress";
@@ -15,8 +15,10 @@ import ErrorHandler from "./utility/ErrorHandler";
 import ProgressBarModal from "./views/progressBar/ProgressBarModal";
 import FlatUITheme from "./views/themes/flatUI";
 import Typography from "./views/styles/Typography";
-import {Button, Header, Icon, Title, Container} from "native-base";
+import {Header, Title, Container} from "native-base";
 import SeedDataService from "./service/SeedDataService";
+import PropTypes from 'prop-types';
+import _ from "lodash";
 
 const nhsrcbanner = require('./views/img/nhsrcbanner.png');
 
@@ -43,8 +45,8 @@ export default class App extends Component {
     }
 
     static childContextTypes = {
-        getStore: React.PropTypes.func.isRequired,
-        getService: React.PropTypes.func.isRequired,
+        getStore: PropTypes.func.isRequired,
+        getService: PropTypes.func.isRequired,
     };
 
     getChildContext = () => ({

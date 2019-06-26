@@ -18,6 +18,7 @@ import EnvironmentConfig from "../../common/EnvironmentConfig";
 import Logger from "../../../framework/Logger";
 import AssessmentIndicators from "../../indicator/AssessmentIndicators";
 import AssessmentTool from "../../../models/AssessmentTool";
+import _ from "lodash";
 
 class StartView extends AbstractComponent {
     constructor(props, context) {

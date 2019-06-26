@@ -12,6 +12,7 @@ import Actions from '../../action';
 import Standards from "../standards/Standards";
 import SearchPage from "../search/SearchPage";
 import Logger from "../../framework/Logger";
+import _ from "lodash";
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;

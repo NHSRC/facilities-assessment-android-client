@@ -7,6 +7,7 @@ import EntitySyncStatusService from "./EntitySyncStatusService";
 import BaseService from "./BaseService";
 import moment from "moment";
 import {NativeModules} from "react-native";
+import _ from "lodash";
 
 const {Restart} = NativeModules;
 

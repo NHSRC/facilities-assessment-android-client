@@ -1,11 +1,12 @@
 import React from "react";
 import AbstractComponent from "../../common/AbstractComponent";
 import {Button} from "native-base";
-import {StyleSheet} from "react-native";
+import {StyleSheet, Text} from "react-native";
 import _ from "lodash";
 import Actions from "../../../action";
 import PrimaryColors from "../../styles/PrimaryColors";
 import {FacilitySelectionState} from "../../../action/facilitySelection";
+import PropTypes from 'prop-types';
 
 class StartNewAssessment extends AbstractComponent {
     static styles = StyleSheet.create({
@@ -15,8 +16,8 @@ class StartNewAssessment extends AbstractComponent {
     });
 
     static propTypes = {
-        data: React.PropTypes.object,
-        mode: React.PropTypes.string.isRequired
+        data: PropTypes.object,
+        mode: PropTypes.string.isRequired
     };
 
     render() {
@@ -30,7 +31,7 @@ class StartNewAssessment extends AbstractComponent {
                 style={isComplete? StartNewAssessment.styles.blockButton : {backgroundColor: PrimaryColors.medium_black}}
                 block
                 disabled={!isComplete}>
-                START NEW ASSESSMENT
+                <Text>START NEW ASSESSMENT</Text>
             </Button>
         );
     }

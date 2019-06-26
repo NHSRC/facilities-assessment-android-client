@@ -9,10 +9,11 @@ import Logger from "../../../framework/Logger";
 import FlatUITheme from "../../themes/flatUI";
 import Typography from "../../styles/Typography";
 import editAssessment from "../../../action/editAssessment";
+import PropTypes from 'prop-types';
 
 class EditAssessment extends AbstractComponent {
     static propTypes = {
-        assessmentUUID: React.PropTypes.string.isRequired
+        assessmentUUID: PropTypes.string.isRequired
     };
 
     constructor(props, context) {

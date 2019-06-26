@@ -6,7 +6,8 @@ import PrimaryColors from "../../styles/PrimaryColors";
 import {Button, Icon} from "native-base";
 import EnvironmentConfig from "../../common/EnvironmentConfig";
 import Typography from "../../styles/Typography";
-
+import PropTypes from 'prop-types';
+import _ from "lodash";
 
 class AssessmentSeries extends AbstractComponent {
     constructor(props, context) {
@@ -14,7 +15,7 @@ class AssessmentSeries extends AbstractComponent {
     }
 
     static propTypes = {
-        series: React.PropTypes.string
+        series: PropTypes.string
     };
 
     static styles = StyleSheet.create({

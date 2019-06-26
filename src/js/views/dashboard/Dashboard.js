@@ -1,14 +1,13 @@
 import React, {Component} from 'react';
-import {Text, StyleSheet, View, ScrollView, Dimensions, Navigator} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 import AbstractComponent from "../common/AbstractComponent";
 import StartView from './start/StartView';
 import FlatUITheme from '../themes/flatUI';
 import OpenView from './open/OpenView';
 import ReportsView from './reports/ReportsView';
-import {Container, Header, Title, Content, Icon, Button, Tabs} from 'native-base';
+import {Container, Header, Title, Content, Icon, Button, Tabs, Tab} from 'native-base';
 import Path from "../../framework/routing/Path";
 import Typography from '../styles/Typography';
-import CustomTabBar from '../common/CustomTabBar';
 import TypedTransition from "../../framework/routing/TypedTransition";
 import Actions from "../../action";
 import bugsnag from "../../utility/Bugsnag";
@@ -54,10 +53,16 @@ class Dashboard extends AbstractComponent {
                             color: "white"
                         }]}>{this.props.params.mode}</Title>
                     </Header>
-                    <Tabs style={StartView.styles.tabs} renderTabBar={() => <CustomTabBar/>}>
-                        <StartView tabLabel="START" {...this.props.params}/>
-                        <OpenView tabLabel="ONGOING" {...this.props.params}/>
-                        <ReportsView tabLabel="REPORTS" {...this.props.params}/>
+                    <Tabs style={StartView.styles.tabs}>
+                        <Tab heading="START">
+                            <StartView {...this.props.params}/>
+                        </Tab>
+                        <Tab heading="ONGOING">
+                            <OpenView {...this.props.params}/>
+                        </Tab>
+                        <Tab heading="REPORTS">
+                            <ReportsView {...this.props.params}/>
+                        </Tab>
                     </Tabs>
                 </Content>
             </Container>

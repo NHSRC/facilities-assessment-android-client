@@ -1,16 +1,17 @@
 'use strict';
 
 import React from "react";
-import NativeBaseComponent from "native-base/dist/Components/Base/NativeBaseComponent";
+// import NativeBaseComponent from "native-base/dist/Components/Base/NativeBaseComponent";
 import {Text} from "native-base";
 
 import {Animated, Dimensions, TouchableHighlight, View} from "react-native";
 import Fonts from "../styles/Fonts";
 import bugsnag from "../../utility/Bugsnag";
+import PropTypes from 'prop-types';
 
 const deviceWidth = Dimensions.get('window').width;
 
-export default class CustomTabBar extends NativeBaseComponent {
+export default class CustomTabBar /*extends NativeBaseComponent*/ {
     getInitialStyle() {
         return {
             tab: {
@@ -28,9 +29,9 @@ export default class CustomTabBar extends NativeBaseComponent {
     }
 
     static propTypes = {
-        goToPage: React.PropTypes.func,
-        activeTab: React.PropTypes.number,
-        tabs: React.PropTypes.array
+        goToPage: PropTypes.func,
+        activeTab: PropTypes.number,
+        tabs: PropTypes.array
     };
 
     renderTabOption(name, page) {

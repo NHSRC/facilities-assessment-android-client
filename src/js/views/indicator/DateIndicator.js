@@ -1,6 +1,6 @@
 import {DatePickerAndroid, DatePickerIOS, Modal, Platform, StyleSheet, Text, View} from 'react-native';
 import {Button} from "native-base";
-import React, {Component} from 'react';
+import React from 'react';
 import AbstractComponent from '../common/AbstractComponent';
 import _ from "lodash";
 import ValidationErrorMessage from "./ValidationErrorMessage";
@@ -8,6 +8,7 @@ import General from "../../utility/General";
 import Actions from '../../action';
 import FieldLabel from "../common/FieldLabel";
 import PrimaryColors from "../styles/PrimaryColors";
+import PropTypes from 'prop-types';
 
 class DateIndicator extends AbstractComponent {
     static MODE_MONTH = 1;
@@ -18,11 +19,11 @@ class DateIndicator extends AbstractComponent {
     }
 
     static propTypes = {
-        definition: React.PropTypes.object.isRequired,
-        indicator: React.PropTypes.object,
-        mode: React.PropTypes.number.isRequired,
-        validationError: React.PropTypes.string,
-        editing: React.PropTypes.bool
+        definition: PropTypes.object.isRequired,
+        indicator: PropTypes.object,
+        mode: PropTypes.number.isRequired,
+        validationError: PropTypes.string,
+        editing: PropTypes.bool
     };
 
     dateDisplay() {
@@ -63,7 +64,7 @@ class DateIndicator extends AbstractComponent {
                 <FieldLabel text={this.getTitle()} style={{color: 'white', backgroundColor: PrimaryColors.header, paddingLeft: 10, height: 40, padding: 10}}/>
                 <DatePickerIOS date={date} onDateChange={(date) => this.dispatchDateChange(date, true)} mode="date" style={{backgroundColor: 'white'}}/>
                 <Button style={{backgroundColor: PrimaryColors.blue, alignSelf: 'stretch'}} block
-                        onPress={() => this.dispatchDateChange(date, false)}>Done</Button>
+                        onPress={() => this.dispatchDateChange(date, false)}><Text>Done</Text></Button>
             </View>
         </Modal>;
     }

@@ -10,11 +10,9 @@ uninstall-android-app:
 	$(call uninstall_android)
 
 install-android-app:
-	$(call _setup_hosts)
 	$(call _install_apk,$(emulator_apk_path))
 
 install-android-app-universal:
-	$(call _setup_hosts)
 	$(call _install_apk,$(emulator_apk_path_universal))
 
 reinstall-android-app: uninstall-android-app install-android-app
@@ -44,6 +42,3 @@ log_all:
 open-in-playstore-android:
 	$(call _kill_app,com.google.android.gms)
 	adb shell am start -a android.intent.action.VIEW -d 'market://details?id=$(android_package_name)'
-
-setup-hosts:
-	$(call _setup_hosts)

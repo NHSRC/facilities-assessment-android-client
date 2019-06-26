@@ -5,6 +5,7 @@ import SeedDataService from "../service/SeedDataService";
 import Logger from "../framework/Logger";
 import BatchRequest from "../framework/http/BatchRequest";
 import EnvironmentConfig from "../views/common/EnvironmentConfig";
+import _ from "lodash";
 
 const initialSettings = function (state, action, beans) {
     const settingsService = beans.get(SettingsService);

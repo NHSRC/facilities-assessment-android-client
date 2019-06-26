@@ -3,6 +3,7 @@ import {Dimensions, View, Text, TouchableWithoutFeedback, StyleSheet} from 'reac
 import AbstractComponent from "../common/AbstractComponent";
 import PrimaryColors from "../styles/PrimaryColors";
 import Typography from "../styles/Typography";
+import _ from "lodash";
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
