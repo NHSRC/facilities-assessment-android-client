@@ -1,12 +1,12 @@
 import _ from "lodash";
-import {BackAndroid} from 'react-native';
+import {BackHandler} from 'react-native';
 import Logger from "../Logger";
 
 class AndroidBackListeners {
     constructor(router) {
         this.router = router;
         this.viewListeners = [];
-        BackAndroid.addEventListener('hardwareBackPress', this.backPressed.bind(this));
+        BackHandler.addEventListener('hardwareBackPress', this.backPressed.bind(this));
     }
 
     backPressed() {
@@ -21,7 +21,7 @@ class AndroidBackListeners {
     }
 
     remove() {
-        BackAndroid.removeEventListener('hardwareBackPress');
+        BackHandler.removeEventListener('hardwareBackPress');
     }
 
     logListeners() {

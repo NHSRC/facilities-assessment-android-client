@@ -1,5 +1,5 @@
 import React from "react";
-import {Dimensions, Modal, StyleSheet, View, BackAndroid} from "react-native";
+import {Dimensions, Modal, StyleSheet, View, BackHandler} from "react-native";
 import ViewComponent from "../common/ViewComponent";
 import FlatUITheme from "../themes/flatUI";
 import {Button, Container, Content, Header, Icon, Title} from "native-base";
@@ -86,7 +86,7 @@ class Reports extends ViewComponent {
 
     componentDidMount() {
         super.componentDidMount();
-        BackAndroid.addEventListener('hardwareBackPress', () => {
+        BackHandler.addEventListener('hardwareBackPress', () => {
             this._onBack();
         });
     }

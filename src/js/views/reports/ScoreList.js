@@ -1,21 +1,15 @@
-import React, {Component} from 'react';
-import {Text, StyleSheet, View, ScrollView, Dimensions, Navigator} from 'react-native';
+import React from 'react';
+import {Text, StyleSheet, View, Dimensions} from 'react-native';
 import AbstractComponent from "../common/AbstractComponent";
-import FlatUITheme from '../themes/flatUI';
-import {Badge, List, ListItem} from 'native-base';
-import Path from "../../framework/routing/Path";
+import {List, ListItem} from 'native-base';
 import Typography from '../styles/Typography';
 import PrimaryColors from '../styles/PrimaryColors';
 import TypedTransition from "../../framework/routing/TypedTransition";
 import Actions from '../../action';
-import TabBar from "./TabBar";
 import _ from 'lodash';
-import DrillDownView from '../drillDown/DrillDownView';
 import Reports from "./Reports";
-import Logger from "../../framework/Logger";
+import {Navigator} from 'react-native-deprecated-custom-components';
 
-
-const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
 
 class ScoreList extends AbstractComponent {

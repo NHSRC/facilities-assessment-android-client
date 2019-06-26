@@ -7,7 +7,7 @@ import models from "./models";
 import BeanRegistry from "./framework/bean/BeanRegistry";
 import Logger from "./framework/Logger";
 import Config from "./framework/Config";
-import {Image, Text, View, Alert, BackAndroid, Clipboard, NativeModules, Platform, Dimensions} from "react-native";
+import {Image, Text, View, Alert, BackHandler, Clipboard, NativeModules, Platform, Dimensions} from "react-native";
 import SeedProgressService from "./service/SeedProgressService";
 import SeedProgress from "./models/SeedProgress";
 import EnvironmentConfig from "./views/common/EnvironmentConfig";
@@ -116,7 +116,7 @@ export default class App extends Component {
     }
 
     static onExit() {
-        BackAndroid.exitApp();
+        BackHandler.exitApp();
     }
 
     render() {

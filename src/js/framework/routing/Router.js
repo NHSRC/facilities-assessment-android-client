@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import {View, Navigator, Platform} from 'react-native';
+import {View, Platform} from 'react-native';
 import AndroidBackListeners from "../view/AndroidBackListeners";
 import iOSBackListeners from "../view/iOSBackListeners";
 import PropTypes from 'prop-types';
+import {Navigator} from 'react-native-deprecated-custom-components';
 
 export default class Router extends Component {
 

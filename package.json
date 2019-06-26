@@ -34,7 +34,8 @@
     "stacktrace-js": "2.0.0",
     "transducers-js": "0.4.174",
     "url-parse": "1.4.7",
-    "prop-types": "15.7.2"
+    "prop-types": "15.7.2",
+    "react-native-deprecated-custom-components": "^0.1.2"
   },
   "devDependencies": {
     "@babel/core": "7.4.4",

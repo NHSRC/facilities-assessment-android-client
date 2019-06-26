@@ -1,5 +1,5 @@
 import React from "react";
-import {ActivityIndicator, Alert, Dimensions, Image, Navigator, StyleSheet, Text, TouchableWithoutFeedback, View} from "react-native";
+import {ActivityIndicator, Alert, Dimensions, Image, StyleSheet, Text, TouchableWithoutFeedback, View} from "react-native";
 import {Button, Container, Content, Header, Icon, Title} from "native-base";
 import ViewComponent from "../common/ViewComponent";
 import FlatUITheme from "../themes/flatUI";
@@ -13,6 +13,7 @@ import EnvironmentConfig from "../common/EnvironmentConfig";
 import Actions from "../../action";
 import StateSelection from "../initialSetup/StateSelection";
 import _ from 'lodash';
+import {Navigator} from 'react-native-deprecated-custom-components';
 
 const nqasIcon = require('../img/nqas.png');
 const kayakalpIcon = require('../img/kayakalp.png');
