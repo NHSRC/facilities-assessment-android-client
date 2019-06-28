@@ -4,6 +4,7 @@ import {Button} from 'native-base';
 import {StyleSheet} from 'react-native';
 import PrimaryColors from "../styles/PrimaryColors";
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 
 class SubmitButton extends AbstractComponent {
     static styles = StyleSheet.create({

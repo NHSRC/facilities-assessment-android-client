@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
-import {ActivityIndicator, Dimensions, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React from 'react';
+import {ActivityIndicator, Dimensions, StyleSheet, TouchableOpacity} from 'react-native';
 import AbstractComponent from "../../common/AbstractComponent";
 import Typography from '../../styles/Typography';
 import PrimaryColors from '../../styles/PrimaryColors';
 import _ from 'lodash';
-
+import {View, Text} from 'native-base';
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceheight = Dimensions.get('window').height;

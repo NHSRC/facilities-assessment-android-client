@@ -64,7 +64,7 @@ class FacilityAssessmentService extends BaseService {
     }
 
     getAssessmentTool(assessmentToolUUID) {
-        return Object.assign({}, this.db.objectForPrimaryKey(AssessmentTool.schema.name, assessmentToolUUID));
+        return _.assignIn({}, this.db.objectForPrimaryKey(AssessmentTool.schema.name, assessmentToolUUID));
     }
 
     getAssessmentType(assessmentTypeUUID) {

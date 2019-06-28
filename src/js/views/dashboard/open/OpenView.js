@@ -1,5 +1,6 @@
-import React, {Component} from 'react';
-import {Alert, Modal, View} from 'react-native';
+import React from 'react';
+import {Alert, Modal} from 'react-native';
+import {View} from 'native-base';
 import AbstractComponent from "../../common/AbstractComponent";
 import Actions from '../../../action';
 import Dashboard from '../Dashboard';
@@ -10,9 +11,7 @@ import ChecklistSelection from "../../checklistSelection/ChecklistSelection";
 import Logger from "../../../framework/Logger";
 import AssessmentIndicators from "../../indicator/AssessmentIndicators";
 import SubmitAssessment from "./SubmitAssessment";
-import FacilityAssessment from "../../../models/FacilityAssessment";
 import AssessmentTool from "../../../models/AssessmentTool";
-
 
 class OpenView extends AbstractComponent {
     constructor(props, context) {
