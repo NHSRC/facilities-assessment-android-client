@@ -58,7 +58,7 @@ class FacilitiesService extends BaseService {
         if (_.isNil(facilityTypeUUID) && EnvironmentConfig.inDeveloperMode) {
             return this.getFacilityTypes()[0];
         }
-        return Object.assign({}, this.db.objectForPrimaryKey(FacilityType.schema.name, facilityTypeUUID));
+        return _.assignIn({}, this.db.objectForPrimaryKey(FacilityType.schema.name, facilityTypeUUID));
     }
 
     getDistrictForFacility(facilityUUID) {
@@ -82,8 +82,8 @@ class FacilitiesService extends BaseService {
     }
 
     getFacility(facilityUUID) {
-        const facility = Object.assign({}, this.db.objectForPrimaryKey(Facility.schema.name, facilityUUID));
-        return Object.assign({}, facility, {facilityType: this.getFacilityType(facility.facilityType)})
+        const facility = _.assignIn({}, this.db.objectForPrimaryKey(Facility.schema.name, facilityUUID));
+        return _.assignIn({}, facility, {facilityType: this.getFacilityType(facility.facilityType)})
     }
 }
 

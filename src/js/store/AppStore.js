@@ -5,13 +5,13 @@ import initReducers from '../reducer';
 function AppStoreFactory(beans, errorCallback) {
     let store = createStore(combineReducers(initReducers(beans, errorCallback)));
     store.subscribeTo = (stateKey, handler) => {
-        let prevState = Object.assign({}, store.getState()[stateKey]);
+        let prevState = _.assignIn({}, store.getState()[stateKey]);
         const handlerWrapper = () => {
-            const nextState = Object.assign({}, store.getState()[stateKey]);
+            const nextState = _.assignIn({}, store.getState()[stateKey]);
             if (!_.isEqual(nextState, prevState)) {
                 handler();
             }
-            prevState = Object.assign({}, nextState);
+            prevState = _.assignIn({}, nextState);
         };
         return store.subscribe(handlerWrapper);
     };

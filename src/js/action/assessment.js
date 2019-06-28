@@ -13,7 +13,7 @@ const getCheckpoints = function (state, actions, beans) {
     const checkpoints = checklistService
         .getCheckpointsFor(actionParams.checklist.uuid, actionParams.areaOfConcern.uuid, actionParams.standard.uuid);
     const checkpointScores = checkpoints
-        .map((checkpoint) => Object.assign({}, checkpoint,
+        .map((checkpoint) => _.assignIn({}, checkpoint,
             {measurableElement: checklistService.getMeasurableElement(checkpoint.measurableElement)}))
         .map((checkpoint) =>
             Object.assign(assessmentService
@@ -35,7 +35,7 @@ const getCheckpoints = function (state, actions, beans) {
 
 const updateCheckpoint = function (state, actionParams, beans) {
     const metaCheckpoint = actionParams.checkpoint.checkpoint;
-    const checkpointToUpdate = Object.assign({},
+    const checkpointToUpdate = _.assignIn({},
         actionParams.checkpoint,
         {checkpoint: metaCheckpoint.uuid});
     const assessmentService = beans.get(AssessmentService);
@@ -43,8 +43,8 @@ const updateCheckpoint = function (state, actionParams, beans) {
     const checkpoints = state.checkpoints
         .map((checkpoint) =>
             checkpoint.uuid === actionParams.checkpoint.uuid ?
-                Object.assign({}, savedCheckpoint, {checkpoint: metaCheckpoint}) : checkpoint);
-    return Object.assign({}, state, {checkpoints: checkpoints, pageChanged: false});
+                _.assignIn({}, savedCheckpoint, {checkpoint: metaCheckpoint}) : checkpoint);
+    return _.assignIn({}, state, {checkpoints: checkpoints, pageChanged: false});
 };
 
 const changePage = function (state, actionParams, beans) {

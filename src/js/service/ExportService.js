@@ -32,7 +32,7 @@ class ExportService extends BaseService {
         const fullCheckpoint = this.db.objectForPrimaryKey(Checkpoint.schema.name, checkpoint.checkpoint);
         const {name, reference} = this.db.objectForPrimaryKey(MeasurableElement.schema.name,
             fullCheckpoint.measurableElement);
-        return Object.assign({}, checkpoint, {
+        return _.assignIn({}, checkpoint, {
             measurableElement: name,
             measurableElementReference: reference,
             checkpoint: fullCheckpoint.name
@@ -41,17 +41,17 @@ class ExportService extends BaseService {
 
     backfillStandard(checkpoint) {
         const {name, reference} = this.db.objectForPrimaryKey(Standard.schema.name, checkpoint.standard);
-        return Object.assign({}, checkpoint, {standardReference: reference, standard: name});
+        return _.assignIn({}, checkpoint, {standardReference: reference, standard: name});
     }
 
     backfillAreaOfConcern(checkpoint) {
         const {reference, name} = this.db.objectForPrimaryKey(AreaOfConcern.schema.name, checkpoint.areaOfConcern);
-        return Object.assign({}, checkpoint, {areaOfConcernReference: reference, areaOfConcern: name});
+        return _.assignIn({}, checkpoint, {areaOfConcernReference: reference, areaOfConcern: name});
     }
 
     backfillChecklist(checkpoint) {
         const checklistName = this.db.objectForPrimaryKey(Checklist.schema.name, checkpoint.checklist).name;
-        return Object.assign({}, checkpoint, {checklist: checklistName});
+        return _.assignIn({}, checkpoint, {checklist: checklistName});
     }
 
     generateMetadata(facilityAssessment, suffix = "", extension = ".csv") {

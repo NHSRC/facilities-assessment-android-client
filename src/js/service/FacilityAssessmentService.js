@@ -21,7 +21,7 @@ class FacilityAssessmentService extends BaseService {
     }
 
     saveSubmissionDetails(facilityAssessment) {
-        const existingAssessment = Object.assign({}, this.db.objectForPrimaryKey(FacilityAssessment.schema.name, facilityAssessment.uuid));
+        const existingAssessment = _.assignIn({}, this.db.objectForPrimaryKey(FacilityAssessment.schema.name, facilityAssessment.uuid));
         return this.saveAssessment(Object.assign(existingAssessment, {
             assessorName: facilityAssessment.assessorName,
             seriesName: facilityAssessment.seriesName
@@ -39,7 +39,7 @@ class FacilityAssessmentService extends BaseService {
     }
 
     getExistingAssessment(facility, assessmentTool, assessmentType) {
-        return Object.assign({}, this.db.objects(FacilityAssessment.schema.name)
+        return _.assignIn({}, this.db.objects(FacilityAssessment.schema.name)
             .filtered(`facility = $0 AND assessmentTool = $1 AND assessmentType = $2 AND endDate = null`,
                 facility.uuid, assessmentTool.uuid, assessmentType.uuid)[0]);
     }
@@ -58,7 +58,7 @@ class FacilityAssessmentService extends BaseService {
     }
 
     endAssessment(facilityAssessment) {
-        const existingAssessment = Object.assign({}, this.db.objectForPrimaryKey(FacilityAssessment.schema.name, facilityAssessment.uuid));
+        const existingAssessment = _.assignIn({}, this.db.objectForPrimaryKey(FacilityAssessment.schema.name, facilityAssessment.uuid));
         return this.saveAssessment(Object.assign(existingAssessment, {
             endDate: new Date()
         }));
@@ -69,7 +69,7 @@ class FacilityAssessmentService extends BaseService {
     }
 
     getAssessmentType(assessmentTypeUUID) {
-        return Object.assign({}, this.db.objectForPrimaryKey(AssessmentType.schema.name, assessmentTypeUUID));
+        return _.assignIn({}, this.db.objectForPrimaryKey(AssessmentType.schema.name, assessmentTypeUUID));
     }
 
     getAssessmentsWithCriteria(mode) {
@@ -84,7 +84,7 @@ class FacilityAssessmentService extends BaseService {
 
     _associateObjects(assessment) {
         const facilityService = this.getService(FacilityService);
-        return Object.assign({}, assessment, {
+        return _.assignIn({}, assessment, {
             facility: facilityService.getFacility(assessment.facility),
             state: facilityService.getStateForFacility(assessment.facility),
             assessmentTool: this.getAssessmentTool(assessment.assessmentTool),

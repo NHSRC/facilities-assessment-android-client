@@ -20,7 +20,7 @@ class Standard {
     };
 
     static fromDB(realmObj) {
-        realmObj = Object.assign({}, realmObj);
+        realmObj = _.assignIn({}, realmObj);
         realmObj.measurableElements = realmObj.measurableElements.map(MeasurableElements.fromDB);
         return realmObj;
     }

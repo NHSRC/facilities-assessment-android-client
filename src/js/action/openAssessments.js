@@ -69,9 +69,9 @@ const markAssessmentUnsubmitted = function (state, action, beans) {
 };
 
 const _updateSubmittingAssessment = function (state, updateObject) {
-    let newState = {submittingAssessment: Object.assign({}, state.submittingAssessment, updateObject)};
+    let newState = {submittingAssessment: _.assignIn({}, state.submittingAssessment, updateObject)};
     newState.submissionDetailAvailable = FacilityAssessment.submissionDetailsAvailable(newState.submittingAssessment, newState.submittingAssessment.assessmentTool);
-    return Object.assign({}, state, newState);
+    return _.assignIn({}, state, newState);
 };
 
 const enterAssessorName = function (state, action, beans) {

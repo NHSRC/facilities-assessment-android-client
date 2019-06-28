@@ -3,6 +3,7 @@ import ResourceUtil from "../utility/ResourceUtil";
 import General from "../utility/General";
 import BaseEntity from "./BaseEntity";
 import EntityMetaData from "./entityMetaData/EntityMetaData";
+import _ from 'lodash';
 
 class AreaOfConcern {
     static schema = {
@@ -17,7 +18,7 @@ class AreaOfConcern {
     };
 
     static fromDB(realmObj) {
-        realmObj = Object.assign({}, realmObj);
+        realmObj = _.assignIn({}, realmObj);
         realmObj.standards = realmObj.standards.map(Standard.fromDB);
         return realmObj;
     }
