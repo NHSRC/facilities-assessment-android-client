@@ -17,6 +17,7 @@ class FacilityType extends AbstractComponent {
         const selectedFacilityType = this.props.data.selectedFacilityType;
         return (
             <AssessmentPicker
+                optStyles={{flex: 1}}
                 message="Select Facility Type"
                 items={facilityTypes}
                 action={Actions.SELECT_FACILITY_TYPE}

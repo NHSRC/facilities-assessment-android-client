@@ -1,8 +1,7 @@
 import React from "react";
 import AbstractComponent from "../../common/AbstractComponent";
-import {Button} from "native-base";
-import {StyleSheet, Text} from "react-native";
-import _ from "lodash";
+import {Button, Text} from "native-base";
+import {StyleSheet} from "react-native";
 import Actions from "../../../action";
 import PrimaryColors from "../../styles/PrimaryColors";
 import {FacilitySelectionState} from "../../../action/facilitySelection";
@@ -28,7 +27,7 @@ class StartNewAssessment extends AbstractComponent {
                     this.dispatchAction(Actions.FACILITY_SELECT);
                     this.dispatchAction(Actions.ALL_ASSESSMENTS, {mode: this.props.mode});
                 }}
-                style={isComplete? StartNewAssessment.styles.blockButton : {backgroundColor: PrimaryColors.medium_black}}
+                style={[isComplete? StartNewAssessment.styles.blockButton : {backgroundColor: PrimaryColors.dark_white}, {flex: 1}]}
                 block
                 disabled={!isComplete}>
                 <Text>START NEW ASSESSMENT</Text>

@@ -321,7 +321,7 @@ export default (variables /*: * */ = variable) => {
       marginRight: 0,
       color: variables.inverseTextColor,
       fontSize: variables.btnTextSize,
-      paddingHorizontal: 16,
+      paddingHorizontal: 2,
       backgroundColor: "transparent"
       // childPosition: 1
     },
@@ -345,11 +345,11 @@ export default (variables /*: * */ = variable) => {
       },
       "NativeBase.IconNB": {
         marginRight: 0,
-        marginLeft: 16
+        marginLeft: 3
       },
       "NativeBase.Icon": {
-        marginRight: 0,
-        marginLeft: 16
+        marginRight: 2,
+        marginLeft: 3
       }
     },
     ".iconRight": {

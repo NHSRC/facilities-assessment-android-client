@@ -1,8 +1,7 @@
 import React from "react";
 import {ActivityIndicator, Alert, Dimensions, Image, StyleSheet, Text, TouchableWithoutFeedback, View} from "react-native";
-import {Button, Container, Content, Header, Icon, Title} from "native-base";
+import {Button, Content, Header, Body, Icon, Title, StyleProvider, Left, Container} from "native-base";
 import ViewComponent from "../common/ViewComponent";
-import FlatUITheme from "../themes/flatUI";
 import TypedTransition from "../../framework/routing/TypedTransition";
 import Path from "../../framework/routing/Path";
 import Typography from "../styles/Typography";
@@ -14,6 +13,9 @@ import Actions from "../../action";
 import StateSelection from "../initialSetup/StateSelection";
 import _ from 'lodash';
 import {Navigator} from 'react-native-deprecated-custom-components';
+import getTheme from "../../native-base-theme/components";
+import platformTheme from "../../native-base-theme/variables/platform";
+import GunakButton from "../common/buttons/GunakButton";
 
 const nqasIcon = require('../img/nqas.png');
 const kayakalpIcon = require('../img/kayakalp.png');
@@ -113,26 +115,29 @@ class ModeSelection extends ViewComponent {
     render() {
         Logger.logDebug('ModeSelection', 'render');
         return (
-            <Container theme={FlatUITheme}>
-                <Header style={FlatUITheme.header}>
-                    {EnvironmentConfig.isEmulated ?
-                        <Button
-                            onPress={() => TypedTransition.from(this)
-                                .with({
-                                    cb: () => {
-                                    }
-                                })
-                                .to(Settings, Navigator.SceneConfigs.FloatFromLeft)}
-                            transparent>
-                            <Icon style={{marginTop: 8, color: 'white'}} name="menu"/>
-                        </Button> : <View/>}
-                    <Title style={[Typography.paperFontTitle, {
-                        fontWeight: 'bold',
-                        color: 'white'
-                    }]}>GUNAK (गुणक)</Title>
-                </Header>
-                <Content>
-                    <View style={ModeSelection.styles.container}>
+            <StyleProvider style={getTheme(platformTheme)}>
+                <Container>
+                    <Header>
+                        {EnvironmentConfig.isEmulated ?
+                            <Left>
+                                <Button
+                                    onPress={() => TypedTransition.from(this)
+                                        .with({
+                                            cb: () => {
+                                            }
+                                        })
+                                        .to(Settings, Navigator.SceneConfigs.FloatFromLeft)}
+                                    transparent>
+                                    <Icon style={{marginTop: 8, color: 'white'}} name="menu"/>
+                                </Button></Left> : <View/>}
+                        <Body>
+                            <Title style={[Typography.paperFontTitle, {
+                                fontWeight: 'bold',
+                                color: 'white'
+                            }]}>GUNAK (गुणक)</Title>
+                        </Body>
+                    </Header>
+                    <Content contentContainerStyle={ModeSelection.styles.container}>
                         <View style={[ModeSelection.styles.modeContainer]}>
                             {this.getMode("NQAS", nqasIcon)}
                             {this.getMode("Kayakalp", kayakalpIcon)}
@@ -143,21 +148,20 @@ class ModeSelection extends ViewComponent {
                             {this.getMode("ANC Program", null, false)}
                         </View>
                         <View style={{flexDirection: 'row', justifyContent: 'center', marginVertical: 60, flexWrap: 'wrap'}}>
-                            <Button
-                                style={{borderWidth: 1, marginRight: 10, marginBottom: 10}} bordered transparent
-                                onPress={() => this.downloadChecklistMetadata()}><Text>{this.downloadButtonContent("Update Checklists/Facilities")}</Text></Button>
-                            <Button
-                                style={{borderWidth: 1, marginRight: 10, marginBottom: 10}} bordered transparent
-                                onPress={() => this.downloadMyAssessments()}><Text>{this.downloadButtonContent("Download My Assessments")}</Text></Button>
-                            {this.state.statesAvailableToBeLoaded ? <Button
-                                style={{borderWidth: 1, marginBottom: 10}}
-                                bordered transparent
-                                onPress={() => this.addNewState()}><Text>{this.downloadButtonContent("Add State")}</Text></Button> : null}
+                            <GunakButton style={{margin: 10}}
+                                 info
+                                onPress={() => this.downloadChecklistMetadata()}><Text>{this.downloadButtonContent("Update Checklists/Facilities")}</Text></GunakButton>
+                            <GunakButton style={{margin: 10}}
+                                info
+                                onPress={() => this.downloadMyAssessments()}><Text>{this.downloadButtonContent("Download My Assessments")}</Text></GunakButton>
+                            {this.state.statesAvailableToBeLoaded ? <GunakButton style={{margin: 10}}
+                                info
+                                onPress={() => this.addNewState()}><Text>{this.downloadButtonContent("Add State")}</Text></GunakButton> : null}
                         </View>
-                    </View>
-                </Content>
-                <Image resizeMode="contain" style={{width: deviceWidth}} source={nhsrcbanner}/>
-            </Container>
+                    </Content>
+                    <Image resizeMode="contain" style={{width: deviceWidth}} source={nhsrcbanner}/>
+                </Container>
+            </StyleProvider>
         );
     }
 

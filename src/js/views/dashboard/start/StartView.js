@@ -1,5 +1,5 @@
 import React from "react";
-import {StyleSheet, View} from "react-native";
+import {StyleSheet, View, Dimensions} from "react-native";
 import AbstractComponent from "../../common/AbstractComponent";
 import {List, ListItem} from "native-base";
 import Dashboard from "../Dashboard";
@@ -13,7 +13,6 @@ import StartNewAssessment from "./StartNewAssessment";
 import TypedTransition from "../../../framework/routing/TypedTransition";
 import ChecklistSelection from "../../checklistSelection/ChecklistSelection";
 import FacilityText from "./FacilityText";
-import AssessmentSeries from "./AssessmentSeries";
 import EnvironmentConfig from "../../common/EnvironmentConfig";
 import Logger from "../../../framework/Logger";
 import AssessmentIndicators from "../../indicator/AssessmentIndicators";
@@ -30,6 +29,7 @@ class StartView extends AbstractComponent {
         formRow: {
             borderBottomWidth: 0,
             marginLeft: 0,
+            paddingRight: 0
         },
     });
 

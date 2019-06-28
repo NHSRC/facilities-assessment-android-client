@@ -8,7 +8,8 @@ import Typography from "../styles/Typography";
 
 class GunakContainer extends React.Component {
     static propTypes = {
-        title: PropTypes.string.isRequired
+        title: PropTypes.string.isRequired,
+        onHeaderButtonPress: PropTypes.func
     };
 
     render() {
@@ -16,7 +17,7 @@ class GunakContainer extends React.Component {
             <Container>
                 <Header>
                     <Left>
-                        <Button transparent onPress={() => TypedTransition.from(this).goBack()}>
+                        <Button transparent onPress={this.props.onHeaderButtonPress ? this.props.onHeaderButtonPress : () => TypedTransition.from(this).goBack()}>
                             <Icon style={{marginTop: 5, color: "white"}} name='arrow-back'/>
                         </Button>
                     </Left>
@@ -26,7 +27,7 @@ class GunakContainer extends React.Component {
                         }]}>{this.props.title}</Title>
                     </Body>
                 </Header>
-                <Content contentContainerStyle={{flexDirection: 'column', margin: 8, justifyContent: 'center', alignItems: 'center'}}>
+                <Content contentContainerStyle={{flexDirection: 'column', paddingHorizontal: 6, justifyContent: 'center', alignItems: 'center'}} keyboardShouldPersistTaps={'always'}>
                     {this.props.children}
                 </Content>
             </Container>

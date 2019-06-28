@@ -25,7 +25,7 @@ class StateDistrict extends AbstractComponent {
         return (
             <View style={StateDistrict.styles.stateDistrict}>
                 <AssessmentPicker
-                    optStyles={{marginRight: deviceWidth * 0.04}}
+                    optStyles={{marginRight: deviceWidth * 0.04, flex: 0.5}}
                     message="Select State"
                     items={states}
                     action={Actions.SELECT_STATE}
@@ -33,6 +33,7 @@ class StateDistrict extends AbstractComponent {
                     selectedValue={selectedState}
                 />
                 <AssessmentPicker
+                    optStyles={{flex: 0.5}}
                     message="Select District"
                     items={districts}
                     action={Actions.SELECT_DISTRICT}

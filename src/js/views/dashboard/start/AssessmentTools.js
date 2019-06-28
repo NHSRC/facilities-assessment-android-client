@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
-import {Text, StyleSheet, View, Dimensions} from 'react-native';
+import {StyleSheet, View, Dimensions} from 'react-native';
 import AbstractComponent from "../../common/AbstractComponent";
 import Actions from "../../../action";
-import {Button, Icon} from 'native-base';
+import {Text, Button, Icon} from 'native-base';
 import Typography from '../../styles/Typography';
 import PrimaryColors from "../../styles/PrimaryColors";
 import _ from 'lodash';
-import Logger from "../../../framework/Logger";
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceheight = Dimensions.get('window').height;
@@ -21,7 +20,7 @@ class AssessmentTools extends AbstractComponent {
             color: "white",
         },
         inactiveButton: {
-            width: deviceWidth * 0.43,
+            width: deviceWidth * 0.44,
             paddingTop: 16,
             paddingBottom: 16,
             marginTop: deviceheight * 0.02667,
@@ -32,7 +31,7 @@ class AssessmentTools extends AbstractComponent {
             shadowOffset: {width: 0, height: 0},
         },
         activeButton: {
-            width: deviceWidth * 0.43,
+            width: deviceWidth * 0.44,
             paddingTop: 16,
             paddingBottom: 16,
             marginTop: deviceheight * 0.02667,
@@ -41,14 +40,6 @@ class AssessmentTools extends AbstractComponent {
             justifyContent: 'flex-start',
             elevation: 0,
             shadowOffset: {width: 0, height: 0},
-        },
-        inactiveText: {
-            color: PrimaryColors.subheader_black,
-            fontSize: 13
-        },
-        activeText: {
-            color: "#FFF",
-            fontSize: 13
         },
         buttonsContainer: {
             flexDirection: 'row',
@@ -69,13 +60,14 @@ class AssessmentTools extends AbstractComponent {
                     _.isEmpty(selectedAssessmentTool) ? false : selectedAssessmentTool.uuid === assessmentTool.uuid;
                 return (
                     <Button
+                        light={!isSelected}
+                        dark={isSelected}
                         key={idx}
                         style={isSelected ? AssessmentTools.styles.activeButton : AssessmentTools.styles.inactiveButton}
-                        textStyle={isSelected ? AssessmentTools.styles.activeText : AssessmentTools.styles.inactiveText}
                         iconLeft={true}
                         onPress={this.onSelect(assessmentTool)}>
-                        <Icon style={{fontSize: 20, color: isSelected ? "white" : PrimaryColors.subheader_black}}
-                              name='assessment'/><Text>{assessmentTool.name}</Text>
+                        <Icon style={{color: isSelected ? "white" : PrimaryColors.subheader_black}}
+                              name='list-box'/><Text>{assessmentTool.name}</Text>
                     </Button>)
             }
         );

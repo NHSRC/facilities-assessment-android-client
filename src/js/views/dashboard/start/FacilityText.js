@@ -17,7 +17,8 @@ class FacilityText extends AbstractComponent {
             height: 40,
             paddingLeft: 8,
             borderColor: 'grey',
-            borderWidth: Platform.OS === 'ios' ? 0.5 : 0
+            borderWidth: Platform.OS === 'ios' ? 0.5 : 0,
+            flex: 1
         }
     });
 

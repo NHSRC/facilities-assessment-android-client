@@ -15,7 +15,6 @@ class AssessmentPicker extends AbstractComponent {
 
     static styles = StyleSheet.create({
         pickerContainer: {
-            flex: .5,
             borderBottomWidth: 1,
             borderBottomColor: PrimaryColors["dark_white"],
             borderStyle: "solid",

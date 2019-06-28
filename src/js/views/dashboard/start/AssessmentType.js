@@ -23,6 +23,7 @@ class AssessmentType extends AbstractComponent {
         const selectedAssessmentType = this.props.data.selectedAssessmentType;
         return (
             <AssessmentPicker
+                optStyles={{flex: 1}}
                 message="Select Assessment Type"
                 items={assessmentTypes}
                 action={`${Actions.SELECT_ASSESSMENT_TYPE}${this.props.actionSuffix}`}
