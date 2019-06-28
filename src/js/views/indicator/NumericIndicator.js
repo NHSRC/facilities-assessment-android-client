@@ -1,5 +1,5 @@
-import {Platform, StyleSheet, Text, TextInput, View} from 'react-native';
-import React, {Component} from 'react';
+import {Platform, StyleSheet, TextInput, View} from 'react-native';
+import React from 'react';
 import AbstractComponent from '../common/AbstractComponent';
 import FieldLabel from "../common/FieldLabel";
 import ValidationErrorMessage from "./ValidationErrorMessage";

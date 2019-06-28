@@ -1,8 +1,8 @@
-import {Alert, ActivityIndicator, StyleSheet, Text, TouchableHighlight, View} from 'react-native';
+import {ActivityIndicator, Alert, StyleSheet, Text, TouchableHighlight, View} from 'react-native';
 import React from 'react';
 import AbstractComponent from "../common/AbstractComponent";
 import Path, {PathRoot} from "../../framework/routing/Path";
-import {Button, Container, Content, Header, Icon, Title, Left, Body, StyleProvider} from "native-base";
+import {Button, Icon} from "native-base";
 import Typography from "../styles/Typography";
 import TypedTransition from "../../framework/routing/TypedTransition";
 import ModeSelection from "../modes/ModeSelection";

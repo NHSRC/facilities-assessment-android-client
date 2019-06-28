@@ -1,4 +1,4 @@
-import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {Radio} from 'native-base';
 import AbstractComponent from '../common/AbstractComponent';

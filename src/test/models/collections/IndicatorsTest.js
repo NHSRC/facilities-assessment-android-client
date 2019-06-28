@@ -1,5 +1,4 @@
 import {expect} from 'chai';
-import _ from "lodash";
 import Indicators from "../../../js/models/collections/Indicators";
 import IndicatorDefinition from "../../../js/models/IndicatorDefinition";
 import Indicator from "../../../js/models/Indicator";

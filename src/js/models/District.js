@@ -1,7 +1,6 @@
 import ResourceUtil from "../utility/ResourceUtil";
 import BaseEntity from "./BaseEntity";
 import General from "../utility/General";
-import Logger from "../framework/Logger";
 
 class District {
     static schema = {

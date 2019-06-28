@@ -1,7 +1,7 @@
-import {StyleSheet, Text, View, Platform, TextInput} from 'react-native';
+import {Platform, StyleSheet, Text, TextInput, View} from 'react-native';
 import React from 'react';
 import AbstractComponent from '../../common/AbstractComponent';
-import {Container, Header, Title, Button} from "native-base";
+import {Button, Container, Header, Title} from "native-base";
 import Typography from "../../styles/Typography";
 import FlatUITheme from "../../themes/flatUI";
 import PrimaryColors from "../../styles/PrimaryColors";

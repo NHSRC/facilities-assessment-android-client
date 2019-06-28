@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
-import {StyleSheet, View, Dimensions} from 'react-native';
+import React from 'react';
+import {Dimensions, StyleSheet, View} from 'react-native';
 import AbstractComponent from "../../common/AbstractComponent";
 import Actions from "../../../action";
-import {Text, Button, Icon} from 'native-base';
+import {Button, Icon, Text} from 'native-base';
 import Typography from '../../styles/Typography';
 import PrimaryColors from "../../styles/PrimaryColors";
 import _ from 'lodash';

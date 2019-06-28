@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Platform} from 'react-native';
+import {Platform, View} from 'react-native';
 import AndroidBackListeners from "../view/AndroidBackListeners";
 import iOSBackListeners from "../view/iOSBackListeners";
 import PropTypes from 'prop-types';

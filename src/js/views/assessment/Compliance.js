@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Dimensions, View, Text, TouchableWithoutFeedback, StyleSheet, ToastAndroid, Platform} from 'react-native';
+import React from 'react';
+import {Platform, StyleSheet, ToastAndroid, View} from 'react-native';
 import AbstractComponent from "../common/AbstractComponent";
 import Actions from '../../action';
 import _ from 'lodash';

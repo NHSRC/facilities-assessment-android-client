@@ -1,5 +1,5 @@
-import React, {Component} from "react";
-import {Text, StyleSheet, View, Image, TouchableWithoutFeedback, Dimensions} from "react-native";
+import React from "react";
+import {Dimensions, Image, StyleSheet, Text, TouchableWithoutFeedback, View} from "react-native";
 import AbstractComponent from "../common/AbstractComponent";
 import PrimaryColors from "../styles/PrimaryColors";
 import Typography from "../styles/Typography";

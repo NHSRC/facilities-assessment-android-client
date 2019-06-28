@@ -4,7 +4,7 @@ import AbstractComponent from "../../common/AbstractComponent";
 import Typography from '../../styles/Typography';
 import PrimaryColors from '../../styles/PrimaryColors';
 import _ from 'lodash';
-import {View, Text} from 'native-base';
+import {Text, View} from 'native-base';
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceheight = Dimensions.get('window').height;

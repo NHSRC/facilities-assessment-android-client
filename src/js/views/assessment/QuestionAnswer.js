@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Dimensions, StyleSheet, Switch, Text, TouchableWithoutFeedback, View} from 'react-native';
+import React from 'react';
+import {Dimensions, StyleSheet, Switch, Text, View} from 'react-native';
 import AbstractComponent from "../common/AbstractComponent";
 import PrimaryColors from "../styles/PrimaryColors";
 import ListingItem from '../common/ListingItem';

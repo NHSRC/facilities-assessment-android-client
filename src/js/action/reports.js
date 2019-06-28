@@ -1,6 +1,5 @@
 import ReportService from '../service/ReportService';
 import defaultTabs from './reportingTabs';
-import _ from "lodash";
 
 const getSelectedTab = (tabs) => tabs.find((tab) => tab.isSelected);
 

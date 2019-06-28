@@ -1,6 +1,6 @@
 // @flow
 
-import { StyleSheet } from "react-native";
+import {StyleSheet} from "react-native";
 import variable from "./../variables/platform";
 
 export default (variables /*: * */ = variable) => {

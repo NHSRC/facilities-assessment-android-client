@@ -1,4 +1,4 @@
-import {Text, Platform} from 'react-native';
+import {Platform, Text} from 'react-native';
 import React from 'react';
 import AbstractComponent from './AbstractComponent';
 import Typography from "../styles/Typography";

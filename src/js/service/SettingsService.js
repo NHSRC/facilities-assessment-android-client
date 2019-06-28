@@ -3,8 +3,6 @@ import Service from "../framework/bean/Service";
 import _ from "lodash";
 import Settings from "../models/Settings";
 import EnvironmentConfig from '../views/common/EnvironmentConfig';
-import StateService from "./StateService";
-import Logger from "../framework/Logger";
 
 @Service("settingsService")
 class SettingsService extends BaseService {

@@ -1,6 +1,6 @@
 import React from "react";
 import {ActivityIndicator, Alert, Dimensions, Image, StyleSheet, Text, TouchableWithoutFeedback, View} from "react-native";
-import {Button, Content, Header, Body, Icon, Title, StyleProvider, Left, Container} from "native-base";
+import {Body, Button, Container, Content, Header, Icon, Left, StyleProvider, Title} from "native-base";
 import ViewComponent from "../common/ViewComponent";
 import TypedTransition from "../../framework/routing/TypedTransition";
 import Path from "../../framework/routing/Path";

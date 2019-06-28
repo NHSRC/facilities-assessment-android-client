@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import Logger from "../../framework/Logger";
 
 class StateSelectionUserState {
     static WorkflowStates = {

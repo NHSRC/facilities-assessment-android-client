@@ -1,5 +1,5 @@
 import React from 'react';
-import {Alert, Dimensions, View} from 'react-native';
+import {Dimensions, View} from 'react-native';
 import AbstractComponent from "../common/AbstractComponent";
 import IndicatorDefinition from "../../models/IndicatorDefinition";
 import NumericIndicator from "../indicator/NumericIndicator";

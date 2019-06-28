@@ -1,9 +1,9 @@
 import _ from 'lodash';
 import MeasurableElements from './MeasurableElement';
+import MeasurableElement from './MeasurableElement';
 import ResourceUtil from "../utility/ResourceUtil";
 import General from "../utility/General";
 import BaseEntity from "./BaseEntity";
-import MeasurableElement from './MeasurableElement';
 import EntityMetaData from "./entityMetaData/EntityMetaData";
 
 class Standard {

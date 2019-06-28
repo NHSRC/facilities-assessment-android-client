@@ -1,5 +1,4 @@
 import {expect} from 'chai';
-import _ from "lodash";
 import IndicatorDefinition from "../../js/models/IndicatorDefinition";
 
 describe('IndicatorDefinitionTest', () => {

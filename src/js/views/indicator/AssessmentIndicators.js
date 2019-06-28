@@ -1,7 +1,7 @@
-import {Text, View, Dimensions} from 'react-native';
+import {Dimensions, Text, View} from 'react-native';
 import React from 'react';
 import AbstractComponent from '../common/AbstractComponent';
-import Path, {PathRoot} from "../../framework/routing/Path";
+import Path from "../../framework/routing/Path";
 import {Button, Container, Content, Header, Icon, Title} from "native-base";
 import FlatUITheme from "../themes/flatUI";
 import Typography from "../styles/Typography";

@@ -1,6 +1,5 @@
 import BaseService from "./BaseService";
 import Service from "../framework/bean/Service";
-import _ from 'lodash';
 import State from "../models/State";
 import District from "../models/District";
 

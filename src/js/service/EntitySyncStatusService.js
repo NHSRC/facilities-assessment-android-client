@@ -3,7 +3,6 @@ import BaseService from "./BaseService";
 import EntitySyncStatus from "../models/sync/EntitySyncStatus";
 import EntitiesMetaData from '../models/entityMetaData/EntitiesMetaData';
 import _ from 'lodash';
-import Logger from "../framework/Logger";
 
 @Service("entitySyncStatusService")
 class EntitySyncStatusService extends BaseService {

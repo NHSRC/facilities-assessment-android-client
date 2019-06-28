@@ -7,7 +7,6 @@ import Facility from "../models/Facility";
 import FacilityType from "../models/FacilityType";
 import UUID from "../utility/UUID";
 import StateService from "./StateService";
-import SettingsService from "./SettingsService";
 import EnvironmentConfig from '../views/common/EnvironmentConfig';
 import SeedProgressService from "./SeedProgressService";
 

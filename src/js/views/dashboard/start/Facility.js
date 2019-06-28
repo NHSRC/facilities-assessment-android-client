@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Text, StyleSheet, View} from 'react-native';
+import React from 'react';
+import {StyleSheet} from 'react-native';
 import AbstractComponent from "../../common/AbstractComponent";
 import AssessmentPicker from './AssessmentPicker';
 import Actions from "../../../action";

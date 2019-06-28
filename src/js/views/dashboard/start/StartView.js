@@ -1,5 +1,5 @@
 import React from "react";
-import {StyleSheet, View, Dimensions} from "react-native";
+import {StyleSheet, View} from "react-native";
 import AbstractComponent from "../../common/AbstractComponent";
 import {List, ListItem} from "native-base";
 import Dashboard from "../Dashboard";

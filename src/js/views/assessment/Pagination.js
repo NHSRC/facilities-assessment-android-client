@@ -1,8 +1,7 @@
-import React, {Component} from 'react';
-import {Dimensions, View, Text, TouchableWithoutFeedback, StyleSheet} from 'react-native';
+import React from 'react';
+import {Dimensions, StyleSheet, View} from 'react-native';
 import PageMarker from './PageMarker';
 import AbstractComponent from "../common/AbstractComponent";
-import PrimaryColors from "../styles/PrimaryColors";
 import Actions from '../../action';
 import _ from 'lodash';
 

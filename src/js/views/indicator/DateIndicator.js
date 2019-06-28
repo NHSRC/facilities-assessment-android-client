@@ -1,4 +1,4 @@
-import {DatePickerAndroid, DatePickerIOS, Modal, Platform, StyleSheet, Text, View} from 'react-native';
+import {DatePickerAndroid, DatePickerIOS, Modal, Platform, Text, View} from 'react-native';
 import {Button} from "native-base";
 import React from 'react';
 import AbstractComponent from '../common/AbstractComponent';

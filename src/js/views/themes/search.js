@@ -1,4 +1,4 @@
-import {Platform, Dimensions} from 'react-native';
+import {Dimensions, Platform} from 'react-native';
 import Color from 'color';
 import PrimaryColors from "../styles/PrimaryColors";
 import Fonts from "../styles/Fonts";

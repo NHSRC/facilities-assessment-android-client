@@ -1,6 +1,6 @@
 import React from 'react';
-import {Dimensions, View, StyleSheet} from 'react-native';
-import {Container, Content, Title, Button, Header, Icon} from 'native-base';
+import {Dimensions, StyleSheet, View} from 'react-native';
+import {Button, Container, Content, Header, Icon, Title} from 'native-base';
 import ViewComponent from "../common/ViewComponent";
 import FlatUITheme from '../themes/flatUI';
 import TypedTransition from "../../framework/routing/TypedTransition";

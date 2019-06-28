@@ -1,5 +1,5 @@
 import React from "react";
-import {StyleSheet, TextInput, Platform} from "react-native";
+import {Platform, StyleSheet, TextInput} from "react-native";
 import AbstractComponent from "../../common/AbstractComponent";
 import Actions from "../../../action";
 import PrimaryColors from "../../styles/PrimaryColors";

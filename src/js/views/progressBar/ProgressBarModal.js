@@ -1,5 +1,5 @@
-import {Platform, View, StyleSheet, Text, Modal, Dimensions, ProgressBarAndroid, ProgressViewIOS} from 'react-native';
-import React, {Component} from 'react';
+import {Dimensions, Modal, Platform, ProgressBarAndroid, ProgressViewIOS, Text, View} from 'react-native';
+import React from 'react';
 import AbstractComponent from '../common/AbstractComponent';
 import Colors from "../styles/PrimaryColors";
 import Typography from "../styles/Typography";

@@ -1,9 +1,8 @@
-import React, {Component} from 'react';
-import {Text, StyleSheet, View, ScrollView, Dimensions} from 'react-native';
+import React from 'react';
+import {Dimensions, StyleSheet, View} from 'react-native';
 import _ from 'lodash';
 import AbstractComponent from "../../common/AbstractComponent";
 import Dashboard from '../Dashboard';
-import Actions from '../../../action';
 import AssessmentList from '../common/AssessmentList';
 import Reports from '../../reports/Reports';
 import Certification from '../../cert/Certification';

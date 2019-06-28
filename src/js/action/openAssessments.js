@@ -3,7 +3,6 @@ import FacilityAssessmentService from "../service/FacilityAssessmentService";
 import AssessmentSyncService from "../service/AssessmentSyncService";
 import SettingsService from "../service/SettingsService";
 import FacilityAssessment from "../models/FacilityAssessment";
-import EntityService from "../service/EntityService";
 import Logger from "../framework/Logger";
 
 const allAssessments = function (state, action, beans) {

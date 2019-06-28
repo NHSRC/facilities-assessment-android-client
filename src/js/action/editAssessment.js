@@ -1,8 +1,6 @@
 import EntityService from "../service/EntityService";
 import FacilityAssessment from "../models/FacilityAssessment";
 import AssessmentType from "../models/AssessmentType";
-import Logger from "../framework/Logger";
-import _ from "lodash";
 
 const getAssessment = function (state, action, beans) {
     let facilityAssessment = beans.get(EntityService).findByUUID(action.facilityAssessmentUUID, FacilityAssessment.schema.name);

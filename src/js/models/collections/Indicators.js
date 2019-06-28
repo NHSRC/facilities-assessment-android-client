@@ -2,7 +2,6 @@ import IndicatorDefinitions from "./IndicatorDefinitions";
 import _ from 'lodash';
 import Indicator from "../Indicator";
 import IndicatorDefinition from "../IndicatorDefinition";
-import Logger from "../../framework/Logger";
 
 class Indicators {
     static indicatorDefinitionsWithErrors(indicators, indicatorDefinitions) {

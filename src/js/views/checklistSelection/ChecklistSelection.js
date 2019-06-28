@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Alert, Dimensions, Modal, ScrollView, StyleSheet, Text, View} from 'react-native';
+import React from 'react';
+import {Dimensions, Modal, View} from 'react-native';
 import ViewComponent from "../common/ViewComponent";
 import {Button, Container, Content, Header, Icon, Title} from 'native-base';
 import Typography from '../styles/Typography';

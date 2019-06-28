@@ -1,9 +1,7 @@
 import ChecklistService from "../service/ChecklistService";
-import SettingsService from "../service/SettingsService";
 import StateService from "../service/StateService";
 import SeedProgressService from "../service/SeedProgressService";
 import ReferenceDataSyncService from "../service/ReferenceDataSyncService";
-import _ from "lodash";
 
 const modeSelection = function (state, action, beans) {
     const assessmentModes = beans.get(ChecklistService).assessmentModes;

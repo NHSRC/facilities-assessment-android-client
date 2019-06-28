@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, StyleSheet, View, Dimensions} from 'react-native';
+import {Dimensions, StyleSheet, Text, View} from 'react-native';
 import AbstractComponent from "../common/AbstractComponent";
 import {List, ListItem} from 'native-base';
 import Typography from '../styles/Typography';

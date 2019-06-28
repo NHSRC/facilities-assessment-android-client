@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import AbstractComponent from "../common/AbstractComponent";
 import {Button} from 'native-base';
 import {StyleSheet} from 'react-native';

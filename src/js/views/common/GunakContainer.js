@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
-import {Container, StyleProvider, Header, Left, Button, Icon, Body, Title, Content} from "native-base";
+import {Body, Button, Container, Content, Header, Icon, Left, StyleProvider, Title} from "native-base";
 import getTheme from '../../native-base-theme/components';
 import platformTheme from '../../native-base-theme/variables/platform';
 import TypedTransition from "../../framework/routing/TypedTransition";

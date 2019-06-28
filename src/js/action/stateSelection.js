@@ -4,7 +4,6 @@ import ReferenceDataSyncService from "../service/ReferenceDataSyncService";
 import StateSelectionUserState from "./userState/StateSelectionUserState";
 import _ from 'lodash';
 import SeedProgress from "../models/SeedProgress";
-import Actions from "./index";
 
 const stateSelectionLoaded = function (state, action, beans) {
     let newState = clone(state);

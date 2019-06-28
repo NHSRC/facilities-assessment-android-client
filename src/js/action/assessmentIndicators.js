@@ -6,7 +6,6 @@ import Indicators from "../models/collections/Indicators";
 import IndicatorDefinitions from "../models/collections/IndicatorDefinitions";
 import EntityService from "../service/EntityService";
 import FacilityAssessment from "../models/FacilityAssessment";
-import Logger from "../framework/Logger";
 
 const clone = function (state) {
     let cloned = {};

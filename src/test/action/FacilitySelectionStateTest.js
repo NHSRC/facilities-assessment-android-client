@@ -1,5 +1,4 @@
 import {expect} from 'chai';
-import _ from "lodash";
 import {FacilitySelectionState} from "../../js/action/facilitySelection";
 import EntityFactory from "../models/EntityFactory";
 

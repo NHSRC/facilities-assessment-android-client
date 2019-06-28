@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import {createStore, combineReducers} from 'redux';
+import {combineReducers, createStore} from 'redux';
 import initReducers from '../reducer';
 
 function AppStoreFactory(beans, errorCallback) {

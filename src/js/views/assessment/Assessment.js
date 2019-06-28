@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Dimensions, StyleSheet, Text, TouchableWithoutFeedback, View} from 'react-native';
+import React from 'react';
+import {Dimensions, StyleSheet, View} from 'react-native';
 import {Button, Container, Content, Header, Icon, Title} from 'native-base';
 import ViewComponent from "../common/ViewComponent";
 import FlatUITheme from '../themes/flatUI';

@@ -1,11 +1,7 @@
 import BaseService from "./BaseService";
 import Service from "../framework/bean/Service";
 import _ from 'lodash';
-import AreaOfConcern from "../models/AreaOfConcern";
-import Standard from "../models/Standard";
-import MeasurableElement from "../models/MeasurableElement";
 import Checkpoint from "../models/Checkpoint";
-import Checklist from "../models/Checklist";
 import ChecklistService from "./ChecklistService";
 
 @Service("searchService")

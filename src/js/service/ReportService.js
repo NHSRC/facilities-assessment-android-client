@@ -10,11 +10,8 @@ import ChecklistService from "./ChecklistService";
 import ChecklistProgress from "../models/ChecklistProgress";
 import Checkpoint from "../models/Checkpoint";
 import MeasurableElement from "../models/MeasurableElement";
-import Logger from "../framework/Logger";
 import FacilitiesService from "./FacilitiesService";
 import ReportScoreItem from "../models/ReportScoreItem";
-import AssessmentTool from "../models/AssessmentTool";
-import EntityService from "./EntityService";
 import Department from "../models/Department";
 
 @Service("reportService")

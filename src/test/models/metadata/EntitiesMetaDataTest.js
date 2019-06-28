@@ -1,6 +1,5 @@
 import {expect} from 'chai';
 import EntitiesMetaData, {FacilityAssessmentProgress} from "../../../js/models/entityMetaData/EntitiesMetaData";
-import Facility from "../../../js/models/Facility";
 import FacilityType from "../../../js/models/FacilityType";
 
 describe('EntitiesMetaDataTest', () => {

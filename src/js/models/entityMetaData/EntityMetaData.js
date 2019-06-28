@@ -1,7 +1,6 @@
 import _ from "lodash";
 import DefaultEntityResourceMapper from "./DefaultEntityResourceMapper";
 import EntityService from "../../service/EntityService";
-import Logger from "../../framework/Logger";
 
 class EntityMetaData {
     constructor({entityType, parentClass, mapper = new DefaultEntityResourceMapper(), pageSize = 200, syncWeight, serviceClass = EntityService}) {

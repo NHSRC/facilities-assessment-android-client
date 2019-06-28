@@ -1,5 +1,5 @@
 import React from "react";
-import {Dimensions, Modal, StyleSheet, View, BackHandler} from "react-native";
+import {BackHandler, Dimensions, Modal, StyleSheet, View} from "react-native";
 import ViewComponent from "../common/ViewComponent";
 import FlatUITheme from "../themes/flatUI";
 import {Button, Container, Content, Header, Icon, Title} from "native-base";

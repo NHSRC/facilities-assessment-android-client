@@ -1,7 +1,6 @@
 import {expect} from 'chai';
 import openAssessments from "../../js/action/openAssessments";
 import AssessmentTool from "../../js/models/AssessmentTool";
-import {FacilitySelectionState} from "../../js/action/facilitySelection";
 
 describe('FacilitySelectionTest', () => {
     let state = function (series) {

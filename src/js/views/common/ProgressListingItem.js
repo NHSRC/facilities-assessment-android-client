@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Dimensions, View, Text, TouchableWithoutFeedback, StyleSheet} from 'react-native';
+import React from 'react';
+import {Dimensions, StyleSheet, Text, TouchableWithoutFeedback, View} from 'react-native';
 import _ from 'lodash';
 import AbstractComponent from "../common/AbstractComponent";
 import {Icon} from 'native-base';

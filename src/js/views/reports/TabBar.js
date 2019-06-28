@@ -1,5 +1,5 @@
 import React from "react";
-import {Text, StyleSheet, View, ScrollView, Dimensions, TouchableOpacity} from 'react-native';
+import {Dimensions, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import AbstractComponent from "../common/AbstractComponent";
 import Typography from "../styles/Typography";
 import PrimaryColors from "../styles/PrimaryColors";

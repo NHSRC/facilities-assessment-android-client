@@ -1,11 +1,10 @@
-import React, {Component} from 'react';
-import {Dimensions, View, Text, TouchableWithoutFeedback, StyleSheet} from 'react-native';
+import React from 'react';
+import {Dimensions, StyleSheet, Text, View} from 'react-native';
 import {Input, InputGroup} from 'native-base';
 import AbstractComponent from "../common/AbstractComponent";
 import Actions from '../../action';
 import PrimaryColors from '../styles/PrimaryColors';
 import Typography from '../styles/Typography';
-import _ from 'lodash';
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;

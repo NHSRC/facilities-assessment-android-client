@@ -8,6 +8,7 @@ import ChecklistProgress from "../models/ChecklistProgress";
 import _ from 'lodash';
 import certificationData from '../action/certification';
 import {NativeModules} from "react-native";
+
 const {Restart} = NativeModules;
 
 @Service("facilityAssessmentService")

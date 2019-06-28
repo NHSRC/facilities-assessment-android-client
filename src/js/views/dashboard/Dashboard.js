@@ -1,10 +1,10 @@
 import React from 'react';
-import {StyleSheet, Dimensions, View} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
 import AbstractComponent from "../common/AbstractComponent";
 import StartView from './start/StartView';
 import OpenView from './open/OpenView';
 import ReportsView from './reports/ReportsView';
-import {Tabs, Tab} from 'native-base';
+import {Tab, Tabs} from 'native-base';
 import Path from "../../framework/routing/Path";
 import TypedTransition from "../../framework/routing/TypedTransition";
 import Actions from "../../action";

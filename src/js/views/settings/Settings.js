@@ -1,9 +1,6 @@
 import React from 'react';
-import {
-    Dimensions, View, Text, StyleSheet,
-    Alert, NativeModules
-} from 'react-native';
-import {Container, Content, Title, Button, Header, Icon} from 'native-base';
+import {Alert, Dimensions, NativeModules, StyleSheet, Text, View} from 'react-native';
+import {Button, Container, Content, Header, Icon, Title} from 'native-base';
 import ViewComponent from "../common/ViewComponent";
 import FlatUITheme from '../themes/flatUI';
 import TypedTransition from "../../framework/routing/TypedTransition";
@@ -13,7 +10,6 @@ import Typography from "../styles/Typography";
 import Actions from '../../action';
 import EnvironmentConfig from "../common/EnvironmentConfig";
 import ErrorHandler from "../../utility/ErrorHandler";
-import _ from "lodash";
 
 const {Restart} = NativeModules;
 

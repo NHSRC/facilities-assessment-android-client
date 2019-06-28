@@ -1,5 +1,4 @@
 import {expect} from 'chai';
-import _ from "lodash";
 import FacilityAssessment from "../../js/models/FacilityAssessment";
 import AssessmentTool from "../../js/models/AssessmentTool";
 
