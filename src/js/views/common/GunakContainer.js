@@ -11,10 +11,18 @@ class GunakContainer extends React.Component {
         title: PropTypes.string.isRequired,
         onHeaderButtonPress: PropTypes.func,
         rightIconName: PropTypes.string,
-        onPressRightIcon: PropTypes.func
+        onPressRightIcon: PropTypes.func,
+        scrollToTop: PropTypes.bool
     };
 
+    scrollToTop() {
+        this.refs.scroll._root.scrollToPosition(0, 1, true);
+    }
+
     render() {
+        if (this.props.scrollToTop) {
+            this.scrollToTop();
+        }
         return <StyleProvider style={getTheme(platformTheme)}>
             <Container>
                 <Header>
@@ -35,7 +43,7 @@ class GunakContainer extends React.Component {
                     </Right>}
                 </Header>
                 <Content contentContainerStyle={{flexDirection: 'column', paddingHorizontal: 6, justifyContent: 'center', alignItems: 'center'}}
-                         keyboardShouldPersistTaps={'always'}>
+                         keyboardShouldPersistTaps={'always'} ref="scroll">
                     {this.props.children}
                 </Content>
             </Container>

@@ -13,6 +13,7 @@ import _ from 'lodash';
 import GestureRecognizer from 'react-native-swipe-gestures';
 import Standard from "../../models/Standard";
 import Logger from "../../framework/Logger";
+import GunakContainer from "../common/GunakContainer";
 
 
 const deviceWidth = Dimensions.get('window').width;
@@ -47,50 +48,30 @@ class Assessment extends ViewComponent {
         this.dispatchAction(Actions.CHANGE_PAGE, {currentCheckpoint: prevCheckpoint});
     }
 
-    scrollToTop() {
-        // Mihir: Trust me this is required.
-        this.refs.scroll._scrollview.scrollToPosition(0, 10, true);
-        this.refs.scroll._scrollview.scrollToPosition(0, 1, true);
-    }
-
     render() {
         Logger.logDebug('Assessment', 'render');
-        if (this.state.pageChanged) {
-            this.scrollToTop();
-        }
         const config = {
             velocityThreshold: 0.1,
             directionalOffsetThreshold: 80
         };
         return (
-            <Container theme={FlatUITheme}>
-                <Header style={FlatUITheme.header}>
-                    <Button transparent onPress={() => TypedTransition.from(this).goBack()}>
-                        <Icon style={{marginTop: 5, color: "white"}} name='arrow-back'/>
-                    </Button>
-                    <Title style={[Typography.paperFontTitle,
-                        {fontWeight: 'bold', color: "white"}]}>
-                        {`${this.state.standard.reference} - ${_.truncate(Standard.getDisplayName(this.state.standard),
-                            {length: 25})}`}
-                    </Title>
-                </Header>
-                <Content ref="scroll">
-                    <GestureRecognizer
-                        onSwipeLeft={this.onNext.bind(this)}
-                        onSwipeRight={this.onPrev.bind(this)}
-                        config={config}
-                        style={{flex: 1,}}>
-                        <View style={{margin: deviceWidth * 0.04,}}>
-                            <QuestionAnswer goBack={() => TypedTransition.from(this).goBack()}
-                                            checkpoints={this.state.checkpoints}
-                                            currentCheckpoint={this.state.currentCheckpoint}
-                                            {...this.props}/>
-                            <Pagination currentCheckpoint={this.state.currentCheckpoint}
-                                        checkpoints={this.state.checkpoints}/>
-                        </View>
-                    </GestureRecognizer>
-                </Content>
-            </Container>
+            <GunakContainer title={`${this.state.standard.reference} - ${_.truncate(Standard.getDisplayName(this.state.standard),
+                {length: 25})}`} scrollToTop={this.state.pageChanged}>
+                <GestureRecognizer
+                    onSwipeLeft={this.onNext.bind(this)}
+                    onSwipeRight={this.onPrev.bind(this)}
+                    config={config}
+                    style={{flex: 1,}}>
+                    <View style={{margin: deviceWidth * 0.04,}}>
+                        <QuestionAnswer goBack={() => TypedTransition.from(this).goBack()}
+                                        checkpoints={this.state.checkpoints}
+                                        currentCheckpoint={this.state.currentCheckpoint}
+                                        {...this.props}/>
+                        <Pagination currentCheckpoint={this.state.currentCheckpoint}
+                                    checkpoints={this.state.checkpoints}/>
+                    </View>
+                </GestureRecognizer>
+            </GunakContainer>
         );
     }
 }

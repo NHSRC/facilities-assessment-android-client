@@ -130,7 +130,7 @@ class Toolbar extends AbstractComponent {
             </View>);
         return (
             <View style={Toolbar.styles.container}>
-                <View style={{flex: 0.4, marginRight: 10}}>
+                <View style={{flex: 0.7, marginRight: 10}}>
                     {meansOfVerificationLink}
                 </View>
                 <View style={Toolbar.styles.actionButtons}>
