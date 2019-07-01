@@ -1,5 +1,6 @@
 import React from 'react';
-import {Dimensions, StyleSheet, Text, View} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
+import {View, Text} from 'native-base';
 import AbstractComponent from "../common/AbstractComponent";
 import Typography from '../styles/Typography';
 import {formatDateHuman} from "../../utility/DateUtils";

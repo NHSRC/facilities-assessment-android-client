@@ -24,7 +24,7 @@ class Checklists extends AbstractComponent {
             color: "white",
         },
         checklistButton: {
-            padding: deviceWidth * 0.04,
+            // padding: deviceWidth * 0.04,
             alignSelf: 'stretch',
             marginTop: deviceHeight * 0.02,
             elevation: 0,

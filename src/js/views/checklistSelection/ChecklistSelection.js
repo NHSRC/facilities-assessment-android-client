@@ -1,11 +1,9 @@
 import React from 'react';
-import {Dimensions, Modal, View} from 'react-native';
+import {Dimensions, Modal} from 'react-native';
 import ViewComponent from "../common/ViewComponent";
-import {Button, Container, Content, Header, Icon, Title} from 'native-base';
-import Typography from '../styles/Typography';
+import {View, Text} from 'native-base';
 import Actions from "../../action";
 import TypedTransition from "../../framework/routing/TypedTransition";
-import FlatUITheme from '../themes/flatUI';
 import Path from "../../framework/routing/Path";
 import AssessmentStatus from './AssessmentStatus';
 import Checklists from './Checklists';
@@ -18,6 +16,7 @@ import EnvironmentConfig from "../common/EnvironmentConfig";
 import Logger from "../../framework/Logger";
 import EditAssessment from "../dashboard/start/EditAssessment";
 import AssessmentTitle from "../assessment/AssessmentTitle";
+import GunakContainer from "../common/GunakContainer";
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
@@ -92,53 +91,31 @@ class ChecklistSelection extends ViewComponent {
         let assessmentComplete = this.state.assessmentProgress.completed === this.state.assessmentProgress.total;
         const showCompleteButton = this.showCompleteButton(this.props.params.mode);
         return (
-            <Container theme={FlatUITheme}>
-                <Header style={FlatUITheme.header}>
-                    <Button transparent onPress={() => TypedTransition.from(this).goBack()}>
-                        <Icon style={{color: "white"}} name='arrow-back'/>
-                    </Button>
-                    <Title style={[Typography.paperFontHeadline,
-                        {fontWeight: 'bold', color: "white"}]}>
-                        Assessment
-                    </Title>
-                    <Button transparent
-                            onPress={() => TypedTransition.from(this).with({...this.props.params}).to(SearchPage)}>
-                        <Icon style={{color: "white"}} name='search'/>
-                    </Button>
-                </Header>
-                <Content>
-                    <Modal transparent={false} visible={this.state.showEditAssessment}
-                           onRequestClose={() => this.dispatchAction(Actions.EDIT_ASSESSMENT_COMPLETED)}>
-                        <EditAssessment assessmentUUID={this.props.params.facilityAssessment.uuid}/>
-                    </Modal>
-                    <View style={{margin: deviceWidth * 0.04, flexDirection: 'column'}}>
-                        <View style={{flexDirection: 'row'}}>
-                            <AssessmentTitle facilityName={this.props.params.facility.name} assessmentStartDate={this.props.params.facilityAssessment.startDate}
-                                             assessmentToolName={this.props.params.assessmentTool.name}/>
-                            {/*<Button*/}
-                            {/*onPress={() => {*/}
-                            {/*this.dispatchAction(Actions.EDIT_ASSESSMENT_STARTED);*/}
-                            {/*}}*/}
-                            {/*transparent>*/}
-                            {/*<Icon name={"edit"} style={{color: "white", marginTop: deviceWidth * 0.04, marginLeft: deviceWidth * 0.04}}/>*/}
-                            {/*</Button>*/}
-                        </View>
-                        <AssessmentStatus
-                            assessmentProgress={this.state.assessmentProgress}/>
-                        <Checklists
-                            assessmentTool={this.props.params.assessmentTool}
-                            handleOnPress={this.handleOnPress.bind(this)}
-                            assessmentProgress={this.state.assessmentProgress}
-                            allChecklists={this.state.checklists}
-                        />
-                        <SubmitButton buttonStyle={{marginTop: 30, backgroundColor: '#ffa000'}}
-                                      onPress={() => this.completeAssessment()}
-                                      buttonText={assessmentComplete ? "COMPLETE ASSESSMENT" : "GENERATE SCORECARD"}
-                                      showButton={showCompleteButton}
-                        />
+            <GunakContainer title="Assessment" rightIconName="search" onPressRightIcon={() => TypedTransition.from(this).with({...this.props.params}).to(SearchPage)}>
+                <Modal transparent={false} visible={this.state.showEditAssessment}
+                       onRequestClose={() => this.dispatchAction(Actions.EDIT_ASSESSMENT_COMPLETED)}>
+                    <EditAssessment assessmentUUID={this.props.params.facilityAssessment.uuid}/>
+                </Modal>
+                <View style={{flexDirection: 'column', width: deviceWidth, paddingHorizontal: deviceWidth * 0.04}}>
+                    <View style={{flexDirection: 'row'}}>
+                        <AssessmentTitle facilityName={this.props.params.facility.name} assessmentStartDate={this.props.params.facilityAssessment.startDate}
+                                         assessmentToolName={this.props.params.assessmentTool.name}/>
                     </View>
-                </Content>
-            </Container>
+                    <AssessmentStatus
+                        assessmentProgress={this.state.assessmentProgress}/>
+                    <Checklists
+                        assessmentTool={this.props.params.assessmentTool}
+                        handleOnPress={this.handleOnPress.bind(this)}
+                        assessmentProgress={this.state.assessmentProgress}
+                        allChecklists={this.state.checklists}
+                    />
+                    <SubmitButton buttonStyle={{marginTop: 30, backgroundColor: '#ffa000'}}
+                                  onPress={() => this.completeAssessment()}
+                                  buttonText={assessmentComplete ? "COMPLETE ASSESSMENT" : "GENERATE SCORECARD"}
+                                  showButton={showCompleteButton}
+                    />
+                </View>
+            </GunakContainer>
         );
     }
 }

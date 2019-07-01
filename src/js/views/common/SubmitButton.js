@@ -1,6 +1,6 @@
 import React from 'react';
 import AbstractComponent from "../common/AbstractComponent";
-import {Button} from 'native-base';
+import {Button, Text} from 'native-base';
 import {StyleSheet} from 'react-native';
 import PrimaryColors from "../styles/PrimaryColors";
 import PropTypes from 'prop-types';
@@ -26,7 +26,7 @@ class SubmitButton extends AbstractComponent {
                     {} : {backgroundColor: PrimaryColors.medium_black}]}
                 block
                 disabled={!showButton}>
-                {this.props.buttonText}
+                <Text>{this.props.buttonText}</Text>
             </Button>
         );
     }
