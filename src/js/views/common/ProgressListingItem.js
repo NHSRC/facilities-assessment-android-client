@@ -100,7 +100,7 @@ class ProgressListingItem extends AbstractComponent {
                         </View>
                     </View>
                     <View style={ProgressListingItem.styles.buttonText}>
-                        <Text style={[Typography.paperFontSubhead, {color: PrimaryColors.subheader_black, flex: 0.7}]}>
+                        <Text style={[Typography.paperFontSubhead, {color: PrimaryColors.subheader_black}]}>
                             {this.props.item.name}
                         </Text>
                     </View>

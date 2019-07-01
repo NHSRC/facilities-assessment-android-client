@@ -12,6 +12,7 @@ import Actions from '../../action';
 import Standards from "../standards/Standards";
 import SearchPage from "../search/SearchPage";
 import Logger from "../../framework/Logger";
+import GunakContainer from "../common/GunakContainer";
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
@@ -41,28 +42,15 @@ class AreasOfConcern extends ViewComponent {
     render() {
         Logger.logDebug('AreasOfConcern', 'render');
         return (
-            <Container theme={FlatUITheme}>
-                <Header style={FlatUITheme.header}>
-                    <Button transparent onPress={() => TypedTransition.from(this).goBack()}>
-                        <Icon style={{marginTop: 10, color: "white"}} name='arrow-back'/>
-                    </Button>
-                    <Title style={[Typography.paperFontHeadline,
-                        {fontWeight: 'bold', color: "white"}]}>
-                        {this.props.params.checklist.name}
-                    </Title>
-                    <Button transparent onPress={() => TypedTransition.from(this).with({...this.props.params}).to(SearchPage)}>
-                        <Icon style={{paddingTop: 10, color: "white"}} name='search'/>
-                    </Button>
-                </Header>
-                <Content>
-                    <View style={{margin: deviceWidth * 0.04,}}>
-                        <Listing
-                            labelColor={PrimaryColors.gray}
-                            onPress={this.handleOnPress.bind(this)}
-                            items={this.state.areasOfConcern}/>
-                    </View>
-                </Content>
-            </Container>
+            <GunakContainer title={this.props.params.checklist.name} onPressRightIcon={() => TypedTransition.from(this).with({...this.props.params}).to(SearchPage)}
+                            rightIconName="search">
+                <View style={{flexDirection: 'column', width: deviceWidth, paddingHorizontal: deviceWidth * 0.04}}>
+                    <Listing
+                        labelColor={PrimaryColors.gray}
+                        onPress={this.handleOnPress.bind(this)}
+                        items={this.state.areasOfConcern}/>
+                </View>
+            </GunakContainer>
         );
     }
 }
