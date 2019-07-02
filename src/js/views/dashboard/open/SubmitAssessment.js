@@ -1,14 +1,14 @@
-import {Platform, StyleSheet, Text, TextInput, View} from 'react-native';
+import {Platform, StyleSheet, TextInput, View} from 'react-native';
 import React from 'react';
 import AbstractComponent from '../../common/AbstractComponent';
-import {Button, Container, Header, Title} from "native-base";
+import {Button, Text} from "native-base";
 import Typography from "../../styles/Typography";
-import FlatUITheme from "../../themes/flatUI";
 import PrimaryColors from "../../styles/PrimaryColors";
 import AssessmentSeries from "../start/AssessmentSeries";
 import Actions from "../../../action";
 import AssessmentTool from "../../../models/AssessmentTool";
 import PropTypes from 'prop-types';
+import GunakContainer from "../../common/GunakContainer";
 
 class SubmitAssessment extends AbstractComponent {
     static propTypes = {
@@ -48,13 +48,7 @@ class SubmitAssessment extends AbstractComponent {
 
     render() {
         return (
-            <Container theme={FlatUITheme}>
-                <Header style={FlatUITheme.header}>
-                    <Title style={[Typography.paperFontTitle, {
-                        fontWeight: 'bold',
-                        color: 'white'
-                    }]}>Submit Assessment</Title>
-                </Header>
+            <GunakContainer title="Submit Assessment" hideBack={true}>
                 <View style={SubmitAssessment.styles.container}>
                     {this.props.assessmentToolType === AssessmentTool.INDICATOR ? null : <AssessmentSeries series={this.props.facilityAssessment.seriesName}/>}
                     <View style={{margin: 10, flexDirection: 'column'}}>
@@ -65,18 +59,17 @@ class SubmitAssessment extends AbstractComponent {
                                    words="words"
                                    onChangeText={(text) => this.handleAssessorNameChange(text)}/>
                         <View style={{flexDirection: 'row', marginBottom: 10, marginTop: 10}}>
-                            <Button style={{backgroundColor: PrimaryColors.blue, alignSelf: 'stretch', marginHorizontal: 10, flex: 0.5}}
+                            <Button block style={{backgroundColor: PrimaryColors.blue, marginHorizontal: 10, flex: 0.5}}
                                     onPress={() => this.close()}><Text>CLOSE</Text></Button>
-                            <Button style={{
+                            <Button block style={{
                                 backgroundColor: this.props.submissionDetailAvailable ? PrimaryColors.blue : PrimaryColors.medium_black,
-                                alignSelf: 'stretch',
                                 marginHorizontal: 10,
                                 flex: 0.5
                             }} onPress={this.props.onSubmit} disabled={!this.props.submissionDetailAvailable}><Text>SUBMIT</Text></Button>
                         </View>
                     </View>
                 </View>
-            </Container>
+            </GunakContainer>
         );
     }
 }

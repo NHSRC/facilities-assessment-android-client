@@ -1,9 +1,9 @@
 import React from "react";
-import {Platform, StyleSheet, Text, TextInput, View} from "react-native";
+import {Platform, StyleSheet, TextInput, View} from "react-native";
 import AbstractComponent from "../../common/AbstractComponent";
 import Actions from "../../../action";
 import PrimaryColors from "../../styles/PrimaryColors";
-import {Button, Icon} from "native-base";
+import {Button, Icon, Text} from "native-base";
 import EnvironmentConfig from "../../common/EnvironmentConfig";
 import Typography from "../../styles/Typography";
 import PropTypes from 'prop-types';
@@ -51,10 +51,9 @@ class AssessmentSeries extends AbstractComponent {
                                onChangeText={(text) => this.handleTextChange(text)}/>
                     {displayGenerateButton ?
                         <Button
-                            style={{flex: 0.2}}
-                            iconLeft={true}
+                            style={{flex: 0.15}}
                             onPress={() => this.generateAssessmentSeriesNumber()}>
-                            <Icon name="control-point"/>
+                            <Icon name="return-left"/>
                         </Button> : <View/>}
                 </View>
             </View>

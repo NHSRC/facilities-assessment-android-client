@@ -22,7 +22,8 @@ class GunakContainer extends React.Component {
         onHeaderButtonPress: PropTypes.func,
         rightIconName: PropTypes.string,
         onPressRightIcon: PropTypes.func,
-        scrollToTop: PropTypes.bool
+        scrollToTop: PropTypes.bool,
+        hideBack: PropTypes.bool
     };
 
     render() {
@@ -30,9 +31,10 @@ class GunakContainer extends React.Component {
             <Container>
                 <Header style={{backgroundColor: PrimaryColors.header}}>
                     <Left>
-                        <Button transparent onPress={this.props.onHeaderButtonPress ? this.props.onHeaderButtonPress : () => TypedTransition.from(this).goBack()}>
-                            <Icon style={{marginTop: 5, color: "white"}} name='arrow-back'/>
-                        </Button>
+                        {this.props.hideBack ? null :
+                            <Button transparent onPress={this.props.onHeaderButtonPress ? this.props.onHeaderButtonPress : () => TypedTransition.from(this).goBack()}>
+                                <Icon style={{marginTop: 5, color: "white"}} name='arrow-back'/>
+                            </Button>}
                     </Left>
                     <Body>
                         <Title style={[Typography.paperFontSubhead, {
