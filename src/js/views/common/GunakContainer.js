@@ -9,6 +9,14 @@ import PrimaryColors from "../styles/PrimaryColors";
 import GunakContent from "./GunakContent";
 
 class GunakContainer extends React.Component {
+    constructor(props, context) {
+        super(props, context);
+    }
+
+    static contextTypes = {
+        navigator: PropTypes.func.isRequired
+    };
+
     static propTypes = {
         title: PropTypes.string.isRequired,
         onHeaderButtonPress: PropTypes.func,

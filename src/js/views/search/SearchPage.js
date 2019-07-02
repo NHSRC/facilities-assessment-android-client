@@ -1,8 +1,7 @@
 import React from "react";
-import {Dimensions, Platform, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View} from "react-native";
-import {Button, Container, Content, Header, Icon, Title} from "native-base";
+import {Dimensions, Platform, StyleSheet, TextInput, TouchableWithoutFeedback, View} from "react-native";
+import {Button, Text} from "native-base";
 import ViewComponent from "../common/ViewComponent";
-import FlatUITheme from "../themes/search";
 import TypedTransition from "../../framework/routing/TypedTransition";
 import Path from "../../framework/routing/Path";
 import PrimaryColors from "../styles/PrimaryColors";
@@ -11,6 +10,7 @@ import Actions from "../../action";
 import Assessment from "../assessment/Assessment";
 import _ from "lodash";
 import Logger from "../../framework/Logger";
+import GunakContainer from "../common/GunakContainer";
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
@@ -29,7 +29,8 @@ class SearchPage extends ViewComponent {
             justifyContent: 'flex-start',
             alignItems: 'flex-start',
             flexWrap: 'nowrap',
-            marginTop: 5
+            marginTop: 5,
+            paddingHorizontal: 6
         },
         input: {
             fontSize: 16,
@@ -37,7 +38,9 @@ class SearchPage extends ViewComponent {
             height: 40,
             paddingLeft: 8,
             borderColor: 'grey',
-            borderWidth: Platform.OS === 'ios' ? 0.5 : 0
+            borderWidth: Platform.OS === 'ios' ? 0.5 : 0,
+            width: deviceWidth,
+            paddingHorizontal: 6
         }
     });
 
@@ -74,28 +77,15 @@ class SearchPage extends ViewComponent {
     render() {
         Logger.logDebug('SearchPage', 'render');
         return (
-            <Container theme={FlatUITheme}>
-                <Header style={FlatUITheme.header}>
-                    <Button transparent onPress={() => TypedTransition.from(this).goBack()}>
-                        <Icon style={{color: "white"}} name="arrow-back"/>
-                    </Button>
-                    <Title style={[Typography.paperFontHeadline, {
-                        fontWeight: 'bold',
-                        color: "white"
-                    }]}>Search</Title>
-                </Header>
-                <Content>
-                    <View style={{margin: deviceWidth * 0.04}}>
-                        <TextInput style={SearchPage.styles.input}
-                                   placeholder={"Search term"}
-                                   placeholderTextColor="rgba(255, 255, 255, 0.7)"
-                                   underlineColorAndroid={PrimaryColors["dark_white"]}
-                                   words="words"
-                                   onChangeText={this.handleSearch}/>
-                        {this.renderSearchResults(this.state.results)}
-                    </View>
-                </Content>
-            </Container>
+            <GunakContainer title="Search">
+                <TextInput style={SearchPage.styles.input}
+                           placeholder={"Search term"}
+                           placeholderTextColor="rgba(255, 255, 255, 0.7)"
+                           underlineColorAndroid={PrimaryColors["dark_white"]}
+                           words="words"
+                           onChangeText={this.handleSearch}/>
+                {this.renderSearchResults(this.state.results)}
+            </GunakContainer>
         );
     }
 }
