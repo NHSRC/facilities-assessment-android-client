@@ -16,6 +16,7 @@ import Logger from "../../framework/Logger";
 import ShareUtil from "../../action/ShareUtil";
 import getTheme from "../../native-base-theme/components";
 import platformTheme from "../../native-base-theme/variables/platform";
+import PrimaryColors from "../styles/PrimaryColors";
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
@@ -49,9 +50,6 @@ class Reports extends ViewComponent {
     }
 
     share(shareOpts, actionName) {
-        Logger.logDebug('Reports', shareOpts);
-        // shareOpts.url = _.replace(shareOpts.url, 'data/user/0/', '');
-        // shareOpts.url = _.replace(shareOpts.url, 'cache/', '');
         Logger.logDebug('Reports', shareOpts);
         Share.open(shareOpts).then((res) => {
             this.dispatchAction(actionName);
@@ -112,7 +110,7 @@ class Reports extends ViewComponent {
         return (
             <StyleProvider style={getTheme(platformTheme)}>
                 <Container>
-                    <Header>
+                    <Header style={{backgroundColor: PrimaryColors.header}}>
                         <Left><Button
                             onPress={this.back.bind(this)}
                             transparent>
@@ -127,7 +125,7 @@ class Reports extends ViewComponent {
                         <Right><Button
                             onPress={this.exportOptions}
                             transparent>
-                            <Icon style={{color: 'white'}} name="get-app"/>
+                            <Icon style={{color: 'white'}} name="download"/>
                         </Button>
                             <Button
                                 onPress={this.snapshot.bind(this)}
@@ -135,8 +133,11 @@ class Reports extends ViewComponent {
                                 <Icon style={{color: 'white'}} name="share"/>
                             </Button></Right>
                     </Header>
-                    <Content contentContainerStyle={{flexDirection: 'column'}}
-                             keyboardShouldPersistTaps={'always'} ref="reports">
+                    <Content contentContainerStyle={{
+                        flexDirection: 'column',
+                        paddingHorizontal: 6,
+                        backgroundColor: PrimaryColors.bodyBackground
+                    }} ref="reports">
                         <OverallScore score={this.state.overallScore}
                                       scoreText={this.state.overallScoreText}
                                       checkpointStats={this.state.checkpointStats}

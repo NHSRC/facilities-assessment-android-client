@@ -6,6 +6,7 @@ import platformTheme from '../../native-base-theme/variables/platform';
 import TypedTransition from "../../framework/routing/TypedTransition";
 import Typography from "../styles/Typography";
 import PrimaryColors from "../styles/PrimaryColors";
+import GunakContent from "./GunakContent";
 
 class GunakContainer extends React.Component {
     static propTypes = {
@@ -16,14 +17,7 @@ class GunakContainer extends React.Component {
         scrollToTop: PropTypes.bool
     };
 
-    scrollToTop() {
-        this.refs.scroll._root.scrollToPosition(0, 1, true);
-    }
-
     render() {
-        if (this.props.scrollToTop) {
-            this.scrollToTop();
-        }
         return <StyleProvider style={getTheme(platformTheme)}>
             <Container>
                 <Header style={{backgroundColor: PrimaryColors.header}}>
@@ -43,10 +37,9 @@ class GunakContainer extends React.Component {
                         </Button>
                     </Right>}
                 </Header>
-                <Content contentContainerStyle={{flexDirection: 'column', paddingHorizontal: 6, justifyContent: 'center', alignItems: 'center', backgroundColor: PrimaryColors.bodyBackground}}
-                         keyboardShouldPersistTaps={'always'} ref="scroll">
+                <GunakContent>
                     {this.props.children}
-                </Content>
+                </GunakContent>
             </Container>
         </StyleProvider>;
     }
