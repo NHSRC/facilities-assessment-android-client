@@ -1,10 +1,9 @@
 import React from "react";
-import {Dimensions, StyleSheet, Text, View} from "react-native";
+import {Dimensions, StyleSheet} from "react-native";
 import AbstractComponent from "../common/AbstractComponent";
-import FlatUITheme from "../themes/flatUI";
 import Typography from "../styles/Typography";
 import PrimaryColors from "../styles/PrimaryColors";
-import {Button, Container, Header, List, ListItem, Title} from "native-base";
+import {Button, Container, Header, List, ListItem, Title, Text, View} from "native-base";
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
@@ -31,12 +30,12 @@ class ExportOptions extends AbstractComponent {
 
     render() {
         const Options = this.props.options.map((opt, idx) =>
-            <ListItem key={idx} onPress={opt.cb}>
+            <ListItem key={idx} onPress={opt.cb} style={{backgroundColor: 'white'}}>
                 <Text style={[Typography.paperFontSubhead, ExportOptions.styles.item]}>{opt.title}</Text>
             </ListItem>);
         return (
-            <Container theme={FlatUITheme}>
-                <Header style={FlatUITheme.header}>
+            <Container>
+                <Header>
                     <Title style={[Typography.paperFontTitle, {
                         fontWeight: 'bold',
                         color: 'white'

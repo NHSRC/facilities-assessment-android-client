@@ -10,7 +10,7 @@ import OverallScore from "./OverallScore";
 import ScoreTabs from "./ScoreTabs";
 import Share from "react-native-share";
 import _ from "lodash";
-import {takeSnapshot} from "react-native-view-shot";
+import {captureRef} from "react-native-view-shot";
 import ExportOptions from "./ExportOptions";
 import Logger from "../../framework/Logger";
 import ShareUtil from "../../action/ShareUtil";
@@ -65,7 +65,7 @@ class Reports extends ViewComponent {
     }
 
     snapshot() {
-        takeSnapshot(this.refs["reports"], {
+        captureRef(this.refs["reports"], {
             format: "jpeg",
             result: "file"
         }).then(uri => {
