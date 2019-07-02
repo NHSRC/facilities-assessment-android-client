@@ -8,6 +8,7 @@ import Reports from '../../reports/Reports';
 import Certification from '../../cert/Certification';
 import TypedTransition from "../../../framework/routing/TypedTransition";
 import Logger from "../../../framework/Logger";
+import Actions from "../../../action";
 
 const deviceWidth = Dimensions.get('window').width;
 
@@ -17,6 +18,10 @@ class ReportsView extends AbstractComponent {
     }
 
     static styles = StyleSheet.create({});
+
+    componentWillMount() {
+        this.dispatchAction(Actions.ALL_ASSESSMENTS, {...this.props});
+    }
 
     showReports(assessment) {
         return () => TypedTransition.from(this).with({
