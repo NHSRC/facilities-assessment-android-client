@@ -1,6 +1,6 @@
 import React from "react";
-import {ActivityIndicator, Alert, Dimensions, Image, StyleSheet, Text, TouchableWithoutFeedback, View} from "react-native";
-import {Body, Button, Container, Content, Header, Icon, Left, StyleProvider, Title} from "native-base";
+import {ActivityIndicator, Alert, Dimensions, Image, StyleSheet, TouchableWithoutFeedback} from "react-native";
+import {Body, Button, Container, Content, Header, Icon, Left, StyleProvider, Title, Text, View} from "native-base";
 import ViewComponent from "../common/ViewComponent";
 import TypedTransition from "../../framework/routing/TypedTransition";
 import Path from "../../framework/routing/Path";
@@ -16,6 +16,7 @@ import {Navigator} from 'react-native-deprecated-custom-components';
 import getTheme from "../../native-base-theme/components";
 import platformTheme from "../../native-base-theme/variables/platform";
 import GunakButton from "../common/buttons/GunakButton";
+import PrimaryColors from "../styles/PrimaryColors";
 
 const nqasIcon = require('../img/nqas.png');
 const kayakalpIcon = require('../img/kayakalp.png');
@@ -38,7 +39,8 @@ class ModeSelection extends ViewComponent {
 
     static styles = StyleSheet.create({
         container: {
-            flexDirection: 'column'
+            flexDirection: 'column',
+            backgroundColor: PrimaryColors.bodyBackground
         },
         modeContainer: {
             flexDirection: 'row',
@@ -117,7 +119,7 @@ class ModeSelection extends ViewComponent {
         return (
             <StyleProvider style={getTheme(platformTheme)}>
                 <Container>
-                    <Header>
+                    <Header style={{backgroundColor: PrimaryColors.header}}>
                         {EnvironmentConfig.isEmulated ?
                             <Left>
                                 <Button

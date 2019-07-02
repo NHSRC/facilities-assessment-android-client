@@ -1,8 +1,7 @@
 import React from "react";
 import {BackHandler, Dimensions, Modal, StyleSheet, View} from "react-native";
 import ViewComponent from "../common/ViewComponent";
-import FlatUITheme from "../themes/flatUI";
-import {Button, Container, Content, Header, Icon, Title} from "native-base";
+import {Button, Container, Right, Body, Content, Header, Icon, Title, StyleProvider, Left} from "native-base";
 import Path from "../../framework/routing/Path";
 import Typography from "../styles/Typography";
 import TypedTransition from "../../framework/routing/TypedTransition";
@@ -15,6 +14,8 @@ import {takeSnapshot} from "react-native-view-shot";
 import ExportOptions from "./ExportOptions";
 import Logger from "../../framework/Logger";
 import ShareUtil from "../../action/ShareUtil";
+import getTheme from "../../native-base-theme/components";
+import platformTheme from "../../native-base-theme/variables/platform";
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
@@ -109,46 +110,49 @@ class Reports extends ViewComponent {
         const title = this.props.params.drilledDown ? _.truncate(this.state.selectionName, {length: 25})
             : `${this.props.params.mode.toUpperCase()} Scorecard`;
         return (
-            <Container theme={FlatUITheme}>
-                <Header style={FlatUITheme.header}>
-                    <Button
-                        onPress={this.back.bind(this)}
-                        transparent>
-                        <Icon style={{color: 'white'}} name="arrow-back"/>
-                    </Button>
-                    <Title style={[Typography.paperFontTitle, {
-                        fontWeight: 'bold',
-                        color: 'white'
-                    }]}>
-                        {title}
-                    </Title>
-                    <Button
-                        onPress={this.exportOptions}
-                        transparent>
-                        <Icon style={{color: 'white'}} name="get-app"/>
-                    </Button>
-                    <Button
-                        onPress={this.snapshot.bind(this)}
-                        transparent>
-                        <Icon style={{color: 'white'}} name="share"/>
-                    </Button>
-                </Header>
-                <Content ref="reports">
-                    <OverallScore score={this.state.overallScore}
-                                  scoreText={this.state.overallScoreText}
-                                  checkpointStats={this.state.checkpointStats}
-                                  checklistStats={this.state.checklistStats} {...this.props.params}/>
-                    <ScoreTabs mode={this.props.params.mode}
-                               params={this.props.params}
-                               facilityAssessment={this.props.params.facilityAssessment}
-                               data={this.state}/>
-                    <Modal transparent={true} visible={this.state.showExportOptions}
-                           onRequestClose={this.exportOptions}>
-                        <ExportOptions onClose={this.exportOptions} options={exportOptions} title={`Export - ${title}`}/>
-                    </Modal>
-                    <View style={[this.state.showExportOptions ? Reports.styles.overlay : {}]}/>
-                </Content>
-            </Container>
+            <StyleProvider style={getTheme(platformTheme)}>
+                <Container>
+                    <Header>
+                        <Left><Button
+                            onPress={this.back.bind(this)}
+                            transparent>
+                            <Icon style={{color: 'white'}} name="arrow-back"/>
+                        </Button></Left>
+                        <Body><Title style={[Typography.paperFontTitle, {
+                            fontWeight: 'bold',
+                            color: 'white'
+                        }]}>
+                            {title}
+                        </Title></Body>
+                        <Right><Button
+                            onPress={this.exportOptions}
+                            transparent>
+                            <Icon style={{color: 'white'}} name="get-app"/>
+                        </Button>
+                            <Button
+                                onPress={this.snapshot.bind(this)}
+                                transparent>
+                                <Icon style={{color: 'white'}} name="share"/>
+                            </Button></Right>
+                    </Header>
+                    <Content contentContainerStyle={{flexDirection: 'column'}}
+                             keyboardShouldPersistTaps={'always'} ref="reports">
+                        <OverallScore score={this.state.overallScore}
+                                      scoreText={this.state.overallScoreText}
+                                      checkpointStats={this.state.checkpointStats}
+                                      checklistStats={this.state.checklistStats} {...this.props.params}/>
+                        <ScoreTabs mode={this.props.params.mode}
+                                   params={this.props.params}
+                                   facilityAssessment={this.props.params.facilityAssessment}
+                                   data={this.state}/>
+                        <Modal transparent={true} visible={this.state.showExportOptions}
+                               onRequestClose={this.exportOptions}>
+                            <ExportOptions onClose={this.exportOptions} options={exportOptions} title={`Export - ${title}`}/>
+                        </Modal>
+                        <View style={[this.state.showExportOptions ? Reports.styles.overlay : {}]}/>
+                    </Content>
+                </Container>
+            </StyleProvider>
         );
     }
 }

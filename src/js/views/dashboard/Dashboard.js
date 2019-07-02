@@ -44,15 +44,14 @@ class Dashboard extends AbstractComponent {
                 });
                 TypedTransition.from(this).goBack();
             }}>
-                <Tabs
-                    style={Dashboard.styles.tabs}>
-                    <Tab heading="START" style={{backgroundColor: PrimaryColors.caption_black}}>
+                <Tabs style={Dashboard.styles.tabs}>
+                    <Tab heading="START">
                         <StartView {...this.props.params}/>
                     </Tab>
-                    <Tab heading="ONGOING" style={{backgroundColor: PrimaryColors.caption_black}}>
+                    <Tab heading="ONGOING">
                         <OpenView {...this.props.params}/>
                     </Tab>
-                    <Tab heading="REPORTS" style={{backgroundColor: PrimaryColors.caption_black}}>
+                    <Tab heading="REPORTS">
                         <ReportsView {...this.props.params}/>
                     </Tab>
                 </Tabs>

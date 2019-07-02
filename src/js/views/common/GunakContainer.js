@@ -5,6 +5,7 @@ import getTheme from '../../native-base-theme/components';
 import platformTheme from '../../native-base-theme/variables/platform';
 import TypedTransition from "../../framework/routing/TypedTransition";
 import Typography from "../styles/Typography";
+import PrimaryColors from "../styles/PrimaryColors";
 
 class GunakContainer extends React.Component {
     static propTypes = {
@@ -25,7 +26,7 @@ class GunakContainer extends React.Component {
         }
         return <StyleProvider style={getTheme(platformTheme)}>
             <Container>
-                <Header>
+                <Header style={{backgroundColor: PrimaryColors.header}}>
                     <Left>
                         <Button transparent onPress={this.props.onHeaderButtonPress ? this.props.onHeaderButtonPress : () => TypedTransition.from(this).goBack()}>
                             <Icon style={{marginTop: 5, color: "white"}} name='arrow-back'/>
@@ -42,7 +43,7 @@ class GunakContainer extends React.Component {
                         </Button>
                     </Right>}
                 </Header>
-                <Content contentContainerStyle={{flexDirection: 'column', paddingHorizontal: 6, justifyContent: 'center', alignItems: 'center'}}
+                <Content contentContainerStyle={{flexDirection: 'column', paddingHorizontal: 6, justifyContent: 'center', alignItems: 'center', backgroundColor: PrimaryColors.bodyBackground}}
                          keyboardShouldPersistTaps={'always'} ref="scroll">
                     {this.props.children}
                 </Content>

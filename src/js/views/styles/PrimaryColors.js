@@ -21,5 +21,6 @@ export default {
     "complete": "#ffa000",
     "incomplete": "#ffc107",
     "darkGrey": "rgba(42, 42, 66, 0.87)",
-    "header": '#212121'
+    "header": '#212121',
+    "bodyBackground": "#303030"
 };

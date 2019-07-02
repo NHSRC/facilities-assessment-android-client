@@ -89,7 +89,7 @@ export default {
     },
 
     // Card
-    cardDefaultBg: PrimaryColors.caption_black,
+    cardDefaultBg: PrimaryColors.bodyBackground,
     cardBorderColor: "#ccc",
     cardBorderRadius: 2,
     cardItemPadding: platform === "ios" ? 10 : 12,
@@ -116,7 +116,7 @@ export default {
     brandLight: "#f4f4f4",
 
     //Container
-    containerBgColor: PrimaryColors.caption_black,
+    containerBgColor: PrimaryColors.bodyBackground,
 
     //Date Picker
     datePickerTextColor: "#000",
@@ -151,7 +151,7 @@ export default {
 
     // Header
     toolbarBtnColor: platform === "ios" ? "#007aff" : "#fff",
-    toolbarDefaultBg: platform === "ios" ? "#F8F8F8" : "#3F51B5",
+    toolbarDefaultBg: platform === "ios" ? "#F8F8F8" : PrimaryColors.header,
     toolbarHeight: platform === "ios" ? 64 : 56,
     toolbarSearchIconSize: platform === "ios" ? 20 : 23,
     toolbarInputColor: platform === "ios" ? "#CECDD2" : "#fff",
@@ -198,7 +198,7 @@ export default {
     listItemSelected: platform === "ios" ? "#007aff" : "#3F51B5",
 
     // List
-    listBg: PrimaryColors.caption_black,
+    listBg: PrimaryColors.bodyBackground,
     listBorderColor: "#c9c9c9",
     listDividerBg: "#f4f4f4",
     listBtnUnderlayColor: "#DDD",
@@ -231,14 +231,14 @@ export default {
     inverseSpinnerColor: "#1A191B",
 
     // Tab
-    tabDefaultBg: PrimaryColors.caption_black,
+    tabDefaultBg: PrimaryColors.bodyBackground,
     topTabBarTextColor: platform === "ios" ? "#6b6b6b" : "#b3c7f9",
     topTabBarActiveTextColor: platform === "ios" ? "#007aff" : "#fff",
     topTabBarBorderColor: platform === "ios" ? "#a7a6ab" : "#fff",
     topTabBarActiveBorderColor: platform === "ios" ? "#007aff" : "#fff",
 
     // Tabs
-    tabBgColor: PrimaryColors.caption_black,
+    tabBgColor: PrimaryColors.bodyBackground,
     tabFontSize: 15,
 
     // Text
