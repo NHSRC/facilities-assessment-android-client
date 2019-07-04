@@ -35,3 +35,10 @@ link-native-dependencies-source:
 
 analyse-app-crash:
 	cd unminifiy && npm start ../android/app/build/generated/sourcemap.js $(line) $(column)
+
+
+# <packager>
+run_packager: ##
+	REACT_EDITOR=$([ "$REACT_EDITOR" == "" ] && echo "subl" || echo "$REACT_EDITOR")
+	cd android && npm start
+# </packager>

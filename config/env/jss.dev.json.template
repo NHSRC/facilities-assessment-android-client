@@ -1,5 +1,5 @@
 {
-  "SERVER_URL": "http://dev.gunak.org:6001",
+  "SERVER_URL": "http://SERVER_URL_VAR:6001",
   "FREE_TEXT_FACILITY_NAME_SUPPORT": false,
   "ALLOW_INCOMPLETE_SUBMIT": true,
   "TRACK_LOCATION": false,

@@ -24,14 +24,18 @@ define _run_android
 	ENVFILE=.env react-native run-android
 endef
 
-run-app-android: ## ARG - devCompatible=true/false (use true if the app is crashing immediately after giving overlay permission)
-	$(call _run_android,dev)
+define _run_android_dev
+	$(call _setup_hosts,$1)
+	$(call _create_config,dev)
+	ENVFILE=.env react-native run-android
+endef
 
-run-app-android-nhsrc:
+
+run-app-android-nhsrc: ## ARG - devCompatible=true/false (use true if the app is crashing immediately after giving overlay permission)
 	$(call _run_android,nhsrc)
 
 run-app-android-nhsrc-dev:
-	$(call _run_android,nhsrc.dev)
+	$(call _run_android_dev,nhsrc.dev)
 
 run-app-android-jss:
 	$(call _run_android,jss)
@@ -40,4 +44,4 @@ run-app-android-jss-qa:
 	$(call _run_android,jss.qa)
 
 run-app-android-jss-dev:
-	$(call _run_android,jss.dev)
+	$(call _run_android_dev,jss.dev)
