@@ -1,7 +1,6 @@
 import React from 'react';
 import {Dimensions, StyleSheet} from 'react-native';
 import AbstractComponent from "../common/AbstractComponent";
-import FlatUITheme from '../themes/flatUI';
 import {Button, Container, Content, Header, Icon, Title} from 'native-base';
 import Path from "../../framework/routing/Path";
 import Typography from '../styles/Typography';
@@ -45,8 +44,8 @@ class DrillDownView extends AbstractComponent {
     render() {
         Logger.logDebug('DrillDownView', 'render');
         return (
-            <Container theme={FlatUITheme}>
-                <Header style={FlatUITheme.header}>
+            <Container>
+                <Header>
                     <Button
                         onPress={() => TypedTransition.from(this)
                             .goBack()}

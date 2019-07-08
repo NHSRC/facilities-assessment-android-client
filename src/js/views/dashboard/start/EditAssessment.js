@@ -6,10 +6,9 @@ import Actions from "../../../action";
 import AssessmentType from "./AssessmentType";
 import AssessmentSeries from "./AssessmentSeries";
 import Logger from "../../../framework/Logger";
-import FlatUITheme from "../../themes/flatUI";
-import Typography from "../../styles/Typography";
 import editAssessment from "../../../action/editAssessment";
 import PropTypes from 'prop-types';
+import GunakContainer from '../../common/GunakContainer'
 
 class EditAssessment extends AbstractComponent {
     static propTypes = {
@@ -49,13 +48,7 @@ class EditAssessment extends AbstractComponent {
         };
 
         return (
-            <Container theme={FlatUITheme}>
-                <Header style={FlatUITheme.header}>
-                    <Title style={[Typography.paperFontTitle, {
-                        fontWeight: 'bold',
-                        color: 'white'
-                    }]}>Change Assessment Attributes</Title>
-                </Header>
+            <GunakContainer title="Change Assessment Attributes">
                 <Content>
                     <View style={EditAssessment.styles.container}>
                         <List>
@@ -66,7 +59,7 @@ class EditAssessment extends AbstractComponent {
                         </List>
                     </View>
                 </Content>
-            </Container>
+            </GunakContainer>
         );
     }
 }

@@ -3,7 +3,6 @@ import React from 'react';
 import AbstractComponent from '../common/AbstractComponent';
 import Path from "../../framework/routing/Path";
 import {Button, Container, Content, Header, Icon, Title} from "native-base";
-import FlatUITheme from "../themes/flatUI";
 import Typography from "../styles/Typography";
 import TypedTransition from "../../framework/routing/TypedTransition";
 import Actions from "../../action";
@@ -14,6 +13,7 @@ import Logger from "../../framework/Logger";
 import ValidationErrorMessage from "./ValidationErrorMessage";
 import PropTypes from 'prop-types';
 import _ from "lodash";
+import GunakContainer from '../common/GunakContainer';
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
@@ -78,16 +78,9 @@ class AssessmentIndicators extends AbstractComponent {
         }
 
         return (
-            <Container theme={FlatUITheme}>
-                <Header style={FlatUITheme.header}>
-                    <Button transparent onPress={() => TypedTransition.from(this).goBack()}>
-                        <Icon style={{color: "white"}} name='arrow-back'/>
-                    </Button>
-                    <Title style={[Typography.paperFontHeadline,
-                        {color: "white"}]}>{this.props.params.assessmentTool.name}</Title>
-                </Header>
+            <GunakContainer title={this.props.params.assessmentTool.name}>
                 <Content keyboardShouldPersistTaps={'always'} ref={input => AssessmentIndicators.visibleScrollView = input}>
-                    <View style={{margin: deviceWidth * 0.04, flexDirection: 'column'}}>
+                    <View style={{ flexDirection: 'column',width:deviceWidth,marginLeft:5,marginRight:5}}>
                         <View style={{flexDirection: 'row', marginBottom: deviceHeight * 0.02}}>
                             <AssessmentTitle facilityName={this.props.params.facility.name} assessmentStartDate={this.props.params.facilityAssessment.startDate}
                                              assessmentToolName={this.props.params.assessmentTool.name}/>
@@ -114,7 +107,7 @@ class AssessmentIndicators extends AbstractComponent {
                             </View>}
                     </View>
                 </Content>
-            </Container>
+            </GunakContainer>
         );
     }
 }

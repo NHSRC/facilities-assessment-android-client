@@ -1,6 +1,6 @@
 class Registry {
     constructor() {
-        this.entities = new Set();
+            this.entities = new Set();
     }
 
     register(name, entity) {

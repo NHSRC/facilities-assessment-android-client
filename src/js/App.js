@@ -13,12 +13,10 @@ import SeedProgress from "./models/SeedProgress";
 import EnvironmentConfig from "./views/common/EnvironmentConfig";
 import ErrorHandler from "./utility/ErrorHandler";
 import ProgressBarModal from "./views/progressBar/ProgressBarModal";
-import FlatUITheme from "./views/themes/flatUI";
-import Typography from "./views/styles/Typography";
-import {Container, Header, Title} from "native-base";
 import SeedDataService from "./service/SeedDataService";
 import PropTypes from 'prop-types';
 import _ from "lodash";
+import GunakContainer from "./views/common/GunakContainer";
 
 const nhsrcbanner = require('./views/img/nhsrcbanner.png');
 
@@ -119,7 +117,7 @@ export default class App extends Component {
         BackHandler.exitApp();
     }
 
-    render() {
+    render() {  
         Logger.logDebug('App', 'render');
         if (!_.isNil(this.state.error)) {
             return this.renderError();
@@ -139,13 +137,7 @@ export default class App extends Component {
             return routes;
         }
 
-        return <Container theme={FlatUITheme}>
-            <Header style={FlatUITheme.header}>
-                <Title style={[Typography.paperFontTitle, {
-                    fontWeight: 'bold',
-                    color: 'white'
-                }]}>GUNAK (गुणक)</Title>
-            </Header>
+        return <GunakContainer title="GUNAK (गुणक)">
             <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', margin: 8}}>
                 {checklistsNotLoaded ?
                     <ProgressBarModal message={seedProgress.syncMessage} value={seedProgress.syncProgress} failed={!_.isNil(seedProgress.error)}
@@ -156,6 +148,6 @@ export default class App extends Component {
                 }
             </View>
             <Image resizeMode="contain" style={{width: deviceWidth}} source={nhsrcbanner}/>
-        </Container>;
+        </GunakContainer>;
     }
 }

@@ -2,14 +2,13 @@ import React from 'react';
 import {Alert, Dimensions, NativeModules, StyleSheet, Text, View} from 'react-native';
 import {Button, Container, Content, Header, Icon, Title} from 'native-base';
 import ViewComponent from "../common/ViewComponent";
-import FlatUITheme from '../themes/flatUI';
-import TypedTransition from "../../framework/routing/TypedTransition";
 import Path from "../../framework/routing/Path";
 import PrimaryColors from "../styles/PrimaryColors";
 import Typography from "../styles/Typography";
 import Actions from '../../action';
 import EnvironmentConfig from "../common/EnvironmentConfig";
 import ErrorHandler from "../../utility/ErrorHandler";
+import GunakContainer from "../common/GunakContainer";
 
 const {Restart} = NativeModules;
 
@@ -40,6 +39,11 @@ class Settings extends ViewComponent {
             justifyContent: 'space-between',
             marginTop: 30
         },
+        settingButton:{
+            marginRight: 10,
+            paddingLeft:5,
+            paddingRight:5
+        }
     });
 
     componentWillMount() {
@@ -65,21 +69,7 @@ class Settings extends ViewComponent {
 
     render() {
         return (
-            <Container theme={FlatUITheme}>
-                <Header style={FlatUITheme.header}>
-                    <Button
-                        onPress={() => {
-                            this._onBack();
-                            TypedTransition.from(this).goBack();
-                        }}
-                        transparent>
-                        <Icon style={{marginTop: 10, color: 'white'}} name="arrow-back"/>
-                    </Button>
-                    <Title style={[Typography.paperFontHeadline, {
-                        fontWeight: 'bold',
-                        color: 'white'
-                    }]}>Settings</Title>
-                </Header>
+            <GunakContainer title="Settings">
                 <Content>
                     <View style={Settings.styles.container}>
                         <View style={Settings.styles.textBox}>
@@ -98,24 +88,24 @@ class Settings extends ViewComponent {
                         {EnvironmentConfig.isEmulated &&
                         <View>
                             <View style={Settings.styles.buttons}>
-                                <Button style={{marginRight: 10}} onPress={() => {
+                                <Button style={Settings.styles.settingButton} onPress={() => {
                                     console.log("ENV property value should be qa or prod");
                                     ErrorHandler.forceSet();
                                     Restart.crashForTesting();
                                 }}><Text>Native Crash</Text></Button>
-                                <Button style={{marginRight: 10}} onPress={() => {
+                                <Button style={Settings.styles.settingButton} onPress={() => {
                                     console.log("ENV property value should be qa or prod");
                                     ErrorHandler.forceSet();
                                     ErrorHandler.simulateJSError();
                                 }}><Text>JS Exception</Text></Button>
-                                <Button onPress={() => {
+                                <Button style={Settings.styles.settingButton} onPress={() => {
                                     console.log("ENV property value should be qa or prod");
                                     ErrorHandler.forceSet();
                                     ErrorHandler.simulateJSCallbackError();
                                 }}><Text>Callback Exception</Text></Button>
                             </View>
                             <View style={Settings.styles.buttons}>
-                                <Button onPress={() => {
+                                <Button style={Settings.styles.settingButton} onPress={() => {
                                     console.log("ENV property value should be qa or prod");
                                     this.dispatchAction(Actions.SIMULATE_SERVER_ERROR, {noError: () => this.alert("No Error"), error: (error) => this.alert(JSON.stringify(error))});
                                 }}><Text>Server Request Error</Text></Button>
@@ -123,7 +113,7 @@ class Settings extends ViewComponent {
                         </View>}
                     </View>
                 </Content>
-            </Container>
+            </GunakContainer>
         );
     }
 }

@@ -1,3 +1,4 @@
+<script src="http://localhost:8097"></script>
 import React from 'react';
 import {Dimensions, StyleSheet, Text, View} from 'react-native';
 import ViewComponent from "../common/ViewComponent";
@@ -7,9 +8,9 @@ import Path from "../../framework/routing/Path";
 import Typography from "../styles/Typography";
 import PrimaryColors from "../styles/PrimaryColors";
 import {Button, Container, Content, Header, Icon, Title} from "native-base";
-import FlatUITheme from '../themes/flatUI';
 import Logger from "../../framework/Logger";
 import certification from "../../action/certification";
+import GunakContainer from "../common/GunakContainer"
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
@@ -59,27 +60,14 @@ class Certification extends ViewComponent {
                 <Text style={[Typography.paperFontTitle, {color: "white"}]}>
                     {criteria.name}
                 </Text>
-                <Icon name={criteria.certified ? "thumb-up" : "thumb-down"}
+                <Icon name={criteria.certified ? "md-thumbs-up" : "md-thumbs-down"}
                       style={{color: "white",}}/>
             </View>);
-        const iconName = this.state.certified ? "stars" : "block";
+        const iconName = this.state.certified ? "star" : "close-circle";
         const certificationText = this.state.certified ? "Certified" : "Not Certified";
         return (
-            <Container theme={FlatUITheme}>
-                <Header style={FlatUITheme.header}>
-                    <Button
-                        onPress={() => TypedTransition.from(this).goBack()}
-                        transparent>
-                        <Icon style={{marginTop: 10, color: 'white'}} name="arrow-back"/>
-                    </Button>
-                    <Title style={[Typography.paperFontHeadline, {
-                        fontWeight: 'bold',
-                        color: 'white'
-                    }]}>
-                        Certification Criteria
-                    </Title>
-                </Header>
-                <Content ref="reports">
+            <GunakContainer title="Certification Criteria">
+                <Content style={{width:deviceWidth}} ref="reports">
                     <View style={[Certification.styles.container,
                         {backgroundColor: this.state.certified ? "#3C8C3F" : "#8C2518"}]}>
                         <View style={{marginBottom: 10}}>
@@ -88,7 +76,7 @@ class Certification extends ViewComponent {
                             </Text>
                         </View>
                         <View style={Certification.styles.innerContainer}>
-                            <Icon name={iconName} style={{fontSize: 75, color: "white"}} size={100}/>
+                            <Icon name={iconName} style={{fontSize: 40, color: "white", paddingRight:10}}/>
                             <Text style={[Typography.paperFontHeadline, {color: "white"}]}>
                                 {certificationText}
                             </Text>
@@ -108,7 +96,7 @@ class Certification extends ViewComponent {
                         {Criteria}
                     </View>
                 </Content>
-            </Container>
+            </GunakContainer>
         );
     }
 }

@@ -169,8 +169,7 @@ class ModeSelection extends ViewComponent {
 
     downloadButtonContent(normalText) {
         return this.state.downloading ?
-            <ActivityIndicator
-                animating={true} size="large" color="white" style={{height: 80}}/> :
+            <Text style={[Typography.paperFontSubhead, {color: 'gray'}]}>{"Downloading..."}</Text> :
             <Text style={[Typography.paperFontSubhead, {color: 'white'}]}>{normalText}</Text>;
     }
 }

@@ -66,7 +66,7 @@ class ProgressListingItem extends AbstractComponent {
         return (
             <TouchableWithoutFeedback>
                 <View style={ProgressListingItem.styles.completeButtonContainer}>
-                    <Icon style={{color: PrimaryColors.blue}} name="check-circle"/>
+                    <Icon style={{color: PrimaryColors.blue}} name="md-checkmark-circle"/>
                 </View>
             </TouchableWithoutFeedback>);
     }

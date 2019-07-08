@@ -1,4 +1,4 @@
-import {ActivityIndicator, Alert, StyleSheet, Text, TouchableHighlight, View} from 'react-native';
+import {ActivityIndicator, Alert, Dimensions, StyleSheet, Text, TouchableHighlight, View} from 'react-native';
 import React from 'react';
 import AbstractComponent from "../common/AbstractComponent";
 import Path, {PathRoot} from "../../framework/routing/Path";
@@ -12,6 +12,7 @@ import Actions from "../../action";
 import SeedProgressService from "../../service/SeedProgressService";
 import StateSelectionUserState from "../../action/userState/StateSelectionUserState";
 import GunakContainer from "../common/GunakContainer";
+const deviceWidth = Dimensions.get('window').width;
 
 @PathRoot
 @Path('/StateSelection')
@@ -83,7 +84,7 @@ class StateSelection extends AbstractComponent {
         return (
             <GunakContainer title="Select state of health facilities">
                 <View>
-                    <Text style={{height: 0.5, backgroundColor: "white", width: 200}}/>
+                    <Text style={{height: 0.5, backgroundColor: "white", width:deviceWidth, marginTop:5}}/>
                     {this.state.allStates.map((countryState) =>
                         <View style={{marginTop: 5, justifyContent: 'center', alignItems: 'center'}} key={countryState.name}>
                             <TouchableHighlight key={countryState.name} onPress={() => this.toggleState(countryState)}>
@@ -106,7 +107,10 @@ class StateSelection extends AbstractComponent {
                     {this.state.seedProgress.numberOfStates === 0 ? null : <Text
                         style={[Typography.paperFontSubhead, {
                             color: "white",
-                            marginTop: 30
+                            marginTop: 30,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            paddingLeft:20
                         }]}>{`States already loaded - ${this.state.seedProgress.numberOfStates > 10 ? this.state.seedProgress.numberOfStates : this.state.loadedCountryStates}`}</Text>
                     }
                 </View>

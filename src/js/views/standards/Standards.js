@@ -2,7 +2,6 @@ import React from 'react';
 import {Dimensions, StyleSheet, View} from 'react-native';
 import {Button, Container, Content, Header, Icon, Title} from 'native-base';
 import ViewComponent from "../common/ViewComponent";
-import FlatUITheme from '../themes/flatUI';
 import TypedTransition from "../../framework/routing/TypedTransition";
 import Path from "../../framework/routing/Path";
 import Listing from '../common/Listing';
