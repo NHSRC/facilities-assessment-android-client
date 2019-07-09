@@ -22,7 +22,7 @@ import EnvironmentConfig from "../views/common/EnvironmentConfig";
 class ExportService extends BaseService {
     constructor(db, beanStore) {
         super(db, beanStore);
-        this.directoryPath = Platform.OS === "ios" ? RNFS.TemporaryDirectoryPath : RNFS.ExternalDirectoryPath;
+        this.directoryPath = Platform.OS === "ios" ? RNFS.TemporaryDirectoryPath : RNFS.TemporaryDirectoryPath;
     }
 
     init() {
