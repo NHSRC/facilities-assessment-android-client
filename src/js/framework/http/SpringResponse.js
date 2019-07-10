@@ -7,11 +7,19 @@ class SpringResponse {
     }
 
     static numberOfPages(response) {
-        return response["page"]["totalPages"];
+        if (_.isNil(response["page"])){
+            return response["totalPages"];
+        }else {
+            return response["page"]["totalPages"];
+        }
     }
 
     static pageNumber(response) {
-        return response["page"]["number"];
+        if(_.isNil(response["page"])){
+            return response["number"];
+        }else{
+            return response["page"]["number"];
+        }
     }
 }
 
