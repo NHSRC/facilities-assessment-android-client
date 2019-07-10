@@ -6,12 +6,17 @@
     "type": "git",
     "url": "https://github.com/nhsrc/facilities-assessment-android-client.git"
   },
+  "jest": {
+    "preset": "react-native",
+    "testMatch": [
+      "<rootDir>/src/test/**/*Test.js"
+    ]
+  },
   "license": "AGPL-3.0",
   "scripts": {
     "start": "react-native start",
     "test": "jest",
     "test-ci": "jest --verbose --forceExit --maxWorkers=2 --ci",
-    "coverage": "istanbul cover --report lcov _mocha --require ./node_modules/react-native-mock/mock.js --require src/test/testHelper.js $(find ./test -name '*Test.js')",
     "flow": "flow"
   },
   "dependencies": {
