@@ -4,32 +4,34 @@ import ReferenceDataSyncService from "../service/ReferenceDataSyncService";
 import Logger from "../framework/Logger";
 import BatchRequest from "../framework/http/BatchRequest";
 import EnvironmentConfig from "../views/common/EnvironmentConfig";
+import _ from 'lodash';
+
 
 const initialSettings = function (state, action, beans) {
     const settingsService = beans.get(SettingsService);
-    return Object.assign(state, settingsService.get(), {serverURL: settingsService.getServerURL()});
+    return _.assignIn(state, settingsService.get(), {serverURL: settingsService.getServerURL()});
 };
 
 const downloadMyAssessments = function (state, action, beans) {
     const referenceDataSyncService = beans.get(ReferenceDataSyncService);
     referenceDataSyncService.syncMyTxData(action.cb);
-    return Object.assign(state, {syncing: true})
+    return _.assignIn(state, {syncing: true})
 };
 
 const downloadAssessment = function (state, action, beans) {
     const referenceDataSyncService = beans.get(ReferenceDataSyncService);
     referenceDataSyncService.syncAssessment(state.assessmentId, () => {
     });
-    return Object.assign(state, {syncing: true})
+    return _.assignIn(state, {syncing: true})
 };
 
 const syncedData = function (state, action, beans) {
     const settingsService = beans.get(SettingsService);
-    return Object.assign(state, settingsService.saveSettings({lastSyncedDate: new Date()}), {syncing: false});
+    return _.assignIn(state, settingsService.saveSettings({lastSyncedDate: new Date()}), {syncing: false});
 };
 
 const setAssessmentId = function (state, action) {
-    let newState = Object.assign(state, {});
+    let newState = _.assignIn(state, {});
     newState.assessmentId = action.assessmentId;
     return newState;
 };

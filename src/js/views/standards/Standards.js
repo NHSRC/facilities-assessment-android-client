@@ -42,7 +42,7 @@ class Standards extends ViewComponent {
     render() {
         Logger.logDebug('Standards', 'render');
         const standards = this.state.standards.map((standard) =>
-            Object.assign(standard,
+            _.assignIn(standard,
                 {name: Standard.getDisplayName(standard)}));
         return (
             <GunakContainer title={this.props.params.areaOfConcern.name} onPressRightIcon={() => TypedTransition.from(this).with({...this.props.params}).to(SearchPage)}

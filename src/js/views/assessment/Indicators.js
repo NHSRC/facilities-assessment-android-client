@@ -13,27 +13,31 @@ const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
 
 const uiComponentMap = new Map();
-let numericIndicatorFn = (indicatorDefinition, indicator, errorMessage, tabIndex, overallIndex, isLast) => <NumericIndicator definition={indicatorDefinition}
-                                                                                                                             indicator={indicator}
-                                                                                                                             validationError={errorMessage}
-                                                                                                                             tabIndex={tabIndex}
-                                                                                                                             overallIndex={overallIndex}
-                                                                                                                             isLast={isLast}/>;
+let numericIndicatorFn = (indicatorDefinition, indicator, errorMessage, tabIndex, overallIndex, isLast) =>
+    <NumericIndicator definition={indicatorDefinition}
+                      indicator={indicator}
+                      validationError={errorMessage}
+                      tabIndex={tabIndex}
+                      overallIndex={overallIndex}
+                      isLast={isLast}/>;
 uiComponentMap.set(IndicatorDefinition.DataType_Numeric, numericIndicatorFn);
 uiComponentMap.set(IndicatorDefinition.DataType_Percentage, numericIndicatorFn);
-uiComponentMap.set(IndicatorDefinition.DataType_Month, (indicatorDefinition, indicator, errorMessage, tabIndex, overallIndex, isLast, edit) => <DateIndicator definition={indicatorDefinition}
-                                                                                                                        indicator={indicator}
-                                                                                                                        mode={DateIndicator.MODE_MONTH}
-                                                                                                                        validationError={errorMessage}
-                                                                                                                        editing={edit}/>);
-uiComponentMap.set(IndicatorDefinition.DataType_Coded, (indicatorDefinition, indicator, errorMessage) => <CodedValueIndicator definition={indicatorDefinition}
-                                                                                                                              indicator={indicator}
-                                                                                                                              validationError={errorMessage}/>);
-uiComponentMap.set(IndicatorDefinition.DataType_Date, (indicatorDefinition, indicator, errorMessage, tabIndex, overallIndex, isLast, edit) => <DateIndicator definition={indicatorDefinition}
-                                                                                                                       indicator={indicator}
-                                                                                                                       mode={DateIndicator.MODE_DATE}
-                                                                                                                       validationError={errorMessage}
-                                                                                                                       editing={edit}/>);
+uiComponentMap.set(IndicatorDefinition.DataType_Month, (indicatorDefinition, indicator, errorMessage, tabIndex, overallIndex, isLast, edit) =>
+    <DateIndicator definition={indicatorDefinition}
+                   indicator={indicator}
+                   mode={DateIndicator.MODE_MONTH}
+                   validationError={errorMessage}
+                   editing={edit}/>);
+uiComponentMap.set(IndicatorDefinition.DataType_Coded, (indicatorDefinition, indicator, errorMessage) =>
+    <CodedValueIndicator definition={indicatorDefinition}
+                         indicator={indicator}
+                         validationError={errorMessage}/>);
+uiComponentMap.set(IndicatorDefinition.DataType_Date, (indicatorDefinition, indicator, errorMessage, tabIndex, overallIndex, isLast, edit) =>
+    <DateIndicator definition={indicatorDefinition}
+                   indicator={indicator}
+                   mode={DateIndicator.MODE_DATE}
+                   validationError={errorMessage}
+                   editing={edit}/>);
 
 class Indicators extends AbstractComponent {
     static userNumericInputs = {};

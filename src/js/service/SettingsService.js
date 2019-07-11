@@ -22,7 +22,7 @@ class SettingsService extends BaseService {
     }
 
     saveSettings(settings) {
-        this.save(Settings, (entity) => Object.assign(entity, {uuid: Settings.defaultPrimaryKey}))(settings);
+        this.save(Settings, (entity) => _.assignIn(entity, {uuid: Settings.defaultPrimaryKey}))(settings);
     }
 
     getServerURL() {

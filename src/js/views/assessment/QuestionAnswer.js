@@ -74,7 +74,7 @@ class QuestionAnswer extends AbstractComponent {
             actionList.map((action) => this.dispatchAction(action, {...this.props.params}));
 
             this.dispatchAction(Actions.UPDATE_CHECKPOINT, {
-                checkpoint: Object.assign(checkpoint, updateObj),
+                checkpoint: _.assignIn(checkpoint, updateObj),
                 ...this.props.params
             });
             fn();

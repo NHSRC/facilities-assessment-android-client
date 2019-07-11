@@ -16,7 +16,7 @@ const getCheckpoints = function (state, actions, beans) {
         .map((checkpoint) => _.assignIn({}, checkpoint,
             {measurableElement: checklistService.getMeasurableElement(checkpoint.measurableElement)}))
         .map((checkpoint) =>
-            Object.assign(assessmentService
+            _.assignIn(assessmentService
                     .getCheckpointScore(checkpoint, actionParams.standard,
                         actionParams.areaOfConcern, actionParams.checklist, actionParams.facilityAssessment),
                 {checkpoint: checkpoint}))
@@ -25,7 +25,7 @@ const getCheckpoints = function (state, actions, beans) {
     const currentCheckpoint = toCheckpointNotDefined ?
         _.head(checkpointScores) :
         checkpointScores.find((checkpoint) => checkpoint.checkpoint.uuid === actionParams.toCheckpoint.uuid);
-    return Object.assign(state, {
+    return _.assignIn(state, {
         checkpoints: checkpointScores,
         currentCheckpoint: currentCheckpoint,
         standard: standard,
@@ -48,7 +48,7 @@ const updateCheckpoint = function (state, actionParams, beans) {
 };
 
 const changePage = function (state, actionParams, beans) {
-    return Object.assign(state, {currentCheckpoint: actionParams.currentCheckpoint, pageChanged: true});
+    return _.assignIn(state, {currentCheckpoint: actionParams.currentCheckpoint, pageChanged: true});
 };
 
 export default new Map([

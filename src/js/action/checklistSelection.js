@@ -16,7 +16,7 @@ const checklistAssessmentLocation = function (state, action, beans) {
     assessmentLocation.latitude = action.coords.latitude;
     assessmentLocation.altitude = action.coords.altitude;
     beans.get(AssessmentLocationService).saveLocation(assessmentLocation);
-    return Object.assign(state, {});
+    return _.assignIn(state, {});
 };
 
 const allChecklists = function (state, action, beans) {
@@ -31,8 +31,8 @@ const allChecklists = function (state, action, beans) {
             checklistProgress.progress.completed === checklistProgress.progress.total
         ).length;
     checklistService.cacheAllChecklists(checklists);
-    return Object.assign(state, {
-        "checklists": _.zipWith(checklists, checklistProgress, Object.assign),
+    return _.assignIn(state, {
+        "checklists": _.zipWith(checklists, checklistProgress, _.assignIn),
         "assessmentProgress": {total: checklists.length, completed: completedChecklists}
     });
 };
@@ -41,14 +41,14 @@ const completeAssessment = function (state, action, beans) {
     const facilityAssessmentService = beans.get(FacilityAssessmentService);
     const endAssessment = facilityAssessmentService.endAssessment(action.facilityAssessment);
     action.cb();
-    return Object.assign(state);
+    return _.assignIn(state);
 };
 
 const updateChecklistProgress = function (state, action, beans) {
     const assessmentService = beans.get(AssessmentService);
     let updatedProgress = assessmentService.updateChecklistProgress(action.checklist, action.facilityAssessment);
     const newChecklists = state.checklists.map((checklist) => checklist.uuid === action.checklist.uuid ?
-        Object.assign(checklist, {
+        _.assignIn(checklist, {
             progress: {
                 total: updatedProgress.total,
                 completed: updatedProgress.completed
@@ -59,20 +59,20 @@ const updateChecklistProgress = function (state, action, beans) {
             _.isNumber(checklistProgress.progress.total) &&
             checklistProgress.progress.completed === checklistProgress.progress.total
         ).length;
-    return Object.assign(state, {
+    return _.assignIn(state, {
         checklists: newChecklists,
         assessmentProgress: {total: newChecklists.length, completed: completedChecklists}
     });
 };
 
 const editAssessmentStarted = function (state) {
-    return Object.assign(state, {
+    return _.assignIn(state, {
         showEditAssessment: true
     });
 };
 
 const editAssessmentCompleted = function (state) {
-    return Object.assign(state, {
+    return _.assignIn(state, {
         showEditAssessment: false
     });
 };

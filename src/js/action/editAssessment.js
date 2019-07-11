@@ -4,7 +4,7 @@ import AssessmentType from "../models/AssessmentType";
 
 const getAssessment = function (state, action, beans) {
     let facilityAssessment = beans.get(EntityService).findByUUID(action.facilityAssessmentUUID, FacilityAssessment.schema.name);
-    return Object.assign(state, {
+    return _.assignIn(state, {
         facilityAssessment: facilityAssessment,
         assessmentTypes: beans.get(EntityService).findAll(AssessmentType)
     });

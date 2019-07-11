@@ -22,7 +22,7 @@ class FacilityAssessmentService extends BaseService {
 
     saveSubmissionDetails(facilityAssessment) {
         const existingAssessment = _.assignIn({}, this.db.objectForPrimaryKey(FacilityAssessment.schema.name, facilityAssessment.uuid));
-        return this.saveAssessment(Object.assign(existingAssessment, {
+        return this.saveAssessment(_.assignIn(existingAssessment, {
             assessorName: facilityAssessment.assessorName,
             seriesName: facilityAssessment.seriesName
         }));
@@ -47,7 +47,7 @@ class FacilityAssessmentService extends BaseService {
     startAssessment(facility, assessmentTool, assessmentType) {
         const existingAssessment = this.getExistingAssessment(facility, assessmentTool, assessmentType);
         const optParams = {};
-        let assessment = this.saveAssessment(Object.assign(existingAssessment, {
+        let assessment = this.saveAssessment(_.assignIn(existingAssessment, {
             assessmentTool: assessmentTool.uuid,
             facility: facility.uuid,
             assessmentType: assessmentType.uuid,
@@ -59,7 +59,7 @@ class FacilityAssessmentService extends BaseService {
 
     endAssessment(facilityAssessment) {
         const existingAssessment = _.assignIn({}, this.db.objectForPrimaryKey(FacilityAssessment.schema.name, facilityAssessment.uuid));
-        return this.saveAssessment(Object.assign(existingAssessment, {
+        return this.saveAssessment(_.assignIn(existingAssessment, {
             endDate: new Date()
         }));
     }

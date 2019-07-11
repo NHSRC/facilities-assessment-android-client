@@ -17,7 +17,7 @@ const clone = function (state) {
     cloned.outputIndicators = [];
     cloned.resultsEvalCode = state.resultsEvalCode;
     cloned.dateFieldInEdit = state.dateFieldInEdit;
-    state.indicators.forEach((indicator) => cloned.indicators.push(Object.assign(new Indicator(), indicator)));
+    state.indicators.forEach((indicator) => cloned.indicators.push(_.assignIn(new Indicator(), indicator)));
     return cloned;
 };
 

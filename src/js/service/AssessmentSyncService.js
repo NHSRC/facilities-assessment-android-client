@@ -40,7 +40,7 @@ class AssessmentSyncService extends BaseService {
             const batchRequest = new BatchRequest();
             const checklists = checklistService.getChecklistsFor(facilityAssessment.assessmentTool, state);
             checklists.map(({uuid, name, department}) =>
-                Object.assign({
+                _.assignIn({
                     uuid: uuid,
                     name: name,
                     department: department.uuid,

@@ -27,7 +27,7 @@ class CheckpointScore {
     }
 
     static create(checkpoint, standard, areaOfConcern, checklist, facilityAssessment, existingCheckpoint) {
-        return Object.assign({
+        return _.assignIn({
             uuid: UUID.generate(),
             facilityAssessment: facilityAssessment.uuid,
             checklist: checklist.uuid,

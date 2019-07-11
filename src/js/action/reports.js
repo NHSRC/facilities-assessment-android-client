@@ -1,5 +1,7 @@
 import ReportService from '../service/ReportService';
 import defaultTabs from './reportingTabs';
+import _ from 'lodash';
+
 
 const getSelectedTab = (tabs) => tabs.find((tab) => tab.isSelected);
 
@@ -17,7 +19,7 @@ const scoringMap = new Map([
 const getAllScores = function (state, action, beans) {
     const reportService = beans.get(ReportService);
     const overallScore = reportService.overallScore(action.facilityAssessment);
-    const tabs = state.tabs.map((tab) => Object.assign(tab, {
+    const tabs = state.tabs.map((tab) => _.assignIn(tab, {
             scores: reportService[scoringMap.get(tab.slug)](action.facilityAssessment)
         })
     );
@@ -48,8 +50,8 @@ const getAllScores = function (state, action, beans) {
 
 const selectTab = function (state, action, beans) {
     const tabs = state.tabs
-        .map((tab) => Object.assign(tab, {isSelected: false}))
-        .map((tab) => Object.assign(tab, {
+        .map((tab) => _.assignIn(tab, {isSelected: false}))
+        .map((tab) => _.assignIn(tab, {
             isSelected: tab.title === action.selectedTab
         }));
     return {...state, tabs: tabs, selectedTab: action.selectedTab};
@@ -61,7 +63,7 @@ const drillDown = function (state, action, beans) {
     const drilledDownTabs = prevSelectedTab.drillDown;
 
     const tabs = drilledDownTabs.map((tab) => {
-            return Object.assign(tab, {
+            return _.assignIn(tab, {
                 scores: reportService[scoringMap.get(tab.slug)](action.selectionUUID, action.facilityAssessment)
             });
         }
@@ -79,19 +81,19 @@ const drillDown = function (state, action, beans) {
 };
 
 const exportAllRaw = function (state, action, beans) {
-    return Object.assign(state, {showExportOptions: !state.showExportOptions});
+    return _.assignIn(state, {showExportOptions: !state.showExportOptions});
 };
 
 const exportOptions = function (state, action, beans) {
-    return Object.assign(state, {showExportOptions: !state.showExportOptions});
+    return _.assignIn(state, {showExportOptions: !state.showExportOptions});
 };
 
 const exportTab = function (state, action, beans) {
-    return Object.assign(state, {showExportOptions: !state.showExportOptions});
+    return _.assignIn(state, {showExportOptions: !state.showExportOptions});
 };
 
 const exportCurrentView = function (state, action, beans) {
-    return Object.assign(state, {});
+    return _.assignIn(state, {});
 };
 
 const initReports = function (state, action, beans) {

@@ -19,12 +19,12 @@ class IndicatorService extends BaseService {
     getIndicator(indicatorDefinitionUUID, assessmentUUID) {
         let indicator = this.findByCriteria(`indicatorDefinition = "${indicatorDefinitionUUID}" and facilityAssessment = "${assessmentUUID}"`, Indicator);
         if (_.isNil(indicator)) return Indicator.newIndicator(indicatorDefinitionUUID, assessmentUUID);
-        return Object.assign(new Indicator(), indicator);
+        return _.assignIn(new Indicator,indicator)
     }
 
     getIndicators(assessmentUUID) {
         let indicators = this.findAllByCriteria(`facilityAssessment = "${assessmentUUID}"`, Indicator.schema.name);
-        return indicators.map((indicator) => Object.assign(new Indicator(), indicator));
+        return indicators.map((indicator) => _.assignIn(new Indicator(), indicator));
     }
 
     saveIndicator(indicator) {

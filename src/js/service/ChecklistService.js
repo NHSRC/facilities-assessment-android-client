@@ -77,7 +77,7 @@ class ChecklistService extends BaseService {
                                 .filter((me) => !_.isEmpty(me.checkpoints))
                                 .map((me) => {
                                     me.checkpoints = me.checkpoints.map((checkpoints, idx) =>
-                                        Object.assign(checkpoints, {reference: `${me.reference}.${idx + 1}`}));
+                                        _.assignIn(checkpoints, {reference: `${me.reference}.${idx + 1}`}));
                                     return me;
                                 });
                             return standard;

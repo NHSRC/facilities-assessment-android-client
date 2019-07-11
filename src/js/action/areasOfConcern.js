@@ -7,21 +7,21 @@ const allAreasOfConcern = function (state, action, beans) {
     const assessmentService = beans.get(AssessmentService);
     let aocProgress = areasOfConcern.map((aoc) =>
         assessmentService.getAreaOfConcernProgress(aoc, action.checklist, action.facilityAssessment));
-    return Object.assign(state, {"areasOfConcern": _.zipWith(areasOfConcern, aocProgress, Object.assign)});
+    return _.assignIn(state, {"areasOfConcern": _.zipWith(areasOfConcern, aocProgress, _.assignIn)});
 };
 
 const updateProgress = function (state, action, beans) {
     const assessmentService = beans.get(AssessmentService);
     let updatedProgress = assessmentService.updateAreaOfConcernProgress(action.areaOfConcern, action.checklist, action.facilityAssessment);
     const newAOCs = state.areasOfConcern.map((aoc) => aoc.uuid === action.areaOfConcern.uuid ?
-        Object.assign(aoc, {
+        _.assignIn(aoc, {
             progress: {
                 total: updatedProgress.total,
                 completed: updatedProgress.completed
             }
         }) : aoc);
 
-    return Object.assign(state, {"areasOfConcern": newAOCs});
+    return _.assignIn(state, {"areasOfConcern": newAOCs});
 };
 
 export default new Map([

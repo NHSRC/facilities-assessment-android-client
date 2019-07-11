@@ -166,7 +166,7 @@ class ReportService extends BaseService {
                 standardUUID)
             .map((cs) => {
                 let measurableElement = this._measurableElementForCheckpoint(cs.checkpoint);
-                return Object.assign(cs,
+                return _.assignIn(cs,
                     {
                         measurableElementUUID: measurableElement.uuid,
                         measurableElement: measurableElement

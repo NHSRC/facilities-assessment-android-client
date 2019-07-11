@@ -13,7 +13,7 @@ const allStates = function (state, action, beans) {
     let facilityAssessmentService = beans.get(FacilityAssessmentService);
     const states = facilitiesService.getStates();
     const assessmentTools = facilityAssessmentService.getAssessmentTools(action.mode);
-    let newState = Object.assign(state, {
+    let newState = _.assignIn(state, {
         "allStates": states,
         "facilitySelected": false,
         "assessmentTools": assessmentTools,
@@ -30,7 +30,7 @@ const allStates = function (state, action, beans) {
 };
 
 const selectAssessmentTool = function (state, action, beans) {
-    return Object.assign(state, {
+    return _.assignIn(state, {
         "facilitySelected": false,
         "selectedAssessmentTool": action.selectedAssessmentTool,
     });
@@ -38,7 +38,7 @@ const selectAssessmentTool = function (state, action, beans) {
 
 const selectState = function (state, action, beans) {
     const districts = beans.get(FacilitiesService).getAllDistrictsFor(action.selectedState.uuid);
-    let newState = Object.assign(state, {
+    let newState = _.assignIn(state, {
         "selectedState": action.selectedState,
         "districtsForState": districts,
         "facilityTypes": [],
@@ -59,7 +59,7 @@ const selectState = function (state, action, beans) {
 const selectDistrict = function (state, action, beans) {
     const facilities = beans.get(FacilitiesService).getAllFacilitiesFor(action.selectedDistrict.uuid);
     const facilityTypes = beans.get(FacilitiesService).getFacilityTypes();
-    let newState = Object.assign(state, {
+    let newState = _.assignIn(state, {
         "selectedDistrict": action.selectedDistrict,
         "facilities": facilities,
         "selectedFacility": undefined,
@@ -78,7 +78,7 @@ const selectDistrict = function (state, action, beans) {
 const selectFacilityType = function (state, action, beans) {
     const facilities = beans.get(FacilitiesService).getAllFacilitiesFor(state.selectedDistrict.uuid)
         .filter((facility) => facility.facilityType === action.selectedFacilityType.uuid);
-    let newState = Object.assign(state, {
+    let newState = _.assignIn(state, {
         "facilities": facilities,
         "selectedFacility": undefined,
         "facilitySelected": false,
@@ -95,7 +95,7 @@ const selectFacilityType = function (state, action, beans) {
 const selectFacility = function (state, action, beans) {
     const facilityAssessmentService = beans.get(FacilityAssessmentService);
     const assessmentTypes = facilityAssessmentService.getAssessmentTypes();
-    return Object.assign(state, {
+    return _.assignIn(state, {
         "selectedFacility": action.selectedFacility,
         "facilitySelected": false,
         "assessmentTypes": assessmentTypes,
@@ -107,7 +107,7 @@ const selectFacility = function (state, action, beans) {
 const enterFacilityName = function (state, action, beans) {
     const facilityAssessmentService = beans.get(FacilityAssessmentService);
     const assessmentTypes = facilityAssessmentService.getAssessmentTypes();
-    return Object.assign(state, {
+    return _.assignIn(state, {
         "facilitySelected": false,
         "assessmentTypes": assessmentTypes,
         "selectedAssessmentType": undefined,
@@ -117,7 +117,7 @@ const enterFacilityName = function (state, action, beans) {
 };
 
 const selectAssessmentType = function (state, action, beans) {
-    return Object.assign(state, {
+    return _.assignIn(state, {
         "facilitySelected": false,
         "selectedAssessmentType": action.selectedAssessmentType,
     });
@@ -132,7 +132,7 @@ const facilitySelected = function (state, action, beans) {
     }
     const hasActiveFacilityAssessment = !_.isEmpty(facilityAssessmentService.getExistingAssessment(selectedFacility, state.selectedAssessmentTool, state.selectedAssessmentType));
     const facilityAssessment = facilityAssessmentService.startAssessment(selectedFacility, state.selectedAssessmentTool, state.selectedAssessmentType);
-    return Object.assign(state, {
+    return _.assignIn(state, {
         "selectedFacility": selectedFacility,
         "facilitySelected": true,
         "facilityAssessment": facilityAssessment,
@@ -142,7 +142,7 @@ const facilitySelected = function (state, action, beans) {
 
 const reset_form = function (state, action, bean) {
     action.cb();
-    return Object.assign(state, {
+    return _.assignIn(state, {
         facilitySelected: false,
         districtsForState: [],
         facilities: [],

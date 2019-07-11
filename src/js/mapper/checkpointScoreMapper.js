@@ -1,6 +1,8 @@
+import _ from "lodash";
+
 export default checkpointScoreMapper =
     ({uuid, score, remarks, checkpoint, na}) =>
-        Object.assign({
+        _.assignIn({
             uuid: uuid,
             score: score,
             remarks: remarks,

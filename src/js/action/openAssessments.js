@@ -13,7 +13,7 @@ const allAssessments = function (state, action, beans) {
     const completedAssessments = assessmentService.getAllCompletedAssessments(assessmentMode);
     const certifiableAssessments = assessmentService.getAllCertifiableAssessments(assessmentMode);
     const submittedAssessments = assessmentService.getAllSubmittedAssessments(assessmentMode);
-    return Object.assign(state, {
+    return _.assignIn(state, {
         certifiableAssessments: certifiableAssessments,
         openAssessments: openAssessments,
         completedAssessments: completedAssessments,
@@ -23,7 +23,7 @@ const allAssessments = function (state, action, beans) {
 
 const startSubmitAssessment = function (state, action) {
     let submissionDetailAvailable = FacilityAssessment.submissionDetailsAvailable(action.facilityAssessment, action.facilityAssessment.assessmentTool);
-    return Object.assign(state, {
+    return _.assignIn(state, {
         submittingAssessment: action.facilityAssessment,
         submissionDetailAvailable: submissionDetailAvailable,
         assessmentToolType: action.facilityAssessment.assessmentTool.assessmentToolType
@@ -31,7 +31,7 @@ const startSubmitAssessment = function (state, action) {
 };
 
 const submissionCancelled = function (state, action, beans) {
-    return Object.assign(state, {submittingAssessment: undefined});
+    return _.assignIn(state, {submittingAssessment: undefined});
 };
 
 const syncAssessment = function (state, action, beans) {
@@ -41,7 +41,7 @@ const syncAssessment = function (state, action, beans) {
 
     const assessmentSyncService = beans.get(AssessmentSyncService);
     assessmentSyncService.syncFacilityAssessment(action.facilityAssessment, action.cb, action.errorHandler);
-    return Object.assign(state, {syncing: [action.facilityAssessment.uuid].concat(state.syncing)});
+    return _.assignIn(state, {syncing: [action.facilityAssessment.uuid].concat(state.syncing)});
 };
 
 const assessmentSynced = function (state, action, beans) {
@@ -50,7 +50,7 @@ const assessmentSynced = function (state, action, beans) {
     const assessmentMode = action.mode;
     const completedAssessments = assessmentService.getAllCompletedAssessments(assessmentMode);
     const submittedAssessments = assessmentService.getAllSubmittedAssessments(assessmentMode);
-    return Object.assign(state, {
+    return _.assignIn(state, {
         syncing: state.syncing.filter((uuid) => uuid !== action.facilityAssessment.uuid),
         completedAssessments: completedAssessments,
         submittedAssessments: submittedAssessments,
@@ -65,7 +65,7 @@ const markAssessmentUnsubmitted = function (state, action, beans) {
     const assessmentMode = action.mode;
     const openAssessments = assessmentService.getAllOpenAssessments(assessmentMode);
     const submittedAssessments = assessmentService.getAllSubmittedAssessments(assessmentMode);
-    return Object.assign(state, {openAssessments: openAssessments, submittedAssessments: submittedAssessments});
+    return _.assignIn(state, {openAssessments: openAssessments, submittedAssessments: submittedAssessments});
 };
 
 const _updateSubmittingAssessment = function (state, updateObject) {

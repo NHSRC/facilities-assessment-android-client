@@ -39,7 +39,7 @@ class Remarks extends AbstractComponent {
     handleRemarks(remarks) {
         this.saving();
         return this.dispatchAction(Actions.UPDATE_CHECKPOINT, {
-            checkpoint: Object.assign(this.props.checkpoint, {remarks: remarks}),
+            checkpoint: _.assignIn(this.props.checkpoint, {remarks: remarks}),
             ...this.props.params
         });
     }

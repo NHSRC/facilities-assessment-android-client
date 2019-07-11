@@ -13,7 +13,7 @@ const criterionMap = new Map([
 const generateCertificate = (state, action, beans) => {
     const certificationService = beans.get(CertificationService);
     const certificationCriteria = Certification[action.assessmentTool.name];
-    const criteriaClearance = certificationCriteria.map((criterion) => Object.assign(criterion, {
+    const criteriaClearance = certificationCriteria.map((criterion) => _.assignIn(criterion, {
         certified: certificationService[criterionMap.get(criterion["slug"])]
             .apply(null, [action.facilityAssessment].concat(criterion["params"]))
     }));
