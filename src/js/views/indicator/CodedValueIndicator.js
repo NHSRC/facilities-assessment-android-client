@@ -48,7 +48,7 @@ class CodedValueIndicator extends AbstractComponent {
                     <View>
                         {IndicatorDefinition.getCodedValues(this.props.definition.codedValues).map((codedValue) => {
                             return <TouchableOpacity style={CodedValueIndicator.styles.listItem} onPress={() => this.codedIndicatorUpdated(codedValue)} key={codedValue}>
-                                <Radio selected={_.isNil(indicatorValue) ? false : indicatorValue === codedValue} onPress={() => this.codedIndicatorUpdated(codedValue)}/>
+                                <Radio color={'white'} selected={_.isNil(indicatorValue) ? false : indicatorValue === codedValue} onPress={() => this.codedIndicatorUpdated(codedValue)}/>
                                 <Text style={[CodedValueIndicator.styles.radioText, Typography.paperFontCode1]}>{codedValue}</Text>
                             </TouchableOpacity>
                         })}

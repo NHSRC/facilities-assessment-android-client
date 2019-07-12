@@ -9,6 +9,8 @@ import Certification from '../../cert/Certification';
 import TypedTransition from "../../../framework/routing/TypedTransition";
 import Logger from "../../../framework/Logger";
 import Actions from "../../../action";
+import AssessmentTool from "../../../models/AssessmentTool";
+import AssessmentIndicators from "../../indicator/AssessmentIndicators";
 
 const deviceWidth = Dimensions.get('window').width;
 
@@ -30,7 +32,7 @@ class ReportsView extends AbstractComponent {
             assessmentType: assessment.assessmentType,
             facilityAssessment: assessment,
             ...this.props
-        }).to(Reports);
+        }).to(assessment.assessmentTool.assessmentToolType === AssessmentTool.INDICATOR ? AssessmentIndicators :Reports);
     }
 
     certificationCriteria(assessment) {

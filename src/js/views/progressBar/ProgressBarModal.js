@@ -126,7 +126,7 @@ class ProgressBarModal extends AbstractComponent {
                       key={`spinner_${Date.now()}`}>
                     <View style={{flex: .4}}/>
                     <View style={this.syncBackground}>
-                        <View style={{flex: .7}}>
+                        <View style={{flex: width*.7}}>
                             {this.renderProgressBar()}
                         </View>
                     </View>

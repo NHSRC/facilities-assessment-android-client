@@ -13,6 +13,7 @@ import SearchPage from "../search/SearchPage";
 import Standard from "../../models/Standard";
 import Logger from "../../framework/Logger";
 import GunakContainer from "../common/GunakContainer";
+import _ from 'lodash';
 
 const deviceWidth = Dimensions.get('window').width;
 
