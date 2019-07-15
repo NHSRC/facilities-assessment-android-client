@@ -85,13 +85,20 @@ class ProgressBarModal extends AbstractComponent {
                         {((this.props.value) * 100).toFixed(0)}%
                     </Text>
                     {this.props.failed && <View style={{flexDirection: 'row', marginBottom: 10, marginTop: 10}}>
-                        <Button style={{backgroundColor: Colors.blue, alignSelf: 'stretch', marginHorizontal: 10, flex: 0.5}}
+                        <Button style={{
+                            backgroundColor: Colors.blue,
+                            alignSelf: 'stretch',
+                            marginHorizontal: 10,
+                            flex: 0.5,
+                            justifyContent:'center'
+                        }}
                                 onPress={() => this.props.onRetry()}><Text>RETRY</Text></Button>
                         <Button style={{
                             backgroundColor: Colors.blue,
                             alignSelf: 'stretch',
                             marginHorizontal: 10,
-                            flex: 0.5
+                            flex: 0.5,
+                            justifyContent:'center'
                         }} onPress={() => this.props.onExit()}><Text>EXIT</Text></Button>
                     </View>}
                 </View>)
