@@ -14,6 +14,7 @@ import EnvironmentConfig from "../views/common/EnvironmentConfig";
 import IndicatorService from "./IndicatorService";
 import Indicator from "../models/Indicator";
 import AssessmentTool from "../models/AssessmentTool";
+import _ from 'lodash';
 
 @Service("assessmentSyncService")
 class AssessmentSyncService extends BaseService {
