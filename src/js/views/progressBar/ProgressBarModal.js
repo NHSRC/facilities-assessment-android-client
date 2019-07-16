@@ -65,6 +65,18 @@ class ProgressBarModal extends AbstractComponent {
         this.percentageText = {
             color: Colors.lighBlue,
         };
+
+        this.modalButton = {
+            backgroundColor: Colors.blue,
+            alignSelf: 'stretch',
+            marginHorizontal: 10,
+            flex: 0.5,
+            justifyContent:'center'
+        }
+s
+        this.buttonText = {
+            color:'white'
+        }
     }
 
     renderProgressBar() {
@@ -85,21 +97,9 @@ class ProgressBarModal extends AbstractComponent {
                         {((this.props.value) * 100).toFixed(0)}%
                     </Text>
                     {this.props.failed && <View style={{flexDirection: 'row', marginBottom: 10, marginTop: 10}}>
-                        <Button style={{
-                            backgroundColor: Colors.blue,
-                            alignSelf: 'stretch',
-                            marginHorizontal: 10,
-                            flex: 0.5,
-                            justifyContent:'center'
-                        }}
-                                onPress={() => this.props.onRetry()}><Text>RETRY</Text></Button>
-                        <Button style={{
-                            backgroundColor: Colors.blue,
-                            alignSelf: 'stretch',
-                            marginHorizontal: 10,
-                            flex: 0.5,
-                            justifyContent:'center'
-                        }} onPress={() => this.props.onExit()}><Text>EXIT</Text></Button>
+                        <Button style={this.modalButton}
+                                onPress={() => this.props.onRetry()}><Text style={this.buttonText}>RETRY</Text></Button>
+                        <Button style={ this.modalButton} onPress={() => this.props.onExit()}><Text style={this.buttonText}>EXIT</Text></Button>
                     </View>}
                 </View>)
                 :

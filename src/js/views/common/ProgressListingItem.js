@@ -49,8 +49,9 @@ class ProgressListingItem extends AbstractComponent {
         buttonLabel: {
             width: deviceWidth * 0.2,
             margin: 0,
-            justifyContent: 'space-between',
-            alignItems: 'center'
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'row'
         },
         completeButtonContainer: {
             alignItems: 'center',
