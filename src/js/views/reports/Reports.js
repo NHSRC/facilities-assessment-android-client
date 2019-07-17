@@ -66,8 +66,8 @@ class Reports extends ViewComponent {
 
     snapshot() {
         captureRef(this.refs["reports"], {
-            format: "jpeg",
-            result: "file"
+            format: "png",
+            result: "base64"
         }).then(uri => {
             this.share(ShareUtil.getCurrentViewOptions(this.context, this.props.params.facilityAssessment, this.state.selectedTab, uri), Actions.EXPORT_CURRENT_VIEW);
         });

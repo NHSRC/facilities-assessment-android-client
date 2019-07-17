@@ -36,10 +36,11 @@ class ShareUtil {
 
     static getCurrentViewOptions(context, facilityAssessment, selectedTab, uri) {
         const exportService = context.getService(ExportService);
-        const newImageDest = exportService.copyOverImage(facilityAssessment, selectedTab, uri);
+        // const newImageDest = exportService.copyOverImage(facilityAssessment, selectedTab, uri);
+        let base64Data = `data:image/png;base64,` + uri;
         return {
-            url: `${ShareUtil.constructShareUrl(newImageDest)}`,
-            type: 'image/jpeg'
+            url: base64Data,
+            type: 'image/png'
         };
     }
 }

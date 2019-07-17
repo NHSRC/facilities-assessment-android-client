@@ -73,7 +73,7 @@ class ProgressBarModal extends AbstractComponent {
             flex: 0.5,
             justifyContent:'center'
         }
-s
+
         this.buttonText = {
             color:'white'
         }
