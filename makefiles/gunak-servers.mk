@@ -5,7 +5,7 @@ deploy-apk-local:
 
 deploy-apk-jss-qa:
 	$(call _release_apk,jss.qa,false)
-	scp android/app/build/outputs/apk/app-release.apk sam@139.59.19.108:/tmp/app.apk
+	scp $(apk_path)/app-release.apk sam@139.59.19.108:/tmp/app.apk
 	ssh sam@139.59.19.108 "sudo su app -c 'cp /tmp/app.apk home/app/qa-server/facilities-assessment-host/app-servers/ext/.'"
 
 deploy-apk-jss-prod:

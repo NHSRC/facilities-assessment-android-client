@@ -8,14 +8,14 @@ reset-platform:
 # </platform>
 
 openlocation-apk:
-	open android/app/build/outputs/apk
+	open $(apk_path)
 
 clean-ios:
 	rm -rf ios/build/
 	-kill $(lsof -t -i:8081)
 
 clean-android-build:
-	rm -f android/app/build/outputs/apk/*.apk
+	rm -f $(apk_path)/apk/*.apk
 	rm -rf android/app/build
 	rm -rf android/app/src/main/assets
 	mkdir -p android/app/src/main/assets
