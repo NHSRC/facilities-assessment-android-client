@@ -30,7 +30,7 @@ import _ from "lodash";
 
 export default {
     schema: [StringObj, ChecklistProgress, StandardProgress, AreaOfConcernProgress, Checkpoint, MeasurableElement, Standard, AreaOfConcern, Department, FacilityType, AssessmentTool, Facility, District, State, Checklist, FacilityAssessment, CheckpointScore, AssessmentType, Settings, EntitySyncStatus, SeedProgress, AssessmentLocation, IndicatorDefinition, Indicator],
-    schemaVersion: 52,
+    schemaVersion: 53,
     migration: (oldRealm, newRealm) => {
         const version = (version) => (db) => db.schemaVersion < version;
 
@@ -125,6 +125,15 @@ export default {
             }
         };
 
+        const multipleAssessmentToolsInAChecklist = (oldRealm, newRealm) => {
+            let oldChecklists = oldRealm.objects(Checklist.schema.name);
+            let entityService = new EntityService(newRealm, null);
+            oldChecklists.forEach((oldChecklist) => {
+                let newChecklist = entityService.findByUUID(oldChecklist.uuid, Checklist.schema.name);
+                newChecklist.assessmentTools = [StringObj.create(oldChecklist.assessmentTool)];
+            });
+        };
+
         const migrationExecutor = (fn) => (oldRealm, newRealm) => {
             fn.apply(null, [oldRealm, newRealm]);
             newRealm = oldRealm;
@@ -138,7 +147,8 @@ export default {
             [version(6), addingSeedProgress],
             [version(45), fixMEReferences],
             [version(51), setupAlreadyLoadedStatesIfFacilitiesExist],
-            [version(52), setupMissingFieldsInSeedProgress]
+            [version(52), setupMissingFieldsInSeedProgress],
+            [version(53), multipleAssessmentToolsInAChecklist]
         ];
 
         Logger.logDebug('model.index', `Old Database Version:${oldRealm.schemaVersion}, New Database Version:${newRealm.schemaVersion}`);

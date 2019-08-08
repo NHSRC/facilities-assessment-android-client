@@ -27,7 +27,7 @@ class ChecklistService extends BaseService {
 
     getChecklistsWithCriteria(assessmentToolUUID, state) {
         return this.db.objects(Checklist.schema.name)
-            .filtered(`assessmentTool = '${assessmentToolUUID}' and (state = ${state} or state = null)`)
+            .filtered(`assessmentTools.value = '${assessmentToolUUID}' and (state = ${state} or state = null)`)
             .map(_.identity);
     }
 
@@ -170,7 +170,7 @@ class ChecklistService extends BaseService {
     }
 
     findChecklist(assessmentToolUUID, checklistName, stateUUID) {
-        return this.getReturnValue(this.db.objects(Checklist.schema.name).filtered("assessmentTool = $0 and name = $1 and (state = $2 or state = null)", assessmentToolUUID, checklistName, stateUUID));
+        return this.getReturnValue(this.db.objects(Checklist.schema.name).filtered("assessmentTools.value = $0 and name = $1 and (state = $2 or state = null)", assessmentToolUUID, checklistName, stateUUID));
     }
 }
 
