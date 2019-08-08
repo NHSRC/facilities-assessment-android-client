@@ -34,7 +34,7 @@
     "react-native-swipe-gestures": "1.0.3",
     "react-native-vector-icons": "6.5.0",
     "react-native-view-shot": "2.6.0",
-    "realm": "2.0.12",
+    "realm": "2.28.1",
     "redux": "3.6.0",
     "stacktrace-js": "2.0.0",
     "transducers-js": "0.4.174",

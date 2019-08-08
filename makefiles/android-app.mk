@@ -1,6 +1,6 @@
 define _release_apk
 	$(call _create_config,$1)
-	cd android && ENVFILE=.env separateBuildPerCPUArch=$2 ./gradlew assembleRelease --stacktrace
+	cd android && separateBuildPerCPUArch=$2 ./gradlew assembleRelease --stacktrace
 	-rm $(arm_64_apk_path)
 endef
 
@@ -17,17 +17,17 @@ release-apk-nhsrc-dev:
 	$(call _release_apk,nhsrc.dev,true)
 
 release-apk-offline:
-	cd android; ENVFILE=.env ./gradlew --offline assembleRelease
+	cd android; ./gradlew --offline assembleRelease
 
 define _run_android
 	$(call _create_config,$1)
-	ENVFILE=.env react-native run-android
+	react-native run-android
 endef
 
 define _run_android_dev
 	$(call _setup_hosts,$1)
 	$(call _create_config,dev)
-	ENVFILE=.env react-native run-android
+	react-native run-android
 endef
 
 
