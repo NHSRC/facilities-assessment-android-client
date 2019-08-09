@@ -14,6 +14,7 @@ const {Restart} = NativeModules;
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
+import RNRestart from 'react-native-restart';
 
 @Path("/settings")
 class Settings extends ViewComponent {
@@ -109,6 +110,12 @@ class Settings extends ViewComponent {
                                     console.log("ENV property value should be qa or prod");
                                     this.dispatchAction(Actions.SIMULATE_SERVER_ERROR, {noError: () => this.alert("No Error"), error: (error) => this.alert(JSON.stringify(error))});
                                 }}><Text>Server Request Error</Text></Button>
+                            </View>
+                            <View style={Settings.styles.buttons}>
+                                <Button style={Settings.styles.settingButton} onPress={() => {
+                                    console.log("Should restart");
+                                    RNRestart.Restart();
+                                }}><Text>RESTART APP</Text></Button>
                             </View>
                         </View>}
                     </View>

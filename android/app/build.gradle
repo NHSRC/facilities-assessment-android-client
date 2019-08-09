@@ -103,6 +103,7 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-restart')
     compile project(':bugsnag-react-native')
     compile project(':realm')
     compile project(':react-native-view-shot')

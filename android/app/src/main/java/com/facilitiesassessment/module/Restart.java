@@ -19,36 +19,6 @@ public class Restart extends ReactContextBaseJavaModule {
         super(reactContext);
     }
 
-    private void loadBundleLegacy() {
-        final Activity currentActivity = getCurrentActivity();
-        if (currentActivity == null) return;
-
-        currentActivity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                currentActivity.recreate();
-            }
-        });
-    }
-
-    private void loadBundle() {
-        try {
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    loadBundleLegacy();
-                }
-            });
-        } catch (Exception e) {
-            loadBundleLegacy();
-        }
-    }
-
-    @ReactMethod
-    public void restart() {
-        loadBundle();
-    }
-
     @ReactMethod
     public void crashForTesting() {
         throw new RuntimeException("Checking Crashanalytics");
@@ -65,5 +35,4 @@ public class Restart extends ReactContextBaseJavaModule {
     public String getName() {
         return "Restart";
     }
-
 }

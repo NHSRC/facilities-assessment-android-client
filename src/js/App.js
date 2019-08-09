@@ -17,6 +17,7 @@ import SeedDataService from "./service/SeedDataService";
 import PropTypes from 'prop-types';
 import _ from "lodash";
 import GunakContainer from "./views/common/GunakContainer";
+import RNRestart from 'react-native-restart';
 
 const nhsrcbanner = require('./views/img/nhsrcbanner.png');
 
@@ -92,7 +93,7 @@ export default class App extends Component {
                     onPress: () => {
                         Clipboard.setString(`${this.state.error.message}\nStacktrace:\n${this.state.stacktrace}`);
                         console.log(`[App.renderError] Restarting app.`);
-                        Restart.restart();
+                        RNRestart.Restart();
                     }
                 }
             ],
