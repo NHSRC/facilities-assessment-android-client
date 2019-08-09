@@ -96,7 +96,7 @@ class CheckpointMapper {
 class ChecklistMapper {
     fromResource(resource) {
         resource.department = ResourceUtil.getUUIDFor(resource, "departmentUUID");
-        resource.assessmentTool = ResourceUtil.getUUIDFor(resource, "assessmentToolUUID");
+        resource.assessmentTools = ResourceUtil.getUUIDsFor(resource, "assessmentToolUUIDs").map((atUUID) => _.assignIn({value: atUUID}));
         resource.areasOfConcern = ResourceUtil.getUUIDsFor(resource, "areasOfConcernUUIDs")
             .map((aoc) => _.assignIn({value: aoc}));
         resource.state = ResourceUtil.getUUIDFor(resource, "stateUUID");

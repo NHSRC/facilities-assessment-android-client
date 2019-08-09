@@ -28,7 +28,7 @@ class AssessmentStatus extends AbstractComponent {
 
     render() {
         const progressRatio = this.props.assessmentProgress.completed / this.props.assessmentProgress.total;
-        let progressBarColor = progressRatio < 1 ? PrimaryColors.complete : PrimaryColors.incomplete;
+        const progressBarColor = progressRatio < 1 ? PrimaryColors.complete : PrimaryColors.incomplete;
         return (
             <View style={AssessmentStatus.styles.statusContainer}>
                 <View style={AssessmentStatus.styles.textContainer}>
