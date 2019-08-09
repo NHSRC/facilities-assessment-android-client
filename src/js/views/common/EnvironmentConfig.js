@@ -1,5 +1,6 @@
-import {Platform} from "react-native";
 import Config from '../../framework/Config';
+import {NativeModules, Platform} from "react-native";
+const {Restart, GunakDeviceInfo} = NativeModules;
 
 class EnvironmentConfig {
     get serverURL() {
@@ -52,6 +53,10 @@ class EnvironmentConfig {
 
     get filePrefix() {
         return Platform.Version >= 26 ? "content" : "file";
+    }
+
+    get deviceId() {
+        return Platform.OS === 'ios' ? GunakDeviceInfo.uniqueId : Restart.UNIQUE_DEVICE_ID;
     }
 }
 

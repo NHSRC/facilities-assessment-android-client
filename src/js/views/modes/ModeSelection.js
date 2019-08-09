@@ -1,6 +1,6 @@
 import React from "react";
-import {ActivityIndicator, Alert, Dimensions, Image, StyleSheet, TouchableWithoutFeedback} from "react-native";
-import {Body, Button, Container, Content, Header, Icon, Left, StyleProvider, Title, Text, View} from "native-base";
+import {ActivityIndicator, NativeModules, Alert, Dimensions, Image, StyleSheet, TouchableWithoutFeedback} from "react-native";
+import {Body, Button, Container, Content, Header, Icon, Left, StyleProvider, Title, Text, View, Right} from "native-base";
 import ViewComponent from "../common/ViewComponent";
 import TypedTransition from "../../framework/routing/TypedTransition";
 import Path from "../../framework/routing/Path";
@@ -121,7 +121,7 @@ class ModeSelection extends ViewComponent {
                 <Container>
                     <Header style={{backgroundColor: PrimaryColors.header}}>
                         {EnvironmentConfig.isEmulated ?
-                            <Left>
+                            <Left style={{flex:0.1}}>
                                 <Button
                                     onPress={() => TypedTransition.from(this)
                                         .with({
@@ -130,14 +130,17 @@ class ModeSelection extends ViewComponent {
                                         })
                                         .to(Settings, Navigator.SceneConfigs.FloatFromLeft)}
                                     transparent>
-                                    <Icon style={{marginTop: 8, color: 'white'}} name="menu"/>
+                                    <Icon style={{color: 'white'}} name="menu"/>
                                 </Button></Left> : <View/>}
-                        <Body>
+                        <Body style={{flexGrow: 1}}>
                             <Title style={[Typography.paperFontTitle, {
                                 fontWeight: 'bold',
-                                color: 'white'
+                                color: 'white',
+                                alignSelf: 'flex-start',
+                                marginLeft: 10
                             }]}>GUNAK (गुणक)</Title>
                         </Body>
+                        <Right style={{flex:0.1}}/>
                     </Header>
                     <Content contentContainerStyle={ModeSelection.styles.container}>
                         <View style={[ModeSelection.styles.modeContainer]}>

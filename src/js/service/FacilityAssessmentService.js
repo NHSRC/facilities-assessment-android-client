@@ -7,9 +7,7 @@ import FacilityService from './FacilitiesService';
 import ChecklistProgress from "../models/ChecklistProgress";
 import _ from 'lodash';
 import certificationData from '../action/certification';
-import {NativeModules} from "react-native";
-
-const {Restart} = NativeModules;
+import EnvironmentConfig from "../views/common/EnvironmentConfig";
 
 @Service("facilityAssessmentService")
 class FacilityAssessmentService extends BaseService {
@@ -51,7 +49,7 @@ class FacilityAssessmentService extends BaseService {
             assessmentTool: assessmentTool.uuid,
             facility: facility.uuid,
             assessmentType: assessmentType.uuid,
-            deviceId: Restart.UNIQUE_DEVICE_ID,
+            deviceId: EnvironmentConfig.deviceId,
             ...optParams
         }));
         return this._associateObjects(assessment);

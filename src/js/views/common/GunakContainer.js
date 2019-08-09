@@ -30,18 +30,18 @@ class GunakContainer extends React.Component {
         return <StyleProvider style={getTheme(platformTheme)}>
             <Container>
                 <Header style={{backgroundColor: PrimaryColors.header}}>
-                    <Left>
+                    <Left style={{flex: 0.1, justifyContent: 'flex-start', flexDirection: 'row'}}>
                         {this.props.hideBack ? null :
                             <Button transparent onPress={this.props.onHeaderButtonPress ? this.props.onHeaderButtonPress : () => TypedTransition.from(this).goBack()}>
-                                <Icon style={{marginTop: 5, color: "white"}} name='arrow-back'/>
+                                <Icon style={{color: "white"}} name='arrow-back'/>
                             </Button>}
                     </Left>
-                    <Body>
+                    <Body style={{flexGrow: 1}}>
                         <Title style={[Typography.paperFontSubhead, {
-                            color: 'white'
+                            color: 'white', alignSelf: 'flex-start'
                         }]}>{this.props.title}</Title>
                     </Body>
-                    {this.props.rightIconName && <Right>
+                    {this.props.rightIconName && <Right style={{flex:0.1}}>
                         <Button transparent onPress={this.props.onPressRightIcon}>
                             <Icon style={{color: "white"}} name={this.props.rightIconName}/>
                         </Button>

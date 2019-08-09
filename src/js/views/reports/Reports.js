@@ -111,18 +111,18 @@ class Reports extends ViewComponent {
             <StyleProvider style={getTheme(platformTheme)}>
                 <Container>
                     <Header style={{backgroundColor: PrimaryColors.header}}>
-                        <Left><Button
+                        <Left style={{flex: 0.2}}><Button
                             onPress={this.back.bind(this)}
                             transparent>
                             <Icon style={{color: 'white'}} name="arrow-back"/>
                         </Button></Left>
-                        <Body><Title style={[Typography.paperFontTitle, {
+                        <Body style={{flex: 0.4}}><Title style={[Typography.paperFontTitle, {
                             fontWeight: 'bold',
                             color: 'white'
                         }]}>
                             {title}
                         </Title></Body>
-                        <Right><Button
+                        <Right style={{flex: 0.4}}><Button
                             onPress={this.exportOptions}
                             transparent>
                             <Icon style={{color: 'white'}} name="download"/>

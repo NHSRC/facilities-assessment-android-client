@@ -40,6 +40,7 @@ class AssessmentPicker extends AbstractComponent {
                 key={idx} label={item.name} color={"white"}
                 value={item.uuid}/>)));
 
+        const textStyle = this.props.selectedValue ? {color: 'white'} : {color: PrimaryColors.medium_white};
         return (
             <View style={[AssessmentPicker.styles.pickerContainer, this.props.optStyles]}>
                 <Picker
@@ -47,7 +48,8 @@ class AssessmentPicker extends AbstractComponent {
                     mode="dropdown"
                     selectedValue={this.props.selectedValue ? this.props.selectedValue.uuid : "key0"}
                     onValueChange={this.pickerValueChanged(this.props.action, this.props.stateKey, this.props.message, this.props.items)}
-                    textStyle={this.props.selectedValue ? {color: 'white'} : {color: PrimaryColors.medium_white}}>
+                    itemTextStyle={textStyle}
+                    textStyle={textStyle}>
                     {pickerItems}
                 </Picker>
             </View>

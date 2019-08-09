@@ -50,6 +50,8 @@
 		7EAFE0AB70914ECE8CCA0FDF /* libRNVectorIcons-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 79CDB0FFDA0349F48803A8DA /* libRNVectorIcons-tvOS.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		86134D8E6EBE46348ED9A6F8 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5AF3E5B4BE874C439525EDDA /* Feather.ttf */; };
+		9F988FA722FD7123005C7EA9 /* GunakDeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F988FA622FD7123005C7EA9 /* GunakDeviceInfo.m */; };
+		9F988FAA22FD7396005C7EA9 /* DeviceUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F988FA822FD7395005C7EA9 /* DeviceUID.m */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		BEF1E738597645619B06171A /* libRNFS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 65F5A127113A4ABD93AC1CB6 /* libRNFS.a */; };
 		BF14C845C3F945CABAE7B6DC /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42472C54B1F74BCD92B778E8 /* EvilIcons.ttf */; };
@@ -440,6 +442,10 @@
 		8B77342DF7FF49419678AA63 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
 		8C817652DC3342A1A816B21B /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		9AFA085B74AC4C58B6A1EC87 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
+		9F988F7822FD7123005C7EA9 /* GunakDeviceInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GunakDeviceInfo.h; path = FacilitiesAssessment/GunakDeviceInfo.h; sourceTree = "<group>"; };
+		9F988FA622FD7123005C7EA9 /* GunakDeviceInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GunakDeviceInfo.m; path = FacilitiesAssessment/GunakDeviceInfo.m; sourceTree = "<group>"; };
+		9F988FA822FD7395005C7EA9 /* DeviceUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DeviceUID.m; path = FacilitiesAssessment/DeviceUID.m; sourceTree = "<group>"; };
+		9F988FA922FD7395005C7EA9 /* DeviceUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeviceUID.h; path = FacilitiesAssessment/DeviceUID.h; sourceTree = "<group>"; };
 		A2191D6B51AF4EBBA81C11CA /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		A6AB2D7B50C840AB9CA1BC44 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
@@ -606,6 +612,10 @@
 		13B07FAE1A68108700A75B9A /* FacilitiesAssessment */ = {
 			isa = PBXGroup;
 			children = (
+				9F988FA922FD7395005C7EA9 /* DeviceUID.h */,
+				9F988FA822FD7395005C7EA9 /* DeviceUID.m */,
+				9F988F7822FD7123005C7EA9 /* GunakDeviceInfo.h */,
+				9F988FA622FD7123005C7EA9 /* GunakDeviceInfo.m */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -1431,6 +1441,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F988FAA22FD7396005C7EA9 /* DeviceUID.m in Sources */,
+				9F988FA722FD7123005C7EA9 /* GunakDeviceInfo.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);

@@ -8,6 +8,7 @@ import BaseService from "./BaseService";
 import moment from "moment";
 import {NativeModules} from "react-native";
 import _ from "lodash";
+import EnvironmentConfig from "../views/common/EnvironmentConfig";
 
 const {Restart} = NativeModules;
 
@@ -23,7 +24,7 @@ class AbstractReferenceDataSyncService extends BaseService {
     }
 
     syncMyTxData(cb, onError) {
-        this._syncData(cb, EntitiesMetaData.txEntityTypes, "lastModifiedByDeviceId", {deviceId: Restart.UNIQUE_DEVICE_ID}, onError);
+        this._syncData(cb, EntitiesMetaData.txEntityTypes, "lastModifiedByDeviceId", {deviceId: EnvironmentConfig.deviceId}, onError);
     }
 
     syncAssessment(assessmentId, cb) {
