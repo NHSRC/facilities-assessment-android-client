@@ -62,7 +62,7 @@ class OverallScore extends AbstractComponent {
                                     {`${parseInt(this.props.score)}%`}
                                 </Text>
                                 <Text style={[Typography.paperFontMenu, OverallScore.styles.scoreTextAndPercentage]}>
-                                    {`${_.startCase(this.props.scoreText.toLowerCase())} Score`}
+                                    {`${_.startCase(this.props.scoreText.toLowerCase())}`}
                                 </Text>
                             </View>}
                     </AnimatedCircularProgress>
