@@ -1,7 +1,30 @@
+#--simulator="iPhone 5s"
+#--simulator="iPhone 6"
+#--simulator="iPhone 6 Plus"
+#--simulator="iPhone 6s"
+#--simulator="iPhone 6s Plus"
+#--simulator="iPhone 7"
+#--simulator="iPhone 7 Plus"
+#--simulator="iPhone 8"
+#--simulator="iPhone 8 Plus"
+#--simulator="iPhone SE"
+#--simulator="iPhone X"
+#--simulator="iPhone XR"
+#--simulator="iPhone Xs"
+#--simulator="iPhone Xs Max"
+#--simulator="iPad Air"
+#--simulator="iPad Air 2"
+#--simulator="iPad"
+#--simulator="iPad Pro"
+#--simulator="iPad Pro"
+#--simulator="iPad Pro"
+#--simulator="iPad Pro"
+#--simulator="iPad"
+
 define _run_ios_dev
 	$(call _setup_hosts,$1)
 	$(call _create_config,dev)
-	react-native run-ios
+	react-native run-ios --simulator="iPhone X"
 endef
 
 define _run_ios

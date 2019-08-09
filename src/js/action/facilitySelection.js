@@ -16,7 +16,7 @@ const allStates = function (state, action, beans) {
     let newState = _.assignIn(state, {
         "allStates": states,
         "facilitySelected": false,
-        "assessmentTools": assessmentTools,
+        "assessmentTools": assessmentTools
     });
     if (assessmentTools.length === 1) {
         action.selectedAssessmentTool = assessmentTools[0];
@@ -26,6 +26,7 @@ const allStates = function (state, action, beans) {
         action.selectedState = states[0];
         newState = selectState(newState, action, beans);
     }
+    newState.assessmentTypes = facilityAssessmentService.getAssessmentTypes();
     return newState;
 };
 
@@ -94,11 +95,9 @@ const selectFacilityType = function (state, action, beans) {
 
 const selectFacility = function (state, action, beans) {
     const facilityAssessmentService = beans.get(FacilityAssessmentService);
-    const assessmentTypes = facilityAssessmentService.getAssessmentTypes();
     return _.assignIn(state, {
         "selectedFacility": action.selectedFacility,
         "facilitySelected": false,
-        "assessmentTypes": assessmentTypes,
         "selectedAssessmentType": undefined,
         "facilityName": ""
     });
@@ -106,10 +105,8 @@ const selectFacility = function (state, action, beans) {
 
 const enterFacilityName = function (state, action, beans) {
     const facilityAssessmentService = beans.get(FacilityAssessmentService);
-    const assessmentTypes = facilityAssessmentService.getAssessmentTypes();
     return _.assignIn(state, {
         "facilitySelected": false,
-        "assessmentTypes": assessmentTypes,
         "selectedAssessmentType": undefined,
         "selectedFacility": undefined,
         "facilityName": action.facilityName

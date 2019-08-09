@@ -41,7 +41,7 @@ class GunakContainer extends React.Component {
                             color: 'white', alignSelf: 'flex-start'
                         }]}>{this.props.title}</Title>
                     </Body>
-                    {this.props.rightIconName && <Right style={{flex:0.1}}>
+                    {this.props.rightIconName && <Right style={{flex:0.2}}>
                         <Button transparent onPress={this.props.onPressRightIcon}>
                             <Icon style={{color: "white"}} name={this.props.rightIconName}/>
                         </Button>

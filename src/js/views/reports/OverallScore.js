@@ -19,7 +19,7 @@ class OverallScore extends AbstractComponent {
         container: {
             padding: 10,
             backgroundColor: PrimaryColors.blue,
-            height: deviceHeight * .275,
+            height: deviceHeight * .29,
         },
         innerContainer: {
             flexDirection: 'row',
@@ -44,7 +44,7 @@ class OverallScore extends AbstractComponent {
                 </View>
                 <View style={OverallScore.styles.innerContainer}>
                     <AnimatedCircularProgress
-                        size={deviceHeight * .17}
+                        size={deviceHeight * .18}
                         width={6}
                         fill={this.props.score}
                         rotation={-90}
@@ -54,7 +54,7 @@ class OverallScore extends AbstractComponent {
                         strokeCap="circle">
                         {() =>
                             <View style={{
-                                marginTop: -(deviceHeight * .000),
+                                marginTop: 0,
                                 alignSelf: 'center',
                                 flexDirection: 'column'
                             }}>

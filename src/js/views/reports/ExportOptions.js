@@ -35,7 +35,7 @@ class ExportOptions extends AbstractComponent {
             </ListItem>);
         return (
             <Container>
-                <Header>
+                <Header style={{backgroundColor: PrimaryColors.header}}>
                     <Title style={[Typography.paperFontTitle, {
                         fontWeight: 'bold',
                         color: 'white'

@@ -26,6 +26,7 @@ class AssessmentPicker extends AbstractComponent {
 
     pickerValueChanged(action, stateKey, message, items) {
         return (value) => {
+            console.log("pickerValueChanged");
             if (!this.props.nullable && (value === message || value === 'key0')) return;
             let actionParams = {};
             actionParams[stateKey] = _.find(items, (item) => item.uuid === value);
