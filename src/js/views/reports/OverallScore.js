@@ -5,7 +5,7 @@ import Typography from '../styles/Typography';
 import PrimaryColors from '../styles/PrimaryColors';
 import {formatDateOnlyHuman} from '../../utility/DateUtils';
 import _ from 'lodash';
-import {AnimatedGaugeProgress} from 'react-native-simple-gauge';
+import { AnimatedCircularProgress } from 'react-native-circular-progress';
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
@@ -19,7 +19,7 @@ class OverallScore extends AbstractComponent {
         container: {
             padding: 10,
             backgroundColor: PrimaryColors.blue,
-            height: deviceHeight * .325,
+            height: deviceHeight * .275,
         },
         innerContainer: {
             flexDirection: 'row',
@@ -43,18 +43,18 @@ class OverallScore extends AbstractComponent {
                     </Text>
                 </View>
                 <View style={OverallScore.styles.innerContainer}>
-                    <AnimatedGaugeProgress
-                        size={deviceHeight * .23}
+                    <AnimatedCircularProgress
+                        size={deviceHeight * .17}
                         width={6}
                         fill={this.props.score}
-                        rotation={90}
-                        cropDegree={120}
+                        rotation={-90}
+                        arcSweepAngle={360}
                         tintColor="#ffc107"
                         backgroundColor={PrimaryColors.medium_white}
                         strokeCap="circle">
                         {() =>
                             <View style={{
-                                marginTop: -(deviceHeight * .150),
+                                marginTop: -(deviceHeight * .000),
                                 alignSelf: 'center',
                                 flexDirection: 'column'
                             }}>
@@ -65,7 +65,7 @@ class OverallScore extends AbstractComponent {
                                     {`${_.startCase(this.props.scoreText.toLowerCase())} Score`}
                                 </Text>
                             </View>}
-                    </AnimatedGaugeProgress>
+                    </AnimatedCircularProgress>
                     <View>
                         <Text style={{color: "white"}}>
                             {`Checklists Assessed: ${this.props.checklistStats.assessed}/${this.props.checklistStats.total}`}
