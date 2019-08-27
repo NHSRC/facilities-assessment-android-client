@@ -40,10 +40,11 @@ class AssessmentList extends AbstractComponent {
             height: deviceheight * .1106,
         },
         listItemText: {
-            marginTop: 12
+            marginTop: 12,
+            flex:0.8
         },
         listItemButton: {
-            alignSelf: 'center',
+            alignSelf: 'center'
         },
         listItemButtonContainer: {
             marginTop: 5,
@@ -88,7 +89,7 @@ class AssessmentList extends AbstractComponent {
                         {assessment.facility.facilityType.name}
                     </Text>
                 </View>
-                <View style={{flexDirection: 'column'}}>
+                <View style={{flex:0.2 ,flexDirection: 'column',paddingLeft:10}}>
                     {buttons}
                 </View>
             </View>);
