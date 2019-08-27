@@ -39,7 +39,7 @@ class GunakContainer extends React.Component {
                     <Body style={{flexGrow: 1}}>
                         <Title style={[Typography.paperFontSubhead, {
                             color: 'white', alignSelf: 'flex-start'
-                        }]}>{this.props.title}</Title>
+                        }]} ellipsizeMode='tail' numberOfLines={1}>{this.props.title}</Title>
                     </Body>
                     {this.props.rightIconName && <Right style={{flex:0.2}}>
                         <Button transparent onPress={this.props.onPressRightIcon}>

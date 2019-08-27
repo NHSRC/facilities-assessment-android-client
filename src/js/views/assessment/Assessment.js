@@ -53,8 +53,7 @@ class Assessment extends ViewComponent {
             directionalOffsetThreshold: 80
         };
         return (
-            <GunakContainer title={`${this.state.standard.reference} - ${_.truncate(Standard.getDisplayName(this.state.standard),
-                {length: 25})}`} scrollToTop={this.state.pageChanged}>
+            <GunakContainer title={`${this.state.standard.reference} - ${Standard.getDisplayName(this.state.standard)}`  } scrollToTop={this.state.pageChanged}>
                 <GestureRecognizer
                     onSwipeLeft={this.onNext.bind(this)}
                     onSwipeRight={this.onPrev.bind(this)}
