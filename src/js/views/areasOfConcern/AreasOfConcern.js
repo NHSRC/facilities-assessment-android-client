@@ -40,7 +40,7 @@ class AreasOfConcern extends ViewComponent {
     render() {
         Logger.logDebug('AreasOfConcern', 'render');
         return (
-            <GunakContainer title={this.props.params.checklist.name} onPressRightIcon={() => TypedTransition.from(this).with({...this.props.params}).to(SearchPage)}
+            <GunakContainer title={this.props.params.checklist.name} onPressRightIcon={this.goSearch}
                             rightIconName="search">
                 <View style={{flexDirection: 'column', width: deviceWidth, paddingHorizontal: deviceWidth * 0.04}}>
                     <Listing
@@ -50,6 +50,10 @@ class AreasOfConcern extends ViewComponent {
                 </View>
             </GunakContainer>
         );
+    }
+
+    goSearch = () =>{
+        TypedTransition.from(this).with({...this.props.params}).to(SearchPage)
     }
 }
 

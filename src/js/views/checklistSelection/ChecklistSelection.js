@@ -91,7 +91,7 @@ class ChecklistSelection extends ViewComponent {
         let assessmentComplete = this.state.assessmentProgress.completed === this.state.assessmentProgress.total;
         const showCompleteButton = this.showCompleteButton(this.props.params.mode);
         return (
-            <GunakContainer title="Assessment" rightIconName="search" onPressRightIcon={() => TypedTransition.from(this).with({...this.props.params}).to(SearchPage)}>
+            <GunakContainer title="Assessment" rightIconName="search" onPressRightIcon={this.goSearch}>
                 <Modal transparent={false} visible={this.state.showEditAssessment}
                        onRequestClose={() => this.dispatchAction(Actions.EDIT_ASSESSMENT_COMPLETED)}>
                     <EditAssessment assessmentUUID={this.props.params.facilityAssessment.uuid}/>
@@ -117,6 +117,10 @@ class ChecklistSelection extends ViewComponent {
                 </View>
             </GunakContainer>
         );
+    }
+
+    goSearch = () =>{
+        TypedTransition.from(this).with({...this.props.params}).to(SearchPage)
     }
 }
 

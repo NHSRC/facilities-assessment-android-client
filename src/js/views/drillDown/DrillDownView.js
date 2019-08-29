@@ -47,8 +47,7 @@ class DrillDownView extends AbstractComponent {
             <Container>
                 <Header>
                     <Button
-                        onPress={() => TypedTransition.from(this)
-                            .goBack()}
+                        onPress={this.goBack}
                         transparent>
                         <Icon style={{marginTop: 10, color: 'white'}} name="arrow-back"/>
                     </Button>
@@ -67,6 +66,10 @@ class DrillDownView extends AbstractComponent {
                 </Content>
             </Container>
         );
+    }
+
+    goBack = () =>{
+        TypedTransition.from(this).goBack();
     }
 }
 

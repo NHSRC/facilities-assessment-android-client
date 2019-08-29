@@ -46,7 +46,7 @@ class Standards extends ViewComponent {
             _.assignIn(standard,
                 {name: Standard.getDisplayName(standard)}));
         return (
-            <GunakContainer title={this.props.params.areaOfConcern.name} onPressRightIcon={() => TypedTransition.from(this).with({...this.props.params}).to(SearchPage)}
+            <GunakContainer title={this.props.params.areaOfConcern.name} onPressRightIcon={this.goSearch}
                             rightIconName="search">
                 <View style={{flexDirection: 'column', width: deviceWidth, paddingHorizontal: deviceWidth * 0.04}}>
                     <Listing
@@ -56,6 +56,10 @@ class Standards extends ViewComponent {
                 </View>
             </GunakContainer>
         );
+    }
+
+    goSearch = () =>{
+        TypedTransition.from(this).with({...this.props.params}).to(SearchPage)
     }
 }
 

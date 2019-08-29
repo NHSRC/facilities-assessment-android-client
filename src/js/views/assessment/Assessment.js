@@ -60,7 +60,7 @@ class Assessment extends ViewComponent {
                     config={config}
                     style={{flex: 1,}}>
                     <View style={{margin: deviceWidth * 0.04,}}>
-                        <QuestionAnswer goBack={() => TypedTransition.from(this).goBack()}
+                        <QuestionAnswer goBack={this.goBack}
                                         checkpoints={this.state.checkpoints}
                                         currentCheckpoint={this.state.currentCheckpoint}
                                         {...this.props}/>
@@ -70,6 +70,9 @@ class Assessment extends ViewComponent {
                 </GestureRecognizer>
             </GunakContainer>
         );
+    }
+    goBack = () =>{
+        TypedTransition.from(this).goBack();
     }
 }
 
