@@ -40,11 +40,11 @@ export default class Router extends Component {
     };
 
     onBack() {
-        if (!this.onInitialScreen) {
-            this.navigator.pop();
-            return true;
+        if (this.navigator.getCurrentRoutes().length===1) {
+            return true; // this is initial screen
         }
-        return false;
+        this.navigator.pop();
+        return true;
     }
 
     get currentPath() {
@@ -66,7 +66,6 @@ export default class Router extends Component {
         this.navigator = nav;
         if (!this.state.routes[route.path]) return <View/>;
 
-        this.onInitialScreen = this.props.initialRoute.path === route.path;
         const Element = this.state.routes[route.path];
         return (
             <Element params={route.queryParams} backListeners={this.backListeners}/>
