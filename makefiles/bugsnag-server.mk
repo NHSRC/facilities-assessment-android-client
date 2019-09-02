@@ -12,4 +12,4 @@
 bugsnag-sourcemaps:
 	open https://app.bugsnag.com/settings/samanvay-1/projects/mobile-app/source-maps
 
-upload-release-sourcemap: -upload-release-sourcemap bugsnag-sourcemaps  ## ENV_VAR = versionName (value e.g. 2601014)
+upload-release-sourcemap: -upload-release-sourcemap bugsnag-sourcemaps  ## ENV_VAR = versionName (value e.g. 1014)
