@@ -31,7 +31,6 @@ const allStates = function (state, action, beans) {
 };
 
 const selectAssessmentTool = function (state, action, beans) {
-    console.log("Selected Assesment Tool [Facilityselection]",action.selectedAssessmentTool);
     return _.assignIn(state, {
         "facilitySelected": false,
         "selectedAssessmentTool": action.selectedAssessmentTool,
