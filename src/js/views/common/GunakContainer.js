@@ -32,7 +32,7 @@ class GunakContainer extends React.Component {
                 <Header style={{backgroundColor: PrimaryColors.header}}>
                     <Left style={{flex: 0.1, justifyContent: 'flex-start', flexDirection: 'row'}}>
                         {this.props.hideBack ? null :
-                            <Button transparent onPress={this.props.onHeaderButtonPress ? this.props.onHeaderButtonPress : () => TypedTransition.from(this).goBack()}>
+                            <Button transparent onPress={this.props.onHeaderButtonPress ? this.props.onHeaderButtonPress : this.goBack }>
                                 <Icon style={{color: "white"}} name='arrow-back'/>
                             </Button>}
                     </Left>
@@ -52,6 +52,10 @@ class GunakContainer extends React.Component {
                 </GunakContent>
             </Container>
         </StyleProvider>;
+    }
+
+    goBack = ()=>{
+        TypedTransition.from(this).goBack();
     }
 }
 
