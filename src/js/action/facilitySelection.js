@@ -4,7 +4,7 @@ import _ from "lodash";
 
 export class FacilitySelectionState {
     static isFacilityChosen(state) {
-        return !(_.isNil(state.selectedAssessmentTool) || _.isNil(state.selectedAssessmentType) || _.isNil(state.selectedFacilityType)) && (!_.isEmpty(state.facilityName) || !_.isNil(state.selectedFacility));
+        return !(_.isNil(state.selectedAssessmentTool) || _.isNil(state.selectedAssessmentType) || _.isNil(state.selectedFacilityType)) && (!_.isEmpty(_.trim(state.facilityName)) || !_.isNil(state.selectedFacility));
     }
 }
 
@@ -31,6 +31,7 @@ const allStates = function (state, action, beans) {
 };
 
 const selectAssessmentTool = function (state, action, beans) {
+    console.log("Selected Assesment Tool [Facilityselection]",action.selectedAssessmentTool);
     return _.assignIn(state, {
         "facilitySelected": false,
         "selectedAssessmentTool": action.selectedAssessmentTool,
