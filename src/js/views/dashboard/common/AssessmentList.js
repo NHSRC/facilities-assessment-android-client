@@ -44,14 +44,17 @@ class AssessmentList extends AbstractComponent {
             flex:0.8
         },
         listItemButton: {
-            alignSelf: 'center'
+            backgroundColor: PrimaryColors.blue,
+            alignSelf: 'center',
+            borderRadius: 2,
+            paddingVertical:2,
+            paddingHorizontal:5,
+            width: deviceWidth * .19,
+            alignItems: 'center'
+
         },
         listItemButtonContainer: {
             marginTop: 5,
-            borderRadius: 2,
-            backgroundColor: PrimaryColors.blue,
-            width: deviceWidth * .19,
-            height: deviceheight * .0375,
             justifyContent: 'center',
             alignItems: 'center'
         },
