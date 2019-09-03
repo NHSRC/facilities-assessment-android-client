@@ -30,7 +30,7 @@ class GunakContainer extends React.Component {
         return <StyleProvider style={getTheme(platformTheme)}>
             <Container>
                 <Header style={{backgroundColor: PrimaryColors.header}}>
-                    <Left style={{flex: 0.1, justifyContent: 'flex-start', flexDirection: 'row'}}>
+                    <Left style={{flex: 0.2, justifyContent: 'flex-start', flexDirection: 'row'}}>
                         {this.props.hideBack ? null :
                             <Button transparent onPress={this.props.onHeaderButtonPress ? this.props.onHeaderButtonPress : this.goBack }>
                                 <Icon style={{color: "white"}} name='arrow-back'/>

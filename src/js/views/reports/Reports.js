@@ -105,8 +105,7 @@ class Reports extends ViewComponent {
             return {title: `Export ${_.startCase(tab.title.toLowerCase())} Scorecard`, cb: () => this.exportTab(tab)}
         });
         exportOptions.push({title: `Export All Checklists`, cb: this.exportAll.bind(this)});
-        const title = this.props.params.drilledDown ? _.truncate(this.state.selectionName, {length: 25})
-            : `${this.props.params.mode.toUpperCase()} Scorecard`;
+        const title = this.props.params.drilledDown ? this.state.selectionName : `${this.props.params.mode.toUpperCase()} Scorecard`;
         return (
             <StyleProvider style={getTheme(platformTheme)}>
                 <Container>
@@ -116,9 +115,9 @@ class Reports extends ViewComponent {
                             transparent>
                             <Icon style={{color: 'white'}} name="arrow-back"/>
                         </Button></Left>
-                        <Body style={{flex: 0.6}}><Title style={[Typography.paperFontTitle, {
+                        <Body style={{flex: 0.6}}><Title style={[Typography.paperFontSubhead, {
                             color: 'white'
-                        }]}>
+                        }]} ellipsizeMode='tail' numberOfLines={1}>
                             {title}
                         </Title></Body>
                         <Right style={{flex: 0.3}}><Button

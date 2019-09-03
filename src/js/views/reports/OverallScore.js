@@ -58,10 +58,10 @@ class OverallScore extends AbstractComponent {
                                 alignSelf: 'center',
                                 flexDirection: 'column'
                             }}>
-                                <Text style={[Typography.paperFontDisplay2, OverallScore.styles.scoreTextAndPercentage]}>
+                                <Text style={[Typography.paperFontTitle, OverallScore.styles.scoreTextAndPercentage]}>
                                     {`${parseInt(this.props.score)}%`}
                                 </Text>
-                                <Text style={[Typography.paperFontMenu, OverallScore.styles.scoreTextAndPercentage]}>
+                                <Text style={[Typography.paperFontCaption, OverallScore.styles.scoreTextAndPercentage]}>
                                     {`${_.startCase(this.props.scoreText.toLowerCase())}`}
                                 </Text>
                             </View>}
