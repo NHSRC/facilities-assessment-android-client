@@ -1688,7 +1688,6 @@
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 				);
 				INFOPLIST_FILE = FacilitiesAssessment/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = I;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1725,7 +1724,6 @@
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 				);
 				INFOPLIST_FILE = FacilitiesAssessment/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = I;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1736,8 +1734,6 @@
 				PRODUCT_NAME = FacilitiesAssessment;
 				PROVISIONING_PROFILE = "6e8f6cb7-3d37-4203-80a9-fdb64c5fb173";
 				PROVISIONING_PROFILE_SPECIFIER = "Gunak-19-20";
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -2034,8 +2030,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				SDKROOT = iphoneos;
-				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};

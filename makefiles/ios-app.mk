@@ -36,13 +36,13 @@ define _switch_ios_to_mode
 #	cat ios/FacilitiesAssessment/AppDelegate.m.template|sed 's/JS_CODE_LOCATION/$2/' > ios/FacilitiesAssessment/AppDelegate.m
 endef
 
-run-app-ios-nhsrc: switch-ios-to-debug-mode
+run-app-ios-nhsrc:
 	$(call _run_ios,nhsrc)
 
-run-app-ios-nhsrc-release: switch-ios-to-release-mode
+run-app-ios-nhsrc-release:
 	$(call _run_ios,nhsrc)
 
-run-app-ios-nhsrc-dev: switch-ios-to-debug-mode
+run-app-ios-nhsrc-dev:
 	$(call _run_ios_dev,nhsrc.dev)
 
 prepare-ipa-nhsrc:

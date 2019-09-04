@@ -12,6 +12,8 @@ openlocation-apk:
 
 clean-ios:
 	rm -rf ios/build/
+	rm -rf ios/FacilitiesAssessment.xcodeproj/project.xcworkspace/
+	rm -rf ios/FacilitiesAssessment.xcodeproj/xcuserdata/
 	-kill $(lsof -t -i:8081)
 
 clean-android-build:
