@@ -1,4 +1,4 @@
-import {Platform, StyleSheet, TextInput, View} from 'react-native';
+import {ActivityIndicator, Platform, StyleSheet, TextInput, View} from 'react-native';
 import React from 'react';
 import AbstractComponent from '../../common/AbstractComponent';
 import {Button, Text} from "native-base";
@@ -15,7 +15,8 @@ class SubmitAssessment extends AbstractComponent {
         facilityAssessment: PropTypes.object,
         onSubmit: PropTypes.func.isRequired,
         submissionDetailAvailable: PropTypes.bool,
-        assessmentToolType: PropTypes.string
+        assessmentToolType: PropTypes.string,
+        syncing : PropTypes.bool
     };
 
     static styles = StyleSheet.create({
@@ -46,7 +47,12 @@ class SubmitAssessment extends AbstractComponent {
         this.dispatchAction(Actions.SUBMISSION_CANCELLED);
     }
 
+    renderSpinner() {
+        return (<ActivityIndicator animating={true} size={"large"} color="white" style={{height: 80}}/>);
+    }
+
     render() {
+        console.log("Syncing: ",this.props.syncing);
         return (
             <GunakContainer title="Submit Assessment" hideBack={true}>
                 <View style={SubmitAssessment.styles.container}>
@@ -59,13 +65,17 @@ class SubmitAssessment extends AbstractComponent {
                                    words="words"
                                    onChangeText={(text) => this.handleAssessorNameChange(text)}/>
                         <View style={{flexDirection: 'row', marginBottom: 10, marginTop: 10}}>
-                            <Button block style={{backgroundColor: PrimaryColors.blue, marginHorizontal: 10, flex: 0.5}}
-                                    onPress={() => this.close()}><Text>CLOSE</Text></Button>
+                            <Button block style={{backgroundColor: this.props.syncing?PrimaryColors.medium_black: PrimaryColors.blue, marginHorizontal: 10, flex: 0.5}}
+                                    onPress={() => this.close()}
+                                    disabled={this.props.syncing}><Text>CLOSE</Text></Button>
                             <Button block style={{
-                                backgroundColor: this.props.submissionDetailAvailable ? PrimaryColors.blue : PrimaryColors.medium_black,
+                                backgroundColor: this.props.syncing ? PrimaryColors.medium_black : this.props.submissionDetailAvailable ? PrimaryColors.blue : PrimaryColors.medium_black,
                                 marginHorizontal: 10,
                                 flex: 0.5
-                            }} onPress={this.props.onSubmit} disabled={!this.props.submissionDetailAvailable}><Text>SUBMIT</Text></Button>
+                            }} onPress={this.props.onSubmit}
+                                    disabled={!this.props.submissionDetailAvailable || this.props.syncing}>
+                                {this.props.syncing ? this.renderSpinner() : <Text>SUBMIT</Text>}
+                            </Button>
                         </View>
                     </View>
                 </View>

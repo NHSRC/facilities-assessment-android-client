@@ -60,14 +60,18 @@ class AssessmentList extends AbstractComponent {
         },
     });
 
-    renderSpinner() {
-        return (<ActivityIndicator animating={true} size={"large"} color="white" style={{height: 80}}/>);
-    }
 
     renderButtonContent(buttonText) {
         return (
             <Text style={[Typography.paperFontCaption, {color: "white"}]}>
                 {buttonText}
+            </Text>);
+    }
+
+    renderSubmittingButton() {
+        return (
+            <Text style={[Typography.paperFontCaption, {color: "gray"}]}>
+                Submitting...
             </Text>);
     }
 
@@ -78,7 +82,7 @@ class AssessmentList extends AbstractComponent {
                 <View key={key} style={AssessmentList.styles.listItemButtonContainer}>
                     <TouchableOpacity onPress={button.onPress(assessment)}>
                         <View style={AssessmentList.styles.listItemButton}>
-                            {assessment.syncing ? this.renderSpinner() : this.renderButtonContent(button.text)}
+                            {assessment.syncing ? this.renderSubmittingButton() : this.renderButtonContent(button.text)}
                         </View>
                     </TouchableOpacity>
                 </View>);

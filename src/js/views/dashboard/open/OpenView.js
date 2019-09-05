@@ -110,8 +110,12 @@ class OpenView extends AbstractComponent {
             <View style={Dashboard.styles.tab}>
                 <Modal transparent={true} visible={!_.isNil(this.state.submittingAssessment)} onRequestClose={() => {
                 }}>
-                    <SubmitAssessment facilityAssessment={this.state.submittingAssessment} onSubmit={() => this.handleSubmit()}
-                                      submissionDetailAvailable={this.state.submissionDetailAvailable} assessmentToolType={this.state.assessmentToolType}/>
+                    <SubmitAssessment facilityAssessment={this.state.submittingAssessment}
+                                      onSubmit={() => this.handleSubmit()}
+                                      submissionDetailAvailable={this.state.submissionDetailAvailable}
+                                      assessmentToolType={this.state.assessmentToolType}
+                                      syncing = {this.state.syncing.length >=1}
+                    />
                 </Modal>
                 {AssessmentLists}
             </View>
