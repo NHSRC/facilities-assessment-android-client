@@ -86,17 +86,21 @@ class StateSelection extends AbstractComponent {
                 <View>
                     <Text style={{height: 0.5, backgroundColor: "white", width:deviceWidth, marginTop:5}}/>
                     {this.state.allStates.map((countryState) =>
-                        <View style={{marginTop: 5, justifyContent: 'center', alignItems: 'center'}} key={countryState.name}>
-                            <TouchableHighlight key={countryState.name} onPress={() => this.toggleState(countryState)}>
-                                <View style={{flexDirection: 'row', height: 32}}>
-                                    <Text style={{color: "white"}}>{countryState.name}</Text>
-                                    {this.isItTheSelectedState(countryState) ?
-                                        <Icon name='done-all' style={{fontSize: 20, color: "white", marginLeft: 10}} size={100}/> :
-                                        <View/>}
-                                </View>
-                            </TouchableHighlight>
-                            <Text style={{height: 0.5, backgroundColor: "white", width: 200}}/>
-                        </View>)}
+                        <TouchableHighlight key={countryState.name} onPress={() => this.toggleState(countryState)}>
+                            <View style={{marginTop: 5, justifyContent: 'center', alignItems: 'center'}}
+                                  key={countryState.name}>
+                                    <View style={{flexDirection: 'row', height: 32}}>
+                                        <Text style={{color: "white"}}>{countryState.name}</Text>
+                                        {this.isItTheSelectedState(countryState) ?
+                                            <Icon name='done-all' style={{fontSize: 20, color: "white", marginLeft: 10}}
+                                                  size={100}/> :
+                                            <View/>}
+                                    </View>
+                                <Text style={{height: 0.5, backgroundColor: "white", width: 200}}/>
+                            </View>
+                        </TouchableHighlight>
+
+                    )}
                     <Button
                         onPress={() => this.stateSelectionConfirmed()}
                         style={{backgroundColor: '#ffa000', marginTop: 20}}
