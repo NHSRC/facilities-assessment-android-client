@@ -37,7 +37,7 @@ class SearchService extends BaseService {
         let checklistCriteria = checklistUUIDs.map((uuid) => `checklist = '${uuid}'`).join(' OR ');
         return this.db.objects(Checkpoint.schema.name)
             .filtered(checklistCriteria)
-            .filtered(`name CONTAINS[c] $0`, searchText)
+            .filtered(`name CONTAINS[c] $0 and inactive = false`, searchText)
             .slice(0, limit)
             .map(this.pickKeys(["reference", "measurableElement", "checklist"]))
             .map(this.backfillCheckpoint.bind(this));

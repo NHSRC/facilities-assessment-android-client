@@ -139,7 +139,8 @@ class ChecklistService extends BaseService {
             .find((standard) => standard.uuid === standardUUID).measurableElements;
         measurableElements = _.sortBy(measurableElements, this.meRefComparator);
         let checkpoints = measurableElements
-            .map((me) => _.sortBy(me.checkpoints, ['sortOrder']));
+            .map((me) => _.sortBy(me.checkpoints, ['sortOrder']))
+            .map(cp => cp.filter(c => !c.inactive));
         return _.flatten(checkpoints);
     }
 

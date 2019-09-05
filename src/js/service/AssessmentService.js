@@ -42,7 +42,7 @@ class AssessmentService extends BaseService {
 
     updateStandardProgress(standard, areaOfConcern, checklist, facilityAssessment) {
         let existingProgress = this.existingStandardProgress(standard, areaOfConcern, checklist, facilityAssessment);
-        const totalCheckpoints = () => _.flatten(standard.measurableElements.map((me) => me.checkpoints)).length;
+        const totalCheckpoints = () => _.flatten(standard.measurableElements.map((me) => me.checkpoints).map((cp) => cp.filter( c => !c.inactive))).length;
         let updatedProgress = _.assignIn({}, existingProgress, {
             total: _.isNumber(existingProgress.total) ? existingProgress.total : totalCheckpoints(),
             completed: _.isNumber(existingProgress.completed) ? existingProgress.completed + 1 : 1,

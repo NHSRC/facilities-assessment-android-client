@@ -23,7 +23,9 @@ class Checkpoint {
             amRecordReview: {type: 'bool', default: false},
             sortOrder: {type: 'int', default: 0},
             scoreLevels: {type: 'int', default: 3},
-            optional: {type: 'bool', default: false}
+            optional: {type: 'bool', default: false},
+            inactive: {type: "bool", default: false},
+
         }
     };
 
