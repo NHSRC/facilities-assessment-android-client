@@ -4,6 +4,7 @@ import AssessmentSyncService from "../service/AssessmentSyncService";
 import SettingsService from "../service/SettingsService";
 import FacilityAssessment from "../models/FacilityAssessment";
 import Logger from "../framework/Logger";
+import EnvironmentConfig from "../views/common/EnvironmentConfig";
 
 const allAssessments = function (state, action, beans) {
     const assessmentService = beans.get(FacilityAssessmentService);
@@ -11,7 +12,7 @@ const allAssessments = function (state, action, beans) {
     const assessmentMode = action.mode;
     const openAssessments = assessmentService.getAllOpenAssessments(assessmentMode);
     const completedAssessments = assessmentService.getAllCompletedAssessments(assessmentMode);
-    const certifiableAssessments = assessmentService.getAllCertifiableAssessments(assessmentMode);
+    const certifiableAssessments =  EnvironmentConfig.isEmulated ? completedAssessments : assessmentService.getAllCertifiableAssessments(assessmentMode);
     const submittedAssessments = assessmentService.getAllSubmittedAssessments(assessmentMode);
     return _.assignIn(state, {
         certifiableAssessments: certifiableAssessments,
