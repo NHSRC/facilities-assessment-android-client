@@ -29,9 +29,9 @@ def enableSeparateBuildPerCPUArchitecture = System.getenv("separateBuildPerCPUAr
 def enableProguardInReleaseBuilds = true
 
 //Release related properties
-def sdkVersion = (System.getenv("devCompatible") && System.getenv("devCompatible").toBoolean()) ? 25 : 26
+def sdkVersion = (System.getenv("devCompatible") && System.getenv("devCompatible").toBoolean()) ? 25 : 28
 def abiMultiplier = 100000000
-def majorVersion = 1
+def majorVersion = 2
 def minorVersion = 1
 
 def majorMinorVersionOffset = (minorVersion * 10) + (majorVersion * 1000)
@@ -48,7 +48,7 @@ android {
         // ABI(1).SupportedSDK(3).VersionName(5). So, ABI=x*100000000. Max Allowed(10): 2100000000.
         versionCode System.getenv("patchVersion") ? System.getenv("patchVersion").toInteger() + majorMinorVersionOffset + (sdkVersion * 100000) : 1
         // ANDROID -> Major(1)Minor(2)Patch(1) - Example 1016 then Major=1, Minor = 1, Patch = 6.
-        // IOS -> Version = Major(1).Minor(2).Patch - Example 1.1.6. Build number starts from 1.
+        // IOS -> Version = Major(1).Minor(2).Patch(1) - Example 1.1.6. Build number starts from 1 (which is not part of the version)
         versionName System.getenv("patchVersion") ? (majorMinorVersionOffset + System.getenv("patchVersion").toInteger()).toString() : "1"
         ndk {
             abiFilters "armeabi-v7a", "x86"

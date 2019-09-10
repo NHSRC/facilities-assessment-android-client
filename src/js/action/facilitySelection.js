@@ -144,7 +144,6 @@ const reset_form = function (state, action, bean) {
         districtsForState: [],
         facilities: [],
         facilityName: "",
-        assessmentTypes: [],
         facilityTypes: [],
         selectedState: undefined,
         selectedDistrict: undefined,

@@ -1,7 +1,8 @@
 define _release_apk
 	$(call _create_config,$1)
 	cd android && separateBuildPerCPUArch=$2 ./gradlew assembleRelease --stacktrace
-	-rm $(arm_64_apk_path)
+	$(call _upload_release_sourcemap)
+	$(call _bugsnag_sourcemaps)
 endef
 
 release-apk-jss: clean-android-build
@@ -10,7 +11,7 @@ release-apk-jss: clean-android-build
 release-apk-jss-dev:
 	$(call _release_apk,jss.dev,false)
 
-release-apk-nhsrc: clean-android-build ## ARG - patchVersion. For changing major and minor versions change the build.gradle file
+release-apk-nhsrc: clean-android-build ## ARG=patchVersion (last digit in version name, e.g. in 2011 it is 1) For changing major and minor versions change the build.gradle file.
 	$(call _release_apk,nhsrc,true)
 
 release-apk-nhsrc-dev:

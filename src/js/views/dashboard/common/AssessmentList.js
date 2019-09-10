@@ -41,7 +41,7 @@ class AssessmentList extends AbstractComponent {
         },
         listItemText: {
             marginTop: 12,
-            flex:0.8
+            flex:0.75
         },
         listItemButton: {
             backgroundColor: PrimaryColors.blue,
@@ -96,7 +96,7 @@ class AssessmentList extends AbstractComponent {
                         {assessment.facility.facilityType.name}
                     </Text>
                 </View>
-                <View style={{flex:0.2 ,flexDirection: 'column',paddingLeft:10}}>
+                <View style={{flex:0.25 ,flexDirection: 'column',paddingLeft:10}}>
                     {buttons}
                 </View>
             </View>);
