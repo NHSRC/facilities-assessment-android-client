@@ -46,7 +46,6 @@ class Reports extends ViewComponent {
 
     componentWillMount() {
         this.props.params.drilledDown ? _.noop() : this.dispatchAction(Actions.GET_ALL_SCORES, {...this.props.params});
-        // this.props.backListeners.addListener(Reports.path(), this.back.bind(this));
     }
 
     share(shareOpts, actionName) {

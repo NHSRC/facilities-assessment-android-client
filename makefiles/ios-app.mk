@@ -24,7 +24,7 @@
 define _run_ios_dev
 	$(call _setup_hosts,$1)
 	$(call _create_config,dev)
-	react-native run-ios --simulator="iPhone X"
+	react-native run-ios --simulator="iPhone Xs Max"
 endef
 
 define _run_ios
@@ -44,10 +44,6 @@ run-app-ios-nhsrc-release:
 
 run-app-ios-nhsrc-dev:
 	$(call _run_ios_dev,nhsrc.dev)
-
-prepare-ipa-nhsrc:
-	$(call _create_config,nhsrc)
-#	react-native bundle --entry-file index.ios.js --platform ios --dev false --bundle-output ios/main.jsbundle --assets-dest ios
 
 prepare-ipa-nhsrc-fail:
 	$(call _create_config,nhsrc)

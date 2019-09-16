@@ -1,4 +1,3 @@
-import _ from "lodash";
 import {BackHandler} from 'react-native';
 import Logger from "../Logger";
 
@@ -11,8 +10,11 @@ class AndroidBackListeners {
 
     backPressed() {
         this.logListeners();
-        let b = this.router.onBack();
-        return b;
+        return this.router.onBack();
+    }
+
+    remove() {
+        BackHandler.removeEventListener('hardwareBackPress');
     }
 
     logListeners() {
