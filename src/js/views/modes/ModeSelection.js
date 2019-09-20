@@ -112,6 +112,10 @@ class ModeSelection extends ViewComponent {
 
     downloadMyAssessments() {
         this.dispatchAction(Actions.DOWNLOAD_MY_ASSESSMENTS, {cb: () => this.downloadCompleted(), onError: (error) => this.downloadFailed(error)});
+        this.dispatchAction(Actions.DOWNLOAD_REFERENCE_DATA, {
+            cb: () => this.downloadCompleted(),
+            onError: (error) => this.downloadFailed(error)
+        });
     }
 
     render() {

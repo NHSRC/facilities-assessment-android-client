@@ -24,7 +24,9 @@ const downloadReferenceData = function (state, action, beans) {
     const stateService = beans.get(StateService);
     let seedProgress = seedProgressService.getSeedProgress();
     referenceDataSyncService.syncMetaDataNotSpecificToState(() => {
-        let states = seedProgress.loadedStates.map((loadedCountryStateStringObj) => stateService.getStateName(loadedCountryStateStringObj.value));
+        let states = seedProgress.loadedStates.map((loadedCountryStateStringObj) => {
+            return {name: stateService.getStateName(loadedCountryStateStringObj.value)};
+        });
         referenceDataSyncService.syncStateSpecificMetaDataInStateMode(states, EntitiesMetaData.stateSpecificReferenceEntityTypes, action.cb, action.onError);
     }, action.onError);
     newState.downloading = true;
