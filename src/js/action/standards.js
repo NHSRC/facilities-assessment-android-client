@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import ChecklistService from "../service/ChecklistService";
 import AssessmentService from "../service/AssessmentService";
+import Logger from "../framework/Logger";
 
 const allStandards = function (state, action, beans) {
     const standards = beans.get(ChecklistService).getStandardsFor(action.checklist.uuid, action.areaOfConcern.uuid);
@@ -15,7 +16,7 @@ const allStandards = function (state, action, beans) {
 
 const updateProgress = function (state, action, beans) {
     const assessmentService = beans.get(AssessmentService);
-    const updatedProgress = assessmentService.updateStandardProgress(action.standard, action.areaOfConcern, action.checklist, action.facilityAssessment);
+    const updatedProgress = assessmentService.updateStandardProgress(action.standard, action.areaOfConcern, action.checklist, action.facilityAssessment, action.state);
     const newStandards = state.standards.map((standard) => standard.uuid === action.standard.uuid ?
         _.assignIn(standard, {
             progress: {

@@ -19,7 +19,6 @@ const meReference = new RegExp("([A-Z]{1})([0-9]{1,3})\.([0-9]{1,3})");
 class ChecklistService extends BaseService {
     constructor(db, beanStore) {
         super(db, beanStore);
-        this.saveCheckpoint = this.save(Checkpoint);
         this.saveCheckpointScore = this.save(CheckpointScore, CheckpointScore.toDB);
         this.cacheAllChecklists = this.cacheAllChecklists.bind(this);
         this.markCheckpointScoresSubmitted = this.markCheckpointScoresSubmitted.bind(this);
@@ -133,14 +132,14 @@ class ChecklistService extends BaseService {
         return resultantStandard;
     }
 
-    getCheckpointsFor(checklistUUID, aocUUID, standardUUID) {
+    getCheckpointsFor(checklistUUID, aocUUID, standardUUID, stateUUID) {
         let measurableElements = this.getChecklist(checklistUUID).areasOfConcern
             .find((aoc) => aoc.uuid === aocUUID).standards
             .find((standard) => standard.uuid === standardUUID).measurableElements;
         measurableElements = _.sortBy(measurableElements, this.meRefComparator);
         let checkpoints = measurableElements
             .map((me) => _.sortBy(me.checkpoints, ['sortOrder']))
-            .map(cp => cp.filter(c => !c.inactive));
+            .map(cp => cp.filter(c => Checkpoint.isApplicable(c, stateUUID)));
         return _.flatten(checkpoints);
     }
 

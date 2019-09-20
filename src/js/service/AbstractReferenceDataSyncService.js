@@ -48,14 +48,26 @@ class AbstractReferenceDataSyncService extends BaseService {
         this._syncData(onSuccess, EntitiesMetaData.stateUnspecificReferenceTypes, undefined, null, onError);
     }
 
-    syncStateSpecificMetaDataInStateMode(states, cb, onError) {
+    // Call all states of each entity type and then move to next entity type
+    syncStateSpecificMetaDataInStateMode(states, entityTypes, cb, onError) {
+        Logger.logDebug('AbstractReferenceDataSyncService', 'syncStateSpecificMetaDataInStateMode');
+        Logger.logDebug('AbstractReferenceDataSyncService.syncStateSpecificMetaDataInStateMode', entityTypes);
+        this._syncStateSpecificMetaDataInStateModeForOneEntity(entityTypes.pop(), _.clone(states), () => {
+            if (entityTypes.length > 0)
+                this.syncStateSpecificMetaDataInStateMode(states, entityTypes, cb, onError);
+            else
+                cb();
+        }, onError);
+    }
+
+    _syncStateSpecificMetaDataInStateModeForOneEntity(stateSpecificReferenceEntityType, states, cb, onError) {
         Logger.logDebug('AbstractReferenceDataSyncService', 'syncStateSpecificMetaDataInStateMode');
         this._syncData(() => {
             if (states.length > 0)
-                this.syncStateSpecificMetaDataInStateMode(states, cb, onError);
+                this._syncStateSpecificMetaDataInStateModeForOneEntity(stateSpecificReferenceEntityType, states, cb, onError);
             else
                 cb();
-        }, EntitiesMetaData.stateSpecificReferenceEntityTypes, 'lastModifiedByState', {name: states.pop().name}, onError);
+        }, [stateSpecificReferenceEntityType], 'lastModifiedByState', {name: states.pop().name}, onError);
     }
 
     _pullData(unprocessedEntityMetaData, resourceSearchFilterURL, params, onComplete, onError) {

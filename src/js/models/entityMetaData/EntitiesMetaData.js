@@ -19,20 +19,24 @@ import moment from "moment";
 import FacilityAssessmentProgressService from "../../service/FacilityAssessmentProgressService";
 import IndicatorDefinition from "../IndicatorDefinition";
 import Indicator from "../Indicator";
+import ExcludedCheckpointState from "../ExcludedCheckpointState";
+import ExcludedCheckpointStateService from "../../service/ExcludedCheckpointStateService";
 
 class EntitiesMetaData {
     //order is important. last entity with be executed first. parent and referred entity (in case of many to one) should be synced before the child.
     static get _stateSpecificReferenceEntityTypes() {
         return [
-            new EntityMetaData({entityType: Facility, parentClass: District, mapper: new FacilityMapper(), syncWeight: 80}),
-            new EntityMetaData({entityType: District, parentClass: State, syncWeight: 20})
+            new EntityMetaData({entityType: Facility, parentClass: District, mapper: new FacilityMapper(), syncWeight: 77}),
+            new EntityMetaData({entityType: District, parentClass: State, syncWeight: 20}),
+            new EntityMetaData({entityType: ExcludedCheckpointState, serviceClass: ExcludedCheckpointStateService, syncWeight: 1}),
+            new EntityMetaData({entityType: Checkpoint, mapper: new CheckpointMapper(), syncWeight: 2})
         ];
     }
 
     static get _referenceEntityTypes() {
         return [
             new EntityMetaData({entityType: IndicatorDefinition, mapper: new IndicatorDefinitionMapper(), syncWeight: 4}),
-            new EntityMetaData({entityType: Checkpoint, mapper: new CheckpointMapper(), syncWeight: 50}),
+            new EntityMetaData({entityType: Checkpoint, mapper: new CheckpointMapper(), syncWeight: 49}),
             new EntityMetaData({entityType: Checklist, mapper: new ChecklistMapper(), syncWeight: 3}),
             new EntityMetaData({entityType: MeasurableElement, parentClass: Standard, syncWeight: 20}),
             new EntityMetaData({entityType: Standard, parentClass: AreaOfConcern, syncWeight: 11}),
@@ -88,8 +92,6 @@ class CheckpointMapper {
         resource.amStaffInterview = resource['assessmentMethodStaffInterview'];
         resource.amPatientInterview = resource['assessmentMethodPatientInterview'];
         resource.amRecordReview = resource['assessmentMethodRecordReview'];
-        resource.sortOrder = resource['sortOrder'];
-        resource.inactive = resource['inactive'];
         return resource;
     }
 }

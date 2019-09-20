@@ -2,6 +2,7 @@ import ChecklistService from "../service/ChecklistService";
 import StateService from "../service/StateService";
 import SeedProgressService from "../service/SeedProgressService";
 import ReferenceDataSyncService from "../service/ReferenceDataSyncService";
+import EntitiesMetaData from "../models/entityMetaData/EntitiesMetaData";
 
 const modeSelection = function (state, action, beans) {
     const assessmentModes = beans.get(ChecklistService).assessmentModes;
@@ -24,7 +25,7 @@ const downloadReferenceData = function (state, action, beans) {
     let seedProgress = seedProgressService.getSeedProgress();
     referenceDataSyncService.syncMetaDataNotSpecificToState(() => {
         let states = seedProgress.loadedStates.map((loadedCountryStateStringObj) => stateService.getStateName(loadedCountryStateStringObj.value));
-        referenceDataSyncService.syncStateSpecificMetaDataInStateMode(states, action.cb, action.onError);
+        referenceDataSyncService.syncStateSpecificMetaDataInStateMode(states, EntitiesMetaData.stateSpecificReferenceEntityTypes, action.cb, action.onError);
     }, action.onError);
     newState.downloading = true;
     return newState;

@@ -1,4 +1,5 @@
 import _ from "lodash";
+import Logger from "../framework/Logger";
 
 export default class BaseService {
     constructor(db, beanStore) {
@@ -61,7 +62,9 @@ export default class BaseService {
 
     findByUUID(uuid, schema = this.schemaName) {
         if (_.isEmpty(uuid)) throw Error("UUID is empty or null");
-        return this.findByKey("uuid", uuid, schema);
+        let entity = this.findByKey("uuid", uuid, schema);
+        if (_.isNil(entity)) Logger.logDebug('BaseService', `${schema} of uuid=${uuid} not found.`);
+        return entity;
     }
 
     findByName(name, schemaName = this.schemaName) {

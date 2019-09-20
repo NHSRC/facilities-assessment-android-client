@@ -1,6 +1,5 @@
 import React from 'react';
 import {Dimensions, StyleSheet, View} from 'react-native';
-import {Button, Container, Content, Header, Icon, Title} from 'native-base';
 import ViewComponent from "../common/ViewComponent";
 import TypedTransition from "../../framework/routing/TypedTransition";
 import Path from "../../framework/routing/Path";
@@ -12,7 +11,6 @@ import GestureRecognizer from 'react-native-swipe-gestures';
 import Standard from "../../models/Standard";
 import Logger from "../../framework/Logger";
 import GunakContainer from "../common/GunakContainer";
-
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
