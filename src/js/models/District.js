@@ -9,7 +9,8 @@ class District {
         properties: {
             name: 'string',
             uuid: 'string',
-            facilities: {type: 'list', objectType: 'Facility'}
+            facilities: {type: 'list', objectType: 'Facility'},
+            inactive: {type: "bool", default: false}
         }
     };
 

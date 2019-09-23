@@ -4,7 +4,8 @@ class AssessmentType {
         primaryKey: 'uuid',
         properties: {
             uuid: 'string',
-            name: 'string'
+            name: 'string',
+            inactive: {type: "bool", default: false}
         }
     };
 }

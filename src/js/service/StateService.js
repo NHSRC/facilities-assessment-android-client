@@ -18,7 +18,7 @@ class StateService extends BaseService {
     }
 
     getAllStates() {
-        return this.db.objects(State.schema.name).sorted('name').map(this.nameAndId);
+        return this.db.objects(State.schema.name).filtered("inactive = false").sorted('name').map(this.nameAndId);
     }
 
     getDistrict(districtUUID) {

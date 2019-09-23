@@ -26,7 +26,7 @@ class ChecklistService extends BaseService {
 
     getChecklistsWithCriteria(assessmentToolUUID, state) {
         return this.db.objects(Checklist.schema.name)
-            .filtered(`assessmentTools.value = '${assessmentToolUUID}' and (state = ${state} or state = null)`)
+            .filtered(`assessmentTools.value = '${assessmentToolUUID}' and (state = ${state} or state = null) and inactive = false`)
             .map(_.identity);
     }
 

@@ -9,7 +9,8 @@ class State extends BaseEntity {
         properties: {
             name: 'string',
             uuid: 'string',
-            districts: {type: 'list', objectType: 'District'}
+            districts: {type: 'list', objectType: 'District'},
+            inactive: {type: "bool", default: false}
         }
     };
 

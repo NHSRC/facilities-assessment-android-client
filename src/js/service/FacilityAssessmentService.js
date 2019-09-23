@@ -28,12 +28,12 @@ class FacilityAssessmentService extends BaseService {
 
     getAssessmentTools(mode) {
         return this.db.objects(AssessmentTool.schema.name)
-            .filtered('mode =[c] $0', mode.toLowerCase())
+            .filtered('mode =[c] $0 and inactive = false', mode.toLowerCase())
             .map(_.identity);
     }
 
     getAssessmentTypes() {
-        return this.db.objects(AssessmentType.schema.name).map(this.nameAndId);
+        return this.db.objects(AssessmentType.schema.name).filtered("inactive = false").map(this.nameAndId);
     }
 
     getExistingAssessment(facility, assessmentTool, assessmentType) {

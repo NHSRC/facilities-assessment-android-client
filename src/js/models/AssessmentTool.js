@@ -9,7 +9,8 @@ class AssessmentTool {
             name: 'string',
             mode: 'string',
             uuid: 'string',
-            assessmentToolType: {type: 'string', default: "COMPLIANCE"}
+            assessmentToolType: {type: 'string', default: "COMPLIANCE"},
+            inactive: {type: "bool", default: false}
         }
     };
 }

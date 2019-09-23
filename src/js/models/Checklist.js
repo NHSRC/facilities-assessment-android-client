@@ -8,7 +8,8 @@ class Checklist {
             department: 'string',
             assessmentTools: {type: 'list', objectType: 'StringObj'},
             state: {type: 'string', optional: true},
-            areasOfConcern: {type: 'list', objectType: 'StringObj'}
+            areasOfConcern: {type: 'list', objectType: 'StringObj'},
+            inactive: {type: "bool", default: false}
         }
     }
 }

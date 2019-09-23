@@ -5,7 +5,8 @@ class Facility {
         properties: {
             name: 'string',
             uuid: 'string',
-            facilityType: 'string'
+            facilityType: 'string',
+            inactive: {type: "bool", default: false}
         }
     }
 }

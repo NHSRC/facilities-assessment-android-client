@@ -29,7 +29,7 @@ class FacilitiesService extends BaseService {
     }
 
     getAllStates() {
-        return this.db.objects(State.schema.name).sorted('name').map(this.nameAndId);
+        return this.db.objects(State.schema.name).filtered("inactive = false").sorted('name').map(this.nameAndId);
     }
 
     getStates() {
@@ -38,20 +38,16 @@ class FacilitiesService extends BaseService {
     }
 
     getAllDistrictsFor(stateUUID) {
-        return this.db.objectForPrimaryKey(State.schema.name, stateUUID).districts.sorted('name').map(this.nameAndId);
+        return this.db.objectForPrimaryKey(State.schema.name, stateUUID).districts.filtered("inactive = false").sorted('name').map(this.nameAndId);
     }
 
     getAllFacilitiesFor(districtUUID, facilityType) {
-        return this.db.objectForPrimaryKey(District.schema.name, districtUUID).facilities.sorted('name')
+        return this.db.objectForPrimaryKey(District.schema.name, districtUUID).facilities.filtered("inactive = false").sorted('name')
             .map(this.pickKeys(["facilityType"]));
     }
 
-    getAllDepartmentsFor(facilityUUID) {
-        return this.db.objectForPrimaryKey(Facility.schema.name, facilityUUID).departments.map(this.nameAndId);
-    }
-
     getFacilityTypes() {
-        return this.db.objects(FacilityType.schema.name).sorted('name').map(this.nameAndId);
+        return this.db.objects(FacilityType.schema.name).filtered("inactive = false").sorted('name').map(this.nameAndId);
     }
 
     getFacilityType(facilityTypeUUID) {
@@ -64,7 +60,7 @@ class FacilitiesService extends BaseService {
     getDistrictForFacility(facilityUUID) {
         return {
             ...this.db.objects(District.schema.name)
-                .filtered("facilities.uuid = $0", facilityUUID)
+                .filtered("facilities.uuid = $0 and facilities.inactive = false", facilityUUID)
                 .map(_.identity)[0]
         };
     }
@@ -72,7 +68,7 @@ class FacilitiesService extends BaseService {
     getStateForDistrict(districtUUID) {
         return {
             ...this.db.objects(State.schema.name)
-                .filtered("districts.uuid = $0", districtUUID)
+                .filtered("districts.uuid = $0 and districts.inactive = false", districtUUID)
                 .map(_.identity)[0]
         };
     }

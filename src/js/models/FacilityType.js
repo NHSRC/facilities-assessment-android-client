@@ -6,7 +6,8 @@ class FacilityType extends BaseEntity {
         primaryKey: 'uuid',
         properties: {
             name: 'string',
-            uuid: 'string'
+            uuid: 'string',
+            inactive: {type: "bool", default: false}
         }
     };
 }
