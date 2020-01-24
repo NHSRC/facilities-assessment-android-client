@@ -21,15 +21,19 @@ import IndicatorDefinition from "../IndicatorDefinition";
 import Indicator from "../Indicator";
 import ExcludedCheckpointState from "../ExcludedCheckpointState";
 import ExcludedCheckpointStateService from "../../service/ExcludedCheckpointStateService";
+import ExcludedAssessmentToolStateService from "../../service/ExcludedAssessmentToolStateService";
+import ExcludedAssessmentToolState from "../ExcludedAssessmentToolState";
 
 class EntitiesMetaData {
     //order is important. last entity with be executed first. parent and referred entity (in case of many to one) should be synced before the child.
     static get _stateSpecificReferenceEntityTypes() {
         return [
-            new EntityMetaData({entityType: Facility, parentClass: District, mapper: new FacilityMapper(), syncWeight: 77}),
+            new EntityMetaData({entityType: Facility, parentClass: District, mapper: new FacilityMapper(), syncWeight: 74}),
             new EntityMetaData({entityType: District, parentClass: State, syncWeight: 20}),
             new EntityMetaData({entityType: ExcludedCheckpointState, serviceClass: ExcludedCheckpointStateService, syncWeight: 1}),
-            new EntityMetaData({entityType: Checkpoint, mapper: new CheckpointMapper(), syncWeight: 2})
+            new EntityMetaData({entityType: Checkpoint, mapper: new CheckpointMapper(), syncWeight: 2}),
+            new EntityMetaData({entityType: ExcludedAssessmentToolState, serviceClass: ExcludedAssessmentToolStateService, syncWeight: 1}),
+            new EntityMetaData({entityType: AssessmentTool, syncWeight: 2})
         ];
     }
 

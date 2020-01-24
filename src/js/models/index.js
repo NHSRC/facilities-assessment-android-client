@@ -28,9 +28,10 @@ import EntityService from "../service/EntityService";
 import EnvironmentConfig from "../views/common/EnvironmentConfig";
 import _ from "lodash";
 import ExcludedCheckpointState from "./ExcludedCheckpointState";
+import ExcludedAssessmentToolState from "./ExcludedAssessmentToolState";
 
 export default {
-    schema: [StringObj, ChecklistProgress, StandardProgress, AreaOfConcernProgress, Checkpoint, MeasurableElement, Standard, AreaOfConcern, Department, FacilityType, AssessmentTool, Facility, District, State, Checklist, FacilityAssessment, CheckpointScore, AssessmentType, Settings, EntitySyncStatus, SeedProgress, AssessmentLocation, IndicatorDefinition, Indicator, ExcludedCheckpointState],
+    schema: [StringObj, ChecklistProgress, StandardProgress, AreaOfConcernProgress, Checkpoint, MeasurableElement, Standard, AreaOfConcern, Department, FacilityType, AssessmentTool, Facility, District, State, Checklist, FacilityAssessment, CheckpointScore, AssessmentType, Settings, EntitySyncStatus, SeedProgress, AssessmentLocation, IndicatorDefinition, Indicator, ExcludedCheckpointState, ExcludedAssessmentToolState],
     schemaVersion: 55,
     migration: (oldRealm, newRealm) => {
         const version = (version) => (db) => db.schemaVersion < version;
