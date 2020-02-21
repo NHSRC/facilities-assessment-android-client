@@ -41,8 +41,9 @@ class Compliance extends AbstractComponent {
 
     render() {
         const currentScore = this.props.checkpoint.score;
-        let scoreLevels = _.isEmpty(this.props.checkpoint.checkpoint.scoreLevels) || this.props.checkpoint.checkpoint.scoreLevels === 0 ? 3 :
+        let scoreLevels = _.isNil(this.props.checkpoint.checkpoint.scoreLevels) || this.props.checkpoint.checkpoint.scoreLevels === 0 ? 3 :
             this.props.checkpoint.checkpoint.scoreLevels;
+        console.log("Checkpoint", _.isEmpty(this.props.checkpoint.checkpoint.scoreLevels), this.props.checkpoint.checkpoint.scoreLevels);
         let complianceItems = _.sortBy(
             [
                 ["Non Compliant", 0, this.remarkNotif],
