@@ -14,6 +14,13 @@ class AssessmentTool {
             excludedStates: {type: "list", objectType: "ExcludedAssessmentToolState"}
         }
     };
+
+    static isApplicable(assessmentTool, stateUUID) {
+        let excluded = _.some(assessmentTool.excludedStates, (excludedState) => excludedState.uuid === stateUUID && !excludedState.inactive);
+        if (assessmentTool.state === stateUUID) return !assessmentTool.inactive;
+        if (_.isNil(assessmentTool.state)) return !assessmentTool.inactive && !excluded;
+        return false;
+    }
 }
 
 
