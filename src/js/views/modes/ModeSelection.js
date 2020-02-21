@@ -59,7 +59,7 @@ class ModeSelection extends ViewComponent {
         return () => TypedTransition.from(this).with({mode: mode}).to(Dashboard);
     }
 
-    getMode(name, icon, padText = true) {
+    getModeIfPresent(name, icon, padText = true) {
         let showMode = !_.isNil(this.state) && this.state.modes.indexOf(name.toUpperCase()) > -1;
         let paddingTop = padText ? deviceHeight * 0.1 : 0;
         return showMode ? (
@@ -148,13 +148,14 @@ class ModeSelection extends ViewComponent {
                     </Header>
                     <Content contentContainerStyle={ModeSelection.styles.container}>
                         <View style={[ModeSelection.styles.modeContainer]}>
-                            {this.getMode("NQAS", nqasIcon)}
-                            {this.getMode("Kayakalp", kayakalpIcon)}
-                            {this.getMode("Laqshya", LaqshyaIcon)}
-                            {this.getMode("Dakshata")}
+                            {this.getModeIfPresent("NQAS", nqasIcon)}
+                            {this.getModeIfPresent("Kayakalp", kayakalpIcon)}
+                            {this.getModeIfPresent("Laqshya", LaqshyaIcon)}
+                            {this.getModeIfPresent("Dakshata")}
                         </View>
                         <View style={[ModeSelection.styles.modeContainer]}>
-                            {this.getMode("ANC Program", null, false)}
+                            {this.getModeIfPresent("ANC Program", null, false)}
+                            {this.getModeIfPresent("Outcome Monitoring", null, false)}
                         </View>
                         <View style={{flexDirection: 'row', justifyContent: 'center', marginVertical: 60, flexWrap: 'wrap'}}>
                             <GunakButton style={{margin: 10}}
