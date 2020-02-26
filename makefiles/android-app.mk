@@ -11,7 +11,7 @@ release-apk-jss: clean-android-build
 release-apk-jss-dev:
 	$(call _release_apk,jss.dev,false)
 
-release-apk-nhsrc: clean-android-build ## ARG=patchVersion (last digit in version name, e.g. in 2011 it is 1) For changing major and minor versions change the build.gradle file.
+release-apk-nhsrc: clean-android-build ## ARG=patchVersion (last digit in version name, e.g. in 2011 it is 1. so just specify the last number) For changing major and minor versions change the build.gradle file.
 	$(call _release_apk,nhsrc,true)
 
 release-apk-nhsrc-dev:
