@@ -25,7 +25,7 @@ class AreaOfConcern {
 
     static associateChild(childEntity, childEntityClass, childResource, entityService) {
         const schemaName = EntityMetaData.getSchemaName(childEntityClass);
-        let areaOfConcern = entityService.findByUUID(ResourceUtil.getUUIDFor(childResource, "areaOfConcernUUID"), AreaOfConcern.schema.name);
+        let areaOfConcern = entityService.findByUUID(childResource["areaOfConcernUUID"], AreaOfConcern.schema.name);
         if (schemaName === Standard.schema.name) {
             areaOfConcern = General.pick(areaOfConcern, ["uuid"], ["standards"]);
             BaseEntity.addOrUpdateChild(areaOfConcern.standards, childEntity);
