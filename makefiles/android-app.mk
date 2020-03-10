@@ -38,6 +38,9 @@ run-app-android-nhsrc: ## ARG - devCompatible=true/false (use true if the app is
 run-app-android-nhsrc-dev:
 	$(call _run_android_dev,nhsrc.dev)
 
+run-app-android-nhsrc-qa:
+	$(call _run_android,nhsrc.qa)
+
 run-app-android-jss:
 	$(call _run_android,jss)
 

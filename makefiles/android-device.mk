@@ -1,4 +1,5 @@
 define _install_apk
+	adb shell settings put global package_verifier_enable 0
 	adb install $1
 endef
 

@@ -19,8 +19,6 @@ import moment from "moment";
 import FacilityAssessmentProgressService from "../../service/FacilityAssessmentProgressService";
 import IndicatorDefinition from "../IndicatorDefinition";
 import Indicator from "../Indicator";
-import ExcludedCheckpointState from "../ExcludedCheckpointState";
-import ExcludedCheckpointStateService from "../../service/ExcludedCheckpointStateService";
 import ExcludedAssessmentToolStateService from "../../service/ExcludedAssessmentToolStateService";
 import ExcludedAssessmentToolState from "../ExcludedAssessmentToolState";
 
@@ -30,7 +28,6 @@ class EntitiesMetaData {
         return [
             new EntityMetaData({entityType: Facility, parentClass: District, mapper: new FacilityMapper(), syncWeight: 74}),
             new EntityMetaData({entityType: District, parentClass: State, syncWeight: 20}),
-            new EntityMetaData({entityType: ExcludedCheckpointState, serviceClass: ExcludedCheckpointStateService, syncWeight: 1}),
             new EntityMetaData({entityType: Checkpoint, mapper: new CheckpointMapper(), syncWeight: 2}),
             new EntityMetaData({entityType: ExcludedAssessmentToolState, serviceClass: ExcludedAssessmentToolStateService, syncWeight: 1}),
             new EntityMetaData({entityType: AssessmentTool, syncWeight: 2})
@@ -40,7 +37,6 @@ class EntitiesMetaData {
     static get _referenceEntityTypes() {
         return [
             new EntityMetaData({entityType: IndicatorDefinition, mapper: new IndicatorDefinitionMapper(), syncWeight: 4}),
-            new EntityMetaData({entityType: Checkpoint, mapper: new CheckpointMapper(), syncWeight: 49}),
             new EntityMetaData({entityType: Checklist, mapper: new ChecklistMapper(), syncWeight: 3}),
             new EntityMetaData({entityType: MeasurableElement, parentClass: Standard, syncWeight: 20}),
             new EntityMetaData({entityType: Standard, parentClass: AreaOfConcern, syncWeight: 11}),
@@ -89,9 +85,8 @@ class FacilityMapper {
 
 class CheckpointMapper {
     fromResource(resource) {
-        resource.checklist = ResourceUtil.getUUIDFor(resource, 'checklistUUID');
-        resource.measurableElement = ResourceUtil.getUUIDFor(resource, 'measurableElementUUID');
-        resource.state = ResourceUtil.getUUIDFor(resource, 'stateUUID');
+        resource.checklist = resource['checklistUUID'];
+        resource.measurableElement = resource['measurableElementUUID'];
         resource.amObservation = resource['assessmentMethodObservation'];
         resource.amStaffInterview = resource['assessmentMethodStaffInterview'];
         resource.amPatientInterview = resource['assessmentMethodPatientInterview'];

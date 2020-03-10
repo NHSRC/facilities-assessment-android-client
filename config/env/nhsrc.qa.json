@@ -1,0 +1,9 @@
+{
+  "FREE_TEXT_FACILITY_NAME_SUPPORT": true,
+  "ALLOW_INCOMPLETE_SUBMIT": true,
+  "SERVER_URL": "https://uat.gunak.nhsrcindia.org",
+  "SERVER_URL_IOS": "https://uat.gunak.nhsrcindia.org",
+  "TRACK_LOCATION": false,
+  "AUTO_GENERATE_SERIES_NUMBER": true,
+  "EMULATOR": false
+}

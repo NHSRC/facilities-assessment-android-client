@@ -19,7 +19,6 @@ class Checkpoint {
             measurableElement: "string",
             checklist: "string",
             isDefault: {type: "bool", default: true},
-            state: {type: "string", optional: true},
             amObservation: {type: 'bool', default: false},
             amStaffInterview: {type: 'bool', default: false},
             amPatientInterview: {type: 'bool', default: false},
@@ -27,8 +26,7 @@ class Checkpoint {
             sortOrder: {type: 'int', default: 0},
             scoreLevels: {type: 'int', default: 3},
             optional: {type: 'bool', default: false},
-            inactive: {type: "bool", default: false},
-            excludedStates: {type: "list", objectType: "ExcludedCheckpointState"}
+            inactive: {type: "bool", default: false}
         }
     };
 

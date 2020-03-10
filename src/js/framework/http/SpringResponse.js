@@ -2,22 +2,21 @@ import _ from "lodash";
 
 class SpringResponse {
     static morePagesForThisResource(response) {
-        let notAPagedResource = _.isNil(response["page"]);
-        return notAPagedResource ? false : this.pageNumber(response) < (this.numberOfPages(response) - 1);
+        return this.pageNumber(response) < (this.numberOfPages(response) - 1);
     }
 
     static numberOfPages(response) {
-        if (_.isNil(response["page"])){
+        if (_.isNil(response["page"])) {
             return response["totalPages"];
-        }else {
+        } else {
             return response["page"]["totalPages"];
         }
     }
 
     static pageNumber(response) {
-        if(_.isNil(response["page"])){
+        if (_.isNil(response["page"])) {
             return response["number"];
-        }else{
+        } else {
             return response["page"]["number"];
         }
     }

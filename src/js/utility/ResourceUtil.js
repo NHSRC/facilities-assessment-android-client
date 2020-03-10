@@ -2,9 +2,14 @@ import _ from "lodash";
 
 class ResourceUtil {
     static getUUIDFor(resource, property) {
-        const prop = resource["_links"][`${property}`];
-        if (_.isNil(prop)) return undefined;
-        return prop["href"];
+        try {
+            const prop = resource["_links"][`${property}`];
+            if (_.isNil(prop)) return undefined;
+            return prop["href"];
+        } catch (e) {
+            console.error('ResourceUtil', `Couldn't find UUID for ${property} and resource: ${JSON.stringify(resource)}`);
+            throw (e);
+        }
     }
 
     static getUUIDsFor(resource, property) {
