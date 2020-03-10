@@ -29,6 +29,7 @@ class EntitiesMetaData {
             new EntityMetaData({entityType: Facility, parentClass: District, mapper: new FacilityMapper(), syncWeight: 74}),
             new EntityMetaData({entityType: District, parentClass: State, syncWeight: 20}),
             new EntityMetaData({entityType: Checkpoint, mapper: new CheckpointMapper(), syncWeight: 2}),
+            new EntityMetaData({entityType: MeasurableElement, parentClass: Standard, syncWeight: 20}),
             new EntityMetaData({entityType: ExcludedAssessmentToolState, serviceClass: ExcludedAssessmentToolStateService, syncWeight: 1}),
             new EntityMetaData({entityType: AssessmentTool, syncWeight: 2})
         ];
@@ -38,11 +39,9 @@ class EntitiesMetaData {
         return [
             new EntityMetaData({entityType: IndicatorDefinition, mapper: new IndicatorDefinitionMapper(), syncWeight: 4}),
             new EntityMetaData({entityType: Checklist, mapper: new ChecklistMapper(), syncWeight: 3}),
-            new EntityMetaData({entityType: MeasurableElement, parentClass: Standard, syncWeight: 20}),
             new EntityMetaData({entityType: Standard, parentClass: AreaOfConcern, syncWeight: 11}),
             new EntityMetaData({entityType: AreaOfConcern, syncWeight: 6}),
             new EntityMetaData({entityType: Department, syncWeight: 1}),
-
             new EntityMetaData({entityType: AssessmentType, syncWeight: 1}),
             new EntityMetaData({entityType: AssessmentTool, syncWeight: 1}),
             new EntityMetaData({entityType: State, syncWeight: 2}),

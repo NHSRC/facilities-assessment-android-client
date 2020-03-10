@@ -31,7 +31,7 @@ class Standard {
 
     static associateChild(childEntity, childEntityClass, childResource, entityService) {
         const schemaName = EntityMetaData.getSchemaName(childEntityClass);
-        let standard = entityService.findByUUID(ResourceUtil.getUUIDFor(childResource, "standardUUID"), Standard.schema.name);
+        let standard = entityService.findByUUID(childResource["standardUUID"], Standard.schema.name);
         if (schemaName === MeasurableElement.schema.name) {
             standard = General.pick(standard, ["uuid"], ["measurableElements"]);
             BaseEntity.addOrUpdateChild(standard.measurableElements, childEntity);
