@@ -9,6 +9,5 @@ describe('EntitiesMetaDataTest', () => {
 
         expect(EntitiesMetaData.allEntityTypes.length).is.equal(18);
         expect(EntitiesMetaData.allEntityTypes[0].entityClass).is.equal(FacilityAssessmentProgress);
-        expect(EntitiesMetaData.allEntityTypes[18].entityClass).is.equal(AssessmentTool);
     });
 });
