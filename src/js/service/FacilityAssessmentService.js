@@ -26,10 +26,18 @@ class FacilityAssessmentService extends BaseService {
         }));
     }
 
-    getAssessmentTools(mode) {
+    _getAssessmentTools(mode) {
         return this.db.objects(AssessmentTool.schema.name)
             .filtered('mode =[c] $0 and inactive = false', mode.toLowerCase())
             .map(_.identity);
+    }
+
+    getAssessmentTools(mode) {
+        return _.filter(this._getAssessmentTools(mode), (assessmentTool) => (_.isNil(assessmentTool.excludedStates) || assessmentTool.excludedStates.length === 0) && _.isEmpty(assessmentTool.stateUUID));
+    }
+
+    getAssessmentToolsForState(mode, stateUUID) {
+        return _.filter(this._getAssessmentTools(mode), (assessmentTool) => assessmentTool.isIncludedForState(stateUUID));
     }
 
     getAssessmentTypes() {

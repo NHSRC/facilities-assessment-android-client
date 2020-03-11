@@ -5,7 +5,7 @@ class ExcludedAssessmentToolState {
         properties: {
             uuid: 'string',
             state: 'State',
-            checkpoint: 'AssessmentTool',
+            assessmentTool: 'AssessmentTool',
             inactive: "bool"
         }
     };

@@ -16,7 +16,8 @@ const allStates = function (state, action, beans) {
     let newState = _.assignIn(state, {
         "allStates": states,
         "facilitySelected": false,
-        "assessmentTools": assessmentTools
+        "assessmentTools": assessmentTools,
+        "mode": action.mode
     });
     if (assessmentTools.length === 1) {
         action.selectedAssessmentTool = assessmentTools[0];
@@ -39,7 +40,11 @@ const selectAssessmentTool = function (state, action, beans) {
 
 const selectState = function (state, action, beans) {
     const districts = beans.get(FacilitiesService).getAllDistrictsFor(action.selectedState.uuid);
+    let facilityAssessmentService = beans.get(FacilityAssessmentService);
+    let assessmentToolsForState = facilityAssessmentService.getAssessmentToolsForState(state.mode, action.selectedState.uuid);
     let newState = _.assignIn(state, {
+        "assessmentTools": assessmentToolsForState,
+        "selectedAssessmentTool": undefined,
         "selectedState": action.selectedState,
         "districtsForState": districts,
         "facilityTypes": [],
@@ -48,7 +53,7 @@ const selectState = function (state, action, beans) {
         "selectedDistrict": undefined,
         "selectedFacility": undefined,
         "facilitySelected": false,
-        "selectedAssessmentType": undefined,
+        "selectedAssessmentType": undefined
     });
     if (districts.length === 1) {
         action.selectedDistrict = districts[0];
@@ -151,7 +156,8 @@ const reset_form = function (state, action, bean) {
         selectedAssessmentType: undefined,
         selectedAssessmentTool: undefined,
         hasActiveFacilityAssessment: false,
-        selectedFacilityType: undefined
+        selectedFacilityType: undefined,
+        mode: undefined
     });
 };
 
@@ -183,5 +189,6 @@ export let facilitySelectionInit = {
     allStates: [],
     districtsForState: [],
     facilityTypes: [],
-    facilities: []
+    facilities: [],
+    mode: undefined
 };

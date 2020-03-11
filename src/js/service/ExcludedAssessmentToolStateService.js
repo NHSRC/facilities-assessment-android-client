@@ -2,6 +2,7 @@ import Service from "../framework/bean/Service";
 import BaseService from "./BaseService";
 import EntityService from "./EntityService";
 import State from "../models/State";
+import AssessmentTool from "../models/AssessmentTool";
 import ResourceUtil from "../utility/ResourceUtil";
 import ExcludedAssessmentToolState from "../models/ExcludedAssessmentToolState";
 

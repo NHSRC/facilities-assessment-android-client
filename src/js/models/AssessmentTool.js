@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 class AssessmentTool {
     static COMPLIANCE = "COMPLIANCE";
     static INDICATOR = "INDICATOR";
@@ -11,15 +13,13 @@ class AssessmentTool {
             uuid: 'string',
             assessmentToolType: {type: 'string', default: "COMPLIANCE"},
             inactive: {type: "bool", default: false},
-            excludedStates: {type: "list", objectType: "ExcludedAssessmentToolState"}
+            excludedStates: {type: "list", objectType: "ExcludedAssessmentToolState"},
+            stateUUID: {type: 'string', optional: true}
         }
     };
 
-    static isApplicable(assessmentTool, stateUUID) {
-        let excluded = _.some(assessmentTool.excludedStates, (excludedState) => excludedState.uuid === stateUUID && !excludedState.inactive);
-        if (assessmentTool.state === stateUUID) return !assessmentTool.inactive;
-        if (_.isNil(assessmentTool.state)) return !assessmentTool.inactive && !excluded;
-        return false;
+    isIncludedForState(stateUUID) {
+        return !_.some(this.excludedStates, (excludedState) => excludedState.state.uuid === stateUUID) && (_.isNil(this.stateUUID) || this.stateUUID === stateUUID);
     }
 }
 
