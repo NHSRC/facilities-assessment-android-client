@@ -49,6 +49,15 @@ const stateSelectionConfirmed = function (state, action, beans) {
     return newState;
 };
 
+const stateUpdateProgress = function (state, action, beans) {
+    let newState = clone(state);
+    newState.seedProgress = beans.get(SeedProgressService).getSeedProgress();
+    if (newState.seedProgress.syncProgress >= 1) {
+        newState.userState.workflowState = StateSelectionUserState.WorkflowStates.StatesLoaded;
+    }
+    return newState;
+};
+
 const stateDownloadFailed = function (state) {
     let newState = clone(state);
     newState.userState.workflowState = StateSelectionUserState.WorkflowStates.StatesDownloadFailed;
@@ -59,7 +68,8 @@ export default new Map([
     ["STATE_SELECTION_LOADED", stateSelectionLoaded],
     ["STATE_SELECTION_CONFIRMED", stateSelectionConfirmed],
     ["TOGGLE_STATE", toggleState],
-    ["STATE_DOWNLOAD_FAILED", stateDownloadFailed]
+    ["STATE_DOWNLOAD_FAILED", stateDownloadFailed],
+    ["STATE_UPDATE_PROGRESS", stateUpdateProgress]
 ]);
 
 export let stateSelectionInit = {

@@ -1,4 +1,4 @@
-import {ActivityIndicator, Alert, Dimensions, StyleSheet, Text, TouchableHighlight, View} from 'react-native';
+import {ActivityIndicator, ProgressBarAndroid, Alert, Dimensions, StyleSheet, Text, TouchableHighlight, View} from 'react-native';
 import React from 'react';
 import AbstractComponent from "../common/AbstractComponent";
 import Path, {PathRoot} from "../../framework/routing/Path";
@@ -12,6 +12,7 @@ import Actions from "../../action";
 import SeedProgressService from "../../service/SeedProgressService";
 import StateSelectionUserState from "../../action/userState/StateSelectionUserState";
 import GunakContainer from "../common/GunakContainer";
+
 const deviceWidth = Dimensions.get('window').width;
 
 @PathRoot
@@ -48,6 +49,7 @@ class StateSelection extends AbstractComponent {
         }, 100);
         let intervalID = setInterval(() => {
             let seedProgress = this.getService(SeedProgressService).getSeedProgress();
+            this.dispatchAction(Actions.STATE_UPDATE_PROGRESS);
             if (seedProgress.hasAllStatesLoaded()) {
                 TypedTransition.from(this).resetTo(ModeSelection);
                 clearInterval(intervalID);
@@ -81,32 +83,35 @@ class StateSelection extends AbstractComponent {
         Logger.logDebug('StateSelection', 'render');
         Logger.logDebug('StateSelection', this.state.seedProgress);
 
+        let stateSelectionConfirmed = this.state.userState.workflowState === StateSelectionUserState.WorkflowStates.StatesConfirmed;
         return (
             <GunakContainer title="Select state of health facilities">
                 <View>
-                    <Text style={{height: 0.5, backgroundColor: "white", width:deviceWidth, marginTop:5}}/>
+                    <Text style={{height: 0.5, backgroundColor: "white", width: deviceWidth, marginTop: 5}}/>
                     {this.state.allStates.map((countryState) =>
                         <TouchableHighlight key={countryState.name} onPress={() => this.toggleState(countryState)}>
                             <View style={{marginTop: 5, justifyContent: 'center', alignItems: 'center'}}
                                   key={countryState.name}>
-                                    <View style={{flexDirection: 'row', height: 32}}>
-                                        <Text style={{color: "white"}}>{countryState.name}</Text>
-                                        {this.isItTheSelectedState(countryState) ?
-                                            <Icon name='done-all' style={{fontSize: 20, color: "white", marginLeft: 10}}
-                                                  size={100}/> :
-                                            <View/>}
-                                    </View>
+                                <View style={{flexDirection: 'row', height: 32}}>
+                                    <Text style={{color: "white"}}>{countryState.name}</Text>
+                                    {this.isItTheSelectedState(countryState) ?
+                                        <Icon name='done-all' style={{fontSize: 20, color: "white", marginLeft: 10}}
+                                              size={100}/> :
+                                        <View/>}
+                                </View>
                                 <Text style={{height: 0.5, backgroundColor: "white", width: 200}}/>
                             </View>
                         </TouchableHighlight>
-
                     )}
+                    {stateSelectionConfirmed ?
+                        <ProgressBarAndroid styleAttr="Horizontal" progress={this.state.seedProgress.syncProgress} indeterminate={false} color="white"
+                                            style={{marginTop: 20}}/> : null}
                     <Button
                         onPress={() => this.stateSelectionConfirmed()}
-                        style={{backgroundColor: '#ffa000', marginTop: 20}}
+                        style={{backgroundColor: '#ffa000', marginTop: stateSelectionConfirmed ? 0 : 5}}
                         block
-                        disabled={!this.isAnyStateSelected()}>{this.state.userState.workflowState === StateSelectionUserState.WorkflowStates.StatesConfirmed ?
-                        (<ActivityIndicator animating={true} size={"large"} color="white" style={{height: 80}}/>) : <Text>SAVE</Text>}
+                        disabled={!this.isAnyStateSelected()}>{stateSelectionConfirmed ?
+                        <ActivityIndicator animating={true} size={"large"} color="white" style={{height: 80}}/> : <Text>SAVE</Text>}
                     </Button>
                     {this.state.seedProgress.numberOfStates === 0 ? null : <Text
                         style={[Typography.paperFontSubhead, {
@@ -114,7 +119,7 @@ class StateSelection extends AbstractComponent {
                             marginTop: 30,
                             justifyContent: 'center',
                             alignItems: 'center',
-                            paddingLeft:20
+                            paddingLeft: 20
                         }]}>{`States already loaded - ${this.state.seedProgress.numberOfStates > 10 ? this.state.seedProgress.numberOfStates : this.state.loadedCountryStates}`}</Text>
                     }
                 </View>

@@ -5,6 +5,7 @@ import AbstractReferenceDataSyncService from "./AbstractReferenceDataSyncService
 import EntitySyncStatusService from "./EntitySyncStatusService";
 import EntitiesMetaData from "../models/entityMetaData/EntitiesMetaData";
 import _ from "lodash";
+import SeedProgressService from "./SeedProgressService";
 
 @Service("referenceDataSyncService")
 class ReferenceDataSyncService extends AbstractReferenceDataSyncService {
@@ -22,8 +23,9 @@ class ReferenceDataSyncService extends AbstractReferenceDataSyncService {
     }
 
     syncMetaDataSpecificToState(states, finishCB, onError) {
-        this.getService(EntitySyncStatusService).setupStatesStatuses(states, EntitiesMetaData.stateSpecificReferenceEntityTypes);
-        this.syncStateSpecificMetaDataInStateMode(states, EntitiesMetaData.stateSpecificReferenceEntityTypes, finishCB, onError);
+        let stateSpecificReferenceEntityTypes = EntitiesMetaData.getStateSpecificReferenceEntityTypes(1 / states.length);
+        this.getService(EntitySyncStatusService).setupStatesStatuses(states, stateSpecificReferenceEntityTypes);
+        this.syncStateSpecificMetaDataInStateMode(states, stateSpecificReferenceEntityTypes, finishCB, onError);
     }
 }
 

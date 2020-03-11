@@ -26,12 +26,12 @@ class EntitiesMetaData {
     //order is important. last entity with be executed first. parent and referred entity (in case of many to one) should be synced before the child.
     static get _stateSpecificReferenceEntityTypes() {
         return [
-            new EntityMetaData({entityType: Facility, parentClass: District, mapper: new FacilityMapper(), syncWeight: 74}),
-            new EntityMetaData({entityType: District, parentClass: State, syncWeight: 20}),
-            new EntityMetaData({entityType: Checkpoint, mapper: new CheckpointMapper(), syncWeight: 2}),
+            new EntityMetaData({entityType: Facility, parentClass: District, mapper: new FacilityMapper(), syncWeight: 10}),
+            new EntityMetaData({entityType: District, parentClass: State, syncWeight: 5}),
+            new EntityMetaData({entityType: Checkpoint, mapper: new CheckpointMapper(), syncWeight: 45}),
             new EntityMetaData({entityType: MeasurableElement, parentClass: Standard, syncWeight: 20}),
-            new EntityMetaData({entityType: Standard, parentClass: AreaOfConcern, syncWeight: 11}),
-            new EntityMetaData({entityType: AreaOfConcern, syncWeight: 6}),
+            new EntityMetaData({entityType: Standard, parentClass: AreaOfConcern, syncWeight: 10}),
+            new EntityMetaData({entityType: AreaOfConcern, syncWeight: 5}),
             new EntityMetaData({entityType: Checklist, mapper: new ChecklistMapper(), syncWeight: 3}),
             new EntityMetaData({entityType: ExcludedAssessmentToolState, serviceClass: ExcludedAssessmentToolStateService, syncWeight: 1}),
             new EntityMetaData({entityType: AssessmentTool, syncWeight: 2})
@@ -57,16 +57,20 @@ class EntitiesMetaData {
         ];
     }
 
-    static get stateSpecificReferenceEntityTypes() {
-        return this._stateSpecificReferenceEntityTypes.map(_.identity);
+    static getStateSpecificReferenceEntityTypes(syncWeightMultiplier) {
+        return this._stateSpecificReferenceEntityTypes.map((x) => {
+            let clone = x.clone();
+            clone.syncWeight = clone.syncWeight * syncWeightMultiplier;
+            return clone;
+        });
     }
 
     static get stateUnspecificReferenceTypes() {
-        return this._referenceEntityTypes.map(_.identity);
+        return this._referenceEntityTypes.map((x) => x.clone());
     }
 
     static get txEntityTypes() {
-        return this._txEntityTypes.map(_.identity);
+        return this._txEntityTypes.map((x) => x.clone());
     }
 
     static get allEntityTypes() {

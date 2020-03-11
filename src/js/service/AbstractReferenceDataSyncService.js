@@ -9,6 +9,7 @@ import moment from "moment";
 import {NativeModules} from "react-native";
 import _ from "lodash";
 import EnvironmentConfig from "../views/common/EnvironmentConfig";
+import SeedProgressService from "./SeedProgressService";
 
 const {Restart} = NativeModules;
 
@@ -49,18 +50,18 @@ class AbstractReferenceDataSyncService extends BaseService {
     }
 
     // Call all states of each entity type and then move to next entity type
-    syncStateSpecificMetaDataInStateMode(states, entityTypes, cb, onError) {
+    syncStateSpecificMetaDataInStateMode(states, entityTypes, onSuccess, onError) {
         Logger.logDebug('AbstractReferenceDataSyncService', 'syncStateSpecificMetaDataInStateMode');
         this._syncStateSpecificMetaDataInStateModeForOneEntity(entityTypes.pop(), _.clone(states), () => {
             if (entityTypes.length > 0)
-                this.syncStateSpecificMetaDataInStateMode(states, entityTypes, cb, onError);
+                this.syncStateSpecificMetaDataInStateMode(states, entityTypes, onSuccess, onError);
             else
-                cb();
+                onSuccess();
         }, onError);
     }
 
     _syncStateSpecificMetaDataInStateModeForOneEntity(stateSpecificReferenceEntityType, states, cb, onError) {
-        Logger.logDebug('AbstractReferenceDataSyncService', 'syncStateSpecificMetaDataInStateMode');
+        Logger.logDebug('AbstractReferenceDataSyncService', '_syncStateSpecificMetaDataInStateModeForOneEntity');
         this._syncData(() => {
             if (states.length > 0)
                 this._syncStateSpecificMetaDataInStateModeForOneEntity(stateSpecificReferenceEntityType, states, cb, onError);

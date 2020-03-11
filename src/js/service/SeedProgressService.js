@@ -66,6 +66,7 @@ class SeedProgressService extends BaseService {
         this.db.write(() => {
             let seedProgress = SeedProgressService._get(this.db);
             seedProgress.addLoadingStates(states);
+            seedProgress.syncProgress = 0.0;
         });
     }
 

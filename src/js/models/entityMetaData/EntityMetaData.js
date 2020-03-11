@@ -43,6 +43,10 @@ class EntityMetaData {
     static getSchemaName(entityClass){
         return _.isEmpty(entityClass.schema) ? entityClass.entityName : entityClass.schema.name;
     }
+
+    clone() {
+        return new EntityMetaData({entityType: this.entityType, parentClass: this.parentClass, mapper: this.mapper, pageSize: this.pageSize, syncWeight: this.syncWeight, serviceClass: this.serviceClass});
+    }
 }
 
 export default EntityMetaData;

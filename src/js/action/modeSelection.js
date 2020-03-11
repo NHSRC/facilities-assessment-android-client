@@ -27,7 +27,7 @@ const downloadReferenceData = function (state, action, beans) {
         let states = seedProgress.loadedStates.map((loadedCountryStateStringObj) => {
             return {name: stateService.getStateName(loadedCountryStateStringObj.value)};
         });
-        referenceDataSyncService.syncStateSpecificMetaDataInStateMode(states, EntitiesMetaData.stateSpecificReferenceEntityTypes, action.cb, action.onError);
+        referenceDataSyncService.syncStateSpecificMetaDataInStateMode(states, EntitiesMetaData.getStateSpecificReferenceEntityTypes(1 / states.length), action.cb, action.onError);
     }, action.onError);
     newState.downloading = true;
     return newState;
