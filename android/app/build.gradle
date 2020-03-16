@@ -32,7 +32,7 @@ def enableProguardInReleaseBuilds = true
 def sdkVersion = (System.getenv("devCompatible") && System.getenv("devCompatible").toBoolean()) ? 25 : 28
 def abiMultiplier = 100000000
 def majorVersion = 2
-def minorVersion = 1
+def minorVersion = 2
 
 def majorMinorVersionOffset = (minorVersion * 10) + (majorVersion * 1000)
 

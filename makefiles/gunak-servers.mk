@@ -6,9 +6,12 @@ deploy-apk-local:
 deploy-apk-jss-qa:
 	$(call _release_apk,jss.qa,false)
 	scp $(apk_path)/app-release.apk sam@139.59.19.108:/tmp/app.apk
-	ssh sam@139.59.19.108 "sudo su app -c 'cp /tmp/app.apk home/app/qa-server/facilities-assessment-host/app-servers/ext/.'"
+	ssh sam@139.59.19.108 "sudo su app -c 'cp /tmp/app.apk /home/app/qa-server/facilities-assessment-host/app-servers/external/.'"
 
 deploy-apk-jss-prod:
 	ssh igunatmac "sudo mv $(prod_apk_path) /tmp/app.apk"
 	scp $(universal_apk_path) igunatmac:$(prod_apk_path)
 
+deploy-apk-nhsrc-qa:
+	scp $(apk_path)/app-release.apk sam@gunak-other:/tmp/app.apk
+	ssh sam@gunak-other "sudo su app -c 'cp /tmp/app.apk /home/app/qa-server/facilities-assessment-host/app-servers/external/.'"

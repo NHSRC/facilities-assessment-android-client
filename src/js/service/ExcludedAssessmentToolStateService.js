@@ -5,6 +5,7 @@ import State from "../models/State";
 import AssessmentTool from "../models/AssessmentTool";
 import ResourceUtil from "../utility/ResourceUtil";
 import ExcludedAssessmentToolState from "../models/ExcludedAssessmentToolState";
+import _ from 'lodash';
 
 @Service("excludedAssessmentToolStateService")
 class ExcludedAssessmentToolStateService extends BaseService {
@@ -19,7 +20,8 @@ class ExcludedAssessmentToolStateService extends BaseService {
         excludedAssessmentToolState.assessmentTool = entityService.findByUUID(ResourceUtil.getUUIDFor(resource, 'assessmentToolUUID'), AssessmentTool.schema.name);
         excludedAssessmentToolState.state = entityService.findByUUID(ResourceUtil.getUUIDFor(resource, 'stateUUID'), State.schema.name);
         excludedAssessmentToolState.inactive = resource["inactive"];
-        excludedAssessmentToolState.assessmentTool.excludedStates.push(excludedAssessmentToolState);
+        if (!_.isNil(excludedAssessmentToolState.assessmentTool))
+            excludedAssessmentToolState.assessmentTool.excludedStates.push(excludedAssessmentToolState);
     }
 }
 

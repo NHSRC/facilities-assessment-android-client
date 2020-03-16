@@ -1,8 +1,6 @@
 define _release_apk
 	$(call _create_config,$1)
 	cd android && separateBuildPerCPUArch=$2 ./gradlew assembleRelease --stacktrace
-	$(call _upload_release_sourcemap)
-	$(call _bugsnag_sourcemaps)
 endef
 
 release-apk-jss: clean-android-build
@@ -16,6 +14,9 @@ release-apk-nhsrc: clean-android-build ## ARG=patchVersion (last digit in versio
 
 release-apk-nhsrc-dev:
 	$(call _release_apk,nhsrc.dev,true)
+
+release-apk-nhsrc-qa:
+	$(call _release_apk,nhsrc.qa,false)
 
 release-apk-offline:
 	cd android; ./gradlew --offline assembleRelease
