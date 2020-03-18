@@ -1,1 +1,6 @@
-excluded assessment tool may not be present (WIP)
+memory usage issue
+------------------
+https://pastebin.com/RmGrtZTU
+adb shell procrank | grep com.facilitiesassessment
+https://stackoverflow.com/questions/2298208/how-do-i-discover-memory-usage-of-my-application-in-android
+https://blog.logrocket.com/using-trampolines-to-manage-large-recursive-loops-in-javascript-d8c9db095ae3/

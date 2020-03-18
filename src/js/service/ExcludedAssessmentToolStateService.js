@@ -20,8 +20,9 @@ class ExcludedAssessmentToolStateService extends BaseService {
         excludedAssessmentToolState.assessmentTool = entityService.findByUUID(ResourceUtil.getUUIDFor(resource, 'assessmentToolUUID'), AssessmentTool.schema.name);
         excludedAssessmentToolState.state = entityService.findByUUID(ResourceUtil.getUUIDFor(resource, 'stateUUID'), State.schema.name);
         excludedAssessmentToolState.inactive = resource["inactive"];
-        if (!_.isNil(excludedAssessmentToolState.assessmentTool))
+        if (!_.some(excludedAssessmentToolState.assessmentTool.excludedStates, (excludedAssessmentToolState) => excludedAssessmentToolState.uuid === resource.uuid)) {
             excludedAssessmentToolState.assessmentTool.excludedStates.push(excludedAssessmentToolState);
+        }
     }
 }
 
