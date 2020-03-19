@@ -15,3 +15,8 @@ deploy-apk-jss-prod:
 deploy-apk-nhsrc-qa:
 	scp $(apk_path)/app-release.apk sam@gunak-other:/tmp/app.apk
 	ssh sam@gunak-other "sudo su app -c 'cp /tmp/app.apk /home/app/qa-server/facilities-assessment-host/app-servers/external/.'"
+
+install-apk-nhsrc-qa:
+	-rm /tmp/nhsrc-qa.apk
+	wget -O /tmp/nhsrc-qa.apk https://uat.gunak.nhsrcindia.org/ext/app.apk
+	$(call _install_apk,/tmp/nhsrc-qa.apk)
