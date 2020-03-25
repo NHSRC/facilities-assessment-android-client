@@ -14,7 +14,8 @@ class AssessmentTool {
             assessmentToolType: {type: 'string', default: "COMPLIANCE"},
             inactive: {type: "bool", default: false},
             excludedStates: {type: "list", objectType: "ExcludedAssessmentToolState"},
-            stateUUID: {type: 'string', optional: true}
+            stateUUID: {type: 'string', optional: true},
+            sortOrder: {type: 'int', optional: true, default: 1000}
         }
     };
 

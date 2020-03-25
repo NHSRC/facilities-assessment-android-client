@@ -28,9 +28,13 @@ class SeedProgressService extends BaseService {
     }
 
     startLoadingChecklist() {
+        this.setLoadState(SeedProgress.AppLoadState.LoadingChecklist);
+    }
+
+    setLoadState(appLoadState) {
         this.db.write(() => {
             let seedProgress = SeedProgressService._get(this.db);
-            seedProgress.loadState = SeedProgress.AppLoadState.LoadingChecklist;
+            seedProgress.loadState = appLoadState;
         });
     }
 

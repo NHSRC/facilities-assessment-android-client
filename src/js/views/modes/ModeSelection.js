@@ -1,5 +1,5 @@
 import React from "react";
-import {ActivityIndicator, NativeModules, Alert, Dimensions, Image, StyleSheet, TouchableWithoutFeedback} from "react-native";
+import {ActivityIndicator, NativeModules, Alert, Dimensions, Image, StyleSheet, TouchableWithoutFeedback, ProgressBarAndroid} from "react-native";
 import {Body, Button, Container, Content, Header, Icon, Left, StyleProvider, Title, Text, View, Right} from "native-base";
 import ViewComponent from "../common/ViewComponent";
 import TypedTransition from "../../framework/routing/TypedTransition";
@@ -17,6 +17,7 @@ import getTheme from "../../native-base-theme/components";
 import platformTheme from "../../native-base-theme/variables/platform";
 import GunakButton from "../common/buttons/GunakButton";
 import PrimaryColors from "../styles/PrimaryColors";
+import SeedProgressService from "../../service/SeedProgressService";
 
 const nqasIcon = require('../img/nqas.png');
 const kayakalpIcon = require('../img/kayakalp.png');
@@ -90,6 +91,12 @@ class ModeSelection extends ViewComponent {
             cb: () => this.downloadCompleted(),
             onError: (error) => this.downloadFailed(error)
         });
+
+        let intervalID = setInterval(() => {
+            if (!this.state.downloading)
+                clearInterval(intervalID);
+            this.dispatchAction(Actions.DOWNLOAD_PROGRESS);
+        }, 1000);
     }
 
     downloadCompleted() {
@@ -125,7 +132,7 @@ class ModeSelection extends ViewComponent {
                 <Container>
                     <Header style={{backgroundColor: PrimaryColors.header}}>
                         {EnvironmentConfig.isEmulated ?
-                            <Left style={{flex:0.1}}>
+                            <Left style={{flex: 0.1}}>
                                 <Button
                                     onPress={() => TypedTransition.from(this)
                                         .with({
@@ -137,14 +144,14 @@ class ModeSelection extends ViewComponent {
                                     <Icon style={{color: 'white'}} name="menu"/>
                                 </Button></Left> : <View/>}
                         <Body style={{flexGrow: 1}}>
-                            <Title style={[Typography.paperFontTitle, {
-                                fontWeight: 'bold',
-                                color: 'white',
-                                alignSelf: 'flex-start',
-                                marginLeft: 10
-                            }]}>GUNAK (गुणक)</Title>
+                        <Title style={[Typography.paperFontTitle, {
+                            fontWeight: 'bold',
+                            color: 'white',
+                            alignSelf: 'flex-start',
+                            marginLeft: 10
+                        }]}>GUNAK (गुणक)</Title>
                         </Body>
-                        <Right style={{flex:0.1}}/>
+                        <Right style={{flex: 0.1}}/>
                     </Header>
                     <Content contentContainerStyle={ModeSelection.styles.container}>
                         <View style={[ModeSelection.styles.modeContainer]}>
@@ -157,16 +164,19 @@ class ModeSelection extends ViewComponent {
                             {this.getModeIfPresent("ANC Program", null, false)}
                             {this.getModeIfPresent("Outcome Monitoring", null, false)}
                         </View>
+                        {this.state.seedProgress && this.state.downloading &&
+                        <ProgressBarAndroid styleAttr="Horizontal" progress={this.state.seedProgress.syncProgress} indeterminate={false} color="white"
+                                            style={{marginTop: 2}}/>}
                         <View style={{flexDirection: 'row', justifyContent: 'center', marginVertical: 60, flexWrap: 'wrap'}}>
                             <GunakButton style={{margin: 10}}
-                                 info
-                                onPress={() => this.downloadChecklistMetadata()}><Text>{this.downloadButtonContent("Update Checklists/Facilities")}</Text></GunakButton>
+                                         info
+                                         onPress={() => this.downloadChecklistMetadata()}><Text>{this.downloadButtonContent("Update Checklists/Facilities")}</Text></GunakButton>
                             <GunakButton style={{margin: 10}}
-                                info
-                                onPress={() => this.downloadMyAssessments()}><Text>{this.downloadButtonContent("Download My Assessments")}</Text></GunakButton>
+                                         info
+                                         onPress={() => this.downloadMyAssessments()}><Text>{this.downloadButtonContent("Download My Assessments")}</Text></GunakButton>
                             {this.state.statesAvailableToBeLoaded ? <GunakButton style={{margin: 10}}
-                                info
-                                onPress={() => this.addNewState()}><Text>{this.downloadButtonContent("Add State")}</Text></GunakButton> : null}
+                                                                                 info
+                                                                                 onPress={() => this.addNewState()}><Text>{this.downloadButtonContent("Add State")}</Text></GunakButton> : null}
                         </View>
                     </Content>
                     <Image resizeMode="contain" style={{width: deviceWidth}} source={nhsrcbanner}/>

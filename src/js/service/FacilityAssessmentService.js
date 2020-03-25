@@ -33,11 +33,11 @@ class FacilityAssessmentService extends BaseService {
     }
 
     getAssessmentTools(mode) {
-        return _.filter(this._getAssessmentTools(mode), (assessmentTool) => (_.isNil(assessmentTool.excludedStates) || assessmentTool.excludedStates.length === 0) && _.isEmpty(assessmentTool.stateUUID));
+        return _.sortBy(_.filter(this._getAssessmentTools(mode), (assessmentTool) => (_.isNil(assessmentTool.excludedStates) || assessmentTool.excludedStates.length === 0) && _.isEmpty(assessmentTool.stateUUID)), (assessmentTool) => assessmentTool.sortOrder);
     }
 
     getAssessmentToolsForState(mode, stateUUID) {
-        return _.filter(this._getAssessmentTools(mode), (assessmentTool) => assessmentTool.isIncludedForState(stateUUID));
+        return _.sortBy(_.filter(this._getAssessmentTools(mode), (assessmentTool) => assessmentTool.isIncludedForState(stateUUID)), (assessmentTool) => assessmentTool.sortOrder);
     }
 
     getAssessmentTypes() {
