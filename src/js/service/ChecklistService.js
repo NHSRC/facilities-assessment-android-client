@@ -59,7 +59,8 @@ class ChecklistService extends BaseService {
     getChecklist(checklistUUID) {
         const getChecklist = (checklistUUID) => {
             const checkpoints = _.groupBy(this.db.objects(Checkpoint.schema.name)
-                .filtered("checklist = $0", checklistUUID), 'measurableElement');
+                .filtered("checklist = $0 AND inactive = false", checklistUUID), 'measurableElement');
+                // .filtered("checklist = $0", checklistUUID), 'measurableElement');
             let checklist = this.db.objectForPrimaryKey(Checklist.schema.name, checklistUUID);
             checklist = comp(this.fromStringObj("areasOfConcern"), this.pickKeys(["areasOfConcern"]))(checklist);
             checklist.areasOfConcern = checklist.areasOfConcern
@@ -75,8 +76,9 @@ class ChecklistService extends BaseService {
                                 })
                                 .filter((me) => !_.isEmpty(me.checkpoints))
                                 .map((me) => {
-                                    me.checkpoints = me.checkpoints.map((checkpoints, idx) =>
-                                        _.assignIn(checkpoints, {reference: `${me.reference}.${idx + 1}`}));
+                                    me.checkpoints = _.sortBy(me.checkpoints, ['sortOrder'])
+                                        .map((checkpoints, idx) =>
+                                            _.assignIn(checkpoints, {reference: `${me.reference}.${idx + 1}`}));
                                     return me;
                                 });
                             return standard;
@@ -138,7 +140,7 @@ class ChecklistService extends BaseService {
             .find((standard) => standard.uuid === standardUUID).measurableElements;
         measurableElements = _.sortBy(measurableElements, this.meRefComparator);
         let checkpoints = measurableElements
-            .map((me) => _.sortBy(me.checkpoints, ['sortOrder']))
+            .map((me) => me.checkpoints)
             .map(cp => cp.filter(c => Checkpoint.isApplicable(c, stateUUID)));
         return _.flatten(checkpoints);
     }
