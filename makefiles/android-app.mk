@@ -17,6 +17,9 @@ release-apk-nhsrc: clean-android-build ## ARG=patchVersion (last digit in versio
 release-apk-nhsrc-dev:
 	$(call _release_apk,nhsrc.dev,true)
 
+release-apk-nhsrc-qa:
+	$(call _release_apk,nhsrc.qa,false)
+
 release-apk-offline:
 	cd android; ./gradlew --offline assembleRelease
 
