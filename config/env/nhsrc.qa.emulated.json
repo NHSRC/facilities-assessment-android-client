@@ -5,5 +5,5 @@
   "SERVER_URL_IOS": "https://uat.gunak.nhsrcindia.org",
   "TRACK_LOCATION": false,
   "AUTO_GENERATE_SERIES_NUMBER": true,
-  "EMULATOR": false
+  "EMULATOR": true
 }
