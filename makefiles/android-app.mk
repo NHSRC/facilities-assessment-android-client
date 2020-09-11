@@ -5,19 +5,24 @@ define _release_apk
 	$(call _bugsnag_sourcemaps)
 endef
 
+check-patchVersion-Is-Provided:
+ifndef patchVersion
+	$(error ERROR: patchVersion not provided. It is the last digit in version name, e.g. in 2014 it is 4. For changing major and minor versions change the build.gradle file.)
+endif
+
 release-apk-jss: clean-android-build
 	$(call _release_apk,jss,false)
 
 release-apk-jss-dev:
 	$(call _release_apk,jss.dev,false)
 
-release-apk-nhsrc: clean-android-build ## ARG=patchVersion (last digit in version name, e.g. in 2011 it is 1) For changing major and minor versions change the build.gradle file.
+release-apk-nhsrc-prod: check-patchVersion-Is-Provided clean-android-build
 	$(call _release_apk,nhsrc,true)
 
 release-apk-nhsrc-dev:
 	$(call _release_apk,nhsrc.dev,true)
 
-release-apk-nhsrc-qa:
+release-apk-nhsrc-qa: check-patchVersion-Is-Provided
 	$(call _release_apk,nhsrc.qa,true)
 
 release-apk-offline:
