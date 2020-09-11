@@ -23,7 +23,7 @@ release-apk-nhsrc-dev:
 	$(call _release_apk,nhsrc.dev,true)
 
 release-apk-nhsrc-qa: check-patchVersion-Is-Provided
-	$(call _release_apk,nhsrc.qa,true)
+	$(call _release_apk,nhsrc.qa,false)
 
 release-apk-offline:
 	cd android; ./gradlew --offline assembleRelease

@@ -12,3 +12,6 @@ deploy-apk-jss-prod:
 	ssh igunatmac "sudo mv $(prod_apk_path) /tmp/app.apk"
 	scp $(universal_apk_path) igunatmac:$(prod_apk_path)
 
+deploy-apk-nhsrc-prod:
+	-ssh gunak-main "sudo mv $(prod_apk_path) /tmp/app.apk"
+	scp $(universal_apk_path) gunak-main:$(prod_apk_path)
