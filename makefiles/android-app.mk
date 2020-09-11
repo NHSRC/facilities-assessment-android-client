@@ -41,9 +41,6 @@ endef
 run-app-android-nhsrc: ## ARG - devCompatible=true/false (use true if the app is crashing immediately after giving overlay permission)
 	$(call _run_android,nhsrc)
 
-run-app-android-nhsrc-qa:
-	$(call _run_android,nhsrc.qa)
-
 run-app-android-nhsrc-qa-emulated:
 	$(call _run_android,nhsrc.qa.emulated)
 
