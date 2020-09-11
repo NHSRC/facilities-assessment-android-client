@@ -2,6 +2,7 @@ import BaseService from "./BaseService";
 import Service from "../framework/bean/Service";
 import SeedProgress from '../models/SeedProgress';
 import _ from "lodash";
+import Logger from "../framework/Logger";
 
 @Service("seedProgressService")
 class SeedProgressService extends BaseService {
@@ -28,6 +29,7 @@ class SeedProgressService extends BaseService {
     }
 
     startLoadingChecklist() {
+        Logger.logDebug('SeedProgressService', 'SeedProgressService.startLoadingChecklist');
         this.setLoadState(SeedProgress.AppLoadState.LoadingChecklist);
     }
 
@@ -39,6 +41,7 @@ class SeedProgressService extends BaseService {
     }
 
     errorWhileInitialChecklistLoad(error) {
+        Logger.logDebug('SeedProgressService', 'SeedProgressService.errorWhileInitialChecklistLoad');
         this.db.write(() => {
             let seedProgress = SeedProgressService._get(this.db);
             seedProgress.loadState = SeedProgress.AppLoadState.ErrorInFirstLoadOfChecklist;
@@ -48,6 +51,7 @@ class SeedProgressService extends BaseService {
     }
 
     finishedLoadingChecklist() {
+        Logger.logDebug('SeedProgressService', 'SeedProgressService.finishedLoadingChecklist');
         this.db.write(() => {
             let seedProgress = SeedProgressService._get(this.db);
             seedProgress.loadState = SeedProgress.AppLoadState.LoadedChecklist;
@@ -56,6 +60,7 @@ class SeedProgressService extends BaseService {
     }
 
     finishedLoadStateSpecificData(selectedStates) {
+        Logger.logDebug('SeedProgressService', 'SeedProgressService.finishedLoadStateSpecificData');
         this.db.write(() => {
             let seedProgress = SeedProgressService._get(this.db);
             seedProgress.confirmStatesLoaded(selectedStates);
@@ -67,6 +72,7 @@ class SeedProgressService extends BaseService {
     }
 
     startLoadingStates(states) {
+        Logger.logDebug('SeedProgressService', 'SeedProgressService.startLoadingStates');
         this.db.write(() => {
             let seedProgress = SeedProgressService._get(this.db);
             seedProgress.addLoadingStates(states);
@@ -75,6 +81,7 @@ class SeedProgressService extends BaseService {
     }
 
     resetSync() {
+        Logger.logDebug('SeedProgressService', 'SeedProgressService.resetSync');
         this.db.write(() => {
             let seedProgress = SeedProgressService._get(this.db);
             seedProgress.resetSync();
