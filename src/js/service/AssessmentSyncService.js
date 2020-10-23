@@ -106,6 +106,7 @@ class AssessmentSyncService extends BaseService {
         let sync = assessmentTool.assessmentToolType === AssessmentTool.INDICATOR ? syncIndicator : syncChecklist;
 
         this.serverURL = this.getService(SettingsService).getServerURL();
+        console.log(facilityAssessmentDTO);
         post(`${this.serverURL}/api/facility-assessment`, facilityAssessmentDTO, sync, errorHandler);
     }
 }

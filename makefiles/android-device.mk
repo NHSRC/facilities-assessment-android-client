@@ -1,5 +1,6 @@
 define _install_apk
 	adb shell settings put global package_verifier_enable 0
+	ls -lt $1
 	adb install $1
 endef
 
@@ -12,6 +13,9 @@ uninstall-android-app:
 
 install-android-app:
 	$(call _install_apk,$(emulator_apk_path))
+
+install-android-app-universal:
+	$(call _install_apk,$(emulator_apk_path_universal))
 
 reinstall-android-app: uninstall-android-app install-android-app
 
