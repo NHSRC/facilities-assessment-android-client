@@ -2,7 +2,7 @@ import {formatDate} from '../utility/DateUtils';
 import _ from "lodash";
 
 export default facilityAssessmentMapper =
-    ({uuid, facility: {uuid: facilityUUID, name: name}, assessmentTool: {uuid: assessmentToolUUID}, assessmentType: {uuid: assessmentTypeUUID}, startDate, endDate, seriesName, deviceId}, stateUUID, districtUUID) =>
+    ({uuid, facility: {uuid: facilityUUID, name: name}, assessmentTool: {uuid: assessmentToolUUID}, assessmentType: {uuid: assessmentTypeUUID}, startDate, endDate, seriesName, deviceId, assessorName}, stateUUID, districtUUID) =>
         _.assignIn({
             uuid: uuid,
             state: stateUUID,
@@ -14,5 +14,6 @@ export default facilityAssessmentMapper =
             endDate: formatDate(endDate),
             seriesName: seriesName,
             deviceId: deviceId,
-            assessmentTypeUUID: assessmentTypeUUID
+            assessmentTypeUUID: assessmentTypeUUID,
+            assessorName: assessorName
         });
