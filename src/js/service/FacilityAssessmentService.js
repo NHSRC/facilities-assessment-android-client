@@ -40,8 +40,13 @@ class FacilityAssessmentService extends BaseService {
         return _.sortBy(_.filter(this._getAssessmentTools(mode), (assessmentTool) => assessmentTool.isIncludedForState(stateUUID)), (assessmentTool) => assessmentTool.sortOrder);
     }
 
-    getAssessmentTypes() {
-        return this.db.objects(AssessmentType.schema.name).filtered("inactive = false").map(this.nameAndId);
+    getAssessmentTypes(mode) {
+        let assessmentTypes = this.db.objects(AssessmentType.schema.name).filtered("inactive = false and mode =[c] $0", mode.toLowerCase()).map(this.nameAndId);
+        // For backward compatibility, the app may get updated without the user syncing the data from the server with relationship between assessment type and program
+        if (assessmentTypes.length === 0) {
+            return this.db.objects(AssessmentType.schema.name).filtered("inactive = false").map(this.nameAndId);
+        }
+        return assessmentTypes;
     }
 
     getExistingAssessment(facility, assessmentTool, assessmentType) {

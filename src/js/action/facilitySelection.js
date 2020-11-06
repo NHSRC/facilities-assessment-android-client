@@ -27,7 +27,7 @@ const allStates = function (state, action, beans) {
         action.selectedState = states[0];
         newState = selectState(newState, action, beans);
     }
-    newState.assessmentTypes = facilityAssessmentService.getAssessmentTypes();
+    newState.assessmentTypes = facilityAssessmentService.getAssessmentTypes(action.mode);
     return newState;
 };
 

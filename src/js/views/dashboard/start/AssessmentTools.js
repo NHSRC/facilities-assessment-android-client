@@ -51,6 +51,7 @@ class AssessmentTools extends AbstractComponent {
 
     render() {
         const selectedAssessmentTool = this.props.data.selectedAssessmentTool;
+        const selectedState = this.props.data.selectedState;
         const assessmentTools = this.props.data.assessmentTools.map((assessmentTool, idx) => {
                 const isSelected =
                     _.isEmpty(selectedAssessmentTool) ? false : selectedAssessmentTool.uuid === assessmentTool.uuid;
@@ -70,9 +71,7 @@ class AssessmentTools extends AbstractComponent {
         );
         return (
             <View style={{flex: 1}}>
-                <Text style={[Typography.paperFontSubhead, AssessmentTools.styles.subheader]}>
-                    Select An Assessment Tool
-                </Text>
+                <Text style={[Typography.paperFontSubhead, AssessmentTools.styles.subheader]}>{_.isNil(selectedState) ? "Select State to View All Assessment Tools" : "Select An Assessment Tool"}</Text>
                 <View style={AssessmentTools.styles.buttonsContainer}>
                     {assessmentTools}
                 </View>
