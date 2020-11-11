@@ -1,4 +1,4 @@
-import {ActivityIndicator, ProgressBarAndroid, Alert, Dimensions, StyleSheet, Text, TouchableHighlight, View} from 'react-native';
+import {ActivityIndicator, Alert, Dimensions, StyleSheet, Text, TouchableHighlight, View} from 'react-native';
 import React from 'react';
 import AbstractComponent from "../common/AbstractComponent";
 import Path, {PathRoot} from "../../framework/routing/Path";
@@ -12,6 +12,7 @@ import Actions from "../../action";
 import SeedProgressService from "../../service/SeedProgressService";
 import StateSelectionUserState from "../../action/userState/StateSelectionUserState";
 import GunakContainer from "../common/GunakContainer";
+import PlatformIndependentProgressBar from "../progressBar/PlatformIndependentProgressBar";
 
 const deviceWidth = Dimensions.get('window').width;
 
@@ -104,8 +105,7 @@ class StateSelection extends AbstractComponent {
                         </TouchableHighlight>
                     )}
                     {stateSelectionConfirmed ?
-                        <ProgressBarAndroid styleAttr="Horizontal" progress={this.state.seedProgress.syncProgress} indeterminate={false} color="white"
-                                            style={{marginTop: 20}}/> : null}
+                        PlatformIndependentProgressBar.display(this.state.seedProgress.syncProgress, {marginTop: 20}) : null}
                     <Button
                         onPress={() => this.stateSelectionConfirmed()}
                         style={{backgroundColor: '#ffa000', marginTop: stateSelectionConfirmed ? 0 : 5}}

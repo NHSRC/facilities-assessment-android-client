@@ -36,6 +36,9 @@ define _switch_ios_to_mode
 #	cat ios/FacilitiesAssessment/AppDelegate.m.template|sed 's/JS_CODE_LOCATION/$2/' > ios/FacilitiesAssessment/AppDelegate.m
 endef
 
+open-simulator:
+	open -a simulator
+
 run-app-ios-nhsrc:
 	$(call _run_ios,nhsrc)
 
@@ -45,7 +48,7 @@ run-app-ios-nhsrc-release:
 run-app-ios-nhsrc-dev:
 	$(call _run_ios_dev,nhsrc.dev)
 
-prepare-ipa-nhsrc-fail:
+prepare-ipa-nhsrc:
 	$(call _create_config,nhsrc)
 
 release-ios-nhsrc:

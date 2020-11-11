@@ -1,5 +1,5 @@
 import React from "react";
-import {ActivityIndicator, NativeModules, Alert, Dimensions, Image, StyleSheet, TouchableWithoutFeedback, ProgressBarAndroid} from "react-native";
+import {ActivityIndicator, NativeModules, Alert, Dimensions, Image, StyleSheet, TouchableWithoutFeedback} from "react-native";
 import {Body, Button, Container, Content, Header, Icon, Left, StyleProvider, Title, Text, View, Right} from "native-base";
 import ViewComponent from "../common/ViewComponent";
 import TypedTransition from "../../framework/routing/TypedTransition";
@@ -17,7 +17,7 @@ import getTheme from "../../native-base-theme/components";
 import platformTheme from "../../native-base-theme/variables/platform";
 import GunakButton from "../common/buttons/GunakButton";
 import PrimaryColors from "../styles/PrimaryColors";
-import SeedProgressService from "../../service/SeedProgressService";
+import PlatformIndependentProgressBar from "../progressBar/PlatformIndependentProgressBar";
 
 const nqasIcon = require('../img/nqas.png');
 const kayakalpIcon = require('../img/kayakalp.png');
@@ -164,9 +164,7 @@ class ModeSelection extends ViewComponent {
                             {this.getModeIfPresent("ANC Program", null, false)}
                             {this.getModeIfPresent("Outcome Monitoring", null, false)}
                         </View>
-                        {this.state.seedProgress && this.state.downloading &&
-                        <ProgressBarAndroid styleAttr="Horizontal" progress={this.state.seedProgress.syncProgress} indeterminate={false} color="white"
-                                            style={{marginTop: 2}}/>}
+                        {this.state.seedProgress && this.state.downloading && PlatformIndependentProgressBar.display(this.state.seedProgress.syncProgress, {marginTop: 2})}
                         <View style={{flexDirection: 'row', justifyContent: 'center', marginVertical: 60, flexWrap: 'wrap'}}>
                             <GunakButton style={{margin: 10}}
                                          info
@@ -178,6 +176,15 @@ class ModeSelection extends ViewComponent {
                                                                                  info
                                                                                  onPress={() => this.addNewState()}><Text>{this.downloadButtonContent("Add State")}</Text></GunakButton> : null}
                         </View>
+
+                        <Text style={[Typography.paperFontTitle, {
+                            color: 'white',
+                            alignSelf: 'center'
+                        }]}>Support Email</Text>
+                        <Text style={[Typography.paperFontTitle, {
+                            color: 'skyblue',
+                            alignSelf: 'center'
+                        }]}>help@gunaksupport.freshdesk.com</Text>
                     </Content>
                     <Image resizeMode="contain" style={{width: deviceWidth}} source={nhsrcbanner}/>
                 </Container>

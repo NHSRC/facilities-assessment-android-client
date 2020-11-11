@@ -1,9 +1,10 @@
 import React from "react";
-import {Dimensions, Platform, ProgressBarAndroid, ProgressViewIOS, StyleSheet, Text, View} from "react-native";
+import {Dimensions, Platform, StyleSheet, Text, View} from "react-native";
 import AbstractComponent from "../common/AbstractComponent";
 import PrimaryColors from "../styles/PrimaryColors";
 import Typography from "../styles/Typography";
 import _ from 'lodash';
+import PlatformIndependentProgressBar from "../progressBar/PlatformIndependentProgressBar";
 
 const deviceHeight = Dimensions.get('window').height;
 
@@ -39,13 +40,7 @@ class AssessmentStatus extends AbstractComponent {
                         {_.ceil(progressRatio * 100, 2)}% Complete
                     </Text>
                 </View>
-                {Platform.OS === 'android' ?
-                    <ProgressBarAndroid
-                        color={progressBarColor}
-                        styleAttr="Horizontal" indeterminate={false}
-                        progress={progressRatio}/> :
-                    <ProgressViewIOS progressTintColor={progressBarColor} progress={progressRatio}/>
-                }
+                {PlatformIndependentProgressBar.display(progressRatio, {}, progressBarColor)}
             </View>
         );
     }

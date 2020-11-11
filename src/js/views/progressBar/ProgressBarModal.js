@@ -1,4 +1,4 @@
-import {Dimensions, Modal, Platform, ProgressBarAndroid, ProgressViewIOS, Text, View} from 'react-native';
+import {Dimensions, Modal, Platform, Text, View} from 'react-native';
 import React from 'react';
 import AbstractComponent from '../common/AbstractComponent';
 import Colors from "../styles/PrimaryColors";
@@ -7,6 +7,7 @@ import {Button, Icon} from "native-base";
 import EnvironmentConfig from "../common/EnvironmentConfig";
 import PropTypes from 'prop-types';
 import _ from "lodash";
+import PlatformIndependentProgressBar from "./PlatformIndependentProgressBar";
 
 const {width, height} = Dimensions.get('window');
 
@@ -89,9 +90,7 @@ class ProgressBarModal extends AbstractComponent {
                     <Text style={[this.props.failed ? this.syncTextErrorContent : this.syncTextContent, {marginTop: 10}]}>
                         {_.isNil(this.props.message) ? "Starting" : this.props.message}
                     </Text>
-                    {Platform.OS === 'ios' ?
-                        <ProgressViewIOS progress={this.props.value} progressViewStyle="bar" trackTintColor="white"/> :
-                        <ProgressBarAndroid styleAttr="Horizontal" progress={this.props.value} indeterminate={false} color="white"/>}
+                    {PlatformIndependentProgressBar.display(this.props.value)}
                     <Text
                         style={[this.percentageText, {textAlign: 'center'}]}>
                         {((this.props.value) * 100).toFixed(0)}%

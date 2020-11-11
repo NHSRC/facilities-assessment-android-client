@@ -21,6 +21,11 @@ install-apk-nhsrc-qa:
 	wget -O /tmp/nhsrc-qa.apk https://uat.gunak.nhsrcindia.org/ext/app.apk
 	$(call _install_apk,/tmp/nhsrc-qa.apk)
 
+install-apk-nhsrc-prod:
+	-rm /tmp/nhsrc-prod.apk
+	wget -O /tmp/nhsrc-prod.apk https://gunak.nhsrcindia.org/ext/app.apk
+	$(call _install_apk,/tmp/nhsrc-prod.apk)
+
 deploy-apk-nhsrc-prod:
 	-ssh gunak-main "sudo mv $(prod_apk_path) /tmp/app.apk"
-	scp $(universal_apk_path) gunak-main:$(prod_apk_path)
+	scp $(emulator_apk_path) gunak-main:$(prod_apk_path)
