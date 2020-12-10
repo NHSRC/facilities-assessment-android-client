@@ -26,7 +26,7 @@
     "moment": "2.19.3",
     "native-base": "2.12.1",
     "react": "16.8.3",
-    "react-native": "0.59.5",
+    "react-native": "0.59.9",
     "react-native-fs": "^2.11.17",
     "react-native-material-design-styles": "0.2.7",
     "react-native-share": "1.2.1",

@@ -24,12 +24,12 @@
 define _run_ios_dev
 	$(call _setup_hosts,$1)
 	$(call _create_config,dev)
-	react-native run-ios --simulator="iPhone Xs Max"
+	react-native run-ios --simulator="iPhone 6 Plus"
 endef
 
 define _run_ios
 	$(call _create_config,$1)
-	react-native run-ios
+	react-native run-ios --simulator="iPhone 6 Plus"
 endef
 
 define _switch_ios_to_mode

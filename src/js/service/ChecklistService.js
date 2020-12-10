@@ -139,9 +139,7 @@ class ChecklistService extends BaseService {
             .find((aoc) => aoc.uuid === aocUUID).standards
             .find((standard) => standard.uuid === standardUUID).measurableElements;
         measurableElements = _.sortBy(measurableElements, this.meRefComparator);
-        let checkpoints = measurableElements
-            .map((me) => me.checkpoints)
-            .map(cp => cp.filter(c => Checkpoint.isApplicable(c, stateUUID)));
+        let checkpoints = measurableElements.map((me) => me.checkpoints);
         return _.flatten(checkpoints);
     }
 
