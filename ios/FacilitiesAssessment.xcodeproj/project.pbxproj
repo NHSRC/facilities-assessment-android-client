@@ -1711,7 +1711,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: National Health Systems Resource Center (D28YJ6TWA9)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: National Health Systems Resource Center (D28YJ6TWA9)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 8;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = D28YJ6TWA9;
 				HEADER_SEARCH_PATHS = (
@@ -1728,7 +1728,7 @@
 				);
 				INFOPLIST_FILE = FacilitiesAssessment/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 2.2.3;
+				MARKETING_VERSION = 2.2.5;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1750,7 +1750,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: National Health Systems Resource Center (D28YJ6TWA9)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: National Health Systems Resource Center (D28YJ6TWA9)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = D28YJ6TWA9;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1766,7 +1766,7 @@
 				);
 				INFOPLIST_FILE = FacilitiesAssessment/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 2.2.3;
+				MARKETING_VERSION = 2.2.5;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
