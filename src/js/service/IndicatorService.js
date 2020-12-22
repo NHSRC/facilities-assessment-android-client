@@ -29,6 +29,7 @@ class IndicatorService extends BaseService {
 
     saveIndicator(indicator) {
         if (_.isNil(indicator.uuid)) indicator.uuid = UUID.generate();
+        if (_.isNaN(indicator.numericValue)) indicator.numericValue = null;
         return this.save(Indicator)(indicator);
     }
 
