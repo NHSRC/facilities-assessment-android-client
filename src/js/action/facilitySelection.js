@@ -64,7 +64,7 @@ const selectState = function (state, action, beans) {
 
 const selectDistrict = function (state, action, beans) {
     const facilities = beans.get(FacilitiesService).getAllFacilitiesFor(action.selectedDistrict.uuid);
-    const facilityTypes = beans.get(FacilitiesService).getFacilityTypes();
+    const facilityTypes = beans.get(FacilitiesService).getFacilityTypes(action.selectedDistrict.uuid);
     let newState = _.assignIn(state, {
         "selectedDistrict": action.selectedDistrict,
         "facilities": facilities,

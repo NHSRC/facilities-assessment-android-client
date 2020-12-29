@@ -9,6 +9,7 @@ import UUID from "../utility/UUID";
 import StateService from "./StateService";
 import EnvironmentConfig from '../views/common/EnvironmentConfig';
 import SeedProgressService from "./SeedProgressService";
+import EntityService from "./EntityService";
 
 @Service("facilitiesService")
 class FacilitiesService extends BaseService {
@@ -41,13 +42,18 @@ class FacilitiesService extends BaseService {
         return this.db.objectForPrimaryKey(State.schema.name, stateUUID).districts.filtered("inactive = false").sorted('name').map(this.nameAndId);
     }
 
-    getAllFacilitiesFor(districtUUID, facilityType) {
+    getAllFacilitiesFor(districtUUID) {
         return this.db.objectForPrimaryKey(District.schema.name, districtUUID).facilities.filtered("inactive = false").sorted('name')
             .map(this.pickKeys(["facilityType"]));
     }
 
-    getFacilityTypes() {
-        return this.db.objects(FacilityType.schema.name).filtered("inactive = false").sorted('name').map(this.nameAndId);
+    getFacilityTypes(districtUUID) {
+        if (_.isNil(districtUUID)) {
+            return this.db.objects(FacilityType.schema.name).filtered("inactive = false").sorted('name').map(this.nameAndId);
+        } else {
+            let entityService = this.getService(EntityService);
+            return _.uniqBy(this.getAllFacilitiesFor(districtUUID), "facilityType").map((facility) => entityService.findByUUID(facility["facilityType"], FacilityType.schema.name)).map(this.nameAndId);
+        }
     }
 
     getFacilityType(facilityTypeUUID) {
