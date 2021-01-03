@@ -21,6 +21,9 @@ import IndicatorDefinition from "../IndicatorDefinition";
 import Indicator from "../Indicator";
 import ExcludedAssessmentToolStateService from "../../service/ExcludedAssessmentToolStateService";
 import ExcludedAssessmentToolState from "../ExcludedAssessmentToolState";
+import AssessmentMetaData from "../assessment/AssessmentMetadata";
+import FacilityAssessmentDownloadService from "../../service/assessment/FacilityAssessmentDownloadService";
+import FacilityAssessmentMapper from "../../mapper/FacilityAssessmentMapper";
 
 class EntitiesMetaData {
     //order is important. last entity with be executed first. parent and referred entity (in case of many to one) should be synced before the child.
@@ -40,11 +43,12 @@ class EntitiesMetaData {
 
     static get _referenceEntityTypes() {
         return [
-            new EntityMetaData({entityType: IndicatorDefinition, mapper: new IndicatorDefinitionMapper(), syncWeight: 20}),
-            new EntityMetaData({entityType: Department, syncWeight: 20}),
-            new EntityMetaData({entityType: AssessmentType, syncWeight: 20}),
+            new EntityMetaData({entityType: IndicatorDefinition, mapper: new IndicatorDefinitionMapper(), syncWeight: 30}),
+            new EntityMetaData({entityType: Department, syncWeight: 15}),
+            new EntityMetaData({entityType: AssessmentType, syncWeight: 10}),
             new EntityMetaData({entityType: State, syncWeight: 20}),
-            new EntityMetaData({entityType: FacilityType, syncWeight: 20})
+            new EntityMetaData({entityType: FacilityType, syncWeight: 15}),
+            new EntityMetaData({entityType: AssessmentMetaData, syncWeight: 10})
         ];
     }
 
@@ -53,7 +57,7 @@ class EntitiesMetaData {
             new EntityMetaData({entityType: FacilityAssessmentProgress, serviceClass: FacilityAssessmentProgressService, pageSize: 2, syncWeight: 20}),
             new EntityMetaData({entityType: Indicator, mapper: new IndicatorMapper(), syncWeight: 20}),
             new EntityMetaData({entityType: CheckpointScore, mapper: new CheckpointScoreMapper(), syncWeight: 50}),
-            new EntityMetaData({entityType: FacilityAssessment, mapper: new FacilityAssessmentMapper(), syncWeight: 10})
+            new EntityMetaData({entityType: FacilityAssessment, mapper: new FacilityAssessmentMapper(), serviceClass: FacilityAssessmentDownloadService, syncWeight: 10})
         ];
     }
 
@@ -104,19 +108,6 @@ class ChecklistMapper {
         resource.areasOfConcern = resource["areasOfConcernUUIDs"]
             .map((aoc) => _.assignIn({value: aoc}));
         resource.state = resource["stateUUID"];
-        return resource;
-    }
-}
-
-class FacilityAssessmentMapper {
-    fromResource(resource) {
-        resource.facility = ResourceUtil.getUUIDFor(resource, "facilityUUID");
-        resource.assessmentTool = ResourceUtil.getUUIDFor(resource, "assessmentToolUUID");
-        resource.submitted = true;
-        resource.startDate = moment(resource.startDate).toDate();
-        resource.endDate = moment(resource.endDate).toDate();
-        resource.dateUpdated = moment(resource.lastModifiedDate).toDate();
-        resource.assessmentType = ResourceUtil.getUUIDFor(resource, "assessmentTypeUUID");
         return resource;
     }
 }

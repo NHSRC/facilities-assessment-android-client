@@ -7,7 +7,7 @@ describe('EntitiesMetaDataTest', () => {
         expect(EntitiesMetaData.txEntityTypes.length).is.equal(4);
         expect(EntitiesMetaData.getStateSpecificReferenceEntityTypes(1).length).is.equal(9);
 
-        expect(EntitiesMetaData.allEntityTypes.length).is.equal(18);
+        expect(EntitiesMetaData.allEntityTypes.length).is.equal(19);
         expect(EntitiesMetaData.allEntityTypes[0].entityClass).is.equal(FacilityAssessmentProgress);
     });
 });

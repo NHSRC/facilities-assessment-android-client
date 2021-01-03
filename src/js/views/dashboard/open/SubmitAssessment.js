@@ -9,6 +9,7 @@ import Actions from "../../../action";
 import AssessmentTool from "../../../models/AssessmentTool";
 import PropTypes from 'prop-types';
 import GunakContainer from "../../common/GunakContainer";
+import FacilityAssessment from '../../../models/FacilityAssessment';
 
 class SubmitAssessment extends AbstractComponent {
     static propTypes = {
@@ -16,7 +17,8 @@ class SubmitAssessment extends AbstractComponent {
         onSubmit: PropTypes.func.isRequired,
         submissionDetailAvailable: PropTypes.bool,
         assessmentToolType: PropTypes.string,
-        syncing : PropTypes.bool
+        syncing: PropTypes.bool,
+        assessmentMetaDataList: PropTypes.array
     };
 
     static styles = StyleSheet.create({
@@ -39,8 +41,8 @@ class SubmitAssessment extends AbstractComponent {
         super(props, context);
     }
 
-    handleAssessorNameChange(text) {
-        this.dispatchAction(Actions.ENTER_ASSESSOR_NAME, {assessorName: text});
+    handleCustomInfoChange(assessmentMetaData, text) {
+        this.dispatchAction(Actions.ENTER_CUSTOM_INFO, {assessmentMetaData: assessmentMetaData, valueString: text});
     }
 
     close() {
@@ -52,20 +54,24 @@ class SubmitAssessment extends AbstractComponent {
     }
 
     render() {
-        console.log("Syncing: ",this.props.syncing);
+        console.log("Syncing: ", this.props.syncing);
         return (
             <GunakContainer title="Submit Assessment" hideBack={true}>
                 <View style={SubmitAssessment.styles.container}>
                     {this.props.assessmentToolType === AssessmentTool.INDICATOR ? null : <AssessmentSeries series={this.props.facilityAssessment.seriesName}/>}
                     <View style={{margin: 10, flexDirection: 'column'}}>
-                        <Text style={[Typography.paperFontSubhead]}>Assessor's Name</Text>
-                        <TextInput style={SubmitAssessment.styles.input}
-                                   value={this.props.facilityAssessment.assessorName}
-                                   underlineColorAndroid={PrimaryColors["grey"]}
-                                   words="words"
-                                   onChangeText={(text) => this.handleAssessorNameChange(text)}/>
+                        {this.props.assessmentMetaDataList.map((x) => {
+                            return <>
+                                <Text style={[Typography.paperFontSubhead]}>{x.name}</Text>
+                                <TextInput style={SubmitAssessment.styles.input}
+                                           value={FacilityAssessment.getCustomInfoValue(x, this.props.facilityAssessment)}
+                                           underlineColorAndroid={PrimaryColors["grey"]}
+                                           words="words"
+                                           onChangeText={(text) => this.handleCustomInfoChange(x, text)}/>
+                            </>
+                        })}
                         <View style={{flexDirection: 'row', marginBottom: 10, marginTop: 10}}>
-                            <Button block style={{backgroundColor: this.props.syncing?PrimaryColors.medium_black: PrimaryColors.blue, marginHorizontal: 10, flex: 0.5}}
+                            <Button block style={{backgroundColor: this.props.syncing ? PrimaryColors.medium_black : PrimaryColors.blue, marginHorizontal: 10, flex: 0.5}}
                                     onPress={() => this.close()}
                                     disabled={this.props.syncing}><Text>CLOSE</Text></Button>
                             <Button block style={{

@@ -10,6 +10,8 @@ import ChecklistProgress from "../models/ChecklistProgress";
 import SeedProgressService from "./SeedProgressService";
 import StringObj from "../models/StringObj";
 import ReferenceDataSyncService from "./ReferenceDataSyncService";
+import EntityService from "./EntityService";
+import AssessmentMetaData from "../models/assessment/AssessmentMetaData";
 
 @Service("seedDataService")
 class SeedDataService extends BaseService {

@@ -1,7 +1,6 @@
 import BaseService from "./BaseService";
 import Service from "../framework/bean/Service";
 import {post} from "../framework/http/requests";
-import facilityAssessmentMapper from "../mapper/facilityAssessmentMapper";
 import BatchRequest from "../framework/http/BatchRequest";
 import ChecklistService from "./ChecklistService";
 import checkpointScoreMapper from "../mapper/checkpointScoreMapper";
@@ -15,6 +14,7 @@ import IndicatorService from "./IndicatorService";
 import Indicator from "../models/Indicator";
 import AssessmentTool from "../models/AssessmentTool";
 import _ from 'lodash';
+import FacilityAssessmentMapper from "../mapper/FacilityAssessmentMapper";
 
 @Service("assessmentSyncService")
 class AssessmentSyncService extends BaseService {
@@ -96,7 +96,7 @@ class AssessmentSyncService extends BaseService {
 
         let district = facilitiesService.getDistrictForFacility(assessment.facility.uuid);
         let state = facilitiesService.getStateForDistrict(district.uuid);
-        let facilityAssessmentDTO = facilityAssessmentMapper(assessment, state.uuid, district.uuid);
+        let facilityAssessmentDTO = FacilityAssessmentMapper.toResource(assessment, state.uuid, district.uuid);
         let assessmentTool = entityService.findByUUID(assessment.assessmentTool.uuid, AssessmentTool.schema.name);
 
         let syncChecklist = this.syncChecklists(assessment, facilityAssessmentDTO.facility, cb, errorHandler);

@@ -2,6 +2,7 @@ import UUID from "../utility/UUID";
 import _ from "lodash";
 import moment from "moment";
 import AssessmentTool from "./AssessmentTool";
+import AssessmentCustomInfo from "./assessment/AssessmentCustomInfo";
 
 class FacilityAssessment {
     static schema = {
@@ -19,7 +20,7 @@ class FacilityAssessment {
             submitted: {type: 'bool', default: false},
             seriesName: {type: 'string', optional: true},
             deviceId: {type: 'string', optional: true},
-            assessorName: {type: 'string', optional: true},
+            customInfos: {type: 'list', objectType: 'AssessmentCustomInfo'}
         }
     };
 
@@ -33,11 +34,32 @@ class FacilityAssessment {
         return moment().format('YYYYMMDD');
     }
 
-    static submissionDetailsAvailable(facilityAssessment, assessmentTool) {
-        if (assessmentTool.assessmentToolType === AssessmentTool.COMPLIANCE)
-            return !(_.isEmpty(facilityAssessment.assessorName) || _.isEmpty(facilityAssessment.seriesName));
-        else
-            return !(_.isEmpty(facilityAssessment.assessorName));
+    static fieldChecksPassed(assessmentMetaData, assessment) {
+        let customInfo = this.findCustomInfo(assessmentMetaData, assessment);
+        return !assessmentMetaData.mandatory || !_.isNil(customInfo.valueString);
+    }
+
+    static seriesNameCheckPassed(assessmentTool, assessment) {
+        return assessmentTool.assessmentToolType !== AssessmentTool.COMPLIANCE || !_.isEmpty(assessment.seriesName);
+    }
+
+    static getCustomInfoValue(assessmentMetaData, facilityAssessment) {
+        let customInfo = this.findCustomInfo(assessmentMetaData, facilityAssessment);
+        return customInfo && customInfo.valueString;
+    }
+
+    static findCustomInfo(assessmentMetaData, facilityAssessment) {
+        return _.find(facilityAssessment.customInfos, (x) => x.assessmentMetaData.uuid === assessmentMetaData.uuid);
+    }
+
+    static updateCustomInfo(assessmentMetaData, valueString, assessment) {
+        let customInfo = this.findCustomInfo(assessmentMetaData, assessment);
+        if (_.isNil(customInfo)) {
+            customInfo = new AssessmentCustomInfo();
+            customInfo.assessmentMetaData = assessmentMetaData;
+            customInfo.facilityAssessment = assessment;
+        }
+        customInfo.valueString = valueString;
     }
 }
 

@@ -21,7 +21,7 @@ class FacilityAssessmentService extends BaseService {
     saveSubmissionDetails(facilityAssessment) {
         const existingAssessment = _.assignIn({}, this.db.objectForPrimaryKey(FacilityAssessment.schema.name, facilityAssessment.uuid));
         return this.saveAssessment(_.assignIn(existingAssessment, {
-            assessorName: facilityAssessment.assessorName,
+            customInfos: facilityAssessment.customInfos,
             seriesName: facilityAssessment.seriesName
         }));
     }

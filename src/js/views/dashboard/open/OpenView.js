@@ -115,6 +115,7 @@ class OpenView extends AbstractComponent {
                                       submissionDetailAvailable={this.state.submissionDetailAvailable}
                                       assessmentToolType={this.state.assessmentToolType}
                                       syncing = {this.state.syncing.length >=1}
+                                      assessmentMetaDataList = {this.state.assessmentMetaDataList}
                     />
                 </Modal>
                 {AssessmentLists}
