@@ -1,6 +1,6 @@
 export default class AssessmentMetaData {
     static schema = {
-        name: 'AssessmentMetadata',
+        name: 'AssessmentMetaData',
         primaryKey: 'uuid',
         properties: {
             name: 'string',

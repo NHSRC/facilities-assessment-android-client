@@ -3,7 +3,7 @@ export default class AssessmentCustomInfo {
         name: 'AssessmentCustomInfo',
         properties: {
             valueString: 'string',
-            assessmentMetaData: 'AssessmentMetadata',
+            assessmentMetaData: 'AssessmentMetaData',
             facilityAssessment: 'FacilityAssessment'
         }
     };

@@ -21,9 +21,9 @@ import IndicatorDefinition from "../IndicatorDefinition";
 import Indicator from "../Indicator";
 import ExcludedAssessmentToolStateService from "../../service/ExcludedAssessmentToolStateService";
 import ExcludedAssessmentToolState from "../ExcludedAssessmentToolState";
-import AssessmentMetaData from "../assessment/AssessmentMetadata";
+import AssessmentMetaData from "../assessment/AssessmentMetaData";
 import FacilityAssessmentDownloadService from "../../service/assessment/FacilityAssessmentDownloadService";
-import FacilityAssessmentMapper from "../../mapper/FacilityAssessmentMapper";
+import FacilityAssessmentMapper from "../../mapper/facilityAssessmentMapper";
 
 class EntitiesMetaData {
     //order is important. last entity with be executed first. parent and referred entity (in case of many to one) should be synced before the child.
