@@ -36,7 +36,7 @@ class FacilityAssessment {
 
     static fieldChecksPassed(assessmentMetaData, assessment) {
         let customInfo = this.findCustomInfo(assessmentMetaData, assessment);
-        return !assessmentMetaData.mandatory || (!_.isNil(customInfo) && !_.isNil(customInfo.valueString));
+        return !assessmentMetaData.mandatory || (!_.isNil(customInfo) && !_.isEmpty(customInfo.valueString));
     }
 
     static seriesNameCheckPassed(assessmentTool, assessment) {
@@ -79,7 +79,7 @@ class FacilityAssessment {
         facilityAssessment.submitted = other.submitted;
         facilityAssessment.seriesName = other.seriesName;
         facilityAssessment.deviceId = other.deviceId;
-        facilityAssessment.customInfos = other.customInfos.slice();
+        facilityAssessment.customInfos = other.customInfos.map((x) => AssessmentCustomInfo.clone(x));
         return facilityAssessment;
     }
 }

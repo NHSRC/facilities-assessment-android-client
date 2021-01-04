@@ -15,4 +15,12 @@ export default class AssessmentCustomInfo {
             uuid: assessmentCustomInfo.assessmentMetaData.uuid
         };
     }
+
+    static clone(other) {
+        let assessmentCustomInfo = new AssessmentCustomInfo();
+        assessmentCustomInfo.valueString = other.valueString;
+        assessmentCustomInfo.assessmentMetaData = other.assessmentMetaData;
+        assessmentCustomInfo.facilityAssessment = other.facilityAssessment;
+        return assessmentCustomInfo;
+    }
 }

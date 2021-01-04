@@ -94,8 +94,9 @@ const _updateSubmittingAssessment = function (state, updateObject, beans) {
 };
 
 const enterCustomInfo = function (state, action, beans) {
-    FacilityAssessment.updateCustomInfo(action.assessmentMetaData, action.valueString, state.submittingAssessment);
-    let newState = {submittingAssessment: FacilityAssessment.clone(state.submittingAssessment)};
+    let newSubmittingAssessment = FacilityAssessment.clone(state.submittingAssessment);
+    FacilityAssessment.updateCustomInfo(action.assessmentMetaData, action.valueString, newSubmittingAssessment);
+    let newState = {submittingAssessment: newSubmittingAssessment};
     newState.submissionDetailAvailable = _areSubmissionDetailsAvailable(newState.submittingAssessment, beans);
     return _.assignIn({}, state, newState);
 };

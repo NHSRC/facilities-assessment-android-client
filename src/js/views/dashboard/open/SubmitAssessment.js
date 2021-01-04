@@ -60,7 +60,7 @@ class SubmitAssessment extends AbstractComponent {
                     {this.props.assessmentToolType === AssessmentTool.INDICATOR ? null : <AssessmentSeries series={this.props.facilityAssessment.seriesName}/>}
                     <View style={{margin: 10, flexDirection: 'column'}}>
                         {this.props.assessmentMetaDataList.map((x) => {
-                            return <View key={x.uuid}>
+                            return <View key={x.uuid} style={{marginBottom: 20}}>
                                 <Text style={[Typography.paperFontSubhead]}>{x.name}</Text>
                                 <TextInput style={SubmitAssessment.styles.input}
                                            value={FacilityAssessment.getCustomInfoValue(x, this.props.facilityAssessment)}
@@ -69,7 +69,7 @@ class SubmitAssessment extends AbstractComponent {
                                            onChangeText={(text) => this.handleCustomInfoChange(x, text)}/>
                             </View>
                         })}
-                        <View style={{flexDirection: 'row', marginBottom: 10, marginTop: 10}}>
+                        <View style={{flexDirection: 'row', marginBottom: 10, marginTop: 30}}>
                             <Button block style={{backgroundColor: this.props.syncing ? PrimaryColors.medium_black : PrimaryColors.blue, marginHorizontal: 10, flex: 0.5}}
                                     onPress={() => this.close()}
                                     disabled={this.props.syncing}><Text>CLOSE</Text></Button>
