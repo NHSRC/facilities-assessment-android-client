@@ -14,7 +14,7 @@ import AssessmentMetaDataService from "../service/metadata/AssessmentMetaDataSer
 const _areSubmissionDetailsAvailable = function (assessment, beans) {
     let assessmentMetaDataService = beans.get(AssessmentMetaDataService);
     let assessmentMetaDataList = assessmentMetaDataService.getAll();
-    _.reduce(assessmentMetaDataList,
+    return _.reduce(assessmentMetaDataList,
         (available, assessmentMetaData) => FacilityAssessment.fieldChecksPassed(assessmentMetaData, assessment) && available,
         FacilityAssessment.seriesNameCheckPassed(assessment.assessmentTool, assessment));
 };
@@ -39,11 +39,13 @@ const allAssessments = function (state, action, beans) {
 };
 
 const startSubmitAssessment = function (state, action, beans) {
-    let submissionDetailAvailable = _areSubmissionDetailsAvailable(action.facilityAssessment);
+    let assessment = FacilityAssessment.clone(action.facilityAssessment);
+    console.log(assessment.customInfos);
+    let submissionDetailAvailable = _areSubmissionDetailsAvailable(assessment, beans);
     return _.assignIn(state, {
-        submittingAssessment: action.facilityAssessment,
+        submittingAssessment: assessment,
         submissionDetailAvailable: submissionDetailAvailable,
-        assessmentToolType: action.facilityAssessment.assessmentTool.assessmentToolType
+        assessmentToolType: assessment.assessmentTool.assessmentToolType
     });
 };
 
@@ -57,8 +59,8 @@ const syncAssessment = function (state, action, beans) {
     facilityAssessmentService.saveSubmissionDetails(state.submittingAssessment);
 
     const assessmentSyncService = beans.get(AssessmentSyncService);
-    assessmentSyncService.syncFacilityAssessment(action.facilityAssessment, action.cb, action.errorHandler);
-    return _.assignIn(state, {syncing: [action.facilityAssessment.uuid].concat(state.syncing)});
+    assessmentSyncService.syncFacilityAssessment(state.submittingAssessment, action.cb, action.errorHandler);
+    return _.assignIn(state, {syncing: [state.submittingAssessment.uuid].concat(state.syncing)});
 };
 
 const assessmentSynced = function (state, action, beans) {
@@ -68,7 +70,7 @@ const assessmentSynced = function (state, action, beans) {
     const completedAssessments = assessmentService.getAllCompletedAssessments(assessmentMode);
     const submittedAssessments = assessmentService.getAllSubmittedAssessments(assessmentMode);
     return _.assignIn(state, {
-        syncing: state.syncing.filter((uuid) => uuid !== action.facilityAssessment.uuid),
+        syncing: state.syncing.filter((uuid) => uuid !== state.submittingAssessment.uuid),
         completedAssessments: completedAssessments,
         submittedAssessments: submittedAssessments,
         submittingAssessment: undefined
@@ -93,8 +95,8 @@ const _updateSubmittingAssessment = function (state, updateObject, beans) {
 
 const enterCustomInfo = function (state, action, beans) {
     FacilityAssessment.updateCustomInfo(action.assessmentMetaData, action.valueString, state.submittingAssessment);
-    let newState = {submittingAssessment: _.assignIn({}, state.submittingAssessment)};
-    newState.submissionDetailAvailable = _areSubmissionDetailsAvailable(newState.submittingAssessment);
+    let newState = {submittingAssessment: FacilityAssessment.clone(state.submittingAssessment)};
+    newState.submissionDetailAvailable = _areSubmissionDetailsAvailable(newState.submittingAssessment, beans);
     return _.assignIn({}, state, newState);
 };
 

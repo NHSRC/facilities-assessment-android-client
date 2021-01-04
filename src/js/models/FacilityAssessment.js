@@ -36,7 +36,7 @@ class FacilityAssessment {
 
     static fieldChecksPassed(assessmentMetaData, assessment) {
         let customInfo = this.findCustomInfo(assessmentMetaData, assessment);
-        return !assessmentMetaData.mandatory || !_.isNil(customInfo.valueString);
+        return !assessmentMetaData.mandatory || (!_.isNil(customInfo) && !_.isNil(customInfo.valueString));
     }
 
     static seriesNameCheckPassed(assessmentTool, assessment) {
@@ -53,13 +53,34 @@ class FacilityAssessment {
     }
 
     static updateCustomInfo(assessmentMetaData, valueString, assessment) {
+        if (_.isNil(assessment.customInfos))
+            assessment.customInfos = [];
+
         let customInfo = this.findCustomInfo(assessmentMetaData, assessment);
         if (_.isNil(customInfo)) {
             customInfo = new AssessmentCustomInfo();
+            assessment.customInfos.push(customInfo);
             customInfo.assessmentMetaData = assessmentMetaData;
             customInfo.facilityAssessment = assessment;
         }
         customInfo.valueString = valueString;
+    }
+
+    static clone(other) {
+        let facilityAssessment = new FacilityAssessment();
+        facilityAssessment.uuid = other.uuid;
+        facilityAssessment.syncedUuid = other.syncedUuid;
+        facilityAssessment.facility = other.facility;
+        facilityAssessment.assessmentTool = other.assessmentTool;
+        facilityAssessment.assessmentType = other.assessmentType;
+        facilityAssessment.startDate = other.startDate;
+        facilityAssessment.endDate = other.endDate;
+        facilityAssessment.dateUpdated = other.dateUpdated;
+        facilityAssessment.submitted = other.submitted;
+        facilityAssessment.seriesName = other.seriesName;
+        facilityAssessment.deviceId = other.deviceId;
+        facilityAssessment.customInfos = other.customInfos.slice();
+        return facilityAssessment;
     }
 }
 

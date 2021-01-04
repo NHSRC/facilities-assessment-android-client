@@ -1,7 +1,7 @@
 import {expect} from 'chai';
 import openAssessments from "../../js/action/openAssessments";
 import AssessmentTool from "../../js/models/AssessmentTool";
-import AssessmentMetaDataService from "../../js/service/metadata/AssessmentMetaDataService";
+import TestBeanFactory from "../stubs/TestBeanFactory";
 
 describe('FacilitySelectionTest', () => {
     let state = function (series) {
@@ -17,12 +17,7 @@ describe('FacilitySelectionTest', () => {
     };
 
     it('enterSeries', () => {
-        let beans = new Map();
-        beans.set(AssessmentMetaDataService, {
-            getAll: function () {
-                return [];
-            }
-        });
+        let beans = TestBeanFactory.create().addAssessmentMetaDataService().beans;
         let enterAssessmentSeries = openAssessments.get('ENTER_ASSESSMENT_SERIES');
         let newState = enterAssessmentSeries(state('1'), action('1a'), beans);
         expect(series(newState)).is.equal('1');

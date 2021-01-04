@@ -42,6 +42,8 @@ class AssessmentSeries extends AbstractComponent {
         return (
             <View style={{margin: 10, flexDirection: 'column'}}>
                 <Text style={[Typography.paperFontSubhead]}>Assessment Number</Text>
+                <Text style={[Typography.paperFontCaption]}>All assessments for a facility with the same number will be merged with each other
+                    - creating a single assessment. This is to help perform an assessment from multiple devices. Use auto-generate button to get number or enter manually.</Text>
                 <View style={{flexDirection: 'row'}}>
                     <TextInput style={AssessmentSeries.styles.input}
                                value={this.props.series}

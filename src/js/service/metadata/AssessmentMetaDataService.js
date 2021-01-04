@@ -13,7 +13,7 @@ class AssessmentMetaDataService extends BaseService {
     }
 
     getAll() {
-        let list = this.findAll(this.schemaName);
+        let list = this.findAll(AssessmentMetaData);
         if (list.length === 0) {
             list = [AssessmentMetaData.createForAssessorName()];
         }

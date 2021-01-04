@@ -18,7 +18,7 @@ class SubmitAssessment extends AbstractComponent {
         submissionDetailAvailable: PropTypes.bool,
         assessmentToolType: PropTypes.string,
         syncing: PropTypes.bool,
-        assessmentMetaDataList: PropTypes.array
+        assessmentMetaDataList: PropTypes.any
     };
 
     static styles = StyleSheet.create({
@@ -54,21 +54,20 @@ class SubmitAssessment extends AbstractComponent {
     }
 
     render() {
-        console.log("Syncing: ", this.props.syncing);
         return (
             <GunakContainer title="Submit Assessment" hideBack={true}>
                 <View style={SubmitAssessment.styles.container}>
                     {this.props.assessmentToolType === AssessmentTool.INDICATOR ? null : <AssessmentSeries series={this.props.facilityAssessment.seriesName}/>}
                     <View style={{margin: 10, flexDirection: 'column'}}>
                         {this.props.assessmentMetaDataList.map((x) => {
-                            return <>
+                            return <View key={x.uuid}>
                                 <Text style={[Typography.paperFontSubhead]}>{x.name}</Text>
                                 <TextInput style={SubmitAssessment.styles.input}
                                            value={FacilityAssessment.getCustomInfoValue(x, this.props.facilityAssessment)}
                                            underlineColorAndroid={PrimaryColors["grey"]}
                                            words="words"
                                            onChangeText={(text) => this.handleCustomInfoChange(x, text)}/>
-                            </>
+                            </View>
                         })}
                         <View style={{flexDirection: 'row', marginBottom: 10, marginTop: 10}}>
                             <Button block style={{backgroundColor: this.props.syncing ? PrimaryColors.medium_black : PrimaryColors.blue, marginHorizontal: 10, flex: 0.5}}
