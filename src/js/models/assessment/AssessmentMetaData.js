@@ -1,3 +1,7 @@
+import _ from 'lodash';
+
+const regexCache = new Map();
+
 export default class AssessmentMetaData {
     static schema = {
         name: 'AssessmentMetaData',
@@ -20,5 +24,14 @@ export default class AssessmentMetaData {
         assessmentMetaData.mandatory = true;
         assessmentMetaData.inactive = false;
         return assessmentMetaData;
+    }
+
+    static matches(valueString, assessmentMetaData) {
+        let regex = regexCache.get(assessmentMetaData.validationRegex);
+        if (_.isNil(regex)) {
+            regex = new RegExp(assessmentMetaData.validationRegex);
+            regexCache.set(assessmentMetaData.validationRegex, regex);
+        }
+        return regex.test(valueString);
     }
 }

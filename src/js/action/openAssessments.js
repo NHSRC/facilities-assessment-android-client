@@ -40,7 +40,6 @@ const allAssessments = function (state, action, beans) {
 
 const startSubmitAssessment = function (state, action, beans) {
     let assessment = FacilityAssessment.clone(action.facilityAssessment);
-    console.log(assessment.customInfos);
     let submissionDetailAvailable = _areSubmissionDetailsAvailable(assessment, beans);
     return _.assignIn(state, {
         submittingAssessment: assessment,

@@ -29,8 +29,9 @@ class AssessmentSyncService extends BaseService {
 
     syncChecklists(originalAssessment, facilityUUID, cb, errorHandler) {
         return (facilityAssessment) => {
+            Logger.logInfo('AssessmentSyncService', 'syncChecklists');
             const facilityAssessmentService = this.getService(FacilityAssessmentService);
-            facilityAssessmentService.addSyncedUuid({
+            let savedAssessment = facilityAssessmentService.addSyncedUuid({
                 uuid: originalAssessment.uuid,
                 syncedUuid: facilityAssessment.uuid
             });
@@ -39,7 +40,7 @@ class AssessmentSyncService extends BaseService {
             const facilitiesService = this.getService(FacilitiesService);
             const state = facilitiesService.getStateForFacility(facilityUUID);
             const batchRequest = new BatchRequest();
-            const checklists = checklistService.getChecklistsFor(facilityAssessment.assessmentTool, state);
+            const checklists = checklistService.getChecklistsFor(savedAssessment.assessmentTool, state);
             checklists.map(({uuid, name, department}) =>
                 _.assignIn({
                     uuid: uuid,
@@ -54,6 +55,7 @@ class AssessmentSyncService extends BaseService {
                     checklist,
                     checklistService.markCheckpointScoresSubmitted, () => {
                     }));
+            console.log("AssessmentSyncService", "firing");
             batchRequest.fire((final) => {
                     facilityAssessmentService.markSubmitted(originalAssessment);
                     cb();
@@ -67,6 +69,7 @@ class AssessmentSyncService extends BaseService {
 
     syncIndicators(originalAssessment, cb, errorHandler) {
         return (facilityAssessment) => {
+            Logger.logInfo('AssessmentSyncService', 'syncIndicators');
             const facilityAssessmentService = this.getService(FacilityAssessmentService);
             facilityAssessmentService.addSyncedUuid({
                 uuid: originalAssessment.uuid,
@@ -106,7 +109,7 @@ class AssessmentSyncService extends BaseService {
         let sync = assessmentTool.assessmentToolType === AssessmentTool.INDICATOR ? syncIndicator : syncChecklist;
 
         this.serverURL = this.getService(SettingsService).getServerURL();
-        console.log(facilityAssessmentDTO);
+        Logger.logDebug('AssessmentSyncService.syncFacilityAssessment', facilityAssessmentDTO);
         post(`${this.serverURL}/api/facility-assessment`, facilityAssessmentDTO, sync, errorHandler);
     }
 }

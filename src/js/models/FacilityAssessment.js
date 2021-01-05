@@ -3,6 +3,7 @@ import _ from "lodash";
 import moment from "moment";
 import AssessmentTool from "./AssessmentTool";
 import AssessmentCustomInfo from "./assessment/AssessmentCustomInfo";
+import AssessmentMetaData from "./assessment/AssessmentMetaData";
 
 class FacilityAssessment {
     static schema = {
@@ -36,7 +37,11 @@ class FacilityAssessment {
 
     static fieldChecksPassed(assessmentMetaData, assessment) {
         let customInfo = this.findCustomInfo(assessmentMetaData, assessment);
-        return !assessmentMetaData.mandatory || (!_.isNil(customInfo) && !_.isEmpty(customInfo.valueString));
+        let basicChecksPassed = !assessmentMetaData.mandatory || (!_.isNil(customInfo) && !_.isEmpty(customInfo.valueString));
+        if (basicChecksPassed && !_.isNil(assessmentMetaData.validationRegex)) {
+            return AssessmentMetaData.matches(customInfo.valueString, assessmentMetaData);
+        }
+        return basicChecksPassed
     }
 
     static seriesNameCheckPassed(assessmentTool, assessment) {

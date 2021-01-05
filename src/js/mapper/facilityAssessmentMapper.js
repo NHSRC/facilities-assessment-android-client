@@ -2,6 +2,7 @@ import _ from "lodash";
 import moment from "moment";
 import ResourceUtil from "../utility/ResourceUtil";
 import AssessmentCustomInfo from "../models/assessment/AssessmentCustomInfo";
+import {formatDate} from "../utility/DateUtils";
 
 class FacilityAssessmentMapper {
     fromResource(resource) {

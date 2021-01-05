@@ -4,7 +4,7 @@ export default class AssessmentCustomInfo {
         properties: {
             valueString: 'string',
             assessmentMetaData: 'AssessmentMetaData',
-            facilityAssessment: 'FacilityAssessment'
+            facilityAssessment: {type: 'linkingObjects', objectType: 'FacilityAssessment', property: 'customInfos'}
         }
     };
 
@@ -20,7 +20,6 @@ export default class AssessmentCustomInfo {
         let assessmentCustomInfo = new AssessmentCustomInfo();
         assessmentCustomInfo.valueString = other.valueString;
         assessmentCustomInfo.assessmentMetaData = other.assessmentMetaData;
-        assessmentCustomInfo.facilityAssessment = other.facilityAssessment;
         return assessmentCustomInfo;
     }
 }
