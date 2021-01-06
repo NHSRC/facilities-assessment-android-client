@@ -6,8 +6,9 @@ import PropTypes from 'prop-types';
 
 class FieldLabel extends AbstractComponent {
     static propTypes = {
-        text: PropTypes.string.isRequired,
-        style: PropTypes.object
+        text: PropTypes.string,
+        style: PropTypes.object,
+        isHelpText: PropTypes.bool.isRequired
     };
 
     constructor(props, context) {
@@ -15,8 +16,14 @@ class FieldLabel extends AbstractComponent {
     }
 
     render() {
+        let typography;
+        if (Platform.OS === 'ios') {
+            typography = this.props.isHelpText ? Typography.paperFontBody1 : Typography.paperFontSubhead;
+        } else {
+            typography = this.props.isHelpText ? Typography.paperFontBody1 : Typography.paperFontTitle;
+        }
         return (
-            <Text style={[Platform.OS === 'ios' ? Typography.paperFontSubhead : Typography.paperFontTitle, this.props.style]}>
+            <Text style={[typography, this.props.style]}>
                 {this.props.text}
             </Text>
         );

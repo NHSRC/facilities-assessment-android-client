@@ -61,7 +61,8 @@ class DateIndicator extends AbstractComponent {
     renderIOSDatePicker(date) {
         return <Modal transparent={true} visible={true}>
             <View style={{marginTop: 100, backgroundColor: PrimaryColors.header}}>
-                <FieldLabel text={this.getTitle()} style={{color: 'white', backgroundColor: PrimaryColors.header, paddingLeft: 10, height: 40, padding: 10}}/>
+                <FieldLabel text={this.getTitle()} style={{color: 'white', backgroundColor: PrimaryColors.header, paddingLeft: 10, height: 40, padding: 10}} isHelpText={false}/>
+                <FieldLabel text={this.props.definition.description} style={{color: 'orange'}} isHelpText={true}/>
                 <DatePickerIOS date={date} onDateChange={(date) => this.dispatchDateChange(date, true)} mode="date" style={{backgroundColor: 'white'}}/>
                 <Button style={{backgroundColor: PrimaryColors.blue, alignSelf: 'stretch'}} block
                         onPress={() => this.dispatchDateChange(date, false)}><Text>Done</Text></Button>
@@ -73,7 +74,8 @@ class DateIndicator extends AbstractComponent {
         let date = _.isNil(this.props.indicator) ? new Date() : this.props.indicator.dateValue;
         return (
             <View>
-                <FieldLabel text={this.props.definition.name} style={{color: 'white'}}/>
+                <FieldLabel text={this.props.definition.name} style={{color: 'white'}} isHelpText={false}/>
+                <FieldLabel text={this.props.definition.description} style={{color: 'orange'}} isHelpText={true}/>
                 {(Platform.OS === 'ios' && this.props.editing) ? this.renderIOSDatePicker(date) :
                     <Text onPress={this.dateTextClicked.bind(this, {date: date})}
                           style={{
