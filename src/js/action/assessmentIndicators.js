@@ -17,6 +17,7 @@ const clone = function (state) {
     cloned.outputIndicators = [];
     cloned.resultsEvalCode = state.resultsEvalCode;
     cloned.dateFieldInEdit = state.dateFieldInEdit;
+    cloned.workflowStatus = state.workflowStatus;
     state.indicators.forEach((indicator) => cloned.indicators.push(_.assignIn(new Indicator(), indicator)));
     return cloned;
 };
@@ -28,12 +29,14 @@ const allIndicators = function (state, action, beans) {
     newState.assessmentUUID = action.assessmentUUID;
     newState.indicators = beans.get(IndicatorService).getIndicators(action.assessmentUUID);
     newState.resultsEvalCode = IndicatorDefinitions.resultsEvalCode(newState.indicatorDefinitions, false);
+    newState.workflowStatus = IndicatorWorkflowStatus.CalculationNotDone;
     return newState;
 };
 
 const _modifyIndicator = function (state, action, beans, modifier) {
     let newState = clone(state);
     newState.indicatorDefinitionsWithError = [];
+    newState.workflowStatus = IndicatorWorkflowStatus.CalculationNotDone;
     let indicatorService = beans.get(IndicatorService);
     let indicator = indicatorService.getIndicator(action.indicatorDefinitionUUID, newState.assessmentUUID);
     if (modifier(indicator, action, newState)) {
@@ -50,10 +53,7 @@ const _saveIndicator = function (indicatorService, indicator, indicators) {
 
 const codedIndicatorUpdated = function (state, action, beans) {
     return _modifyIndicator(state, action, beans, (indicator, action) => {
-        indicator.codedValue = _.isNil(indicator.codedValue) ?
-            action.assumedValue
-            :
-            indicator.codedValue === action.assumedValue ? null : action.assumedValue;
+        indicator.codedValue = action.assumedValue;
         return true;
     });
 };
@@ -97,8 +97,10 @@ const calculateIndicators = function (state, action, beans) {
         let resultsEvalCode = IndicatorDefinitions.resultsEvalCode(newState.outputIndicatorDefinitions, true);
         newState.outputIndicators = Indicators.evalCalculatedIndicatorValues(newState.indicatorDefinitions.concat(newState.outputIndicatorDefinitions), newState.indicators, true, resultsEvalCode, newState.assessmentUUID);
         newState.indicatorDefinitionsWithError = Indicators.indicatorDefinitionsWithPercentageError(newState.outputIndicators, newState.outputIndicatorDefinitions);
+        newState.workflowStatus = IndicatorWorkflowStatus.CalculationDoneWithoutError;
     } else {
         newState.indicatorDefinitionsWithError = indicatorDefinitionsWithError;
+        newState.workflowStatus = IndicatorWorkflowStatus.CalculationDoneWithError;
     }
     return newState;
 };
@@ -131,5 +133,9 @@ export let assessmentIndicatorsInit = {
     outputIndicators: [],
     resultsEvalCode: '',
     indicatorDefinitionsWithError: [],
-    dateFieldInEdit: undefined
+    dateFieldInEdit: undefined,
+    workFlowStatus: undefined
 };
+
+export const IndicatorWorkflowStatus = {CalculationNotDone: 1, CalculationDone: 2, CalculationDoneWithError: 3, CalculationDoneWithoutError: 4};
+Object.freeze(IndicatorWorkflowStatus);

@@ -14,6 +14,7 @@ import ValidationErrorMessage from "./ValidationErrorMessage";
 import PropTypes from 'prop-types';
 import _ from "lodash";
 import GunakContainer from '../common/GunakContainer';
+import {IndicatorWorkflowStatus} from "../../action/assessmentIndicators";
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
@@ -73,38 +74,41 @@ class AssessmentIndicators extends AbstractComponent {
         let hasError = this.state.indicatorDefinitionsWithError.length !== 0;
         let validationMessage;
         if (hasError) {
-            validationMessage = `FOLLOWING DATA ELEMENTS HAVE ERROR\n`;
+            validationMessage = `Following data elements have error, also indicated in red against the field above\n`;
             validationMessage += this.state.indicatorDefinitionsWithError.map(def => `${def.name}\n`);
         }
 
         return (
             <GunakContainer title={this.props.params.assessmentTool.name}>
                 <Content keyboardShouldPersistTaps={'always'} ref={input => AssessmentIndicators.visibleScrollView = input}>
-                    <View style={{ flexDirection: 'column',width:deviceWidth,marginLeft:5,marginRight:5}}>
+                    <View style={{flexDirection: 'column', width: deviceWidth, paddingLeft: 5, paddingRight: 5}}>
                         <View style={{flexDirection: 'row', marginBottom: deviceHeight * 0.02}}>
                             <AssessmentTitle facilityName={this.props.params.facility.name} assessmentStartDate={this.props.params.facilityAssessment.startDate}
                                              assessmentToolName={this.props.params.assessmentTool.name}/>
                         </View>
                         <Indicators indicatorDefinitions={this.state.indicatorDefinitions} indicators={this.state.indicators}
                                     indicatorDefinitionsWithError={this.state.indicatorDefinitionsWithError} dateFieldInEdit={this.state.dateFieldInEdit}/>
-                        {_.isEmpty(this.state.outputIndicators) ?
-                            <View>
-                                <ValidationErrorMessage validationResult={validationMessage} customStyle={{marginTop: 20}}/>
-                                <SubmitButton buttonStyle={{marginTop: 30, backgroundColor: '#ffa000'}}
-                                              onPress={() => this.calculateIndicators()}
-                                              buttonText={"CALCULATE INDICATORS"}
-                                              showButton={true}/></View> :
-                            <View style={{marginTop: 40}}>
-                                <Text style={[Typography.paperFontTitle, {color: 'white'}]}>INDICATORS</Text>
-                                <Indicators indicatorDefinitions={this.state.outputIndicatorDefinitions} indicators={this.state.outputIndicators}
-                                            indicatorDefinitionsWithError={this.state.indicatorDefinitionsWithError}/>
-                                <ValidationErrorMessage validationResult={validationMessage}/>
-                                <SubmitButton buttonStyle={{marginTop: 30, backgroundColor: '#ffa000'}}
-                                              onPress={() => this.completeAssessment()}
-                                              buttonText={"COMPLETE ASSESSMENT"}
-                                              showButton={!hasError}
-                                />
-                            </View>}
+
+                        {this.state.workflowStatus === IndicatorWorkflowStatus.CalculationDoneWithError &&
+                        <ValidationErrorMessage validationResult={validationMessage} customStyle={{marginTop: 20}}/>}
+
+                        {this.state.workflowStatus === IndicatorWorkflowStatus.CalculationNotDone &&
+                        <SubmitButton buttonStyle={{marginTop: 30, backgroundColor: '#ffa000'}}
+                                      onPress={() => this.calculateIndicators()}
+                                      buttonText={"VALIDATE"}
+                                      showButton={true}/>}
+
+                        {this.state.workflowStatus === IndicatorWorkflowStatus.CalculationDoneWithoutError && <View style={{marginTop: 20}}>
+                            {!_.isEmpty(this.state.outputIndicatorDefinitions) && <Text style={[Typography.paperFontTitle, {color: 'white'}]}>INDICATORS</Text>}
+                            <Indicators indicatorDefinitions={this.state.outputIndicatorDefinitions} indicators={this.state.outputIndicators}
+                                        indicatorDefinitionsWithError={this.state.indicatorDefinitionsWithError}/>
+                            <Text style={[Typography.paperFontTitle, {color: 'lightgreen'}]}>NO VALIDATION ERRORS!!</Text>
+                            <SubmitButton buttonStyle={{marginTop: 20, backgroundColor: '#ffa000'}}
+                                          onPress={() => this.completeAssessment()}
+                                          buttonText={"COMPLETE ASSESSMENT"}
+                                          showButton={!hasError}
+                            />
+                        </View>}
                     </View>
                 </Content>
             </GunakContainer>
