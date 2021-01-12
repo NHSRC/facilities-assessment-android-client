@@ -36,26 +36,28 @@ class AssessmentSyncService extends BaseService {
                 syncedUuid: facilityAssessment.uuid
             });
 
+            const entityService = this.getService(EntityService);
             const checklistService = this.getService(ChecklistService);
             const facilitiesService = this.getService(FacilitiesService);
             const state = facilitiesService.getStateForFacility(facilityUUID);
             const batchRequest = new BatchRequest();
-            const checklists = checklistService.getChecklistsFor(savedAssessment.assessmentTool, state);
+
+            let assessmentTool = entityService.findByUUID(savedAssessment.assessmentTool, AssessmentTool.schema.name);
+            const checklists = checklistService.getChecklistsFor(assessmentTool, state);
             checklists.map(({uuid, name, department}) =>
                 _.assignIn({
                     uuid: uuid,
                     name: name,
                     department: department.uuid,
-                    facilityAssessment: facilityAssessment.uuid,
+                    facilityAssessment: savedAssessment.syncedUuid,
                     checkpointScores: checklistService
                         .getCheckpointScoresFor(uuid, originalAssessment.uuid)
                         .map(checkpointScoreMapper)
                 }))
-                .map((checklist) => batchRequest.post(`${this.serverURL}/api/facility-assessment/checklist`,
-                    checklist,
-                    checklistService.markCheckpointScoresSubmitted, () => {
-                    }));
-            console.log("AssessmentSyncService", "firing");
+                .forEach((checklist) => {
+                    if (checklist.checkpointScores.length > 0)
+                        batchRequest.post(`${this.serverURL}/api/facility-assessment/checklist`, checklist, checklistService.markCheckpointScoresSubmitted, (error) => {throw error;});
+                });
             batchRequest.fire((final) => {
                     facilityAssessmentService.markSubmitted(originalAssessment);
                     cb();
@@ -81,7 +83,9 @@ class AssessmentSyncService extends BaseService {
             let indicators = this.getService(IndicatorService).getIndicators(facilityAssessment.uuid);
             indicatorList.indicators = indicators.map((indicator) => Indicator.createDTO(indicator));
             Logger.logDebug('AssessmentSyncService.syncIndicators', indicatorList);
-            batchRequest.post(`${this.serverURL}/api/facility-assessment/indicator`, indicatorList, () => {}, () => {});
+            batchRequest.post(`${this.serverURL}/api/facility-assessment/indicator`, indicatorList, () => {
+            }, () => {
+            });
             batchRequest.fire((final) => {
                     facilityAssessmentService.markSubmitted(originalAssessment);
                     cb();

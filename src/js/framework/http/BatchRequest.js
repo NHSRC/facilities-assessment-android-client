@@ -25,8 +25,7 @@ class BatchRequest {
         const callbackQueue = _.fill([finalCallback].concat(new Array(this.requestQueue.length - 1)), this.none, 1);
         const notify = () => callbackQueue.pop()();
         const notifyError = (message) => {
-            callbackQueue[0] = () => errorCallback(message);
-            notify();
+            errorCallback(message);
         };
         this.requestQueue.map((request) => request().then(notify).catch(notifyError));
     }
