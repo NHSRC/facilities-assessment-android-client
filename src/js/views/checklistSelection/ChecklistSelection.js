@@ -17,6 +17,7 @@ import Logger from "../../framework/Logger";
 import EditAssessment from "../dashboard/start/EditAssessment";
 import AssessmentTitle from "../assessment/AssessmentTitle";
 import GunakContainer from "../common/GunakContainer";
+import SubmitAssessment from "../dashboard/open/SubmitAssessment";
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
@@ -86,6 +87,10 @@ class ChecklistSelection extends ViewComponent {
         return mode.toLowerCase() === "kayakalp" ? this.showKayakalpCompleteButton() : this.showOtherCompleteButton();
     }
 
+    submitAssessment() {
+        return this.dispatchAction(Actions.CS_START_SUBMIT_ASSESSMENT, {facilityAssessment: this.props.params.facilityAssessment});
+    }
+
     render() {
         Logger.logDebug('ChecklistSelection', 'render');
         let assessmentComplete = this.state.assessmentProgress.completed === this.state.assessmentProgress.total;
@@ -96,6 +101,10 @@ class ChecklistSelection extends ViewComponent {
                        onRequestClose={() => this.dispatchAction(Actions.EDIT_ASSESSMENT_COMPLETED)}>
                     <EditAssessment assessmentUUID={this.props.params.facilityAssessment.uuid}/>
                 </Modal>
+
+                {this.state.submittingAssessment && <SubmitAssessment facilityAssessment={this.state.submittingAssessment}/>}
+
+
                 <View style={{flexDirection: 'column', width: deviceWidth, paddingHorizontal: deviceWidth * 0.04}}>
                     <View style={{flexDirection: 'row'}}>
                         <AssessmentTitle facilityName={this.props.params.facility.name} assessmentStartDate={this.props.params.facilityAssessment.startDate}
@@ -112,8 +121,11 @@ class ChecklistSelection extends ViewComponent {
                     <SubmitButton buttonStyle={{marginTop: 30, backgroundColor: '#ffa000'}}
                                   onPress={() => this.completeAssessment()}
                                   buttonText={assessmentComplete ? "COMPLETE ASSESSMENT" : "GENERATE SCORECARD"}
-                                  showButton={showCompleteButton}
-                    />
+                                  showButton={showCompleteButton}/>
+                    <SubmitButton buttonStyle={{marginTop: 5, backgroundColor: '#ffa000'}}
+                                  onPress={() => this.submitAssessment()}
+                                  buttonText={"SUBMIT ASSESSMENT"}
+                                  showButton={!assessmentComplete}/>
                 </View>
             </GunakContainer>
         );

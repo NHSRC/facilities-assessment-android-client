@@ -5,6 +5,7 @@ import _ from "lodash";
 import AssessmentLocation from "../models/AssessmentLocation";
 import UUID from "../utility/UUID";
 import AssessmentLocationService from "../service/AssessmentLocationService";
+import FacilityAssessment from "../models/FacilityAssessment";
 
 const checklistAssessmentLocation = function (state, action, beans) {
     let assessmentLocation = new AssessmentLocation();
@@ -77,6 +78,19 @@ const editAssessmentCompleted = function (state) {
     });
 };
 
+const startSubmitAssessment = function (state, action, beans) {
+    let assessment = FacilityAssessment.clone(action.facilityAssessment);
+    return _.assignIn(state, {
+        submittingAssessment: assessment
+    });
+};
+
+const assessmentSynced = function(state, action, context) {
+    return _.assignIn(state, {
+        submittingAssessment: undefined
+    });
+};
+
 export default new Map([
     ["ALL_CHECKLISTS", allChecklists],
     ["COMPLETE_ASSESSMENT", completeAssessment],
@@ -84,7 +98,9 @@ export default new Map([
     ["REDUCE_CHECKLIST_PROGRESS", updateChecklistProgress],
     ["CHECKLIST_ASSESSMENT_LOCATION", checklistAssessmentLocation],
     ["EDIT_ASSESSMENT_STARTED", editAssessmentStarted],
-    ["EDIT_ASSESSMENT_COMPLETED", editAssessmentCompleted]
+    ["EDIT_ASSESSMENT_COMPLETED", editAssessmentCompleted],
+    ["CS_START_SUBMIT_ASSESSMENT", startSubmitAssessment],
+    ["ASSESSMENT_SYNCED", assessmentSynced]
 ]);
 
 export let checklistSelectionInit = {

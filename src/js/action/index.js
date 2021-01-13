@@ -13,8 +13,9 @@ import certificationCriteria from './certificationCriteria';
 import modeSelection from './modeSelection';
 import stateSelection from './stateSelection';
 import assessmentIndicators from './assessmentIndicators';
+import submitAssessment from './submitAssessment';
 
 export default _.fromPairs(_.flatten(
-    [assessmentActions, checklistSelection, facilitySelection, areasOfConcern, standards, openAssessments, search, settings, reports, certificationCriteria, modeSelection, editAssessment, stateSelection, assessmentIndicators]
+    [assessmentActions, checklistSelection, facilitySelection, areasOfConcern, standards, openAssessments, search, settings, reports, certificationCriteria, modeSelection, editAssessment, stateSelection, assessmentIndicators, submitAssessment]
         .map((a) => Array.from(a.keys()))
         .map((actions) => actions.map((action) => [action, action]))));

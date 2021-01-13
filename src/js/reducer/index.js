@@ -13,6 +13,7 @@ import editAssessmentActions, {editAssessmentInit} from "../action/editAssessmen
 import Reducer from './Reducer';
 import stateSelectionActions, {stateSelectionInit} from "../action/stateSelection";
 import assessmentIndicatorsActions, {assessmentIndicatorsInit} from "../action/assessmentIndicators";
+import submitAssessmentActions, {submitAssessmentInit} from "../action/submitAssessment";
 
 export default (beans) => {
     let reducerMap = {};
@@ -86,6 +87,11 @@ export default (beans) => {
             "stateKey": "assessmentIndicators",
             "actions": assessmentIndicatorsActions,
             "initState": assessmentIndicatorsInit
+        },
+        {
+            "stateKey": "submitAssessment",
+            "actions": submitAssessmentActions,
+            "initState": submitAssessmentInit
         }
     ].forEach(({stateKey, actions, initState}) => {
         reducerMap[stateKey] = Reducer.factory(actions, initState, beans);

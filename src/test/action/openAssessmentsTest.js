@@ -1,6 +1,5 @@
 import {expect} from 'chai';
-import fns from '../../js/action/openAssessments';
-import _ from "lodash";
+import fns from '../../js/action/submitAssessment';
 import TestBeanFactory from "../stubs/TestBeanFactory";
 import AssessmentMetaData from "../../js/models/assessment/AssessmentMetaData";
 import AssessmentTool from "../../js/models/AssessmentTool";

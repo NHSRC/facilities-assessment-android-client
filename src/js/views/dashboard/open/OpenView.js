@@ -35,36 +35,13 @@ class OpenView extends AbstractComponent {
         }
     }
 
-    handleSubmit() {
-        this.dispatchAction(Actions.SYNC_ASSESSMENT, {
-            facilityAssessment: this.state.submittingAssessment,
-            cb: () => this.dispatchAction(Actions.ASSESSMENT_SYNCED, {facilityAssessment: this.state.submittingAssessment, ...this.props}),
-            errorHandler: (error) => {
-                Logger.logError('OpenView', error);
-                this.submissionError(this.state.submittingAssessment, error);
-            }
-        });
-    }
-
-    submissionError(facilityAssessment, error) {
-        Alert.alert(
-            'Submission Error',
-            `An error occurred while submitting the assessment. ${error.message}`,
-            [
-                {
-                    text: 'OK',
-                    onPress: () => this.dispatchAction(Actions.ASSESSMENT_SYNCED, {facilityAssessment: facilityAssessment, ...this.props})
-                }
-            ]
-        )
-    }
-
     handleStartSubmit(facilityAssessment) {
-        return () => this.dispatchAction(Actions.START_SUBMIT_ASSESSMENT, {facilityAssessment: facilityAssessment});
+        return () => this.dispatchAction(Actions.LAUNCH_SUBMIT_ASSESSMENT, {facilityAssessment: facilityAssessment});
     }
 
     render() {
         Logger.logDebug('OpenView', 'render');
+        console.log('OpenView', _.isNil(this.state.submittingAssessment));
         let completedAssessments = this.state.completedAssessments.map((facilityAssessment) => this.state.syncing.indexOf(facilityAssessment.uuid) >= 0 ?
             {syncing: true, ...facilityAssessment} : facilityAssessment);
         const AssessmentLists = [
@@ -108,16 +85,7 @@ class OpenView extends AbstractComponent {
                 <AssessmentList key={key} {...assessmentList}/>);
         return (
             <View style={Dashboard.styles.tab}>
-                <Modal transparent={true} visible={!_.isNil(this.state.submittingAssessment)} onRequestClose={() => {
-                }}>
-                    <SubmitAssessment facilityAssessment={this.state.submittingAssessment}
-                                      onSubmit={() => this.handleSubmit()}
-                                      submissionDetailAvailable={this.state.submissionDetailAvailable}
-                                      assessmentToolType={this.state.assessmentToolType}
-                                      syncing = {this.state.syncing.length >=1}
-                                      assessmentMetaDataList = {this.state.assessmentMetaDataList}
-                    />
-                </Modal>
+                {this.state.submittingAssessment && <SubmitAssessment facilityAssessment={this.state.submittingAssessment} syncing={this.state.syncing.length >= 1}/>}
                 {AssessmentLists}
             </View>
         );
