@@ -22,7 +22,7 @@ const startSubmitAssessment = function (state, action, beans) {
     let submissionDetailAvailable = _areSubmissionDetailsAvailable(assessment, beans);
     const assessmentMetaDataList = entityService.findAll(AssessmentMetaData);
     return _.assignIn(state, {
-        submittingAssessment: assessment,
+        chosenAssessment: assessment,
         submissionDetailAvailable: submissionDetailAvailable,
         assessmentToolType: assessment.assessmentTool.assessmentToolType,
         assessmentMetaDataList: assessmentMetaDataList
@@ -30,16 +30,16 @@ const startSubmitAssessment = function (state, action, beans) {
 };
 
 const submissionCancelled = function (state, action, beans) {
-    return _.assignIn(state, {submittingAssessment: undefined});
+    return _.assignIn(state, {chosenAssessment: undefined});
 };
 
 const syncAssessment = function (state, action, beans) {
     Logger.logInfo('openAssessments', 'syncAssessment');
     const facilityAssessmentService = beans.get(FacilityAssessmentService);
-    facilityAssessmentService.saveSubmissionDetails(state.submittingAssessment);
+    facilityAssessmentService.saveSubmissionDetails(state.chosenAssessment);
 
     const assessmentSyncService = beans.get(AssessmentSyncService);
-    assessmentSyncService.syncFacilityAssessment(state.submittingAssessment, action.cb, action.errorHandler);
+    assessmentSyncService.syncFacilityAssessment(state.chosenAssessment, action.cb, action.errorHandler);
     return state;
 };
 
@@ -54,16 +54,16 @@ const markAssessmentUnsubmitted = function (state, action, beans) {
 };
 
 const _updateSubmittingAssessment = function (state, updateObject, beans) {
-    let newState = {submittingAssessment: _.assignIn({}, state.submittingAssessment, updateObject)};
-    newState.submissionDetailAvailable = _areSubmissionDetailsAvailable(newState.submittingAssessment, beans);
+    let newState = {chosenAssessment: _.assignIn({}, state.chosenAssessment, updateObject)};
+    newState.submissionDetailAvailable = _areSubmissionDetailsAvailable(newState.chosenAssessment, beans);
     return _.assignIn({}, state, newState);
 };
 
 const enterCustomInfo = function (state, action, beans) {
-    let newSubmittingAssessment = FacilityAssessment.clone(state.submittingAssessment);
+    let newSubmittingAssessment = FacilityAssessment.clone(state.chosenAssessment);
     FacilityAssessment.updateCustomInfo(action.assessmentMetaData, action.valueString, newSubmittingAssessment);
-    let newState = {submittingAssessment: newSubmittingAssessment};
-    newState.submissionDetailAvailable = _areSubmissionDetailsAvailable(newState.submittingAssessment, beans);
+    let newState = {chosenAssessment: newSubmittingAssessment};
+    newState.submissionDetailAvailable = _areSubmissionDetailsAvailable(newState.chosenAssessment, beans);
     return _.assignIn({}, state, newState);
 };
 
@@ -78,7 +78,7 @@ const generateAssessmentSeries = function (state, action, beans) {
 
 const assessmentSynced = function (state, action, beans) {
     return _.assignIn(state, {
-        submittingAssessment: undefined
+        chosenAssessment: undefined
     });
 };
 
@@ -93,7 +93,7 @@ export default new Map([
     ["SUBMISSION_CANCELLED", submissionCancelled]]);
 
 export let submitAssessmentInit = {
-    submittingAssessment: undefined,
+    chosenAssessment: undefined,
     assessmentMetaDataList: [],
     submissionDetailAvailable: false
 };

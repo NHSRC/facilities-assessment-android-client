@@ -26,14 +26,16 @@ const makeHeader = (type) => new Map(
         }]]).get(type);
 
 
-let _get = (endpoint, cb, errorHandler) =>
+let _get = (endpoint, cb, errorHandler) => {
+    Logger.logDebug('requests', `GETing from ${endpoint}`);
     fetchFactory(endpoint, "GET", makeHeader("json"), (response) => response.json(), cb, errorHandler);
+};
 
 let _getText = (endpoint, cb, errorHandler) =>
     fetchFactory(endpoint, "GET", makeHeader("json"), (response) => response.text(), cb, errorHandler);
 
 export let post = (endpoint, body, cb, errorHandler) => {
-    Logger.logDebug('requests', `Posting to ${endpoint}`);
+    Logger.logDebug('requests', `POSTing to ${endpoint}`);
     return fetchFactory(endpoint, "POST", {body: JSON.stringify(body), ...makeHeader("json")}, (response) => {
         return response.json();
     }, cb, errorHandler);

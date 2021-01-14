@@ -2,7 +2,7 @@ import React from 'react';
 import {Dimensions, StyleSheet} from 'react-native';
 import AbstractComponent from "../common/AbstractComponent";
 import StartView from './start/StartView';
-import OpenView from './open/OpenView';
+import OngoingAssessmentsView from './open/OngoingAssessmentsView';
 import ReportsView from './reports/ReportsView';
 import {Tab, Tabs} from 'native-base';
 import Path from "../../framework/routing/Path";
@@ -49,7 +49,7 @@ class Dashboard extends AbstractComponent {
                         <StartView {...this.props.params}/>
                     </Tab>
                     <Tab heading="ONGOING">
-                        <OpenView {...this.props.params}/>
+                        <OngoingAssessmentsView {...this.props.params}/>
                     </Tab>
                     <Tab heading="REPORTS">
                         <ReportsView {...this.props.params}/>

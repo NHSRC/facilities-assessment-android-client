@@ -8,6 +8,8 @@ import ChecklistProgress from "../models/ChecklistProgress";
 import _ from 'lodash';
 import certificationData from '../action/certification';
 import EnvironmentConfig from "../views/common/EnvironmentConfig";
+import ConventionalRestClient from "../framework/http/ConventionalRestClient";
+import SettingsService from "./SettingsService";
 
 @Service("facilityAssessmentService")
 class FacilityAssessmentService extends BaseService {
@@ -16,6 +18,11 @@ class FacilityAssessmentService extends BaseService {
         this.saveAssessment = this.save(FacilityAssessment, FacilityAssessment.toDB);
         this.getAssessmentTool = this.getAssessmentTool.bind(this);
         this.getAssessmentType = this.getAssessmentType.bind(this);
+    }
+
+    init() {
+        super.init();
+        this.conventionalRestClient = new ConventionalRestClient(this.getService(SettingsService), this.db);
     }
 
     saveSubmissionDetails(facilityAssessment) {
@@ -142,6 +149,10 @@ class FacilityAssessmentService extends BaseService {
 
     addSyncedUuid({uuid, syncedUuid}) {
         return this.saveAssessment({uuid: uuid, syncedUuid: syncedUuid});
+    }
+
+    getAssessmentSummary(assessmentUuid, cb, errorHandler) {
+        this.conventionalRestClient.getData(`facilityAssessment/${assessmentUuid}/summary`, cb, errorHandler);
     }
 }
 

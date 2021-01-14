@@ -5,7 +5,7 @@ import TestBeanFactory from "../stubs/TestBeanFactory";
 
 describe('FacilitySelectionTest', () => {
     let state = function (series) {
-        return {submittingAssessment: {customInfos: [], seriesName: series, assessmentTool: {assessmentToolType: AssessmentTool.COMPLIANCE}}};
+        return {chosenAssessment: {customInfos: [], seriesName: series, assessmentTool: {assessmentToolType: AssessmentTool.COMPLIANCE}}};
     };
 
     let action = function (series) {
@@ -13,7 +13,7 @@ describe('FacilitySelectionTest', () => {
     };
 
     let series = function (state) {
-        return state.submittingAssessment.seriesName;
+        return state.chosenAssessment.seriesName;
     };
 
     it('enterSeries', () => {

@@ -85,13 +85,13 @@ const editAssessmentCompleted = function (state) {
 const startSubmitAssessment = function (state, action, beans) {
     let assessment = FacilityAssessment.clone(action.facilityAssessment);
     return _.assignIn(state, {
-        submittingAssessment: assessment
+        chosenAssessment: assessment
     });
 };
 
 const assessmentSynced = function(state, action, context) {
     return _.assignIn(state, {
-        submittingAssessment: undefined,
+        chosenAssessment: undefined,
         submittable: !action.status,
         syncing: false
     });

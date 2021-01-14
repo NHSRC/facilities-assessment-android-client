@@ -58,8 +58,8 @@ class SubmitAssessment extends AbstractComponent {
         this.dispatchAction(Actions.SYNC_ASSESSMENT, {
             cb: () => this.dispatchAction(Actions.ASSESSMENT_SYNCED, {status: true}),
             errorHandler: (error) => {
-                Logger.logError('OpenView', error);
-                this.submissionError(this.state.submittingAssessment, error);
+                Logger.logError('SubmitAssessment', error);
+                this.submissionError(this.state.chosenAssessment, error);
             }
         });
     }
@@ -78,7 +78,7 @@ class SubmitAssessment extends AbstractComponent {
     }
 
     render() {
-        let facilityAssessment = this.state.submittingAssessment ? this.state.submittingAssessment : this.props.facilityAssessment;
+        let facilityAssessment = this.state.chosenAssessment ? this.state.chosenAssessment : this.props.facilityAssessment;
         return (
             <Modal transparent={true} visible={true} onRequestClose={() => {
             }}>

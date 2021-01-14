@@ -31,7 +31,8 @@ const allAssessments = function (state, action, beans) {
 const launchSubmitAssessment = function (state, action, beans) {
     let assessment = FacilityAssessment.clone(action.facilityAssessment);
     return _.assignIn(state, {
-        submittingAssessment: assessment
+        chosenAssessment: assessment,
+        submittingAssessment: true
     });
 };
 
@@ -44,14 +45,33 @@ const assessmentSaved = function (state, action, beans) {
     return _.assignIn(state, {
         completedAssessments: completedAssessments,
         submittedAssessments: submittedAssessments,
-        syncing: state.syncing.filter((uuid) => uuid !== state.submittingAssessment.uuid),
-        submittingAssessment: undefined
+        syncing: state.syncing.filter((uuid) => uuid !== state.chosenAssessment.uuid),
+        chosenAssessment: undefined,
+        submittingAssessment: false
     });
 };
 
 const assessmentSyncing = function (state, action, beans) {
-    if (_.isNil(state.submittingAssessment)) return state;
-    return _.assignIn(state, {syncing: [state.submittingAssessment.uuid].concat(state.syncing)});
+    if (_.isNil(state.chosenAssessment)) return state;
+    return _.assignIn(state, {syncing: [state.chosenAssessment.uuid].concat(state.syncing)});
+};
+
+const getAssessmentSummary = function(state, action, beans) {
+    const assessmentService = beans.get(FacilityAssessmentService);
+    assessmentService.getAssessmentSummary(action.facilityAssessment.uuid, action.cb, action.errorHandler);
+    return _.assignIn(state, {loadingData: true, chosenAssessment: action.facilityAssessment});
+};
+
+const assessmentSummaryLoaded = function(state, action, beans) {
+    return _.assignIn(state, {assessmentSummary: action.assessmentSummary, loadingData: false});
+};
+
+const assessmentSummaryLoadFailed = function(state, action, beans) {
+    return _.assignIn(state, {loadingData: false, chosenAssessment: undefined});
+};
+
+const assessmentSummaryClosed = function(state, action, beans) {
+    return _.assignIn(state, {chosenAssessment: undefined, assessmentSummary: undefined});
 };
 
 export default new Map([
@@ -59,14 +79,21 @@ export default new Map([
     ["ASSESSMENT_SYNCED", assessmentSaved],
     ["COMPLETE_ASSESSMENT", allAssessments],
     ["LAUNCH_SUBMIT_ASSESSMENT", launchSubmitAssessment],
-    ["SYNC_ASSESSMENT", assessmentSyncing]
+    ["SYNC_ASSESSMENT", assessmentSyncing],
+    ["GET_ASSESSMENT_SUMMARY", getAssessmentSummary],
+    ["ASSESSMENT_SUMMARY_LOADED", assessmentSummaryLoaded],
+    ["ASSESSMENT_SUMMARY_LOAD_FAILED", assessmentSummaryLoadFailed],
+    ["ASSESSMENT_SUMMARY_CLOSED", assessmentSummaryClosed]
 ]);
 
 export let openAssessmentsInit = {
     openAssessments: [],
     completedAssessments: [],
     submittedAssessments: [],
-    submittingAssessment: undefined,
+    chosenAssessment: undefined,
     syncing: [],
-    mode: undefined
+    mode: undefined,
+    loadingData: false,
+    assessmentSummary: undefined,
+    submittingAssessment: false
 };

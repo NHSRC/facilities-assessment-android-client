@@ -22,7 +22,7 @@ describe('openAssessmentsTest', () => {
     });
 
     it('areSubmissionDetailsAvailable - series filled first', () => {
-        let state = {submittingAssessment: {assessmentTool: {assessmentToolType: AssessmentTool.COMPLIANCE}, customInfos: []}};
+        let state = {chosenAssessment: {assessmentTool: {assessmentToolType: AssessmentTool.COMPLIANCE}, customInfos: []}};
         state = enterAssessmentSeries(state, {series: ''}, beans);
         expect(state.submissionDetailAvailable).is.equal(false);
         state = enterAssessmentSeries(state, {series: '2020'}, beans);
@@ -30,15 +30,15 @@ describe('openAssessmentsTest', () => {
         state = enterCustomInfo(state, {valueString: 'Mr Foo Bar', assessmentMetaData: assessmentMetaData}, beans);
         expect(state.submissionDetailAvailable).is.equal(true);
         state = enterCustomInfo(state, {valueString: 'Miss Foo Bar', assessmentMetaData: assessmentMetaData}, beans);
-        expect(FacilityAssessment.getCustomInfoValue(assessmentMetaData, state.submittingAssessment)).is.equal('Miss Foo Bar');
+        expect(FacilityAssessment.getCustomInfoValue(assessmentMetaData, state.chosenAssessment)).is.equal('Miss Foo Bar');
     });
 
     it('areSubmissionDetailsAvailable - custom info filled first', () => {
-        let state = {submittingAssessment: {assessmentTool: {assessmentToolType: AssessmentTool.COMPLIANCE}, customInfos: []}};
+        let state = {chosenAssessment: {assessmentTool: {assessmentToolType: AssessmentTool.COMPLIANCE}, customInfos: []}};
         state = enterCustomInfo(state, {valueString: 'Mr Foo Bar', assessmentMetaData: assessmentMetaData}, beans);
         expect(state.submissionDetailAvailable).is.equal(false);
         state = enterCustomInfo(state, {valueString: 'Miss Foo Bar', assessmentMetaData: assessmentMetaData}, beans);
-        expect(FacilityAssessment.getCustomInfoValue(assessmentMetaData, state.submittingAssessment)).is.equal('Miss Foo Bar');
+        expect(FacilityAssessment.getCustomInfoValue(assessmentMetaData, state.chosenAssessment)).is.equal('Miss Foo Bar');
 
         state = enterAssessmentSeries(state, {series: ''}, beans);
         expect(state.submissionDetailAvailable).is.equal(false);

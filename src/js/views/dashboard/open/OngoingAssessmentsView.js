@@ -12,8 +12,9 @@ import Logger from "../../../framework/Logger";
 import AssessmentIndicators from "../../indicator/AssessmentIndicators";
 import SubmitAssessment from "./SubmitAssessment";
 import AssessmentTool from "../../../models/AssessmentTool";
+import AssessmentSummary from "../../assessment/AssessmentSummary";
 
-class OpenView extends AbstractComponent {
+class OngoingAssessmentsView extends AbstractComponent {
     constructor(props, context) {
         super(props, context, 'openAssessments');
     }
@@ -39,9 +40,33 @@ class OpenView extends AbstractComponent {
         return () => this.dispatchAction(Actions.LAUNCH_SUBMIT_ASSESSMENT, {facilityAssessment: facilityAssessment});
     }
 
+
+    handleSummary(facilityAssessment) {
+        return () => this.dispatchAction(Actions.GET_ASSESSMENT_SUMMARY, {
+            facilityAssessment: facilityAssessment, cb: (assessmentSummary) => {
+                this.dispatchAction(Actions.ASSESSMENT_SUMMARY_LOADED, {assessmentSummary: assessmentSummary});
+            }, errorHandler: (error) => {
+                Logger.logError('OngoingAssessmentsView', error);
+                this.summaryLoadFailed(error);
+            }
+        });
+    }
+
+    summaryLoadFailed(facilityAssessment, error) {
+        Alert.alert(
+            'Summary Load Failed',
+            `${error.message}`,
+            [
+                {
+                    text: 'OK',
+                    onPress: () => this.dispatchAction(Actions.ASSESSMENT_SUMMARY_LOAD_FAILED)
+                }
+            ]
+        )
+    }
+
     render() {
-        Logger.logDebug('OpenView', 'render');
-        console.log('OpenView', _.isNil(this.state.submittingAssessment));
+        Logger.logDebug('OngoingAssessmentsView', 'render');
         let completedAssessments = this.state.completedAssessments.map((facilityAssessment) => this.state.syncing.indexOf(facilityAssessment.uuid) >= 0 ?
             {syncing: true, ...facilityAssessment} : facilityAssessment);
         const AssessmentLists = [
@@ -78,6 +103,10 @@ class OpenView extends AbstractComponent {
                         text: "EDIT",
                         onPress: this.handleContinue.bind(this)
                     },
+                    {
+                        text: "SUMMARY",
+                        onPress: this.handleSummary.bind(this)
+                    }
                 ]
             }
         ].filter(({assessments}) => !_.isEmpty(assessments))
@@ -85,11 +114,12 @@ class OpenView extends AbstractComponent {
                 <AssessmentList key={key} {...assessmentList}/>);
         return (
             <View style={Dashboard.styles.tab}>
-                {this.state.submittingAssessment && <SubmitAssessment facilityAssessment={this.state.submittingAssessment} syncing={this.state.syncing.length >= 1}/>}
+                {this.state.submittingAssessment && <SubmitAssessment facilityAssessment={this.state.chosenAssessment} syncing={this.state.syncing.length >= 1}/>}
+                {this.state.assessmentSummary && <AssessmentSummary summary={this.state.assessmentSummary}/>}
                 {AssessmentLists}
             </View>
         );
     }
 }
 
-export default OpenView;
+export default OngoingAssessmentsView;

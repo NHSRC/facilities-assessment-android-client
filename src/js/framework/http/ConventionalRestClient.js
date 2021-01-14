@@ -12,8 +12,8 @@ class ConventionalRestClient {
         this.db = db;
     }
 
-    getData(endpoint, entityMetaData, optionalParams, cb, errorHandler) {
-        getJSON(endpoint, cb, errorHandler);
+    getData(relativeEndpont, cb, errorHandler) {
+        return getJSON(`${this.settingsService.getServerURL()}/api/${relativeEndpont}`, cb, errorHandler);
     }
 
     loadData(entityMetaData, resourceSearchFilterURL, optionalParams, lastUpdatedLocally, pageNumber, allEntityMetaData, executeResourcesWithSameTimestamp, executeNextResource, resourcesWithSameTimestamp, onError) {

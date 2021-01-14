@@ -103,7 +103,7 @@ class ChecklistSelection extends ViewComponent {
                     <EditAssessment assessmentUUID={this.props.params.facilityAssessment.uuid}/>
                 </Modal>
 
-                {this.state.submittingAssessment && <SubmitAssessment facilityAssessment={this.state.submittingAssessment} syncing={this.state.syncing}/>}
+                {this.state.chosenAssessment && <SubmitAssessment facilityAssessment={this.state.chosenAssessment} syncing={this.state.syncing}/>}
 
 
                 <View style={{flexDirection: 'column', width: deviceWidth, paddingHorizontal: deviceWidth * 0.04}}>
