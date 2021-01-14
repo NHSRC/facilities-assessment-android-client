@@ -34,7 +34,8 @@ const allChecklists = function (state, action, beans) {
     checklistService.cacheAllChecklists(checklists);
     return _.assignIn(state, {
         "checklists": _.zipWith(checklists, checklistProgress, _.assignIn),
-        "assessmentProgress": {total: checklists.length, completed: completedChecklists}
+        "assessmentProgress": {total: checklists.length, completed: completedChecklists},
+        submittable: FacilityAssessment.isSubmittable(action.facilityAssessment)
     });
 };
 
@@ -42,7 +43,9 @@ const completeAssessment = function (state, action, beans) {
     const facilityAssessmentService = beans.get(FacilityAssessmentService);
     const endAssessment = facilityAssessmentService.endAssessment(action.facilityAssessment);
     action.cb();
-    return _.assignIn(state);
+    return _.assignIn(state, {
+        submittable: FacilityAssessment.isSubmittable(endAssessment)
+    });
 };
 
 const updateChecklistProgress = function (state, action, beans) {
@@ -62,7 +65,8 @@ const updateChecklistProgress = function (state, action, beans) {
         ).length;
     return _.assignIn(state, {
         checklists: newChecklists,
-        assessmentProgress: {total: newChecklists.length, completed: completedChecklists}
+        assessmentProgress: {total: newChecklists.length, completed: completedChecklists},
+        submittable: FacilityAssessment.isSubmittable(action.facilityAssessment)
     });
 };
 
@@ -87,7 +91,16 @@ const startSubmitAssessment = function (state, action, beans) {
 
 const assessmentSynced = function(state, action, context) {
     return _.assignIn(state, {
-        submittingAssessment: undefined
+        submittingAssessment: undefined,
+        submittable: !action.status,
+        syncing: false
+    });
+};
+
+const assessmentSyncing = function(state, action, context) {
+    return _.assignIn(state, {
+        submittable: !action.status,
+        syncing: true
     });
 };
 
@@ -100,11 +113,13 @@ export default new Map([
     ["EDIT_ASSESSMENT_STARTED", editAssessmentStarted],
     ["EDIT_ASSESSMENT_COMPLETED", editAssessmentCompleted],
     ["CS_START_SUBMIT_ASSESSMENT", startSubmitAssessment],
-    ["ASSESSMENT_SYNCED", assessmentSynced]
+    ["ASSESSMENT_SYNCED", assessmentSynced],
+    ["SYNC_ASSESSMENT", assessmentSyncing]
 ]);
 
 export let checklistSelectionInit = {
     checklists: [],
     assessmentProgress: {total: 0, completed: 0},
-    showEditAssessment: false
+    showEditAssessment: false,
+    syncing: false
 };

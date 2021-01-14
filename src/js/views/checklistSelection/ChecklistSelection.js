@@ -18,6 +18,7 @@ import EditAssessment from "../dashboard/start/EditAssessment";
 import AssessmentTitle from "../assessment/AssessmentTitle";
 import GunakContainer from "../common/GunakContainer";
 import SubmitAssessment from "../dashboard/open/SubmitAssessment";
+import Typography from "../styles/Typography";
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
@@ -102,7 +103,7 @@ class ChecklistSelection extends ViewComponent {
                     <EditAssessment assessmentUUID={this.props.params.facilityAssessment.uuid}/>
                 </Modal>
 
-                {this.state.submittingAssessment && <SubmitAssessment facilityAssessment={this.state.submittingAssessment}/>}
+                {this.state.submittingAssessment && <SubmitAssessment facilityAssessment={this.state.submittingAssessment} syncing={this.state.syncing}/>}
 
 
                 <View style={{flexDirection: 'column', width: deviceWidth, paddingHorizontal: deviceWidth * 0.04}}>
@@ -120,18 +121,20 @@ class ChecklistSelection extends ViewComponent {
                     />
                     <SubmitButton buttonStyle={{marginTop: 30, backgroundColor: '#ffa000'}}
                                   onPress={() => this.completeAssessment()}
-                                  buttonText={assessmentComplete ? "COMPLETE ASSESSMENT" : "GENERATE SCORECARD"}
+                                  buttonText={assessmentComplete ? "COMPLETE ASSESSMENT" : (this.state.submittable ? "VIEW SCORECARD" : "GENERATE SCORECARD")}
                                   showButton={showCompleteButton}/>
                     <SubmitButton buttonStyle={{marginTop: 5, backgroundColor: '#ffa000'}}
                                   onPress={() => this.submitAssessment()}
                                   buttonText={"SUBMIT ASSESSMENT"}
-                                  showButton={!assessmentComplete}/>
+                                  showButton={this.state.submittable}/>
+                    {!this.state.submittable &&
+                    <Text style={[Typography.paperFontBody1, {color: 'white', alignSelf: 'center', marginTop: 5}]}>Assessment can be submitted after scorecard generation.</Text>}
                 </View>
             </GunakContainer>
         );
     }
 
-    goSearch = () =>{
+    goSearch = () => {
         TypedTransition.from(this).with({...this.props.params}).to(SearchPage)
     }
 }

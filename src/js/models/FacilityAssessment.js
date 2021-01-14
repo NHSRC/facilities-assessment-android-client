@@ -87,6 +87,10 @@ class FacilityAssessment {
         facilityAssessment.customInfos = other.customInfos.map((x) => AssessmentCustomInfo.clone(x));
         return facilityAssessment;
     }
+
+    static isSubmittable(assessment) {
+        return !_.isNil(assessment.endDate) && !assessment.submitted;
+    }
 }
 
 

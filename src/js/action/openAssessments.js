@@ -50,6 +50,7 @@ const assessmentSaved = function (state, action, beans) {
 };
 
 const assessmentSyncing = function (state, action, beans) {
+    if (_.isNil(state.submittingAssessment)) return state;
     return _.assignIn(state, {syncing: [state.submittingAssessment.uuid].concat(state.syncing)});
 };
 

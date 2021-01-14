@@ -15,7 +15,7 @@ import Logger from "../../../framework/Logger";
 class SubmitAssessment extends AbstractComponent {
     static propTypes = {
         facilityAssessment: PropTypes.object.isRequired,
-        syncing: PropTypes.bool.isRequired
+        syncing: PropTypes.bool
     };
 
     static styles = StyleSheet.create({
@@ -56,7 +56,7 @@ class SubmitAssessment extends AbstractComponent {
 
     handleSubmit() {
         this.dispatchAction(Actions.SYNC_ASSESSMENT, {
-            cb: () => this.dispatchAction(Actions.ASSESSMENT_SYNCED),
+            cb: () => this.dispatchAction(Actions.ASSESSMENT_SYNCED, {status: true}),
             errorHandler: (error) => {
                 Logger.logError('OpenView', error);
                 this.submissionError(this.state.submittingAssessment, error);
@@ -71,7 +71,7 @@ class SubmitAssessment extends AbstractComponent {
             [
                 {
                     text: 'OK',
-                    onPress: () => this.dispatchAction(Actions.ASSESSMENT_SYNCED)
+                    onPress: () => this.dispatchAction(Actions.ASSESSMENT_SYNCED, {status: false})
                 }
             ]
         )
