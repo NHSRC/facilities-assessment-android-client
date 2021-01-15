@@ -15,9 +15,10 @@ define _bugsnag_sourcemaps
 endef
 
 -upload-release-sourcemap:
-ifndef versionName
-	$(error ERROR: versionName not provided. It is a four digit number, e.g. in 2014. major(1)-minor(2)-patch(1) For changing major and minor versions check the build.gradle file.)
+ifndef patchVersion
+	$(error ERROR: patchVersion not provided. It is one digit number, e.g. in 2014 then patchVersion is 4.)
 else
+	@echo Uploading ${versionName}
 	$(call _upload_release_sourcemap)
 endif
 

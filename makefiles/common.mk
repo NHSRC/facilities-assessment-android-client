@@ -6,7 +6,7 @@ arm_64_apk_path := $(apk_path)/app-arm64-v8a-release.apk
 android_package_name := com.facilitiesassessment
 ip:=$(shell ifconfig | grep -A 2 'vboxnet' | tail -1 | cut -d ' ' -f 2 | cut -d ' ' -f 1)
 majorVersion := 2
-minorVersion := 01
+minorVersion := 02
 versionName := $(majorVersion)$(minorVersion)$(patchVersion)
 
 define _create_config
