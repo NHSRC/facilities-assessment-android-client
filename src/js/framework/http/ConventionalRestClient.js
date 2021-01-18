@@ -12,8 +12,8 @@ class ConventionalRestClient {
         this.db = db;
     }
 
-    getData(relativeEndpont, cb, errorHandler) {
-        return getJSON(`${this.settingsService.getServerURL()}/api/${relativeEndpont}`, cb, errorHandler);
+    getData(relativeEndpoint, cb, errorHandler) {
+        return getJSON(`${this.settingsService.getServerURL()}/api/${relativeEndpoint}`, cb, errorHandler);
     }
 
     loadData(entityMetaData, resourceSearchFilterURL, optionalParams, lastUpdatedLocally, pageNumber, allEntityMetaData, executeResourcesWithSameTimestamp, executeNextResource, resourcesWithSameTimestamp, onError) {
@@ -32,7 +32,7 @@ class ConventionalRestClient {
         const url = `${urlParts.join("/")}?${params}`;
 
         Logger.logDebug('ConventionalRestClient', `Calling: ${url}`);
-        this.getData(url, entityMetaData, optionalParams, (response) => {
+        getJSON(url, (response) => {
             const resources = _.isNil(response["_embedded"]) ?
                 (_.isNil(response["content"]) ?
                     response : response["content"]) :
