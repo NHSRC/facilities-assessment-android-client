@@ -10,6 +10,7 @@ describe('openAssessmentsTest', () => {
     let enterAssessmentSeries;
     let beans;
     let assessmentMetaData;
+    let state;
 
     beforeEach(() => {
         assessmentMetaData = new AssessmentMetaData();
@@ -19,10 +20,11 @@ describe('openAssessmentsTest', () => {
         beans = TestBeanFactory.create().addAssessmentMetaDataService([assessmentMetaData]).beans;
         enterCustomInfo = fns.get("ENTER_CUSTOM_INFO");
         enterAssessmentSeries = fns.get("ENTER_ASSESSMENT_SERIES");
+
+        state = {chosenAssessment: {assessmentTool: {assessmentToolType: AssessmentTool.COMPLIANCE}, customInfos: []}};
     });
 
     it('areSubmissionDetailsAvailable - series filled first', () => {
-        let state = {chosenAssessment: {assessmentTool: {assessmentToolType: AssessmentTool.COMPLIANCE}, customInfos: []}};
         state = enterAssessmentSeries(state, {series: ''}, beans);
         expect(state.submissionDetailAvailable).is.equal(false);
         state = enterAssessmentSeries(state, {series: '2020'}, beans);
@@ -34,7 +36,6 @@ describe('openAssessmentsTest', () => {
     });
 
     it('areSubmissionDetailsAvailable - custom info filled first', () => {
-        let state = {chosenAssessment: {assessmentTool: {assessmentToolType: AssessmentTool.COMPLIANCE}, customInfos: []}};
         state = enterCustomInfo(state, {valueString: 'Mr Foo Bar', assessmentMetaData: assessmentMetaData}, beans);
         expect(state.submissionDetailAvailable).is.equal(false);
         state = enterCustomInfo(state, {valueString: 'Miss Foo Bar', assessmentMetaData: assessmentMetaData}, beans);
@@ -44,5 +45,16 @@ describe('openAssessmentsTest', () => {
         expect(state.submissionDetailAvailable).is.equal(false);
         state = enterAssessmentSeries(state, {series: '2020'}, beans);
         expect(state.submissionDetailAvailable).is.equal(true);
+    });
+
+    it('should check for regex', function () {
+        state = enterAssessmentSeries(state, {series: '2020'}, beans);
+        expect(state.submissionDetailAvailable).is.equal(false);
+
+        assessmentMetaData.validationRegex = "^[0-9]{10}";
+        state = enterCustomInfo(state, {valueString: '9876543210', assessmentMetaData: assessmentMetaData}, beans);
+        expect(state.submissionDetailAvailable).is.equal(true);
+        state = enterCustomInfo(state, {valueString: '987654321', assessmentMetaData: assessmentMetaData}, beans);
+        expect(state.submissionDetailAvailable).is.equal(false);
     });
 });

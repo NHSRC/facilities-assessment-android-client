@@ -74,6 +74,10 @@ const assessmentSummaryClosed = function(state, action, beans) {
     return _.assignIn(state, {chosenAssessment: undefined, assessmentSummary: undefined});
 };
 
+const submissionCancelled = function (state) {
+    return _.assignIn(state, {chosenAssessment: undefined, submittingAssessment: false});
+};
+
 export default new Map([
     ["ALL_ASSESSMENTS", allAssessments],
     ["ASSESSMENT_SYNCED", assessmentSaved],
@@ -83,7 +87,8 @@ export default new Map([
     ["GET_ASSESSMENT_SUMMARY", getAssessmentSummary],
     ["ASSESSMENT_SUMMARY_LOADED", assessmentSummaryLoaded],
     ["ASSESSMENT_SUMMARY_LOAD_FAILED", assessmentSummaryLoadFailed],
-    ["ASSESSMENT_SUMMARY_CLOSED", assessmentSummaryClosed]
+    ["ASSESSMENT_SUMMARY_CLOSED", assessmentSummaryClosed],
+    ["SUBMISSION_CANCELLED", submissionCancelled]
 ]);
 
 export let openAssessmentsInit = {
