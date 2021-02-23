@@ -17,12 +17,12 @@ class FacilitiesService extends BaseService {
         super(db, beanStore);
     }
 
-    saveFacility(facilityName, district) {
+    saveFacility(facilityName, district, facilityType) {
         const stateService = this.getService(StateService);
         let facility = new Facility();
         facility.uuid = UUID.generate();
         facility.name = facilityName;
-        facility.facilityType = "";
+        facility.facilityType = facilityType.uuid;
         let existingDistrict = stateService.getDistrict(district.uuid);
         existingDistrict.facilities = existingDistrict.facilities.map(_.identity).concat([facility]);
         stateService.saveDistrict(existingDistrict);

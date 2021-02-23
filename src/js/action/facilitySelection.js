@@ -75,7 +75,7 @@ const selectDistrict = function (state, action, beans) {
         "selectedAssessmentType": undefined,
     });
     if (facilityTypes.length === 1) {
-        action.selectedFacilityType = facilityTypes[0];
+        newState.selectedFacilityType = facilityTypes[0];
         newState = selectFacilityType(newState, action, beans);
     }
     return newState;
@@ -130,7 +130,7 @@ const facilitySelected = function (state, action, beans) {
     const facilitiesService = beans.get(FacilitiesService);
     let selectedFacility = state.selectedFacility;
     if (!_.isEmpty(state.facilityName)) {
-        selectedFacility = facilitiesService.saveFacility(state.facilityName, state.selectedDistrict);
+        selectedFacility = facilitiesService.saveFacility(state.facilityName, state.selectedDistrict, state.selectedFacilityType);
     }
     const hasActiveFacilityAssessment = !_.isEmpty(facilityAssessmentService.getExistingAssessment(selectedFacility, state.selectedAssessmentTool, state.selectedAssessmentType));
     const facilityAssessment = facilityAssessmentService.startAssessment(selectedFacility, state.selectedAssessmentTool, state.selectedAssessmentType);
