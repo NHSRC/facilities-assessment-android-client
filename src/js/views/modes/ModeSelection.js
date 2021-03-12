@@ -184,7 +184,7 @@ class ModeSelection extends ViewComponent {
                         <Text style={[Typography.paperFontTitle, {
                             color: 'skyblue',
                             alignSelf: 'center'
-                        }]}>help@gunaksupport.freshdesk.com</Text>
+                        }]}>help@gunaknhsrc.freshdesk.com</Text>
                     </Content>
                     <Image resizeMode="contain" style={{width: deviceWidth}} source={nhsrcbanner}/>
                 </Container>
