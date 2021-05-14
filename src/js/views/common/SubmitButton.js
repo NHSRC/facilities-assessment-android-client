@@ -1,7 +1,7 @@
 import React from 'react';
 import AbstractComponent from "../common/AbstractComponent";
 import {Button, Text} from 'native-base';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, ActivityIndicator, View} from 'react-native';
 import PrimaryColors from "../styles/PrimaryColors";
 import PropTypes from 'prop-types';
 import _ from 'lodash';
@@ -14,20 +14,34 @@ class SubmitButton extends AbstractComponent {
     });
 
     static propTypes = {
-        showButton: PropTypes.bool
+        showButton: PropTypes.bool,
+        buttonStyle: PropTypes.object,
+        busy: PropTypes.bool,
+        buttonText: PropTypes.string,
+        onPress: PropTypes.func
     };
 
+    static defaultProps = {
+        showButton: true,
+        busy: false,
+        buttonText: "SUBMIT"
+    };
+
+    renderSpinner() {
+        return (<ActivityIndicator animating={true} size={"large"} color="white" style={{height: 80}}/>);
+    }
+
     render() {
-        let showButton = _.isNil(this.props.showButton) ? true : this.props.showButton;
         return (
-            <Button
-                onPress={this.props.onPress}
-                style={[SubmitButton.styles.blockButton, this.props.buttonStyle, showButton ?
-                    {} : {backgroundColor: PrimaryColors.medium_black}]}
-                block
-                disabled={!showButton}>
-                <Text>{this.props.buttonText}</Text>
-            </Button>
+            <View>
+                {this.props.showButton && <Button
+                    onPress={this.props.onPress}
+                    style={[SubmitButton.styles.blockButton, this.props.buttonStyle, this.props.showButton ?
+                        {} : {backgroundColor: PrimaryColors.medium_black}]}
+                    block>
+                    {this.props.busy ? this.renderSpinner() : <Text>{this.props.buttonText}</Text>}
+                </Button>}
+            </View>
         );
     }
 }

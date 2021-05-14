@@ -6,6 +6,7 @@ import AssessmentMetaDataService from "../service/metadata/AssessmentMetaDataSer
 import _ from 'lodash';
 import AssessmentMetaData from "../models/assessment/AssessmentMetaData";
 import EntityService from "../service/EntityService";
+import AuthService from "../service/AuthService";
 
 const _areSubmissionDetailsAvailable = function (assessment, beans) {
     let assessmentMetaDataService = beans.get(AssessmentMetaDataService);
@@ -82,6 +83,22 @@ const assessmentSynced = function (state, action, beans) {
     });
 };
 
+const login = function (state, action, beans) {
+    let newState = _.assignIn(state, {
+        callingServer: true
+    });
+    beans.get(AuthService).login(state.email, state.password).then();
+    return newState;
+};
+
+const changePassword = function (state, action, beans) {
+    return state;
+};
+
+const changeLoginDetails = function (state, action, beans) {
+    return _.assignIn(state, action);
+};
+
 export default new Map([
     ["SYNC_ASSESSMENT", syncAssessment],
     ["START_SUBMIT_ASSESSMENT", startSubmitAssessment],
@@ -90,10 +107,18 @@ export default new Map([
     ["ENTER_CUSTOM_INFO", enterCustomInfo],
     ["ENTER_ASSESSMENT_SERIES", enterSeries],
     ["GENERATE_ASSESSMENT_SERIES", generateAssessmentSeries],
-    ["SUBMISSION_CANCELLED", submissionCancelled]]);
+    ["SUBMISSION_CANCELLED", submissionCancelled],
+    ["CHANGE_LOGIN_DETAILS", changeLoginDetails],
+    ["LOGIN", login],
+    ["CHANGE_PASSWORD", changePassword]]
+);
 
 export let submitAssessmentInit = {
     chosenAssessment: undefined,
     assessmentMetaDataList: [],
-    submissionDetailAvailable: false
+    submissionDetailAvailable: false,
+    loginSessionId: null,
+    email: null,
+    password: null,
+    callingServer: false
 };
