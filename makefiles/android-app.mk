@@ -38,7 +38,7 @@ define _run_android_dev
 endef
 
 
-run-app-android-nhsrc: ## ARG - devCompatible=true/false (use true if the app is crashing immediately after giving overlay permission)
+run-app-android-nhsrc-prod: ## ARG - devCompatible=true/false (use true if the app is crashing immediately after giving overlay permission)
 	$(call _run_android,nhsrc)
 
 run-app-android-nhsrc-qa-emulated:

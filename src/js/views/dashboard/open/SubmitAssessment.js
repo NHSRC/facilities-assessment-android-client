@@ -11,6 +11,9 @@ import PropTypes from 'prop-types';
 import GunakContainer from "../../common/GunakContainer";
 import FacilityAssessment from '../../../models/FacilityAssessment';
 import Logger from "../../../framework/Logger";
+import Login from "./Login";
+import _ from 'lodash';
+import SubmitButton from "../../common/SubmitButton";
 
 class SubmitAssessment extends AbstractComponent {
     static propTypes = {
@@ -50,10 +53,6 @@ class SubmitAssessment extends AbstractComponent {
         this.dispatchAction(Actions.SUBMISSION_CANCELLED);
     }
 
-    renderSpinner() {
-        return (<ActivityIndicator animating={true} size={"large"} color="white" style={{height: 80}}/>);
-    }
-
     handleSubmit() {
         this.dispatchAction(Actions.SYNC_ASSESSMENT, {
             cb: () => this.dispatchAction(Actions.ASSESSMENT_SYNCED, {status: true}),
@@ -83,7 +82,8 @@ class SubmitAssessment extends AbstractComponent {
             <Modal transparent={true} visible={true} onRequestClose={() => {
             }}>
                 <GunakContainer title="Submit Assessment" hideBack={true}>
-                    <View style={SubmitAssessment.styles.container}>
+                    {_.isNil(this.state.loginSessionId) && <Login changePasswordRequired={false}/>}
+                    {!_.isNil(this.state.loginSessionId) && <View style={SubmitAssessment.styles.container}>
                         {this.state.assessmentToolType === AssessmentTool.INDICATOR ? null : <AssessmentSeries series={facilityAssessment.seriesName}/>}
                         <View style={{margin: 10, flexDirection: 'column'}}>
                             {this.state.assessmentMetaDataList.map((x) => {
@@ -96,22 +96,18 @@ class SubmitAssessment extends AbstractComponent {
                                                onChangeText={(text) => this.handleCustomInfoChange(x, text)}/>
                                 </View>
                             })}
+
                             <View style={{flexDirection: 'row', marginBottom: 10, marginTop: 30}}>
                                 <Button block
                                         style={{backgroundColor: this.props.syncing ? PrimaryColors.medium_black : PrimaryColors.blue, marginHorizontal: 10, flex: 0.5}}
                                         onPress={() => this.close()}
                                         disabled={this.props.syncing}><Text>CLOSE</Text></Button>
-                                <Button block style={{
-                                    backgroundColor: this.props.syncing ? PrimaryColors.medium_black : this.state.submissionDetailAvailable ? PrimaryColors.blue : PrimaryColors.medium_black,
-                                    marginHorizontal: 10,
-                                    flex: 0.5
-                                }} onPress={() => this.handleSubmit()}
-                                        disabled={!this.state.submissionDetailAvailable || this.props.syncing}>
-                                    {this.props.syncing ? this.renderSpinner() : <Text>SUBMIT</Text>}
-                                </Button>
+                                <SubmitButton showButton={this.state.submissionDetailAvailable && !this.props.syncing}
+                                              busy={this.props.syncing}
+                                              onPress={() => this.handleSubmit()}/>
                             </View>
                         </View>
-                    </View>
+                    </View>}
                 </GunakContainer>
             </Modal>
         );

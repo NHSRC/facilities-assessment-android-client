@@ -52,7 +52,7 @@ class FacilitiesService extends BaseService {
             return this.db.objects(FacilityType.schema.name).filtered("inactive = false").sorted('name').map(this.nameAndId);
         } else {
             let entityService = this.getService(EntityService);
-            return _.uniqBy(this.getAllFacilitiesFor(districtUUID), "facilityType").map((facility) => entityService.findByUUID(facility["facilityType"], FacilityType.schema.name)).map(this.nameAndId);
+            return _.filter(_.uniqBy(this.getAllFacilitiesFor(districtUUID), "facilityType"), (x) => !_.isNil(x["facilityType"])).map((facility) => entityService.findByUUID(facility["facilityType"], FacilityType.schema.name)).map(this.nameAndId);
         }
     }
 
