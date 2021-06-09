@@ -2,11 +2,21 @@ import _ from "lodash";
 import Service from "../framework/bean/Service";
 import BaseService from "./BaseService";
 import User from "../models/User";
+import Logger from "../framework/Logger";
+import SettingsService from "./SettingsService";
 
 @Service("authService")
 class AuthService extends BaseService {
     constructor(db, beanStore) {
         super(db, beanStore);
+    }
+
+    checkResponse(response) {
+        if (!response.ok) {
+            let message = `${response.status}: ${response.statusText}`;
+            Logger.logError("AuthService", message);
+            throw Error(message);
+        }
     }
 
     login(email, password) {
@@ -21,11 +31,11 @@ class AuthService extends BaseService {
             headers: new Headers({'Content-Type': 'application/x-www-form-urlencoded'})
         };
 
-        return fetch('/api/login', requestInfo)
-            .then(response => {
-                if (!response.ok) throw Error(`${response.status}: ${response.statusText}`);
-            })
-            .then(() => this.verifySession)
+        let endpoint = `${this.getService(SettingsService).getServerURL()}/api/login`;
+        Logger.logDebug("AuthService", `Attempting login: ${endpoint}`);
+        return fetch(endpoint, requestInfo)
+            .then(this.checkResponse)
+            .then(this.verifySession)
             .then((user) => {
                 this._saveOrUpdateUser(user);
                 return user;
@@ -33,11 +43,17 @@ class AuthService extends BaseService {
     }
 
     verifySession() {
-        return fetch('/api/currentUser', {
+        let endpoint = `${this.getService(SettingsService).getServerURL()}/api/currentUser`;
+        Logger.logDebug("AuthService", `Getting current user from: ${endpoint}`);
+        return fetch(endpoint, {
+            timeout: 5,
             headers: new Headers({'Accept': 'application/json'})
         }).then((response) => {
-            if (!response.ok) throw Error(`${response.status}: ${response.statusText}`);
+            this.checkResponse(response);
             return response.json();
+        }).then((user) => {
+            Logger.logDebug("AuthService", user);
+            return !_.isNil(user);
         });
     }
 
@@ -52,7 +68,7 @@ class AuthService extends BaseService {
             headers: new Headers({'Content-Type': 'application/json'})
         };
 
-        return fetch("/api/currentUser", requestInfo).then((response) => {
+        return fetch(`${this.getService(SettingsService).getServerURL()}}/api/currentUser`, requestInfo).then((response) => {
             if (!response.ok) throw Error(`${response.status}: ${response.statusText}`);
         });
     }

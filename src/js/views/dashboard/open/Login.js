@@ -7,6 +7,7 @@ import Typography from "../../styles/Typography";
 import Actions from "../../../action";
 import PrimaryColors from "../../styles/PrimaryColors";
 import SubmitButton from "../../common/SubmitButton";
+import {LoginStatus} from "../../../action/submitAssessment";
 
 class Login extends AbstractComponent {
     static propTypes = {
@@ -73,11 +74,15 @@ class Login extends AbstractComponent {
                                this.dispatchAction(Actions.CHANGE_LOGIN_DETAILS, {newPassword: text})
                            }}/>
             </View>}
-            <SubmitButton onPress={() => this.dispatchAction(this.props.changePasswordRequired ? Actions.CHANGE_PASSWORD : Actions.LOGIN)}
-                          buttonText={this.props.changePasswordRequired ? 'CHANGE PASSWORD' : 'LOGIN'}/>
-            {this.props.changePasswordRequired && <Button block
-                                                          style={{marginHorizontal: 10, flex: 0.5, marginTop: 20}}
-                                                          onPress={() => this.close()}><Text>SKIP</Text></Button>}
+            <SubmitButton onPress={() => {
+                this.dispatchAction(this.props.changePasswordRequired ? Actions.CHANGE_PASSWORD : Actions.LOGIN, {
+                    successfulLogin: () => this.dispatchAction(Actions.UPDATE_LOGIN_STATUS, {loginStatus: LoginStatus.LOGGED_IN}),
+                    loginFailed: (message) => this.dispatchAction(Actions.UPDATE_LOGIN_STATUS, {loginStatus: LoginStatus.NOT_LOGGED_IN, failureMessage: message})
+                });
+            }} buttonText={this.props.changePasswordRequired ? 'CHANGE PASSWORD' : 'LOGIN'}/>
+            {<Button block
+                     style={{flex: 0.5, marginTop: 20}}
+                     onPress={() => this.dispatchAction(Actions.SUBMISSION_CANCELLED)}><Text>{this.props.changePasswordRequired ? "SKIP" : "CANCEL"}</Text></Button>}
         </View>
     }
 }

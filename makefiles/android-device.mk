@@ -27,6 +27,9 @@ start-app-android:
 
 restart-app-android: stop-app-android start-app-android
 
+reload-app:
+	adb shell input text "rr"
+
 disable-debug-apk-checks:
 	adb shell settings put global verifier_verify_adb_installs 0
 	adb shell settings put global package_verifier_enable 0

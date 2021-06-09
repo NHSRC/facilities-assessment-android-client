@@ -25,20 +25,12 @@ const _areSubmissionDetailsAvailable = function (assessment, beans) {
 };
 
 const checkLoginStatus = function (state, action, beans) {
-    let loginStatus;
-    let loginRequired = SubmitAssessmentRule.isLoginRequired();
-    if (loginRequired && action.loginStatus !== LoginStatus.LOGGED_IN) {
-        beans.get(AuthService).verifySession().then(() => action.loggedIn()).catch(() => action.loginStatusUnknown());
-        loginStatus = LoginStatus.UNKNOWN;
-    } else if (loginRequired) {
-        loginStatus = LoginStatus.UNKNOWN;
-    } else {
-        return startSubmitAssessment(state, {...action, loginStatus: LoginStatus.LOGIN_NOT_REQUIRED}, beans);
+    if (SubmitAssessmentRule.isLoginRequired() && action.loginStatus !== LoginStatus.LOGGED_IN) {
+        beans.get(AuthService).verifySession().then(() => action.loggedIn()).catch(() => action.notLoggedIn());
+        return state;
     }
 
-    return _.assignIn(state, {
-        loginStatus: loginStatus
-    });
+    return startSubmitAssessment(state, {...action, loginStatus: LoginStatus.LOGIN_NOT_REQUIRED}, beans);
 }
 
 const updateLoginStatus = function (state, action, context) {
@@ -116,7 +108,7 @@ const assessmentSynced = function (state, action, beans) {
 };
 
 const login = function (state, action, beans) {
-    beans.get(AuthService).login(state.email, state.password).then((user) => action.successfulLogin(user)).catch((error) => action.loginFailed(error.message));
+    beans.get(AuthService).login(state.email, state.password).then(action.successfulLogin).catch((error) => action.loginFailed(error.message));
     return _.assignIn(state, {
         callingServer: true
     });
