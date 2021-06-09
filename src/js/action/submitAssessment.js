@@ -7,6 +7,14 @@ import _ from 'lodash';
 import AssessmentMetaData from "../models/assessment/AssessmentMetaData";
 import EntityService from "../service/EntityService";
 import AuthService from "../service/AuthService";
+import SubmitAssessmentRule from "./SubmitAssessmentRule";
+
+export const LoginStatus = {
+    UNKNOWN: 1,
+    LOGGED_IN: 2,
+    NOT_LOGGED_IN: 3,
+    LOGIN_NOT_REQUIRED: 4
+};
 
 const _areSubmissionDetailsAvailable = function (assessment, beans) {
     let assessmentMetaDataService = beans.get(AssessmentMetaDataService);
@@ -16,6 +24,29 @@ const _areSubmissionDetailsAvailable = function (assessment, beans) {
         FacilityAssessment.seriesNameCheckPassed(assessment.assessmentTool, assessment));
 };
 
+const checkLoginStatus = function (state, action, beans) {
+    let loginStatus;
+    let loginRequired = SubmitAssessmentRule.isLoginRequired();
+    if (loginRequired && action.loginStatus !== LoginStatus.LOGGED_IN) {
+        beans.get(AuthService).verifySession().then(() => action.loggedIn()).catch(() => action.loginStatusUnknown());
+        loginStatus = LoginStatus.UNKNOWN;
+    } else if (loginRequired) {
+        loginStatus = LoginStatus.UNKNOWN;
+    } else {
+        loginStatus = LoginStatus.LOGIN_NOT_REQUIRED;
+    }
+
+    return _.assignIn(state, {
+        loginStatus: loginStatus
+    });
+}
+
+const updateLoginStatus = function (state, action, context) {
+    return _.assignIn(state, {
+        loginStatus: action.loginStatus
+    });
+}
+
 const startSubmitAssessment = function (state, action, beans) {
     const entityService = beans.get(EntityService);
 
@@ -23,6 +54,7 @@ const startSubmitAssessment = function (state, action, beans) {
     let submissionDetailAvailable = _areSubmissionDetailsAvailable(assessment, beans);
     const assessmentMetaDataList = entityService.findAll(AssessmentMetaData);
     return _.assignIn(state, {
+        loginStatus: action.loginStatus,
         chosenAssessment: assessment,
         submissionDetailAvailable: submissionDetailAvailable,
         assessmentToolType: assessment.assessmentTool.assessmentToolType,
@@ -84,15 +116,17 @@ const assessmentSynced = function (state, action, beans) {
 };
 
 const login = function (state, action, beans) {
-    let newState = _.assignIn(state, {
+    beans.get(AuthService).login(state.email, state.password).then((user) => action.successfulLogin(user)).catch((error) => action.loginFailed(error.message));
+    return _.assignIn(state, {
         callingServer: true
     });
-    beans.get(AuthService).login(state.email, state.password).then();
-    return newState;
 };
 
 const changePassword = function (state, action, beans) {
-    return state;
+    beans.get(AuthService).changePassword(state.password, state.newPassword).then(() => action.passwordChangedSuccessfully()).catch(action.passwordChangeFailed());
+    return _.assignIn(state, {
+        callingServer: true
+    });
 };
 
 const changeLoginDetails = function (state, action, beans) {
@@ -101,6 +135,7 @@ const changeLoginDetails = function (state, action, beans) {
 
 export default new Map([
     ["SYNC_ASSESSMENT", syncAssessment],
+    ["CHECK_LOGIN_STATUS", checkLoginStatus],
     ["START_SUBMIT_ASSESSMENT", startSubmitAssessment],
     ["UPDATE_CHECKPOINT", markAssessmentUnsubmitted],
     ["ASSESSMENT_SYNCED", assessmentSynced],
@@ -110,6 +145,7 @@ export default new Map([
     ["SUBMISSION_CANCELLED", submissionCancelled],
     ["CHANGE_LOGIN_DETAILS", changeLoginDetails],
     ["LOGIN", login],
+    ["UPDATE_LOGIN_STATUS", updateLoginStatus],
     ["CHANGE_PASSWORD", changePassword]]
 );
 
@@ -117,8 +153,9 @@ export let submitAssessmentInit = {
     chosenAssessment: undefined,
     assessmentMetaDataList: [],
     submissionDetailAvailable: false,
-    loginSessionId: null,
+    loginStatus: LoginStatus.UNKNOWN,
     email: null,
     password: null,
+    newPassword: null,
     callingServer: false
 };

@@ -25,7 +25,6 @@ const makeHeader = (type) => new Map(
             timeout: 20000
         }]]).get(type);
 
-
 let _get = (endpoint, cb, errorHandler) => {
     Logger.logDebug('requests', `GETing from ${endpoint}`);
     fetchFactory(endpoint, "GET", makeHeader("json"), (response) => response.json(), cb, errorHandler);

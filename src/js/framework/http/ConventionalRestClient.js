@@ -1,4 +1,4 @@
-import {getJSON, post} from '../../framework/http/requests';
+import {getJSON, post} from './requests';
 import _ from "lodash";
 import {makeParams} from './httpUtils';
 import moment from "moment";
@@ -82,7 +82,7 @@ class ConventionalRestClient {
         }
 
         const url = `${this.settingsService.getServerURL()}/${nextItem.metaData.resourceName}s`;
-        post(url, nextItem.resource, (response) => {
+        return post(url, nextItem.resource, (response) => {
             if (!_.isNil(response.ok) && !response.ok) {
                 Logger.logDebug('ConventionalRestClient', response);
                 onError();

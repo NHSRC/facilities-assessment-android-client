@@ -1,6 +1,7 @@
 import _ from "lodash";
 import Service from "../framework/bean/Service";
 import BaseService from "./BaseService";
+import User from "../models/User";
 
 @Service("authService")
 class AuthService extends BaseService {
@@ -8,36 +9,62 @@ class AuthService extends BaseService {
         super(db, beanStore);
     }
 
-    login(email, password, successfulLogin, failedLogin) {
+    login(email, password) {
         let postObject = {email: email, password: password};
 
         let encodedObj = _.keys(postObject).map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(postObject[key])}`);
         let formBody = encodedObj.join("&");
 
-        const request = new Request('/api/login', {
+        const requestInfo = {
             method: 'POST',
             body: formBody,
             headers: new Headers({'Content-Type': 'application/x-www-form-urlencoded'})
-        });
+        };
 
-        const verifyLoginRequest = new Request('/api/currentUser', {
-            method: 'GET'
-        });
-
-        return fetch(request)
+        return fetch('/api/login', requestInfo)
             .then(response => {
-                if (response.status < 200 || response.status >= 300) {
-                    failedLogin(response.statusText);
-                }
+                if (!response.ok) throw Error(`${response.status}: ${response.statusText}`);
             })
-            .then(() => fetch(verifyLoginRequest))
-            .then((verifyLoginResponse) => {
-                if (verifyLoginResponse.status < 200 || verifyLoginResponse.status >= 300) {
-                    failedLogin(verifyLoginResponse.statusText);
-                }
-                return verifyLoginResponse.json();
-            })
-            .then((user) => successfulLogin(user));
+            .then(() => this.verifySession)
+            .then((user) => {
+                this._saveOrUpdateUser(user);
+                return user;
+            });
+    }
+
+    verifySession() {
+        return fetch('/api/currentUser', {
+            headers: new Headers({'Accept': 'application/json'})
+        }).then((response) => {
+            if (!response.ok) throw Error(`${response.status}: ${response.statusText}`);
+            return response.json();
+        });
+    }
+
+    changePassword(oldPassword, newPassword) {
+        let user = this.findOne(User);
+        user.oldPassword = oldPassword;
+        user.newPassword = newPassword;
+
+        const requestInfo = {
+            method: 'POST',
+            body: JSON.stringify(user()),
+            headers: new Headers({'Content-Type': 'application/json'})
+        };
+
+        return fetch("/api/currentUser", requestInfo).then((response) => {
+            if (!response.ok) throw Error(`${response.status}: ${response.statusText}`);
+        });
+    }
+
+    _saveOrUpdateUser(userResponse) {
+        this.db.write(() => {
+            let user = this.findOne(User);
+            if (!_.isNil(user)) {
+                this.db.delete(user);
+            }
+            this.db.create(userResponse, User.schema.name);
+        });
     }
 }
 

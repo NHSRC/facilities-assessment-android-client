@@ -39,7 +39,7 @@ class Login extends AbstractComponent {
 
     render() {
         return <View style={Login.styles.container}>
-            <View style={{marginTop: 15, marginBottom: 30}}>
+            {!this.props.changePasswordRequired && <View style={{marginTop: 15, marginBottom: 30}}>
                 <Text style={[Typography.paperFontTitle]}>For external assessment submission login is required</Text>
                 <Text style={[Typography.paperFontSubhead, {marginTop: 20}]}>Email</Text>
                 <TextInput style={Login.styles.input}
@@ -49,8 +49,8 @@ class Login extends AbstractComponent {
                            onChangeText={(text) => {
                                this.dispatchAction(Actions.CHANGE_LOGIN_DETAILS, {email: text})
                            }}/>
-            </View>
-            <View style={{marginBottom: 30}}>
+            </View>}
+            {!this.props.changePasswordRequired && <View style={{marginBottom: 30}}>
                 <Text style={[Typography.paperFontSubhead]}>Password</Text>
                 <TextInput style={Login.styles.input}
                     // value={}
@@ -60,7 +60,7 @@ class Login extends AbstractComponent {
                            onChangeText={(text) => {
                                this.dispatchAction(Actions.CHANGE_LOGIN_DETAILS, {password: text})
                            }}/>
-            </View>
+            </View>}
             {this.props.changePasswordRequired && <View style={{marginBottom: 20}}>
                 <Text style={[Typography.paperFontTitle]}>It is recommended that you change your password once</Text>
                 <Text style={[Typography.paperFontSubhead]}>New Password</Text>

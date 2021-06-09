@@ -14,6 +14,7 @@ import Logger from "../../../framework/Logger";
 import Login from "./Login";
 import _ from 'lodash';
 import SubmitButton from "../../common/SubmitButton";
+import {LoginStatus} from "../../../action/submitAssessment";
 
 class SubmitAssessment extends AbstractComponent {
     static propTypes = {
@@ -42,7 +43,10 @@ class SubmitAssessment extends AbstractComponent {
     }
 
     componentWillMount() {
-        this.dispatchAction(Actions.START_SUBMIT_ASSESSMENT, {facilityAssessment: this.props.facilityAssessment});
+        this.dispatchAction(Actions.CHECK_LOGIN_STATUS, {
+            loggedIn: () => this.dispatchAction(Actions.START_SUBMIT_ASSESSMENT, {facilityAssessment: this.props.facilityAssessment, loginStatus: LoginStatus.LOGGED_IN}),
+            loginStatusUnknown: () => this.dispatchAction(Actions.UPDATE_LOGIN_STATUS, {loginStatus: LoginStatus.UNKNOWN})
+        });
     }
 
     handleCustomInfoChange(assessmentMetaData, text) {
@@ -82,8 +86,9 @@ class SubmitAssessment extends AbstractComponent {
             <Modal transparent={true} visible={true} onRequestClose={() => {
             }}>
                 <GunakContainer title="Submit Assessment" hideBack={true}>
-                    {_.isNil(this.state.loginSessionId) && <Login changePasswordRequired={false}/>}
-                    {!_.isNil(this.state.loginSessionId) && <View style={SubmitAssessment.styles.container}>
+                    {this.state.loginStatus === LoginStatus.NOT_LOGGED_IN && <Login changePasswordRequired={false}/>}
+                    {(this.state.loginStatus === LoginStatus.LOGIN_NOT_REQUIRED || this.state.loginStatus === LoginStatus.LOGGED_IN) &&
+                    <View style={SubmitAssessment.styles.container}>
                         {this.state.assessmentToolType === AssessmentTool.INDICATOR ? null : <AssessmentSeries series={facilityAssessment.seriesName}/>}
                         <View style={{margin: 10, flexDirection: 'column'}}>
                             {this.state.assessmentMetaDataList.map((x) => {
