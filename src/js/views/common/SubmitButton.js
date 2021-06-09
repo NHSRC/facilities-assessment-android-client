@@ -7,24 +7,20 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 class SubmitButton extends AbstractComponent {
-    static styles = StyleSheet.create({
-        blockButton: {
-            backgroundColor: PrimaryColors.blue,
-        },
-    });
-
     static propTypes = {
         showButton: PropTypes.bool,
         buttonStyle: PropTypes.object,
         busy: PropTypes.bool,
         buttonText: PropTypes.string,
-        onPress: PropTypes.func
+        onPress: PropTypes.func,
+        disabled: PropTypes.bool
     };
 
     static defaultProps = {
         showButton: true,
         busy: false,
-        buttonText: "SUBMIT"
+        buttonText: "SUBMIT",
+        disabled: false
     };
 
     renderSpinner() {
@@ -32,17 +28,14 @@ class SubmitButton extends AbstractComponent {
     }
 
     render() {
-        return (
-            <View>
-                {this.props.showButton && <Button
-                    onPress={this.props.onPress}
-                    style={[SubmitButton.styles.blockButton, this.props.buttonStyle, this.props.showButton ?
-                        {} : {backgroundColor: PrimaryColors.medium_black}]}
-                    block>
-                    {this.props.busy ? this.renderSpinner() : <Text>{this.props.buttonText}</Text>}
-                </Button>}
-            </View>
-        );
+        let buttonStyle = [{backgroundColor: this.props.disabled ? PrimaryColors.medium_black : PrimaryColors.blue}, this.props.buttonStyle];
+        return this.props.showButton && <Button
+            onPress={this.props.onPress}
+            style={buttonStyle}
+            disabled={this.props.disabled}
+            block>
+            {this.props.busy ? this.renderSpinner() : <Text>{this.props.buttonText}</Text>}
+        </Button>;
     }
 }
 

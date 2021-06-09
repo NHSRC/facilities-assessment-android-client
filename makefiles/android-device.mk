@@ -25,6 +25,8 @@ stop-app-android:
 start-app-android:
 	adb shell am start -n $(android_package_name)/$(android_package_name).MainActivity
 
+restart-app-android: stop-app-android start-app-android
+
 disable-debug-apk-checks:
 	adb shell settings put global verifier_verify_adb_installs 0
 	adb shell settings put global package_verifier_enable 0

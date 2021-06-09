@@ -33,7 +33,7 @@ const checkLoginStatus = function (state, action, beans) {
     } else if (loginRequired) {
         loginStatus = LoginStatus.UNKNOWN;
     } else {
-        loginStatus = LoginStatus.LOGIN_NOT_REQUIRED;
+        return startSubmitAssessment(state, {...action, loginStatus: LoginStatus.LOGIN_NOT_REQUIRED}, beans);
     }
 
     return _.assignIn(state, {

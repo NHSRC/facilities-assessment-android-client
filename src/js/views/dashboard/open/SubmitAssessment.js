@@ -45,7 +45,8 @@ class SubmitAssessment extends AbstractComponent {
     componentWillMount() {
         this.dispatchAction(Actions.CHECK_LOGIN_STATUS, {
             loggedIn: () => this.dispatchAction(Actions.START_SUBMIT_ASSESSMENT, {facilityAssessment: this.props.facilityAssessment, loginStatus: LoginStatus.LOGGED_IN}),
-            loginStatusUnknown: () => this.dispatchAction(Actions.UPDATE_LOGIN_STATUS, {loginStatus: LoginStatus.UNKNOWN})
+            loginStatusUnknown: () => this.dispatchAction(Actions.UPDATE_LOGIN_STATUS, {loginStatus: LoginStatus.UNKNOWN}),
+            facilityAssessment: this.props.facilityAssessment
         });
     }
 
@@ -81,6 +82,9 @@ class SubmitAssessment extends AbstractComponent {
     }
 
     render() {
+        if (this.state.loginStatus === LoginStatus.UNKNOWN)
+            return <ActivityIndicator animating={true} size={"large"} color="white" style={{height: 80}}/>;
+
         let facilityAssessment = this.state.chosenAssessment ? this.state.chosenAssessment : this.props.facilityAssessment;
         return (
             <Modal transparent={true} visible={true} onRequestClose={() => {
@@ -107,7 +111,8 @@ class SubmitAssessment extends AbstractComponent {
                                         style={{backgroundColor: this.props.syncing ? PrimaryColors.medium_black : PrimaryColors.blue, marginHorizontal: 10, flex: 0.5}}
                                         onPress={() => this.close()}
                                         disabled={this.props.syncing}><Text>CLOSE</Text></Button>
-                                <SubmitButton showButton={this.state.submissionDetailAvailable && !this.props.syncing}
+                                <SubmitButton disabled={!this.state.submissionDetailAvailable}
+                                              buttonStyle={{flex: 0.5}}
                                               busy={this.props.syncing}
                                               onPress={() => this.handleSubmit()}/>
                             </View>
