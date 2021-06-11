@@ -49,3 +49,6 @@ log-all:
 open-in-playstore-android:
 	$(call _kill_app,com.google.android.gms)
 	adb shell am start -a android.intent.action.VIEW -d 'market://details?id=$(android_package_name)'
+
+clear-cookies:
+	adb shell pm clear com.facilitiesassessment

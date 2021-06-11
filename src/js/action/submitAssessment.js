@@ -108,7 +108,10 @@ const assessmentSynced = function (state, action, beans) {
 };
 
 const login = function (state, action, beans) {
-    beans.get(AuthService).login(state.email, state.password).then(action.successfulLogin).catch((error) => action.loginFailed(error.message));
+    beans.get(AuthService).login(state.email, state.password).then(action.successfulLogin).catch((error) => {
+        Logger.logError("submitAssessment", error);
+        action.loginFailed(error.message);
+    });
     return _.assignIn(state, {
         callingServer: true
     });

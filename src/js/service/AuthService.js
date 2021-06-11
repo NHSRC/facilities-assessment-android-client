@@ -17,6 +17,7 @@ class AuthService extends BaseService {
             Logger.logError("AuthService", message);
             throw Error(message);
         }
+        return Promise.resolve(response);
     }
 
     login(email, password) {
@@ -28,14 +29,15 @@ class AuthService extends BaseService {
         const requestInfo = {
             method: 'POST',
             body: formBody,
-            headers: new Headers({'Content-Type': 'application/x-www-form-urlencoded'})
+            headers: new Headers({'Content-Type': 'application/x-www-form-urlencoded'}),
+            credentials: "same-origin"
         };
 
         let endpoint = `${this.getService(SettingsService).getServerURL()}/api/login`;
         Logger.logDebug("AuthService", `Attempting login: ${endpoint}`);
         return fetch(endpoint, requestInfo)
             .then(this.checkResponse)
-            .then(this.verifySession)
+            .then(() => this.verifySession())
             .then((user) => {
                 this._saveOrUpdateUser(user);
                 return user;
@@ -46,15 +48,12 @@ class AuthService extends BaseService {
         let endpoint = `${this.getService(SettingsService).getServerURL()}/api/currentUser`;
         Logger.logDebug("AuthService", `Getting current user from: ${endpoint}`);
         return fetch(endpoint, {
-            timeout: 5,
-            headers: new Headers({'Accept': 'application/json'})
-        }).then((response) => {
-            this.checkResponse(response);
-            return response.json();
-        }).then((user) => {
-            Logger.logDebug("AuthService", user);
-            return !_.isNil(user);
-        });
+            timeout: 10,
+            headers: new Headers({'Accept': 'application/json'}),
+            credentials: "same-origin"
+        })
+            .then(this.checkResponse)
+            .then((response) => response.json());
     }
 
     changePassword(oldPassword, newPassword) {
@@ -79,7 +78,14 @@ class AuthService extends BaseService {
             if (!_.isNil(user)) {
                 this.db.delete(user);
             }
-            this.db.create(userResponse, User.schema.name);
+            user = new User();
+            user.uuid = userResponse.uuid;
+            user.email = userResponse.email;
+            user.firstName = userResponse.firstName;
+            user.lastName = userResponse.lastName;
+            user.passwordChanged = userResponse.passwordChanged;
+            Logger.logDebug("AuthService", JSON.stringify(user));
+            this.db.create(User.schema.name, user);
         });
     }
 }
