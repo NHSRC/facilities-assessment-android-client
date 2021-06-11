@@ -1,5 +1,5 @@
 import React from "react";
-import {ActivityIndicator, NativeModules, Alert, Dimensions, Image, StyleSheet, TouchableWithoutFeedback} from "react-native";
+import {Alert, Dimensions, Image, StyleSheet, TouchableWithoutFeedback} from "react-native";
 import {Body, Button, Container, Content, Header, Icon, Left, StyleProvider, Title, Text, View, Right} from "native-base";
 import ViewComponent from "../common/ViewComponent";
 import TypedTransition from "../../framework/routing/TypedTransition";
@@ -35,7 +35,9 @@ class ModeSelection extends ViewComponent {
     }
 
     componentWillMount() {
-        this.dispatchAction(Actions.MODE_SELECTION, {...this.props.params})
+        this.dispatchAction(Actions.MODE_SELECTION, {...this.props.params, setLoginStatus: (status) => {
+                this.dispatchAction(Actions.SET_LOGIN_STATUS, {loggedIn: status});
+            }});
     }
 
     static styles = StyleSheet.create({
@@ -144,14 +146,16 @@ class ModeSelection extends ViewComponent {
                                     <Icon style={{color: 'white'}} name="menu"/>
                                 </Button></Left> : <View/>}
                         <Body style={{flexGrow: 1}}>
-                        <Title style={[Typography.paperFontTitle, {
-                            fontWeight: 'bold',
-                            color: 'white',
-                            alignSelf: 'flex-start',
-                            marginLeft: 10
-                        }]}>GUNAK (गुणक)</Title>
+                            <Title style={[Typography.paperFontTitle, {
+                                fontWeight: 'bold',
+                                color: 'white',
+                                alignSelf: 'flex-start',
+                                marginLeft: 10
+                            }]}>GUNAK (गुणक)</Title>
                         </Body>
-                        <Right style={{flex: 0.1}}/>
+                        {this.state.loggedIn && <Right style={{flex: 0.16}}>
+                            <Button transparent><Icon style={{color: 'white'}} name="log-out" onPress={() => this.dispatchAction(Actions.LOGOUT, )}/></Button>
+                        </Right>}
                     </Header>
                     <Content contentContainerStyle={ModeSelection.styles.container}>
                         <View style={[ModeSelection.styles.modeContainer]}>

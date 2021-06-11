@@ -44,6 +44,12 @@ class AuthService extends BaseService {
             });
     }
 
+    logout() {
+        let endpoint = `${this.getService(SettingsService).getServerURL()}/api/logout`;
+        Logger.logDebug("AuthService", `Attempting logout: ${endpoint}`);
+        return fetch(endpoint, {credentials: "same-origin"}).catch(() => {});
+    }
+
     verifySession() {
         let endpoint = `${this.getService(SettingsService).getServerURL()}/api/currentUser`;
         Logger.logDebug("AuthService", `Getting current user from: ${endpoint}`);
@@ -84,7 +90,6 @@ class AuthService extends BaseService {
             user.firstName = userResponse.firstName;
             user.lastName = userResponse.lastName;
             user.passwordChanged = userResponse.passwordChanged;
-            Logger.logDebug("AuthService", JSON.stringify(user));
             this.db.create(User.schema.name, user);
         });
     }

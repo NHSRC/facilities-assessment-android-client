@@ -24,15 +24,6 @@ const _areSubmissionDetailsAvailable = function (assessment, beans) {
         FacilityAssessment.seriesNameCheckPassed(assessment.assessmentTool, assessment));
 };
 
-const checkLoginStatus = function (state, action, beans) {
-    if (SubmitAssessmentRule.isLoginRequired() && action.loginStatus !== LoginStatus.LOGGED_IN) {
-        beans.get(AuthService).verifySession().then(() => action.loggedIn()).catch(() => action.notLoggedIn());
-        return state;
-    }
-
-    return startSubmitAssessment(state, {...action, loginStatus: LoginStatus.LOGIN_NOT_REQUIRED}, beans);
-}
-
 const updateLoginStatus = function (state, action, context) {
     return _.assignIn(state, {
         loginStatus: action.loginStatus
@@ -43,15 +34,22 @@ const startSubmitAssessment = function (state, action, beans) {
     const entityService = beans.get(EntityService);
 
     let assessment = FacilityAssessment.clone(action.facilityAssessment);
+    Logger.logDebug("submitAssessment", JSON.stringify(assessment));
     let submissionDetailAvailable = _areSubmissionDetailsAvailable(assessment, beans);
     const assessmentMetaDataList = entityService.findAll(AssessmentMetaData);
-    return _.assignIn(state, {
-        loginStatus: action.loginStatus,
+    let newState = _.assignIn(state, {
         chosenAssessment: assessment,
         submissionDetailAvailable: submissionDetailAvailable,
         assessmentToolType: assessment.assessmentTool.assessmentToolType,
         assessmentMetaDataList: assessmentMetaDataList
     });
+    if (SubmitAssessmentRule.isLoginRequired() && action.loginStatus !== LoginStatus.LOGGED_IN) {
+        beans.get(AuthService).verifySession().then(() => action.loggedIn()).catch(() => action.notLoggedIn());
+    } else {
+        newState.loginStatus = LoginStatus.LOGIN_NOT_REQUIRED;
+    }
+
+    return newState;
 };
 
 const submissionCancelled = function (state, action, beans) {
@@ -130,7 +128,6 @@ const changeLoginDetails = function (state, action, beans) {
 
 export default new Map([
     ["SYNC_ASSESSMENT", syncAssessment],
-    ["CHECK_LOGIN_STATUS", checkLoginStatus],
     ["START_SUBMIT_ASSESSMENT", startSubmitAssessment],
     ["UPDATE_CHECKPOINT", markAssessmentUnsubmitted],
     ["ASSESSMENT_SYNCED", assessmentSynced],

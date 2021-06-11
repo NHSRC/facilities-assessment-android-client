@@ -5,6 +5,7 @@ import ReferenceDataSyncService from "../service/ReferenceDataSyncService";
 import EntitiesMetaData from "../models/entityMetaData/EntitiesMetaData";
 import StateSelectionUserState from "./userState/StateSelectionUserState";
 import SeedProgress from "../models/SeedProgress";
+import AuthService from "../service/AuthService";
 
 const modeSelection = function (state, action, beans) {
     const assessmentModes = beans.get(ChecklistService).assessmentModes;
@@ -14,6 +15,7 @@ const modeSelection = function (state, action, beans) {
     newState.downloading = false;
     newState.seedProgress = undefined;
     newState.statesAvailableToBeLoaded = seedProgress.numberOfStates < beans.get(StateService).getAllStates().length;
+    beans.get(AuthService).verifySession().then(() => action.setLoginStatus && action.setLoginStatus(true)).catch(() => action.setLoginStatus && action.setLoginStatus(false));
     return newState
 };
 
@@ -72,17 +74,33 @@ const downloadCompleted = function (state, action, beans) {
     return newState;
 };
 
+const setLoginStatus = function (state, action, beans) {
+    const newState = clone(state);
+    newState.loggedIn = action.loggedIn;
+    return newState;
+};
+
+const logout = function (state, action, beans) {
+    const newState = clone(state);
+    beans.get(AuthService).logout();
+    newState.loggedIn = action.loggedIn;
+    return newState;
+};
+
 export default new Map([
     ["MODE_SELECTION", modeSelection],
     ["DOWNLOAD_REFERENCE_DATA", downloadReferenceData],
     ["DOWNLOAD_COMPLETED", downloadCompleted],
     ["DOWNLOAD_PROGRESS", downloadProgress],
-    ["DOWNLOAD_MY_ASSESSMENTS", downloadMyAssessments]
+    ["DOWNLOAD_MY_ASSESSMENTS", downloadMyAssessments],
+    ["SET_LOGIN_STATUS", setLoginStatus],
+    ["LOGOUT", logout],
 ]);
 
 export let modeSelectionInit = {
     modes: [],
     statesAvailableToBeLoaded: undefined,
     seedProgress: undefined,
-    downloading: false
+    downloading: false,
+    loggedIn: false
 };

@@ -43,8 +43,8 @@ class SubmitAssessment extends AbstractComponent {
     }
 
     componentWillMount() {
-        this.dispatchAction(Actions.CHECK_LOGIN_STATUS, {
-            loggedIn: () => this.dispatchAction(Actions.START_SUBMIT_ASSESSMENT, {facilityAssessment: this.props.facilityAssessment, loginStatus: LoginStatus.LOGGED_IN}),
+        this.dispatchAction(Actions.START_SUBMIT_ASSESSMENT, {
+            loggedIn: () => this.dispatchAction(Actions.UPDATE_LOGIN_STATUS, {loginStatus: LoginStatus.LOGGED_IN}),
             notLoggedIn: () => this.dispatchAction(Actions.UPDATE_LOGIN_STATUS, {loginStatus: LoginStatus.NOT_LOGGED_IN}),
             facilityAssessment: this.props.facilityAssessment
         });
