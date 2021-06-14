@@ -1,8 +1,6 @@
-import _ from "lodash";
-
 class SubmitAssessmentRule {
-    static isLoginRequired() {
-        return true;
+    static isLoginRequired(assessment) {
+        return assessment.assessmentType.name === 'External';
     }
 }
 

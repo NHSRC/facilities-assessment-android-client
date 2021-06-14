@@ -11,11 +11,19 @@ class AuthService extends BaseService {
         super(db, beanStore);
     }
 
+    checkLoginFailure(response) {
+        if (response.status === 401) {
+            throw new Error("Your email and/or password combination is not correct");
+        }
+
+        return Promise.resolve(response);
+    }
+
     checkResponse(response) {
         if (!response.ok) {
             let message = `${response.status}: ${response.statusText}`;
             Logger.logError("AuthService", message);
-            throw Error(message);
+            throw new Error(message);
         }
         return Promise.resolve(response);
     }
@@ -36,6 +44,7 @@ class AuthService extends BaseService {
         let endpoint = `${this.getService(SettingsService).getServerURL()}/api/login`;
         Logger.logDebug("AuthService", `Attempting login: ${endpoint}`);
         return fetch(endpoint, requestInfo)
+            .then(this.checkLoginFailure)
             .then(this.checkResponse)
             .then(() => this.verifySession())
             .then((user) => {

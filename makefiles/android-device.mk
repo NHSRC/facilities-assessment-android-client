@@ -30,6 +30,12 @@ restart-app-android: stop-app-android start-app-android
 reload-app:
 	adb shell input text "rr"
 
+fill-email:
+	@adb shell input text $(GUNAK_USER_EMAIL)
+
+fill-password:
+	@adb shell input text $(GUNAK_USER_PASSWORD)
+
 disable-debug-apk-checks:
 	adb shell settings put global verifier_verify_adb_installs 0
 	adb shell settings put global package_verifier_enable 0

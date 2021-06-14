@@ -1,20 +1,22 @@
 import React from 'react';
 import {Platform, StyleSheet, View, TextInput} from 'react-native';
 import AbstractComponent from "../../common/AbstractComponent";
-import {Button, Text} from "native-base";
+import {Button, Text, H3} from "native-base";
 import PropTypes from "prop-types";
 import Typography from "../../styles/Typography";
 import Actions from "../../../action";
 import PrimaryColors from "../../styles/PrimaryColors";
 import SubmitButton from "../../common/SubmitButton";
 import {LoginStatus} from "../../../action/submitAssessment";
+import Logger from "../../../framework/Logger";
 
 class Login extends AbstractComponent {
     static propTypes = {
         userName: PropTypes.string,
         password: PropTypes.string,
         changedPassword: PropTypes.string,
-        changePasswordRequired: PropTypes.bool.isRequired
+        changePasswordRequired: PropTypes.bool.isRequired,
+        errorMessage: PropTypes.string
     };
 
     static styles = StyleSheet.create({
@@ -74,10 +76,11 @@ class Login extends AbstractComponent {
                                this.dispatchAction(Actions.CHANGE_LOGIN_DETAILS, {newPassword: text})
                            }}/>
             </View>}
+            {this.props.errorMessage && <H3 style={{marginBottom: 20, color: 'red'}}>{this.props.errorMessage}</H3>}
             <SubmitButton onPress={() => {
                 this.dispatchAction(this.props.changePasswordRequired ? Actions.CHANGE_PASSWORD : Actions.LOGIN, {
                     successfulLogin: () => this.dispatchAction(Actions.UPDATE_LOGIN_STATUS, {loginStatus: LoginStatus.LOGGED_IN}),
-                    loginFailed: (message) => this.dispatchAction(Actions.UPDATE_LOGIN_STATUS, {loginStatus: LoginStatus.NOT_LOGGED_IN, failureMessage: message})
+                    loginFailed: (message) => this.dispatchAction(Actions.UPDATE_LOGIN_STATUS, {loginStatus: LoginStatus.NOT_LOGGED_IN, errorMessage: message})
                 });
             }} buttonText={this.props.changePasswordRequired ? 'CHANGE PASSWORD' : 'LOGIN'}/>
             {<Button block
