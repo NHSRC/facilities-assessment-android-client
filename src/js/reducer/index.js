@@ -14,6 +14,7 @@ import Reducer from './Reducer';
 import stateSelectionActions, {stateSelectionInit} from "../action/stateSelection";
 import assessmentIndicatorsActions, {assessmentIndicatorsInit} from "../action/assessmentIndicators";
 import submitAssessmentActions, {submitAssessmentInit} from "../action/submitAssessment";
+import userProfileActions, {userProfileInit} from "../action/userProfile";
 
 export default (beans) => {
     let reducerMap = {};
@@ -92,6 +93,11 @@ export default (beans) => {
             "stateKey": "submitAssessment",
             "actions": submitAssessmentActions,
             "initState": submitAssessmentInit
+        },
+        {
+            "stateKey": "userProfile",
+            "actions": userProfileActions,
+            "initState": userProfileInit
         }
     ].forEach(({stateKey, actions, initState}) => {
         reducerMap[stateKey] = Reducer.factory(actions, initState, beans);

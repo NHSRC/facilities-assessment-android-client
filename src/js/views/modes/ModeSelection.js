@@ -18,7 +18,8 @@ import platformTheme from "../../native-base-theme/variables/platform";
 import GunakButton from "../common/buttons/GunakButton";
 import PrimaryColors from "../styles/PrimaryColors";
 import PlatformIndependentProgressBar from "../progressBar/PlatformIndependentProgressBar";
-import {LoginStatus, MSLoginStatus} from "../../action/modeSelection";
+import {MSLoginStatus} from "../../action/modeSelection";
+import UserProfile from "../user/UserProfile";
 
 const nqasIcon = require('../img/nqas.png');
 const kayakalpIcon = require('../img/kayakalp.png');
@@ -156,16 +157,7 @@ class ModeSelection extends ViewComponent {
                                 marginLeft: 10
                             }]}>GUNAK (गुणक)</Title>
                         </Body>
-                        {this.state.loginStatus !== MSLoginStatus.MS_NOT_LOGGED_IN && <Right style={{flex: 0.16}}>
-                            {this.state.loginStatus === MSLoginStatus.MS_LOGGED_IN ?
-                                <Button transparent><Icon style={{color: 'white'}} name="log-out"
-                                                          onPress={() => this.dispatchAction(Actions.LOGOUT, {
-                                                              loggedOut: () => {
-                                                                  this.dispatchAction(Actions.SET_LOGIN_STATUS, {loginStatus: MSLoginStatus.MS_NOT_LOGGED_IN})
-                                                              }
-                                                          })}/></Button> :
-                                <ActivityIndicator animating={true} size={"small"} color="white" style={{height: 20}}/>}
-                        </Right>}
+                        {this.getRightActions()}
                     </Header>
                     <Content contentContainerStyle={ModeSelection.styles.container}>
                         <View style={[ModeSelection.styles.modeContainer]}>
@@ -204,6 +196,19 @@ class ModeSelection extends ViewComponent {
                 </Container>
             </StyleProvider>
         );
+    }
+
+    getRightActions() {
+        return this.state.loginStatus !== MSLoginStatus.MS_NOT_LOGGED_IN && <Right style={{flex: 0.16}}>
+            {this.state.loginStatus === MSLoginStatus.MS_LOGGED_IN ?
+                <>
+                    <Button transparent><Icon style={{color: 'white'}} name="person" onPress={() => TypedTransition.from(this).to(UserProfile)}/></Button>
+                    <Button transparent><Icon style={{color: 'white'}} name="log-out"
+                                              onPress={() => this.dispatchAction(Actions.LOGOUT, {
+                                                  loggedOut: () => this.dispatchAction(Actions.SET_LOGIN_STATUS, {loginStatus: MSLoginStatus.MS_NOT_LOGGED_IN})
+                                              })}/></Button></> :
+                <ActivityIndicator animating={true} size={"small"} color="white" style={{height: 20}}/>}
+        </Right>;
     }
 
     downloadButtonContent(normalText) {

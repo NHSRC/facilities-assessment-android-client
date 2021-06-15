@@ -100,7 +100,7 @@ export default new Map([
     ["DOWNLOAD_PROGRESS", downloadProgress],
     ["DOWNLOAD_MY_ASSESSMENTS", downloadMyAssessments],
     ["SET_LOGIN_STATUS", setLoginStatus],
-    ["LOGOUT", logout],
+    ["LOGOUT", logout]
 ]);
 
 export let modeSelectionInit = {

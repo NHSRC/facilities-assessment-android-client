@@ -15,8 +15,7 @@ export const LoginStatus = {
     NOT_LOGGED_IN: 3,
     LOGIN_NOT_REQUIRED: 4,
     DO_NOT_ASK: 5,
-    TRYING_LOGIN: 6,
-    CHANGING_PASSWORD: 7
+    TRYING_LOGIN: 6
 };
 
 const _areSubmissionDetailsAvailable = function (assessment, beans) {
@@ -121,30 +120,23 @@ const login = function (state, action, beans) {
     });
 };
 
-const changePassword = function (state, action, beans) {
-    beans.get(AuthService).changePassword(state.password, state.newPassword).then(() => action.passwordChangedSuccessfully()).catch(action.passwordChangeFailed());
-    return _.assignIn(state, {
-        loginStatus: LoginStatus.CHANGING_PASSWORD
-    });
-};
-
 const changeLoginDetails = function (state, action, beans) {
     return _.assignIn(state, action);
 };
 
 export default new Map([
-    ["SYNC_ASSESSMENT", syncAssessment],
-    ["START_SUBMIT_ASSESSMENT", startSubmitAssessment],
-    ["UPDATE_CHECKPOINT", markAssessmentUnsubmitted],
-    ["ASSESSMENT_SYNCED", assessmentSynced],
-    ["ENTER_CUSTOM_INFO", enterCustomInfo],
-    ["ENTER_ASSESSMENT_SERIES", enterSeries],
-    ["GENERATE_ASSESSMENT_SERIES", generateAssessmentSeries],
-    ["SUBMISSION_CANCELLED", submissionCancelled],
-    ["CHANGE_LOGIN_DETAILS", changeLoginDetails],
-    ["LOGIN", login],
-    ["UPDATE_LOGIN_STATUS", updateLoginStatus],
-    ["CHANGE_PASSWORD", changePassword]]
+        ["SYNC_ASSESSMENT", syncAssessment],
+        ["START_SUBMIT_ASSESSMENT", startSubmitAssessment],
+        ["UPDATE_CHECKPOINT", markAssessmentUnsubmitted],
+        ["ASSESSMENT_SYNCED", assessmentSynced],
+        ["ENTER_CUSTOM_INFO", enterCustomInfo],
+        ["ENTER_ASSESSMENT_SERIES", enterSeries],
+        ["GENERATE_ASSESSMENT_SERIES", generateAssessmentSeries],
+        ["SUBMISSION_CANCELLED", submissionCancelled],
+        ["CHANGE_LOGIN_DETAILS", changeLoginDetails],
+        ["LOGIN", login],
+        ["UPDATE_LOGIN_STATUS", updateLoginStatus]
+    ]
 );
 
 export let submitAssessmentInit = {
@@ -154,6 +146,5 @@ export let submitAssessmentInit = {
     loginStatus: LoginStatus.UNKNOWN,
     email: null,
     password: null,
-    newPassword: null,
     errorMessage: null
 };

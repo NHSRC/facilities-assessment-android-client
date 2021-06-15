@@ -14,7 +14,6 @@ class Login extends AbstractComponent {
         userName: PropTypes.string,
         password: PropTypes.string,
         changedPassword: PropTypes.string,
-        changePasswordRequired: PropTypes.bool.isRequired,
         errorMessage: PropTypes.string,
         busy: PropTypes.bool
     };
@@ -42,7 +41,7 @@ class Login extends AbstractComponent {
 
     render() {
         return <View style={Login.styles.container}>
-            {!this.props.changePasswordRequired && <View style={{marginTop: 15, marginBottom: 30}}>
+            <View style={{marginTop: 15, marginBottom: 30}}>
                 <Text style={[Typography.paperFontTitle]}>For external assessment submission login is required</Text>
                 <Text style={[Typography.paperFontSubhead, {marginTop: 20}]}>Email</Text>
                 <TextInput style={Login.styles.input}
@@ -52,8 +51,8 @@ class Login extends AbstractComponent {
                            onChangeText={(text) => {
                                this.dispatchAction(Actions.CHANGE_LOGIN_DETAILS, {email: text})
                            }}/>
-            </View>}
-            {!this.props.changePasswordRequired && <View style={{marginBottom: 30}}>
+            </View>
+            <View style={{marginBottom: 30}}>
                 <Text style={[Typography.paperFontSubhead]}>Password</Text>
                 <TextInput style={Login.styles.input}
                     // value={}
@@ -63,8 +62,8 @@ class Login extends AbstractComponent {
                            onChangeText={(text) => {
                                this.dispatchAction(Actions.CHANGE_LOGIN_DETAILS, {password: text})
                            }}/>
-            </View>}
-            {this.props.changePasswordRequired && <View style={{marginBottom: 20}}>
+            </View>
+            <View style={{marginBottom: 20}}>
                 <Text style={[Typography.paperFontTitle]}>It is recommended that you change your password once</Text>
                 <Text style={[Typography.paperFontSubhead]}>New Password</Text>
                 <TextInput style={Login.styles.input}
@@ -75,17 +74,17 @@ class Login extends AbstractComponent {
                            onChangeText={(text) => {
                                this.dispatchAction(Actions.CHANGE_LOGIN_DETAILS, {newPassword: text})
                            }}/>
-            </View>}
+            </View>
             {this.props.errorMessage && <H3 style={{marginBottom: 20, color: 'red'}}>{this.props.errorMessage}</H3>}
             <SubmitButton onPress={() => {
-                this.dispatchAction(this.props.changePasswordRequired ? Actions.CHANGE_PASSWORD : Actions.LOGIN, {
+                this.dispatchAction(Actions.LOGIN, {
                     successfulLogin: () => this.dispatchAction(Actions.UPDATE_LOGIN_STATUS, {loginStatus: LoginStatus.LOGGED_IN}),
                     loginFailed: (message) => this.dispatchAction(Actions.UPDATE_LOGIN_STATUS, {loginStatus: LoginStatus.NOT_LOGGED_IN, errorMessage: message})
                 });
-            }} buttonText={this.props.changePasswordRequired ? 'CHANGE PASSWORD' : 'LOGIN'} busy={this.props.busy}/>
+            }} buttonText={'LOGIN'} busy={this.props.busy}/>
             {<Button block
                      style={{flex: 0.5, marginTop: 20}}
-                     onPress={() => this.dispatchAction(Actions.SUBMISSION_CANCELLED)}><Text>{this.props.changePasswordRequired ? "SKIP" : "CANCEL"}</Text></Button>}
+                     onPress={() => this.dispatchAction(Actions.SUBMISSION_CANCELLED)}><Text>CANCEL</Text></Button>}
         </View>
     }
 }

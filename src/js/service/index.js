@@ -15,4 +15,3 @@ export * from './ReportService';
 export * from './FacilityAssessmentProgressService';
 export * from './ExportService';
 export * from './CertificationService';
-export * from './LocalReferenceDataSyncService';
