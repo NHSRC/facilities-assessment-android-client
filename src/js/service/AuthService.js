@@ -4,6 +4,7 @@ import BaseService from "./BaseService";
 import User from "../models/User";
 import Logger from "../framework/Logger";
 import SettingsService from "./SettingsService";
+import UserService from "./UserService";
 
 @Service("authService")
 class AuthService extends BaseService {
@@ -48,7 +49,7 @@ class AuthService extends BaseService {
             .then(this.checkResponse)
             .then(() => this.verifySession())
             .then((user) => {
-                this._saveOrUpdateUser(user);
+                this.getService(UserService).saveUser(user)
                 return user;
             });
     }
@@ -69,38 +70,6 @@ class AuthService extends BaseService {
         })
             .then(this.checkResponse)
             .then((response) => response.json());
-    }
-
-    changePassword(oldPassword, newPassword) {
-        let user = this.findOne(User);
-        user.oldPassword = oldPassword;
-        user.newPassword = newPassword;
-
-        const requestInfo = {
-            method: 'POST',
-            body: JSON.stringify(user()),
-            headers: new Headers({'Content-Type': 'application/json'})
-        };
-
-        return fetch(`${this.getService(SettingsService).getServerURL()}}/api/currentUser`, requestInfo).then((response) => {
-            if (!response.ok) throw Error(`${response.status}: ${response.statusText}`);
-        });
-    }
-
-    _saveOrUpdateUser(userResponse) {
-        this.db.write(() => {
-            let user = this.findOne(User);
-            if (!_.isNil(user)) {
-                this.db.delete(user);
-            }
-            user = new User();
-            user.uuid = userResponse.uuid;
-            user.email = userResponse.email;
-            user.firstName = userResponse.firstName;
-            user.lastName = userResponse.lastName;
-            user.passwordChanged = userResponse.passwordChanged;
-            this.db.create(User.schema.name, user);
-        });
     }
 }
 

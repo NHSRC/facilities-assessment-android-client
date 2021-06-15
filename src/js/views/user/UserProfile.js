@@ -1,14 +1,16 @@
 import React from "react";
 import {Dimensions, Platform, StyleSheet, TextInput} from "react-native";
-import {Body, Container, CheckBox, Content, Header, StyleProvider, Title, View, Text} from "native-base";
+import {CheckBox, Content, H3, Text, View} from "native-base";
 import Path from "../../framework/routing/Path";
 import Typography from "../styles/Typography";
 import Logger from "../../framework/Logger";
 import Actions from "../../action";
-import getTheme from "../../native-base-theme/components";
-import platformTheme from "../../native-base-theme/variables/platform";
 import PrimaryColors from "../styles/PrimaryColors";
 import AbstractComponent from "../common/AbstractComponent";
+import SubmitButton from "../common/SubmitButton";
+import TypedTransition from "../../framework/routing/TypedTransition";
+import ModeSelection from "../modes/ModeSelection";
+import GunakContainer from "../common/GunakContainer";
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
@@ -53,60 +55,67 @@ class UserProfile extends AbstractComponent {
 
     render() {
         Logger.logDebug('UserProfile', 'render');
-        return <StyleProvider style={getTheme(platformTheme)}>
-            <Container>
-                <Header style={{backgroundColor: PrimaryColors.header}}>
-                    <Body style={{flexGrow: 1}}>
-                        <Title style={[Typography.paperFontTitle, {
-                            fontWeight: 'bold',
-                            color: 'white',
-                            alignSelf: 'flex-start',
-                            marginLeft: 10
-                        }]}>User Profile</Title>
-                    </Body>
-                </Header>
-                <Content contentContainerStyle={UserProfile.styles.container}>
-                    <View style={{marginTop: 15, marginBottom: 30}}>
-                        <Text style={[Typography.paperFontSubhead, {marginTop: 20}]}>Email</Text>
-                        <Text style={[Typography.paperFontSubhead, {marginTop: 20}]}>{this.state.user.email}</Text>
-                    </View>
-                    <View style={{marginTop: 15, marginBottom: 30}}>
-                        <Text style={[Typography.paperFontSubhead, {marginTop: 20}]}>First name</Text>
-                        <TextInput style={UserProfile.styles.input}
-                            // value={}
-                                   underlineColorAndroid={PrimaryColors["grey"]}
-                                   words="words"
-                                   onChangeText={(text) => this.dispatchAction(Actions.UPDATE_USER, {firstName: text})}/>
-                    </View>
-                    <View style={{marginTop: 15, marginBottom: 30}}>
-                        <Text style={[Typography.paperFontSubhead, {marginTop: 20}]}>Last name</Text>
-                        <TextInput style={UserProfile.styles.input}
-                            // value={}
-                                   underlineColorAndroid={PrimaryColors["grey"]}
-                                   words="words"
-                                   onChangeText={(text) => {
-                                       this.dispatchAction(Actions.UPDATE_USER, {lastName: text})
-                                   }}/>
-                    </View>
-                    <View style={{marginBottom: 20}}>
-                        <CheckBox checked={this.state.changingPassword} onPress={() => {}}/>
-                        <Text>Change password</Text>
-                    </View>
-                    {!this.state.user.passwordChanged && <Text style={[Typography.paperFontTitle]}>It is recommended that you change your password once</Text>}
-                    <View style={{marginBottom: 20}}>
-                        <Text style={[Typography.paperFontSubhead]}>New Password</Text>
-                        <TextInput style={UserProfile.styles.input}
-                            // value={}
-                                   underlineColorAndroid={PrimaryColors["grey"]}
-                                   words="words"
-                                   secureTextEntry={true}
-                                   onChangeText={(text) => {
-                                       this.dispatchAction(Actions.UPDATE_USER, {newPassword: text})
-                                   }}/>
-                    </View>
-                </Content>
-            </Container>
-        </StyleProvider>;
+        return <GunakContainer title="User Profile" onHeaderButtonPress={() => TypedTransition.from(this).resetTo(ModeSelection)}>
+            <View style={UserProfile.styles.container}>
+                <View>
+                    <Text style={[Typography.paperFontSubhead]}>Email</Text>
+                    <Text style={[Typography.paperFontSubhead]}>{this.state.user.email}</Text>
+                </View>
+                <View style={{marginTop: 20}}>
+                    <Text style={[Typography.paperFontSubhead]}>First name</Text>
+                    <TextInput style={UserProfile.styles.input}
+                               value={this.state.user.firstName}
+                               underlineColorAndroid={PrimaryColors["grey"]}
+                               words="words"
+                               onChangeText={(text) => this.dispatchAction(Actions.UPDATE_USER, {firstName: text})}/>
+                </View>
+                <View style={{marginTop: 20}}>
+                    <Text style={[Typography.paperFontSubhead]}>Last name</Text>
+                    <TextInput style={UserProfile.styles.input}
+                               value={this.state.user.lastName}
+                               underlineColorAndroid={PrimaryColors["grey"]}
+                               words="words"
+                               onChangeText={(text) => {
+                                   this.dispatchAction(Actions.UPDATE_USER, {lastName: text})
+                               }}/>
+                </View>
+                {!this.state.user.passwordChanged && <Text style={[Typography.paperFontTitle]}>It is recommended that you change your password once</Text>}
+                <View style={{marginTop: 20, flexDirection: 'row'}}>
+                    <CheckBox checked={this.state.changingPassword} onPress={() => this.dispatchAction(Actions.CHANGING_PASSWORD)}/>
+                    <Text style={{marginLeft: 20}}>Change password</Text>
+                </View>
+                {this.state.changingPassword && <View style={{marginTop: 20}}>
+                    <Text style={[Typography.paperFontSubhead]}>Old Password</Text>
+                    <TextInput style={UserProfile.styles.input}
+                        // value={}
+                               underlineColorAndroid={PrimaryColors["grey"]}
+                               words="words"
+                               secureTextEntry={true}
+                               onChangeText={(text) => {
+                                   this.dispatchAction(Actions.UPDATE_USER, {oldPassword: text})
+                               }}/>
+                </View>}
+                {this.state.changingPassword && <View style={{marginTop: 20}}>
+                    <Text style={[Typography.paperFontSubhead]}>New Password</Text>
+                    <TextInput style={UserProfile.styles.input}
+                        // value={}
+                               underlineColorAndroid={PrimaryColors["grey"]}
+                               words="words"
+                               secureTextEntry={true}
+                               onChangeText={(text) => {
+                                   this.dispatchAction(Actions.UPDATE_USER, {newPassword: text})
+                               }}/>
+                </View>}
+                {this.props.errorMessage && <H3 style={{marginTop: 20, color: 'red'}}>{this.props.errorMessage}</H3>}
+                <SubmitButton onPress={() => {
+                    this.dispatchAction(Actions.SAVE_USER_PROFILE, {
+                        userSaved: () => this.dispatchAction(Actions.UPDATE_SAVE_STATUS, {}),
+                        userSaveFailed: (message) => this.dispatchAction(Actions.UPDATE_SAVE_STATUS, {errorMessage: message})
+                    });
+                }} buttonText={'SUBMIT'} busy={this.state.busy}
+                              buttonStyle={{marginTop: 20}}/>
+            </View>
+        </GunakContainer>;
     }
 }
 
