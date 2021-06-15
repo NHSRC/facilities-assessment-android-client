@@ -11,6 +11,7 @@ import Actions from "../../action";
 import bugsnag from "../../utility/Bugsnag";
 import GunakContainer from "../common/GunakContainer";
 import PrimaryColors from "../styles/PrimaryColors";
+import ModeSelection from "../modes/ModeSelection";
 
 const deviceWidth = Dimensions.get('window').width;
 
@@ -42,7 +43,7 @@ class Dashboard extends AbstractComponent {
                     cb: () => {
                     }
                 });
-                TypedTransition.from(this).goBack();
+                TypedTransition.from(this).resetTo(ModeSelection);
             }}>
                 <Tabs style={Dashboard.styles.tabs}>
                     <Tab heading="START">

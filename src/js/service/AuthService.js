@@ -56,7 +56,7 @@ class AuthService extends BaseService {
     logout() {
         let endpoint = `${this.getService(SettingsService).getServerURL()}/api/logout`;
         Logger.logDebug("AuthService", `Attempting logout: ${endpoint}`);
-        return fetch(endpoint, {credentials: "same-origin"}).catch(() => {});
+        return fetch(endpoint, {credentials: "same-origin"});
     }
 
     verifySession() {

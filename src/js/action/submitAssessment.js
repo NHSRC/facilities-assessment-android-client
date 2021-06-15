@@ -13,7 +13,8 @@ export const LoginStatus = {
     UNKNOWN: 1,
     LOGGED_IN: 2,
     NOT_LOGGED_IN: 3,
-    LOGIN_NOT_REQUIRED: 4
+    LOGIN_NOT_REQUIRED: 4,
+    DO_NOT_ASK: 5
 };
 
 const _areSubmissionDetailsAvailable = function (assessment, beans) {
@@ -55,7 +56,7 @@ const startSubmitAssessment = function (state, action, beans) {
 };
 
 const submissionCancelled = function (state, action, beans) {
-    return _.assignIn(state, {chosenAssessment: undefined});
+    return _.assignIn(state, {chosenAssessment: undefined, loginStatus: LoginStatus.DO_NOT_ASK});
 };
 
 const syncAssessment = function (state, action, beans) {

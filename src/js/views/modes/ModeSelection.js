@@ -1,5 +1,5 @@
 import React from "react";
-import {Alert, Dimensions, Image, StyleSheet, TouchableWithoutFeedback} from "react-native";
+import {Alert, Dimensions, Image, ActivityIndicator, StyleSheet, TouchableWithoutFeedback} from "react-native";
 import {Body, Button, Container, Content, Header, Icon, Left, StyleProvider, Title, Text, View, Right} from "native-base";
 import ViewComponent from "../common/ViewComponent";
 import TypedTransition from "../../framework/routing/TypedTransition";
@@ -18,6 +18,7 @@ import platformTheme from "../../native-base-theme/variables/platform";
 import GunakButton from "../common/buttons/GunakButton";
 import PrimaryColors from "../styles/PrimaryColors";
 import PlatformIndependentProgressBar from "../progressBar/PlatformIndependentProgressBar";
+import {LoginStatus, MSLoginStatus} from "../../action/modeSelection";
 
 const nqasIcon = require('../img/nqas.png');
 const kayakalpIcon = require('../img/kayakalp.png');
@@ -35,9 +36,11 @@ class ModeSelection extends ViewComponent {
     }
 
     componentWillMount() {
-        this.dispatchAction(Actions.MODE_SELECTION, {...this.props.params, setLoginStatus: (status) => {
-                this.dispatchAction(Actions.SET_LOGIN_STATUS, {loggedIn: status});
-            }});
+        this.dispatchAction(Actions.MODE_SELECTION, {
+            ...this.props.params, setLoginStatus: (status) => {
+                this.dispatchAction(Actions.SET_LOGIN_STATUS, {loginStatus: status});
+            }
+        });
     }
 
     static styles = StyleSheet.create({
@@ -153,8 +156,15 @@ class ModeSelection extends ViewComponent {
                                 marginLeft: 10
                             }]}>GUNAK (गुणक)</Title>
                         </Body>
-                        {this.state.loggedIn && <Right style={{flex: 0.16}}>
-                            <Button transparent><Icon style={{color: 'white'}} name="log-out" onPress={() => this.dispatchAction(Actions.LOGOUT, )}/></Button>
+                        {this.state.loginStatus !== MSLoginStatus.MS_NOT_LOGGED_IN && <Right style={{flex: 0.16}}>
+                            {this.state.loginStatus === MSLoginStatus.MS_LOGGED_IN ?
+                                <Button transparent><Icon style={{color: 'white'}} name="log-out"
+                                                          onPress={() => this.dispatchAction(Actions.LOGOUT, {
+                                                              loggedOut: () => {
+                                                                  this.dispatchAction(Actions.SET_LOGIN_STATUS, {loginStatus: MSLoginStatus.MS_NOT_LOGGED_IN})
+                                                              }
+                                                          })}/></Button> :
+                                <ActivityIndicator animating={true} size={"small"} color="white" style={{height: 20}}/>}
                         </Right>}
                     </Header>
                     <Content contentContainerStyle={ModeSelection.styles.container}>

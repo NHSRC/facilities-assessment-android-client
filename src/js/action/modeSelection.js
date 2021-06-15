@@ -7,6 +7,12 @@ import StateSelectionUserState from "./userState/StateSelectionUserState";
 import SeedProgress from "../models/SeedProgress";
 import AuthService from "../service/AuthService";
 
+export const MSLoginStatus = {
+    MS_LOGGED_IN: 1,
+    MS_NOT_LOGGED_IN: 2,
+    MS_LOGGING_OUT: 3
+};
+
 const modeSelection = function (state, action, beans) {
     const assessmentModes = beans.get(ChecklistService).assessmentModes;
     let seedProgress = beans.get(SeedProgressService).getSeedProgress();
@@ -15,7 +21,7 @@ const modeSelection = function (state, action, beans) {
     newState.downloading = false;
     newState.seedProgress = undefined;
     newState.statesAvailableToBeLoaded = seedProgress.numberOfStates < beans.get(StateService).getAllStates().length;
-    beans.get(AuthService).verifySession().then(() => action.setLoginStatus && action.setLoginStatus(true)).catch(() => action.setLoginStatus && action.setLoginStatus(false));
+    beans.get(AuthService).verifySession().then(() => action.setLoginStatus && action.setLoginStatus(MSLoginStatus.MS_LOGGED_IN)).catch(() => action.setLoginStatus && action.setLoginStatus(MSLoginStatus.MS_NOT_LOGGED_IN));
     return newState
 };
 
@@ -76,14 +82,14 @@ const downloadCompleted = function (state, action, beans) {
 
 const setLoginStatus = function (state, action, beans) {
     const newState = clone(state);
-    newState.loggedIn = action.loggedIn;
+    newState.loginStatus = action.loginStatus;
     return newState;
 };
 
 const logout = function (state, action, beans) {
     const newState = clone(state);
-    beans.get(AuthService).logout();
-    newState.loggedIn = action.loggedIn;
+    beans.get(AuthService).logout().then(action.loggedOut).catch(action.loggedOut);
+    newState.loginStatus = MSLoginStatus.MS_LOGGING_OUT;
     return newState;
 };
 
@@ -102,5 +108,5 @@ export let modeSelectionInit = {
     statesAvailableToBeLoaded: undefined,
     seedProgress: undefined,
     downloading: false,
-    loggedIn: false
+    loginStatus: MSLoginStatus.MS_NOT_LOGGED_IN
 };

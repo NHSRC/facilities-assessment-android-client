@@ -88,7 +88,7 @@ class SubmitAssessment extends AbstractComponent {
         let facilityAssessment = this.state.chosenAssessment ? this.state.chosenAssessment : this.props.facilityAssessment;
         return (
             <Modal transparent={true} visible={true} onRequestClose={() => this.dispatchAction(Actions.SUBMISSION_CANCELLED)}>
-                <GunakContainer title="Submit Assessment" hideBack={false}>
+                <GunakContainer title="Submit Assessment" hideBack={true}>
                     {this.state.loginStatus === LoginStatus.NOT_LOGGED_IN && <Login changePasswordRequired={false} errorMessage={this.state.errorMessage}/>}
                     {(this.state.loginStatus === LoginStatus.LOGIN_NOT_REQUIRED || this.state.loginStatus === LoginStatus.LOGGED_IN) &&
                     <View style={SubmitAssessment.styles.container}>
