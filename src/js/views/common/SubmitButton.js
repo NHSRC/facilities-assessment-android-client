@@ -1,10 +1,9 @@
 import React from 'react';
 import AbstractComponent from "../common/AbstractComponent";
 import {Button, Text} from 'native-base';
-import {StyleSheet, ActivityIndicator, View} from 'react-native';
+import {ActivityIndicator} from 'react-native';
 import PrimaryColors from "../styles/PrimaryColors";
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 
 class SubmitButton extends AbstractComponent {
     static propTypes = {

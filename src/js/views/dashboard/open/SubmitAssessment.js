@@ -89,7 +89,8 @@ class SubmitAssessment extends AbstractComponent {
         return (
             <Modal transparent={true} visible={true} onRequestClose={() => this.dispatchAction(Actions.SUBMISSION_CANCELLED)}>
                 <GunakContainer title="Submit Assessment" hideBack={true}>
-                    {this.state.loginStatus === LoginStatus.NOT_LOGGED_IN && <Login changePasswordRequired={false} errorMessage={this.state.errorMessage}/>}
+                    {(this.state.loginStatus === LoginStatus.NOT_LOGGED_IN || this.state.loginStatus === LoginStatus.TRYING_LOGIN) &&
+                    <Login changePasswordRequired={false} errorMessage={this.state.errorMessage} busy={this.state.loginStatus === LoginStatus.TRYING_LOGIN}/>}
                     {(this.state.loginStatus === LoginStatus.LOGIN_NOT_REQUIRED || this.state.loginStatus === LoginStatus.LOGGED_IN) &&
                     <View style={SubmitAssessment.styles.container}>
                         {this.state.assessmentToolType === AssessmentTool.INDICATOR ? null : <AssessmentSeries series={facilityAssessment.seriesName}/>}

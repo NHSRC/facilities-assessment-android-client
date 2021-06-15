@@ -14,7 +14,9 @@ export const LoginStatus = {
     LOGGED_IN: 2,
     NOT_LOGGED_IN: 3,
     LOGIN_NOT_REQUIRED: 4,
-    DO_NOT_ASK: 5
+    DO_NOT_ASK: 5,
+    TRYING_LOGIN: 6,
+    CHANGING_PASSWORD: 7
 };
 
 const _areSubmissionDetailsAvailable = function (assessment, beans) {
@@ -114,14 +116,15 @@ const login = function (state, action, beans) {
         action.loginFailed(error.message);
     });
     return _.assignIn(state, {
-        callingServer: true
+        loginStatus: LoginStatus.TRYING_LOGIN,
+        errorMessage: null
     });
 };
 
 const changePassword = function (state, action, beans) {
     beans.get(AuthService).changePassword(state.password, state.newPassword).then(() => action.passwordChangedSuccessfully()).catch(action.passwordChangeFailed());
     return _.assignIn(state, {
-        callingServer: true
+        loginStatus: LoginStatus.CHANGING_PASSWORD
     });
 };
 
@@ -152,6 +155,5 @@ export let submitAssessmentInit = {
     email: null,
     password: null,
     newPassword: null,
-    callingServer: false,
     errorMessage: null
 };

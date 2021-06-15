@@ -8,7 +8,6 @@ import Actions from "../../../action";
 import PrimaryColors from "../../styles/PrimaryColors";
 import SubmitButton from "../../common/SubmitButton";
 import {LoginStatus} from "../../../action/submitAssessment";
-import Logger from "../../../framework/Logger";
 
 class Login extends AbstractComponent {
     static propTypes = {
@@ -16,7 +15,8 @@ class Login extends AbstractComponent {
         password: PropTypes.string,
         changedPassword: PropTypes.string,
         changePasswordRequired: PropTypes.bool.isRequired,
-        errorMessage: PropTypes.string
+        errorMessage: PropTypes.string,
+        busy: PropTypes.bool
     };
 
     static styles = StyleSheet.create({
@@ -82,7 +82,7 @@ class Login extends AbstractComponent {
                     successfulLogin: () => this.dispatchAction(Actions.UPDATE_LOGIN_STATUS, {loginStatus: LoginStatus.LOGGED_IN}),
                     loginFailed: (message) => this.dispatchAction(Actions.UPDATE_LOGIN_STATUS, {loginStatus: LoginStatus.NOT_LOGGED_IN, errorMessage: message})
                 });
-            }} buttonText={this.props.changePasswordRequired ? 'CHANGE PASSWORD' : 'LOGIN'}/>
+            }} buttonText={this.props.changePasswordRequired ? 'CHANGE PASSWORD' : 'LOGIN'} busy={this.props.busy}/>
             {<Button block
                      style={{flex: 0.5, marginTop: 20}}
                      onPress={() => this.dispatchAction(Actions.SUBMISSION_CANCELLED)}><Text>{this.props.changePasswordRequired ? "SKIP" : "CANCEL"}</Text></Button>}
