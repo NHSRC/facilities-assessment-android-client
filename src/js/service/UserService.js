@@ -3,6 +3,7 @@ import BaseService from "./BaseService";
 import User from "../models/User";
 import SettingsService from "./SettingsService";
 import _ from "lodash";
+import Logger from "../framework/Logger";
 
 @Service("userService")
 class UserService extends BaseService {
@@ -14,13 +15,21 @@ class UserService extends BaseService {
         const requestInfo = {
             method: 'POST',
             body: JSON.stringify(userRequest),
-            headers: new Headers({'Content-Type': 'application/json'})
+            headers: new Headers({'Content-Type': 'application/json'}),
+            credentials: "same-origin"
         };
 
-        return fetch(`${this.getService(SettingsService).getServerURL()}}/api/currentUser`, requestInfo).then((response) => {
-            if (!response.ok) throw new Error(`${response.status}: ${response.statusText}`);
-            return response.json();
-        }).then((savedUser) => this.saveUser(savedUser));
+        let url = `${this.getService(SettingsService).getServerURL()}/api/currentUser`;
+        Logger.logDebug("UserService", url);
+        return fetch(url, requestInfo)
+            .then((response) => {
+                if (response.status === 400) return response.text().then((errorText) => {
+                    throw new Error(`${response.status}: ${errorText}`);
+                });
+                else if (!response.ok) throw new Error(`${response.status}: ${response.statusText}`);
+                else return response.json();
+            })
+            .then((savedUser) => this.saveUser(savedUser));
     }
 
     saveUser(userResponse) {
@@ -37,6 +46,7 @@ class UserService extends BaseService {
             user.passwordChanged = userResponse.passwordChanged;
             this.db.create(User.schema.name, user);
         });
+        return Promise.resolve(userResponse);
     }
 }
 

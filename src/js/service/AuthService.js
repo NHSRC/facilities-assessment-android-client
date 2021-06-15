@@ -1,7 +1,6 @@
 import _ from "lodash";
 import Service from "../framework/bean/Service";
 import BaseService from "./BaseService";
-import User from "../models/User";
 import Logger from "../framework/Logger";
 import SettingsService from "./SettingsService";
 import UserService from "./UserService";

@@ -63,18 +63,6 @@ class Login extends AbstractComponent {
                                this.dispatchAction(Actions.CHANGE_LOGIN_DETAILS, {password: text})
                            }}/>
             </View>
-            <View style={{marginBottom: 20}}>
-                <Text style={[Typography.paperFontTitle]}>It is recommended that you change your password once</Text>
-                <Text style={[Typography.paperFontSubhead]}>New Password</Text>
-                <TextInput style={Login.styles.input}
-                    // value={}
-                           underlineColorAndroid={PrimaryColors["grey"]}
-                           words="words"
-                           secureTextEntry={true}
-                           onChangeText={(text) => {
-                               this.dispatchAction(Actions.CHANGE_LOGIN_DETAILS, {newPassword: text})
-                           }}/>
-            </View>
             {this.props.errorMessage && <H3 style={{marginBottom: 20, color: 'red'}}>{this.props.errorMessage}</H3>}
             <SubmitButton onPress={() => {
                 this.dispatchAction(Actions.LOGIN, {
@@ -82,9 +70,9 @@ class Login extends AbstractComponent {
                     loginFailed: (message) => this.dispatchAction(Actions.UPDATE_LOGIN_STATUS, {loginStatus: LoginStatus.NOT_LOGGED_IN, errorMessage: message})
                 });
             }} buttonText={'LOGIN'} busy={this.props.busy}/>
-            {<Button block
+            <Button block
                      style={{flex: 0.5, marginTop: 20}}
-                     onPress={() => this.dispatchAction(Actions.SUBMISSION_CANCELLED)}><Text>CANCEL</Text></Button>}
+                     onPress={() => this.dispatchAction(Actions.SUBMISSION_CANCELLED)}><Text>CANCEL</Text></Button>
         </View>
     }
 }
