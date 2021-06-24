@@ -8,6 +8,7 @@ import AssessmentMetaData from "../models/assessment/AssessmentMetaData";
 import EntityService from "../service/EntityService";
 import AuthService from "../service/AuthService";
 import SubmitAssessmentRule from "./SubmitAssessmentRule";
+import AssessmentService from "../service/AssessmentService";
 
 export const LoginStatus = {
     UNKNOWN: 1,
@@ -29,7 +30,8 @@ const _areSubmissionDetailsAvailable = function (assessment, beans) {
 const updateLoginStatus = function (state, action, context) {
     return _.assignIn(state, {
         loginStatus: action.loginStatus,
-        errorMessage: action.errorMessage
+        errorMessage: action.errorMessage,
+        assessmentNumbers: action.assessmentNumbers
     });
 }
 
@@ -48,12 +50,17 @@ const startSubmitAssessment = function (state, action, beans) {
         assessmentMetaDataList: assessmentMetaDataList
     });
     if (SubmitAssessmentRule.isLoginRequired(assessment) && action.loginStatus !== LoginStatus.LOGGED_IN) {
-        beans.get(AuthService).verifySession().then(() => action.loggedIn()).catch(() => action.notLoggedIn());
+        beans.get(AuthService).verifySession().then(() => _getAssessmentNumbers(beans, state)).then(action.loggedIn).catch(() => action.notLoggedIn());
     } else {
         newState.loginStatus = LoginStatus.LOGIN_NOT_REQUIRED;
     }
 
     return newState;
+};
+
+const _getAssessmentNumbers = function (beans, state) {
+    let assessmentService = beans.get(AssessmentService);
+    return assessmentService.getAssessmentNumbers(state.chosenAssessment.assessmentType.uuid, state.chosenAssessment.facility.uuid);
 };
 
 const submissionCancelled = function (state, action, beans) {
@@ -95,7 +102,6 @@ const enterCustomInfo = function (state, action, beans) {
 };
 
 const enterSeries = function (state, action, beans) {
-    if (isNaN(action.series)) return state;
     return _updateSubmittingAssessment(state, {seriesName: action.series}, beans);
 };
 
@@ -110,7 +116,7 @@ const assessmentSynced = function (state, action, beans) {
 };
 
 const login = function (state, action, beans) {
-    beans.get(AuthService).login(state.email, state.password).then(action.successfulLogin).catch((error) => {
+    beans.get(AuthService).login(state.email, state.password).then(() => _getAssessmentNumbers(beans, state)).then(action.successfulLogin).catch((error) => {
         Logger.logError("submitAssessment", error.message);
         action.loginFailed(error.message);
     });
@@ -146,5 +152,6 @@ export let submitAssessmentInit = {
     loginStatus: LoginStatus.UNKNOWN,
     email: null,
     password: null,
-    errorMessage: null
+    errorMessage: null,
+    assessmentNumbers: []
 };

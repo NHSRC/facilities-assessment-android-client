@@ -108,4 +108,13 @@ export default class BaseService {
         this.db.create(entityClass.schema.name, entity, true);
         return this.db.objectForPrimaryKey(entityClass.schema.name, entity.uuid);
     }
+
+    checkResponse(response) {
+        if (!response.ok) {
+            let message = `${response.status}: ${response.statusText}`;
+            Logger.logError("BaseService", message);
+            throw new Error(message);
+        }
+        return Promise.resolve(response);
+    }
 }

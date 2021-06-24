@@ -19,15 +19,6 @@ class AuthService extends BaseService {
         return Promise.resolve(response);
     }
 
-    checkResponse(response) {
-        if (!response.ok) {
-            let message = `${response.status}: ${response.statusText}`;
-            Logger.logError("AuthService", message);
-            throw new Error(message);
-        }
-        return Promise.resolve(response);
-    }
-
     login(email, password) {
         let postObject = {email: email, password: password};
 

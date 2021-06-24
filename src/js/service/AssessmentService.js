@@ -7,6 +7,8 @@ import ChecklistProgress from "../models/ChecklistProgress";
 import AreaOfConcernProgress from "../models/AreaOfConcernProgress";
 import StandardProgress from "../models/StandardProgress";
 import Checkpoint from "../models/Checkpoint";
+import SettingsService from "./SettingsService";
+import Logger from "../framework/Logger";
 
 @Service("assessmentService")
 class AssessmentService extends BaseService {
@@ -135,6 +137,12 @@ class AssessmentService extends BaseService {
                 checklist: checklist.uuid,
                 facilityAssessment: facilityAssessment.uuid,
             })));
+    }
+
+    getAssessmentNumbers(assessmentTypeUuid, facilityUuid) {
+        let endpoint = `${this.getService(SettingsService).getApiEndpoint()}/assessmentNumberAssignment/search/assessment?assessmentTypeUuid=${assessmentTypeUuid}&facilityUuid=${facilityUuid}`;
+        Logger.logDebug("AssessmentService", `Getting assessment numbers from: ${endpoint}`);
+        return fetch(endpoint, {credentials: "same-origin", timeout: 20}).then((response) => this.checkResponse(response)).then((response) => response.json());
     }
 }
 

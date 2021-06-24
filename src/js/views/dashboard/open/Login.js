@@ -66,13 +66,20 @@ class Login extends AbstractComponent {
             {this.props.errorMessage && <H3 style={{marginBottom: 20, color: 'red'}}>{this.props.errorMessage}</H3>}
             <SubmitButton onPress={() => {
                 this.dispatchAction(Actions.LOGIN, {
-                    successfulLogin: () => this.dispatchAction(Actions.UPDATE_LOGIN_STATUS, {loginStatus: LoginStatus.LOGGED_IN}),
-                    loginFailed: (message) => this.dispatchAction(Actions.UPDATE_LOGIN_STATUS, {loginStatus: LoginStatus.NOT_LOGGED_IN, errorMessage: message})
+                    successfulLogin: (assessmentNumbers) => this.dispatchAction(Actions.UPDATE_LOGIN_STATUS, {
+                        loginStatus: LoginStatus.LOGGED_IN,
+                        assessmentNumbers: assessmentNumbers
+                    }),
+                    loginFailed: (message) => this.dispatchAction(Actions.UPDATE_LOGIN_STATUS, {
+                        loginStatus: LoginStatus.NOT_LOGGED_IN,
+                        errorMessage: message,
+                        assessmentNumbers: []
+                    })
                 });
             }} buttonText={'LOGIN'} busy={this.props.busy}/>
             <Button block
-                     style={{flex: 0.5, marginTop: 20}}
-                     onPress={() => this.dispatchAction(Actions.SUBMISSION_CANCELLED)}><Text>CANCEL</Text></Button>
+                    style={{flex: 0.5, marginTop: 20}}
+                    onPress={() => this.dispatchAction(Actions.SUBMISSION_CANCELLED)}><Text>CANCEL</Text></Button>
         </View>
     }
 }

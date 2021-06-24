@@ -43,10 +43,11 @@ class SubmitAssessment extends AbstractComponent {
     }
 
     componentWillMount() {
-        this.dispatchAction(Actions.START_SUBMIT_ASSESSMENT, {
-            loggedIn: () => this.dispatchAction(Actions.UPDATE_LOGIN_STATUS, {loginStatus: LoginStatus.LOGGED_IN}),
-            notLoggedIn: () => this.dispatchAction(Actions.UPDATE_LOGIN_STATUS, {loginStatus: LoginStatus.NOT_LOGGED_IN}),
-            facilityAssessment: this.props.facilityAssessment
+        this.dispatchAction(Actions["START_SUBMIT_ASSESSMENT"], {
+            loggedIn: (assessmentNumbers) => this.dispatchAction(Actions["UPDATE_LOGIN_STATUS"], {loginStatus: LoginStatus.LOGGED_IN, assessmentNumbers: assessmentNumbers}),
+            notLoggedIn: () => this.dispatchAction(Actions["UPDATE_LOGIN_STATUS"], {loginStatus: LoginStatus.NOT_LOGGED_IN}),
+            facilityAssessment: this.props.facilityAssessment,
+            assessmentNumbers: []
         });
     }
 
@@ -93,7 +94,7 @@ class SubmitAssessment extends AbstractComponent {
                     <Login errorMessage={this.state.errorMessage} busy={this.state.loginStatus === LoginStatus.TRYING_LOGIN}/>}
                     {(this.state.loginStatus === LoginStatus.LOGIN_NOT_REQUIRED || this.state.loginStatus === LoginStatus.LOGGED_IN) &&
                     <View style={SubmitAssessment.styles.container}>
-                        {this.state.assessmentToolType === AssessmentTool.INDICATOR ? null : <AssessmentSeries series={facilityAssessment.seriesName}/>}
+                        {this.state.assessmentToolType === AssessmentTool.INDICATOR ? null : <AssessmentSeries series={facilityAssessment.seriesName} seriesOptions={this.state.assessmentNumbers}/>}
                         <View style={{margin: 10, flexDirection: 'column'}}>
                             {this.state.assessmentMetaDataList.map((x) => {
                                 return <View key={x.uuid} style={{marginBottom: 20}}>

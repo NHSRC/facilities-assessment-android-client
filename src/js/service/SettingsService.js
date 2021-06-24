@@ -28,6 +28,10 @@ class SettingsService extends BaseService {
     getServerURL() {
         return EnvironmentConfig.serverURL;
     }
+
+    getApiEndpoint() {
+        return `${this.getServerURL()}/api`;
+    }
 }
 
 export default SettingsService;

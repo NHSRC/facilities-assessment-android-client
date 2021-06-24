@@ -19,10 +19,7 @@ describe('FacilitySelectionTest', () => {
     it('enterSeries', () => {
         let beans = TestBeanFactory.create().addAssessmentMetaDataService().beans;
         let enterAssessmentSeries = submitAssessment.get('ENTER_ASSESSMENT_SERIES');
-        let newState = enterAssessmentSeries(state('1'), action('1a'), beans);
-        expect(series(newState)).is.equal('1');
-
-        newState = enterAssessmentSeries(state(''), action('1'), beans);
+        let newState = enterAssessmentSeries(state('1'), action('1'), beans);
         expect(series(newState)).is.equal('1');
 
         newState = enterAssessmentSeries(state('1'), action(''), beans);
