@@ -4,6 +4,7 @@ import moment from "moment";
 import AssessmentTool from "./AssessmentTool";
 import AssessmentCustomInfo from "./assessment/AssessmentCustomInfo";
 import AssessmentMetaData from "./assessment/AssessmentMetaData";
+import Logger from "../framework/Logger";
 
 class FacilityAssessment {
     static schema = {
@@ -89,9 +90,11 @@ class FacilityAssessment {
     }
 
     static isSubmittable(assessment) {
-        return !_.isNil(assessment.endDate) && !assessment.submitted;
+        if (_.isNil(assessment)) return false;
+        let b = !_.isNil(assessment.endDate) && !assessment.submitted;
+        Logger.logInfo("FacilitiesAssessment", `Submitted=${assessment.submitted}, End-Date=${assessment.endDate}, Submittable: ${b}`);
+        return b;
     }
 }
-
 
 export default FacilityAssessment;

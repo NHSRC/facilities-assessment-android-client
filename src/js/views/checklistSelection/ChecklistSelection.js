@@ -19,6 +19,7 @@ import AssessmentTitle from "../assessment/AssessmentTitle";
 import GunakContainer from "../common/GunakContainer";
 import SubmitAssessment from "../dashboard/open/SubmitAssessment";
 import Typography from "../styles/Typography";
+import FacilityAssessment from "../../models/FacilityAssessment";
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
@@ -96,6 +97,7 @@ class ChecklistSelection extends ViewComponent {
         Logger.logDebug('ChecklistSelection', 'render');
         let assessmentComplete = this.state.assessmentProgress.completed === this.state.assessmentProgress.total;
         const showCompleteButton = this.showCompleteButton(this.props.params.mode);
+        let submittable = FacilityAssessment.isSubmittable(this.state.chosenAssessment);
         return (
             <GunakContainer title="Assessment" rightIconName="search" onPressRightIcon={this.goSearch}>
                 <Modal transparent={false} visible={this.state.showEditAssessment}
@@ -103,8 +105,7 @@ class ChecklistSelection extends ViewComponent {
                     <EditAssessment assessmentUUID={this.props.params.facilityAssessment.uuid}/>
                 </Modal>
 
-                {this.state.chosenAssessment && <SubmitAssessment facilityAssessment={this.state.chosenAssessment} syncing={this.state.syncing}/>}
-
+                {this.state.submittingAssessment && <SubmitAssessment facilityAssessment={this.state.chosenAssessment} syncing={this.state.syncing}/>}
 
                 <View style={{flexDirection: 'column', width: deviceWidth, paddingHorizontal: deviceWidth * 0.04}}>
                     <View style={{flexDirection: 'row'}}>
@@ -121,14 +122,15 @@ class ChecklistSelection extends ViewComponent {
                     />
                     <SubmitButton buttonStyle={{marginTop: 30, backgroundColor: '#ffa000'}}
                                   onPress={() => this.completeAssessment()}
-                                  buttonText={assessmentComplete ? "COMPLETE ASSESSMENT" : (this.state.submittable ? "VIEW SCORECARD" : "GENERATE SCORECARD")}
+                                  buttonText={assessmentComplete ? "COMPLETE ASSESSMENT" : (submittable ? "VIEW SCORECARD" : "GENERATE SCORECARD")}
                                   showButton={showCompleteButton}/>
                     <SubmitButton buttonStyle={{marginTop: 5, backgroundColor: '#ffa000'}}
                                   onPress={() => this.submitAssessment()}
                                   buttonText={"SUBMIT ASSESSMENT"}
-                                  showButton={this.state.submittable}/>
-                    {!this.state.submittable &&
-                    <Text style={[Typography.paperFontBody1, {color: 'white', alignSelf: 'center', marginTop: 5}]}>Assessment can be submitted after scorecard generation.</Text>}
+                                  showButton={submittable}/>
+                    {!submittable &&
+                    <Text style={[Typography.paperFontBody1, {color: 'white', alignSelf: 'center', marginTop: 5}]}>Assessment can be submitted after scorecard
+                        generation.</Text>}
                 </View>
             </GunakContainer>
         );

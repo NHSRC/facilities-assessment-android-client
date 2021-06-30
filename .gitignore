@@ -71,3 +71,4 @@ ios/main.jsbundle*
 ios/main.jsbundle
 ios/main.jsbundle.meta
 /config/env/dev.json
+logs
