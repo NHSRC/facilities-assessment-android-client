@@ -33,18 +33,18 @@ const allChecklists = function (state, action, beans) {
         ).length;
     checklistService.cacheAllChecklists(checklists);
     return _.assignIn(state, {
-        "checklists": _.zipWith(checklists, checklistProgress, _.assignIn),
-        "assessmentProgress": {total: checklists.length, completed: completedChecklists},
-        submittable: FacilityAssessment.isSubmittable(action.facilityAssessment)
+        checklists: _.zipWith(checklists, checklistProgress, _.assignIn),
+        assessmentProgress: {total: checklists.length, completed: completedChecklists},
+        chosenAssessment: action.facilityAssessment
     });
 };
 
 const completeAssessment = function (state, action, beans) {
     const facilityAssessmentService = beans.get(FacilityAssessmentService);
-    const endAssessment = facilityAssessmentService.endAssessment(action.facilityAssessment);
+    const endedAssessment = facilityAssessmentService.endAssessment(action.facilityAssessment);
     action.cb();
     return _.assignIn(state, {
-        submittable: FacilityAssessment.isSubmittable(endAssessment)
+        chosenAssessment: endedAssessment
     });
 };
 
@@ -65,8 +65,7 @@ const updateChecklistProgress = function (state, action, beans) {
         ).length;
     return _.assignIn(state, {
         checklists: newChecklists,
-        assessmentProgress: {total: newChecklists.length, completed: completedChecklists},
-        submittable: FacilityAssessment.isSubmittable(action.facilityAssessment)
+        assessmentProgress: {total: newChecklists.length, completed: completedChecklists}
     });
 };
 
@@ -83,24 +82,37 @@ const editAssessmentCompleted = function (state) {
 };
 
 const startSubmitAssessment = function (state, action, beans) {
-    let assessment = FacilityAssessment.clone(action.facilityAssessment);
+    let assessmentService = beans.get(FacilityAssessmentService);
+    let assessment = assessmentService.getAssessment(action.facilityAssessment.uuid);
     return _.assignIn(state, {
-        chosenAssessment: assessment
+        chosenAssessment: assessment,
+        submittingAssessment: true
     });
 };
 
 const assessmentSynced = function(state, action, context) {
     return _.assignIn(state, {
-        chosenAssessment: undefined,
-        submittable: !action.status,
+        submittingAssessment: false,
         syncing: false
     });
 };
 
 const assessmentSyncing = function(state, action, context) {
     return _.assignIn(state, {
-        submittable: !action.status,
         syncing: true
+    });
+};
+
+const submissionCancelled = function (state, actions, context) {
+    return _.assignIn(state, {
+        submittingAssessment: false
+    });
+};
+
+const checkpointUpdated = function (state, actions, context) {
+    const facilityAssessmentService = context.get(FacilityAssessmentService);
+    return _.assignIn(state, {
+        chosenAssessment: facilityAssessmentService.markUnSubmitted(state.chosenAssessment)
     });
 };
 
@@ -114,12 +126,16 @@ export default new Map([
     ["EDIT_ASSESSMENT_COMPLETED", editAssessmentCompleted],
     ["CS_START_SUBMIT_ASSESSMENT", startSubmitAssessment],
     ["ASSESSMENT_SYNCED", assessmentSynced],
-    ["SYNC_ASSESSMENT", assessmentSyncing]
+    ["SYNC_ASSESSMENT", assessmentSyncing],
+    ["SUBMISSION_CANCELLED", submissionCancelled],
+    ["UPDATE_CHECKPOINT", checkpointUpdated],
 ]);
 
 export let checklistSelectionInit = {
     checklists: [],
     assessmentProgress: {total: 0, completed: 0},
     showEditAssessment: false,
-    syncing: false
+    syncing: false,
+    chosenAssessment: undefined,
+    submittingAssessment: false
 };

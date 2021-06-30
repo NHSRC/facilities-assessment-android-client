@@ -25,12 +25,25 @@ class FacilityAssessmentService extends BaseService {
         this.conventionalRestClient = new ConventionalRestClient(this.getService(SettingsService), this.db);
     }
 
+    _saveAndAssociateObjects(assessment, newData) {
+        let savedAssessment = this.saveAssessment(_.assignIn(assessment, newData));
+        return this._associateObjects(savedAssessment);
+    }
+
+    _getAssessment(uuid) {
+        return _.assignIn({}, this.db.objectForPrimaryKey(FacilityAssessment.schema.name, uuid));
+    }
+
+    getAssessment(uuid) {
+        let assessment = this._getAssessment(uuid);
+        return this._associateObjects(assessment);
+    }
+
     saveSubmissionDetails(facilityAssessment) {
-        const existingAssessment = _.assignIn({}, this.db.objectForPrimaryKey(FacilityAssessment.schema.name, facilityAssessment.uuid));
-        return this.saveAssessment(_.assignIn(existingAssessment, {
+        return this._saveAndAssociateObjects(this._getAssessment(facilityAssessment.uuid), {
             customInfos: facilityAssessment.customInfos,
             seriesName: facilityAssessment.seriesName
-        }));
+        });
     }
 
     _getAssessmentTools(mode) {
@@ -65,22 +78,18 @@ class FacilityAssessmentService extends BaseService {
 
     startAssessment(facility, assessmentTool, assessmentType) {
         const existingAssessment = this.getExistingAssessment(facility, assessmentTool, assessmentType);
-        const optParams = {};
-        let assessment = this.saveAssessment(_.assignIn(existingAssessment, {
+        return  this._saveAndAssociateObjects(existingAssessment, {
             assessmentTool: assessmentTool.uuid,
             facility: facility.uuid,
             assessmentType: assessmentType.uuid,
             deviceId: EnvironmentConfig.deviceId,
-            ...optParams
-        }));
-        return this._associateObjects(assessment);
+        });
     }
 
     endAssessment(facilityAssessment) {
-        const existingAssessment = _.assignIn({}, this.db.objectForPrimaryKey(FacilityAssessment.schema.name, facilityAssessment.uuid));
-        return this.saveAssessment(_.assignIn(existingAssessment, {
+        return this._saveAndAssociateObjects(this._getAssessment(facilityAssessment.uuid), {
             endDate: new Date()
-        }));
+        });
     }
 
     getAssessmentTool(assessmentToolUUID) {
@@ -140,11 +149,11 @@ class FacilityAssessmentService extends BaseService {
     }
 
     markSubmitted({uuid}) {
-        return this.saveAssessment({uuid: uuid, submitted: true});
+        return this._associateObjects(this.saveAssessment({uuid: uuid, submitted: true}));
     }
 
     markUnSubmitted({uuid}) {
-        return this.saveAssessment({uuid: uuid, submitted: false, endDate: null});
+        return this._associateObjects(this.saveAssessment({uuid: uuid, submitted: false, endDate: null}))
     }
 
     addSyncedUuid({uuid, syncedUuid}) {

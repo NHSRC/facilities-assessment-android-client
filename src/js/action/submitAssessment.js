@@ -37,9 +37,9 @@ const updateLoginStatus = function (state, action, context) {
 
 const startSubmitAssessment = function (state, action, beans) {
     const entityService = beans.get(EntityService);
+    const assessmentService = beans.get(FacilityAssessmentService);
 
-    let assessment = FacilityAssessment.clone(action.facilityAssessment);
-    Logger.logDebug("submitAssessment", JSON.stringify(assessment));
+    let assessment = assessmentService.getAssessment(action.facilityAssessment.uuid);
     let submissionDetailAvailable = _areSubmissionDetailsAvailable(assessment, beans);
     const assessmentMetaDataList = entityService.findAll(AssessmentMetaData);
     let newState = _.assignIn(state, {
@@ -78,13 +78,13 @@ const syncAssessment = function (state, action, beans) {
 };
 
 const markAssessmentUnsubmitted = function (state, action, beans) {
-    if (_.isEmpty(action.facilityAssessment.endDate) && !action.facilityAssessment.submitted) return {...state};
+    if (_.isNil(action.facilityAssessment.endDate) && !action.facilityAssessment.submitted) return {...state};
     const assessmentService = beans.get(FacilityAssessmentService);
-    assessmentService.markUnSubmitted(action.facilityAssessment);
+    let assessment = assessmentService.markUnSubmitted(action.facilityAssessment);
     const assessmentMode = action.mode;
     const openAssessments = assessmentService.getAllOpenAssessments(assessmentMode);
     const submittedAssessments = assessmentService.getAllSubmittedAssessments(assessmentMode);
-    return _.assignIn(state, {openAssessments: openAssessments, submittedAssessments: submittedAssessments});
+    return _.assignIn(state, {openAssessments: openAssessments, submittedAssessments: submittedAssessments, chosenAssessment: assessment});
 };
 
 const _updateSubmittingAssessment = function (state, updateObject, beans) {
