@@ -94,9 +94,9 @@ class SubmitAssessment extends AbstractComponent {
                     <Login errorMessage={this.state.errorMessage} busy={this.state.loginStatus === LoginStatus.TRYING_LOGIN}/>}
                     {(this.state.loginStatus === LoginStatus.LOGIN_NOT_REQUIRED || this.state.loginStatus === LoginStatus.LOGGED_IN) &&
                     <View style={SubmitAssessment.styles.container}>
-                        {this.state.assessmentToolType === AssessmentTool.INDICATOR ? null : <AssessmentSeries series={facilityAssessment.seriesName} seriesOptions={this.state.assessmentNumbers}/>}
+                        {(this.state.assessmentToolType === AssessmentTool.INDICATOR) ? null : <AssessmentSeries series={facilityAssessment.seriesName} seriesOptions={this.state.assessmentNumbers}/>}
                         <View style={{margin: 10, flexDirection: 'column'}}>
-                            {this.state.assessmentMetaDataList.map((x) => {
+                            {!this.state.protectedAssessment && this.state.assessmentMetaDataList.map((x) => {
                                 return <View key={x.uuid} style={{marginBottom: 20}}>
                                     <Text style={[Typography.paperFontSubhead]}>{x.name}</Text>
                                     <TextInput style={SubmitAssessment.styles.input}

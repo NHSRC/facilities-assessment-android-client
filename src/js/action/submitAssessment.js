@@ -47,9 +47,10 @@ const startSubmitAssessment = function (state, action, beans) {
         chosenAssessment: assessment,
         submissionDetailAvailable: submissionDetailAvailable,
         assessmentToolType: assessment.assessmentTool.assessmentToolType,
-        assessmentMetaDataList: assessmentMetaDataList
+        assessmentMetaDataList: assessmentMetaDataList,
+        protectedAssessment: SubmitAssessmentRule.isLoginRequired(assessment)
     });
-    if (SubmitAssessmentRule.isLoginRequired(assessment) && action.loginStatus !== LoginStatus.LOGGED_IN) {
+    if (newState.protectedAssessment && action.loginStatus !== LoginStatus.LOGGED_IN) {
         beans.get(AuthService).verifySession().then(() => _getAssessmentNumbers(beans, state)).then(action.loggedIn).catch(() => action.notLoggedIn());
     } else {
         newState.loginStatus = LoginStatus.LOGIN_NOT_REQUIRED;
@@ -153,5 +154,6 @@ export let submitAssessmentInit = {
     email: null,
     password: null,
     errorMessage: null,
-    assessmentNumbers: []
+    assessmentNumbers: [],
+    protectedAssessment: false
 };
