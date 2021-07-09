@@ -19,12 +19,13 @@ export const LoginStatus = {
     TRYING_LOGIN: 6
 };
 
-const _areSubmissionDetailsAvailable = function (assessment, beans) {
+const _areSubmissionDetailsAvailable = function (assessment, beans, protectedAssessment) {
     let assessmentMetaDataService = beans.get(AssessmentMetaDataService);
-    let assessmentMetaDataList = assessmentMetaDataService.getAll();
-    return _.reduce(assessmentMetaDataList,
+    let assessmentMetaDataListToCheck = protectedAssessment ? [] : assessmentMetaDataService.getAll();
+    let seriesNameCheckPassed = FacilityAssessment.seriesNameCheckPassed(assessment.assessmentTool, assessment);
+    return _.reduce(assessmentMetaDataListToCheck,
         (available, assessmentMetaData) => FacilityAssessment.fieldChecksPassed(assessmentMetaData, assessment) && available,
-        FacilityAssessment.seriesNameCheckPassed(assessment.assessmentTool, assessment));
+        seriesNameCheckPassed);
 };
 
 const updateLoginStatus = function (state, action, context) {
@@ -40,7 +41,8 @@ const startSubmitAssessment = function (state, action, beans) {
     const assessmentService = beans.get(FacilityAssessmentService);
 
     let assessment = assessmentService.getAssessment(action.facilityAssessment.uuid);
-    let submissionDetailAvailable = _areSubmissionDetailsAvailable(assessment, beans);
+    let isProtectedAssessment = SubmitAssessmentRule.isLoginRequired(assessment);
+    let submissionDetailAvailable = _areSubmissionDetailsAvailable(assessment, beans, isProtectedAssessment);
     const assessmentMetaDataList = entityService.findAll(AssessmentMetaData);
     let newState = _.assignIn(state, {
         errorMessage: null,
@@ -48,7 +50,8 @@ const startSubmitAssessment = function (state, action, beans) {
         submissionDetailAvailable: submissionDetailAvailable,
         assessmentToolType: assessment.assessmentTool.assessmentToolType,
         assessmentMetaDataList: assessmentMetaDataList,
-        protectedAssessment: SubmitAssessmentRule.isLoginRequired(assessment)
+        protectedAssessment: isProtectedAssessment,
+        assessmentNumbers: []
     });
     if (newState.protectedAssessment && action.loginStatus !== LoginStatus.LOGGED_IN) {
         beans.get(AuthService).verifySession().then(() => _getAssessmentNumbers(beans, state)).then(action.loggedIn).catch(() => action.notLoggedIn());
@@ -89,17 +92,17 @@ const markAssessmentUnsubmitted = function (state, action, beans) {
 };
 
 const _updateSubmittingAssessment = function (state, updateObject, beans) {
-    let newState = {chosenAssessment: _.assignIn({}, state.chosenAssessment, updateObject)};
-    newState.submissionDetailAvailable = _areSubmissionDetailsAvailable(newState.chosenAssessment, beans);
-    return _.assignIn({}, state, newState);
+    let stateChanges = {chosenAssessment: _.assignIn({}, state.chosenAssessment, updateObject)};
+    stateChanges.submissionDetailAvailable = _areSubmissionDetailsAvailable(stateChanges.chosenAssessment, beans, state.protectedAssessment);
+    return _.assignIn({}, state, stateChanges);
 };
 
 const enterCustomInfo = function (state, action, beans) {
     let newSubmittingAssessment = FacilityAssessment.clone(state.chosenAssessment);
     FacilityAssessment.updateCustomInfo(action.assessmentMetaData, action.valueString, newSubmittingAssessment);
-    let newState = {chosenAssessment: newSubmittingAssessment};
-    newState.submissionDetailAvailable = _areSubmissionDetailsAvailable(newState.chosenAssessment, beans);
-    return _.assignIn({}, state, newState);
+    let stateChanges = {chosenAssessment: newSubmittingAssessment};
+    stateChanges.submissionDetailAvailable = _areSubmissionDetailsAvailable(stateChanges.chosenAssessment, beans, state.protectedAssessment);
+    return _.assignIn({}, state, stateChanges);
 };
 
 const enterSeries = function (state, action, beans) {

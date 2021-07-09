@@ -17,7 +17,8 @@ class AssessmentSeries extends AbstractComponent {
 
     static propTypes = {
         series: PropTypes.string,
-        seriesOptions: PropTypes.array.isRequired
+        seriesOptions: PropTypes.array.isRequired,
+        submissionProtected: PropTypes.bool.isRequired
     };
 
     static styles = StyleSheet.create({
@@ -49,6 +50,9 @@ class AssessmentSeries extends AbstractComponent {
     render() {
         let hasSeriesOptions = this.props.seriesOptions.length !== 0;
         let displayGenerateButton = EnvironmentConfig.autoGenerateSeriesNumber && (_.isNil(this.props.series) || this.props.series.length === 0) && !hasSeriesOptions;
+        if (this.props.submissionProtected && (_.isNil(this.props.seriesOptions) || this.props.seriesOptions.length === 0))
+            return <Text style={{marginLeft: 10, marginTop: 20}}>There are no assessment numbers assigned to you for this facility. Please contact NHSRC.</Text>;
+
         return (
             <View style={{margin: 10, flexDirection: 'column'}}>
                 <Text style={[Typography.paperFontSubhead]}>Assessment Number</Text>
@@ -56,7 +60,7 @@ class AssessmentSeries extends AbstractComponent {
                     - creating a single assessment. This is to help perform an assessment from multiple devices. Use auto-generate button to get number or enter
                     manually.</Text>
                 <View style={{flexDirection: 'row'}}>
-                    {hasSeriesOptions ?
+                    {this.props.submissionProtected ?
                         this.renderAssessmentNumbers(this.props.series)
                         :
                         <TextInput style={AssessmentSeries.styles.input}

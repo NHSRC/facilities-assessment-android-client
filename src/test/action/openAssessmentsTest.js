@@ -21,7 +21,7 @@ describe('openAssessmentsTest', () => {
         enterCustomInfo = fns.get("ENTER_CUSTOM_INFO");
         enterAssessmentSeries = fns.get("ENTER_ASSESSMENT_SERIES");
 
-        state = {chosenAssessment: {assessmentTool: {assessmentToolType: AssessmentTool.COMPLIANCE}, customInfos: []}};
+        state = {chosenAssessment: {assessmentTool: {assessmentToolType: AssessmentTool.COMPLIANCE}, customInfos: [], protectedAssessment: false}};
     });
 
     it('areSubmissionDetailsAvailable - series filled first', () => {
@@ -33,6 +33,14 @@ describe('openAssessmentsTest', () => {
         expect(state.submissionDetailAvailable).is.equal(true);
         state = enterCustomInfo(state, {valueString: 'Miss Foo Bar', assessmentMetaData: assessmentMetaData}, beans);
         expect(FacilityAssessment.getCustomInfoValue(assessmentMetaData, state.chosenAssessment)).is.equal('Miss Foo Bar');
+    });
+
+    it('areSubmissionDetailsAvailable - series filling - protected', () => {
+        state.protectedAssessment = true;
+        state = enterAssessmentSeries(state, {series: ''}, beans);
+        expect(state.submissionDetailAvailable).is.equal(false);
+        state = enterAssessmentSeries(state, {series: '2020'}, beans);
+        expect(state.submissionDetailAvailable).is.equal(true);
     });
 
     it('areSubmissionDetailsAvailable - custom info filled first', () => {
