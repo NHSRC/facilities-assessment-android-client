@@ -157,7 +157,7 @@ const reset_form = function (state, action, bean) {
         selectedAssessmentTool: undefined,
         hasActiveFacilityAssessment: false,
         selectedFacilityType: undefined,
-        mode: undefined
+        mode: state.mode
     });
 };
 
