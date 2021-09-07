@@ -26,7 +26,7 @@ class FacilityText extends AbstractComponent {
         data: PropTypes.object.isRequired
     };
 
-    handleChange(facilityName) {
+    handleFacilityNameChange(facilityName) {
         this.dispatchAction(`${Actions.ENTER_FACILITY_NAME}`, {facilityName: facilityName});
     }
 
@@ -38,7 +38,7 @@ class FacilityText extends AbstractComponent {
                        value={this.props.data.facilityName}
                        underlineColorAndroid={PrimaryColors["dark_white"]}
                        words="words"
-                       onChangeText={this.handleChange.bind(this)}/>
+                       onChangeText={this.handleFacilityNameChange.bind(this)}/>
         );
     }
 }

@@ -59,7 +59,7 @@ const assessmentSyncing = function (state, action, beans) {
 
 const getAssessmentSummary = function(state, action, beans) {
     const assessmentService = beans.get(FacilityAssessmentService);
-    assessmentService.getAssessmentSummary(action.facilityAssessment.uuid, action.cb, action.errorHandler);
+    assessmentService.getAssessmentSummary(action.facilityAssessment.syncedUuid, action.cb, action.errorHandler);
     return _.assignIn(state, {loadingData: true, chosenAssessment: action.facilityAssessment});
 };
 
