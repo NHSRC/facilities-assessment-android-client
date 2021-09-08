@@ -90,10 +90,13 @@ const startSubmitAssessment = function (state, action, beans) {
     });
 };
 
-const assessmentSynced = function(state, action, context) {
+const assessmentSynced = function(state, action, beans) {
+    let assessmentService = beans.get(FacilityAssessmentService);
+    let assessment = assessmentService.getAssessment(state.chosenAssessment.uuid);
     return _.assignIn(state, {
         submittingAssessment: false,
-        syncing: false
+        syncing: false,
+        chosenAssessment: assessment
     });
 };
 
