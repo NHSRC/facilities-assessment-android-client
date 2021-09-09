@@ -51,7 +51,7 @@ class AbstractReferenceDataSyncService extends BaseService {
 
     // Call all states of each entity type and then move to next entity type
     syncStateSpecificMetaDataInStateMode(states, entityTypes, onSuccess, onError) {
-        Logger.logDebug('AbstractReferenceDataSyncService', 'syncStateSpecificMetaDataInStateMode');
+        Logger.logDebug('AbstractReferenceDataSyncService', 'sync State Specific Meta Data In State Mode');
         this._syncStateSpecificMetaDataInStateModeForOneEntity(entityTypes.pop(), _.clone(states), () => {
             if (entityTypes.length > 0)
                 this.syncStateSpecificMetaDataInStateMode(states, entityTypes, onSuccess, onError);
@@ -61,7 +61,7 @@ class AbstractReferenceDataSyncService extends BaseService {
     }
 
     _syncStateSpecificMetaDataInStateModeForOneEntity(stateSpecificReferenceEntityType, states, cb, onError) {
-        Logger.logDebug('AbstractReferenceDataSyncService', '_syncStateSpecificMetaDataInStateModeForOneEntity');
+        Logger.logDebug('AbstractReferenceDataSyncService', 'sync State Specific Meta Data In State Mode For One Entity');
         this._syncData(() => {
             if (states.length > 0)
                 this._syncStateSpecificMetaDataInStateModeForOneEntity(stateSpecificReferenceEntityType, states, cb, onError);

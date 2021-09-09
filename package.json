@@ -20,7 +20,7 @@
     "flow": "flow"
   },
   "dependencies": {
-    "bugsnag-react-native": "2.21.0",
+    "bugsnag-react-native": "2.23.10",
     "invariant": "2.2.2",
     "lodash": "4.17.11",
     "moment": "2.19.3",
