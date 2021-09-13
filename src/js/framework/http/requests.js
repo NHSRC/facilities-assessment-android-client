@@ -1,8 +1,17 @@
 import Logger from "../Logger";
 import _ from 'lodash';
 
+const fetchWithTimeOut = (url, options, timeout = 20000) => {
+    return Promise.race([
+        fetch(url, options),
+        new Promise((_, reject) =>
+            setTimeout(() => reject(new Error("Server request timed out")), timeout)
+        )
+    ]);
+};
+
 const fetchFactory = (endpoint, method = "GET", params, responseModifier, cb, errorHandler) =>
-    fetch(endpoint, {"method": method, ...params})
+    fetchWithTimeOut(endpoint, {"method": method, ...params})
         .then(responseModifier)
         .then((responseModifier) => {
             if (!_.isNil(responseModifier.error) || (!_.isNil(responseModifier.httpStatusCode) && responseModifier.httpStatusCode > 400))
@@ -10,25 +19,26 @@ const fetchFactory = (endpoint, method = "GET", params, responseModifier, cb, er
             else
                 cb(responseModifier);
         })
-        .catch(errorHandler);
+        .catch((error) => {
+            console.log("requests", "fetchFactory, errorHandler");
+            errorHandler(error);
+        });
 
 const makeHeader = (type) => new Map(
     [['json', {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-        },
-        timeout: 20000
+        }
     }],
         ['text', {
-            headers: {'Accept': 'text/plain', 'Content-Type': 'text/plain'},
-            timeout: 20000
+            headers: {'Accept': 'text/plain', 'Content-Type': 'text/plain'}
         }]]).get(type);
 
 
 let _get = (endpoint, cb, errorHandler) => {
     Logger.logDebug('requests', `GETing from ${endpoint}`);
-    fetchFactory(endpoint, "GET", makeHeader("json"), (response) => response.json(), cb, errorHandler);
+    return fetchFactory(endpoint, "GET", makeHeader("json"), (response) => response.json(), cb, errorHandler);
 };
 
 let _getText = (endpoint, cb, errorHandler) =>
