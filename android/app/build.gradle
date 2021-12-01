@@ -29,7 +29,7 @@ def enableSeparateBuildPerCPUArchitecture = System.getenv("separateBuildPerCPUAr
 def enableProguardInReleaseBuilds = true
 
 //Release related properties
-def sdkVersion = (System.getenv("devCompatible") && System.getenv("devCompatible").toBoolean()) ? 25 : 29
+def sdkVersion = (System.getenv("devCompatible") && System.getenv("devCompatible").toBoolean()) ? 25 : 30
 def abiMultiplier = 100000000
 def majorVersion = 2
 def minorVersion = 3
