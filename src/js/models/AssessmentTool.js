@@ -18,6 +18,8 @@ class AssessmentTool {
             sortOrder: {type: 'int', optional: true, default: 1000}
         }
     };
+    excludedStates;
+    stateUUID;
 
     isIncludedForState(stateUUID) {
         return !_.some(this.excludedStates, (excludedState) => excludedState.state.uuid === stateUUID) && (_.isNil(this.stateUUID) || this.stateUUID === stateUUID);
