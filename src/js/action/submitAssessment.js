@@ -7,8 +7,6 @@ import _ from 'lodash';
 import AssessmentMetaData from "../models/assessment/AssessmentMetaData";
 import EntityService from "../service/EntityService";
 import AuthService from "../service/AuthService";
-import SubmitAssessmentRule from "./SubmitAssessmentRule";
-import AssessmentService from "../service/AssessmentService";
 
 export const LoginStatus = {
     UNKNOWN: 1,
@@ -36,21 +34,30 @@ const updateLoginStatus = function (state, action, context) {
     });
 }
 
+const isSubmissionProtected = function (state, action, beans) {
+    const faService = beans.get(FacilityAssessmentService);
+    let assessment = faService.getAssessment(action.facilityAssessment.uuid);
+    faService.isSubmissionProtected(assessment, action.setSubmissionProtectionStatus, action.launchSubmissionError);
+    return _.assignIn(state, {
+        submissionProtectionStatusKnown: false
+    });
+}
+
 const startSubmitAssessment = function (state, action, beans) {
     const entityService = beans.get(EntityService);
     const assessmentService = beans.get(FacilityAssessmentService);
 
     let assessment = assessmentService.getAssessment(action.facilityAssessment.uuid);
-    let isProtectedAssessment = SubmitAssessmentRule.isLoginRequired(assessment);
-    let submissionDetailAvailable = _areSubmissionDetailsAvailable(assessment, beans, isProtectedAssessment);
+    let submissionDetailAvailable = _areSubmissionDetailsAvailable(assessment, beans, action.isSubmissionProtected);
     const assessmentMetaDataList = entityService.findAll(AssessmentMetaData);
     let newState = _.assignIn(state, {
+        protectedAssessment: action.isSubmissionProtected,
+        submissionProtectionStatusKnown: true,
         errorMessage: null,
         chosenAssessment: assessment,
         submissionDetailAvailable: submissionDetailAvailable,
         assessmentToolType: assessment.assessmentTool.assessmentToolType,
         assessmentMetaDataList: assessmentMetaDataList,
-        protectedAssessment: isProtectedAssessment,
         assessmentNumbers: []
     });
     if (newState.protectedAssessment && action.loginStatus !== LoginStatus.LOGGED_IN) {
@@ -63,8 +70,8 @@ const startSubmitAssessment = function (state, action, beans) {
 };
 
 const _getAssessmentNumbers = function (beans, state) {
-    let assessmentService = beans.get(AssessmentService);
-    return assessmentService.getAssessmentNumbers(state.chosenAssessment.assessmentType.uuid, state.chosenAssessment.facility.uuid);
+    const faService = beans.get(FacilityAssessmentService);
+    return faService.getAssessmentNumbers(state.chosenAssessment);
 };
 
 const submissionCancelled = function (state, action, beans) {
@@ -145,7 +152,8 @@ export default new Map([
         ["SUBMISSION_CANCELLED", submissionCancelled],
         ["CHANGE_LOGIN_DETAILS", changeLoginDetails],
         ["LOGIN", login],
-        ["UPDATE_LOGIN_STATUS", updateLoginStatus]
+        ["UPDATE_LOGIN_STATUS", updateLoginStatus],
+        ["IS_SUBMISSION_PROTECTED", isSubmissionProtected],
     ]
 );
 
@@ -158,5 +166,6 @@ export let submitAssessmentInit = {
     password: null,
     errorMessage: null,
     assessmentNumbers: [],
-    protectedAssessment: false
+    protectedAssessment: false,
+    submissionProtectionStatusKnown: false
 };

@@ -19,7 +19,7 @@ class UserService extends BaseService {
             credentials: "same-origin"
         };
 
-        let url = `${this.getService(SettingsService).getServerURL()}/api/currentUser`;
+        let url = `${this.getServerURL()}/api/currentUser`;
         Logger.logDebug("UserService", url);
         return fetch(url, requestInfo)
             .then((response) => {

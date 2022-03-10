@@ -8,9 +8,9 @@ import ChecklistProgress from "../models/ChecklistProgress";
 import _ from 'lodash';
 import certificationData from '../action/certification';
 import EnvironmentConfig from "../views/common/EnvironmentConfig";
-import ConventionalRestClient from "../framework/http/ConventionalRestClient";
-import SettingsService from "./SettingsService";
+import Logger from "../framework/Logger";
 
+// Use outside assessment workflow
 @Service("facilityAssessmentService")
 class FacilityAssessmentService extends BaseService {
     constructor(db, beanStore) {
@@ -18,11 +18,6 @@ class FacilityAssessmentService extends BaseService {
         this.saveAssessment = this.save(FacilityAssessment, FacilityAssessment.toDB);
         this.getAssessmentTool = this.getAssessmentTool.bind(this);
         this.getAssessmentType = this.getAssessmentType.bind(this);
-    }
-
-    init() {
-        super.init();
-        this.conventionalRestClient = new ConventionalRestClient(this.getService(SettingsService), this.db);
     }
 
     _saveAndAssociateObjects(assessment, newData) {
@@ -162,6 +157,17 @@ class FacilityAssessmentService extends BaseService {
 
     getAssessmentSummary(assessmentUuid, cb, errorHandler) {
         this.conventionalRestClient.getData(`facilityAssessment/${assessmentUuid}/summary`, cb, errorHandler);
+    }
+
+    getAssessmentNumbers(assessment) {
+        const endpoint = this.getEndpoint(`assessmentNumberAssignment/search/assessment?assessmentTypeUuid=${assessment.assessmentType.uuid}&facilityUuid=${assessment.facility.uuid}`);
+        Logger.logDebug("FacilityAssessmentService", `Getting assessment numbers from: ${endpoint}`);
+        return this.conventionalRestClient.authenticatedFetch(endpoint);
+    }
+
+    isSubmissionProtected(assessment, cb, errorHandler) {
+        const endpoint = this.getEndpoint(`assessmentNumberAssignment/exists?assessmentTypeUuid=${assessment.assessmentType.uuid}&facilityUuid=${assessment.facility.uuid}`);
+        return this.conventionalRestClient.getData(endpoint, cb, errorHandler);
     }
 }
 

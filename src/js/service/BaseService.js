@@ -1,5 +1,7 @@
 import _ from "lodash";
 import Logger from "../framework/Logger";
+import ConventionalRestClient from "../framework/http/ConventionalRestClient";
+import EnvironmentConfig from "../views/common/EnvironmentConfig";
 
 export default class BaseService {
     constructor(db, beanStore) {
@@ -16,6 +18,7 @@ export default class BaseService {
     }
 
     postInit() {
+        this.conventionalRestClient = new ConventionalRestClient(this.getServerURL(), this.db);
     }
 
     getService(name) {
@@ -109,12 +112,15 @@ export default class BaseService {
         return this.db.objectForPrimaryKey(entityClass.schema.name, entity.uuid);
     }
 
-    checkResponse(response) {
-        if (!response.ok) {
-            let message = `${response.status}: ${response.statusText}`;
-            Logger.logError("BaseService", message);
-            throw new Error(message);
-        }
-        return Promise.resolve(response);
+    getEndpoint(relativeUrl) {
+        return `${this.getApiEndpoint()}/${relativeUrl}`;
+    }
+
+    getServerURL() {
+        return EnvironmentConfig.serverURL;
+    }
+
+    getApiEndpoint() {
+        return `${this.getServerURL()}/api`;
     }
 }

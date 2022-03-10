@@ -12,6 +12,7 @@ class SettingsService extends BaseService {
     }
 
     postInit() {
+        super.postInit();
         let settings = this.get();
         if (_.isNil(settings))
             this.save(Settings)({uuid: Settings.defaultPrimaryKey});
@@ -23,14 +24,6 @@ class SettingsService extends BaseService {
 
     saveSettings(settings) {
         this.save(Settings, (entity) => _.assignIn(entity, {uuid: Settings.defaultPrimaryKey}))(settings);
-    }
-
-    getServerURL() {
-        return EnvironmentConfig.serverURL;
-    }
-
-    getApiEndpoint() {
-        return `${this.getServerURL()}/api`;
     }
 }
 

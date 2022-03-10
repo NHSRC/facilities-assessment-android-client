@@ -3,22 +3,22 @@ import _ from "lodash";
 import {makeParams} from './httpUtils';
 import moment from "moment";
 import Logger from "../Logger";
-import SeedProgressService from "../../service/SeedProgressService";
 import SpringResponse from "./SpringResponse";
+import SeedProgress from "../../models/SeedProgress";
 
 class ConventionalRestClient {
-    constructor(settingsService, db) {
-        this.settingsService = settingsService;
+    constructor(serverUrl, db) {
+        this.serverUrl = serverUrl;
         this.db = db;
     }
 
     getData(relativeEndpoint, cb, errorHandler) {
-        return getJSON(`${this.settingsService.getServerURL()}/api/${relativeEndpoint}`, cb, errorHandler);
+        return getJSON(`${this.serverUrl}/api/${relativeEndpoint}`, cb, errorHandler);
     }
 
     loadData(entityMetaData, resourceSearchFilterURL, optionalParams, lastUpdatedLocally, pageNumber, allEntityMetaData, executeResourcesWithSameTimestamp, executeNextResource, resourcesWithSameTimestamp, onError) {
         let urlParts = [];
-        urlParts.push(this.settingsService.getServerURL());
+        urlParts.push(this.serverUrl);
         urlParts.push("api");
         urlParts.push(entityMetaData.resourceName);
         urlParts.push("search");
@@ -50,7 +50,7 @@ class ConventionalRestClient {
                         resourcesWithSameTimestamp = [resource];
                     }
                 });
-                let seedProgress = SeedProgressService._get(this.db);
+                let seedProgress = this.db.objectForPrimaryKey(SeedProgress.schema.name, SeedProgress.UUID);
                 seedProgress.syncProgress += (entityMetaData.syncWeight / ((SpringResponse.numberOfPages(response) === 0 ? 1 : SpringResponse.numberOfPages(response)) * 100));
                 seedProgress.syncMessage = `Downloading ${entityMetaData.displayName}s`;
                 Logger.logDebug('ConventionalRestClient', seedProgress);
@@ -81,7 +81,7 @@ class ConventionalRestClient {
             return;
         }
 
-        const url = `${this.settingsService.getServerURL()}/${nextItem.metaData.resourceName}s`;
+        const url = `${this.serverUrl}/${nextItem.metaData.resourceName}s`;
         return post(url, nextItem.resource, (response) => {
             if (!_.isNil(response.ok) && !response.ok) {
                 Logger.logDebug('ConventionalRestClient', response);
@@ -91,6 +91,19 @@ class ConventionalRestClient {
                 this.postEntity(getNextItem, onCompleteCurrentItem, onComplete, onError);
             }
         }, onError);
+    }
+
+    checkResponse(response) {
+        if (!response.ok) {
+            let message = `${response.status}: ${response.statusText}`;
+            Logger.logError("ConventionalRestClient", message);
+            throw new Error(message);
+        }
+        return Promise.resolve(response);
+    }
+
+    authenticatedFetch(endpoint) {
+        return fetch(endpoint, {credentials: "same-origin", timeout: 20}).then(this.checkResponse).then((response) => response.json());
     }
 }
 

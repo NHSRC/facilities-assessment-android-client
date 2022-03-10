@@ -18,6 +18,7 @@ class SeedDataService extends BaseService {
     }
 
     postInit() {
+        super.postInit();
         let seedProgressService = this.getService(SeedProgressService);
         let seedProgress = seedProgressService.getSeedProgress();
         if (!seedProgress.hasChecklistLoaded()) {

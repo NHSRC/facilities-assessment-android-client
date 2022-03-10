@@ -11,6 +11,7 @@ class SeedProgressService extends BaseService {
     }
 
     postInit() {
+        super.postInit();
         this.initialise();
     }
 

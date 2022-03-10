@@ -43,20 +43,26 @@ class SubmitAssessment extends AbstractComponent {
     }
 
     componentWillMount() {
-        this.dispatchAction(Actions["START_SUBMIT_ASSESSMENT"], {
-            loggedIn: (assessmentNumbers) => this.dispatchAction(Actions["UPDATE_LOGIN_STATUS"], {loginStatus: LoginStatus.LOGGED_IN, assessmentNumbers: assessmentNumbers}),
-            notLoggedIn: () => this.dispatchAction(Actions["UPDATE_LOGIN_STATUS"], {loginStatus: LoginStatus.NOT_LOGGED_IN}),
-            facilityAssessment: this.props.facilityAssessment,
-            assessmentNumbers: []
+        this.dispatchAction(Actions["IS_SUBMISSION_PROTECTED"], {
+            setSubmissionProtectionStatus: (status) => {
+                this.dispatchAction(Actions["START_SUBMIT_ASSESSMENT"], {
+                    isSubmissionProtected: status,
+                    loggedIn: (assessmentNumbers) => this.dispatchAction(Actions["UPDATE_LOGIN_STATUS"], {loginStatus: LoginStatus.LOGGED_IN, assessmentNumbers: assessmentNumbers}),
+                    notLoggedIn: () => this.dispatchAction(Actions["UPDATE_LOGIN_STATUS"], {loginStatus: LoginStatus.NOT_LOGGED_IN}),
+                    facilityAssessment: this.props.facilityAssessment,
+                    assessmentNumbers: []
+                });
+            },
+            launchSubmissionError: () => this.launchSubmissionError
         });
     }
 
     handleCustomInfoChange(assessmentMetaData, text) {
-        this.dispatchAction(Actions.ENTER_CUSTOM_INFO, {assessmentMetaData: assessmentMetaData, valueString: text});
+        this.dispatchAction(Actions["ENTER_CUSTOM_INFO"], {assessmentMetaData: assessmentMetaData, valueString: text});
     }
 
     close() {
-        this.dispatchAction(Actions.SUBMISSION_CANCELLED);
+        this.dispatchAction(Actions["SUBMISSION_CANCELLED"]);
     }
 
     handleSubmit() {
@@ -64,15 +70,28 @@ class SubmitAssessment extends AbstractComponent {
             cb: () => this.dispatchAction(Actions.ASSESSMENT_SYNCED, {status: true}),
             errorHandler: (error) => {
                 Logger.logError('SubmitAssessment', error);
-                this.submissionError(this.state.chosenAssessment, error);
+                this.submissionError(error);
             }
         });
     }
 
-    submissionError(facilityAssessment, error) {
+    launchSubmissionError(error) {
         Alert.alert(
             'Submission Error',
-            `An error occurred while submitting the assessment. ${error.message}`,
+            `An error occurred while starting submission (note internet is required). ${error.message}`,
+            [
+                {
+                    text: 'OK',
+                    onPress: () => {}
+                }
+            ]
+        )
+    }
+
+    submissionError(error) {
+        Alert.alert(
+            'Submission Error',
+            `An error occurred while submitting the assessment (note internet is required). ${error.message}`,
             [
                 {
                     text: 'OK',

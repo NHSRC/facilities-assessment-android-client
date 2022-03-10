@@ -32,11 +32,11 @@ class AuthService extends BaseService {
             credentials: "same-origin"
         };
 
-        let endpoint = `${this.getService(SettingsService).getServerURL()}/api/login`;
+        let endpoint = `${this.getServerURL()}/api/login`;
         Logger.logDebug("AuthService", `Attempting login: ${endpoint}`);
         return fetch(endpoint, requestInfo)
             .then(this.checkLoginFailure)
-            .then(this.checkResponse)
+            .then(this.conventionalRestClient.checkResponse)
             .then(() => this.verifySession())
             .then((user) => {
                 this.getService(UserService).saveUser(user)
@@ -45,7 +45,7 @@ class AuthService extends BaseService {
     }
 
     logout() {
-        let endpoint = `${this.getService(SettingsService).getServerURL()}/api/logout`;
+        let endpoint = `${this.getServerURL()}/api/logout`;
         Logger.logDebug("AuthService", `Attempting logout: ${endpoint}`);
         return fetch(endpoint, {credentials: "same-origin"});
     }
@@ -58,7 +58,7 @@ class AuthService extends BaseService {
             headers: new Headers({'Accept': 'application/json'}),
             credentials: "same-origin"
         })
-            .then(this.checkResponse)
+            .then(this.conventionalRestClient.checkResponse)
             .then((response) => response.json());
     }
 }

@@ -13,11 +13,6 @@ class ReferenceDataSyncService extends AbstractReferenceDataSyncService {
         super(db, beanStore);
     }
 
-    init() {
-        super.init();
-        this.conventionalRestClient = new ConventionalRestClient(this.getService(SettingsService), this.db);
-    }
-
     toJSON() {
         return "ReferenceDataSyncService";
     }

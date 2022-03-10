@@ -21,7 +21,7 @@ class AbstractReferenceDataSyncService extends BaseService {
     init() {
         this.entitySyncStatusService = this.getService(EntitySyncStatusService);
         this.entityService = this.getService(EntityService);
-        this.serverURL = this.getService(SettingsService).getServerURL();
+        this.serverURL = this.getServerURL();
     }
 
     syncMyTxData(cb, onError) {
