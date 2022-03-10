@@ -30,6 +30,7 @@ class StateSelection extends AbstractComponent {
     }
 
     stateSelectionConfirmed() {
+        let intervalID;
         let timeoutID = setTimeout(() => {
             this.dispatchAction(Actions.STATE_SELECTION_CONFIRMED, {
                 onError: (error) => {
@@ -39,6 +40,7 @@ class StateSelection extends AbstractComponent {
                                 text: "OK",
                                 onPress: () => {
                                     clearTimeout(timeoutID);
+                                    if (intervalID) clearInterval(intervalID);
                                     this.dispatchAction(Actions.STATE_DOWNLOAD_FAILED);
                                 }
                             }
@@ -48,7 +50,7 @@ class StateSelection extends AbstractComponent {
                 }
             });
         }, 100);
-        let intervalID = setInterval(() => {
+        intervalID = setInterval(() => {
             let seedProgress = this.getService(SeedProgressService).getSeedProgress();
             this.dispatchAction(Actions.STATE_UPDATE_PROGRESS);
             if (seedProgress.hasAllStatesLoaded()) {

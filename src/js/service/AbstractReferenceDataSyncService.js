@@ -92,7 +92,7 @@ class AbstractReferenceDataSyncService extends BaseService {
         resourcesWithSameTimeStamp.forEach((resource) => {
             const entity = entityMetaData.mapFromResource(resource);
             let service = this.getService(entityMetaData.serviceClass);
-            let savedEntity = service.saveWithinTx(entityMetaData.entityClass, entity);
+            service.saveWithinTx(entityMetaData.entityClass, entity);
             if (!_.isNil(entityMetaData.parentClass)) {
                 const parentEntity = entityMetaData.parentClass.associateChild(entity, entityMetaData.entityClass, resource, this.entityService);
                 this.saveWithinTx(entityMetaData.parentClass, parentEntity);

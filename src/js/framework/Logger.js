@@ -1,7 +1,7 @@
 import General from "../utility/General";
 import _ from 'lodash';
 
-var currentLogLevel = 1;
+let currentLogLevel = 1;
 
 class Logger {
     static LogLevel = {

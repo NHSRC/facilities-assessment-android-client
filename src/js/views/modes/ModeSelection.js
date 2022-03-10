@@ -33,6 +33,7 @@ const nqasIcon = require('../img/nqas.png');
 const kayakalpIcon = require('../img/kayakalp.png');
 const LaqshyaIcon = require('../img/Laqshya.png');
 const nhsrcbanner = require('../img/nhsrcbanner.png');
+const MusQanIcon = require('../img/musqan.png');
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
@@ -173,6 +174,7 @@ class ModeSelection extends ViewComponent {
                             {this.getModeIfPresent("Kayakalp", kayakalpIcon)}
                             {this.getModeIfPresent("Laqshya", LaqshyaIcon)}
                             {this.getModeIfPresent("Dakshata")}
+                            {this.getModeIfPresent("MusQan", MusQanIcon)}
                         </View>
                         <View style={[ModeSelection.styles.modeContainer]}>
                             {this.getModeIfPresent("ANC Program", null, false)}
