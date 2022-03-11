@@ -28,8 +28,9 @@ const makeHeader = (type) => new Map(
     [['json', {
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json',
-        }
+            'Content-Type': 'application/json'
+        },
+        'credentials': "same-origin"
     }],
         ['text', {
             headers: {'Accept': 'text/plain', 'Content-Type': 'text/plain'}

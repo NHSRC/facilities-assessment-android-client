@@ -32,9 +32,9 @@ class AssessmentSummary extends AbstractComponent {
         this.dispatchAction(Actions.ASSESSMENT_SUMMARY_CLOSED);
     }
 
-    renderItem(label, value, key = label) {
+    renderItem(label, value, key = label, separator = ":") {
         return <View style={{flexDirection: 'row'}} key={key}>
-            <Text style={[Typography.paperFontBody1, {marginTop: 2}]}>{`${label}: `}</Text>
+            <Text style={[Typography.paperFontBody1, {marginTop: 2}]}>{`${label}${separator} `}</Text>
             <Text style={[Typography.paperFontBody2]}>{value}</Text>
         </View>
     }
@@ -56,6 +56,7 @@ class AssessmentSummary extends AbstractComponent {
 
                     <Text style={[Typography.paperFontTitle, {marginTop: 15}]}>Assessors list</Text>
                     {this.props.summary.customInfos.map((customInfo, index) => this.renderItem(customInfo.assessmentMetaDataName, customInfo.valueString, `${index}.${customInfo.assessmentMetaDataName}`))}
+                    {this.props.summary.assessors.map((assessor, index) => this.renderItem(assessor.name, assessor.email, assessor.email, ","))}
                     <Button block
                             style={{backgroundColor: PrimaryColors.blue, marginHorizontal: 10, marginTop: 20, flex: 0.5}}
                             onPress={() => this.close()}><Text>CLOSE</Text></Button>
