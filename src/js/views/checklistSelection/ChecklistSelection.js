@@ -90,7 +90,7 @@ class ChecklistSelection extends ViewComponent {
     }
 
     submitAssessment() {
-        return this.dispatchAction(Actions.CS_START_SUBMIT_ASSESSMENT, {facilityAssessment: this.props.params.facilityAssessment});
+        return this.dispatchAction(Actions["CS_START_SUBMIT_ASSESSMENT"], {facilityAssessment: this.props.params.facilityAssessment});
     }
 
     render() {

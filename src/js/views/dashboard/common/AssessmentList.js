@@ -93,7 +93,7 @@ class AssessmentList extends AbstractComponent {
                         {this.assessmentDisplayText(assessment)}
                     </Text>
                     <Text style={[Typography.paperFontCaption, {color: "rgba(255,255,255,0.7)", marginTop: 4}]}>
-                        {assessment.facility.facilityType.name}
+                        {`${assessment.assessmentTool.name}, ${assessment.assessmentType.name}`}
                     </Text>
                 </View>
                 <View style={{flex:0.25 ,flexDirection: 'column',paddingLeft:10}}>
@@ -103,7 +103,8 @@ class AssessmentList extends AbstractComponent {
     }
 
     assessmentDisplayText(assessment) {
-        return _.isNil(assessment.seriesName) ? assessment.facility.name : `${assessment.seriesName} - ${assessment.facility.name}`;
+        const facilityDisplay = `${assessment.facility.name} (${assessment.facility.facilityType.name})`;
+        return _.isNil(assessment.seriesName) ? facilityDisplay : `${assessment.seriesName} - ${facilityDisplay}`;
     }
 
     render() {

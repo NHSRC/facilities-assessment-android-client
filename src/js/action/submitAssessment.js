@@ -35,6 +35,7 @@ const updateLoginStatus = function (state, action, context) {
 }
 
 const isSubmissionProtected = function (state, action, beans) {
+    Logger.logDebug('submitAssessment', "isSubmissionProtected");
     const faService = beans.get(FacilityAssessmentService);
     let assessment = faService.getAssessment(action.facilityAssessment.uuid);
     faService.isSubmissionProtected(assessment, action.setSubmissionProtectionStatus, action.launchSubmissionError);
@@ -44,6 +45,7 @@ const isSubmissionProtected = function (state, action, beans) {
 }
 
 const startSubmitAssessment = function (state, action, beans) {
+    Logger.logDebug('submitAssessment', "startSubmitAssessment");
     const entityService = beans.get(EntityService);
     const assessmentService = beans.get(FacilityAssessmentService);
 

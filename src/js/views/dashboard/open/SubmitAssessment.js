@@ -44,6 +44,7 @@ class SubmitAssessment extends AbstractComponent {
 
     componentWillMount() {
         this.dispatchAction(Actions["IS_SUBMISSION_PROTECTED"], {
+            facilityAssessment: this.props.facilityAssessment,
             setSubmissionProtectionStatus: (status) => {
                 this.dispatchAction(Actions["START_SUBMIT_ASSESSMENT"], {
                     isSubmissionProtected: status,
@@ -66,8 +67,8 @@ class SubmitAssessment extends AbstractComponent {
     }
 
     handleSubmit() {
-        this.dispatchAction(Actions.SYNC_ASSESSMENT, {
-            cb: () => this.dispatchAction(Actions.ASSESSMENT_SYNCED, {status: true}),
+        this.dispatchAction(Actions["SYNC_ASSESSMENT"], {
+            cb: () => this.dispatchAction(Actions["ASSESSMENT_SYNCED"], {status: true}),
             errorHandler: (error) => {
                 Logger.logError('SubmitAssessment', error);
                 this.submissionError(error);
@@ -102,6 +103,7 @@ class SubmitAssessment extends AbstractComponent {
     }
 
     render() {
+        Logger.logDebug('SubmitAssessment', this.state.loginStatus);
         if (this.state.loginStatus === LoginStatus.UNKNOWN)
             return <ActivityIndicator animating={true} size={"large"} color="white" style={{height: 80}}/>;
 

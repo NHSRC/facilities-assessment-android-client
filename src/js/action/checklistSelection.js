@@ -5,7 +5,7 @@ import _ from "lodash";
 import AssessmentLocation from "../models/AssessmentLocation";
 import UUID from "../utility/UUID";
 import AssessmentLocationService from "../service/AssessmentLocationService";
-import FacilityAssessment from "../models/FacilityAssessment";
+import Logger from "../framework/Logger";
 
 const checklistAssessmentLocation = function (state, action, beans) {
     let assessmentLocation = new AssessmentLocation();
@@ -82,6 +82,7 @@ const editAssessmentCompleted = function (state) {
 };
 
 const startSubmitAssessment = function (state, action, beans) {
+    Logger.logDebug('checklistSelection', "startSubmitAssessment");
     let assessmentService = beans.get(FacilityAssessmentService);
     let assessment = assessmentService.getAssessment(action.facilityAssessment.uuid);
     return _.assignIn(state, {
@@ -92,11 +93,11 @@ const startSubmitAssessment = function (state, action, beans) {
 
 const assessmentSynced = function(state, action, beans) {
     let assessmentService = beans.get(FacilityAssessmentService);
-    let assessment = assessmentService.getAssessment(state.chosenAssessment.uuid);
+    Logger.logDebug('checklistSelection', "assessmentSynced");
     return _.assignIn(state, {
         submittingAssessment: false,
         syncing: false,
-        chosenAssessment: assessment
+        chosenAssessment: _.isNil(state.chosenAssessment) ? null : assessmentService.getAssessment(state.chosenAssessment.uuid)
     });
 };
 

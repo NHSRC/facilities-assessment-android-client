@@ -29,6 +29,7 @@ const allAssessments = function (state, action, beans) {
 };
 
 const launchSubmitAssessment = function (state, action, beans) {
+    Logger.logDebug('openAssessments', "launchSubmitAssessment");
     let assessmentService = beans.get(FacilityAssessmentService);
     let assessment = assessmentService.getAssessment(action.facilityAssessment.uuid);
     return _.assignIn(state, {

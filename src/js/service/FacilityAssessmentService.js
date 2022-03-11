@@ -166,7 +166,7 @@ class FacilityAssessmentService extends BaseService {
     }
 
     isSubmissionProtected(assessment, cb, errorHandler) {
-        const endpoint = this.getEndpoint(`assessmentNumberAssignment/exists?assessmentTypeUuid=${assessment.assessmentType.uuid}&facilityUuid=${assessment.facility.uuid}`);
+        const endpoint = `assessmentNumberAssignment/exists?assessmentTypeUuid=${assessment.assessmentType.uuid}&facilityUuid=${assessment.facility.uuid}`;
         return this.conventionalRestClient.getData(endpoint, cb, errorHandler);
     }
 }

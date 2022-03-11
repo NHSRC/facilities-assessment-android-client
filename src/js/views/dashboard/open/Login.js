@@ -42,7 +42,7 @@ class Login extends AbstractComponent {
     render() {
         return <View style={Login.styles.container}>
             <View style={{marginTop: 15, marginBottom: 30}}>
-                <Text style={[Typography.paperFontTitle]}>For external assessment submission login is required</Text>
+                <Text style={[Typography.paperFontTitle]}>For this assessment submission, login is required</Text>
                 <Text style={[Typography.paperFontSubhead, {marginTop: 20}]}>Email</Text>
                 <TextInput style={Login.styles.input}
                     // value={}
