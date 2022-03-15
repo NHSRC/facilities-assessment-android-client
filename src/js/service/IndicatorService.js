@@ -12,7 +12,7 @@ class IndicatorService extends BaseService {
     }
 
     getIndicatorDefinitions(assessmentToolUUID, isOutput) {
-        let indicatorDefinitions = [...this.findAllByCriteria(`assessmentTool = "${assessmentToolUUID}" AND output = ${isOutput}`, IndicatorDefinition.schema.name)];
+        let indicatorDefinitions = [...this.findAllByCriteria(`assessmentTool = "${assessmentToolUUID}" AND output = ${isOutput} AND inactive = false`, IndicatorDefinition.schema.name)];
         return _.sortBy(indicatorDefinitions, (indicatorDefinition) => indicatorDefinition.sortOrder);
     }
 

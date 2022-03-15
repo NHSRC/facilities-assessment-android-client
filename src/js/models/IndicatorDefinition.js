@@ -14,7 +14,8 @@ export default class IndicatorDefinition {
             output: 'bool',
             symbol: {type: "string", optional: true},
             formula: {type: 'string', optional: true},
-            sortOrder: 'int'
+            sortOrder: 'int',
+            inactive: {type: "bool", default: false}
         }
     };
 

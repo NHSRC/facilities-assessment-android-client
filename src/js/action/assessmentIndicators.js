@@ -24,8 +24,8 @@ const clone = function (state) {
 
 const allIndicators = function (state, action, beans) {
     let newState = clone(state);
-    newState.indicatorDefinitions = beans.get(IndicatorService).getIndicatorDefinitions(action.assessmentToolUUID, false);
-    newState.outputIndicatorDefinitions = beans.get(IndicatorService).getIndicatorDefinitions(action.assessmentToolUUID, false);
+    newState.indicatorDefinitions = beans.get(IndicatorService).getIndicatorDefinitions(action.assessmentToolUUID, false, action.assessmentUUID);
+    newState.outputIndicatorDefinitions = beans.get(IndicatorService).getIndicatorDefinitions(action.assessmentToolUUID, true);
     newState.assessmentUUID = action.assessmentUUID;
     newState.indicators = beans.get(IndicatorService).getIndicators(action.assessmentUUID);
     newState.resultsEvalCode = IndicatorDefinitions.resultsEvalCode(newState.indicatorDefinitions, false);
