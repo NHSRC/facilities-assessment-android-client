@@ -1,47 +1,29 @@
-# Check out https://docs.codemagic.io/getting-started/building-a-react-native-app/ for more information
-# Please review and update values in curly braces
-
 workflows:
-  react-native:
-    name: React Native App
-    environment:
-      vars:
-        XCODE_WORKSPACE: "FacilitiesAssessment"
-        XCODE_SCHEME: "FacilitiesAssessment"
-        CM_KEYSTORE: Encrypted(...)
-        CM_KEYSTORE_PASSWORD: Encrypted(...)
-        CM_KEY_PASSWORD: Encrypted(...)
-        CM_KEY_ALIAS: Encrypted(...)
-        CM_CERTIFICATE: Encrypted(...)
-        CM_CERTIFICATE_PASSWORD: Encrypted(...)
-        CM_PROVISIONING_PROFILE: Encrypted(...)
-      node: latest
+  my-workflow:
     scripts:
-      - npm install
-      - echo "sdk.dir=$HOME/programs/android-sdk-macosx" > "$CM_BUILD_DIR/android/local.properties"
-      - |
-        chmod -R 777 $CM_BUILD_DIR
-        echo $CM_KEYSTORE | base64 --decode > $CM_BUILD_DIR/keystore.jks
-        # build Android
-        cd android
-        ./gradlew assembleRelease
-      - keychain initialize
-      - |
-        # set up provisioning profiles
-        PROFILES_HOME="$HOME/Library/ProvisioningProfiles"
-        mkdir -p "$PROFILES_HOME"
-        PROFILE_PATH="$(mktemp "$PROFILES_HOME"/$(uuidgen).mobileprovision)"
-        echo ${CM_PROVISIONING_PROFILE} | base64 --decode > $PROFILE_PATH
-        echo "Saved provisioning profile $PROFILE_PATH"
-      - |
-        # set up signing certificate
-        echo $CM_CERTIFICATE | base64 --decode > /tmp/certificate.p12
-        keychain add-certificates --certificate /tmp/certificate.p12 --certificate-password $CM_CERTIFICATE_PASSWORD
-      - xcode-project use-profiles
-      - |
-        # build iOS
-        cd ios
-        pod install
-      - xcode-project build-ipa --workspace "ios/$XCODE_WORKSPACE.xcodeproject/project.xcworkspace" --scheme "$XCODE_SCHEME"
+      - name: Add provisioning profiles
+        script: |
+          set -e # exit on first failed command
+
+          PROFILES_HOME="$HOME/Library/MobileDevice/Provisioning Profiles"
+          mkdir -p "$PROFILES_HOME"
+          echo ${PROVISIONING_PROFILE?} | base64 --decode > "$PROFILES_HOME/$(uuidgen).mobileprovision"
+      - name: Add signing certificate
+        script: |
+          set -e # exit on first failed command
+
+          echo ${CERTIFICATE?} | base64 --decode > /tmp/certificate.p12
+          keychain initialize
+          keychain add-certificates \
+              --certificate /tmp/certificate.p12 \
+              --certificate-password ${CERTIFICATE_PASSWORD?}
+      - name: Increment build number
+        script: agvtool new-version -all $BUILD_NUMBER
+      - name: Set up code signing settings on Xcode project
+        script: xcode-project use-profiles
+      - name: Build ipa for distribution
+        script: xcode-project build-ipa \
+          --project "ios/FacilitiesAssessment.xcodeproj" \
+          --scheme "Release"
     artifacts:
-      - build/ios/ipa
+      - build/ios/ipa/*.ipa
