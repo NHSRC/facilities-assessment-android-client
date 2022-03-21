@@ -6,7 +6,6 @@ workflows:
         - app_store_credentials
         - certificate_credentials
       vars:
-        XCODE_WORKSPACE: "project.xcworkspace" # <-- Put the name of your Xcode workspace here
         XCODE_SCHEME: "Release"
         BUNDLE_ID: "org.nhsrc.FacilitiesAssessment"
         APP_STORE_APP_ID: 1354891968 # <-- Put the app id number here. This is found in App Store Connect > App > General > App Information
@@ -40,7 +39,7 @@ workflows:
           xcode-project use-profiles --warn-only
       - name: Build ipa for distribution
         script: |
-          xcode-project build-ipa --workspace "$FCI_BUILD_DIR/ios/$XCODE_WORKSPACE" --scheme "$XCODE_SCHEME"
+          xcode-project build-ipa --project "$FCI_BUILD_DIR/ios/FacilitiesAssessment.xcodeproj" --scheme "$XCODE_SCHEME"
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
