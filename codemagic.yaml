@@ -36,7 +36,7 @@ workflows:
         script: |
           npm install
       - name: Configure for release
-        script: make prepare-ipa-nhsrc
+        script: make create-nhsrc-config
       - name: Install CocoaPods dependencies
         script: |
           cd ios && pod install
