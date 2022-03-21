@@ -3,23 +3,32 @@ workflows:
     environment:
       groups:
         - production
+        - app_store_credentials
+        - certificate_credentials
+      vars:
+        XCODE_WORKSPACE: "project.xcworkspace" # <-- Put the name of your Xcode workspace here
+        XCODE_SCHEME: "Release"
+        BUNDLE_ID: "org.nhsrc.FacilitiesAssessment"
+        APP_STORE_APP_ID: 1354891968 # <-- Put the app id number here. This is found in App Store Connect > App > General > App Information
+      node: latest
+      xcode: 12.5
+      cocoapods: default
     scripts:
-      - name: Add provisioning profiles
+      - name: Set up keychain to be used for codesigning using Codemagic CLI 'keychain' command
         script: |
-          set -e # exit on first failed command
-
-          PROFILES_HOME="$HOME/Library/MobileDevice/Provisioning Profiles"
-          mkdir -p "$PROFILES_HOME"
-          echo ${PROVISIONING_PROFILE?} | base64 --decode > "$PROFILES_HOME/$(uuidgen).mobileprovision"
-      - name: Add signing certificate
+            keychain initialize
+      - name: Fetch signing files
         script: |
-          set -e # exit on first failed command
-
-          echo ${CERTIFICATE?} | base64 --decode > /tmp/certificate.p12
-          keychain initialize
-          keychain add-certificates \
-              --certificate /tmp/certificate.p12 \
-              --certificate-password ${CERTIFICATE_PASSWORD?}
+            app-store-connect fetch-signing-files "$BUNDLE_ID" --type IOS_APP_STORE --create
+      - name: Use system default keychain
+        script: |
+                keychain add-certificates
+      - name: Install npm dependencies
+        script: |
+            npm install
+      - name: Install CocoaPods dependencies
+        script: |
+            cd ios && pod install
       - name: Increment build number
         script: |
           cd ios
