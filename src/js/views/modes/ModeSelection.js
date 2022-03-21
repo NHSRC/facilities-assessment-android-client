@@ -192,19 +192,19 @@ class ModeSelection extends ViewComponent {
                                                                                  info
                                                                                  onPress={() => this.addNewState()}><Text>{this.downloadButtonContent("Add State")}</Text></GunakButton> : null}
                         </View>
-                        <View style={{
-                            flexDirection: 'row',
-                            justifyContent: 'center',
-                            marginVertical: 6,
-                            flexWrap: 'wrap'
-                        }}>
-                            <Text style={{color: '#0096FF', fontWeight: 'bold'}}
-                                  onPress={() => Linking.openURL('https://play.google.com/store/apps/details?id=com.facilitiesassessment&hl=en_IN&gl=US')}>
-                                Mentor Assessment
-                            </Text>
-                            <Text style={{color: 'white', alignSelf: 'center', fontSize: 10}}>(You can download the
-                                mentor assessment app from Google Playstore)</Text>
-                        </View>
+                        {/*<View style={{*/}
+                        {/*    flexDirection: 'row',*/}
+                        {/*    justifyContent: 'center',*/}
+                        {/*    marginVertical: 6,*/}
+                        {/*    flexWrap: 'wrap'*/}
+                        {/*}}>*/}
+                        {/*    <Text style={{color: '#0096FF', fontWeight: 'bold'}}*/}
+                        {/*          onPress={() => Linking.openURL('https://play.google.com/store/apps/details?id=com.facilitiesassessment&hl=en_IN&gl=US')}>*/}
+                        {/*        Mentor Assessment*/}
+                        {/*    </Text>*/}
+                        {/*    <Text style={{color: 'white', alignSelf: 'center', fontSize: 10}}>(You can download the*/}
+                        {/*        mentor assessment app from Google Playstore)</Text>*/}
+                        {/*</View>*/}
 
                         <Text style={[Typography.paperFontTitle, {
                             color: 'white',
