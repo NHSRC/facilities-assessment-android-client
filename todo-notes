@@ -12,12 +12,10 @@ https://github.com/avniproject/avni-client/commit/12d149eacaa14fb81fcdc0691df09d
 
 iOS Info Releasing
 ------------------
-Certificate
-    Expiration Date
-    2023/03/21
-    Created By
-    JN Srivastava (gunak.qi.nhsrc@gmail.com)
+The following steps need to be done if the certificate in AppStoreConnect (ASC) expires.
+1) Generate the certificate from ASC. The certificate in ASC created by certificate signing request created locally. This means that the certificate generated will be have the local private key.
+2) After generation download the certificate and install it locally. The certificate should show your own private key.
+3) Export this private key without any password. For CodeMagic build this private key needs to be created in plain text format using the command "openssl pkcs12 -in IOS_DISTRIBUTION.p12 -nodes -nocerts | openssl rsa -out ios_distribution_private_key". The .p12 file here is created by exporting the private key.
+4) Set this in CodeMagic env var.
 
-Provisioning Profile
-    Gunak Mar 2022
-    2023/03/21
+https://github.com/codemagic-ci-cd/codemagic-sample-projects/blob/main/react-native/react-native-demo-project/codemagic.yaml#L72

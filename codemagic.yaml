@@ -14,8 +14,6 @@ workflows:
       xcode: 12.5
       cocoapods: default
     scripts:
-      - name: Check make is present
-        script: make help
       - name: Set up keychain to be used for codesigning using Codemagic CLI 'keychain' command
         script: |
           keychain initialize
@@ -37,9 +35,6 @@ workflows:
           npm install
       - name: Configure for release
         script: make create-nhsrc-config
-      - name: Install CocoaPods dependencies
-        script: |
-          cd ios && pod install
       - name: Set up code signing settings on Xcode project
         script: |
           xcode-project use-profiles --warn-only
