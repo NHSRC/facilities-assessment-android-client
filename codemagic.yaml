@@ -1,11 +1,5 @@
 workflows:
-  env-test-workflow:
-    environment:
-      xcode: 12.5
-    scripts:
-    - name: Check xcode schemes
-      script: xcodebuild -list -project "$FCI_BUILD_DIR/ios/FacilitiesAssessment.xcodeproj"
-  my-workflow:
+  ipa-publish:
     environment:
       groups:
         - production
@@ -56,3 +50,9 @@ workflows:
         submit_to_testflight: true
         beta_groups:
           - Gunak Testers
+  env-test-workflow:
+    environment:
+      xcode: 12.5
+    scripts:
+      - name: Check xcode schemes
+        script: xcodebuild -list -project "$FCI_BUILD_DIR/ios/FacilitiesAssessment.xcodeproj"
