@@ -35,6 +35,7 @@ replace-syntax-errors:
 	sed -i -e 's/NSArray<id<RCTBridgeModule>>/NSArray<Class>/g' node_modules/react-native/React/Base/RCTBridge.h
 	sed -i -e 's/NSArray<id<RCTBridgeModule>>/NSArray<Class>/g' node_modules/react-native/React/Base/RCTBridgeDelegate.h
 	sed -i -e 's/NSArray<id<RCTBridgeModule>>/NSArray<Class>/g' node_modules/react-native/React/CxxBridge/RCTCxxBridge.mm
+	sed -i -e 's/*bsg_kscrashsentry_generateReportContext()/*bsg_kscrashsentry_generateReportContext(void)/g' node_modules/bugsnag-react-native/cocoa/vendor/bugsnag-cocoa/Source/KSCrash/Source/KSCrash/Recording/Sentry/BSG_KSCrashSentry_User.c
 
 prepare-ipa-nhsrc: create-nhsrc-config
 	react-native bundle --entry-file index.ios.js --platform ios --dev false --bundle-output ios/main.jsbundle --assets-dest ios
