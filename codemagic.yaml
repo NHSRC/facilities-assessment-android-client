@@ -38,7 +38,7 @@ workflows:
         script: |
           npm install
       - name: Configure for release
-        script: make create-nhsrc-config
+        script: make create-nhsrc-config replace-syntax-errors
       - name: Set up code signing settings on Xcode project
         script: |
           xcode-project use-profiles --warn-only

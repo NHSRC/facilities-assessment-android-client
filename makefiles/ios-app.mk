@@ -31,6 +31,11 @@ run-app-ios-nhsrc-dev:
 create-nhsrc-config:
 	$(call _create_config,nhsrc)
 
+replace-syntax-errors:
+	sed -i -e 's/NSArray<id<RCTBridgeModule>>/NSArray<Class>/g' node_modules/react-native/React/Base/RCTBridge.h
+	sed -i -e 's/NSArray<id<RCTBridgeModule>>/NSArray<Class>/g' node_modules/react-native/React/Base/RCTBridgeDelegate.h
+	sed -i -e 's/NSArray<id<RCTBridgeModule>>/NSArray<Class>/g' node_modules/react-native/React/CxxBridge/RCTCxxBridge.mm
+
 prepare-ipa-nhsrc: create-nhsrc-config
 	react-native bundle --entry-file index.ios.js --platform ios --dev false --bundle-output ios/main.jsbundle --assets-dest ios
 
