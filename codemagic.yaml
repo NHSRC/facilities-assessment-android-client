@@ -21,7 +21,9 @@ workflows:
               --certificate /tmp/certificate.p12 \
               --certificate-password ${CERTIFICATE_PASSWORD?}
       - name: Increment build number
-        script: agvtool new-version -all $BUILD_NUMBER -xcodeproj ios/FacilitiesAssessment.xcodeproj
+        script: |
+          cd ios
+          agvtool new-version -all $BUILD_NUMBER
       - name: Set up code signing settings on Xcode project
         script: xcode-project use-profiles
       - name: Build ipa for distribution
