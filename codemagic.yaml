@@ -1,5 +1,8 @@
 workflows:
   my-workflow:
+    environment:
+      groups:
+        - production
     scripts:
       - name: Add provisioning profiles
         script: |
