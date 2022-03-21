@@ -44,7 +44,7 @@ workflows:
           xcode-project use-profiles --warn-only
       - name: Build ipa for distribution
         script: |
-          xcode-project build-ipa --project "$FCI_BUILD_DIR/ios/FacilitiesAssessment.xcodeproj" --scheme "Release"
+          xcode-project build-ipa --project "$FCI_BUILD_DIR/ios/FacilitiesAssessment.xcodeproj" --scheme "FacilitiesAssessment"
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
