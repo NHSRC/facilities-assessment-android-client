@@ -1,4 +1,10 @@
 workflows:
+  env-test-workflow:
+    environment:
+      xcode: 12.5
+    scripts:
+    - name: Check xcode schemes
+      script: xcodebuild -list -project "$FCI_BUILD_DIR/ios/FacilitiesAssessment.xcodeproj"
   my-workflow:
     environment:
       groups:
