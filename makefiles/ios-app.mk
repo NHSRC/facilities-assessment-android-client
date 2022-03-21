@@ -28,12 +28,13 @@ run-app-ios-nhsrc-release:
 run-app-ios-nhsrc-dev:
 	$(call _run_ios_dev,nhsrc.dev)
 
-prepare-ipa-nhsrc:
+create-nhsrc-config:
 	$(call _create_config,nhsrc)
+
+prepare-ipa-nhsrc: create-nhsrc-config
 	react-native bundle --entry-file index.ios.js --platform ios --dev false --bundle-output ios/main.jsbundle --assets-dest ios
 
-release-ios-nhsrc:
-	$(call _create_config,nhsrc)
+release-ios-nhsrc: create-nhsrc-config
 	react-native run-ios --configuration Release
 
 xcode-project-open:

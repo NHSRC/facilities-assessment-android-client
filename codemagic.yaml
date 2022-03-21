@@ -10,10 +10,12 @@ workflows:
         XCODE_SCHEME: "Release"
         BUNDLE_ID: "org.nhsrc.FacilitiesAssessment"
         APP_STORE_APP_ID: 1354891968 # <-- Put the app id number here. This is found in App Store Connect > App > General > App Information
-      node: latest
+      node: 8.5.0
       xcode: 12.5
       cocoapods: default
     scripts:
+      - name: Check make is present
+        script: make help
       - name: Set up keychain to be used for codesigning using Codemagic CLI 'keychain' command
         script: |
           keychain initialize
@@ -33,6 +35,8 @@ workflows:
       - name: Install npm dependencies
         script: |
           npm install
+      - name: Configure for release
+        script: make prepare-ipa-nhsrc
       - name: Install CocoaPods dependencies
         script: |
           cd ios && pod install
