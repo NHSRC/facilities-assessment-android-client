@@ -19,3 +19,7 @@ The following steps need to be done if the certificate in AppStoreConnect (ASC) 
 4) Set this in CodeMagic env var.
 
 https://github.com/codemagic-ci-cd/codemagic-sample-projects/blob/main/react-native/react-native-demo-project/codemagic.yaml#L72
+
+For manual uploading of IPA incase Code magic doesn work.
+------
+https://developer.apple.com/forums/thread/128971

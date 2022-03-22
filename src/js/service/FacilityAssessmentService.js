@@ -160,13 +160,13 @@ class FacilityAssessmentService extends BaseService {
     }
 
     getAssessmentNumbers(assessment) {
-        const endpoint = this.getEndpoint(`assessmentNumberAssignment/search/assessment?assessmentTypeUuid=${assessment.assessmentType.uuid}&facilityUuid=${assessment.facility.uuid}`);
+        const endpoint = this.getEndpoint(`assessmentNumberAssignment/search/assessment?assessmentToolUuid=${assessment.assessmentTool.uuid}&assessmentTypeUuid=${assessment.assessmentType.uuid}&facilityUuid=${assessment.facility.uuid}`);
         Logger.logDebug("FacilityAssessmentService", `Getting assessment numbers from: ${endpoint}`);
         return this.conventionalRestClient.authenticatedFetch(endpoint);
     }
 
     isSubmissionProtected(assessment, cb, errorHandler) {
-        const endpoint = `assessmentNumberAssignment/exists?assessmentTypeUuid=${assessment.assessmentType.uuid}&facilityUuid=${assessment.facility.uuid}`;
+        const endpoint = `assessmentNumberAssignment/exists?assessmentToolUuid=${assessment.assessmentTool.uuid}&assessmentTypeUuid=${assessment.assessmentType.uuid}&facilityUuid=${assessment.facility.uuid}`;
         return this.conventionalRestClient.getData(endpoint, cb, errorHandler);
     }
 }

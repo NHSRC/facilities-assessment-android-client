@@ -36,6 +36,12 @@ fill-email:
 fill-password:
 	@adb shell input text $(GUNAK_USER_PASSWORD)
 
+fill-email-2:
+	@adb shell input text viveks@samanvayfoundation.org
+
+fill-password-2:
+	@adb shell input text password
+
 disable-debug-apk-checks:
 	adb shell settings put global verifier_verify_adb_installs 0
 	adb shell settings put global package_verifier_enable 0
