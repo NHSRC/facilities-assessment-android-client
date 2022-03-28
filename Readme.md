@@ -1,29 +1,18 @@
-# Build Status
-[![Build Status](https://snap-ci.com/NHSRC/facilities-assessment-android-client/branch/master/build_image)](https://snap-ci.com/NHSRC/facilities-assessment-android-client/branch/master)
+### For running the app in an enumator
+- Install Android sdk (please check the AndroidManifest.xml for the versions).
+- Install make utility
+- Install node version (check .nvmrc file in the source code)
+- Run `make deps` to install node dependencies
+- There are several server configurations in which you can run the android app in the enulator. e.g. the server can be local, in production, or somewhere else in the LAN. The makefile commands create these configurations. Use `make run-app-android-nhsrc-dev` to connect the app to a local server. When the make command is run a Config file is created in `src/js/framework/Config.js`. Please see below about the Config file.
 
-# Code Quality
-[![Code Climate](https://codeclimate.com/github/NHSRC/facilities-assessment-android-client/badges/gpa.svg)](https://codeclimate.com/github/NHSRC/facilities-assessment-android-client)   [![Test Coverage](https://codeclimate.com/github/NHSRC/facilities-assessment-android-client/badges/coverage.svg)](https://codeclimate.com/github/NHSRC/facilities-assessment-android-client/coverage)  [![Dependency Status](https://gemnasium.com/badges/github.com/NHSRC/facilities-assessment-android-client.svg)](https://gemnasium.com/github.com/NHSRC/facilities-assessment-android-client)
+### Config file
+The Config.js file has two lines as follows.
+`import config from "../../../config/env/nhsrc.json";
+export default config;`
 
-# Bintray
-[ ![Download](https://api.bintray.com/packages/nhsrc/generic/facilities-assessment-android-client/images/download.svg) ](https://bintray.com/nhsrc/generic/facilities-assessment-android-client/_latestVersion)
+Essentially it imports a file specific to any environment.
 
-# License
-[![License](https://img.shields.io/badge/license-AGPL-green.svg?style=flat)](https://github.com/nhsrc/facilities-assessment-android-client/blob/master/LICENSE)
-
-# Dev setup
-If you are setting up the machine for the first time, make sure you have homebrew
-installed. If you have homebrew installed just run
-`make install` from the root of this repository.
-
-
-# Running
-To run the application `make run-android`
-
-# Running tests in Intellij
-* Install NodeJS plugin in Intellij
-* Open the Mocha Run & Debug Configurations
-* Set environment variable as `npm_package_scripts_test=test`
-* Set Extra Mocha Options as `--require react-native-mock/mock.js --require src/test/testHelper.js`
-* Set Node Interpreter as the project node
-* Set the Working Directory to the project root
-* User interface to `bdd`
+### Setting up config file for development environment
+- Create a copy of Config.js.example into Config.js file (in the same dir where Config.js.example is)
+- Modify the localhost.json as per your needs.
+- Leave all the config parameters to default except SERVER_URL which should point to where your Gunak server is running.
