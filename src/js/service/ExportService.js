@@ -35,13 +35,14 @@ class ExportService extends BaseService {
         return _.assignIn({}, checkpoint, {
             measurableElement: name,
             measurableElementReference: reference,
+            measurableElementReferenceSortOrder: MeasurableElement.sortOrder(reference),
             checkpoint: fullCheckpoint.name
         });
     }
 
     backfillStandard(checkpoint) {
         const {name, reference} = this.db.objectForPrimaryKey(Standard.schema.name, checkpoint.standard);
-        return _.assignIn({}, checkpoint, {standardReference: reference, standard: name});
+        return _.assignIn({}, checkpoint, {standardReference: reference, standard: name, standardSortOrder: Standard.sortOrder(reference)});
     }
 
     backfillAreaOfConcern(checkpoint) {
@@ -80,10 +81,10 @@ class ExportService extends BaseService {
             .map(this.backfillCheckpointAndMeasurableElement.bind(this))
             .map(this.backfillStandard.bind(this))
             .map(this.backfillAreaOfConcern.bind(this))
-            .map(this.backfillChecklist.bind(this))
-            .map((assessment) => _.pick(assessment, exportKeys));
-        let sortedCheckpointScores = _.sortBy(allCheckpointScores, ['areaOfConcernReference', 'standardReference', 'measurableElementReference']);
-        let exportPath = this.toCSV(metadata.filename, exportKeyHeaders, sortedCheckpointScores.map(Object.values));
+            .map(this.backfillChecklist.bind(this));
+        let sortedCheckpointScores = _.sortBy(allCheckpointScores, ['areaOfConcernReference', 'standardSortOrder', 'measurableElementReferenceSortOrder']);
+        let toExportCheckpointScores = sortedCheckpointScores.map((assessment) => _.pick(assessment, exportKeys));
+        let exportPath = this.toCSV(metadata.filename, exportKeyHeaders, toExportCheckpointScores.map(Object.values));
         return {exportPath: exportPath, ...metadata};
     }
 

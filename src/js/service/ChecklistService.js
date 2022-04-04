@@ -12,9 +12,6 @@ import CheckpointScore from "../models/CheckpointScore";
 import Standard from "../models/Standard";
 import AssessmentTool from "../models/AssessmentTool";
 
-const standardReference = new RegExp("([A-Z]{1})([0-9]{1,3})");
-const meReference = new RegExp("([A-Z]{1})([0-9]{1,3})\.([0-9]{1,3})");
-
 @Service("checklistService")
 class ChecklistService extends BaseService {
     constructor(db, beanStore) {
@@ -100,11 +97,11 @@ class ChecklistService extends BaseService {
     }
 
     standardRefComparator(standard) {
-        return parseInt(standard.reference.match(standardReference)[2]);
+        return Standard.sortOrder(standard.reference);
     }
 
     meRefComparator(me) {
-        return parseInt(me.reference.match(meReference)[3]);
+        return MeasurableElement.sortOrder(me.reference);
     }
 
     getStandardsFor(checklistUUID, aocUUID) {

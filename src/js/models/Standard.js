@@ -6,6 +6,8 @@ import General from "../utility/General";
 import BaseEntity from "./BaseEntity";
 import EntityMetaData from "./entityMetaData/EntityMetaData";
 
+const standardReference = new RegExp("([A-Z]{1})([0-9]{1,3})");
+
 class Standard {
     static schema = {
         name: 'Standard',
@@ -37,6 +39,10 @@ class Standard {
             BaseEntity.addOrUpdateChild(standard.measurableElements, childEntity);
         }
         return standard;
+    }
+
+    static sortOrder(reference) {
+        return parseInt(reference.match(standardReference)[2]);
     }
 }
 
