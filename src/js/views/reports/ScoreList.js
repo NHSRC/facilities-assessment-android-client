@@ -9,6 +9,7 @@ import Actions from '../../action';
 import _ from 'lodash';
 import Reports from "./Reports";
 import {Navigator} from 'react-native-deprecated-custom-components';
+import ReportScoreItem from "../../models/ReportScoreItem";
 
 const deviceHeight = Dimensions.get('window').height;
 
@@ -51,16 +52,16 @@ class ScoreList extends AbstractComponent {
     }
 
     render() {
-        const getScore = (score) => this.props.percentageScore ? `${parseInt(score)}%` : `${parseInt(score)}`;
+        const getScore = (score) => this.props.percentageScore ? `${ReportScoreItem.displayScore(score)}%` : `${ReportScoreItem.displayScore(score)}`;
         const onPressHandler = this.props.drillable ? this.handlePress.bind(this) : _.noop;
         let Items = this.props.scores.map((scoreEntry, idx) => (
             <ListItem key={idx} onPress={() => onPressHandler(scoreEntry.uuid, scoreEntry.name, scoreEntry.score)} style={ScoreList.styles.scoreItem}>
                 <View style={ScoreList.styles.scoreItemContainer}>
-                    <Text style={[Typography.paperFontSubhead, {color: "black", flex: .80}]}>{scoreEntry.name}</Text>
+                    <Text style={[Typography.paperFontSubhead, {color: "black", flex: .75}]}>{scoreEntry.name}</Text>
                     <Text style={{flex: .05}}/>
                     <View style={{
                         backgroundColor: PrimaryColors.yellow,
-                        flex: .15,
+                        flex: .20,
                         justifyContent: 'flex-start',
                         alignItems: 'center'
                     }}>

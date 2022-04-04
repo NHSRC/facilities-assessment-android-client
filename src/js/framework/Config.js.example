@@ -1,0 +1,1 @@
+import config from "../../../config/env/localhost.json";export default config;

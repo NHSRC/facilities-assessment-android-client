@@ -5,6 +5,10 @@ class ReportScoreItem {
         this.name = name;
         this.score = score;
     }
+
+    static displayScore(score) {
+        return parseFloat(score).toFixed(2);
+    }
 }
 
 export default ReportScoreItem;

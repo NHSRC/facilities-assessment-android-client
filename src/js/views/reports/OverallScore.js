@@ -6,6 +6,7 @@ import PrimaryColors from '../styles/PrimaryColors';
 import {formatDateOnlyHuman} from '../../utility/DateUtils';
 import _ from 'lodash';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
+import ReportScoreItem from "../../models/ReportScoreItem";
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
@@ -59,7 +60,7 @@ class OverallScore extends AbstractComponent {
                                 flexDirection: 'column'
                             }}>
                                 <Text style={[Typography.paperFontTitle, OverallScore.styles.scoreTextAndPercentage]}>
-                                    {`${parseInt(this.props.score)}%`}
+                                    {`${ReportScoreItem.displayScore(this.props.score)}%`}
                                 </Text>
                                 <Text style={[Typography.paperFontCaption, OverallScore.styles.scoreTextAndPercentage]}>
                                     {`${_.startCase(this.props.scoreText.toLowerCase())}`}
