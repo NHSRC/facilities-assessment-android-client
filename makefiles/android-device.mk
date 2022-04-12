@@ -50,7 +50,9 @@ get-db:
 	adb pull /data/data/$(android_package_name)/files/default.realm ../temp/
 
 open-db: get-db
+ifeq ($(UNAME), Darwin)
 	open ../temp/default.realm
+endif
 
 log:
 	adb logcat *:S ReactNative:V ReactNativeJS:V

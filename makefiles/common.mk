@@ -19,3 +19,8 @@ ip:=$(if $(ip),$(ip),$(shell ifconfig | grep -A 2 'wlp' | grep 'inet ' | tail -1
 define _setup_hosts
 	sed 's/SERVER_URL_VAR/$(ip)/g' config/env/$1.json.template > config/env/dev.json
 endef
+
+UNAME := $(shell uname)
+
+check-uname:
+	@echo $(UNAME)
