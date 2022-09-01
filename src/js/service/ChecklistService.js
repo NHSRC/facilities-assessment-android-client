@@ -11,6 +11,8 @@ import AreaOfConcern from "../models/AreaOfConcern";
 import CheckpointScore from "../models/CheckpointScore";
 import Standard from "../models/Standard";
 import AssessmentTool from "../models/AssessmentTool";
+import CheckpointTheme from "../models/theme/CheckpointTheme";
+import Theme from "../models/theme/Theme";
 
 @Service("checklistService")
 class ChecklistService extends BaseService {
@@ -168,6 +170,15 @@ class ChecklistService extends BaseService {
 
     findChecklist(assessmentToolUUID, checklistName, stateUUID) {
         return this.getReturnValue(this.db.objects(Checklist.schema.name).filtered("assessmentTools.value = $0 and name = $1 and (state = $2 or state = null)", assessmentToolUUID, checklistName, stateUUID));
+    }
+
+    getAllCheckpointThemes(checklistUuids) {
+        const idsQuery = checklistUuids.map(uuid => `checklist = '${uuid}'`).join(' OR ');
+        return this.db.objects(CheckpointTheme).filtered(`(${idsQuery})`).map(_.identity);
+    }
+
+    getTheme(themeUuid) {
+        return this.findByUUID(themeUuid, Theme.schema.name);
     }
 }
 

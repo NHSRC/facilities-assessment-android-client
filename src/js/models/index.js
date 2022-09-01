@@ -31,10 +31,12 @@ import ExcludedAssessmentToolState from "./ExcludedAssessmentToolState";
 import AssessmentCustomInfo from "./assessment/AssessmentCustomInfo";
 import AssessmentMetaData from "./assessment/AssessmentMetaData";
 import User from "./User";
+import Theme from "./theme/Theme";
+import CheckpointTheme from "./theme/CheckpointTheme";
 
 export default {
-    schema: [StringObj, ChecklistProgress, StandardProgress, AreaOfConcernProgress, Checkpoint, MeasurableElement, Standard, AreaOfConcern, Department, FacilityType, AssessmentTool, Facility, District, State, Checklist, FacilityAssessment, CheckpointScore, AssessmentType, Settings, EntitySyncStatus, SeedProgress, AssessmentLocation, IndicatorDefinition, Indicator, ExcludedAssessmentToolState, AssessmentCustomInfo, AssessmentMetaData, User],
-    schemaVersion: 62,
+    schema: [StringObj, ChecklistProgress, StandardProgress, AreaOfConcernProgress, Checkpoint, MeasurableElement, Standard, AreaOfConcern, Department, FacilityType, AssessmentTool, Facility, District, State, Checklist, FacilityAssessment, CheckpointScore, AssessmentType, Settings, EntitySyncStatus, SeedProgress, AssessmentLocation, IndicatorDefinition, Indicator, ExcludedAssessmentToolState, AssessmentCustomInfo, AssessmentMetaData, User, Theme, CheckpointTheme],
+    schemaVersion: 64,
     migration: (oldRealm, newRealm) => {
         const version = (version) => (db) => db.schemaVersion < version;
 

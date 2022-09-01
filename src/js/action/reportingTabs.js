@@ -11,7 +11,7 @@ export default [
         "isSelected": true,
         "drillDown": [
             {
-                "title": "DEPARTMENT",
+                "title": "DEPT",
                 "slug": "aoc-dep",
                 "scores": {},
                 "headers": [
@@ -35,7 +35,7 @@ export default [
         ]
     },
     {
-        "title": "DEPARTMENT",
+        "title": "DEPT",
         "slug": "dep",
         "scores": {},
         "headers": [
@@ -93,3 +93,18 @@ export default [
         ]
     }
 ]
+
+export const ThemeTab = {
+    "title": "THEMES",
+    "slug": "theme",
+    "scores": {},
+    "headers": [
+        "Theme",
+        "Measurable Element",
+        "Checkpoint",
+        "Score"
+    ],
+    "isSelected": false,
+    "drillDown": [
+    ]
+};

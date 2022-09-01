@@ -24,6 +24,8 @@ import ExcludedAssessmentToolState from "../ExcludedAssessmentToolState";
 import AssessmentMetaData from "../assessment/AssessmentMetaData";
 import FacilityAssessmentDownloadService from "../../service/assessment/FacilityAssessmentDownloadService";
 import FacilityAssessmentMapper from "../../mapper/facilityAssessmentMapper";
+import CheckpointTheme from "../theme/CheckpointTheme";
+import Theme from "../theme/Theme";
 
 class EntitiesMetaData {
     //order is important. last entity with be executed first. parent and referred entity (in case of many to one) should be synced before the child.
@@ -31,7 +33,8 @@ class EntitiesMetaData {
         return [
             new EntityMetaData({entityType: Facility, parentClass: District, mapper: new FacilityMapper(), syncWeight: 10}),
             new EntityMetaData({entityType: District, parentClass: State, syncWeight: 5}),
-            new EntityMetaData({entityType: Checkpoint, mapper: new CheckpointMapper(), syncWeight: 45}),
+            new EntityMetaData({entityType: CheckpointTheme, syncWeight: 3}),
+            new EntityMetaData({entityType: Checkpoint, mapper: new CheckpointMapper(), syncWeight: 42}),
             new EntityMetaData({entityType: MeasurableElement, parentClass: Standard, syncWeight: 20}),
             new EntityMetaData({entityType: Standard, parentClass: AreaOfConcern, syncWeight: 10}),
             new EntityMetaData({entityType: AreaOfConcern, syncWeight: 5}),
@@ -43,7 +46,8 @@ class EntitiesMetaData {
 
     static get _referenceEntityTypes() {
         return [
-            new EntityMetaData({entityType: IndicatorDefinition, mapper: new IndicatorDefinitionMapper(), syncWeight: 30}),
+            new EntityMetaData({entityType: Theme, syncWeight: 5}),
+            new EntityMetaData({entityType: IndicatorDefinition, mapper: new IndicatorDefinitionMapper(), syncWeight: 25}),
             new EntityMetaData({entityType: Department, syncWeight: 15}),
             new EntityMetaData({entityType: AssessmentType, syncWeight: 10}),
             new EntityMetaData({entityType: State, syncWeight: 20}),

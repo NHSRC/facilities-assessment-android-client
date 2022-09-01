@@ -9,6 +9,7 @@ import _ from 'lodash';
 import certificationData from '../action/certification';
 import EnvironmentConfig from "../views/common/EnvironmentConfig";
 import Logger from "../framework/Logger";
+import CheckpointScore from "../models/CheckpointScore";
 
 // Use outside assessment workflow
 @Service("facilityAssessmentService")
@@ -168,6 +169,12 @@ class FacilityAssessmentService extends BaseService {
     isSubmissionProtected(assessment, cb, errorHandler) {
         const endpoint = `assessmentNumberAssignment/exists?assessmentToolUuid=${assessment.assessmentTool.uuid}&assessmentTypeUuid=${assessment.assessmentType.uuid}&facilityUuid=${assessment.facility.uuid}`;
         return this.conventionalRestClient.getData(endpoint, cb, errorHandler);
+    }
+
+    getAllCheckpointScores(facilityAssessment) {
+        return this.db.objects(CheckpointScore)
+            .filtered("facilityAssessment = $0 and na = false", facilityAssessment.uuid)
+            .map(_.identity);
     }
 }
 

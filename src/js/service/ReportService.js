@@ -13,6 +13,7 @@ import MeasurableElement from "../models/MeasurableElement";
 import FacilitiesService from "./FacilitiesService";
 import ReportScoreItem from "../models/ReportScoreItem";
 import Department from "../models/Department";
+import FacilityAssessmentService from "./FacilityAssessmentService";
 
 @Service("reportService")
 class ReportService extends BaseService {
@@ -21,70 +22,75 @@ class ReportService extends BaseService {
     }
 
     overallScore(facilityAssessment) {
-        const allCheckpoints = this.db.objects(CheckpointScore)
-            .filtered("facilityAssessment = $0 and na = false", facilityAssessment.uuid)
-            .map(_.identity);
+        const allCheckpoints = this.getService(FacilityAssessmentService).getAllCheckpointScores(facilityAssessment);
         const checkpointsPerDepartment = _.groupBy(allCheckpoints, 'checklist');
         const scorePerDepartment = _.toPairs(checkpointsPerDepartment)
             .map(([checklist, checkpointScores]) => _.sumBy(checkpointScores, "score") / (checkpointScores.length * 2));
         return (_.sum(scorePerDepartment) / scorePerDepartment.length) * 100;
     }
 
-    _sort(obj) {
-        return _(obj).toPairs().sortBy(0).fromPairs().value();
+    getThemeWiseScores(facilityAssessment) {
+        const checklistService = this.getService(ChecklistService);
+
+        const allScores = this.getService(FacilityAssessmentService).getAllCheckpointScores(facilityAssessment);
+        const checklistUuids = _.uniq(allScores.map((score) => score.checklist));
+        const checkpointThemes = checklistService.getAllCheckpointThemes(checklistUuids);
+
+        const scoresPerThemeUuid = _.groupBy(allScores,
+            (checkpointScore) => _.find(checkpointThemes, (x) => x.checkpoint === checkpointScore.checkpoint).theme);
+
+        const scorePerTheme = _.toPairs(scoresPerThemeUuid).map(([themeUuid, themeScores]) => {
+            const theme = checklistService.getTheme(themeUuid);
+            return new ReportScoreItem(themeUuid, theme.name, theme.name, CheckpointScore.getAggregateScore(themeScores));
+        });
+
+        return _.sortBy(scorePerTheme, (o) => o.name);
     }
 
     scoreByDepartment(facilityAssessment) {
         let departmentService = this.getService(DepartmentService);
-        const allCheckpoints = this.db.objects(CheckpointScore)
-            .filtered("facilityAssessment = $0 ", facilityAssessment.uuid)
-            .map(_.identity);
+        const allCheckpoints = this.getService(FacilityAssessmentService).getAllCheckpointScores(facilityAssessment);
         let scorePerDepartment = [];
         const checkpointsPerDepartment = _.groupBy(allCheckpoints, 'checklist');
         _.toPairs(checkpointsPerDepartment).map(([checklist, checkpointScores]) => {
             let completeChecklist = _.assignIn({}, this.db.objectForPrimaryKey(Checklist.schema.name, checklist));
             completeChecklist.department = departmentService.getDepartment(completeChecklist.department);
-            scorePerDepartment.push(new ReportScoreItem(completeChecklist.department.uuid, '', completeChecklist.department.name, (_.sumBy(checkpointScores, "score") / (checkpointScores.length * 2)) * 100));
+            scorePerDepartment.push(new ReportScoreItem(completeChecklist.department.uuid, '', completeChecklist.department.name, CheckpointScore.getAggregateScore(checkpointScores)));
         });
         return _.sortBy(scorePerDepartment, (o) => o.name);
     }
 
     scoreByAreaOfConcern(facilityAssessment) {
-        const allCheckpoints = this.db.objects(CheckpointScore)
-            .filtered("facilityAssessment = $0 and na = false", facilityAssessment.uuid)
-            .map(_.identity);
+        const allCheckpoints = this.getService(FacilityAssessmentService).getAllCheckpointScores(facilityAssessment);
         let scorePerAreaOfConcern = [];
         const checkpointsPerAreaOfConcern = _.groupBy(allCheckpoints, 'areaOfConcern');
         _.toPairs(checkpointsPerAreaOfConcern).map(([areaOfConcern, checkpointScores]) => {
             let completeAreaOfConcern = _.assignIn({}, this.db.objectForPrimaryKey(AreaOfConcern.schema.name, areaOfConcern));
-            scorePerAreaOfConcern.push(new ReportScoreItem(completeAreaOfConcern.uuid, completeAreaOfConcern.reference, completeAreaOfConcern.name, (_.sumBy(checkpointScores, "score") / (checkpointScores.length * 2)) * 100));
+            scorePerAreaOfConcern.push(new ReportScoreItem(completeAreaOfConcern.uuid, completeAreaOfConcern.reference, completeAreaOfConcern.name, CheckpointScore.getAggregateScore(checkpointScores)));
         });
         return _.sortBy(scorePerAreaOfConcern, (o) => o.reference);
     }
 
     scoreByStandard(facilityAssessment) {
-        const allCheckpoints = this.db.objects(CheckpointScore)
-            .filtered("facilityAssessment = $0 and na = false", facilityAssessment.uuid)
-            .map(_.identity);
+        const allCheckpoints = this.getService(FacilityAssessmentService).getAllCheckpointScores(facilityAssessment);
         let scorePerStandard = [];
         const checkpointsPerStandard = _.groupBy(allCheckpoints, 'standard');
-        _.toPairs(checkpointsPerStandard).map(([standard, checkpointScores]) => {
+        _.toPairs(checkpointsPerStandard)
+            .map(([standard, checkpointScores]) => {
             let completeStandard = _.assignIn({}, this.db.objectForPrimaryKey(Standard.schema.name, standard));
-            scorePerStandard.push(new ReportScoreItem(completeStandard.uuid, completeStandard.reference, completeStandard.name, (_.sumBy(checkpointScores, "score") / (checkpointScores.length * 2)) * 100));
+            scorePerStandard.push(new ReportScoreItem(completeStandard.uuid, completeStandard.reference, completeStandard.name, CheckpointScore.getAggregateScore(checkpointScores)));
         });
         return _.sortBy(scorePerStandard, (o) => o.reference);
     }
 
     scoreForStandards(facilityAssessment, standardRefs = []) {
-        const allCheckpoints = this.db.objects(CheckpointScore)
-            .filtered("facilityAssessment = $0 and na = false", facilityAssessment.uuid)
-            .map(_.identity);
+        const allCheckpoints = this.getService(FacilityAssessmentService).getAllCheckpointScores(facilityAssessment);
         let scorePerStandard = [];
         const checkpointsPerStandard = _.groupBy(allCheckpoints, 'standard');
         _.toPairs(checkpointsPerStandard).map(([standardUUID, checkpointScores]) => {
             let completeStandard = _.assignIn({}, this.db.objectForPrimaryKey(Standard.schema.name, standardUUID));
             if (standardRefs.indexOf(completeStandard.reference) > -1) {
-                scorePerStandard.push(new ReportScoreItem(completeStandard.uuid, completeStandard.reference, completeStandard.name, (_.sumBy(checkpointScores, "score") / (checkpointScores.length * 2)) * 100));
+                scorePerStandard.push(new ReportScoreItem(completeStandard.uuid, completeStandard.reference, completeStandard.name, CheckpointScore.getAggregateScore(checkpointScores)));
             }
         });
         return _.sortBy(scorePerStandard, (o) => o.reference);
@@ -110,7 +116,7 @@ class ReportService extends BaseService {
         _.toPairs(checkpointsPerDepartment).map(([checklist, checkpointScores]) => {
             let completeChecklist = _.assignIn({}, this.db.objectForPrimaryKey(Checklist.schema.name, checklist));
             completeChecklist.department = departmentService.getDepartment(completeChecklist.department);
-            scorePerDepartment.push(new ReportScoreItem(completeChecklist.department.uuid, '', completeChecklist.department.name, (_.sumBy(checkpointScores, "score") / (checkpointScores.length * 2)) * 100));
+            scorePerDepartment.push(new ReportScoreItem(completeChecklist.department.uuid, '', completeChecklist.department.name, CheckpointScore.getAggregateScore(checkpointScores)));
         });
         return _.sortBy(scorePerDepartment, (o) => o.reference);
     }
@@ -126,7 +132,7 @@ class ReportService extends BaseService {
         const checkpointsPerAreaOfConcern = _.groupBy(allCheckpoints, 'areaOfConcern');
         _.toPairs(checkpointsPerAreaOfConcern).map(([areaOfConcern, checkpointScores]) => {
             let completeAreaOfConcern = _.assignIn({}, this.db.objectForPrimaryKey(AreaOfConcern.schema.name, areaOfConcern));
-            scorePerAreaOfConcern.push(new ReportScoreItem(completeAreaOfConcern.uuid, completeAreaOfConcern.reference, completeAreaOfConcern.name, (_.sumBy(checkpointScores, "score") / (checkpointScores.length * 2)) * 100));
+            scorePerAreaOfConcern.push(new ReportScoreItem(completeAreaOfConcern.uuid, completeAreaOfConcern.reference, completeAreaOfConcern.name, CheckpointScore.getAggregateScore(checkpointScores)));
         });
         return _.sortBy(scorePerAreaOfConcern, (o) => o.reference);
     }
@@ -149,7 +155,7 @@ class ReportService extends BaseService {
         const checkpointsPerStandard = _.groupBy(allCheckpoints, 'standard');
         _.toPairs(checkpointsPerStandard).map(([standard, checkpointScores]) => {
             let completeStandard = _.assignIn({}, this.db.objectForPrimaryKey(Standard.schema.name, standard));
-            scorePerStandard.push(new ReportScoreItem(completeStandard.uuid, completeStandard.reference, completeStandard.name, (_.sumBy(checkpointScores, "score") / (checkpointScores.length * 2)) * 100));
+            scorePerStandard.push(new ReportScoreItem(completeStandard.uuid, completeStandard.reference, completeStandard.name, CheckpointScore.getAggregateScore(checkpointScores)));
         });
         return _.sortBy(scorePerStandard, (o) => o.reference);
     }
@@ -176,7 +182,7 @@ class ReportService extends BaseService {
         let checkpointsPerMeasurableElements = _.groupBy(allCheckpointScores, 'measurableElementUUID');
         _.toPairs(checkpointsPerMeasurableElements).forEach(([meUUID, checkpointScores]) => {
             let measurableElement = checkpointScores[0].measurableElement;
-            scorePerMeasurableElement.push(new ReportScoreItem(meUUID, measurableElement.reference, measurableElement.name, (((_.sumBy(checkpointScores, "score") / (checkpointScores.length * 2)) * 100))))
+            scorePerMeasurableElement.push(new ReportScoreItem(meUUID, measurableElement.reference, measurableElement.name, CheckpointScore.getAggregateScore(checkpointScores)));
         });
         return _.sortBy(scorePerMeasurableElement, (o) => o.reference);
     }

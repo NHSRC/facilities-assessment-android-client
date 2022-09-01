@@ -40,6 +40,10 @@ class CheckpointScore {
             submitted: false,
         }, existingCheckpoint, {checkpoint: checkpoint});
     }
+
+    static getAggregateScore(checkpointScores) {
+        return (_.sumBy(checkpointScores, "score") / (checkpointScores.length * 2)) * 100;
+    }
 }
 
 

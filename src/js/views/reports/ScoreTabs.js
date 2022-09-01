@@ -5,6 +5,7 @@ import TabBar from "./TabBar";
 import ScoreList from './ScoreList';
 import _ from "lodash";
 import bugsnag from "../../utility/Bugsnag";
+import PropTypes from 'prop-types';
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
@@ -33,7 +34,7 @@ class ScoreTabs extends AbstractComponent {
         bugsnag.leaveBreadcrumb(`${selectedTab.title}: ${drillable}`, {type: 'navigation'});
         return (
             <View style={ScoreTabs.styles.container}>
-                <TabBar mode={this.props.mode} tabs={this.props.data.tabs}/>
+                <TabBar tabs={this.props.data.tabs}/>
                 <ScoreList params={this.props.params}
                            facilityAssessment={this.props.facilityAssessment}
                            scores={scoresToShow}
@@ -42,6 +43,12 @@ class ScoreTabs extends AbstractComponent {
             </View>
         );
     }
+}
+
+ScoreTabs.propTypes = {
+    params: PropTypes.array.isRequired,
+    data: PropTypes.object.isRequired,
+    facilityAssessment: PropTypes.object.isRequired
 }
 
 export default ScoreTabs;

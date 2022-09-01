@@ -15,7 +15,8 @@ class AssessmentTool {
             inactive: {type: "bool", default: false},
             excludedStates: {type: "list", objectType: "ExcludedAssessmentToolState"},
             stateUUID: {type: 'string', optional: true},
-            sortOrder: {type: 'int', optional: true, default: 1000}
+            sortOrder: {type: 'int', optional: true, default: 1000},
+            themed: {type: "bool", default: false}
         }
     };
     excludedStates;

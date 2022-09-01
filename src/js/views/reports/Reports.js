@@ -139,8 +139,7 @@ class Reports extends ViewComponent {
                                       scoreText={this.state.overallScoreText}
                                       checkpointStats={this.state.checkpointStats}
                                       checklistStats={this.state.checklistStats} {...this.props.params}/>
-                        <ScoreTabs mode={this.props.params.mode}
-                                   params={this.props.params}
+                        <ScoreTabs params={this.props.params}
                                    facilityAssessment={this.props.params.facilityAssessment}
                                    data={this.state}/>
                         <Modal transparent={true} visible={this.state.showExportOptions}

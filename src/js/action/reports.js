@@ -1,7 +1,6 @@
 import ReportService from '../service/ReportService';
-import defaultTabs from './reportingTabs';
+import defaultTabs, {ThemeTab} from './reportingTabs';
 import _ from 'lodash';
-
 
 const getSelectedTab = (tabs) => tabs.find((tab) => tab.isSelected);
 
@@ -17,19 +16,27 @@ const scoringMap = new Map([
 ]);
 
 const getAllScores = function (state, action, beans) {
+    const {facilityAssessment} = action;
     const reportService = beans.get(ReportService);
-    const overallScore = reportService.overallScore(action.facilityAssessment);
+    const overallScore = reportService.overallScore(facilityAssessment);
+
     const tabs = state.tabs.map((tab) => _.assignIn(tab, {
-            scores: reportService[scoringMap.get(tab.slug)](action.facilityAssessment)
+            scores: reportService[scoringMap.get(tab.slug)](facilityAssessment)
         })
     );
+    if (facilityAssessment.assessmentTool.themed) {
+        const themeTab = Object.assign({}, ThemeTab);
+        themeTab.scores = reportService.getThemeWiseScores(facilityAssessment);
+        tabs.push(themeTab);
+    }
+
     const selectedTabTitle = getSelectedTab(tabs).title;
-    const assessedCheckpoints = reportService.assessedCheckpoints(action.facilityAssessment);
-    const compliantCheckpoints = reportService.compliantCheckpoints(action.facilityAssessment);
-    const partiallyCompliantCheckpoints = reportService.partiallyCompliantCheckpoints(action.facilityAssessment);
-    const nonCompliantCheckpoints = reportService.nonCompliantCheckpoints(action.facilityAssessment);
-    const totalChecklists = reportService.totalChecklists(action.facilityAssessment);
-    const assessedChecklists = reportService.assessedChecklists(action.facilityAssessment);
+    const assessedCheckpoints = reportService.assessedCheckpoints(facilityAssessment);
+    const compliantCheckpoints = reportService.compliantCheckpoints(facilityAssessment);
+    const partiallyCompliantCheckpoints = reportService.partiallyCompliantCheckpoints(facilityAssessment);
+    const nonCompliantCheckpoints = reportService.nonCompliantCheckpoints(facilityAssessment);
+    const totalChecklists = reportService.totalChecklists(facilityAssessment);
+    const assessedChecklists = reportService.assessedChecklists(facilityAssessment);
     return {
         ...state,
         overallScore: overallScore,

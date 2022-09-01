@@ -1,4 +1,3 @@
-<script src="http://localhost:8097"></script>
 import React from 'react';
 import {Dimensions, StyleSheet, Text, View} from 'react-native';
 import ViewComponent from "../common/ViewComponent";
