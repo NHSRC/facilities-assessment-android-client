@@ -1,6 +1,11 @@
+export const ThemesTabTitle = "THEMES";
+export const DeptTabTitle = "DEPT";
+export const AOCTabTitle = "AREA OF CONCERN";
+export const StdTabTitle = "STANDARD";
+
 export default [
     {
-        "title": "AREA OF CONCERN",
+        "title": AOCTabTitle,
         "slug": "aoc",
         "scores": {},
         "headers": [
@@ -22,7 +27,7 @@ export default [
                 "isSelected": true
             },
             {
-                "title": "STANDARD",
+                "title": StdTabTitle,
                 "slug": "aoc-std",
                 "scores": {},
                 "headers": [
@@ -45,7 +50,7 @@ export default [
         "isSelected": false,
         "drillDown": [
             {
-                "title": "AREA OF CONCERN",
+                "title": AOCTabTitle,
                 "slug": "dep-aoc",
                 "scores": {},
                 "headers": [
@@ -69,7 +74,7 @@ export default [
         ]
     },
     {
-        "title": "STANDARD",
+        "title": StdTabTitle,
         "slug": "std",
         "scores": {},
         "headers": [
@@ -95,7 +100,7 @@ export default [
 ]
 
 export const ThemeTab = {
-    "title": "THEMES",
+    "title": ThemesTabTitle,
     "slug": "theme",
     "scores": {},
     "headers": [

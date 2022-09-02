@@ -1,5 +1,5 @@
 import ReportService from '../service/ReportService';
-import defaultTabs, {ThemeTab} from './reportingTabs';
+import defaultTabs, {AOCTabTitle, ThemesTabTitle, ThemeTab} from './reportingTabs';
 import _ from 'lodash';
 
 const getSelectedTab = (tabs) => tabs.find((tab) => tab.isSelected);
@@ -13,6 +13,7 @@ const scoringMap = new Map([
     ['dep-non-partial-compliance-checkpoints', 'nonAndPartiallyComplianceCheckpointsForDepartment'],
     ['std', 'scoreByStandard'],
     ['std-me', 'measurableElementScoreForStandard'],
+    ['theme', 'getThemeWiseScores']
 ]);
 
 const getAllScores = function (state, action, beans) {
@@ -20,15 +21,21 @@ const getAllScores = function (state, action, beans) {
     const reportService = beans.get(ReportService);
     const overallScore = reportService.overallScore(facilityAssessment);
 
+    if (!facilityAssessment.assessmentTool.themed) {
+        _.remove(state.tabs, (x) => x.title === ThemesTabTitle);
+    }
     const tabs = state.tabs.map((tab) => _.assignIn(tab, {
             scores: reportService[scoringMap.get(tab.slug)](facilityAssessment)
         })
     );
-    if (facilityAssessment.assessmentTool.themed) {
+    if (facilityAssessment.assessmentTool.themed && !_.some(tabs, (x) => x.title === ThemesTabTitle)) {
         const themeTab = Object.assign({}, ThemeTab);
         themeTab.scores = reportService.getThemeWiseScores(facilityAssessment);
         tabs.push(themeTab);
     }
+
+    if (!_.some(tabs, (x) => x.isSelected))
+        tabs[0].isSelected = true;
 
     const selectedTabTitle = getSelectedTab(tabs).title;
     const assessedCheckpoints = reportService.assessedCheckpoints(facilityAssessment);
@@ -123,7 +130,7 @@ export let reportsInit = {
     overallScoreText: "Overall",
     tabs: defaultTabs,
     showExportOptions: false,
-    selectedTab: "AREA OF CONCERN",
+    selectedTab: AOCTabTitle,
     selectionName: '',
     selectionUUID: '',
     checkpointStats: {
