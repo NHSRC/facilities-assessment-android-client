@@ -7,6 +7,7 @@ import UUID from "../utility/UUID";
 import AssessmentLocationService from "../service/AssessmentLocationService";
 import Logger from "../framework/Logger";
 import FacilityAssessment from "../models/FacilityAssessment";
+import StringObj from "../models/StringObj";
 
 const checklistAssessmentLocation = function (state, action, beans) {
     let assessmentLocation = new AssessmentLocation();
@@ -130,13 +131,16 @@ const checkpointUpdated = function (state, action, context) {
 
 const themeToggled = function (state, action, context) {
     const selectedThemes = [...state.chosenAssessment.selectedThemes];
-    if (_.some(selectedThemes, (x) => x.uuid === action.theme.uuid))
-        _.remove(selectedThemes, (x) => x.uuid === action.theme.uuid);
+    if (_.some(selectedThemes, (x) => x.value === action.theme.uuid))
+        _.remove(selectedThemes, (x) => x.value === action.theme.uuid);
     else
-        selectedThemes.push(action.theme);
+        selectedThemes.push(StringObj.create(action.theme.uuid));
 
     const clone = FacilityAssessment.clone(state.chosenAssessment);
     clone.selectedThemes = selectedThemes;
+
+    const assessmentService = context.get(FacilityAssessmentService);
+    assessmentService.saveThemeSelection(clone);
     return _.assignIn(state, {
         chosenAssessment: clone
     });

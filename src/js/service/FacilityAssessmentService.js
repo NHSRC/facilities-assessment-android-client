@@ -42,6 +42,12 @@ class FacilityAssessmentService extends BaseService {
         });
     }
 
+    saveThemeSelection(facilityAssessment) {
+        return this._saveAndAssociateObjects(this._getAssessment(facilityAssessment.uuid), {
+            selectedThemes: facilityAssessment.selectedThemes
+        });
+    }
+
     _getAssessmentTools(mode) {
         return this.db.objects(AssessmentTool.schema.name)
             .filtered('mode =[c] $0 and inactive = false', mode.toLowerCase())

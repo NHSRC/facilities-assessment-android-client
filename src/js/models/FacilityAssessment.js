@@ -23,7 +23,7 @@ class FacilityAssessment {
             seriesName: {type: 'string', optional: true},
             deviceId: {type: 'string', optional: true},
             customInfos: {type: 'list', objectType: 'AssessmentCustomInfo'},
-            selectedThemes: {type: 'list', objectType: 'Theme'}
+            selectedThemes: {type: 'list', objectType: 'StringObj'}
         }
     };
 

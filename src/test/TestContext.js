@@ -1,9 +1,12 @@
 import SettingsService from "../js/service/SettingsService";
 import StubbedSettingsService from "./stubs/StubbedSettingsService";
+import FacilityAssessmentService from "../js/service/FacilityAssessmentService";
+import StubbedFacilityAssessmentService from "./stubs/StubbedFacilityAssessmentService";
 
 class TestContext {
     static stubs = new Map([
         [SettingsService, (serviceData) => new StubbedSettingsService(serviceData)],
+        [FacilityAssessmentService, (serviceData) => new StubbedFacilityAssessmentService(serviceData)],
     ]);
 
     constructor(serviceData) {

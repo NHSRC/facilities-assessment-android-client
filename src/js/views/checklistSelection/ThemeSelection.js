@@ -22,7 +22,7 @@ class ThemeSelection extends AbstractComponent {
             color: "white",
         },
         inactiveButton: {
-            width: deviceWidth * 0.44,
+            width: deviceWidth * 0.42,
             marginTop: deviceHeight * 0.02667,
             flexDirection: "row",
             justifyContent: 'flex-start',
@@ -55,7 +55,7 @@ class ThemeSelection extends AbstractComponent {
     }
 
     isThemeSelected(theme) {
-        return _.some(this.props.selectedThemes, (x) => x.uuid === theme.uuid);
+        return _.some(this.props.selectedThemes, (x) => x.value === theme.uuid);
     }
 
     render() {
