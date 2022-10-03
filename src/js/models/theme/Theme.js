@@ -8,6 +8,12 @@ class Theme {
             inactive: {type: "bool", default: false}
         }
     };
+
+    static newTheme(uuid) {
+        const theme = new Theme();
+        theme.uuid = uuid;
+        return theme;
+    }
 }
 
 export default Theme;

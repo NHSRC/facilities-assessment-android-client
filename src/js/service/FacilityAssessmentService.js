@@ -67,9 +67,10 @@ class FacilityAssessmentService extends BaseService {
     }
 
     getExistingAssessment(facility, assessmentTool, assessmentType) {
-        return _.assignIn({}, this.db.objects(FacilityAssessment.schema.name)
+        const assessments = this.db.objects(FacilityAssessment.schema.name)
             .filtered(`facility = $0 AND assessmentTool = $1 AND assessmentType = $2 AND endDate = null`,
-                facility.uuid, assessmentTool.uuid, assessmentType.uuid)[0]);
+                facility.uuid, assessmentTool.uuid, assessmentType.uuid);
+        return _.assignIn({}, assessments[0]);
     }
 
     startAssessment(facility, assessmentTool, assessmentType) {

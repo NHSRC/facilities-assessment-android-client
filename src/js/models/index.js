@@ -36,7 +36,7 @@ import CheckpointTheme from "./theme/CheckpointTheme";
 
 export default {
     schema: [StringObj, ChecklistProgress, StandardProgress, AreaOfConcernProgress, Checkpoint, MeasurableElement, Standard, AreaOfConcern, Department, FacilityType, AssessmentTool, Facility, District, State, Checklist, FacilityAssessment, CheckpointScore, AssessmentType, Settings, EntitySyncStatus, SeedProgress, AssessmentLocation, IndicatorDefinition, Indicator, ExcludedAssessmentToolState, AssessmentCustomInfo, AssessmentMetaData, User, Theme, CheckpointTheme],
-    schemaVersion: 64,
+    schemaVersion: 65,
     migration: (oldRealm, newRealm) => {
         const version = (version) => (db) => db.schemaVersion < version;
 

@@ -177,6 +177,14 @@ class ChecklistService extends BaseService {
         return this.db.objects(CheckpointTheme).filtered(`(${idsQuery})`).map(_.identity);
     }
 
+    getAllThemes(checklists) {
+        const checklistUuidQuery = checklists.map(checklist => `checklist = '${checklist.uuid}'`).join(' OR ');
+        const checkpointThemes = this.db.objects(CheckpointTheme).filtered(checklistUuidQuery).map(_.identity);
+
+        const themeUuidQuery = checkpointThemes.map(ct => `uuid = '${ct.theme}'`).join(' OR ');
+        return this.db.objects(Theme).filtered(themeUuidQuery).map(_.identity);
+    }
+
     getTheme(themeUuid) {
         return this.findByUUID(themeUuid, Theme.schema.name);
     }

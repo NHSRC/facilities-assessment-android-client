@@ -26,12 +26,18 @@ release-apk-nhsrc-qa: check-patchVersion-Is-Provided
 release-apk-offline:
 	cd android; ./gradlew --offline assembleRelease
 
+define _set_default_node_version
+	. ${NVM_DIR}/nvm.sh && nvm alias default 8.5.0
+endef
+
 define _run_android
+	$(call _set_default_node_version)
 	$(call _create_config,$1)
 	react-native run-android
 endef
 
 define _run_android_dev
+	$(call _set_default_node_version)
 	$(call _setup_hosts,$1)
 	$(call _create_config,dev)
 	react-native run-android

@@ -6,6 +6,7 @@ import AssessmentLocation from "../models/AssessmentLocation";
 import UUID from "../utility/UUID";
 import AssessmentLocationService from "../service/AssessmentLocationService";
 import Logger from "../framework/Logger";
+import FacilityAssessment from "../models/FacilityAssessment";
 
 const checklistAssessmentLocation = function (state, action, beans) {
     let assessmentLocation = new AssessmentLocation();
@@ -23,6 +24,7 @@ const checklistAssessmentLocation = function (state, action, beans) {
 const allChecklists = function (state, action, beans) {
     const checklistService = beans.get(ChecklistService);
     const assessmentService = beans.get(AssessmentService);
+
     const checklists = checklistService.getChecklistsFor(action.assessmentTool, action.state);
     const checklistProgress = checklists
         .map((checklist) => assessmentService.getChecklistProgress(checklist, action.facilityAssessment));
@@ -32,10 +34,16 @@ const allChecklists = function (state, action, beans) {
             checklistProgress.progress.completed === checklistProgress.progress.total
         ).length;
     checklistService.cacheAllChecklists(checklists);
+    let themes = [];
+    if (action.assessmentTool.themed) {
+        themes = checklistService.getAllThemes(checklists);
+    }
+
     return _.assignIn(state, {
         checklists: _.zipWith(checklists, checklistProgress, _.assignIn),
         assessmentProgress: {total: checklists.length, completed: completedChecklists},
-        chosenAssessment: action.facilityAssessment
+        chosenAssessment: action.facilityAssessment,
+        themes: themes
     });
 };
 
@@ -83,8 +91,8 @@ const editAssessmentCompleted = function (state) {
 
 const startSubmitAssessment = function (state, action, beans) {
     Logger.logDebug('checklistSelection', "startSubmitAssessment");
-    let assessmentService = beans.get(FacilityAssessmentService);
-    let assessment = assessmentService.getAssessment(action.facilityAssessment.uuid);
+    const assessmentService = beans.get(FacilityAssessmentService);
+    const assessment = assessmentService.getAssessment(action.facilityAssessment.uuid);
     return _.assignIn(state, {
         chosenAssessment: assessment,
         submittingAssessment: true
@@ -92,8 +100,8 @@ const startSubmitAssessment = function (state, action, beans) {
 };
 
 const assessmentSynced = function(state, action, beans) {
-    let assessmentService = beans.get(FacilityAssessmentService);
     Logger.logDebug('checklistSelection', "assessmentSynced");
+    const assessmentService = beans.get(FacilityAssessmentService);
     return _.assignIn(state, {
         submittingAssessment: false,
         syncing: false,
@@ -107,16 +115,30 @@ const assessmentSyncing = function(state, action, context) {
     });
 };
 
-const submissionCancelled = function (state, actions, context) {
+const submissionCancelled = function (state, action, context) {
     return _.assignIn(state, {
         submittingAssessment: false
     });
 };
 
-const checkpointUpdated = function (state, actions, context) {
+const checkpointUpdated = function (state, action, context) {
     const facilityAssessmentService = context.get(FacilityAssessmentService);
     return _.assignIn(state, {
         chosenAssessment: facilityAssessmentService.markUnSubmitted(state.chosenAssessment)
+    });
+};
+
+const themeToggled = function (state, action, context) {
+    const selectedThemes = [...state.chosenAssessment.selectedThemes];
+    if (_.some(selectedThemes, (x) => x.uuid === action.theme.uuid))
+        _.remove(selectedThemes, (x) => x.uuid === action.theme.uuid);
+    else
+        selectedThemes.push(action.theme);
+
+    const clone = FacilityAssessment.clone(state.chosenAssessment);
+    clone.selectedThemes = selectedThemes;
+    return _.assignIn(state, {
+        chosenAssessment: clone
     });
 };
 
@@ -133,6 +155,7 @@ export default new Map([
     ["SYNC_ASSESSMENT", assessmentSyncing],
     ["SUBMISSION_CANCELLED", submissionCancelled],
     ["UPDATE_CHECKPOINT", checkpointUpdated],
+    ["THEME_TOGGLED", themeToggled]
 ]);
 
 export let checklistSelectionInit = {
@@ -141,5 +164,6 @@ export let checklistSelectionInit = {
     showEditAssessment: false,
     syncing: false,
     chosenAssessment: undefined,
-    submittingAssessment: false
+    submittingAssessment: false,
+    themes: []
 };

@@ -22,9 +22,17 @@ class FacilityAssessment {
             submitted: {type: 'bool', default: false},
             seriesName: {type: 'string', optional: true},
             deviceId: {type: 'string', optional: true},
-            customInfos: {type: 'list', objectType: 'AssessmentCustomInfo'}
+            customInfos: {type: 'list', objectType: 'AssessmentCustomInfo'},
+            selectedThemes: {type: 'list', objectType: 'Theme'}
         }
     };
+
+    static newAssessment() {
+        const facilityAssessment = new FacilityAssessment();
+        facilityAssessment.selectedThemes = [];
+        facilityAssessment.customInfos = [];
+        return facilityAssessment;
+    }
 
     static toDB(obj) {
         obj.uuid = _.isEmpty(obj.uuid) ? UUID.generate() : obj.uuid;
@@ -86,6 +94,7 @@ class FacilityAssessment {
         facilityAssessment.seriesName = other.seriesName;
         facilityAssessment.deviceId = other.deviceId;
         facilityAssessment.customInfos = other.customInfos.map((x) => AssessmentCustomInfo.clone(x));
+        facilityAssessment.selectedThemes = other.selectedThemes;
         return facilityAssessment;
     }
 

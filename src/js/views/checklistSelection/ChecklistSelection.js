@@ -20,6 +20,7 @@ import GunakContainer from "../common/GunakContainer";
 import SubmitAssessment from "../dashboard/open/SubmitAssessment";
 import Typography from "../styles/Typography";
 import FacilityAssessment from "../../models/FacilityAssessment";
+import ThemeSelection from "./ThemeSelection";
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
@@ -34,7 +35,7 @@ class ChecklistSelection extends ViewComponent {
     }
 
     componentWillMount() {
-        this.dispatchAction(Actions.ALL_CHECKLISTS, {...this.props.params});
+        this.dispatchAction(Actions["ALL_CHECKLISTS"], {...this.props.params});
     }
 
     handleOnPress(checklist) {
@@ -94,7 +95,7 @@ class ChecklistSelection extends ViewComponent {
     }
 
     render() {
-        Logger.logDebug('ChecklistSelection', 'render');
+        console.log('ChecklistSelection', 'render');
         let assessmentComplete = this.state.assessmentProgress.completed === this.state.assessmentProgress.total;
         const showCompleteButton = this.showCompleteButton(this.props.params.mode);
         let submittable = FacilityAssessment.isSubmittable(this.state.chosenAssessment);
@@ -112,8 +113,10 @@ class ChecklistSelection extends ViewComponent {
                         <AssessmentTitle facilityName={this.props.params.facility.name} assessmentStartDate={this.props.params.facilityAssessment.startDate}
                                          assessmentToolName={this.props.params.assessmentTool.name}/>
                     </View>
-                    <AssessmentStatus
-                        assessmentProgress={this.state.assessmentProgress}/>
+                    {this.state.themes.length !== 0 && <ThemeSelection allThemes={this.state.themes}
+                                                                       selectedThemes={this.state.chosenAssessment.selectedThemes}
+                                                                       dispatch={this.dispatchAction}/>}
+                    <AssessmentStatus assessmentProgress={this.state.assessmentProgress}/>
                     <Checklists
                         assessmentTool={this.props.params.assessmentTool}
                         handleOnPress={this.handleOnPress.bind(this)}
