@@ -112,7 +112,8 @@ class ChecklistService extends BaseService {
                     })
                     .filter((standard) => !_.isEmpty(standard.measurableElements));
                 return aoc;
-            });
+            })
+            .filter((aoc) => !_.isEmpty(aoc.standards));
         return checklist;
     }
 
