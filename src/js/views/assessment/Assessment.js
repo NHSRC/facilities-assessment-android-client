@@ -24,7 +24,7 @@ class Assessment extends ViewComponent {
     static styles = StyleSheet.create({});
 
     componentWillMount() {
-        this.dispatchAction(Actions.GET_CHECKPOINTS, {...this.props.params});
+        this.dispatchAction(Actions["GET_CHECKPOINTS"], {...this.props.params});
     }
 
     getCurrentIndex() {

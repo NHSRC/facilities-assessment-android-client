@@ -18,6 +18,7 @@ import Logger from "../../../framework/Logger";
 import AssessmentIndicators from "../../indicator/AssessmentIndicators";
 import AssessmentTool from "../../../models/AssessmentTool";
 import _ from "lodash";
+import ThemeSelection from "../../checklistSelection/ThemeSelection";
 
 class StartView extends AbstractComponent {
     constructor(props, context) {
@@ -53,7 +54,7 @@ class StartView extends AbstractComponent {
     }
 
     componentWillMount() {
-        this.dispatchAction(Actions.ALL_STATES, {...this.props});
+        this.dispatchAction(Actions["ALL_STATES"], {...this.props});
     }
 
     render() {
@@ -62,7 +63,6 @@ class StartView extends AbstractComponent {
         if (EnvironmentConfig.isFreeTextFacilityNameSupported && _.isNil(this.state.selectedFacility))
             FormComponents.push(FacilityText);
         FormComponents.push(AssessmentType);
-        FormComponents.push(StartNewAssessment);
 
         return (
             <View style={Dashboard.styles.tab}>
@@ -71,6 +71,15 @@ class StartView extends AbstractComponent {
                         <ListItem key={idx} style={StartView.styles.formRow}>
                             <FormComponent data={this.state} {...this.props} actionSuffix=''/>
                         </ListItem>)}
+                    {this.state.themes.length !== 0 &&
+                    <ListItem key="themes" style={StartView.styles.formRow}>
+                        <ThemeSelection allThemes={this.state.themes}
+                                        selectedThemes={this.state.selectedThemes}
+                                        dispatch={this.dispatchAction}/>
+                    </ListItem>}
+                    <ListItem key="startNew" style={StartView.styles.formRow}>
+                        <StartNewAssessment data={this.state} {...this.props} actionSuffix=''/>
+                    </ListItem>
                 </List>
             </View>
         );

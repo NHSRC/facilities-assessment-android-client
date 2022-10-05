@@ -18,10 +18,10 @@ class SearchService extends BaseService {
         const measurableElement = {...this.checklistService.getMeasurableElement(checkpoint.measurableElement)};
         const standard = {
             ...this.checklistService
-                .getStandardForMeasurableElement(checkpoint.checklist, measurableElement.uuid)
+                .getStandardForMeasurableElement(checkpoint.checklist, measurableElement.uuid, [])
         };
-        const aoc = {...this.checklistService.getAreaConcernForStandard(checkpoint.checklist, standard.uuid)};
-        const checklist = {...this.checklistService.getChecklist(checkpoint.checklist)};
+        const aoc = {...this.checklistService.getAreaConcernForStandard(checkpoint.checklist, standard.uuid, [])};
+        const checklist = {...this.checklistService.getChecklist(checkpoint.checklist, [])};
         return {
             ...checkpoint,
             measurableElement: measurableElement,

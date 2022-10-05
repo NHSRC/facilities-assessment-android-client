@@ -4,7 +4,7 @@ import AssessmentService from "../service/AssessmentService";
 import Logger from "../framework/Logger";
 
 const allStandards = function (state, action, beans) {
-    const standards = beans.get(ChecklistService).getStandardsFor(action.checklist.uuid, action.areaOfConcern.uuid);
+    const standards = beans.get(ChecklistService).getStandardsFor(action.checklist.uuid, action.areaOfConcern.uuid, action.facilityAssessment.selectedThemes);
     const assessmentService = beans.get(AssessmentService);
     const standardsProgress = standards.map((standard) =>
         assessmentService.getStandardProgress(standard,

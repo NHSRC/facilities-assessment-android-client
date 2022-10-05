@@ -20,7 +20,6 @@ import GunakContainer from "../common/GunakContainer";
 import SubmitAssessment from "../dashboard/open/SubmitAssessment";
 import Typography from "../styles/Typography";
 import FacilityAssessment from "../../models/FacilityAssessment";
-import ThemeSelection from "./ThemeSelection";
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
@@ -113,9 +112,6 @@ class ChecklistSelection extends ViewComponent {
                         <AssessmentTitle facilityName={this.props.params.facility.name} assessmentStartDate={this.props.params.facilityAssessment.startDate}
                                          assessmentToolName={this.props.params.assessmentTool.name}/>
                     </View>
-                    {this.state.themes.length !== 0 && <ThemeSelection allThemes={this.state.themes}
-                                                                       selectedThemes={this.state.chosenAssessment.selectedThemes}
-                                                                       dispatch={this.dispatchAction}/>}
                     <AssessmentStatus assessmentProgress={this.state.assessmentProgress}/>
                     <Checklists
                         assessmentTool={this.props.params.assessmentTool}

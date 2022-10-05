@@ -126,7 +126,7 @@ class AssessmentService extends BaseService {
     }
 
     updateChecklistProgress(checklist, facilityAssessment) {
-        let fullChecklist = this.getService(ChecklistService).getChecklist(checklist.uuid);
+        let fullChecklist = this.getService(ChecklistService).getChecklist(checklist.uuid, facilityAssessment.selectedThemes);
         const existingProgress = this.existingChecklistProgress(fullChecklist, facilityAssessment);
         const completed = this.getCompletedAreasOfConcern(fullChecklist, facilityAssessment);
         return _.assignIn({}, this.saveChecklistProgress(_.assignIn({}, existingProgress,

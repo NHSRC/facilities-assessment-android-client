@@ -24,7 +24,7 @@ class AreasOfConcern extends ViewComponent {
     static styles = StyleSheet.create({});
 
     componentWillMount() {
-        this.dispatchAction(Actions.ALL_AREAS_OF_CONCERN, {...this.props.params})
+        this.dispatchAction(Actions["ALL_AREAS_OF_CONCERN"], {...this.props.params})
     }
 
     handleOnPress(aoc) {

@@ -13,6 +13,7 @@ import Standard from "../models/Standard";
 import AssessmentTool from "../models/AssessmentTool";
 import CheckpointTheme from "../models/theme/CheckpointTheme";
 import Theme from "../models/theme/Theme";
+import Logger from "../framework/Logger";
 
 @Service("checklistService")
 class ChecklistService extends BaseService {
@@ -46,55 +47,85 @@ class ChecklistService extends BaseService {
         return this.db.objectForPrimaryKey(AreaOfConcern.schema.name, aocUUID);
     }
 
-    async cacheAllChecklists(checklists) {
+    async cacheAllChecklists(checklists, selectedThemes) {
         const cacheService = this.getService(CacheService);
-        checklists.map((checklist) => cacheService.put(checklist.uuid, this.getChecklist(checklist.uuid)));
+        checklists.map((checklist) => cacheService.put(checklist.uuid, this.getChecklist(checklist.uuid, selectedThemes)));
     }
 
-    getChecklistNameAndId(checklistUUID) {
-        return this.nameAndId({...this.db.objectForPrimaryKey(Checklist.schema.name, checklistUUID)});
+    getChecklistTree(checklistUUID, selectedThemes) {
+        Logger.logDebug("getChecklistTree", "selected themes", selectedThemes.length, selectedThemes);
+
+        let checkpoints = this.db.objects(Checkpoint.schema.name)
+            .filtered("checklist = $0 AND inactive = false", checklistUUID).map(_.identity);
+        Logger.logDebug("getChecklistTree", "checkpoints for checklist", checkpoints.length);
+
+        if (!_.isEmpty(selectedThemes)) {
+            const uuidsQueryParam = selectedThemes.map(x => `uuid = '${x.value}'`).join(' OR ');
+            const themes = this.db.objects(Theme.schema.name).filtered(`inactive = false AND (${uuidsQueryParam})`).map(_.identity);
+            Logger.logDebug("getChecklistTree", "themes found", themes.length);
+
+            const themeIdsQueryParam = selectedThemes.map(x => `theme = '${x.value}'`).join(' OR ');
+            const checkpointThemes = this.db.objects(CheckpointTheme.schema.name)
+                .filtered(`checklist = $0 AND inactive = false AND (${themeIdsQueryParam})`, checklistUUID).map(_.identity);
+            Logger.logDebug("getChecklistTree", "checkpoint themes found", checkpointThemes.length);
+
+            const themedCheckpoints = [];
+            _.forEach(checkpointThemes, (checkpointTheme) => {
+                const checkpoint = _.find(checkpoints, (cp) => checkpointTheme.checkpoint === cp.uuid);
+                if (!_.isNil(checkpoint)) {
+                    //A checkpoint can have multiple themes
+                    if (_.isEmpty(checkpoint.themes))
+                        checkpoint.themes = [];
+                    checkpoint.themes.push(_.find(themes, (theme) => theme.uuid === checkpointTheme.theme));
+
+                    if (!_.some(themedCheckpoints, (x) => x.uuid === checkpoint.uuid))
+                        themedCheckpoints.push(checkpoint);
+                }
+            });
+            checkpoints = themedCheckpoints;
+            Logger.logDebug("getChecklistTree", "filtered checkpoints", checkpoints.length);
+        }
+
+        checkpoints = _.groupBy(checkpoints, 'measurableElement');
+        // .filtered("checklist = $0", checklistUUID), 'measurableElement');
+        let checklist = this.db.objectForPrimaryKey(Checklist.schema.name, checklistUUID);
+        checklist = comp(this.fromStringObj("areasOfConcern"), this.pickKeys(["areasOfConcern"]))(checklist);
+        checklist.areasOfConcern = checklist.areasOfConcern
+            .map(this.getAreaOfConcern.bind(this))
+            .map(AreaOfConcern.fromDB)
+            .map((aoc) => {
+                aoc.standards = aoc.standards
+                    .map((standard) => {
+                        standard.measurableElements = standard.measurableElements
+                            .map((me) => {
+                                me["checkpoints"] = checkpoints[me.uuid];
+                                return me;
+                            })
+                            .filter((me) => !_.isEmpty(me.checkpoints))
+                            .map((me) => {
+                                me.checkpoints = _.sortBy(me.checkpoints, ['sortOrder'])
+                                    .map((checkpoint, idx) =>
+                                        _.assignIn(checkpoint, {reference: `${me.reference}.${idx + 1}`}));
+                                return me;
+                            });
+                        return standard;
+                    })
+                    .filter((standard) => !_.isEmpty(standard.measurableElements));
+                return aoc;
+            });
+        return checklist;
     }
 
-    getChecklist(checklistUUID) {
-        const getChecklist = (checklistUUID) => {
-            const checkpoints = _.groupBy(this.db.objects(Checkpoint.schema.name)
-                .filtered("checklist = $0 AND inactive = false", checklistUUID), 'measurableElement');
-                // .filtered("checklist = $0", checklistUUID), 'measurableElement');
-            let checklist = this.db.objectForPrimaryKey(Checklist.schema.name, checklistUUID);
-            checklist = comp(this.fromStringObj("areasOfConcern"), this.pickKeys(["areasOfConcern"]))(checklist);
-            checklist.areasOfConcern = checklist.areasOfConcern
-                .map(this.getAreaOfConcern.bind(this))
-                .map(AreaOfConcern.fromDB)
-                .map((aoc) => {
-                    aoc.standards = aoc.standards
-                        .map((standard) => {
-                            standard.measurableElements = standard.measurableElements
-                                .map((me) => {
-                                    me["checkpoints"] = checkpoints[me.uuid];
-                                    return me;
-                                })
-                                .filter((me) => !_.isEmpty(me.checkpoints))
-                                .map((me) => {
-                                    me.checkpoints = _.sortBy(me.checkpoints, ['sortOrder'])
-                                        .map((checkpoints, idx) =>
-                                            _.assignIn(checkpoints, {reference: `${me.reference}.${idx + 1}`}));
-                                    return me;
-                                });
-                            return standard;
-                        })
-                        .filter((standard) => !_.isEmpty(standard.measurableElements));
-                    return aoc;
-                });
-            return checklist;
-        };
+    getChecklist(checklistUUID, selectedThemes) {
+        const getChecklist = (checklistUUID) => this.getChecklistTree(checklistUUID, selectedThemes);
 
         return this.getService(CacheService)
             .getOrExec(checklistUUID, () => getChecklist(checklistUUID));
     }
 
 
-    getAreasOfConcernsFor(checklistUUID) {
-        const areasOfConcern = this.getChecklist(checklistUUID).areasOfConcern;
+    getAreasOfConcernsFor(checklistUUID, selectedThemes) {
+        const areasOfConcern = this.getChecklist(checklistUUID, selectedThemes).areasOfConcern;
         return _.sortBy(areasOfConcern, ['reference']);
     }
 
@@ -106,8 +137,8 @@ class ChecklistService extends BaseService {
         return MeasurableElement.sortOrder(me.reference);
     }
 
-    getStandardsFor(checklistUUID, aocUUID) {
-        return _.sortBy(this.getChecklist(checklistUUID)
+    getStandardsFor(checklistUUID, aocUUID, selectedThemes) {
+        return _.sortBy(this.getChecklist(checklistUUID, selectedThemes)
                 .areasOfConcern
                 .find((aoc) => aoc.uuid === aocUUID)
                 .standards,
@@ -118,27 +149,27 @@ class ChecklistService extends BaseService {
         return this.pickKeys(['reference', 'shortName'])(this.db.objectForPrimaryKey(Standard.schema.name, standardUUID));
     }
 
-    getAreaConcernForStandard(checklistUUID, standardUUID) {
-        let areasOfConcern = this.getChecklist(checklistUUID).areasOfConcern;
+    getAreaConcernForStandard(checklistUUID, standardUUID, selectedThemes) {
+        let areasOfConcern = this.getChecklist(checklistUUID, selectedThemes).areasOfConcern;
         return areasOfConcern.find((aoc) =>
             !_.isEmpty(aoc.standards.find((standard) => standard.uuid === standardUUID)));
     }
 
-    getStandardForMeasurableElement(checklistUUID, meUUID) {
+    getStandardForMeasurableElement(checklistUUID, meUUID, selectedThemes) {
         let resultantStandard = {};
-        this.getChecklist(checklistUUID).areasOfConcern.forEach((aoc) =>
+        this.getChecklist(checklistUUID, selectedThemes).areasOfConcern.forEach((aoc) =>
             !_.isEmpty(aoc.standards
                 .forEach((standard) => !_.isEmpty(standard.measurableElements
                     .find((me) => me.uuid === meUUID)) ? resultantStandard = standard : _.noop())));
         return resultantStandard;
     }
 
-    getCheckpointsFor(checklistUUID, aocUUID, standardUUID, stateUUID) {
-        let measurableElements = this.getChecklist(checklistUUID).areasOfConcern
+    getCheckpointsFor(checklistUUID, aocUUID, standardUUID, selectedThemes) {
+        let measurableElements = this.getChecklist(checklistUUID, selectedThemes).areasOfConcern
             .find((aoc) => aoc.uuid === aocUUID).standards
             .find((standard) => standard.uuid === standardUUID).measurableElements;
         measurableElements = _.sortBy(measurableElements, this.meRefComparator);
-        let checkpoints = measurableElements.map((me) => me.checkpoints);
+        const checkpoints = measurableElements.map((me) => me.checkpoints);
         return _.flatten(checkpoints);
     }
 
@@ -177,7 +208,8 @@ class ChecklistService extends BaseService {
         return this.db.objects(CheckpointTheme).filtered(`(${idsQuery})`).map(_.identity);
     }
 
-    getAllThemes(checklists) {
+    getAllThemes(assessmentTool, state) {
+        const checklists = this.getChecklistsFor(assessmentTool, state);
         const checklistUuidQuery = checklists.map(checklist => `checklist = '${checklist.uuid}'`).join(' OR ');
         const checkpointThemes = this.db.objects(CheckpointTheme).filtered(checklistUuidQuery).map(_.identity);
 

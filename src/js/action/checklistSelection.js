@@ -34,17 +34,13 @@ const allChecklists = function (state, action, beans) {
             _.isNumber(checklistProgress.progress.total) &&
             checklistProgress.progress.completed === checklistProgress.progress.total
         ).length;
-    checklistService.cacheAllChecklists(checklists);
-    let themes = [];
-    if (action.assessmentTool.themed) {
-        themes = checklistService.getAllThemes(checklists);
-    }
+    checklistService.cacheAllChecklists(checklists, action.facilityAssessment.selectedThemes);
+
 
     return _.assignIn(state, {
         checklists: _.zipWith(checklists, checklistProgress, _.assignIn),
         assessmentProgress: {total: checklists.length, completed: completedChecklists},
-        chosenAssessment: action.facilityAssessment,
-        themes: themes
+        chosenAssessment: action.facilityAssessment
     });
 };
 
@@ -129,23 +125,6 @@ const checkpointUpdated = function (state, action, context) {
     });
 };
 
-const themeToggled = function (state, action, context) {
-    const selectedThemes = [...state.chosenAssessment.selectedThemes];
-    if (_.some(selectedThemes, (x) => x.value === action.theme.uuid))
-        _.remove(selectedThemes, (x) => x.value === action.theme.uuid);
-    else
-        selectedThemes.push(StringObj.create(action.theme.uuid));
-
-    const clone = FacilityAssessment.clone(state.chosenAssessment);
-    clone.selectedThemes = selectedThemes;
-
-    const assessmentService = context.get(FacilityAssessmentService);
-    assessmentService.saveThemeSelection(clone);
-    return _.assignIn(state, {
-        chosenAssessment: clone
-    });
-};
-
 export default new Map([
     ["ALL_CHECKLISTS", allChecklists],
     ["COMPLETE_ASSESSMENT", completeAssessment],
@@ -158,8 +137,7 @@ export default new Map([
     ["ASSESSMENT_SYNCED", assessmentSynced],
     ["SYNC_ASSESSMENT", assessmentSyncing],
     ["SUBMISSION_CANCELLED", submissionCancelled],
-    ["UPDATE_CHECKPOINT", checkpointUpdated],
-    ["THEME_TOGGLED", themeToggled]
+    ["UPDATE_CHECKPOINT", checkpointUpdated]
 ]);
 
 export let checklistSelectionInit = {
@@ -168,6 +146,5 @@ export let checklistSelectionInit = {
     showEditAssessment: false,
     syncing: false,
     chosenAssessment: undefined,
-    submittingAssessment: false,
-    themes: []
+    submittingAssessment: false
 };

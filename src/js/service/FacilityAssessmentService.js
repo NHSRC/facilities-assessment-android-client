@@ -79,13 +79,14 @@ class FacilityAssessmentService extends BaseService {
         return _.assignIn({}, assessments[0]);
     }
 
-    startAssessment(facility, assessmentTool, assessmentType) {
+    startAssessment(facility, assessmentTool, assessmentType, selectedThemes) {
         const existingAssessment = this.getExistingAssessment(facility, assessmentTool, assessmentType);
         return  this._saveAndAssociateObjects(existingAssessment, {
             assessmentTool: assessmentTool.uuid,
             facility: facility.uuid,
             assessmentType: assessmentType.uuid,
             deviceId: EnvironmentConfig.deviceId,
+            selectedThemes: selectedThemes
         });
     }
 

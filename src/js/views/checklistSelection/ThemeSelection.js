@@ -60,11 +60,11 @@ class ThemeSelection extends AbstractComponent {
 
     render() {
         const {allThemes} = this.props;
-        console.log("ThemeSelection", this.props.selectedThemes);
+        console.log("ThemeSelection", this.props.selectedThemes.length, allThemes.length);
 
         return <View style={{flex: 1, marginBottom: 30, marginTop: 20}}>
             <Text
-                style={[Typography.paperFontSubhead, ThemeSelection.styles.subheader]}>Select themes for assessment</Text>
+                style={[Typography.paperFontSubhead, ThemeSelection.styles.subheader]}>Select themes for assessment. If no themes selected then all checkpoints will be available. You cannot change this selection after starting assessment.</Text>
             <View style={ThemeSelection.styles.buttonsContainer}>
                 {allThemes.map((x, idx) => {
                     const selected = this.isThemeSelected(x);
