@@ -7,9 +7,6 @@ import _ from "lodash";
 import bugsnag from "../../utility/Bugsnag";
 import PropTypes from 'prop-types';
 
-const deviceWidth = Dimensions.get('window').width;
-const deviceHeight = Dimensions.get('window').height;
-
 class ScoreTabs extends AbstractComponent {
     constructor(props, context) {
         super(props, context);
@@ -27,7 +24,7 @@ class ScoreTabs extends AbstractComponent {
     });
 
     render() {
-        let selectedTab = this.props.data.tabs.find((tab) => tab.isSelected);
+        const selectedTab = this.props.data.tabs.find((tab) => tab.isSelected);
         const scoresToShow = selectedTab.scores;
         const drillable = !_.isEmpty(selectedTab.drillDown);
         const percentageScore = !_.isBoolean(selectedTab.rawScore);

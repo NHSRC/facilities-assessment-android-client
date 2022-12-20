@@ -66,3 +66,6 @@ open-in-playstore-android:
 
 clear-cookies:
 	adb shell pm clear com.facilitiesassessment
+
+go-to-internal-test-track:
+	@adb shell input text https://play.google.com/apps/internaltest/4699539542549501786

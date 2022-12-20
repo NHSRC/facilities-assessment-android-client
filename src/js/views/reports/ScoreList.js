@@ -52,12 +52,12 @@ class ScoreList extends AbstractComponent {
     }
 
     render() {
-        const getScore = (score) => this.props.percentageScore ? `${ReportScoreItem.displayScore(score)}%` : `${ReportScoreItem.displayScore(score)}`;
+        const getScore = (scoreEntry: ReportScoreItem) => this.props.percentageScore ? `${scoreEntry.displayScore()}%` : `${scoreEntry.displayScore()}`;
         const onPressHandler = this.props.drillable ? this.handlePress.bind(this) : _.noop;
-        let Items = this.props.scores.map((scoreEntry, idx) => (
+        let Items = this.props.scores.map((scoreEntry: ReportScoreItem, idx) => (
             <ListItem key={idx} onPress={() => onPressHandler(scoreEntry.uuid, scoreEntry.name, scoreEntry.score)} style={ScoreList.styles.scoreItem}>
                 <View style={ScoreList.styles.scoreItemContainer}>
-                    <Text style={[Typography.paperFontSubhead, {color: "black", flex: .75}]}>{scoreEntry.name}</Text>
+                    <Text style={[Typography.paperFontSubhead, {color: "black", flex: .75}]}>{scoreEntry.displayTitle()}</Text>
                     <Text style={{flex: .05}}/>
                     <View style={{
                         backgroundColor: PrimaryColors.yellow,
@@ -71,7 +71,7 @@ class ScoreList extends AbstractComponent {
                             paddingTop: 5,
                             paddingBottom: 5
                         }]}>
-                            {getScore(scoreEntry.score)}
+                            {getScore(scoreEntry)}
                         </Text>
                     </View>
                 </View>
