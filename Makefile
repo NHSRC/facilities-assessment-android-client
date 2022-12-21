@@ -29,6 +29,7 @@ test:
 
 deps:
 	npm install
+	npx patch-package
 
 link-native-dependencies-source:
 	react-native link

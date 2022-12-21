@@ -1,0 +1,17 @@
+diff --git a/node_modules/graceful-fs/polyfills.js b/node_modules/graceful-fs/polyfills.js
+index b964ed0..b6c9022 100644
+--- a/node_modules/graceful-fs/polyfills.js
++++ b/node_modules/graceful-fs/polyfills.js
+@@ -58,9 +58,9 @@ function patch (fs) {
+   fs.fchmodSync = chmodFixSync(fs.fchmodSync)
+   fs.lchmodSync = chmodFixSync(fs.lchmodSync)
+ 
+-  fs.stat = statFix(fs.stat)
+-  fs.fstat = statFix(fs.fstat)
+-  fs.lstat = statFix(fs.lstat)
++//  fs.stat = statFix(fs.stat)
++//  fs.fstat = statFix(fs.fstat)
++//  fs.lstat = statFix(fs.lstat)
+ 
+   fs.statSync = statFixSync(fs.statSync)
+   fs.fstatSync = statFixSync(fs.fstatSync)
