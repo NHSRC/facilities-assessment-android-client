@@ -8,7 +8,7 @@ workflows:
       vars:
         BUNDLE_ID: "org.nhsrc.FacilitiesAssessment"
         APP_STORE_APP_ID: 1354891968 # <-- Put the app id number here. This is found in App Store Connect > App > General > App Information
-      node: 8.5.0
+      node: ^14.17.0
       xcode: 13.3.1
       cocoapods: default
     scripts:
@@ -52,7 +52,7 @@ workflows:
           - Gunak Testers
   env-test-workflow:
     environment:
-      xcode: 13.3.1
+      xcode: ^14.17.0
     scripts:
       - name: Check xcode schemes
         script: xcodebuild -list -project "$FCI_BUILD_DIR/ios/FacilitiesAssessment.xcodeproj"
