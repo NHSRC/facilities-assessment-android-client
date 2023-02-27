@@ -3,16 +3,6 @@ import _ from 'lodash';
 import CookieManager from '@react-native-community/cookies';
 import EnvironmentConfig from "../../views/common/EnvironmentConfig";
 
-/*
-'CookieManager.get =>', { 'XSRF-TOKEN':
-02-27 00:17:49.251  4750  4793 I ReactNativeJS:    { httpOnly: false,
-02-27 00:17:49.251  4750  4793 I ReactNativeJS:      secure: false,
-02-27 00:17:49.251  4750  4793 I ReactNativeJS:      path: null,
-02-27 00:17:49.251  4750  4793 I ReactNativeJS:      domain: null,
-02-27 00:17:49.251  4750  4793 I ReactNativeJS:      value: '08cce53d-bd3e-4025-9d33-7fc6ed40e81a',
-02-27 00:17:49.251  4750  4793 I ReactNativeJS:      name: 'XSRF-TOKEN' } }
-* */
-
 const fetchWithTimeOut = (url, options, timeout = 20000) => {
     return Promise.race([
         fetch(url, options),

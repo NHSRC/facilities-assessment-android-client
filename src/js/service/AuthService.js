@@ -4,6 +4,8 @@ import BaseService from "./BaseService";
 import Logger from "../framework/Logger";
 import SettingsService from "./SettingsService";
 import UserService from "./UserService";
+import EnvironmentConfig from "../views/common/EnvironmentConfig";
+import CookieManager from '@react-native-community/cookies';
 
 @Service("authService")
 class AuthService extends BaseService {
@@ -25,23 +27,31 @@ class AuthService extends BaseService {
         let encodedObj = _.keys(postObject).map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(postObject[key])}`);
         let formBody = encodedObj.join("&");
 
-        const requestInfo = {
-            method: 'POST',
-            body: formBody,
-            headers: new Headers({'Content-Type': 'application/x-www-form-urlencoded'}),
-            credentials: "same-origin"
-        };
-
         let endpoint = `${this.getServerURL()}/api/login`;
         Logger.logDebug("AuthService", `Attempting login: ${endpoint}`);
-        return fetch(endpoint, requestInfo)
-            .then(this.checkLoginFailure)
-            .then(this.conventionalRestClient.checkResponse)
-            .then(() => this.verifySession())
-            .then((user) => {
-                this.getService(UserService).saveUser(user)
-                return user;
-            });
+        return CookieManager.get(EnvironmentConfig.serverURL).then((cookies) => {
+            const requestInfo = {
+                method: 'POST',
+                body: formBody,
+                credentials: "same-origin"
+            };
+
+            const headerData = {'Content-Type': 'application/x-www-form-urlencoded'};
+            const xsrfTokenCookie = cookies["XSRF-TOKEN"];
+            if (!_.isNil(xsrfTokenCookie)) {
+                headerData["X-XSRF-TOKEN"] = xsrfTokenCookie.value;
+            }
+            requestInfo.headers = new Headers(headerData);
+            Logger.logDebug("AuthService", headerData);
+            return fetch(endpoint, requestInfo)
+                .then(this.checkLoginFailure)
+                .then(this.conventionalRestClient.checkResponse)
+                .then(() => this.verifySession())
+                .then((user) => {
+                    this.getService(UserService).saveUser(user)
+                    return user;
+                });
+        });
     }
 
     logout() {
