@@ -4,7 +4,6 @@ import AssessmentTool from "../../js/models/AssessmentTool";
 import TestBeanFactory from "../stubs/TestBeanFactory";
 import TestContext from "../TestContext";
 import fns from "../../js/action/facilitySelection";
-import FacilityAssessment from "../../js/models/FacilityAssessment";
 import Theme from "../../js/models/theme/Theme";
 
 describe('FacilitySelectionTest', () => {

@@ -3,6 +3,7 @@ package com.facilitiesassessment;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.reactnativecommunity.cookies.CookieManagerPackage;
 import com.corbt.keepawake.KCKeepAwakePackage;
 import com.horcrux.svg.SvgPackage;
 import com.avishayil.rnrestart.ReactNativeRestartPackage;
@@ -34,6 +35,7 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                 new MainReactPackage(),
+            new CookieManagerPackage(),
             new KCKeepAwakePackage(),
             new SvgPackage(),
             new ReactNativeRestartPackage(),
