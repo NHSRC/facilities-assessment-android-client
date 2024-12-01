@@ -22,7 +22,7 @@
   "dependencies": {
     "bugsnag-react-native": "2.23.10",
     "invariant": "2.2.2",
-    "lodash": "4.17.11",
+    "lodash": "4.17.21",
     "moment": "2.19.3",
     "native-base": "2.12.1",
     "prop-types": "15.7.2",
